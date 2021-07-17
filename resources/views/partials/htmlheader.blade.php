@@ -1,4 +1,3 @@
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="and Validation" />
@@ -10,9 +9,7 @@
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"> 
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" />
-    <!-- text fonts -->
     <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
-    <!-- ace styles -->
     <link rel="stylesheet" href="{{ asset('/css/ace.css') }}" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="{{ asset('/css/ace-skins.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('/css/select2.min.css') }}" />
@@ -31,10 +28,8 @@
     <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/fullcalendar.print.min.css') }}" media='print'>
     <link rel="stylesheet" href="{{ asset('/css/jquery-editable-select.css') }}" media='print'>
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-timepicker.min.css') }}" />
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet"href="{{ asset('/css/styles.css') }}">
+    <link  rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/ion.rangeSlider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/fullcalendar.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/fullcalendar.print.css')}}"   media='print' />
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css"> -->

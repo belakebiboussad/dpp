@@ -1,8 +1,8 @@
-@extends('app')
+@extends('app_laboanalyses') 
 @section('title','Demandes examens biologique ')
 @section('page-script')
  <script>
- 	$field ="etat";
+ 	field ="etat";
  	function getAction(data, type, dataToSet) {
  		var actions = '<a href = "/demandeexb/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
  		if(data.etat == null)
@@ -104,9 +104,9 @@
 		 })
 	}
  	$(function(){
-  	$(".demandeBioSearch").click(function(e){
-  			getBioRequests(field,$('#'+field).val().trim());
-  	})
+ 		$(".demandeBioSearch").click(function(e){
+	  		getBioRequests(field,$('#'+field).val().trim());
+	  	})
   })
 </script>
 @endsection 	

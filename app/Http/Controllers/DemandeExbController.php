@@ -126,10 +126,9 @@ class DemandeExbController extends Controller
             $medecin =  $patient = $demande->visite->medecin ;   
             $patient = $demande->visite->hospitalisation->patient;   
           }
-        // return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
-        return view('examenbio.teste', compact('demande','patient','medecin','etablissement'));
-
+          return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
        }
+       /*public function detailsdemandeexb($id){return view('examenbio.teste');}*/
     public function uploadresultat(Request $request)
     {
       $request->validate([
@@ -207,27 +206,4 @@ class DemandeExbController extends Controller
       $filename = "Compte-Rendu-BioPDF-".$patient->Nom."-".$patient->Prenom.".pdf";
       return $pdf->stream($filename);
     }
-    public function crbClientDownload(Request $request)
-    {
-      $crb = $request->crb;
-      $patient = patient::FindOrFail($request->pid);
-      $medecin = employ::FindOrFail($request->mid);
-      //return($crb);
-      $pdf = PDF::loadView('examenbio.EtatsSortie.crbClientPDf',compact('patient','medecin','crb'));
-      $filename = "Compte-Rendu-Bioff-".$patient->Nom."-".$patient->Prenom.".pdf";
-      // return ($filename);
-      //return $pdf->stream($filename);
-      //return $pdf->download($filename); 
-
-      //return view('examenbio.EtatsSortie.crbClientPDf',compact('patient','medecin','crb'))->render();
-      // $view = view("examenbio.EtatsSortie.crbClientPDf",compact('patient','medecin','crb'))->render();
-      // return response()->json(['html'=>$view]);
-      // $pdf->render();
-      $pdf->save(storage_path().'_filename.pdf');
-      // Finally, you can download the file using download function
-
-    return $pdf->download('customers.pdf');
-      
-    }
-
 }

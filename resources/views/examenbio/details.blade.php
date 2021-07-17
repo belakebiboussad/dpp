@@ -1,175 +1,115 @@
 @extends('app_laboanalyses')
-@section('style')
-<style>
-h3.b {
-  word-spacing: 3px !important;
-}
-@CHARSET "UTF-8";
-    .page-break {
-      page-break-after: always;
-      page-break-inside: avoid;
-      clear:both;
-    }
-    .page-break-before {
-      page-break-before: always;
-      page-break-inside: avoid;
-      clear:both;
-    }
-    header {
-  background: red;
-}
-
-footer {
-  background: blue;
-}
-
-</style>
-@endsection
 @section('page-script')
 <script>
-  function CRBave()
-  { 
-    $("#crb").val($("#crbm").val());
-  }
-  // function CRBPrint()
-  // {
-  //   var formData = {
-  //       pid:'{{-- $patient->id --}}',
-  //       mid:'{{-- $medecin->id --}}',
-  //       crb:$("#crbm").val(),
-  //   };
-  //   $.ajaxSetup({
-  //         headers: {
-  //           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-  //         }
-  //     });
-  //   $.ajax({
-  //       type: "POST",
-  //       url: "/crbprint",
-  //       data:formData,//contentType: "application/j-son;charset=UTF-8",
+        var base64Img = null; 
+        var footer64Img = null;
+       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+             base64Img = base64; 
+       });
+       imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+             footer64Img = base64; 
+       });
+        margins = {
+            top: 70,
+            bottom: 40,
+            left: 30,
+           width: 550
+       };
 
-  //       //dataType: "json",
-  //       success: function (data,status, xhr) {      
-  //        //   $('#iframe-pdf').contents().find('html').html(data.html);
-  //       //     alert($('#iframe-pdf').contents().find('html').html());
-  //       // $("#crbBioaModal").modal();
-
-  //       },  
-  //       error: function (data) {
-  //         console.log('Error:', data);
-
-  //       }
-  //   });
-
-  // }
-  function pdfCallback(pdfObject) {
-     var totalPages = pdf.putTotalPages().internal.getNumberOfPages()
-       alert("Total Pages: " + totalPages);
-     pdfObject.save('my.pdf');
-  }
-  function CRBPrint()
-  {
-    /*
-    var crbm = $("#crbm").val();
-    $("#crbPDF").text(crbm);
-    $("#pdfContent").removeClass('hidden');
-    var element = document.getElementById('pdfContent');
-    var options = {
-      filename: 'crb-'+'{{-- $patient->Nom --}}'+'-'+"{{-- $patient->Prenom --}}"+".pdf",
-       image: {type: 'jpeg', quality: 1},
-      html2canvas: {dpi: 72, letterRendering: true},
-      jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
-          
-    };
-      var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-     $("#pdfContent").addClass('hidden'); //$("#pdfContent").removeAttr('disabled');
-      exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-           console.log('pdf file downloaded');
-     });
-    exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-      console.log('doing something before downloading pdf file');
-      pdf.save();
-    }); 
-    */
-//deb         /*sol 2    
-            var crbm = $("#crbm").val();
+       function CRBave()
+       { 
+          $("#crb").val($("#crbm").val());
+       }
+      function headerFooterFormatting(doc, totalPages)
+      {
+             for(var i = totalPages; i >= 1; i--)
+             {    
+                    doc.setPage(i);                            
+                    header(doc);
+                    footer(doc, i, totalPages);
+                    doc.page++; 
+               }
+      }
+       function header(doc)
+      {      
+             doc.setFontSize(40);
+              doc.setTextColor(40);
+             doc.setFontStyle('normal');
+             if (base64Img) {
+                    doc.addImage(base64Img, 'JPEG', margins.left, 0, 540,80);       
+             }
+            doc.line(3, 81, margins.width + 43,81); // horizontal line
+       }
+       function footer(doc, pageNumber, totalPages){
+             doc.setFontSize(40);
+             doc.setTextColor(40);
+             doc.setFontStyle('normal');
+             if (footer64Img) {
+                    doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
+             } 
+      }
+      function CRBPrint()
+      {
+            CRBave();
+             var crbm = $("#crbm").val();
             $("#crbPDF").text(crbm);
-            $("#pdfContent").removeClass('hidden');
-            var element = document.getElementById('pdfContent');
-            element.style.display = 'block';
-            // var specialElementHandlers = {
-            //    '#editor': function(element, renderer){
-            //     return true;
-            // }
-            // };
-            // html2pdf(element);
-            // element.style.display = 'none'
-            // console.log('printPDF()');
-            // html2pdf(element);
-            //   var opt = {
-            //       margin:       1,
-            //       filename:     'myfile.pdf',
-            //       image:        { type: 'jpeg', quality: 0.98 },
-            //       html2canvas:  { scale: 2 },
-            //         pagebreak:'css',
-            //       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            //     };
-            // html2pdf(element, opt);
-            //var pdf = new jsPDF('p', 'pt', 'letter');
-            // pdf.fromHTML($('#pdfContent').get(0), 15, 15, {
-            //   'width': 180,
-            //   'margin': 1,
-            //   'pagesplit': true,
-            //   'elementHandlers': specialElementHandlers
-            // }, function (dispose) {
-            //   pdf.save(filename);
-            // });
-          
-          //document.getElementById('#preview').classList.add('hide');
-          var opt = {
-            margin:       0.5,
-            filename:     'ct-scan.pdf',
-            enableLinks:  false,
-            pagebreak:    { mode: 'avoid-all' },
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-          };
-
-       html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
-       var totalPages = pdf.internal.getNumberOfPages(); 
-
-       for (var i = 1; i <= totalPages; i++) {
-         pdf.setPage(i);
-         pdf.setFontSize(10);
-         pdf.setTextColor(150);
-         pdf.text('Page ' + i + ' of ' + totalPages, pdf.internal.pageSize.getWidth() - 100, 
-         pdf.internal.pageSize.getHeight() - 30);
-       } 
- }).save() 
-            document.getElementById('preview').classList.add('show');
-
-////////////////////////
-            $("#pdfContent").addClass('hidden');
-        }
+            var pdf = new jsPDF('p', 'pt', 'a4');
+             pdf.setFontSize(18);
+             pdf.fromHTML(document.getElementById('pdfContent'), 
+                    margins.left, // x coord
+                    margins.top,
+                    {
+                        width: margins.width// max width of content on PDF
+                    },function(dispose) {
+                            headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+                   }, 
+                   margins);
+             var iframe = document.createElement('iframe');
+            iframe.setAttribute('style','position:absolute;right:0; top:300; bottom:0; height:80%; width:540px; padding-top:50px;padding-bottom:60px');
+            document.body.appendChild(iframe);
+            iframe.src = pdf.output('datauristring');
+       }// endfunction
       $(function(){
-      $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
-               jQuery('#crbSave').val("add");
-              $('#addCRBDialog').modal('show');
+             $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
+                    jQuery('#crbSave').val("add");
+                    $('#addCRBDialog').modal('show');
+             });
+      })
+      $('document').ready(function(){
+             $("button").click(function (event) {
+                    which = '';
+                    str ='send';
+                   which = $(this).attr("id");
+                    var which = $.trim(which);
+                   var str = $.trim(str);
+                   if(which==str){
+                    return true;
+                  }
+            });
       });
-  })
-  $('document').ready(function(){
-    $("button").click(function (event) {
-         which = '';
-         str ='send';
-         which = $(this).attr("id");
-         var which = $.trim(which);
-         var str = $.trim(str);
-         if(which==str){
-          return true;
-        }
-    });
-});
+       function imgToBase64(url, callback, imgVariable) {
+              if (!window.FileReader) {
+                    callback(null);
+                    return;
+             }
+             var xhr = new XMLHttpRequest();
+             xhr.responseType = 'blob';
+             xhr.onload = function() {
+                   var reader = new FileReader();
+                    reader.onloadend = function() {
+                          imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                          callback(imgVariable);
+                    };
+                    reader.readAsDataURL(xhr.response);
+              };
+             xhr.open('GET', url);
+             xhr.send();
+      }
+      $(function(){
+           $('#resultat').change(function(){
+                    $('#crb-add').removeAttr('disabled');
+             });
+       })
 </script>
 @endsection
 @section('main-content')
@@ -186,16 +126,16 @@ footer {
   </div>
 </div><hr>
 <div class="row">
-  <div class="col-xs-11">
-    <div class="widget-box">
-      <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
-      <div class="widget-body">
-        <div class="widget-main">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="user-profile row">
-              <div class="col-xs-12 col-sm-3 center">
-              <div class="profile-user-info profile-user-info-striped">
+       <div class="col-xs-7">
+            <div class="widget-box">
+                   <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
+                  <div class="widget-body">
+                   <div class="widget-main">
+                          <div class="row">
+                                 <div class="col-xs-12">
+                                    <div class="user-profile row">
+                                      <div class="col-xs-12 col-sm-8 center">
+                                      <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name">Date : </div>
                   <div class="profile-info-value"><span class="editable">
@@ -262,7 +202,7 @@ footer {
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                       @if($demande->etat == null)
-                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
+                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{ $demande->id }}" id ="crb-add" @if( isset($exm->pivot->crb)) hidden @endif" disabled>
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>
                       @endif
@@ -286,12 +226,7 @@ footer {
       </div><!-- widget-body -->
     </div><!-- widget-box -->
   </div><!-- col-xs-12 -->
-  <div class="col-xs-1">
-    <div id="pdfContent" style="display: none">@include('examenbio.EtatsSortie.crbClient')</div>
-<div id="preview"></div>
-  </div>
-  <!-- class="hidden" -->
+  <div class="col-xs-5"> <div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
 </div><!-- row -->
-  {{-- <div class="row"> @include('examenbio.ModalFoms.crbprint')</div> --}}
 <div class="row text-center">@include('examenbio.CRBModal')</div> 
 @endsection

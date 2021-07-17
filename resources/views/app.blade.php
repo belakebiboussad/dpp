@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <meta charset="UTF-8">
   <title>@yield('title','Dossier patient')</title>
   @include('partials.htmlheader')
   @yield('style')

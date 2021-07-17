@@ -47,10 +47,6 @@
     window.jQuery || document.write("<script src='{{ asset('/js/jquery.min.js') }}'>"+"<"+"/script>");
 </script>
 <!--[endif]-->
-<script type="text/javascript">
-//    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
-</script>
-
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     //you don't need this, just used for changing background

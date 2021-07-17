@@ -74,9 +74,6 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
-
-Route::post('/crbprint','DemandeExbController@crbClientDownload')->name('crbprint');
-
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
@@ -174,7 +171,7 @@ Route::get('/bedAffectation','LitsController@affecter');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
-route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
@@ -197,10 +194,7 @@ route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
-
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
-
-
 Route::post('/crrPrint','CRRControler@print')->name('crrprint');
 Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {

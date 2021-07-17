@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
- 	 <head>
-       		<title>Gestion des patients</title>
-       		@include('partials.htmlheader')
-		@include('partials.scripts')
-		@yield('style')
- 	</head>
+    <title>Gestion des patients</title>
+     @include('partials.htmlheader')
+@include('partials.scripts')
     <body class="no-skin">
         @include('partials.navbar')
         <div class="main-container" id="main-container">
@@ -17,10 +14,14 @@
                     @include('partials.breadcrumbs_rec')
                     <div class="page-content">
                 	    @yield('main-content')
-                    </div><!-- /page-content -->
-                </div> <!-- /main-content-inner -->
-            </div>        <!-- /main-content -->
+                    </div>
+                    <!-- /page-content -->
+                </div>
+                <!-- /main-content-inner -->
+            </div>
+            <!-- /main-content -->
             @include('partials.footer')
-        </div>     <!-- /main-container -->
+        </div>
+        <!-- /main-container -->
     </body>
 </html>
