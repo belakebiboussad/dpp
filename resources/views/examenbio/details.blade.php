@@ -1,9 +1,9 @@
 @extends('app_laboanalyses')
 @section('page-script')
 <script>
-        var base64Img = null; 
-        var footer64Img = null;
-       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+      var base64Img = null; 
+      var footer64Img = null;
+      imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
              base64Img = base64; 
        });
        imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
@@ -13,7 +13,7 @@
             top: 70,
             bottom: 40,
             left: 30,
-           width: 550
+            width: 550
        };
 
        function CRBave()
@@ -22,52 +22,52 @@
        }
       function headerFooterFormatting(doc, totalPages)
       {
-             for(var i = totalPages; i >= 1; i--)
-             {    
-                    doc.setPage(i);                            
-                    header(doc);
-                    footer(doc, i, totalPages);
-                    doc.page++; 
-               }
+        for(var i = totalPages; i >= 1; i--)
+        {    
+          doc.setPage(i);                            
+          header(doc);
+          footer(doc, i, totalPages);
+          doc.page++; 
+        }
       }
        function header(doc)
       {      
-             doc.setFontSize(40);
-              doc.setTextColor(40);
-             doc.setFontStyle('normal');
-             if (base64Img) {
-                    doc.addImage(base64Img, 'JPEG', margins.left, 0, 540,80);       
-             }
-            doc.line(3, 81, margins.width + 43,81); // horizontal line
-       }
-       function footer(doc, pageNumber, totalPages){
-             doc.setFontSize(40);
-             doc.setTextColor(40);
-             doc.setFontStyle('normal');
-             if (footer64Img) {
-                    doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
-             } 
+         doc.setFontSize(40);
+          doc.setTextColor(40);
+         doc.setFontStyle('normal');
+         if (base64Img) {
+                doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
+         }
+        doc.line(3, 92, margins.width + 43,92); // horizontal line
+      }
+      function footer(doc, pageNumber, totalPages){
+        doc.setFontSize(40);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        if (footer64Img) {
+                doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
+         } 
       }
       function CRBPrint()
       {
-            CRBave();
-             var crbm = $("#crbm").val();
-            $("#crbPDF").text(crbm);
-            var pdf = new jsPDF('p', 'pt', 'a4');
-             pdf.setFontSize(18);
-             pdf.fromHTML(document.getElementById('pdfContent'), 
-                    margins.left, // x coord
-                    margins.top,
-                    {
-                        width: margins.width// max width of content on PDF
-                    },function(dispose) {
-                            headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-                   }, 
-                   margins);
-             var iframe = document.createElement('iframe');
-            iframe.setAttribute('style','position:absolute;right:0; top:300; bottom:0; height:80%; width:540px; padding-top:50px;padding-bottom:60px');
-            document.body.appendChild(iframe);
-            iframe.src = pdf.output('datauristring');
+        CRBave();
+        $("#crbPDF").text($("#crbm").val());
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.setFontSize(18);
+        pdf.fromHTML(document.getElementById('pdfContent'), 
+          margins.left, // x coord
+          margins.top,
+          {
+              width: margins.width// max width of content on PDF
+          },function(dispose) {
+                  headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+          }, 
+         margins);
+        var iframe = document.createElement('iframe');
+        iframe.frameBorder = 0;
+        iframe.setAttribute('style','position:absolute;right:0; top:200; bottom:0; height:70%; width:560px; padding-top:80px;padding-bottom:60px;scrolling=no');
+        document.body.appendChild(iframe);
+        iframe.src = pdf.output('datauristring');
        }// endfunction
       $(function(){
              $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
@@ -87,23 +87,23 @@
                   }
             });
       });
-       function imgToBase64(url, callback, imgVariable) {
-              if (!window.FileReader) {
-                    callback(null);
-                    return;
-             }
-             var xhr = new XMLHttpRequest();
-             xhr.responseType = 'blob';
-             xhr.onload = function() {
-                   var reader = new FileReader();
-                    reader.onloadend = function() {
-                          imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-                          callback(imgVariable);
-                    };
-                    reader.readAsDataURL(xhr.response);
-              };
-             xhr.open('GET', url);
-             xhr.send();
+      function imgToBase64(url, callback, imgVariable) {
+        if (!window.FileReader) {
+              callback(null);
+              return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+               var reader = new FileReader();
+                reader.onloadend = function() {
+                      imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                      callback(imgVariable);
+                };
+                reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
       }
       $(function(){
            $('#resultat').change(function(){

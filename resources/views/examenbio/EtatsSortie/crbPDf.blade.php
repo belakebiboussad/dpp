@@ -8,13 +8,11 @@
   	p.b {
  			 text-align: left;
 		}
-      img {
-
-}
   </style>
   </head>
   <body>
-  <div><img src="img/entete.png" class="center thumb img-icons" alt="entete"/></div><hr><br><br>
+  <div><img src="img/entete.png" class="center thumb img-icons mt-25" alt="entete"/></div>
+  <hr class="mt-6 hr_1">
   <div class="sec-gauche"><strong>Médecin prescripteur :</strong><span> {{ $medecin->nom }} {{ $medecin->prenom }}</span></div>
   <div class="sec-droite"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</span></div><br>
   <div>
@@ -29,8 +27,8 @@
 	  	</tbody>
 	  </table>
   </div><br><br>
-  <div class="center"><h3><strong>Compte rendu d'analyses médicales</strong></h3></div><br>
-  <div><p>{{ $crb}}</p></div>
-  <div><img src="img/footer.jpg" alt="footer" width="100%"  class="imgcenter"/></div>
+  <div class="center"><h3><strong>Compte rendu d'analyses médicales</strong></h3></div>
+  <div>{!! nl2br(e($crb)) !!}</div>
+  <div class="foot"><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></div>
 </body>  
 </html>

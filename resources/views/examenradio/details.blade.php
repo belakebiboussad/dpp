@@ -23,60 +23,122 @@
 @endsection
 @section('page-script')
 <script>
- function ComptRRPrint()
-{
-       var indication = $("#indication").val();
-        var techRea = $("#techRea").val();
-        var result  = $("#result").val();
-        var conclusion = $("#conclusion").val();
-        var formData = {
-             indic:indication,
-             techRea:techRea,
-             result:result,
-             conclusion:conclusion
-        };
-        $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-        });
-        $.ajax({  
-              type: "POST", 
-              url :'/crrPrint',
-              data:formData,  //dataType: "json",
-             success: function (viewContent,status, xhr) {      
-                    document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
-                    $.print(viewContent);
-                    document.title = "Demande Examens Imagerie";
-              },  
-              error: function (data) {
-                console.log('Error:', data);
-              }
-        })
-}
-function CRRPrint()
-{
-        /*var indication = $("#indication").val();$("#indicationPDF").text(indication);var techRea = $("#techRea").val();$("#techReaPDF").text(techRea);var result  = $("#result").val();$("#resultPDF").text(result);*/
-        var conclusion = $("#conclusion").val();
-        alert(conclusion);
-        $("#conclusionPDF").text(conclusion);// Get the element to print
-        $("#pdfContent").removeClass('hidden');// invisible
-        var element = document.getElementById('pdfContent');
-        var options = {
-          filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-        };
-        var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-        $("#pdfContent").addClass('hidden');//invisible
-        exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-          console.log('pdf file downloaded');
-        });
-        exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-          console.log('doing something before downloading pdf file');
-          pdf.save();
-        });
-}
-function CRRSave()
-{
+  var base64Img = null; 
+  var footer64Img = null;
+  imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+    base64Img = base64; 
+  });
+  imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+    footer64Img = base64; 
+  });
+  margins = {
+    top: 70,
+    bottom: 40,
+    left: 30,
+    width: 550
+  };
+  function headerFooterFormatting(doc, totalPages)
+  {
+    for(var i = totalPages; i >= 1; i--)
+    {    
+      doc.setPage(i);                            
+      header(doc);
+      footer(doc, i, totalPages);
+      doc.page++; 
+    }
+  }
+  function header(doc)
+  {      
+    doc.setFontSize(40);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    if (base64Img) {
+      doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
+    }
+    doc.line(3, 92, margins.width + 43,92); // horizontal line
+  }
+  function footer(doc, pageNumber, totalPages){
+    doc.setFontSize(40);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    if (footer64Img) {
+            doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
+     } 
+  }
+  function imgToBase64(url, callback, imgVariable)
+  {
+    if (!window.FileReader) {
+      callback(null);
+      return;
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      var reader = new FileReader();
+      reader.onloadend = function() {
+            imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+            callback(imgVariable);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  }
+  function ComptRRPrint()
+  {
+   var indication = $("#indication").val();
+    var techRea = $("#techRea").val();
+    var result  = $("#result").val();
+    var conclusion = $("#conclusion").val();
+    var formData = {
+         indic:indication,
+         techRea:techRea,
+         result:result,
+         conclusion:conclusion
+    };
+    $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+    });
+    $.ajax({  
+          type: "POST", 
+          url :'/crrPrint',
+          data:formData,  //dataType: "json",
+         success: function (viewContent,status, xhr) {      
+                document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
+                $.print(viewContent);
+                document.title = "Demande Examens Imagerie";
+          },  
+          error: function (data) {
+            console.log('Error:', data);
+          }
+    })
+  }
+  function CRRPrint()
+  { 
+    CRRSave()
+    $("#conclusionPDF").text($("#conclusion").val());
+    var pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.setFontSize(18);
+    pdf.fromHTML(document.getElementById('pdfContent'), 
+      margins.left, // x coord
+      margins.top,
+      {
+          width: margins.width// max width of content on PDF
+      },function(dispose) {
+              headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+      }, 
+     margins);
+    iframe =document.getElementById('ipdf');
+/* var iframe = document.createElement('iframe'); iframe.frameBorder = 0;
+iframe.setAttribute('style','position:absolute;right:0; top:200; bottom:0; height:70%; width:560px; padding-top:80px;padding-bottom:60px;scrolling=no');
+document.body.appendChild(iframe);*/
+    iframe.src = pdf.output('datauristring'); 
+    $("#ipdf").removeClass("hidden");
+  }
+  function CRRSave()
+  {
      $.ajaxSetup({
               headers: {
                   'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -84,8 +146,7 @@ function CRRSave()
       });
       var formData = {
         demande_id:'{{$demande->id}}',
-        exam_id:$("#examId").val(),
-       /* indication:$("#indication").val(),techRea:$("#techRea").val(),result:$("#result").val(),*/
+        exam_id:$("#examId").val(),  /* indication:$("#indication").val(),techRea:$("#techRea").val(),result:$("#result").val(),*/
         conclusion:$("#conclusion").val(),  
       };
       var state = jQuery('#crrSave').val();
@@ -125,8 +186,8 @@ function CRRSave()
         }
       });
       var formData = new FormData();
-      let TotalFiles = $("#exm-" + examId)[0].files.length;//let TotalFiles = $("#exm-" + $(this).val())[0].files.length;//Total files  
-      let files = $("#exm-" + examId)[0];// let files = $("#exm-" + $(this).val())[0];
+      let TotalFiles = $("#exm-" + examId)[0].files.length;
+      let files = $("#exm-" + examId)[0];
       for (let i = 0; i < TotalFiles; i++) {
         formData.append('files' + i, files.files[i]);
       }
@@ -154,10 +215,17 @@ function CRRSave()
   $('document').ready(function(){
     $('.result').change(function() {
         var res = $(this).attr('id').replace("exm", "btn");
+        var crr = $(this).attr('id').replace("exm", "crr-add");
         if($(this).val())
+        {
           $('#'+res).removeAttr('disabled'); 
+          $('#'+crr).removeAttr('disabled'); 
+        }
         else
+        {
           $('#'+res).attr('disabled', 'disabled');
+          $('#'+crr).attr('disabled', 'disabled');
+        } 
     });
     $(".start").click( function(){
       if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
@@ -267,139 +335,141 @@ function CRRSave()
     <div class="col-md-5 col-sm-5"><h4> <strong>Demande d'examen radiologique</strong></h4></div>
     <div class="col-md-7 col-sm-7">
       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
-
-       <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
-       @if(Auth::user()->role_id  == 12){{-- listeexrs --}}
+        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
+        @if(Auth::user()->role_id  == 12){{-- listeexrs --}}
          <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-       @else
+        @else
          <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-       @endif
+        @endif
     </div>
 </div><hr>
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-11">
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
-    <div class="form-group col-sm-6">
-      <label class="blue">
-      @if(isset($demande->consultation))
-          {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
-       @else
-          {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
-        @endif 
-      </label>
-    </div>
-  </div>
-</div>
- <div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Médecin demandeur :</b></label></div>  
-    <div class="form-group col-sm-6">
-      <label class="blue">
-      @if(isset($demande->consultation))
-      {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
-      @else
-       {{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
-      @endif
-      </label>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Informations cliniques pertinentes :</b></label></div>
-     <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
-    </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
-    <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
-    <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class=""><b>Informations supplémentaires pertinentes :</b></label></div>
-    <div class="form-group col-sm-6">
-      <label class="blue">
-      <ul class="list-inline"> 
-      @foreach($demande->infossuppdemande as $index => $info)
-        <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-      @endforeach
-      </ul>    
-     </label>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-12 col-xs-12 widget-container-col">
-    <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique</b></h5></div>
-      <div class="widget-body">
-        <div class="widget-main">
-         <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th class="center" width="10%">#</th>
-                <th>Nom</th>
-                <th class="center"><strong>Type</strong></th>
-                <th class="center"><strong>Attacher le résultat</strong></th>
-                <td class="center" width="18%"><em class="fa fa-cog"></em></td>
-              </tr>
-            </thead>
-            <tbody>
-               @foreach ($demande->examensradios as $index => $examen)
-                @if($examen->pivot->etat === null)
-                <tr id = "{{ $examen->id }}">
-                  <td class="center">{{ $index }}</td>
-                  <td>{{ $examen->nom }}</td>
-                  <td>
-                    <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                    @foreach($exams as $id)
-                    <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
-                    @endforeach
-                  </td>
-                  <td>
-                    @if(Auth::user()->role->id == 12)
-                      <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
-                    @endif
-                  </td>
-                  <td class="center" width="18%">
-                    <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}">
-                      <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                    </button>
-                    <button type="button" class="btn btn-md btn-primary open-editCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{ $examen->id }}" value="{{ $examen->pivot->crr_id }}">
-                      <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
-                    </button>
-                    <button  type="submit" class="btn btn-md btn-info start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" data-id="{{ $examen->id }}" disabled>
-                      <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-                    </button>
-                    @if(!isset($examen->pivot->crr_id ))
-                    <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}"><i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i></button>
-                    @endif
-                  </td>
-                </tr>
-                @endif
-                @endforeach
-            </tbody>
-          </table>
-        </div>  
+<div class="col-xs-12 col-sm-7">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
+      <div class="form-group col-sm-6">
+        <label class="blue">
+        @if(isset($demande->consultation))
+            {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
+         @else
+            {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
+          @endif 
+        </label>
       </div>
     </div>
-  </div> 
-</div><!-- row tabel  -->
-</div><!-- col-sm-9 -->
-  <div class="col-xs-12 col-sm-1">
-    <div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div><!-- invisible -->
+  </div>
+   <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Médecin demandeur :</b></label></div>  
+      <div class="form-group col-sm-6">
+        <label class="blue">
+        @if(isset($demande->consultation))
+        {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
+        @else
+         {{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
+        @endif
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Informations cliniques pertinentes :</b></label></div>
+       <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
+      <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
+      <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="col-sm-6"><label class=""><b>Informations supplémentaires pertinentes :</b></label></div>
+      <div class="form-group col-sm-6">
+        <label class="blue">
+        <ul class="list-inline"> 
+        @foreach($demande->infossuppdemande as $index => $info)
+          <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
+        @endforeach
+        </ul>    
+       </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 widget-container-col">
+      <div class="widget-box">
+        <div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique</b></h5></div>
+        <div class="widget-body">
+          <div class="widget-main">
+           <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th class="center" width="10%">#</th>
+                  <th>Nom</th>
+                  <th class="center"><strong>Type</strong></th>
+                  <th class="center"><strong>Attacher le résultat</strong></th>
+                  <td class="center" width="18%"><em class="fa fa-cog"></em></td>
+                </tr>
+              </thead>
+              <tbody>
+                 @foreach ($demande->examensradios as $index => $examen)
+                  @if($examen->pivot->etat === null)
+                  <tr id = "{{ $examen->id }}">
+                    <td class="center">{{ $index }}</td>
+                    <td>{{ $examen->nom }}</td>
+                    <td>
+                      <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                      @foreach($exams as $id)
+                      <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
+                      @endforeach
+                    </td>
+                    <td>
+                      @if(Auth::user()->role->id == 12)
+                        <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
+                      @endif
+                    </td>
+                    <td class="center" width="18%">
+                      <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}" disabled>
+                        <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
+                      </button> 
+                      <button type="button" class="btn btn-md btn-primary open-editCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{ $examen->id }}" value="{{ $examen->pivot->crr_id }}">
+                        <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
+                      </button>
+                      <button  type="submit" class="btn btn-md btn-info start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" data-id="{{ $examen->id }}" disabled>
+                        <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+                      </button>
+                      @if(!isset($examen->pivot->crr_id ))
+                      <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}"><i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i></button>
+                      @endif
+                    </td>
+                  </tr>
+                  @endif
+                  @endforeach
+              </tbody>
+            </table>
+          </div>  
+        </div>
+      </div>
+    </div> 
+  </div><!-- row tabel  -->
+  </div><!-- col-sm-7 -->
+  <div class="col-xs-12 col-sm-5" id="cont">
+   <!-- class="hidden" -->
+    <div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div>
+      <iframe id="ipdf" src="" width="100%" height="550px" frameborder='0' scrolling='no'></iframe>
+  </div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">
@@ -414,5 +484,6 @@ function CRRSave()
     </form>
   </div>
 </div>
-<div class="row text-center">@include('examenradio.CRRModal')</div> 
+<div class="row text-center">@include('examenradio.ModalFoms.CRRModal')</div>
+<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  
 @endsection

@@ -70,13 +70,15 @@ class DemandeExbController extends Controller
         $demande = demandeexb::FindOrFail($id);
         if(isset($demande->consultation))
         {
-          $medecin =  $patient = $demande->consultation->docteur ;     
+          $medecin =$demande->consultation->docteur ; 
+          $patient = $demande->consultation->patient;    
          }
          else
         {
-          $medecin =  $patient = $demande->visite->medecin ;//dd($demande->visite->hospitalisation->patient);
+          $medecin = $demande->visite->medecin ;
+          $patient = $demande->visite->hospitalisation->patient;          
         }
-        return view('examenbio.show', compact('demande','medecin' ));
+        return view('examenbio.show', compact('demande','medecin','patient'));
      }
     /**
      * Show the form for editing the specified resource.
@@ -112,22 +114,22 @@ class DemandeExbController extends Controller
       $demande = demandeexb::destroy($id);
       return redirect()->action('ConsultationsController@show',$consult_id);
     }
-      public function detailsdemandeexb($id)
+    public function detailsdemandeexb($id)
+    {
+      $demande = demandeexb::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      if(isset($demande->consultation))
       {
-          $demande = demandeexb::FindOrFail($id);
-          $etablissement = Etablissement::first();
-          if(isset($demande->consultation))
-          {
-            $medecin =  $patient = $demande->consultation->docteur ;     
-            $patient = $demande->consultation->patient;
-          }
-          else
-          {
-            $medecin =  $patient = $demande->visite->medecin ;   
-            $patient = $demande->visite->hospitalisation->patient;   
-          }
-          return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
-       }
+        $medecin =  $patient = $demande->consultation->docteur;     
+        $patient = $demande->consultation->patient;
+      }
+      else
+      {
+        $medecin =  $patient = $demande->visite->medecin ;   
+        $patient = $demande->visite->hospitalisation->patient;   
+      }
+      return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
+   }
        /*public function detailsdemandeexb($id){return view('examenbio.teste');}*/
     public function uploadresultat(Request $request)
     {

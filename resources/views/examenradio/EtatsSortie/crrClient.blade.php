@@ -1,20 +1,14 @@
-<h3 class="mt-12 center" id="tutelle">{{ $etablissement->tutelle }}</h3>
-<h4 class="center" id="etabname">{{ $etablissement->nom }}</h4>
-<h5 class="center" id="etabAdr">{{ $etablissement->adresse }}</h5>  
-<h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>
-<h5 class="mt-10 center" ><img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
-<hr class="mt-1"/>
-<div class="row mt-20"><div class="col-sm-12 center"><h3>Compte  rendu radiologique</h3></div></div>
-<div class="space-12"></div> <div class="space-12"></div>
- {{--<div class="row"> <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:20px;">Indication</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="indicationPDF" style="font-size:16px;">@isset($crr){{ $crr->indication }}@endisset</p></div></div> <div class="space-12"></div><div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:20px;">Technique de réaliation</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="techReaPDF" style="font-size:16px;">@isset($crr){{ $crr->techRea }}@endisset</p></div></div><div class="space-12"></div><div class="row"><div class="col-xs-11 label label-lg label-default arrowed-in arrowed-right"><strong><span style="font-size:20px;">Resultat</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="resultPDF" style="font-size:16px;">@isset($crr){{ $crr->result }}@endisset</p></div></div>  --}}
-   <div class="row">
-   {{--  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:20px;">Synthèse Conclusion</span></strong>
-   </div> --}}
-  </div><div class="space-12"></div>
-  <div class="row"><div class="col-xs-1"></div>
-  <div class="col-xs-11"><p id="conclusionPDF" style="font-size:16px;">
-    @isset($crr)
-      {{ $crr->conclusion }}
-      @endisset
-  </p></div>
-  </div>
+<div class="tab-space40 mtP40">Alger le :&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>
+<div class="ml-06">
+	<strong>Médecin prescripteur :</strong><span>{{ $medecin->nom }} {{ $medecin->prenom }}</span>
+</div>
+<div class="ml-06"><strong>Patient(e) :</strong></div>&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="tab-space">
+	<strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	<strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span>
+	<strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span>
+</div>
+<div style="text-align: center;font-size: 1.5em;" class="mtP45">
+	<span>Compte rendu d'exploration radiologique</span>
+</div>
+<p id ="conclusionPDF" class="ml-06 mtP50"></p>
