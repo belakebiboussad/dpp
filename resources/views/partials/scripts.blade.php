@@ -685,9 +685,9 @@ $('#typeexm').on('change', function() {
       }
       function ImprimerEtat(className,objID)
       { 
-        $("#className").val( className );
-        $("#objID").val(objID);
-        $('#EtatSortie').modal('show');
+              $("#className").val( className );
+              $("#objID").val(objID);
+              $('#EtatSortie').modal('show');
       }
       function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -699,14 +699,5 @@ $('#typeexm').on('change', function() {
       }
       function htmlspecialchars(str) {
          return str.replace('&', '&amp;').replace('&quot;', '"').replace("'", '&#039;').replace('<', '&lt;').replace('>', '&gt;');
-      }
-      function formatDate(date) {
-        var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        return [day, month , year].join('/');
       }
 </script>

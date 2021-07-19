@@ -42,5 +42,6 @@
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
     </script>
+     @include('examenradio.scripts.cr')
 </div>
 <!-- /section:basics/sidebar -->

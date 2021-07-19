@@ -194,8 +194,7 @@ route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
-Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
-Route::post('/crrPrint','CRRControler@print')->name('crrprint');
+Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');//Route::post('/crrPrint','CRRControler@print')->name('crrprint');
 Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');

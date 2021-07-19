@@ -13,8 +13,8 @@
     });
     function myFunction()
     {
-      if( $('#liste_membre_to').has('option').length > 0 ) {
-        return true
+          if( $('#liste_membre_to').has('option').length > 0 ) {
+            return true
       }
       return false;
     }

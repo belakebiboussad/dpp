@@ -8,11 +8,7 @@
 			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
 			    <input type="hidden" name=""  id="examId" value="">
 			     <input type="hidden" name=""  id="crrId" value="">
-{{--<div class="row"><div class="col-xs-12"><br><label for="indication"><strong> Indication:</strong></label><textarea class="form-control" id="indication" rows="3"></textarea>	
-</div></div><div class="space-12"></div><div class="row"><div class="col-xs-12"><label for="techRea"><strong>Technique de réaliation :</strong></label><textarea class="form-control" id="techRea" rows="6"></textarea>	
-</div></div><div class="space-12"></div><div class="row"><div class="col-xs-12"><label for="result"><b>Résultat:</b></label><textarea class="form-control" id="result" rows="6"></textarea>
-</div></div><br>--}}
-			    <div class="row">
+     		    	<div class="row">
 			     	<div class="col-xs-12">
 			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span style="color: red">*</span></b></label>
 					    <textarea class="form-control" id="conclusion" rows="6" required></textarea>
@@ -22,8 +18,7 @@
 			</div>{{-- modal-body --}}
 			<div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>
 		  <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" id="crrSave" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        {{--<button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
+        <button type="submit" class="btn btn-primary btn-sm" id="crrSave" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> {{--<button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
         <button type="button" class="btn btn-sm btn-success" onclick="CRRPrint()" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>

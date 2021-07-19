@@ -25,119 +25,19 @@
 <script>
   var base64Img = null; 
   var footer64Img = null;
-  imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
-    base64Img = base64; 
-  });
-  imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
-    footer64Img = base64; 
-  });
-  margins = {
+   margins = {
     top: 70,
     bottom: 40,
     left: 30,
     width: 550
   };
-  function headerFooterFormatting(doc, totalPages)
-  {
-    for(var i = totalPages; i >= 1; i--)
-    {    
-      doc.setPage(i);                            
-      header(doc);
-      footer(doc, i, totalPages);
-      doc.page++; 
-    }
-  }
-  function header(doc)
-  {      
-    doc.setFontSize(40);
-    doc.setTextColor(40);
-    doc.setFontStyle('normal');
-    if (base64Img) {
-      doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
-    }
-    doc.line(3, 92, margins.width + 43,92); // horizontal line
-  }
-  function footer(doc, pageNumber, totalPages){
-    doc.setFontSize(40);
-    doc.setTextColor(40);
-    doc.setFontStyle('normal');
-    if (footer64Img) {
-            doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
-     } 
-  }
-  function imgToBase64(url, callback, imgVariable)
-  {
-    if (!window.FileReader) {
-      callback(null);
-      return;
-    }
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = function() {
-      var reader = new FileReader();
-      reader.onloadend = function() {
-            imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-            callback(imgVariable);
-      };
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.send();
-  }
-  function ComptRRPrint()
-  {
-   var indication = $("#indication").val();
-    var techRea = $("#techRea").val();
-    var result  = $("#result").val();
-    var conclusion = $("#conclusion").val();
-    var formData = {
-         indic:indication,
-         techRea:techRea,
-         result:result,
-         conclusion:conclusion
-    };
-    $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-    });
-    $.ajax({  
-          type: "POST", 
-          url :'/crrPrint',
-          data:formData,  //dataType: "json",
-         success: function (viewContent,status, xhr) {      
-                document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
-                $.print(viewContent);
-                document.title = "Demande Examens Imagerie";
-          },  
-          error: function (data) {
-            console.log('Error:', data);
-          }
-    })
-  }
-  function CRRPrint()
-  { 
-    CRRSave()
-    $("#conclusionPDF").text($("#conclusion").val());
-    var pdf = new jsPDF('p', 'pt', 'a4');
-    pdf.setFontSize(18);
-    pdf.fromHTML(document.getElementById('pdfContent'), 
-      margins.left, // x coord
-      margins.top,
-      {
-          width: margins.width// max width of content on PDF
-      },function(dispose) {
-              headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-      }, 
-     margins);
-    iframe =document.getElementById('ipdf');
-/* var iframe = document.createElement('iframe'); iframe.frameBorder = 0;
-iframe.setAttribute('style','position:absolute;right:0; top:200; bottom:0; height:70%; width:560px; padding-top:80px;padding-bottom:60px;scrolling=no');
-document.body.appendChild(iframe);*/
-    iframe.src = pdf.output('datauristring'); 
-    $("#ipdf").removeClass("hidden");
-  }
-  function CRRSave()
+function CRRPrint()
+{ 
+       CRRSave()
+       $("#conclusionPDF").text($("#conclusion").val());
+      generate();
+}
+function CRRSave()
   {
      $.ajaxSetup({
               headers: {
@@ -146,7 +46,7 @@ document.body.appendChild(iframe);*/
       });
       var formData = {
         demande_id:'{{$demande->id}}',
-        exam_id:$("#examId").val(),  /* indication:$("#indication").val(),techRea:$("#techRea").val(),result:$("#result").val(),*/
+        exam_id:$("#examId").val(),
         conclusion:$("#conclusion").val(),  
       };
       var state = jQuery('#crrSave').val();
@@ -211,23 +111,31 @@ document.body.appendChild(iframe);*/
           console.log(data);
         }
       });
-  }
-  $('document').ready(function(){
-    $('.result').change(function() {
-        var res = $(this).attr('id').replace("exm", "btn");
-        var crr = $(this).attr('id').replace("exm", "crr-add");
-        if($(this).val())
-        {
-          $('#'+res).removeAttr('disabled'); 
-          $('#'+crr).removeAttr('disabled'); 
-        }
-        else
-        {
-          $('#'+res).attr('disabled', 'disabled');
-          $('#'+crr).attr('disabled', 'disabled');
-        } 
-    });
-    $(".start").click( function(){
+       }
+         $(function(){
+             imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+                   base64Img = base64; 
+            });
+              imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+                    footer64Img = base64; 
+             });    
+        });
+       $('document').ready(function(){
+            $('.result').change(function() {
+                var res = $(this).attr('id').replace("exm", "btn");
+                var crr = $(this).attr('id').replace("exm", "crr-add");
+                if($(this).val())
+                {
+                  $('#'+res).removeAttr('disabled'); 
+                  $('#'+crr).removeAttr('disabled'); 
+                }
+                else
+                {
+                  $('#'+res).attr('disabled', 'disabled');
+                  $('#'+crr).attr('disabled', 'disabled');
+                } 
+            });
+       $(".start").click( function(){
       if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
       {
         Swal.fire({
@@ -311,21 +219,21 @@ document.body.appendChild(iframe);*/
         jQuery('#crrSave').val("add");
         $('#addCRRDialog').modal('show');
     });
-    $(".open-editCRRDialog").click(function (event) {
-        event.preventDefault();
-        $('#examId').val($(this).data('id'));
-        var crr_id = $(this).val();
-        $('#crrModalTitle').html('Editer un compte rendue radiologique');
-        $.get('/crrs/' + crr_id + '/edit', function (data) { 
-          $('#crrId').val(data.id);
-          $('#indication').val(data.indication);
-          $('#techRea').val(data.techRea);
-          $('#result').val(data.result);
-          $('#conclusion').val(data.conclusion);
-          jQuery('#crrSave').val("update");
-          $('#addCRRDialog').modal('show');
-        });
-    });
+      $(".open-editCRRDialog").click(function (event) {
+              event.preventDefault();
+              $('#examId').val($(this).data('id'));
+              var crr_id = $(this).val();
+              $('#crrModalTitle').html('Editer un compte rendue radiologique');
+              $.get('/crrs/' + crr_id + '/edit', function (data) { 
+                $('#crrId').val(data.id);
+                $('#indication').val(data.indication);
+                $('#techRea').val(data.techRea);
+                $('#result').val(data.result);
+                $('#conclusion').val(data.conclusion);
+                jQuery('#crrSave').val("update");
+                $('#addCRRDialog').modal('show');
+              });
+      });
 });
   </script>
 @endsection
@@ -346,7 +254,7 @@ document.body.appendChild(iframe);*/
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-7">
+<div class="col-xs-12 col-sm-10">
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
@@ -465,11 +373,7 @@ document.body.appendChild(iframe);*/
     </div> 
   </div><!-- row tabel  -->
   </div><!-- col-sm-7 -->
-  <div class="col-xs-12 col-sm-5" id="cont">
-   <!-- class="hidden" -->
-    <div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div>
-      <iframe id="ipdf" src="" width="100%" height="550px" frameborder='0' scrolling='no'></iframe>
-  </div>
+  <div class="col-xs-12 col-sm-2"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">

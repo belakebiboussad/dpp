@@ -1,4 +1,3 @@
-{{--@extends('app_agent_admis')--}}
 @extends('app') 
 @section('page-script')
 <script type="text/javascript">

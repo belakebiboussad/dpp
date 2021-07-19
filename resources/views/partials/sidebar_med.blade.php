@@ -220,50 +220,6 @@
            createexbioF(img,nomp,prenomp,age,ipp);
         };
       } 
-    function lettreoriet(logo,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo)
-    {
-      var specialite = $( "#specialiteOrient option:selected" ).text().trim();
-      var medecin =  $("#medecinOrient option:selected").text().trim();
-      html2canvas($("#lettreorientation"), {
-        onrendered: function(canvas) {         
-          moment.locale('fr');// var formattedDate = moment(new Date()).format("l");
-          var d = new Date();
-          var formattedDate = formatDate(d);
-          var doc = new jsPDF({orientation: "p", lineHeight: 2});
-          doc.text(105,10,ett, null, null, 'center');
-          doc.setFontSize(13);
-          doc.text(105,18,etn, null, null, 'center');
-          doc.setFontSize(12);
-          doc.text(105,24,etadr, null, null, 'center');
-          doc.text(105,30, ettel, null, null, 'center');
-          doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
-          doc.setFontSize(14);
-          JsBarcode("#itfL", ipp.toString(), {
-            lineColor: "#000",
-            width:4,
-            height:45,
-            displayValue: true,
-            text:"IPP :"+ipp.toString(),
-            fontSize : 28,
-            textAlign: "left"
-          });
-          const img = document.querySelector('img#itfL');
-          doc.text(200,58, formattedDate , null, null, 'right');        
-          doc.text(20,68, 'Docteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
-          doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');// doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
-          doc.setFontType("bold");doc.setFontSize(16);
-          doc.text(105,90, "Lettre d'Orientation", null, null, 'center');
-          doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
-          doc.setFontType("normal");doc.setFontSize(12);
-          var text = "Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-          lines = doc.splitTextToSize(text, 185);
-          doc.text(20,130,lines,null,null);
-          doc.text(160,260,'signature',null,null,'right');
-          doc.save('orientLettre-'+nomP+'-'+prenomP+'.pdf');// var string = doc.output('datauristring');// $('#lettreorientation').attr('src', string);
-        }
-      })
-    }
     function createexbio(nomp,prenomp,age,ipp){ 
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
@@ -329,30 +285,25 @@
             champ.appendTo(form);
       }
       function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-        $("#OrientLetterPdf").removeClass('invisible');
-
-        $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-        $("#motifCons").text($( "#motifC" ).val());
-        $("#motifO").text($( "#motifOrient" ).val());
-        var element = document.getElementById('OrientLetterPdf');
-        var options = {
-          filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-        };
-        var exporter = new html2pdf(element, options);
-        $("#OrientLetterPdf").addClass('invisible');
-        exporter.getPdf(true).then((pdf) => {
-            console.log('pdf file downloaded');
-        });
-        exporter.getPdf(false).then((pdf) => {
-            console.log('doing something before downloading pdf file');
-            pdf.save();
-        });
+            $("#OrientLetterPdf").removeClass('invisible');
+            $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+            $("#motifCons").text($( "#motifC" ).val());
+            $("#motifO").text($( "#motifOrient" ).val());
+            var element = document.getElementById('OrientLetterPdf');
+            var options = {
+                   filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+             };
+             var exporter = new html2pdf(element, options);
+             $("#OrientLetterPdf").addClass('invisible');
+             exporter.getPdf(true).then((pdf) => {
+                    console.log('pdf file downloaded');
+            });
+             exporter.getPdf(false).then((pdf) => {
+                    console.log('doing something before downloading pdf file');
+                   pdf.save();
+            });
       }
-      function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-        var img = new Image();img.src = '{{ asset("/img/logo.png") }}';img.onload = function () {
-          lettreoriet(img,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo);
-        };
-      }     
+        
       function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();
@@ -408,9 +359,9 @@
         $('#motifOr').val($('#motifOrient').val()); }
       function demandehosp()
       {
-        $('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');
-        $('#specialiteDemande').val($('#specialiteHospi').val()); 
-        $('#service').val($('#serviceHospi').val());
+              $('#modeAdmission').val($('#modeAdmissionHospi').val());
+              $('#specialiteDemande').val($('#specialiteHospi').val()); 
+              $('#service').val($('#serviceHospi').val());
       }
       $(document).ready(function () {
           $('.select2').css('width','50%').select2({allowClear:true});
@@ -468,8 +419,7 @@
                   $('#Div-nomjeuneFille').attr('hidden','');  
               }else
                 $('#Div-nomjeuneFille').attr('hidden','');      
-          });
-/*$( "#Position" ).change(function(){if($(this).val() != "Activité"){$('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);}else$('#serviceFonc').removeClass('invisible');});if($( "#Position" ).val() != "Activité" )$('#serviceFonc').addClass('invisible');*/ 
+          }); 
           jQuery('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");
               $('#inputID').val($(this).val());
