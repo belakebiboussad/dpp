@@ -134,16 +134,14 @@ function getUserdetail(id)
 		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> <strong> Résultats:</strong> </h5> 
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i><strong> Résultats:</strong> </h5> 
 				<label for=""><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">
-				<div>
 				<table id="users" class="table table-striped table-bordered table-responsive" role="grid">
 				<tbody>	
 				</tbody>
 				</table>
-				</div>	{{-- div --}}
 			</div>
 	  </div>
 		</div>{{-- col-sm-7 --}}

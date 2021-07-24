@@ -62,12 +62,12 @@ class HomeController extends Controller
                   return view('patient.index');
                   break;
             case 2:
-                  return view('home.home_recep');
+                   return view('patient.index'); //return view('home.home_recep');
                   break;
             case 3:                    
                   return redirect()->action('HospitalisationController@index');
                   break;
-            case 4: //admin // return view('home.home_admin', compact('users'));
+            case 4: 
                   return redirect()->action('UsersController@index');
                   break;
             case 5:

@@ -20,12 +20,6 @@
 				<span>
 				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">{{ $patient->getAge() }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
-			@if(isset( $patient->Lieu_Naissance))
-			<label class="inline">
-				<span class="lbl"><span class="glyphicon glyphicon-map-marker"></span>Né(e) à :</span>
-				<span class="blue">{{ $patient->lieuNaissance->nom_commune }}</span>
-			</label>&nbsp;&nbsp;&nbsp;
-			@endif
 			<label class="inline"> 	
 				<span class="lbl"><i class="fa fa-phone"></i>&nbsp;Mobile :</span>
 				<span class="blue">{{ $patient->tele_mobile1 }}</span>

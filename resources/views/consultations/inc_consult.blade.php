@@ -59,8 +59,7 @@ $('document').ready(function(){
 		@endif
 	@endforeach
 </div>
-	</div>
- <!-- fin -->
+	</div> <!-- fin -->
 </div>
 @endif
 @if(isset($consultation->demandeexmbio))
@@ -131,9 +130,9 @@ $('document').ready(function(){
 						<tr>
 							<td>{{ $consultation->Date_Consultation }}</td>
 							<td>
-								 @if($consultation->examensradiologiques->etat == "E")
+								 @if($consultation->examensradiologiques->etat == null)
 											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($consultation->examensradiologiques->etat == "V")
+								 @elseif($consultation->examensradiologiques->etat == "1")
 											Validé
 								@else
 										 <span class="badge badge-danger">Rejeté</span>
@@ -196,6 +195,17 @@ $('document').ready(function(){
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th class="center">Mode Admission</th>
+								<th class="center">Spécialité</th>
+								<th class="center">Service</th>
+								<th class="center">Etat</th>
+								@if($consultation->demandeHospitalisation->etat =="en attente")
+								<th class="center"><em class="fa fa-cog"></em></th>
+								@endif
+							</tr>
+						</thead>
 						<tr>
 							<td>
 								@switch($consultation->demandeHospitalisation->modeAdmission)
@@ -213,11 +223,11 @@ $('document').ready(function(){
 							<td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
 							<td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
 							<td>{{ $consultation->demandeHospitalisation->etat }}</td>
+							@if($consultation->demandeHospitalisation->etat =="en attente")
 							<td class="center">
-								@if($consultation->demandeHospitalisation->etat =="en attente")
 								<button type="button" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" onclick ="deleteDemandeHospi({{ $consultation->demandeHospitalisation->id }})"><i class="fa fa-trash-o fa-xs"></i></button>
-								@endif
-								</td>
+							</td>
+							@endif
 					</table>
 				</div>	
 			</div>

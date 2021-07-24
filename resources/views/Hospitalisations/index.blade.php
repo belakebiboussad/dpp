@@ -144,7 +144,6 @@
             });
        }
         var field ="etat_hosp";
-       /*$(function() {$('.filter').change(function() {if (this.value.trim()) field = $(this).prop("id");});});*/
       $('document').ready(function(){
               $(document).on('click','.findHosp',function(event){
                      getHospitalisations(field,$('#'+field).val().trim());
@@ -271,8 +270,7 @@
            <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                    {{-- <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>--}}
-                    <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
+                      <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
                     <td class="priority-4">
                       @switch($hosp->admission->demandeHospitalisation->modeAdmission)
                           @case(0)
@@ -288,9 +286,9 @@
                     </td>
                     <td>{{  $hosp->Date_entree}}</td>
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
-                    <td class="priority-4">{{  $hosp->Date_Sortie}}</td>
+                    <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
                     <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
-                    <td class="priority-6">{{  $hosp->medecin->nom }}<!-- admission->demandeHospitalisation->demeandeColloque-> -->
+                    <td class="priority-6">{{  $hosp->medecin->nom }}
                             {{  $hosp->medecin->prenom }}
                      </td>
                      <td class="priority-6" >

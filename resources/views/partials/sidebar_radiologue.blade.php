@@ -7,8 +7,7 @@
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
             <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
-            <!-- #section:basics/sidebar.layout.shortcuts -->
-            <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
+             <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
             <button class="btn btn-danger">    <i class="ace-icon fa fa-cogs"></i></button>
         </div>
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -23,25 +22,22 @@
         <b class="arrow"></b>
     </li>
     <ul class="nav nav-list">
-        <li class="">
-            <a href="/homeradiologue"> <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
+        <li>
+            <a href="{{ route('demandeexr.index') }}"> <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
             <b class="arrow"></b>
         </li>
-        <li class="">
+        <li>
             <a href="/listeexrs">
                 <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste des demandes </span>
             </a>
             <b class="arrow"></b>
         </li>
-       </ul><!-- /.nav-list -->
-    <!-- #section:basics/sidebar.layout.minimize -->
-    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+       </ul>
+      <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
-    <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
     </script>
      @include('examenradio.scripts.cr')
 </div>
-<!-- /section:basics/sidebar -->

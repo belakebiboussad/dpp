@@ -418,11 +418,6 @@
           });
         });
        $(function(){
-          $('.filter').change(function() {// if (this.value.trim()) {  // }
-            field = $(this).prop("id"); 
-          });
-       });
-       $(function(){
          $('#gamme').change(function(){
               switch($(this).val())
               {

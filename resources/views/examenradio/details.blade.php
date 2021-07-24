@@ -3,22 +3,22 @@
 @section('style')
 <link rel="stylesheet" href="css/styles.css">
 <style>
-  iframe {
-      display: block;
-      margin: 0 auto;
-      border: 0;
-      position:relative;
-      z-index:999;
+    iframe {
+        display: block;
+        margin: 0 auto;
+        border: 0;
+        position:relative;
+        z-index:999;
+    }
+    .mt-12 { padding-top:-12px;}
+    #pdfContent {
+      background: #fff;
+      width: 70%;
+      height: 100px;
+      margin: 20px auto;
+      border: 1px solid black;
+      padding: 20px;
   }
-  .mt-12 { padding-top:-12px;}
-  #pdfContent {
-    background: #fff;
-    width: 70%;
-    height: 100px;
-    margin: 20px auto;
-    border: 1px solid black;
-    padding: 20px;
-}
 </style>
 @endsection
 @section('page-script')
@@ -33,9 +33,9 @@
   };
 function CRRPrint()
 { 
-       CRRSave()
+       CRRSave();
        $("#conclusionPDF").text($("#conclusion").val());
-      generate();
+       generate();
 }
 function CRRSave()
   {
@@ -259,13 +259,7 @@ function CRRSave()
     <div class="col-xs-12 col-sm-12">
       <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
       <div class="form-group col-sm-6">
-        <label class="blue">
-        @if(isset($demande->consultation))
-            {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
-         @else
-            {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
-          @endif 
-        </label>
+        <label class="blue"> {{  (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</label>
       </div>
     </div>
   </div>
@@ -273,13 +267,7 @@ function CRRSave()
     <div class="col-xs-12 col-sm-12">
       <div class="col-sm-6"><label class=""><b>Médecin demandeur :</b></label></div>  
       <div class="form-group col-sm-6">
-        <label class="blue">
-        @if(isset($demande->consultation))
-        {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
-        @else
-         {{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
-        @endif
-        </label>
+            <label class="blue"> {{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</label>
       </div>
     </div>
   </div>
@@ -372,21 +360,22 @@ function CRRSave()
       </div>
     </div> 
   </div><!-- row tabel  -->
-  </div><!-- col-sm-7 -->
+  </div><!-- col-sm-10 -->
   <div class="col-xs-12 col-sm-2"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">
-  <div class="col-sm-12">
-    <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
-    {{ csrf_field() }}
-    <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-      <div class="col-md-offset-5 col-md-7">
-        <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
-        <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+      <div class="col-sm-12">
+              <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
+              {{ csrf_field() }}
+              {{ method_field('PUT') }}
+              <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+                <div class="col-md-offset-5 col-md-7">
+                  <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+                  <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+                </div>
+              </form>
       </div>
-    </form>
-  </div>
 </div>
 <div class="row text-center">@include('examenradio.ModalFoms.CRRModal')</div>
 <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  

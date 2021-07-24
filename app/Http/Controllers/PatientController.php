@@ -41,7 +41,7 @@ class PatientController extends Controller
     }
     public function index()
     {
-      return view('patient.index');
+           return view('patient.index');
     }
   /**
    * Show the form for creating a new resource.
@@ -442,66 +442,33 @@ class PatientController extends Controller
             ->rawColumns(['action2','action'])
             ->make(true);
     }
-    public function getpatientrdv()
-    {
-        $patients = patient::select(['id','IPP','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
-        return Datatables::of($patients)
-            ->addColumn('action', function ($patient) {
-                return '<div class="hidden-sm hidden-xs btn-group">
-                            <a class="btn btn-xs btn-success" href="/rdv/create/'.$patient->id.'">
-                                <i class="ace-icon fa fa-hand-o-up bigger-120"> Ajouter RDV</i>
-                            </a>
-                        </div>';})
-            ->addColumn('action2', function ($patient) {
-                return '<label>'.Date::parse($patient->Dat_Naissance)->age.'</label>';
-            })
-            ->rawColumns(['action2','action'])
-            ->make(true);
-    }
-    public function getpatientatcd()
-    {
-        $patiente = patient::select(['id','IPP','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
-        return Datatables::of($patients)
-            ->addColumn('action', function ($patient) {
-                return '<div class="hidden-sm hidden-xs btn-group">
-                            <a class="btn btn-lg btn-primary" href="/atcd/create/'.$patient->id.'">
-                                <div class="fa fa-plus-circle"></div>&nbsp;
-                                 Ajouter Antécédant</i>
-                            </a>
-                        </div>';})
-            ->addColumn('action2', function ($patient) {
-                return '<label>'.Date::parse($patient->Dat_Naissance)->age.'</label>';
-            })
-            ->rawColumns(['action2','action'])
-            ->make(true);
-  }
   public function getPatientsArray(Request $request)
   {
-    $today = Carbon::now();
-    $sub17 = ($today->subYears(17))->format('Y-m-d');
-    if($request->ajax())  
-    { 
-      switch($request->specialite) 
-      {
-        case 3 :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)
-                             ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
-          break;
-        case 5 :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')
-                             ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
-          break;
-        case 8  :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)
-                             ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
-          break;  
-        default :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
-                             ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
-          break;                   
-      }          
-      return ['success' => true, 'data' => $patients]; 
-    }
+        $today = Carbon::now();
+        $sub17 = ($today->subYears(17))->format('Y-m-d');
+        if($request->ajax())  
+        { 
+          switch($request->specialite) 
+          {
+            case 3 :
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)
+                                 ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
+              break;
+            case 5 :
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')
+                                 ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
+              break;
+            case 8  :
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)
+                                 ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
+              break;  
+            default :
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+                                 ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+              break;                   
+          }          
+          return ['success' => true, 'data' => $patients]; 
+        }
   }
   public function search(Request $request)
   {
@@ -530,17 +497,9 @@ class PatientController extends Controller
   }
   public function getPatientDetails($id)
   { 
-    $patient = patient::FindOrFail($id);
-    if($patient->Type !="Autre")
-    {
-      $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-      $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-    }
-    else
-    {
-      $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-    }
-    return response()->json(['html'=>$view]);
+       $patient = patient::FindOrFail($id);
+        $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+        return response()->json(['html'=>$view]);
   }
   public function AutoCompletePatientField(Request $request)
   {
@@ -588,44 +547,44 @@ class PatientController extends Controller
   }
   public function merge(Request $request)
   {
-      $patient1=patient::FindOrFail($request->patient1_id);
-      $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
-      $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
-      $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
-      foreach ($antecedants as $key => $antecedant) {
-         $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
-      }
-      foreach ($consuls as $key => $consult) {
-            $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
-      }
-      $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
-      foreach ($tickets as $key => $ticket) {
-        $ticket->update(["id_patient"=>$patient1->id]);  
-      }
-      $rdvs = rdv::where('patient_id',$request->patient2_id)->get();
-      foreach ($rdvs as $key => $rdv) {
-        $rdv->update(["patient_id"=>$patient1->id]);  
-      }
-      $patient1 -> update([
-            "Nom"=>$request->nom,
-            "Prenom"=>$request->prenom,
-            "IPP"=>$request->code,
-            "Dat_Naissance"=>$request->datenaissance,
-            "Lieu_Naissance"=>$request->idlieunaissance,
-            "Sexe"=>$request->sexe,
-            "Adresse"=>$request->adresse,
-            "situation_familiale"=>$request->sf,
-            "tele_mobile1"=>$request->mobile1,
-            "tele_mobile2"=>$request->mobile2,
-            "group_sang"=>$request->gs,
-            "rhesus"=>$request->rh, 
-            "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
-            "Type"=>$request->type,
-            "description"=>$request->description,
-            "NSS"=> $request->nss,    
-            "Date_creation"=>$request->date,  
-      ]);   
-      $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
-      Return View::make('patient.index');
+          $patient1=patient::FindOrFail($request->patient1_id);
+          $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
+          $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
+          $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+          foreach ($antecedants as $key => $antecedant) {
+             $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          foreach ($consuls as $key => $consult) {
+                $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
+          foreach ($tickets as $key => $ticket) {
+            $ticket->update(["id_patient"=>$patient1->id]);  
+          }
+          $rdvs = rdv::where('patient_id',$request->patient2_id)->get();
+          foreach ($rdvs as $key => $rdv) {
+            $rdv->update(["patient_id"=>$patient1->id]);  
+          }
+          $patient1 -> update([
+                "Nom"=>$request->nom,
+                "Prenom"=>$request->prenom,
+                "IPP"=>$request->code,
+                "Dat_Naissance"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->idlieunaissance,
+                "Sexe"=>$request->sexe,
+                "Adresse"=>$request->adresse,
+                "situation_familiale"=>$request->sf,
+                "tele_mobile1"=>$request->mobile1,
+                "tele_mobile2"=>$request->mobile2,
+                "group_sang"=>$request->gs,
+                "rhesus"=>$request->rh, 
+                "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+                "Type"=>$request->type,
+                "description"=>$request->description,
+                "NSS"=> $request->nss,    
+                "Date_creation"=>$request->date,  
+          ]);   
+          $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
+          Return View::make('patient.index');
   }
 }

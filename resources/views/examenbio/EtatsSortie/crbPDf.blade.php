@@ -7,7 +7,7 @@
   <style type="text/css">
   	p.b {
  			 text-align: left;
-		}
+	}
   </style>
   </head>
   <body>

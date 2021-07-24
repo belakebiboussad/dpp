@@ -1,8 +1,7 @@
-@extends('app_inf')
+@extends('app')
 @section('main-content')
 <?php $patient = $hosp->patient; ?>
 <div class="row">@include('patient._patientInfo', $patient)</div>
-{{-- @if(in_array(Auth::user()->role_id,[1,14])) --}}
 <div class="pull-right">
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
@@ -81,9 +80,9 @@
 				</div>
 			</div>
 		</div>
-		@if(in_array(Auth::user()->role_id,[1,3,14]))
-    <div class="space-12"></div>
-    <div class="row">
+		@if(in_array(Auth::user()->role_id,[1,3,14]) &&($hosp->prescreptionconstantes->count() > 0 ))
+		<div class="space-12"></div>
+		<div class="row">
 			<div class="col-sm-12">
 				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Liste des prescriptions constantes</span></strong></div></div>
 				<div class="row">

@@ -64,8 +64,8 @@ class ConsultationsController extends Controller
     }
     public function listecons($id)
     {
-      $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-      return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
+        $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+        return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
     }
     /**
      * Show the form for creating a new resource.
@@ -96,14 +96,13 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      { 
-                //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+      {      //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
               $validator = Validator::make($request->all(), [
-                'motif' => 'required|max:255',
-                'resume' => 'required',
+                    'motif' => 'required|max:255',
+                    'resume' => 'required',
               ]);
               if($validator->fails())
-              return redirect()->back()->withErrors($validator)->withInput();
+                     return redirect()->back()->withErrors($validator)->withInput();
             $etablissement = Etablissement::first(); 
             $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
             $consult = consultation::create([
@@ -119,74 +118,73 @@ class ConsultationsController extends Controller
                 "id_code_sim"=>$request->codesim,
                "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
             ]);
-        foreach($consult->patient->rdvs as $rdv)
-        {
-          if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
-            $rdv->update(['Etat_RDV'=>1]);
-        }
-        if($request->poids != 0 || $request->taille !=0 || $request->autre)//$request->temp != null ||
-        {
-          $apareils = appareil::all();
-          $exam = new examen_cliniqu;$exam->taille = $request->taille;
-          $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
-          $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
-          $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
-          $consult->examensCliniques()->save($exam);
-          foreach ($apareils as $appareil) {
-            if( null !== $request->input($appareil->nom))
+            foreach($consult->patient->rdvs as $rdv)
+             {
+                   if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
+                           $rdv->update(['Etat_RDV'=>1]);
+             }
+             if($request->poids != 0 || $request->taille !=0 || $request->autre)//$request->temp != null ||
             {
-              $examAppareil = new examAppareil;
-              $examAppareil->appareil_id = $appareil->id;
-              $examAppareil->description = $request->input($appareil->nom);
-              $exam->examsAppareil()->save($examAppareil);
-            }      
-          } 
-        }
-        if(($request->motifOr != "") ||(isset($request->specialite))){
-          $this->LettreOrientationCTRL->store($request,$consult->id);
-        }
-        if($request->liste != null) //save Ordonnance
-        {
-          $ord = new ordonnance;
-          $ord->date = Date::Now();
-          $consult->ordonnances()->save($ord);
-          foreach (json_decode($request->liste) as $key => $trait) {
-            $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
-          }
-        }
-        if($request->exm  != null && (count($request->exm) >0 ))//save ExamBiolo
-        {
-          $demandeExamBio = new demandeexb;
-          $consult->demandeexmbio()->save($demandeExamBio);
-          foreach($request->exm as $id_exb) {
-            $demandeExamBio->examensbios()->attach($id_exb);
-          }
-        }
-        if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
-        {
-              $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
-              $demandeExImg->Explecations = $request->explication; $demandeExImg->id_consultation = $consult->id;
-              $consult->examensradiologiques()->save($demandeExImg);
-              if(isset($request->infos))
+                    $apareils = appareil::all();
+                    $exam = new examen_cliniqu;$exam->taille = $request->taille;
+                    $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
+                    $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
+                    $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
+                    $consult->examensCliniques()->save($exam);
+                    foreach ($apareils as $appareil) {
+                          if( null !== $request->input($appareil->nom))
+                          {
+                                  $examAppareil = new examAppareil;
+                                  $examAppareil->appareil_id = $appareil->id;
+                                  $examAppareil->description = $request->input($appareil->nom);
+                                  $exam->examsAppareil()->save($examAppareil);
+                          }      
+                    } 
+             }
+            if(($request->motifOr != "") ||(isset($request->specialite))){
+                    $this->LettreOrientationCTRL->store($request,$consult->id);
+              }
+             if($request->liste != null) //save Ordonnance
+             {
+                    $ord = new ordonnance;
+                    $ord->date = Date::Now();
+                    $consult->ordonnances()->save($ord);
+                    foreach (json_decode($request->liste) as $key => $trait) {
+                          $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+                   }
+             }
+            if($request->exm  != null && (count($request->exm) >0 ))//save ExamBiolo
+            {
+                  $demandeExamBio = new demandeexb;
+                  $consult->demandeexmbio()->save($demandeExamBio);
+                  foreach($request->exm as $id_exb) {
+                    $demandeExamBio->examensbios()->attach($id_exb);
+                  }
+              }
+              if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
               {
-                foreach ($request->infos as $id_info) {
-                  $demandeExImg->infossuppdemande()->attach($id_info);
-                }
-              }
-              foreach (json_decode ($request->ExamsImg) as $key => $value) {       
-                 $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-              }
-        }
-
-        if($request->modeAdmission != null)
-        {
-          $dh = new DemandeHospitalisation;
-          $dh->modeAdmission = $request->modeAdmission;  $dh->service = $request->service;
-          $dh->specialite = $request->specialiteDemande; 
-          $consult->demandeHospitalisation()->save($dh);
-        }
-        return redirect(Route('patient.show',$request->patient_id));
-    }
+                    $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
+                    $demandeExImg->Explecations = $request->explication; $demandeExImg->id_consultation = $consult->id;
+                    $consult->examensradiologiques()->save($demandeExImg);
+                    if(isset($request->infos))
+                    {
+                      foreach ($request->infos as $id_info) {
+                        $demandeExImg->infossuppdemande()->attach($id_info);
+                      }
+                    }
+                    foreach (json_decode ($request->ExamsImg) as $key => $value) {       
+                          $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+                    }
+            } 
+            if($request->modeAdmission != null)
+            {
+                    $dh = new DemandeHospitalisation;
+                    $dh->modeAdmission = $request->modeAdmission;  $dh->service = $request->service;
+                    $dh->specialite = $request->specialiteDemande; 
+                    $consult->demandeHospitalisation()->save($dh);
+             }
+             return redirect(Route('patient.show',$request->patient_id));
+       }
     /**
      * Display the specified resource.
      *
@@ -216,7 +214,6 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, consultation $consultation){}
     /**
      * Remove the specified resource from storage.
      *

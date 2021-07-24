@@ -1,6 +1,6 @@
 <ul class="nav nav-pills justify-content-center" role="tablist">
   <li class="nav-item active"><a href="#patient" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<strong>Patient</strong></a></li>
-  @if(isset($assure))
+ @if($patient->Type != 5)
   <li class="nav-item"><a href="#assure" data-toggle="tab"><img src = "img/policeman.png" class ="img1" style="width:18%;height:18%">&nbsp;<strong>Assure</strong></a></li>
   @endif
 </ul>
@@ -43,7 +43,7 @@
           </td>
         </tr>
         <tr>
-          <td class ="noborders"><strong>Adress :</strong></td><td align="left">{{ $patient->Adresse }}</td>
+          <td class ="noborders"><strong>Adress :</strong></td><td align="left"><small style="text-overflow: ellipsis; ">{{ $patient->Adresse }}</small></td>
           <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob1:</strong></td><td align="left">{{ $patient->tele_mobile1 }}</td>
         </tr> 
         @if(isset( $patient->NSS ) || isset($patient->tele_mobile2))
@@ -82,37 +82,39 @@
       </tbody>
     </table>
   </div> {{-- tabpane --}}
-  @if(isset($assure))
+  @if($patient->Type != 5)
   <div class="tab-pane" id="assure">
     <table class="table table-bordered table-condensed col-sm-12 w-auto">
       <tbody>
         <tr>
-          <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $assure->Nom }}</td>
-          <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $assure->Prenom }}</td>
+              <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $patient->assure->Nom }}</td>
+              <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $patient->assure->Prenom }}</td>
         </tr>
-        <tr>
-          <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $assure->Date_Naissance }}</td>
+       <tr>
+          <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $patient->assure->Date_Naissance }}</td>
           <td class ="noborders"><strong>Né(e) a:</strong></td>
           <td>
-          @if(isset($assure->lieunaissance))
-            {{ $assure->lieuNaissance->nom_commune }}
+          @if(isset($patient->assure->lieunaissance))
+            {{ $patient->assure->lieuNaissance->nom_commune }}
           @endif
           </td>
-        </tr>  
+       </tr>
         <tr>
-          <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-          <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $assure->Matricule }}</td> 
+              <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $patient->assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
+              <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $patient->assure->matricule }}</td> 
         </tr>
-        <tr>
-                 <td class ="noborders"><strong>NSS :</strong></td><td>{{ $assure->NSS }}</td>
-                <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $assure->NMGSN }}</td>
-          </tr>
+       <tr>
+                 <td class ="noborders"><strong>NSS :</strong></td><td>{{ $patient->assure->NSS }}</td>
+                <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $patient->assure->NMGSN }}</td>
+       </tr>
            <tr>
                  <td colspan="1" class ="noborders nowrap"><strong>Grade :</strong></td>
-                 @if(isset($assure->Grade))
-                  <td>{{ $assure->grade->nom }}</td>
+                <td>
+                     @if(isset($patient->assure->Grade))
+                    {{ $patient->assure->grade->nom }}
                   @endif
-                 <td class ="noborders blue"><strong>Etat:</strong></td><td>{{ $assure->Etat }}</td>
+                  </td>
+                 <td class ="noborders blue"><strong>Etat:</strong></td><td>{{ $patient->assure->Position }}</td>
           </tr>
       </tbody>
      </table>
@@ -123,6 +125,5 @@
   @if( in_array(Auth::user()->role_id,[1,13,14]))
    <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
   @endif
-  {{-- rendezVous/create/{{ $patient->id }} --}}
   &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
 </footer>

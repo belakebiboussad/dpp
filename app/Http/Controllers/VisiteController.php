@@ -42,9 +42,6 @@ class VisiteController extends Controller
     {
       return redirect()->action('HospitalisationController@index');
     }
-    /*public function choixpatvisite(){$patients=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-    ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')->get();
-      return view('visite.choix_patient_visite',compact('patients'));}*/
     /**
      * Show the form for creating a new resource.
      *

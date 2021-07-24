@@ -2,26 +2,19 @@
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-5"><h4> <strong>Détails de la demande radiologique</strong></h4></div>
-    <div class="col-sm-7 pull-right"> {{-- <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}"--}}
-      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
-      </a>&nbsp;&nbsp;
-      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-    </div>
-  </div><hr>
-  <div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
+ 	<div class="row">
+	    	<div class="col-sm-5"><h4> <strong>Détails de la demande radiologique</strong></h4></div>
+	   	 <div class="col-sm-7 pull-right"> 
+	      	<a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+	      </a>&nbsp;&nbsp;
+		<a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+	    </div>
+ 	</div><hr>
 	<div class="row no-gutters">
 	  	<div class="col-lg-6">
 			<div class="row"><div class="col-sm-6"><label class="">Date :</label></div>
 			<div class="form-group col-sm-6">
-				    	<label class="blue">
-					      @if(isset($demande->consultation))
-						        {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
-						@else
-						       {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
-						@endif 
-					</label>
+				 <label class="blue">{{  (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</label>
 			</div>
 		  	</div>
 			<div class="row">

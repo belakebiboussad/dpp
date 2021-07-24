@@ -311,11 +311,7 @@ $('#typeexm').on('change', function() {
                 $('#matass').css('display','none'); $('#prof').css('display','block');$('#infoass').css('display','block');
                 $('#te').css('display','block');
           }
-  }
- function efface_formulaire() {
-           $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
-  }
- 
+  } /*function efface_formulaire() { $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false); }*/
 </script>
 <script>
   $('#users-table').DataTable({
@@ -334,35 +330,6 @@ $('#typeexm').on('change', function() {
           {data: 'action', name: 'action', orderable: false, searchable: false}
       ]
   });
-  $('#patient-table-atcd').DataTable({
-    processing: true,
-    serverSide: true,
-    ordering: true,
-    "bInfo" : false,
-    searching: false,
-    "language": {
-    "url": '/localisation/fr_FR.json'},
-    ajax: 'http://localhost:8000/getpatientatcd',
-    columns: [
-        {data: 'code_barre'},
-        {data: 'Nom'},
-        {data: 'Prenom'},
-        {data: 'Dat_Naissance'},
-        {data: 'Sexe'},
-        {data: 'Type'},
-        {data: 'Adresse'},
-        {data: 'Date_creation'},
-        {data: 'action2', name: 'action2', orderable: false, searchable: false},
-        {data: 'action', name: 'action', orderable: false, searchable: false}
-    ],
-    "columnDefs": 
-        [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-            }
-        ]
-});
 </script><!-- inline scripts related to this page -->
 <script type="text/javascript">
   $('.show-details-btn').on('click', function(e) {
@@ -700,4 +667,9 @@ $('#typeexm').on('change', function() {
       function htmlspecialchars(str) {
          return str.replace('&', '&amp;').replace('&quot;', '"').replace("'", '&#039;').replace('<', '&lt;').replace('>', '&gt;');
       }
+        $(function(){
+              $('.filter').change(function() {
+                      field = $(this).prop("id"); 
+                });
+       });
 </script>

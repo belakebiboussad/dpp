@@ -127,9 +127,9 @@
                                       <td class="center"></td>
                                       <td>{{ $consultation->Date_Consultation }}</td>
                                       <td>
-                                        @if($consultation->examensradiologiques->etat == "E")
+                                        @if($consultation->examensradiologiques->etat == null)
                                                <span class="badge badge-warning"> En Attente</span>
-                                        @elseif($consultation->examensradiologiques->etat == "V")
+                                        @elseif($consultation->examensradiologiques->etat == "1")
                                               <span class="badge badge-success">Validé</span>   
                                         @else
                                                 <span class="badge badge-danger">Rejeté</span>

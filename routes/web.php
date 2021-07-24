@@ -51,12 +51,7 @@ route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
 })->name('home_admin');
-route::get('/home_reception',function (){
-    return view('home.home_recep');
-})->name('home_rec');
-route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
-route::get('/home_admission','AdmissionController@index')->name('home_admission');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
@@ -81,10 +76,8 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/createConsultation','ConsultationsController@choix');
 Route::get('/choixpat','ConsultationsController@choix');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
-
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
 Route::get('/getRdvs','RdvHospiController@getRdvs');
-
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -92,7 +85,6 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-
 Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
@@ -110,7 +102,7 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
+Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
@@ -121,8 +113,6 @@ route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumn
 route::get('/getrdv','RDVController@getRDV');
 route::get('/getpatient','PatientController@getpatient');
 route::get('/getpatientcons','PatientController@getpatientconsult');
-route::get('/getpatientrdv','PatientController@getpatientrdv');
-route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
@@ -160,12 +150,8 @@ Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getlits','LitsController@getlits');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
-route::get('/home_reception',function (){
-    return view('home.home_recep');
-})->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
-route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
@@ -173,14 +159,11 @@ route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
-route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
-route::post('/uploadexr','DemandeExamenRadio@upload_exr');
+route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
 Route::post('store-file', 'DemandeExamenRadio@upload');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
-route::get('/homeradiologue',function(){
-    $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
-    return view('home.home_radiologue', compact('demandesexr'));
-})->name('homeradiologue');//Route::get('rendezVous/create/{id?}','RDVController@create');
+route::get('/drToPDF/{id}','DemandeExamenRadio@print');
+route::get('/searchImgRequests','DemandeExamenRadio@search');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
@@ -194,7 +177,7 @@ route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
-Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');//Route::post('/crrPrint','CRRControler@print')->name('crrprint');
+Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');

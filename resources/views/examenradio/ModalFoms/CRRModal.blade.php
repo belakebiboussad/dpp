@@ -11,12 +11,11 @@
      		    	<div class="row">
 			     	<div class="col-xs-12">
 			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span style="color: red">*</span></b></label>
-					    <textarea class="form-control" id="conclusion" rows="6" required></textarea>
+					<textarea class="form-control a" id="conclusion" rows="10" required></textarea>
 			      </div>	
 			    </div>
 			  </form>
 			</div>{{-- modal-body --}}
-			<div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>
 		  <div class="modal-footer">
         <button type="submit" class="btn btn-primary btn-sm" id="crrSave" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> {{--<button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
         <button type="button" class="btn btn-sm btn-success" onclick="CRRPrint()" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>

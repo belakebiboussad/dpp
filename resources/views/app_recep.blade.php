@@ -4,10 +4,9 @@
          <meta charset="utf-8">
          <meta http-equiv="X-UA-Compatible" content="IE=edge">
          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>@yield('title','Gestion des rendez-vous')</title>
+          <title>@yield('title','Gestion des Patients')</title>
          @yield('style')
-         <title>Gestion des Patients</title>
-         @include('partials.htmlheader')
+             @include('partials.htmlheader')
          @include('partials.scripts')   
    </head>
     <body class="no-skin">
@@ -34,7 +33,6 @@
                 <!-- /main-content-inner -->
             </div>
             <!-- /main-content -->
-
             @include('partials.footer')
         </div>
         <!-- /main-container -->
