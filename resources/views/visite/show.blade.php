@@ -1,4 +1,8 @@
 @extends('app')
+@section('style')
+<style>
+</style>
+@endsection
 @section('main-content')
 <?php 	$patient = $visite->hospitalisation->patient; $demande = $visite->demandExmImg;  ?> 
 <div class="page-header" width="100%">
@@ -247,18 +251,17 @@
 					</table> 
 					</div>
 				</div>
-				</div>
-				<div class="space-12"></div>
+				</div><div class="space-12"></div>
+				<div class="row"><div class="col-sm-6"> <label class="">Compte rendu radiologique :</label></div></div>
 				<div class="row">
-					<div class="col-sm-1 no-wrap"><label class="">CCR :</label></div>
 					<div class="form-group col-sm-6">
+					<textarea  disabled  cols="91" rows = "17" style="resize:none">
 						@foreach($visite->demandExmImg->examensradios as $index => $examen)
-							@isset($examen->pivot->crr_id)
-							{!! nl2br(e(App\modeles\CRR::FindOrFail($examen->pivot->crr_id)->conclusion)) !!}.
-					
-							
-							 @endisset
-						@endforeach
+								@isset($examen->pivot->crr_id)
+									{{ App\modeles\CRR::FindOrFail($examen->pivot->crr_id)->conclusion  }}
+								 @endisset
+								@endforeach
+						</textarea>
 					</div>
 				</div>
 			</div>

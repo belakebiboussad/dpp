@@ -138,7 +138,19 @@
 			      </div>
 			    </div>
 			  </div> 
-			</div>
+			</div><div class="space-12"></div>
+			<div class="row"><div class="col-sm-6"> <label class="">Compte rendu radiologique :</label></div></div>
+			<div class="row">
+					<div class="form-group col-sm-6">
+					<textarea  disabled  cols="91" rows = "5" style="resize:none">
+						@foreach($demande->examensradios as $index => $examen)
+								@isset($examen->pivot->crr_id)
+									{{ App\modeles\CRR::FindOrFail($examen->pivot->crr_id)->conclusion  }}
+								 @endisset
+								@endforeach
+						</textarea>
+					</div>
+				</div>
 		</div>
 		<div class="col-lg-6 container"  id="dicom"  hidden="true">@include('DICOM.show')</div>
 	</div>    
