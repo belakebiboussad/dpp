@@ -81,13 +81,13 @@
 												<td>{{ $exr->consultation->Date_Consultation }}</td>
 												<td>{{ $exr->consultation->docteur->Service->nom }}</td>
 												<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
-												<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}</td>
+												<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small></td>
 											@else
 												<td class="center">{{ $index + 1 }}</td>
 												<td>{{ $exr->visite->date }}</td>
 												<td>{{ $exr->visite->medecin->Service->nom }}</td>
 												<td>{{ $exr->visite->medecin->nom }} {{ $exr->visite->medecin->prenom }}</td>
-												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}</td>
+												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}<small class="text-warning">(Hospitalisation)</small></td>
 											@endif
 												<td>
 												

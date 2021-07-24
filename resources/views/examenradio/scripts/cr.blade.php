@@ -122,9 +122,9 @@
                     { data: null,
                                   render: function ( data, type, row ) {
                                       if(data.id_consultation != null)
-                                        return  row.consultation.patient.Nom + ' ' + row.consultation.patient.Prenom;
+                                        return  row.consultation.patient.Nom + ' ' + row.consultation.patient.Prenom+' <small class="text-primary">(Consultation)</small>';
                                       else
-                                        return row.visite.hospitalisation.patient.Nom + ' ' + row.visite.hospitalisation.patient.Prenom;
+                                        return row.visite.hospitalisation.patient.Nom + ' ' + row.visite.hospitalisation.patient.Prenom+' <small class="text-warning">(Hospitalisation)</small>';
                                       return data;  
                                   },title:'Patient',"orderable": true,
                     },

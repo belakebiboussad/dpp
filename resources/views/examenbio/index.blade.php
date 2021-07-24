@@ -84,12 +84,12 @@
 									{{ $demande->visite->date }}
 								@endif
 								</td>
-								<td>
+							              <td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small>
+									{{ $demande->consultation->docteur->Service->nom }} 
 								@else
-									{{ $demande->visite->hospitalisation->patient->Nom }} {{ $demande->visite->hospitalisation->patient->Prenom }} <small class="text-warning">(Hospitalisation)</small>
-								@endif
+									{{ $demande->visite->hospitalisation->medecin->Service->nom }}
+								@endif	
 								</td>
 								<td>
 								@if(isset($demande->id_consultation))
@@ -100,12 +100,11 @@
 								</td>
 								<td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->docteur->Service->nom }} 
+									{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small>
 								@else
-									{{ $demande->visite->hospitalisation->medecin->Service->nom }}
-								@endif	
+									{{ $demande->visite->hospitalisation->patient->Nom }} {{ $demande->visite->hospitalisation->patient->Prenom }} <small class="text-warning">(Hospitalisation)</small>
+								@endif
 								</td>
-								
 								<td>
 									@if($demande->etat == null)
 										 <span class="badge badge-success">En Cours</span>

@@ -110,13 +110,11 @@
     </div>
     <br>
     @if($demande->crb != null)
-    <div class="row">  
-      <div class="form-group">
-        <label class="col-sm-1 control-label no-padding-right"><strong>&nbsp;Compte rendu :</strong></label>  
-        <div class="col-sm-11">
-          <textarea class="form-control" disabled rows="4">{{ $demande->crb}}</textarea>
+      <div class="row"><div class="col-sm-6"> <label class="">Compte rendu biologique :</label></div></div>
+       <div class="row">   
+            <div class="col-sm-12">
+                  <textarea class="form-control" disabled rows="4">{{ $demande->crb}}</textarea>
         </div>
-    </div>
     </div>
     @endif
   </div>
