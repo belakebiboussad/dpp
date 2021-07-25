@@ -593,13 +593,13 @@
 		@endif
 		</div><!-- 		<div id="prompt"></div> -->
 		<div class="tabpanel">
-			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
+			<ul class = "nav nav-pills nav-justified list-group" role="tablist">
 				<li role= "presentation" class="active col-md-4">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
 				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
 				  </a>
 				</li>
-				<li role= "presentation"  class="col-md-4">
+				<li role= "presentation" class="col-md-4">
 					<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
 						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>

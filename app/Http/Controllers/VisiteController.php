@@ -92,8 +92,7 @@ class VisiteController extends Controller
         $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
         $demandeExImg->Explecations = $request->explication;
         $demandeExImg->visite_id = $request->id;
-        
-        $visite->examensradiologiques()->save($demandeExImg);
+        $visite->demandExmImg()->save($demandeExImg);
         if(isset($request->infos))
         {
           foreach ($request->infos as $id_info) {

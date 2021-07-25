@@ -29,4 +29,15 @@ class demandeexr extends Model
         {
           return $this->belongsTo('App\modeles\visite','visite_id');
         }
+        public function hasCCR()
+        {
+          foreach($this->examensradios as $examen)
+          {
+            if(isset($examen->pivot->crr_id))
+            {
+              return true;       
+            }
+          }  
+          return false;
+        }
 }

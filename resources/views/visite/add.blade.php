@@ -428,7 +428,7 @@
 			</div><!-- tab-content -->
 			</div>
 		</div><!-- tabpanel -->
-		<div class="hr hr-dotted"></div><div class="space-12"></div><br>
+		<div class="hr hr-dotted"></div><div class="space-12 hidden-xs"></div>
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
@@ -439,12 +439,8 @@
 		</div>	
 	</form>
 	<div class="row">@include('visite.ModalFoms.acteModal')</div>
-
 	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
-
 	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-
 	<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
-
-  	</div>
+ </div>
   @endsection

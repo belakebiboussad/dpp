@@ -167,23 +167,23 @@ class DemandeExbController extends Controller
     }
     public function print($id)
     {
-              $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
-              $etablissement = Etablissement::first();
-              if(isset($demande->id_consultation))
-              {
-                $patient = $demande->consultation->patient ;
-                $date = $demande->consultation->Date_Consultation ;
-                $medecin = $demande->consultation->docteur;
+      $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
+      $etablissement = Etablissement::first();
+      if(isset($demande->id_consultation))
+      {
+        $patient = $demande->consultation->patient ;
+        $date = $demande->consultation->Date_Consultation ;
+        $medecin = $demande->consultation->docteur;
 
-              }  else
-              {
-                $patient = $demande->visite->hospitalisation->patient ;
-                $date = $demande->visite->date;
-                $medecin = $demande->visite->medecin;
-              }
-              $filename = "Examens-Bio-".$patient->Nom."-".$patient->Prenom.".pdf";
-              $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','patient','date','etablissement','medecin'));
-              return $pdf->stream($filename);
+      }  else
+      {
+        $patient = $demande->visite->hospitalisation->patient ;
+        $date = $demande->visite->date;
+        $medecin = $demande->visite->medecin;
+      }
+      $filename = "demandeExamensBio-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','patient','date','etablissement','medecin'));
+      return $pdf->stream($filename);
     }
     public function downloadcrb($id)
     {

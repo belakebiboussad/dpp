@@ -15,8 +15,8 @@
 						<tr>
 							<th class="">Date</th>
 							<th class ="center sorting_disabled">Médecin</th>
-							<th class ="center sorting_disabled">Actes</th>
-							<th class ="center sorting_disabled">Traitements</th>
+							<th class ="center sorting_disabled">Actes(nbr)</th>
+							<th class ="center sorting_disabled">Traitements(nbr)</th>
 							<th class ="center sorting_disabled">Examens Biologique</th>
 							<th class ="center sorting_disabled">Examens Imageries</th>
 							<th class="center sorting_disabled"><em class="fa fa-cog"></em></th>
@@ -25,27 +25,42 @@
 					<tbody>
 					 @foreach($hosp->visites as $visite)
 					<tr  role="row" class="even">
-						 <td>{{ $visite->date }}</td>
-						 <td class ="center sorting_disabled">{{ $visite->medecin->nom }}&nbsp;{{ $visite->medecin->prenom }}</td>
-						<td class="text-primary">
-						 	@foreach($visite->actes as $acte)
-						 		{{ $acte->nom }} <br>
-						 	@endforeach
-						 </td>
-						 <td class="text-primary">
-							@foreach($visite->traitements as $trait)
-								{{ $trait->medicament->nom }} <br>
-							@endforeach
-						 </td>
-						 <td>
-						 @if(isset($visite->demandeexmbio))
-							 @foreach($visite->demandeexmbio->examensbios as $index => $exm)
-							 	{{ $exm->nom }}
-							 	@if(! $loop->last)  , @endif
-							 @endforeach 
-						@endif  
-						 </td>
-						 <td></td>
+						<td>{{ $visite->date }}</td>
+						<td class ="center sorting_disabled">{{ $visite->medecin->nom }}&nbsp;{{ $visite->medecin->prenom }}</td>
+						<td class="text-primary center">{{--@foreach($visite->actes as $acte){{ $acte->nom }}<br>@endforeach --}}
+						 	@if($visite->actes->count() >0 )
+							 	{{ $visite->actes->count()}}
+						 	@endif
+						</td>
+						<td class="text-primary center">{{-- @foreach($visite->traitements as $trait){{ $trait->medicament->nom }}<br>@endforeach --}}
+							@if($visite->traitements->count() >0 )
+							 	{{ $visite->traitements->count()}}
+						 	@endif
+						</td>
+						<td>
+					 		@if(isset($visite->demandeexmbio))
+								@if($visite->demandeexmbio->etat == null)
+									<span class="badge badge-success">En Cours
+								@elseif($demande->etat == 1)
+									<span class="badge badge-primary">Validé	
+								@elseif($demande->etat == 0)
+									<span class="badge badge-warning">Rejeté
+								@endif
+								</span>
+						  @endif  
+						</td>
+						<td>
+					   	@if(isset($visite->demandExmImg))
+						   	@if($visite->demandExmImg->etat == null)
+									<span class="badge badge-success">En Cours
+								@elseif($demande->etat == 1)
+									<span class="badge badge-primary">Validé	
+								@elseif($demande->etat == 0)
+									<span class="badge badge-warning">Rejeté
+								@endif
+								</span>
+					 	  @endif 
+						</td>
 						<td class="center sorting_disabled"><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
 					</tr>
 					@endforeach 

@@ -5,12 +5,9 @@
 <div class="pull-right">
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row">
-	<div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div>
-</div>
-
+<div class="row"><div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div></div>
 <div class="tabbable"  class="user-profile">
-	<ul class="nav nav-tabs padding-18">
+  <ul class = "nav nav-pills nav-justified list-group" role="tablist">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
 		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
@@ -133,7 +130,7 @@
 			</div>
 		</div>
 		@endif
-		</div>	{{-- tab-pane --}}
+		</div>{{-- tab-pane --}}
 		<div id="visites" class="tab-pane in"><div class="row">@include('visite.liste')</div></div>
 		<div id="constantes" class="tab-pane">
 			<div class="row">

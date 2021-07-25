@@ -71,7 +71,7 @@
                                                      @foreach($demande->examensbios as $index => $exm)
                                                             <tr>
                                                               <td class="center">{{ $index + 1 }}</td>
-                                                              <td>{{ $exm->nom_examen }}</td>
+                                                              <td>{{ $exm->nom }}</td>
                                                               <td>{{ $exm->Specialite->specialite }}</td>
                                                               @if($loop->first)
                                                               <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">

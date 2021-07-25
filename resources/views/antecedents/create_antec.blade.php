@@ -10,7 +10,7 @@
         	</div>
         	<div class= "col-md-6 col-xs-6">
         		<div class="widget-box widget-color-GhostWhite  ui-sortable-handle" id="widget-box-11" >
-        		     <div class="widget-header" >
+        		     <div class="widget-header">
                         <h6 class="widget-title">
                         	<font color="black">
                         		<b>Antecedents</b>

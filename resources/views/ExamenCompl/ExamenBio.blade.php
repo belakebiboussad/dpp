@@ -24,7 +24,7 @@
 		             <div class="checkbox">
 		                  <label>
 		  		                <input name="exm[]" type="checkbox" class="ace" value="{{ $exbio->id }}" />
-		       			     <span class="lbl">{{ $exbio->nom_examen }} </span> 
+		       			     <span class="lbl">{{ $exbio->nom }} </span> 
 		                  </label>
 		             </div>
 		        </div>

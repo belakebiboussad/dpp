@@ -26,7 +26,7 @@ class visite extends Model
   }
   public function demandExmImg()//examensradiologiques
   {
-      return $this->hasOne('App\modeles\demandeexr','visite_id');
+    return $this->hasOne('App\modeles\demandeexr','visite_id');
   }
   public function medecin(){
     return $this->belongsTo('App\modeles\employ','id_employe');

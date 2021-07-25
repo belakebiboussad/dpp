@@ -155,8 +155,8 @@
 	</div><!-- / col-sm-6-->		
 	<div id="" class="col-sm-6 col-xs-6">	
 		@if($assure->patients->count() >0)
-		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-			<div class="widget-box widget-color-blue" id="widget-box-2">
+		<div class="col-xs-12 widget-container-col">
+			<div class="widget-box widget-color-blue">
 				<div class="widget-header">
 					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ayants droits</h5>
 						<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}

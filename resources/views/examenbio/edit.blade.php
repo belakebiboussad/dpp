@@ -27,7 +27,7 @@
                     @foreach($demande->examensbios as $index => $exm)
                       <tr>
                         <td class="center">{{ $index + 1 }}</td>
-                        <td>{{ $exm->nom_examen }}</td>
+                        <td>{{ $exm->nom }}</td>
                         <td class="center">
                            <?php $id = $exm->id.'|'.$demande->id ?>
                            <form method="POST" action="{{ route('exmbio.destroy', [ 'id'=>$id]) }}">
