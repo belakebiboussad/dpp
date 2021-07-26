@@ -134,8 +134,7 @@ Route::any('/profile/{userId}', [
     ]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
-Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
+Route::post('AddANTCD','AntecedantsController@createATCDAjax');//Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsArray');

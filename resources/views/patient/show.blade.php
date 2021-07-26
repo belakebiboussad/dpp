@@ -85,12 +85,9 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 	})
   });
  /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
-      e.preventDefault();//Clear out old row's color
-      	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-	    if(e.keyCode == 38){selectedRow--;     } else if(e.keyCode == 40){//  selectedRow++;
-	    }	    if(selectedRow >= rows.length){// selectedRow = 0;
-	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
-	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";*/
+      e.preventDefault();//Clear out old row's color 	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
+	    if(e.keyCode == 38){selectedRow--; } else if(e.keyCode == 40){selectedRow++;} if(selectedRow >= rows.length){// selectedRow = 0;
+	     } else if(selectedRow < 0){// selectedRow = rows.length-1; }//Set new row's color rows[selectedRow].style.backgroundColor = "#8888FF";showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";*/
 </script>
 @endsection
 @section('main-content')
@@ -109,39 +106,48 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Informations administratives</strong></a>
 				</li>
 				@if(in_array(Auth::user()->role_id,[1,14]))
-				<li>
-					 <a data-toggle="tab" href="#Ants">
-					 	<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antécédents</span>&nbsp;<span class="badge badge-primary">
-					 	{{$patient->antecedants->count() }}</span>
-					</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#Cons">
-						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;
-						<span class="badge badge-warning">{{ $patient->consultations->count() }}</span>
-					</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#Hosp"><i class="pink ace-icon fa fa-h-square bigger-120"></i>
-						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $patient->hospitalisations->count() }}</span>
-					</a>
-				</li>
-				@endif
-
+					@if( $patient->antecedants->count() >0)
+					<li>
+						 <a data-toggle="tab" href="#Ants">
+						 	<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antécédents</span>&nbsp;<span class="badge badge-primary">
+						 	{{ $patient->antecedants->count() }}</span>
+						</a>
+					</li>
+					@endif
+					<li>
+						<a data-toggle="tab" href="#Cons">
+							<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;
+							<span class="badge badge-warning">{{ $patient->consultations->count() }}</span>
+						</a>
+					</li>
+					@if( $patient->hospitalisations->count() >0 )
+					<li>
+						<a data-toggle="tab" href="#Hosp"><i class="pink ace-icon fa fa-h-square bigger-120"></i>
+							Hospitalisations&nbsp;<span class="badge badge-pink">{{ $patient->hospitalisations->count() }}</span>
+						</a>
+					</li>
+					@endif
+				@endif	
+				@if( $rdvs->count() > 0 )
 				<li><a data-toggle="tab" href="#rdvs">
 					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
 				</li>
+				@endif
 				@if (!is_null($correspondants))
-				<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Homme de confiance</strong></a></li>
+					<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Homme de confiance</strong></a></li>
 				@endif
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
+				@if( $patient->antecedants->count() >0 )
 				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div>
+				@endif
 				<div id="Cons" class="tab-pane">@include('consultations.liste')</div>
-				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
+				@if( $patient->hospitalisations->count() >0 )
 				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div>
+				@endif
+				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
 				<div id="homme_conf" class="tab-pane">
 				<div class="row">@include('corespondants.widget')</div>
 				<div class="row">@include('corespondants.add')</div>

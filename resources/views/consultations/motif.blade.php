@@ -1,8 +1,3 @@
-{{-- <div class="row">		
-	<div class="form-group"><!-- padding-left -->
-		<input  type="checkbox" id="isOriented" name="isOriented" class="ace input-lg"/><span class="lbl lighter red"> <strong>Patient orienté</strong></span>
-	</div>		
-</div> --}}
 <div class="row">
 	 <div class="col-md-4"></div>
 	 <div class="col-md-8"><input  type="checkbox" id="isOriented" name="isOriented" class="ace input-lg"/><span class="lbl lighter red"> <strong>Patient orienté</strong></span></div>

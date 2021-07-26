@@ -553,13 +553,10 @@
                 <div class="page-content">
                   @include('flashy::message')
               	  @yield('main-content')
-                </div>
-                <!-- /page-content -->
-            </div>
-            <!-- /main-content-inner -->
+                </div><!-- /page-content -->
+            </div><!-- /main-content-inner -->
         </div><!-- /main-content -->
-        <div>
-            {{-- @include('partials.footer') --}}
+        <div>{{-- @include('partials.footer') --}}
         </div>
     </div><!-- /main-container -->
 </body>

@@ -2,9 +2,7 @@
 @section('main-content')
 <div class="page-header">
 		<h1 style="display: inline;"><strong>Liste Des Consignes:</strong> </h1>
-		<div class="pull-right">
-			
-		</div>
+		<div class="pull-right"></div>
 </div>
 <div class="row">
 	<div class="col-xs-12">

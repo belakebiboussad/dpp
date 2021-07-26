@@ -19,13 +19,13 @@
       }
        function header(doc)
       {      
-             doc.setFontSize(40);
-              doc.setTextColor(40);
-            doc.setFontStyle('normal');
-              if (base64Img) {
-                doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
+        doc.setFontSize(40);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+            if (base64Img) {
+              doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
          }
-        doc.line(3, 92, margins.width + 43,92); // horizontal line
+        doc.line(10, 95, margins.width + 33,95); // horizontal line
       }
        function headerFooterFormatting(doc, totalPages)
       {
@@ -42,25 +42,25 @@
             doc.setTextColor(40);
             doc.setFontStyle('normal');
             if (footer64Img) {
-                    doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 30, 540,30);       
+                    doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
              } 
       }
       function generate()
       {
-             var pdf = new jsPDF('p', 'pt', 'a4');
-             pdf.setFontSize(18);
-             pdf.fromHTML(document.getElementById('pdfContent'), 
-            margins.left, // x coord
-            margins.top,
-            {
-                    width: margins.width// max width of content on PDF
-            },function(dispose) {
-                    headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-            }, 
-           margins);
-           iframe =document.getElementById('ipdf');
-            iframe.src = pdf.output('datauristring'); 
-            $("#crrModal").modal(); 
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.setFontSize(18);
+        pdf.fromHTML(document.getElementById('pdfContent'), 
+        margins.left, // x coord
+        margins.top,
+        {
+                width: margins.width// max width of content on PDF
+        },function(dispose) {
+                headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+        }, 
+        margins);
+        iframe =document.getElementById('ipdf');
+        iframe.src = pdf.output('datauristring'); 
+        $("#crrModal").modal(); 
       }
         function getRequests(url,field,value)
       {

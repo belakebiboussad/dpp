@@ -18,7 +18,8 @@
 		         		<div class="row">
 				         	<div class="col-sm-12">
 			           		<div class="form-group">
-					          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label> {{-- onchange="getMedecinsSpecialite($(this).val());" --}}
+					          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>
+					          	 {{-- onchange="getMedecinsSpecialite($(this).val());" --}}
 		                		<select class="form-control" id="specialite" name="specialite" required>
 	                       	<option value="" selected disabled> Selectionner...</option>
 	                       	@foreach($specialites as $specialite)

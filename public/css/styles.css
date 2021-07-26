@@ -1,4 +1,10 @@
 @import url('/css/bootstrap.min.css');
+.tab-content>.tab-pane {
+    display: none;
+}
+.tab-content>.active {
+  display: block;
+}
 .removeButton{
   margin-bottom: 2px;
   margin-left: 0px;

@@ -38,14 +38,14 @@ class DemandeExamenRadio extends Controller
       $etablissement = Etablissement::first();
       if(isset($demande->consultation))
       {
-              $medecin =  $patient = $demande->consultation->docteur ;     
-             $patient = $demande->consultation->patient;
-             $date =$demande->consultation->Date_Consultation ;
+        $medecin =  $patient = $demande->consultation->docteur ;     
+        $patient = $demande->consultation->patient;
+        $date =$demande->consultation->Date_Consultation ;
       }else
       {
-            $medecin =  $patient = $demande->visite->medecin ;   
-            $patient = $demande->visite->hospitalisation->patient;
-             $date = $demande->visite->date;
+        $medecin =  $patient = $demande->visite->medecin ;   
+        $patient = $demande->visite->hospitalisation->patient;
+        $date = $demande->visite->date;
       }
       return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));
     }
@@ -53,30 +53,30 @@ class DemandeExamenRadio extends Controller
     {
        $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
        if($request->TotalFiles >0) { 
-              if(isset($demande->visite))
-                    $patient = $demande->visite->hospitalisation->patient;
-              else
-                     $patient = $demande->consultation->patient;
-              foreach ($demande->examensradios as $key => $exam)
-              {
-                    if( $exam->pivot->id_examenradio == $request->id_examenradio)
-                    {
-                          for ($x = 0; $x < $request->TotalFiles; $x++) 
+          if(isset($demande->visite))
+            $patient = $demande->visite->hospitalisation->patient;
+          else
+            $patient = $demande->consultation->patient;
+          foreach ($demande->examensradios as $key => $exam)
+          {
+            if( $exam->pivot->id_examenradio == $request->id_examenradio)
+            {
+                  for ($x = 0; $x < $request->TotalFiles; $x++) 
+                  {
+                          if ($request->hasFile('files'.$x)) 
                           {
-                                  if ($request->hasFile('files'.$x)) 
-                                  {
-                                        $file = $request->file('files'.$x);
-                                        $namefile = $file->getClientOriginalName();
-                                        $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                                        $data[] = $namefile;
-                                  }
-                           }
-                          $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
-                          $exam->pivot->etat = 1;
-                          $exam->pivot->save();
-                    }
-              }
-              return Response()->json([ "rowID" => $request->id_examenradio, ]);
+                                $file = $request->file('files'.$x);
+                                $namefile = $file->getClientOriginalName();
+                                $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                                $data[] = $namefile;
+                          }
+                   }
+                  $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
+                  $exam->pivot->etat = 1;
+                  $exam->pivot->save();
+            }
+          }
+          return Response()->json([ "rowID" => $request->id_examenradio, ]);
       }//if
     }
       public function examCancel(Request $request)

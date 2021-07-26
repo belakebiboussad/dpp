@@ -206,7 +206,6 @@
             }
          });             
       }
-/*function getProducts(id_gamme, id_spec=0,med_id = 0){var html = '<option value="0">Sélectionner...</option>';$.ajax({url : '/getproduits/'+id_gamme+'/'+id_spec,type : 'GET',dataType : 'json',success : function(data){$.each(data, function(){html += "<option value='"+this.id+"'>"+this.nom+"</option>";});$('#produit').html(html);if(med_id != 0) $('#produit').val(med_id);},error : function(){console.log('error');}});}*/
       function addCIMCode(code,field)
       {
         $("#"+field).val(code);
@@ -224,14 +223,14 @@
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
          $("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');
-      }); 
-      $("#bioExamsPdf").removeClass('invisible'); 
+      });  // $("#bioExamsPdf").removeClass('invisible'); 
+      $('#bioExamsPdf').removeAttr('hidden');
       var element = document.getElementById('bioExamsPdf');
       var options = {
         filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'
       };
-      var exporter = new html2pdf(element, options);
-      $("#bioExamsPdf").addClass('invisible');
+      var exporter = new html2pdf(element, options); // $("#bioExamsPdf").addClass('invisible');
+      $("#bioExamsPdf").attr("hidden",true);
       exporter.getPdf(true).then((pdf) => {
         console.log('pdf file downloaded');
       });
@@ -244,13 +243,13 @@
     {
       $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
       $('#imgExams tr').find('th:last-child, td:last-child').remove()
-      $("#imagExamsPdf").removeClass('invisible'); 
-       var element = document.getElementById('imagExamsPdf');
-       var options = {
-              filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
-        };
-       var exporter = new html2pdf(element, options);
-      $("#imagExamsPdf").addClass('invisible');
+      $('#imagExamsPdf').removeAttr('hidden');
+      var element = document.getElementById('imagExamsPdf');
+      var options = {
+          filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
+      };
+      var exporter = new html2pdf(element, options);//$("#imagExamsPdf").addClass('invisible');
+      $("#imagExamsPdf").attr("hidden",true);
       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
                console.log('pdf file downloaded');
        });
@@ -285,25 +284,24 @@
             champ.appendTo(form);
       }
       function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-            $("#OrientLetterPdf").removeClass('invisible');
-            $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-            $("#motifCons").text($( "#motifC" ).val());
-            $("#motifO").text($( "#motifOrient" ).val());
-            var element = document.getElementById('OrientLetterPdf');
-            var options = {
-                   filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-             };
-             var exporter = new html2pdf(element, options);
-             $("#OrientLetterPdf").addClass('invisible');
-             exporter.getPdf(true).then((pdf) => {
-                    console.log('pdf file downloaded');
-            });
-             exporter.getPdf(false).then((pdf) => {
-                    console.log('doing something before downloading pdf file');
-                   pdf.save();
-            });
+        $('#OrientLetterPdf').removeAttr('hidden');
+        $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+        $("#motifCons").text($( "#motifC" ).val());
+        $("#motifO").text($( "#motifOrient" ).val());
+        var element = document.getElementById('OrientLetterPdf');
+        var options = {
+               filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+        };
+        var exporter = new html2pdf(element, options);
+        $("#OrientLetterPdf").attr("hidden",true);
+         exporter.getPdf(true).then((pdf) => {
+                console.log('pdf file downloaded');
+        });
+         exporter.getPdf(false).then((pdf) => {
+                console.log('doing something before downloading pdf file');
+               pdf.save();
+        });
       }
-        
       function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();

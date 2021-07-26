@@ -17,8 +17,7 @@ class EmployeController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()  {       //
-    }
+    // public function index()  { }
     /**
      * Show the form for creating a new resource.
      *
@@ -109,10 +108,5 @@ class EmployeController extends Controller
        * @param  \App\modeles\employ  $employ
        * @return \Illuminate\Http\Response
        */
-     // public function destroy(employ $employ)     {      }
-      public function searchBySpececialite(Request $request) 
-       {
-             $doctors =  (specialite::FindOrFail($request->specialiteId))->employes;
-              return Response::json($doctors);
-      }
+/*public function searchBySpececialite(Request $request){$doctors =  (specialite::FindOrFail($request->specialiteId))->employes;return Response::json($doctors);}
 }

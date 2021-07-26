@@ -15,8 +15,6 @@
 						<tr>
 							<th class="">Date</th>
 							<th class ="center sorting_disabled">Médecin</th>
-							<th class ="center sorting_disabled">Actes(nbr)</th>
-							<th class ="center sorting_disabled">Traitements(nbr)</th>
 							<th class ="center sorting_disabled">Examens Biologique</th>
 							<th class ="center sorting_disabled">Examens Imageries</th>
 							<th class="center sorting_disabled"><em class="fa fa-cog"></em></th>
@@ -27,17 +25,7 @@
 					<tr  role="row" class="even">
 						<td>{{ $visite->date }}</td>
 						<td class ="center sorting_disabled">{{ $visite->medecin->nom }}&nbsp;{{ $visite->medecin->prenom }}</td>
-						<td class="text-primary center">{{--@foreach($visite->actes as $acte){{ $acte->nom }}<br>@endforeach --}}
-						 	@if($visite->actes->count() >0 )
-							 	{{ $visite->actes->count()}}
-						 	@endif
-						</td>
-						<td class="text-primary center">{{-- @foreach($visite->traitements as $trait){{ $trait->medicament->nom }}<br>@endforeach --}}
-							@if($visite->traitements->count() >0 )
-							 	{{ $visite->traitements->count()}}
-						 	@endif
-						</td>
-						<td>
+						<td class="center">
 					 		@if(isset($visite->demandeexmbio))
 								@if($visite->demandeexmbio->etat == null)
 									<span class="badge badge-success">En Cours
@@ -49,7 +37,7 @@
 								</span>
 						  @endif  
 						</td>
-						<td>
+						<td class="center">
 					   	@if(isset($visite->demandExmImg))
 						   	@if($visite->demandExmImg->etat == null)
 									<span class="badge badge-success">En Cours

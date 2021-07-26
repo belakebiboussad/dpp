@@ -594,7 +594,7 @@
 		</div><!-- 		<div id="prompt"></div> -->
 		<div class="tabpanel">
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist">
-				<li role= "presentation" class="active col-md-4">
+				<li role= "presentation" class="col-md-4 in active">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
 				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
 				  </a>
@@ -609,8 +609,8 @@
 					</a>
 				</li>
 			</ul>
-			<div class ="tab-content"  style = "border-style: none;">
-				<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
+			<div class ="tab-content no-border"><!-- tyle = "border-style: none;" -->
+				<div role="tabpanel" class = "tab-pane active" id="Interogatoire">@include('consultations.Interogatoire')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>  
 			</div>
@@ -640,7 +640,7 @@
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
 <div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
-<div class="row"><div id="OrientLetterPdf" class="invisible">@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
-<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+<div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
+<div class="row"><div id="bioExamsPdf" hidden> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+<div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
 @endsection
