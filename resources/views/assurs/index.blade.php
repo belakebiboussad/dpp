@@ -46,7 +46,7 @@
 				<div class="panel-heading left">
 					<H5><strong>Rechercher un fonctionnaire</strong></H5>
 					@if(in_array(Auth::user()->role->id,[1,2,13,14]))
-					<div class="pull-right"><!-- style ="margin-top:-0.5%;" -->
+					<div class="pull-right">
 						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 					</div>
 					  @endif

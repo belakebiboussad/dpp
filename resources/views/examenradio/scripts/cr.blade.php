@@ -117,7 +117,7 @@
                                     else
                                       return row.visite.hospitalisation.medecin.nom + ' ' + row.visite.hospitalisation.medecin.prenom;
                                     return data;  
-                                  },title:'Médecin traitant',"orderable": false,
+                                  },title:'Médecin demandeur',"orderable": false,
                     },
                     { data: null,
                                   render: function ( data, type, row ) {

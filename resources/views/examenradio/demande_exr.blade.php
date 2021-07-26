@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><strong>Demande d'examen(s) biologique(s)</strong></title>
+  <title><strong>Demande d'examen(s) radiologique(s)</strong></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/styles.css">

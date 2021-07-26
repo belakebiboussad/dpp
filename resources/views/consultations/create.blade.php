@@ -573,10 +573,8 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header" width="100%">
-	<div class="row"><div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')</div></div>
-</div>
-<div class="content">
+<div class="container-fluid">
+	<div class="row"><div class="col-sm-12  mt-2p">@include('patient._patientInfo')</div></div>
 	<div class="row">
 	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}

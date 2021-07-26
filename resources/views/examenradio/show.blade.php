@@ -1,67 +1,80 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-	<div class="row" width="100%">@include('patient._patientInfo')</div>
+	<div class="row"><div class="col-sm-12  mt-2p">@include('patient._patientInfo')</div></div>
 	<div class="row">
 	 	<div class="col-sm-5"><h4> <strong>Détails de la demande radiologique</strong></h4></div>
-  	<div class="col-sm-7 pull-right"> 
+  		<div class="col-sm-7 pull-right"> 
    		<a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
-    	</a>&nbsp;&nbsp;
-			<a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-  	</div>
+    		</a>&nbsp;&nbsp;
+		<a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+  		</div>
  	</div><hr>
-  <div class="row no-gutters">
- 		<div class="col-lg-6">
-			<div class="row"><div class="col-sm-6"><label class="">Date :</label></div>
-				<div class="form-group col-sm-6">
-					<label class="blue">{{  (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</label>
+  	<div class="row ">
+ 		<div class="col-sm-6">
+	  		<div class="row">
+				<div class="form-group">		
+					<label class="col-sm-6 control-label no-padding-right" for=""><strong>Date :</strong></label>
+					<div class="col-sm6 col-xs-6">
+						 <label class="blue">{{  (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</label>
+					</div>
 				</div>
-	  	</div>
+			</div>
+	  		<div class="row">
+				<div class="form-group">		
+					<label class="col-sm-6 control-label no-padding-right" for=><strong>Médecin demandeur :</strong></label>
+					<div class="col-sm6 col-xs-6">
+						 <label class="blue">
+							@if(isset($demande->consultation))
+			     					 {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
+			      				@else
+			       				{{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
+			      				@endif
+						 </label>
+					</div>
+				</div>
+			</div>	
 			<div class="row">
-				<div class="col-sm-6"> <label>Médecin demandeur :</label></div>
-		    	<div class="form-group col-sm-6">
-		    			<label class="blue">
-		      				@if(isset($demande->consultation))
-		     					 {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
-		      				@else
-		       				{{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
-		      				@endif
-		      			</label>
-		    		</div>
-	  	</div>
-	  	<div class="row"><div class="col-sm-6"><label class="">Informations cliniques pertinentes :</label></div>
-		  	<div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label> </div>
+				<div class="form-group">		
+					<label class="col-sm-6 control-label no-padding-right" for=""><strong>Informations cliniques pertinentes :</strong></label>
+					<div class="col-sm6 col-xs-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
+				</div>
 			</div>
-			<div class="row"><div class="col-sm-6"> <label class="">Explication de la demande de diagnostic :</label></div>
-		    <div class="form-group col-sm-6"><label class="blue">{{ $demande->Explecations }}</label> </div>
+			<div class="row">
+				<div class="form-group">		
+					<label class="col-sm-6 control-label no-padding-right" for=""><strong>Explication de la demande de diagnostic  :</strong></label>
+					<div class="col-sm6 col-xs-6"><label class="blue">{{ $demande->Explecations }}</label></div>
+				</div>
 			</div>
-			<div class="row"><div class="col-sm-6"><label class="">Informations supplémentaires pertinentes :</label> </div>
-		    <div class="form-group col-sm-6">
-		     	<label class="blue">
-		     	 <ul class="list-inline"> 
-		        @foreach($demande->infossuppdemande as $index => $info)
-		            <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-		         @endforeach
-		        </ul>    
-		     	</label>
-		    </div>
+			<div class="row">
+				<div class="form-group">		
+					<label class="col-sm-6 control-label no-padding-right" for=""><strong>Informations supplémentaires pertinentes :</strong></label>
+					<div class="col-sm6 col-xs-6"><label class="blue">
+						<ul class="list-inline"> 
+					        @foreach($demande->infossuppdemande as $index => $info)
+					            <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>&nbsp;
+					         @endforeach
+					        </ul></label>
+					</div>
+				</div>
 			</div>
-		  <div class="row">	
-		    <div class="col-sm-12">
-		      <ul class = "nav nav-pills nav-justified list-group" role="tablist">
-			  		<li class="nav-item active" role= "presentation">
+		 	 <div class="row">	
+		    	<div class="col-sm-12">
+		    		<div class="tabpanel">	
+		     		<ul class = "nav nav-pills nav-justified list-group" role="tablist">
+			  		<li class="active" role= "presentation">
 			  			<a href="#exams" role="tab" data-toggle="tab">
-						<h5><i class="fa fa-image  fa-1x"></i>&nbsp;<strong>Examens Radilogique</strong></h5>
+						<i class="fa fa-image  fa-1x"></i>&nbsp;<strong>Examens Radilogique</strong>
 						</a></li>
-						@if($demande->hasCCR())
-			 			<li class="nav-item" role="presentation">
-			 				<a href="#crr" role="tab" data-toggle="tab"><h5><i class="fa fa-file fa-1x" aria-hidden="true"></i>&nbsp;
-			  				<strong>Compte rendu radiologique </strong></h5>
+				 		@if($demande->hasCCR())
+			 			<li  role="presentation">
+			 				<a href="#crr" role="tab" data-toggle="tab"><i class="fa fa-file fa-1x" aria-hidden="true"></i>&nbsp;
+			  				<strong>Compte rendu radiologique </strong>
 			  			</a>
 			  		</li>
 			  		@endif
 			 		</ul>
-			 		<div class="tab-content" style="border:none">
+			 		<div class="tab-content  no-border">
 		  			<div class="tab-pane noborders in active" id="exams">
 			  			<div class="col-xs-12 widget-container-col">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -86,7 +99,7 @@
 				               	@foreach ($demande->examensradios as $index => $examen)
 				                 <tr id = "{{ $examen->id }}">
 				                  <td class="center" width="5%">{{ $index }}</td>
-				                  <td>{{ $examen->nom }}</td>
+				                  <td  class="align-left">{{ $examen->nom }}</td>
 				                  <td>
 				                    <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
 				                    @foreach($exams as $id)
@@ -94,11 +107,11 @@
 				                    @endforeach
 				                  </td>
 				                  <td >
-				                  <table width="100%" height="100%" class="table">
+				                  <table width="100%" height="100%">
 				                  	@if($examen->pivot->etat == "1")
 				                      @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
 				                      <tr>
-				                        <td><i class="fa fa-file" aria-hidden="true"></i>&nbsp;{{ $f }}</td>
+				                        <td class="align-left"><i class="fa fa-file" aria-hidden="true"></i>&nbsp;{{ $f }}</td>
 				                      </tr>
 				                      @endforeach
 				                    @endif
@@ -176,10 +189,12 @@
 					</div><!-- tab-pane -->
 					@endif
 					</div><!-- tab-content -->
+					</div>{{-- tabpanel --}}
+
 		 		 </div>
 			</div><!-- row -->
 		</div><!-- col-lg-6 -->
-		<div class="col-lg-6 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
+		<div class="col-sm-6 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
 	</div><!-- row no-gutters -->
 </div><!-- container-fluid -->
 @endsection

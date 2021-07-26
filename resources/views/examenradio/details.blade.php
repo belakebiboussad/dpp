@@ -213,12 +213,7 @@ function CRRSave()
           }
         })
     });
-    $(".open-AddCRRDialog").click(function () {
-        $('#examId').val($(this).data('id'));
-        jQuery('#CRRForm').trigger("reset");
-        jQuery('#crrSave').val("add");
-        $('#addCRRDialog').modal('show');
-    });
+/* $(".open-AddCRRDialog").click(function () { $('#examId').val($(this).data('id'));  jQuery('#CRRForm').trigger("reset"); jQuery('#crrSave').val("add"); $('#addCRRDialog').modal('show'); });*/
       $(".open-editCRRDialog").click(function (event) {
               event.preventDefault();
               $('#examId').val($(this).data('id'));
@@ -337,9 +332,9 @@ function CRRSave()
                       @endif
                     </td>
                     <td class="center" width="18%">
-                      <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}" disabled>
+                    {{--   <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}" disabled>
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                      </button> 
+                      </button>  --}}
                       <button type="button" class="btn btn-md btn-primary open-editCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{ $examen->id }}" value="{{ $examen->pivot->crr_id }}">
                         <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
                       </button>

@@ -1,74 +1,46 @@
 @extends('app')
-@section('page-script')
- <script>
- 	function FindActiveDiv()
-  {  
-    var DivName = $('.nav-pills .active a').attr('href');  
-    return DivName;
-  }
-  function ShowInitialTabContent()
-  {//RemoveFocusNonActive();
-    var DivName = FindActiveDiv();
-    if (DivName)
-    {
-        $(DivName).addClass('active'); 
-    } 
-  }
-  function SelectTab(tabindex)
-  {// $('.nav-pills li ').removeClass('active');
-    $('.nav-pills li').eq(tabindex).addClass('active'); 
-    ShowInitialTabContent();
-  }
- $(function(){	
- 	  SelectTab(0); 
- 	})
- </script>
-@endsection
 @section('main-content')
 <?php 	$patient = $visite->hospitalisation->patient; $demande = $visite->demandExmImg;  ?> 
 <div class="container-fluid">
-	<div class="page-header" width="100%">
-		<div class="row"><div class="col-sm-12" style="margin-top: -2%;">@include('patient._patientInfo')</div></div>
-	</div>
-	<div class="row">
-	  <div class="col-sm-12">
+	<div class="row"><div class="col-sm-12  mt-2p">@include('patient._patientInfo')</div></div>
+	<div class="panel-heading left">
 	  	<h4><strong>Détails de la visite :</strong></h4>
-			<a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-	  </div>
-	</div>
-	<div class="row"><div class="col-sm-2 align-right"><label>Date :</label></div>
-		<div class="form-group col-sm-6">
-		  <label class="blue">{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</label>
+	  	<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+	  	 </div>
+	</div>	
+	<div class="row">
+		<div class="form-group">		
+			<label class="col-sm-1 control-label no-padding-right" for="service"><strong>Date :</strong></label>
+			<div class="col-sm-8 col-xs-8">
+				 <label class="blue">{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</label>
+			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-2 align-right"><label>Médecin :</label></div>
+		<div class="col-sm-1 no-padding-right"><label>Médecin :</label></div>
 		<div class="form-group col-sm-6">
 	    <label class="blue">{{ $visite->medecin->nom }}&nbsp; {{ $visite->medecin->prenom }}</label>
 		</div>
 	</div>
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist">
-		  @if($visite->actes->count() > 0)
-		  <li role= "presentation">
-			  <a href="#actes" role="tab" data-toggle="tab" class="btn-succes">Actes</a>
-			</li>
-		  @endif
-		  @if($visite->traitements->count() > 0)
-		  	<li role= "presentation">
-			  	<a href="#traitement" role="tab" data-toggle="tab" class="btn-success">Traitements</a>
-				</li>
-		  @endif
-		  @if(isset($visite->demandeexmbio))
-		  <li role= "presentation">
-		  	<a href="#examsBio" role="tab" data-toggle="tab" class="btn-pink">Demande examens biologiques</a>
-			</li>
-		  @endif
+	        @if($visite->actes->count() > 0)
+		 	 <li role= "presentation"><a href="#actes" role="tab" data-toggle="tab" class="btn-succes">Actes</a></li>
+		@endif
+		@if($visite->traitements->count() > 0)
+		  	<li role= "presentation"><a href="#traitement" role="tab" data-toggle="tab" class="btn-success">Traitements</a></li>
+		 @endif
+		@if(isset($visite->demandeexmbio))
+			  <li role= "presentation"><a href="#examsBio" role="tab" data-toggle="tab" class="btn-pink">Demande examens biologiques</a></li>
+		@endif
+		@if(isset($visite->demandExmImg))
+    			<li role= "presentation"><a href="#examImg" role="tab" data-toggle="tab" class="btn-purple">Demande examens d'imagerie</a></li>
+     		 @endif
 		</ul>
 		<div class ="tab-content no-border">
 			@if($visite->actes->count() > 0)
 			<div id="actes" class="tab-pane row">
-      	<div class="col-xs-12 widget-container-col row">
+      				<div class="col-xs-12 widget-container-col row">
 				<div class="widget-box widget-color-blue">
 				<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Actes</h5></div>
 				<div class="widget-body">
@@ -91,17 +63,17 @@
 									<td></td>
 								</tr>
 							@endforeach
-						</tbody>
+							</tbody>
 						</table>
 					</div>
 				</div>
 				</div>
 				</div>		
-    	</div>
-			 @endif
-			  @if($visite->traitements->count() > 0)
-      <div id="traitement" class="tab-pane row">
-        <div class="col-xs-12 widget-container-col">
+    			</div>
+			@endif
+			@if($visite->traitements->count() > 0)
+    			  <div id="traitement" class="tab-pane row">
+       				<div class="col-xs-12 widget-container-col row">
 				<div class="widget-box widget-color-green">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
 				<div class="widget-body">
@@ -136,7 +108,7 @@
     @endif
      @if(isset($visite->demandeexmbio))
       <div id="examsBio" class="tab-pane row">
-      <div class="col-xs-12 widget-container-col">
+      <div class="col-xs-12 widget-container-col row">
 			<div class="widget-box widget-color-pink">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande examens biologiques</h5></div>
 				<div class="widget-body">
@@ -189,9 +161,9 @@
 	@endif
 	@if(isset($visite->demandExmImg))
 	<div id="examImg" class="tab-pane row">
-		<div class="col-xs-11 widget-container-col">
-			<div class="widget-box widget-color-pink">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
+		<div class="col-xs-12 widget-container-col row">
+			<div class="widget-box widget-color-purple">
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 			<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">

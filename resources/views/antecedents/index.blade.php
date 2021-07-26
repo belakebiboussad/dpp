@@ -2,8 +2,6 @@
 @section('main-content')
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Liste des antécédents du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
-		<div class="pull-right">
-        </div>
 	</div>
 	<table id="simple-table" class="table  table-bordered table-hover">
 		<thead>
