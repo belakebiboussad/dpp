@@ -20,6 +20,14 @@
 @endsection
 @section('page-script')
 <script>
+  $(function(){
+  		imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+             base64Img = base64; 
+  		});
+      imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+             footer64Img = base64; 
+   		}); 
+  });
 	function ajaxfunc(patientid)
 	{        
 		var habitudeAlim = null; var tabac=null ; var ethylisme = null;
@@ -641,6 +649,8 @@
 <div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 <div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
-<div class="row"><div id="bioExamsPdf" hidden> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+{{--<div class="row"><div id="bioExamsPdf" hidden> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>--}}
+<div class="row"><div id="pdfContent" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
 <div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> 
 @endsection

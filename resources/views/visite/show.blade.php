@@ -1,29 +1,4 @@
 @extends('app')
-@section('page-script')
- <script>
- 	function FindActiveDiv()
-  {  
-    var DivName = $('.nav-pills .active a').attr('href');  
-    return DivName;
-  }
-  function ShowInitialTabContent()
-  {//RemoveFocusNonActive();
-    var DivName = FindActiveDiv();
-    if (DivName)
-    {
-        $(DivName).addClass('active'); 
-    } 
-  }
-  function SelectTab(tabindex)
-  {// $('.nav-pills li ').removeClass('active');
-    $('.nav-pills li').eq(tabindex).addClass('active'); 
-    ShowInitialTabContent();
-  }
- $(function(){	
- 	  SelectTab(0); 
- 	})
- </script>
-@endsection
 @section('main-content')
 <?php 	$patient = $visite->hospitalisation->patient; $demande = $visite->demandExmImg;  ?> 
 <div class="container-fluid">
@@ -64,6 +39,11 @@
 		  	<a href="#examsBio" role="tab" data-toggle="tab" class="btn-pink">Demande examens biologiques</a>
 			</li>
 		  @endif
+		   @if(isset($visite->demandExmImg))
+		  <li role= "presentation">
+		  	<a href="#examImg" role="tab" data-toggle="tab" class="btn btn-dark">Demande examens d'imageries</a>
+			</li>
+		  @endif
 		</ul>
 		<div class ="tab-content no-border">
 			@if($visite->actes->count() > 0)
@@ -101,7 +81,7 @@
 			 @endif
 			  @if($visite->traitements->count() > 0)
       <div id="traitement" class="tab-pane row">
-        <div class="col-xs-12 widget-container-col">
+        <div class="col-xs-12 widget-container-col row">
 				<div class="widget-box widget-color-green">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
 				<div class="widget-body">
@@ -136,7 +116,7 @@
     @endif
      @if(isset($visite->demandeexmbio))
       <div id="examsBio" class="tab-pane row">
-      <div class="col-xs-12 widget-container-col">
+      <div class="col-xs-12 widget-container-col row">
 			<div class="widget-box widget-color-pink">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande examens biologiques</h5></div>
 				<div class="widget-body">
@@ -188,12 +168,12 @@
 	</div>	{{-- examsBio	 --}} 
 	@endif
 	@if(isset($visite->demandExmImg))
-	<div id="examImg" class="tab-pane row">
-		<div class="col-xs-11 widget-container-col">
-			<div class="widget-box widget-color-pink">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
+ 	<div id="examImg" class="tab-pane row">
+    <div class="col-xs-12 widget-container-col row">
+		<div class="widget-box widget-color-dark">
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande examens biologiques</h5></div>
 			<div class="widget-body">
-			<div class="widget-main no-padding">
+				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
@@ -220,10 +200,10 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>	
+				</div>
+			</div>
 		</div>
 		</div>
-	</div>
 	</div>
 	@endif
 		</div><!-- tab-content -->

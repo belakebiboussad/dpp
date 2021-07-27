@@ -49,6 +49,14 @@
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  var base64Img = null; 
+  var footer64Img = null;
+   margins = {
+        top: 70,
+        bottom: 40,
+        left: 30,
+        width: 550
+  };
   $(document).ready(function(){
              $('.timepicker').timepicker({
                       timeFormat: 'HH:mm',
@@ -617,7 +625,70 @@ $('#typeexm').on('change', function() {
         $('.nav-pills li').eq(tabindex).addClass('active'); 
         ShowInitialTabContent();
       }
-     $(function(){  
+      $(function(){  
         SelectTab(0); 
       })
+      //pdf report
+       function imgToBase64(url, callback, imgVariable) {
+            if (!window.FileReader) {
+                  callback(null);
+                  return;
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function() {
+                   var reader = new FileReader();
+                    reader.onloadend = function() {
+                          imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                          callback(imgVariable);
+                    };
+                    reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.send();
+      }
+      function header(doc)
+      {      
+        doc.setFontSize(40);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+            if (base64Img) {
+              doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
+         }
+        doc.line(10, 95, margins.width + 33,95); // horizontal line
+      }
+      function headerFooterFormatting(doc, totalPages)
+      {
+        for(var i = totalPages; i >= 1; i--)
+        {    
+          doc.setPage(i);                            
+          header(doc);
+          footer(doc, i);//, totalPages
+          doc.page++; 
+        }
+      }
+      function footer(doc, pageNumber){//, totalPages
+        doc.setFontSize(40);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        if (footer64Img) {
+                doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
+         } 
+      }
+      function generate(pdf)
+      {// var pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.setFontSize(18);
+        pdf.fromHTML(document.getElementById('pdfContent'), 
+        margins.left,
+        margins.top,
+        {
+          width: margins.width// max width of content on PDF
+        },function(dispose) {
+                headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+        }, 
+        margins);
+        iframe =document.getElementById('ipdf');
+        iframe.src = pdf.output('datauristring'); 
+        $("#crrModal").modal(); 
+      }
 </script>

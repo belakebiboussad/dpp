@@ -1,54 +1,46 @@
-@extends('app_laboanalyses')
+@extends('app')
 @section('page-script')
 <script>
-      var base64Img = null; 
-      var footer64Img = null;
-       margins = {
-            top: 70,
-            bottom: 40,
-            left: 30,
-            width: 550
-       };
-
-       function CRBave()
-       { 
-          $("#crb").val($("#crbm").val());
-       }
-      function CRBPrint()
-      {
-             CRBave();
-              $("#crbPDF").text($("#crbm").val());
-              generate(); 
-      }
-      $(function(){
-             $(".open-AddCRBilog").click(function () {
-                    jQuery('#crbSave').val("add");
-                    $('#addCRBDialog').modal('show');
-             });
-              imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
-                   base64Img = base64; 
-            });
-            imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
-                    footer64Img = base64; 
-           });    
-      })
-      $('document').ready(function(){
-             $("button").click(function (event) {
-                    which = '';
-                    str ='send';
-                   which = $(this).attr("id");
-                    var which = $.trim(which);
-                   var str = $.trim(str);
-                   if(which==str){
-                    return true;
-                  }
-            });
-      });
-      $(function(){
-           $('#resultat').change(function(){
-                    $('#crb-add').removeAttr('disabled');
-             });
-       })
+  function CRBave()
+   { 
+      $("#crb").val($("#crbm").val());
+   }
+  function CRBPrint()
+  {
+    CRBave();
+    $("#crbPDF").text($("#crbm").val());
+    var pdf = new jsPDF('p', 'pt', 'a4');
+    generate(pdf); 
+  }
+  $(function(){
+    $(".open-AddCRBilog").click(function () {
+      jQuery('#crbSave').val("add");
+      $('#addCRBDialog').modal('show');
+    });
+    imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+      base64Img = base64; 
+    });
+    imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+            footer64Img = base64; 
+   });    
+  })
+  $('document').ready(function(){
+     $("button").click(function (event) {
+        which = '';
+        str ='send';
+        which = $(this).attr("id");
+        var which = $.trim(which);
+        var str = $.trim(str);
+        if(which==str){
+         return true;
+        }
+    });
+  });
+  $(function(){
+       $('#resultat').change(function(){
+                $('#crb-add').removeAttr('disabled');
+         });
+   })
 </script>
 @endsection
 @section('main-content')
