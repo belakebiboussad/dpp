@@ -165,7 +165,7 @@
 			<div class="widget-box widget-color-purple">
 			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 			<div class="widget-body">
-			<div class="widget-main no-padding">
+				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
@@ -192,10 +192,10 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>	
+				</div>
+			</div>
 		</div>
 		</div>
-	</div>
 	</div>
 	@endif
 		</div><!-- tab-content -->

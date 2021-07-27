@@ -121,6 +121,7 @@
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
       <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
+    @include('examenradio.scripts.cr')
     <script type="text/javascript">
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
       function InverserUl()
@@ -206,38 +207,35 @@
             }
          });             
       }
-      function addCIMCode(code,field)
-      {
-        $("#"+field).val(code);
-        $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
-        $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
-      }
-      function createexbioOrg(nomp,prenomp,age,ipp){  
-        var img = new Image();
-        img.src = '{{ asset("/img/logo.png") }}';
-        img.onload = function () {
-           createexbioF(img,nomp,prenomp,age,ipp);
-        };
-      } 
-    function createexbio(nomp,prenomp,age,ipp){ 
+    function addCIMCode(code,field)
+    {
+      $("#"+field).val(code);
+      $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+      $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+    }  
+/*function createexbioOrg(nomp,prenomp,age,ipp){ol = document.getElementById('listBioExam');$('input.ace:checkbox:checked').each(function(index, value) {
+$("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');});$('#pdfContent').removeClass('hidden');var element = document.getElementById('pdfContent');
+var options = {filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'};var exporter = new html2pdf(element, options);exporter.getPdf(true).then((pdf) => {
+console.log('pdf file downloaded');});exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+console.log('doing something before downloading pdf file');pdf.save();});}*/
+    function createexbio(nomp,prenomp,age,ipp,mnom,pnom){    // JsBarcode("#itf", "12345678901237", {format: "itf"});
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
          $("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');
-      });  // $("#bioExamsPdf").removeClass('invisible'); 
-      $('#bioExamsPdf').removeAttr('hidden');
-      var element = document.getElementById('bioExamsPdf');
-      var options = {
-        filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'
-      };
-      var exporter = new html2pdf(element, options); // $("#bioExamsPdf").addClass('invisible');
-      $("#bioExamsPdf").attr("hidden",true);
-      exporter.getPdf(true).then((pdf) => {
-        console.log('pdf file downloaded');
       });
-      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-        console.log('doing something before downloading pdf file');
-        pdf.save();
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      JsBarcode("#barcode",ipp,{
+        format: "CODE128", //lineColor: "#0aa",
+        width: 2,
+        height: 30,
+        textAlign: "left"
       });
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+      // pdf.setFont
+      pdf.text(310,730, 'Docteur :' + mnom + ' ' + pnom);
+      generate(pdf);
     }
     function createeximg(nomp,prenomp,age,ipp)
     {
@@ -258,31 +256,31 @@
               pdf.save();
        });
     }
-    function printExamCom(nom, prenom, age, ipp)
+    function printExamCom(nom, prenom, age, ipp,mednom,medprenom)
     {
-            var interest = $('ul#compl').find('li.active').data('interest');
-            switch(interest){
-                  case 0:
-                    createexbio(nom, prenom, age, ipp);
-                    break;
-                  case 1:
-                    createeximg(nom, prenom, age, ipp);
-                    break;
-                  case 2:
-                      break;
-            }
+      var interest = $('ul#compl').find('li.active').data('interest');
+      switch(interest){
+            case 0:
+              createexbio(nom, prenom, age, ipp,mednom,medprenom);
+              break;
+            case 1:
+              createeximg(nom, prenom, age, ipp);
+              break;
+            case 2:
+                break;
       }
-      function addExamsImg(form)
+    }
+    function addExamsImg(form)
+    {
+      var ExamsImg = [];
+      var arrayLignes = document.getElementById("ExamsImg").rows;
+      for(var i=0; i< arrayLignes.length; i++)
       {
-            var ExamsImg = [];
-            var arrayLignes = document.getElementById("ExamsImg").rows;
-            for(var i=0; i< arrayLignes.length; i++)
-            {
-              ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-            }
-            var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-            champ.appendTo(form);
+        ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
       }
+      var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+        champ.appendTo(form);
+    }
       function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
         $('#OrientLetterPdf').removeAttr('hidden');
         $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());

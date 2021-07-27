@@ -1,4 +1,4 @@
-@extends('app_radiologue')
+@extends('app')
 @section('title','Demande Examens Imagerie')
 @section('style')
 <link rel="stylesheet" href="css/styles.css">
@@ -23,19 +23,12 @@
 @endsection
 @section('page-script')
 <script>
-  var base64Img = null; 
-  var footer64Img = null;
-   margins = {
-    top: 70,
-    bottom: 40,
-    left: 30,
-    width: 550
-  };
 function CRRPrint()
 { 
-       CRRSave();
-       $("#conclusionPDF").text($("#conclusion").val());
-       generate();
+  CRRSave();
+  $("#conclusionPDF").text($("#conclusion").val());
+  var pdf = new jsPDF('p', 'pt', 'a4');
+  generate(pdf);
 }
 function CRRSave()
   {
