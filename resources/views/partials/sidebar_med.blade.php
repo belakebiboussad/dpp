@@ -225,7 +225,7 @@ console.log('doing something before downloading pdf file');pdf.save();});}*/
       });
       var pdf = new jsPDF('p', 'pt', 'a4');
       JsBarcode("#barcode",ipp,{
-        format: "CODE128", //lineColor: "#0aa",
+        format: "CODE128",
         width: 2,
         height: 30,
         textAlign: "left"
@@ -233,29 +233,24 @@ console.log('doing something before downloading pdf file');pdf.save();});}*/
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
       pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-      // pdf.setFont
-      pdf.text(310,730, 'Docteur :' + mnom + ' ' + pnom);
-      generate(pdf);
+      pdf.setFontSize(12);
+      pdf.text(320,730, 'Docteur :' + mnom + ' ' + pnom);
+      generate(pdf,'bioExamsPdf');
     }
+/*function createeximg(nomp,prenomp,age,ipp){$( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
+$('#imgExams tr').find('th:last-child, td:last-child').remove();
+$('#imagExamsPdf').removeAttr('hidden');var element = document.getElementById('imagExamsPdf');var options = {filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
+};var exporter = new html2pdf(element, options);//$("#imagExamsPdf").addClass('invisible');$("#imagExamsPdf").attr("hidden",true);exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+console.log('pdf file downloaded');});exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file');pdf.save();});}*/
     function createeximg(nomp,prenomp,age,ipp)
     {
-      $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
-      $('#imgExams tr').find('th:last-child, td:last-child').remove()
-      $('#imagExamsPdf').removeAttr('hidden');
-      var element = document.getElementById('imagExamsPdf');
-      var options = {
-          filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
-      };
-      var exporter = new html2pdf(element, options);//$("#imagExamsPdf").addClass('invisible');
-      $("#imagExamsPdf").attr("hidden",true);
-      exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-               console.log('pdf file downloaded');
-       });
-      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-               console.log('doing something before downloading pdf file');
-              pdf.save();
-       });
+      $("#ExamsImgtab").clone().appendTo( "#imgExams" );
+      $('#imgExams tr').find('th:last-child, td:last-child').remove();
+      // $("#ExamsImgtab").clone();
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      generate(pdf,'imagExamsPdf');    
     }
+   
     function printExamCom(nom, prenom, age, ipp,mednom,medprenom)
     {
       var interest = $('ul#compl').find('li.active').data('interest');

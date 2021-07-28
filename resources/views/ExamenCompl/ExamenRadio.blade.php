@@ -44,15 +44,15 @@
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed" id="ExamsImgtab">
-					 	 <thead class="thin-border-bottom">
-							 <tr>
+					 	<thead class="thin-border-bottom">
+						  <tr style ="background-color: #eee;">
                   <th class ="hidden"></th>
-							    <th class ="center" class="nsort" style="background-color: #eee; color; white;"><strong>Examen du </strong></th>
-								  <th class ="center" style="background-color: #eee; color; white;"><strong>Type d'examen</strong></th>
-								   <th class="center" width="5%" style="background-color: #eee; color; white;"><em class="fa fa-cog"></em></th>
-						    </tr>
-							</thead>
-							<tbody id="ExamsImg"></tbody>
+							    <th class ="center" class="nsort" style="color; white;"><strong>Examen du </strong></th>
+								  <th class ="center"><strong>Type d'examen</strong></th>
+								  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
+						  </tr>
+						</thead>
+						<tbody id="ExamsImg"></tbody>
 					</table>
 				</div>
 			</div>

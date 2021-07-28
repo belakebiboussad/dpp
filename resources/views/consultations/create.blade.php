@@ -16,6 +16,13 @@
 	.b{
 		height:20px !important;
 	}
+	#footer {
+	  position: fixed;
+	  width: 100%;
+	  bottom: 100px;
+	  left: 0;
+	  right: 0;
+	}
 </style>
 @endsection
 @section('page-script')
@@ -582,7 +589,8 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
-	<div class="row"><div class="col-sm-12  mt-2p">@include('patient._patientInfo')</div></div>
+ <!-- mt-2p -->
+	<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
 	<div class="row">
 	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}
@@ -648,7 +656,8 @@
 <div class="row">@include('cim10.cimModalForm')</div>
 <div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
 {{--<div class="row"><div id="bioExamsPdf" hidden> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>--}}
-<div class="row"><div id="pdfContent" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-<div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
-<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> 
+<div class="row"><div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+{{-- <div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>--}}
+<div class="row"><div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+ <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> 
 @endsection

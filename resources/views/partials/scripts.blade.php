@@ -675,18 +675,25 @@ $('#typeexm').on('change', function() {
                 doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
          } 
       }
-      function generate(pdf)
+      function generate(pdf,pdfContent)
       {// var pdf = new jsPDF('p', 'pt', 'a4');
         pdf.setFontSize(18);
-        pdf.fromHTML(document.getElementById('pdfContent'), 
-        margins.left,
-        margins.top,
-        {
-          width: margins.width// max width of content on PDF
-        },function(dispose) {
-                headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-        }, 
-        margins);
+        var specialElementHandlers = {
+            '#imgExams': function(element, renderer){
+               console.log("test");
+               return true;
+            }
+          };
+        pdf.fromHTML(document.getElementById(pdfContent), 
+          margins.left,
+          margins.top,
+          {
+            'width': margins.width,// max width of content on PDF
+            //'elementHandlers': specialElementHandlers
+          },function(dispose) {
+            headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+          }, 
+         margins);
         iframe =document.getElementById('ipdf');
         iframe.src = pdf.output('datauristring'); 
         $("#crrModal").modal(); 
