@@ -16,13 +16,23 @@
 	.b{
 		height:20px !important;
 	}
-	#footer {
-	  position: fixed;
-	  width: 100%;
-	  bottom: 100px;
-	  left: 0;
-	  right: 0;
+	#content {
+	  background: white;
+	  width: 98%;
+	  height: 100%;
+	  margin: 5px auto;
+	  border: 1px solid orange;
+	  padding: 10px;
 	}
+/*	#content {
+  background: yellow;
+  width: 70%;
+  height: 100px;
+  margin: 50px auto;
+  border: 1px solid orange;
+  padding: 20px;
+}*/
+
 </style>
 @endsection
 @section('page-script')
@@ -658,6 +668,7 @@
 {{--<div class="row"><div id="bioExamsPdf" hidden> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>--}}
 <div class="row"><div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
 {{-- <div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>--}}
-<div class="row"><div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+<div class="row"><div id="imagExamsPdf">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+ <!-- class="hidden" -->
  <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> 
 @endsection

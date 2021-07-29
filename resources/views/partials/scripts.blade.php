@@ -678,18 +678,11 @@ $('#typeexm').on('change', function() {
       function generate(pdf,pdfContent)
       {// var pdf = new jsPDF('p', 'pt', 'a4');
         pdf.setFontSize(18);
-        var specialElementHandlers = {
-            '#imgExams': function(element, renderer){
-               console.log("test");
-               return true;
-            }
-          };
         pdf.fromHTML(document.getElementById(pdfContent), 
           margins.left,
           margins.top,
           {
-            'width': margins.width,// max width of content on PDF
-            //'elementHandlers': specialElementHandlers
+            width: margins.width,// max width of content on PDF
           },function(dispose) {
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
           }, 

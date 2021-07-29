@@ -2,7 +2,7 @@
 	<div class="col-xs-12 widget-container-col" id="consultation">
 		<div class="widget-box" id="infopatient">
 			<div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique :</b></h5> </div>
-	        </div><!-- widget-box -->
+	  </div>
 		<div class="widget-body">
                 <div class="widget-main"><div class="space-12 hidden-xs"></div>
 	        <div class="row">
@@ -31,8 +31,7 @@
 			@endforeach
 		</div>
       		</div>
-       	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>
-       	<div class="space-12"></div>
+       	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div><div class="space-12"></div>
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">
 			 <div class="widget-header" >
@@ -40,8 +39,8 @@
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
 				 	<a href="#"  name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-target="#ExamIgtModal" data-original-title="Ajouter un Examen d'imagerie"><div class="fa fa-plus-circle"></div><h4><strong></strong></h4></a>
 				</div>
-			</div><!-- widget-header -->
-			<div class="widget-body">
+				</div><!-- widget-header -->
+				<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed" id="ExamsImgtab">
 					 	<thead class="thin-border-bottom">
@@ -54,10 +53,11 @@
 						</thead>
 						<tbody id="ExamsImg"></tbody>
 					</table>
+				
 				</div>
-			</div>
-	        </div>
-               </div>
+			  </div>
+	      </div>
+        </div>
       </div> 	<!-- widget-main -->
     </div><!-- widget-body -->
  	</div>	<!-- widget-container-col -->

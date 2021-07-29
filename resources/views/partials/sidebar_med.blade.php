@@ -213,11 +213,6 @@
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }  
-/*function createexbioOrg(nomp,prenomp,age,ipp){ol = document.getElementById('listBioExam');$('input.ace:checkbox:checked').each(function(index, value) {
-$("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');});$('#pdfContent').removeClass('hidden');var element = document.getElementById('pdfContent');
-var options = {filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'};var exporter = new html2pdf(element, options);exporter.getPdf(true).then((pdf) => {
-console.log('pdf file downloaded');});exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-console.log('doing something before downloading pdf file');pdf.save();});}*/
     function createexbio(nomp,prenomp,age,ipp,mnom,pnom){    // JsBarcode("#itf", "12345678901237", {format: "itf"});
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
@@ -237,20 +232,62 @@ console.log('doing something before downloading pdf file');pdf.save();});}*/
       pdf.text(320,730, 'Docteur :' + mnom + ' ' + pnom);
       generate(pdf,'bioExamsPdf');
     }
-/*function createeximg(nomp,prenomp,age,ipp){$( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
-$('#imgExams tr').find('th:last-child, td:last-child').remove();
-$('#imagExamsPdf').removeAttr('hidden');var element = document.getElementById('imagExamsPdf');var options = {filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
-};var exporter = new html2pdf(element, options);//$("#imagExamsPdf").addClass('invisible');$("#imagExamsPdf").attr("hidden",true);exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-console.log('pdf file downloaded');});exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file');pdf.save();});}*/
+    // function createeximg(nomp,prenomp,age,ipp)
+    // {
+    //   $("#ExamsImgtab").clone().appendTo( "#imgExams" );
+    //   $('#imgExams tr').find('th:last-child, td:last-child').remove();
+    //   // $("#ExamsImgtab").clone();
+    //   var pdf = new jsPDF('p', 'pt', 'a4');
+    //   generate(pdf,'imagExamsPdf');    
+    // }
     function createeximg(nomp,prenomp,age,ipp)
     {
-      $("#ExamsImgtab").clone().appendTo( "#imgExams" );
-      $('#imgExams tr').find('th:last-child, td:last-child').remove();
-      // $("#ExamsImgtab").clone();
+      /*$("#ExamsImgtab").clone().appendTo( "#imgExams" );
+      $('#imgExams tr').find('th:last-child, td:last-child').remove(); 
+      var w = document.getElementById("imgExams").offsetWidth;
+      var h = document.getElementById("imgExams").offsetHeight;
       var pdf = new jsPDF('p', 'pt', 'a4');
-      generate(pdf,'imagExamsPdf');    
+      html2canvas(document.getElementById("imgExams"), {
+        dpi: 300, // Set to 300 DPI
+        scale: 3, // Adjusts your resolution
+        background :'#FFFFFF',
+        onclone: async function (doc) {
+        },
+        onrendered: function(canvas) {
+          img = canvas.toDataURL("image/jpeg", 1);
+          pdf.addImage(img, 'JPEG', margins.left, 200, 540,h);       
+          headerFooterFormatting(pdf, pdf.internal.getNumberOfPages()); //pdf.save('sample-file.pdf');
+          
+          iframe =document.getElementById('ipdf');
+          iframe.src = pdf.output('datauristring'); 
+          $("#crrModal").modal();
+        }
+      });*/
+          // pdf.addImage(img, 'JPEG', margins.left, 200, w,h);   
+          // headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+          //pdf.addImage(img, 'JPEG', margins.left, 200, 540,h);    
+          
+      //var pdf = new jsPDF('p', 'pt', 'a4');
+      // $("#ExamsImgtab").clone().appendTo( "#imgExams" );
+      // $('#imgExams tr').find('th:last-child, td:last-child').remove();
+      var w = document.getElementById("content").offsetWidth;
+      var h = document.getElementById("content").offsetHeight;
+      html2canvas(document.getElementById("content"), {
+        dpi: 300, // Set to 300 DPI
+        scale: 3, // Adjusts your resolution
+        //useCORS: true,//background: "#ffffff",    // onclone: async function (doc) {       // },
+        onrendered: function(canvas) {
+          img = canvas.toDataURL("image/jpeg", 1);
+          var pdf = new jsPDF('L', 'px', [w, h]);
+          pdf.addImage(img, 'JPEG', 0, 0, w, h);       //pdf.save('sample-file.pdf');
+         // footer(pdf, 1);
+          iframe =document.getElementById('ipdf');
+          iframe.src = pdf.output('datauristring'); 
+          $("#crrModal").modal();
+        }
+      });
+     
     }
-   
     function printExamCom(nom, prenom, age, ipp,mednom,medprenom)
     {
       var interest = $('ul#compl').find('li.active').data('interest');
