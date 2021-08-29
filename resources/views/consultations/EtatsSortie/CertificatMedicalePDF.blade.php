@@ -44,7 +44,7 @@
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
         		<br><br><br>	
-        	  <hr/>
+        	  <hr />
         		<div class="row"><div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div></div><br>
         		<div class="row"><div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div></div>
         		<div class="row"><div><strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
