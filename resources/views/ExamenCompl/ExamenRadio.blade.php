@@ -1,17 +1,17 @@
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="consultation">
-		<div class="widget-box" id="infopatient">
+		<div class="widget-box">
 			<div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique :</b></h5> </div>
 	  </div>
 		<div class="widget-body">
-                <div class="widget-main"><div class="space-12 hidden-xs"></div>
-	        <div class="row">
-	        	<div class="col-xs-12">
-	        		<label for="infosc">  <b>Informations cliniques pertinentes</b></label>
-					    <textarea class="form-control" id="infosc" name="infosc"></textarea>
-					    {!! $errors->first('infosc', '<small class="alert-danger"><b>:message</b></small>')!!}
-	        	</div>
-	        </div><!-- row --><div class="spcae-12"></div>
+      <div class="widget-main"><div class="space-12 hidden-xs"></div>
+	      <div class="row">
+	       	<div class="col-xs-12">
+	       		<label for="infosc">  <b>Informations cliniques pertinentes</b></label>
+				    <textarea class="form-control" id="infosc" name="infosc"></textarea>
+				    {!! $errors->first('infosc', '<small class="alert-danger"><b>:message</b></small>')!!}
+	       	</div>
+	        </div><div class="spcae-12"></div>
 	        <div class="row">
 	     		 	<div class="col-xs-12">
 	      			<label for="explication"><strong>	Explication de la demande de diagnostic</strong></label>
@@ -20,16 +20,16 @@
 	      		</div>
 	        </div><div class="space-12 hidden-xs"></div>
 	        <div class="row">
-	        <div class="col-xs-12">
+	        	<div class="col-xs-12 infosup">
 	      	 	<label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
-			@foreach($infossupp as $info)
-			<div class="col-sm-2 col-xs-6">
-			<div class="checkbox col-xs-12">
-				 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
-		    </div>
-		  </div>
-			@endforeach
-		</div>
+						@foreach($infossupp as $info)
+						<div class="col-sm-2 col-xs-6">
+						<div class="checkbox col-xs-12">
+							 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
+					    </div>
+					  </div>
+						@endforeach
+						</div>
       		</div>
        	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div><div class="space-12"></div>
 	      <div class="row">
@@ -53,7 +53,6 @@
 						</thead>
 						<tbody id="ExamsImg"></tbody>
 					</table>
-				
 				</div>
 			  </div>
 	      </div>

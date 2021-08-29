@@ -65,7 +65,7 @@
             </li>
             <li>
               <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                <i class="menu-icon fa fa-eye pink"></i> Liste des hospitalisations
+                <i class="menu-icon fa fa-eye pink"></i>Liste des hospitalisations
               </a><b class="arrow"></b>
             </li>
           </ul>
@@ -213,93 +213,74 @@
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }  
-    function createexbio(nomp,prenomp,age,ipp,mnom,pnom){    // JsBarcode("#itf", "12345678901237", {format: "itf"});
+    function printExBio(nomp,prenomp,age,ipp,mnom,mprenom){// JsBarcode("#itf", "12345678901237", {format: "itf"});
       ol = document.getElementById('listBioExam');
-      $('input.ace:checkbox:checked').each(function(index, value) {
-         $("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');
+      ol.innerHTML = '';
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+         $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
       });
       var pdf = new jsPDF('p', 'pt', 'a4');
       JsBarcode("#barcode",ipp,{
         format: "CODE128",
         width: 2,
         height: 30,
-        textAlign: "left"
+        textAlign: "left",
+        text: "IPP: " + ipp 
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
       pdf.addImage(jpegUrl, 'JPEG', 25, 175);
       pdf.setFontSize(12);
-      pdf.text(320,730, 'Docteur :' + mnom + ' ' + pnom);
+      pdf.text(320,730, 'Docteur : ' + mnom + ' ' + mprenom);
       generate(pdf,'bioExamsPdf');
     }
-    // function createeximg(nomp,prenomp,age,ipp)
-    // {
-    //   $("#ExamsImgtab").clone().appendTo( "#imgExams" );
-    //   $('#imgExams tr').find('th:last-child, td:last-child').remove();
-    //   // $("#ExamsImgtab").clone();
-    //   var pdf = new jsPDF('p', 'pt', 'a4');
-    //   generate(pdf,'imagExamsPdf');    
-    // }
-    function createeximg(nomp,prenomp,age,ipp)
+    function printExImg(nomp,prenomp,age,ipp,mnom,mprenom)
     {
-      /*$("#ExamsImgtab").clone().appendTo( "#imgExams" );
-      $('#imgExams tr').find('th:last-child, td:last-child').remove(); 
-      var w = document.getElementById("imgExams").offsetWidth;
-      var h = document.getElementById("imgExams").offsetHeight;
+      $("#infoSupPertinante").text('');
+      ol = document.getElementById('listImgExam');
+      ol.innerHTML = '';
+      var len = $(".infosup :checkbox:checked").length;
+      if($('.infosup input[type="checkbox"]').is(':checked')){
+        $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
+        $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+          if(index != len-1)
+            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
+          else
+            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
+
+        });
+      }else
+        $("#infoSupPertinante").text('');
+      $("#ExamsImgtab tbody tr").each(function(){
+        $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
+      });        
       var pdf = new jsPDF('p', 'pt', 'a4');
-      html2canvas(document.getElementById("imgExams"), {
-        dpi: 300, // Set to 300 DPI
-        scale: 3, // Adjusts your resolution
-        background :'#FFFFFF',
-        onclone: async function (doc) {
-        },
-        onrendered: function(canvas) {
-          img = canvas.toDataURL("image/jpeg", 1);
-          pdf.addImage(img, 'JPEG', margins.left, 200, 540,h);       
-          headerFooterFormatting(pdf, pdf.internal.getNumberOfPages()); //pdf.save('sample-file.pdf');
-          
-          iframe =document.getElementById('ipdf');
-          iframe.src = pdf.output('datauristring'); 
-          $("#crrModal").modal();
-        }
-      });*/
-          // pdf.addImage(img, 'JPEG', margins.left, 200, w,h);   
-          // headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-          //pdf.addImage(img, 'JPEG', margins.left, 200, 540,h);    
-          
-      //var pdf = new jsPDF('p', 'pt', 'a4');
-      // $("#ExamsImgtab").clone().appendTo( "#imgExams" );
-      // $('#imgExams tr').find('th:last-child, td:last-child').remove();
-      var w = document.getElementById("content").offsetWidth;
-      var h = document.getElementById("content").offsetHeight;
-      html2canvas(document.getElementById("content"), {
-        dpi: 300, // Set to 300 DPI
-        scale: 3, // Adjusts your resolution
-        //useCORS: true,//background: "#ffffff",    // onclone: async function (doc) {       // },
-        onrendered: function(canvas) {
-          img = canvas.toDataURL("image/jpeg", 1);
-          var pdf = new jsPDF('L', 'px', [w, h]);
-          pdf.addImage(img, 'JPEG', 0, 0, w, h);       //pdf.save('sample-file.pdf');
-         // footer(pdf, 1);
-          iframe =document.getElementById('ipdf');
-          iframe.src = pdf.output('datauristring'); 
-          $("#crrModal").modal();
-        }
+      JsBarcode("#barcode",ipp,{
+        format: "CODE128",
+        width: 2,
+        height: 30,
+        textAlign: "left",
+        text: "IPP: " + ipp 
       });
-     
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+      pdf.setFontSize(12);
+      pdf.text(320,730, 'Docteur : ' + mnom + ' ' + mprenom);
+      generate(pdf,'imagExamsPdf');
     }
     function printExamCom(nom, prenom, age, ipp,mednom,medprenom)
     {
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
-            case 0:
-              createexbio(nom, prenom, age, ipp,mednom,medprenom);
-              break;
-            case 1:
-              createeximg(nom, prenom, age, ipp);
-              break;
-            case 2:
-                break;
+        case 0:
+          printExBio(nom, prenom, age, ipp,mednom,medprenom);
+          break;
+        case 1:
+          printExImg(nom, prenom, age, ipp,mednom,medprenom);
+          break;
+        case 2:
+          break;
       }
     }
     function addExamsImg(form)

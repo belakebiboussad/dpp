@@ -14,8 +14,7 @@
 		</div>{{-- header --}}
 		<div class="widget-body">
 		<div class="widget-main padding-12 no-padding-left no-padding-right">
-		<div class="tab-content padding-4">
-			<div id="home2" class="tab-pane in active"></div>
+		<div class="tab-content examsBio">
 			@foreach($specialitesExamBiolo as $specialite)
 				<div id="{{ $specialite->specialite }}" class="tab-pane @if ($loop->first) in active @endif">
 					<div class="row">

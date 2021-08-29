@@ -76,7 +76,7 @@ $('document').ready(function(){
 					<div class="widget-box transparent" id="widget-box-13">
 						<div class="widget-header">
 							<div class="widget-toolbar no-border">
-								<ul class="nav nav-tabs" id="myTab2">
+								<ul class="nav nav-tabs">
 									<li class="active"><a data-toggle="tab" href="#medPCH">Médicaments</a></li>
 									<li><a data-toggle="tab" href="#dispositifs">Dispositifs médicaux</a></li>
 									<li><a data-toggle="tab" href="#reactifs">Réactifs chimiques et dentaires</a></li>

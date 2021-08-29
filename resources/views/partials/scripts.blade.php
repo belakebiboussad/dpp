@@ -37,7 +37,7 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+<script src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
@@ -58,25 +58,25 @@
         width: 550
   };
   $(document).ready(function(){
-             $('.timepicker').timepicker({
-                      timeFormat: 'HH:mm',
-                      interval: 60,
-                      minTime: '08',
-                      maxTime: '17:00pm',
-                      defaultTime: '08:00',   
-                      startTime: '08:00',
-                      dynamic: true,
-                      dropdown: true,
-                      scrollbar: true
-              });
-              $('.timepicker1').timepicker({
-                      minuteStep:30,
-                       minTime: '08',
-                       maxTime: '18',
-                      defaultTime: '08:00',   
-                      startTime: '08:00',
-                      showMeridian: false
-              });
+     $('.timepicker').timepicker({
+              timeFormat: 'HH:mm',
+              interval: 60,
+              minTime: '08',
+              maxTime: '17:00pm',
+              defaultTime: '08:00',   
+              startTime: '08:00',
+              dynamic: true,
+              dropdown: true,
+              scrollbar: true
+      });
+      $('.timepicker1').timepicker({
+              minuteStep:30,
+               minTime: '08',
+               maxTime: '18',
+              defaultTime: '08:00',   
+              startTime: '08:00',
+              showMeridian: false
+      });
           $( ".autoCommune" ).autocomplete({
               source: function( request, response ) {
                     $.ajax({

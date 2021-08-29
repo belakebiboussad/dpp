@@ -6,6 +6,6 @@
 <div class="ml-06"><canvas id="barcode"></canvas></div><!-- ml-4 -->
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="ml-06 mtP500"><h4> Prière de faire :</h4></div>
+<div class="ml-06"><h4> Prière de faire :</h4></div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="row ml-06"><ol id ="listBioExam"></ol></div><!-- <div class= "center mbp100"><span><strong>Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom }}</span></div> -->
+<div class="row ml-06"><ol id ="listBioExam"></ol></div>
