@@ -135,8 +135,8 @@ class HomeController extends Controller
                 $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etablissement'));
                 break;
             case "7"://Demande orientation
-                $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
+                $filename = "LORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('consultations.EtatsSortie.lettreOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
              case "8"://Bulltin Admission
                 if($request->class_name == "rdv_hospitalisation")

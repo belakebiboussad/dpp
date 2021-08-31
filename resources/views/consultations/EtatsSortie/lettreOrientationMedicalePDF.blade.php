@@ -2,13 +2,17 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title><!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <title>Lettre d'orientation médicale</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
+      @page {
+        /*  margin: 5px 100px 25px 100px;*/
+        margin: 20px 100px 80px;
+      }
       table {
           border-spacing: 0;
           width: 600px;
-      }/*    table > tbody > tr > td {border: 1px solid black;  vertical-align: top; text-align: center;        }*/
+      }
       table > tbody > tr > td > div {
           margin: 0 auto;
           border: 0px red solid;
@@ -25,35 +29,35 @@
         padding-top: 5px;
         text-align: center;
       }
-      /*tr.noBorder td { border: 0;  }*/
+     
     </style>
   </head>
   <body>
-    <div class="ontainer-fluid"><!--<div class="row"> <div class="col-sm-12" style ="text-align: center"><h4><strong>REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</strong></h4></div></div> -->
-      <h4 class="mt-12 center">REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</h4>
-      <div class="row">
+    <div>
+      <div class="mt-12">       
+        <h4 class="center">REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</h4>
+        <div>
         <table border="0" cellspacing="0" cellpadding="0">
-        <tr class="noBorder">
-          <td rowspan="1" colspan="1" width="206" height="30" >
-            <span style="text-align: left;">MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES
-            </span>
-          </td>
-          <td rowspan="1" colspan="1" width="230" height="30"></td>
-          <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >
-           <img src="img/{{ $etablissement->logo }}" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/>
-          </td>
-        </tr>
-        <tr class="noBorder" >
-         <td rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->tutelle }}</td>
-          <td rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
-         </tr>
-        <tr class="noBorder">
-          <td rowspan="1" colspan="1" width="206" height="30" >SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS </td>
-          <td rowspan="1" colspan="1" width="230" height="30" ></td>  <td  rowspan="1" colspan="1" width="120" height="30" ></td>
-        </tr>
-        <tr class="noBorder">
-          <td  rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->nom }}</td>
-          <td  rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
+          <tr class="noBorder">
+            <td rowspan="1" colspan="1" width="206" height="30" >
+              <span style="text-align: left;">MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span>
+            </td>
+            <td rowspan="1" colspan="1" width="230" height="30"></td>
+            <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >
+              <img src="img/{{ $etablissement->logo }}" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/>
+            </td>
+          </tr>
+          <tr class="noBorder" >
+            <td rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->tutelle }}</td>
+            <td rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
+          </tr>
+          <tr class="noBorder">
+            <td rowspan="1" colspan="1" width="206" height="30" >SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS </td>
+            <td rowspan="1" colspan="1" width="230" height="30" ></td>  <td  rowspan="1" colspan="1" width="120" height="30" ></td>
+          </tr>
+          <tr class="noBorder">
+            <td  rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->nom }}</td>
+            <td  rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
         </tr>
         <tr class="noBorder">
           <td rowspan="1" colspan="1" width="206" height="30" ></td>
@@ -67,14 +71,15 @@
           <td rowspan="1" colspan="1" width="206" height="30" ></td> <td rowspan="1" colspan="1" width="230" height="30" ></td> <td rowspan="1" colspan="1" width="120" height="30" ></td>
         </tr>
         </table>
-        </div><br><br> 
-        <div class="row">Chère Consœur, Cher Confrère;</div><br><br>
-        <div class="row">
+        </div>
+      </div><br><br> 
+      <div>Chère Consœur, Cher Confrère;</div><br><br>
+        <div>
           Merci de prendre en charge {{ $obj->patient->getCivilite() }} <span>{{ $obj->patient->Nom }} &nbsp; {{ $obj->patient->Prenom }}</span> âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
         </div>
-        <div class="row">
-          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour Motif "{{ $obj->motif }}",
-          @if(isset($obj->patient->antecedants))
+        <div>
+          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour a notre service pour Motif "{{ $obj->motif }}",
+          @if($obj->patient->antecedants->count() >0)
             aux Antécédants suivants:  <br/><br/>
             <table class="table table-striped table-bordered table-hover">
               <thead>
@@ -118,8 +123,10 @@
           @endisset
           je vous le confie pour une prise en charge specialisé. 
         </div> <br><br><br>
-        <div class="row">Confraternellement. </div>
-        <div class="row"><div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"></div> <div class="col-sm-4"></div> </div></div>
+        <div>Confraternellement. </div>
+      <footer>
+        <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
+      </footer>
     </div>
   </body>
 </html>

@@ -132,18 +132,18 @@
     }
       function getHospitalisations(field,value)
       {
-             $.ajax({
-           url : '{{URL::to('getHospitalisations')}}',
-           data: {  "field":field, "value":value, },
-           dataType: "json",
-                   success: function(data) {
-                        $(".numberResult").html(data.length);
-                        loadDataTable(data);
-                        $('#'+field).val(''); 
-                   }
-            });
-       }
-        var field ="etat_hosp";
+        $.ajax({
+          url : '{{URL::to('getHospitalisations')}}',
+          data: {  "field":field, "value":value, },
+          dataType: "json",
+              success: function(data) {
+                $(".numberResult").html(data.length);
+                loadDataTable(data);
+                $('#'+field).val(''); 
+              }
+          });
+      }
+      var field ="etat_hosp";
       $('document').ready(function(){
               $(document).on('click','.findHosp',function(event){
                      getHospitalisations(field,$('#'+field).val().trim());

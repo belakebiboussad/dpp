@@ -34,22 +34,22 @@ class HospitalisationController extends Controller
    */
   public function __construct()
   {
-      $this->middleware('auth');
+    $this->middleware('auth');
   }
-      public function index()
-      {  
-              $etatsortie = Etatsortie::where('type','0')->get();
-              $chapitres = chapitre::all();
-              $etablissement = Etablissement::first();
-              $medecins = employ::where('service',Auth::user()->employ->service)->get();
-              if(Auth::user()->role_id != 9 )//9:admission
-                $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
-                                                      $q->where('id',Auth::user()->employ->service);
-                                                     })->where('etat_hosp','=',null)->get();
-               else
-                   $hospitalisations = hospitalisation::where('etat_hosp','=',null)->get();             
-              return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
-      }
+  public function index()
+  {  
+    $etatsortie = Etatsortie::where('type','0')->get();
+    $chapitres = chapitre::all();
+    $etablissement = Etablissement::first();
+    $medecins = employ::where('service',Auth::user()->employ->service)->get();
+    if(Auth::user()->role_id != 9 )//9:admission
+      $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
+                                            $q->where('id',Auth::user()->employ->service);
+                                           })->where('etat_hosp','=',null)->get();
+    else
+      $hospitalisations = hospitalisation::where('etat_hosp','=',null)->get();             
+      return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
+  }
   /**
    * Show the form for creating a new resource.
    *

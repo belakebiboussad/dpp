@@ -55,10 +55,7 @@ class EmployeController extends Controller
      * @param  \App\modeles\employ  $employ
      * @return \Illuminate\Http\Response
      */
-    public function edit(employ $employ)
-    {
-        //
-    }
+    // public function edit(employ $employ){ }
 
     /**
      * Update the specified resource in storage.
@@ -108,5 +105,5 @@ class EmployeController extends Controller
        * @param  \App\modeles\employ  $employ
        * @return \Illuminate\Http\Response
        */
-/*public function searchBySpececialite(Request $request){$doctors =  (specialite::FindOrFail($request->specialiteId))->employes;return Response::json($doctors);}
+/*public function searchBySpececialite(Request $request){$doctors =  (specialite::FindOrFail($request->specialiteId))->employes;return Response::json($doctors);}*/
 }

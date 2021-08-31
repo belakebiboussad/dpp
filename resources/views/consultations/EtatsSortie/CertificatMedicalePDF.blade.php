@@ -8,48 +8,41 @@
      	@page {
           margin: 100px 25px;
       }
-			header {
-          position: fixed;
-          top: -60px;
-          left: 0px;
-          right: 0px;
-          height: 50px;
-          color: white;
-          text-align: center;
-          line-height: 35px;
-      }
-      footer {
-          position: fixed; 
-          bottom: -60px; 
-          left: 0px; 
-          right: 0px;
-          height: 35px; 
-
-          /** Extra personal styles **/
-          /*color: white;*/
-          text-align: center;
-          line-height: 35px;
-      }
-    </style>		
+		</style>		
   </head>
   <body>
-    <!-- Define header and footer blocks before your content -->
         <header>
            <div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>
         </header>
         <footer>
           <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
         </footer>
-
-        <!-- Wrap the content of your PDF inside a main tag -->
-        <main>
-        		<br><br><br>	
-        	  <hr />
-        		<div class="row"><div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div></div><br>
-        		<div class="row"><div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div></div>
-        		<div class="row"><div><strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
-          		{{ $obj->docteur->Service->responsable->prenom }}</div>
-        		</div>
+        <main> <!-- Wrap the content of your PDF inside a main tag -->
+      		<br><br><br>	
+      	  <hr class="hr_1"/>
+      		<div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div><br>
+      		<div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div>
+      		<div>
+      			<strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
+        		{{ $obj->docteur->Service->responsable->prenom }}
+      		</div><br><br><br><br>
+        	<div>
+	          <p class="espace">
+	           Je soussigné, Dr <strong>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</strong>
+	           Docteur en  <strong> {{ $obj->docteur->Specialite->nom }}</strong>,
+	          </p>
+	          <p>
+	          certifie avoir examiné ce <strong>{{ (\Carbon\Carbon::parse($obj->Date_Consultation))->format('d/m/Y') }}</strong>
+	            <strong> {{ $obj->patient->getCivilite() }} </strong>
+	            <strong>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom }}</strong> né(e) le  <strong> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </strong>
+	            et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
+	          </p>
+	        </div>
+	        <div class="sign">Date : {{ $date }}</div>
+	        <div class="footer">
+	          <div class="textCenter">Certificat fait pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre
+	          </div>
+	        </div>
        	</main>
   </body>
  </html>

@@ -1,12 +1,14 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <title><strong>Résumé standard de sortie</strong></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
-    <style type="text/css">
-    table 
+    <title>>Résumé standard de sortie</title>
+    <style type="text/css" media="screen">
+     	@page {
+          margin: 100px 25px;
+      }
+      table 
     {
         border-collapse: collapse;
     }
@@ -15,29 +17,36 @@
         border: 1px solid black;
         padding: 5px;
     }
-  </style>
-</head>
-<body>
- <div class="container-fluid">
-    @include('partials.etatHeader')
-    <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
-    <div class="row"> <div class="mb-10"><strong>Etablissement : </strong><span>{{ $etablissement->nom }}</span></div></div>
-    <div class="row" ><div class="mb-10"> <strong>Chef de servise : {{ $obj->admission->id }}</strong>
+		</style>		
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header>
+        <div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>
+      </header>
+      <footer>
+        <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
+      </footer>
+      <br><br><br><br>
+      <h3 class="center"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
+      <br><br>
+      <div class="row" ><div class="mb-10"> <strong>Chef de servise : </strong>
       <span>
-      {{-- $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom --}}
-     {{ $obj->admission->demandeHospitalisation->Service->responsable->nom }}
-     {{ $obj->admission->demandeHospitalisation->Service->responsable->prenom }}
-
+        {{ $obj->admission->demandeHospitalisation->Service->responsable->nom }}
+        {{ $obj->admission->demandeHospitalisation->Service->responsable->prenom }}
       </span>
-
      </div>
-    </div><br><hr/>
-    <section class="table"> 
-      <table class="head" style="width:100%;">   <thead> </thead>
+    </div><br>
+     <section class="table"> 
+      <table class="head" style="width:100%;">
         <tbody>
           <tr>
-            <td class="first"><strong>Matricule :</strong><span> &nbsp;{{ $obj->patient->assure->matricule }}</span></td>
-            <td><strong>N° Dossier</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
+            <td class="first"><strong>Matricule :</strong>
+              @if($obj->patient->Type != 5 )
+                <span> &nbsp;{{ $obj->patient->assure->matricule }}</span>
+              @endif
+            </td>
+            <td><strong>N° Dossier :</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">
             <td class="first"><strong>Nom et Prénom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span></td>
@@ -112,6 +121,6 @@
           </tbody>
         </table>
       </section><br><hr/>
- </div><!-- fluid  -->
-</body>
-</html>
+    </div>
+  </body>
+  </html>
