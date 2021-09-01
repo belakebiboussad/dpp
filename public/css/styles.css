@@ -99,7 +99,7 @@ header {
 .foot { position: absolute; top: 1200px !important;}
 .footer { position: absolute; top: 100%; }
 .sign { position: absolute; top: 85%; padding-left: 60%; }
-.hr_1{ border: 1px solid }
+.hr-1{ border: 1px solid }
 .modal-backdrop { z-index:0; }
 #RDV {
  z-index: 1040 !important;
@@ -199,6 +199,7 @@ ol { list-style: none; counter-reset: li }
 }
 .espace{ margin-left:6em }
 .tab-space { margin-left:3em;}
-.tab-space2 { margin-left:6em;}
 .tab-space40{ margin-left:40em;}
 .textCenter {  text-align: center;}
+.brd-0 { border:0px; }
+.brd-2 { border:3px solid black; }

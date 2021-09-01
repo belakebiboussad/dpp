@@ -19,7 +19,7 @@
         </footer>
         <main> <!-- Wrap the content of your PDF inside a main tag -->
       		<br><br><br>	
-      	  <hr class="hr_1"/>
+      	  <hr class="hr-1"/>
       		<div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div><br>
       		<div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div>
       		<div>
