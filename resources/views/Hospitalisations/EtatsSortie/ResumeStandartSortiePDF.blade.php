@@ -33,13 +33,9 @@
   </head>
   <body>
     <div class="container-fluid">
-      <header>
-        <div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>
-      </header>
-      <footer>
-        <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
-      </footer>
-      <main> <!-- Wrap the content of your PDF inside a main tag -->
+      <header><div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div></header>
+      <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
+      <main> 
         <br><br><br>  
         <hr class="h-1"/>
         <div>
@@ -78,7 +74,6 @@
             </tr>
             <tr>
               <td>
-                              
                   <h5 class="rect">
                     <strong>&nbsp;&nbsp;Matricule :</strong>&nbsp; 
                     @if($obj->patient->Type != 5 )
@@ -92,10 +87,23 @@
                   </h5>
                   <strong>Nom et Prénoms : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span><br>
                   <strong>Date de naissance(âge) :<strong>&nbsp;
-                  <span> &nbsp;{{ $obj->patient->Dat_Naissance }} &nbsp;({{ $obj->patient->getAge() }} ans)</span>
-                  <strong class="tab-space"> Sexe :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Sexe }}</span>
-               </td>
-                <td>
+                  <span> &nbsp;{{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} &nbsp;({{ $obj->patient->getAge() }} ans)</span>
+                  <strong class=""> Sexe :</strong>&nbsp;&nbsp;&nbsp;<span> &nbsp;{{ $obj->patient->Sexe }}</span><br>
+                  <strong>Lieu de Naissance  :<strong>&nbsp;
+                    @if(isset($obj->patient->Lieu_Naissance))
+                   <span> &nbsp;{{ $obj->patient->lieuNaissance->nom_commune }}</span>
+                   @endif
+                   <br>
+                   <strong>Lieu de résidence(Wilaya) :</strong>&nbsp;
+                    @if(isset($obj->patient->commune_res))
+                    <span><span> &nbsp;{{ $obj->patient->commune->daira->wilaya->nom }}</span>
+                   @endif
+                   <br>
+                   <strong>Date d'admisston a l'hôpital :</strong>&nbsp;
+                   <span> &nbsp;{{  (\Carbon\Carbon::parse($obj->admission->hospitalisation->Date_entree))->format('d/m/Y') }}</span>
+
+             </td>
+                <td rowspan="2">
                   <h5><strong>CODE COMMUNDE </strong></h5>
                   <h5><strong>DE NAISSANCE :</strong>
                   @if(isset($obj->patient->Lieu_Naissance))
@@ -110,8 +118,8 @@
                   </h5>
                 </td>
             </tr>
-            <!--<tr></tr>
-            <tr></tr>
+            <tr style=" line-height: 14px; "><td  class="center"><span><strong>Dernier Dervice d'Hospitalisation</strong></span></td></tr>
+           <!-- <tr></tr>
             <tr></tr>
  -->
           </table>
