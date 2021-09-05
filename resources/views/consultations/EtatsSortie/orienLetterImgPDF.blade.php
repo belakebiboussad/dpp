@@ -19,11 +19,7 @@
 		<span id="orSpecialite"></span>
 		</div>
 	</div>
-	<div class="col-sm-4">
-		<div class="sec-droite">
-		
-		</div>
-	</div><!-- / -->
+	<div class="col-sm-4"><div class="sec-droite"></div></div>
 </div>
 <div class="row ml-4">
 	<div class="col-sm-11">

@@ -3,7 +3,6 @@
 @section('page-script')
 <script>
 var field = 'name';
-  /*$(function(){$('.filter').change(function() {if (this.value.trim()) { field = $(this).prop("id");} });});*/
 $(document).ready(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
@@ -105,22 +104,36 @@ function getUserdetail(id)
 		  	    <label class="control-label" for="name"><strong>Nom:</strong></label>
 		  	    <div class="input-group col-sm-10">
 							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
+							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>
 	  	    </div>
 	  	  </div>
 	  	  <div class="col-sm-4">
 	  	    <div class="form-group">
 		  	    <label class="control-label" for="userRole"><strong>Rôle:</strong></label>
-		  	    <div class="input-group col-sm-10"><!-- <input type="text" class="form-control input input-xs col-sm-12 filter" id="role_id" name="role_id"  placeholder="Rôle du l'utilisateur"/> -->
+		  	    <div class="input-group col-sm-10">
 							<select class="col-xs-12 col-sm-12 input-xs filter" name="role_id" id="role_id">
-								<option value="" selected>Selectionner...</option>}
-							@foreach ($roles as $role)
-								<option value="{{ $role->id }}">{{ $role->role }}</option>
-							@endforeach
+								<option value="" selected>Selectionner...</option>
+								@foreach ($roles as $role)
+									<option value="{{ $role->id }}">{{ $role->role }}</option>
+								@endforeach
 							</select>
 						</div>
 	  	    </div>
 	  	  </div>
+		  	<div class="col-sm-4">
+		      <div class="form-group col-sm-12">
+		       	<label class="control-label" for="service_id" ><strong>Service:</strong></label>
+						<div class="input-group col-sm-10">
+							<select class="form-control col-xs-12 col-sm-12 input-xs filter" name="service_id" id="service_id">
+								<option value="" selected>Selectionner...</option>
+								@foreach ($services as $service)
+								<option value="{{ $service->id }}">{{ $service->nom }}</option>
+								@endforeach
+				  		</select>
+				  	</div>
+				  </div>
+				</div>
 	  	</div>			   
 		</div>
 		<div class="panel-footer">

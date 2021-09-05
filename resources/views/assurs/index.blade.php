@@ -37,7 +37,7 @@
 <div class="page-content">
 	<div class="row">	
 		<div >
-			<h4><strong>Bienvenu(e) Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h4>
+			<h4><strong>Bienvenu(e) Monsieur :</strong> &nbsp;<q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h4>
 		</div>		
 	</div><div class="space-12"></div>
 	<div class="row">
@@ -61,8 +61,8 @@
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
-					</div>
-					<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
 			      <div class="form-group col-sm-12">
 			       	<label class="control-label" for="nss" ><strong>NSS:</strong></label>
 							<div class="input-group col-sm-8">
@@ -70,7 +70,7 @@
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					  	</div>
 					  </div>
-					</div>
+						</div>
 					</div><!-- row -->
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;"> <!-- style ="margin-top:-0.5%;"  -->

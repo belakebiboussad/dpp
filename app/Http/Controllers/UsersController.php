@@ -36,8 +36,9 @@ class UsersController extends Controller
     }
     public function index()
     {
-      $roles = rol::all(); //$users = User::all();
-      return view('user.index',compact('roles'));
+      $roles = rol::all();
+      $services = service::all();
+      return view('user.index',compact('roles','services'));
     }
     /**
      * Show the form for creating a new resource.
@@ -92,7 +93,6 @@ class UsersController extends Controller
         "role_id"=>$request->role,
       ]);
       //return redirect(Route('employs.show',$employe->id)); 
-      //dd($user);
       return redirect(Route('users.show',$user->id));                 
     }
     /**
@@ -286,10 +286,29 @@ class UsersController extends Controller
     public function search(Request $request)
     {
       $value = trim($request->value);
+      $users = null;
+      switch($request->field)
+      {
+        case "role_id"  :
+              $users = User::with('role')->where($request->field,$value)->get(); 
+              break; 
+        case "name"  :
+              $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
+              break;
+        case "service_id"  :
+              $users = User::with('role')->whereHas('employ', function ($q) use ($value){
+                                             $q->where('service',$value);
+                                         })->get();
+              break; 
+        default:    
+              break;          
+      }
+    /*
       if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
         $users = User::with('role')->where($request->field,$value)->get(); 
       else 
         $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
+    */
        return Response::json($users);
     }    
     public function AutoCompleteField(Request $request)
