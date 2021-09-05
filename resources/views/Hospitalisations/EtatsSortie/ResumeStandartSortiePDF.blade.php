@@ -118,7 +118,7 @@
                   <strong>Date de sortie de l'Hôpital :</strong>&nbsp;
                   <span>{{ $obj->Date_Sortie }}</span>
               </td>
-              <td><!-- &nbsp; -->
+              <td>
                 <h5><strong>CODE COMMUNDE </strong></h5>
                 <h5><strong>DE NAISSANCE :</strong>
                 @if(isset($obj->patient->Lieu_Naissance))
