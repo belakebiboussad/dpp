@@ -21,7 +21,7 @@
   </head>
   <body> 
     <div>
-      <header><div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div></header>
+      <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
       <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
       <main><br><br><br>
         <hr class="h-1"/>
