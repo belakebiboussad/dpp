@@ -48,7 +48,7 @@
 <script src="{{asset('/js//chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('/js/live_w_locator.js')}}"></script> 
+{{--  --}}
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   var base64Img = null; 

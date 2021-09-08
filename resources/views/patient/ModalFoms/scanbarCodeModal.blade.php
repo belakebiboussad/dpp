@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body" style="position: static">
 				<div id="interactive" class="viewport"></div>
-				<div class="error"></div>
+				<div class="error" id ="errorMsg"></div>
 			</div>
 			<div class="modal-footer a">
 			<div class="controls">

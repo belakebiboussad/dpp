@@ -11,7 +11,59 @@
 	</style>
 @endsection
 @section('page-script')
+<script type="text/javascript" src="{{asset('/js/live_w_locator.js')}}"></script> 
+
 <script>
+	var video = document.getElementById("interactive");
+	var constraints = window.constraints = {
+	  	audio: false,
+		  video: true
+	};
+	var errorElement = document.querySelector('#errorMsg');
+	$(function(){
+		navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+			 App.init();
+			  Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (result) {
+            if (result.boxes) {
+                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                result.boxes.filter(function (box) {
+                    return box !== result.box;
+                }).forEach(function (box) {
+                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                });
+            }
+
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+            }
+
+            if (result.codeResult && result.codeResult.code) {
+                Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+            }
+        }
+    });
+    Quagga.onDetected(function(result) {
+        if (result.codeResult.code){
+            $('#IPP').val(result.codeResult.code);
+            Quagga.stop();
+            App.init();  
+            setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
+        }
+    });
+			
+	}).catch(function(error) {
+	});
+});
+function errorMsg(msg, error) {
+  errorElement.innerHTML += '<p>' + msg + '</p>';
+  if (typeof error !== 'undefined') {
+    console.error(error);
+  }
+}
 	function getPatientdetail(id)
 	{
 		$.ajax({
