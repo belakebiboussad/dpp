@@ -11,8 +11,6 @@
 	</style>
 @endsection
 @section('page-script')
-	<script src="{{asset('/js/quagga.min.js')}}"></script>
-	<script src="{{asset('/js/live_w_locator.js')}}"></script>
 <script>
 	function getPatientdetail(id)
 	{
