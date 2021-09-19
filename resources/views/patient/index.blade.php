@@ -12,7 +12,6 @@
 @endsection
 @section('page-script')
 <script type="text/javascript" src="{{asset('/js/live_w_locator.js')}}"></script> 
-
 <script>
 	var video = document.getElementById("interactive");
 	var constraints = window.constraints = {
@@ -120,8 +119,8 @@ function errorMsg(msg, error) {
 	}
 	$(function(){
 		$('.autofield').change(function() {
-	      if (this.value.trim()) { //value = this.value.trim();
-	   		  field = $(this).prop("id");	//return false;
+	      if (this.value.trim()) {
+	   		  field = $(this).prop("id");
 	   		}
 	  });
 	});

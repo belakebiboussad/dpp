@@ -276,7 +276,7 @@
 				$('#ethylisme').prop('checked', true);
 			$('#phys_cim_code').val(data.cim_code);
 		  $('#descriptionPhys').val(data.description);
-			jQuery('#EnregistrerAntecedantPhys').val("update");//$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
+			jQuery('#EnregistrerAntecedantPhys').val("update");
 			jQuery('#antecedantPhysioModal').modal('show');
 		});
 	});
@@ -590,7 +590,6 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
- <!-- mt-2p -->
 	<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
 	<div class="row">
 	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">

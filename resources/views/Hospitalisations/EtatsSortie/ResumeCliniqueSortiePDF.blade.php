@@ -25,7 +25,6 @@
       <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
       <main><br><br><br>
         <hr class="h-1"/>
-        <h3 class="center"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
         <br>
         <div>
           <strong>Etablisement : </strong><span>{{ $etablissement->nom}}</span>

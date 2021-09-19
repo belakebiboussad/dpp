@@ -224,7 +224,7 @@
   function addRequiredAttr()
   { 
     var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-    $.each(classList, function(index, item) {
+    $.each(classList, function(index, item){
       if (item === 'hidden') { 
          $( "ul#menuPatient li:eq(0)" ).removeClass( item );
       }
@@ -233,12 +233,12 @@
     {
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
-    $(".starthidden").hide(250);  //$('#description').attr('disabled', true);
+    $(".starthidden").hide(250);
     if($("#type").val() != 0)
       $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }
-function typep()
-{
+  function typep()
+  {
     if($('#fonc').is(':checked'))
     {
       $('#foncform').addClass("hidden").hide().fadeIn();

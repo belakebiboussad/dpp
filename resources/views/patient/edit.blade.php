@@ -4,35 +4,44 @@
 <script>
 	function showTypeEdit(i)
 	{
-	 	var value = $("#type").val();
-  		if( value == "0")
-  		{
-	  		if(i !=0)
+		if( $("#type").val() == "0")
+  	{
+  		if(i !=0)
 	 		{
-	 			$('#Assure').find('input').val('');//copyPatient();
+	 			$('#Assure').find('input').val('');
 	 			$('#Assure').find("select").prop("selectedIndex",0);
 	 			$('#description').val('');
 	 			addRequiredAttr();
 			}
 			$("#foncform").addClass('hide');
 		}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
-  		{
-  			if(i !=0)
+  	{
+  		if(i !=0)
+		  {
+		  	if(('{{ $patient->Type }}' == "0"))
 		  	{
-		   		if(('{{ $patient->Type }}' == "0"))
-		  		{
-		  			$('#Assure').find('input').val('');
-				    	$('#Assure').find("select").prop("selectedIndex",0);
-				    	$('#description').val('');
+		  		$('#Assure').find('input').val('');
+				 	$('#Assure').find("select").prop("selectedIndex",0);
+				 	$('#description').val('');
 				}
+				if(('{{ $patient->Type }}' == "5"))
+		  	{
+		  		$("ul#menuPatient li:eq(1)" ).removeClass( "active" );
+		  		$( "ul#menuPatient li:eq(0)" ).addClass( "active" );
+		  		$('#Assure').removeClass('hidden');
+		  		$('#Assure').addClass("active");
+		  		$('#Assure').addClass("in");
+		  		$('#Patient').removeClass('active');
+		  		$('#Patient').removeClass('in');
 		  	}
+		  }
 			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 			$("#foncform").removeClass('hide');
 			$('#nsspatient').attr('disabled', false); 
 			addRequiredAttr();
 		}else
-  		{
-  			$(".starthidden").show(250);$('#description').attr('disabled', false); 
+  	{
+			$(".starthidden").show(250);$('#description').attr('disabled', false); 
 			$("#foncform").addClass('hide'); 
 			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))
 				$( "ul#menuPatient li:eq(0)" ).addClass("hidden");
@@ -42,32 +51,32 @@
 			$('#Assure').find('input').prop("required",false);
 			$('#Assure').find("select").prop("required",false);
 			$('#nsspatient').attr('disabled', true);  
-  		}
+  	}
 	}
 	$(function(){
-		 $( "#editPatientForm" ).submit(function( event ) {
-	      		if( ! checkPatient() )
-      			{
-			   	activaTab("Patient");
-			   	event.preventDefault();
-	      		}else{
-  				if(($('#type').val() != "5" )){ 
-  					$('.Asdemograph').find('*').each(function () { 
-  						$(this).attr("disabled", false);
-  					});	
-					if( ! checkAssure() )
-					{
-					  	activaTab("Assure");
-			  			event.preventDefault();
-					}else
-						$( "#editPatientForm" ).submit();
-  				}else
-  				{
-  					$("#Position").prop("disabled", true);
-					  $('#Assure').find('input').prop("disabled", true).attr('required', false);
-					  $( "#editPatientForm" ).submit();
-  				}
-	    	}
+		  $( "#editPatientForm" ).submit(function( event ) {
+	      	if( ! checkPatient() )
+      		{
+			   		activaTab("Patient");
+			   		event.preventDefault();
+	      	}else{
+  					if(($('#type').val() != "5" )){ 
+  						$('.Asdemograph').find('*').each(function () { 
+  							$(this).attr("disabled", false);
+  						});	
+							if( ! checkAssure() )
+							{
+					 			activaTab("Assure");
+			  				event.preventDefault();
+							}else
+								$( "#editPatientForm" ).submit();
+  						}else
+  						{
+  							$("#Position").prop("disabled", true);
+					  		$('#Assure').find('input').prop("disabled", true).attr('required', false);
+					  		$( "#editPatientForm" ).submit();
+  						}
+	    		}
 	    });
 	})
 	$(document).ready(function(){
@@ -103,7 +112,7 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li class=" @if($patient->Type !="5") active @else hidden  @endif">
+		<li class=" @if($patient->Type !="5") active @else hidden @endif">
 		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo('{{ $patient->id}}');">
 	    	<span class="bigger-130"><strong>Assuré(e)</strong></span>
 	    </a>
@@ -116,7 +125,7 @@
   		<div id="Assure" class='tab-pane fade @if($patient->Type =="5") hidden @else in active  @endif '>
     			@include('assurs.editAssure')
     		</div>
-		<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
+		<div id="Patient" class="tab-pane fade @if($patient->Type =="5") in active  @endif">@include('patient.editPatient')</div>
   </div> <div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center"><br>

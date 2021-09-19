@@ -12,7 +12,7 @@
 Route::group(['middleware' => 'revalidate'], function()
 {          
     Auth::routes(); 
-    Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
+    Route::get('/', 'Auth\LoginController@showLoginForm');
 });//ressources
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
@@ -39,7 +39,7 @@ Route::resource('demandeproduit','demandeprodController');
 Route::resource('rdvHospi','RdvHospiController');
 Route::resource('demandeexb','DemandeExbController');
 Route::resource('demandeexr','DemandeExamenRadio');
-Route::resource('visites','VisiteController');// Route::resource('visite','VisiteController');
+Route::resource('visites','VisiteController');
 Route::resource('acte','ActeController');
 Route::resource('traitement','TraitementController');
 Route::resource('surveillance','SurveillanceController');
@@ -47,6 +47,7 @@ Route::resource('reservation','BedReservationController');
 Route::resource('etablissement','EtablissementControler');
 Route::resource('crrs','CRRControler');
 Route::resource('stat','StatistiqusController');
+Route::resource('params','paramController');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
@@ -181,6 +182,7 @@ Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');
 });
+
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);

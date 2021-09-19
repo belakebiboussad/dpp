@@ -12,7 +12,7 @@
 			   </a>
 			</li>
 		</ul>
-	</div> {{-- row ul --}}
+	</div>
 	<div class="row">
 		<div class= "col-md-9 col-sm-9"> 
 	      		<div  class="tab-content" style ="border-style: none;">

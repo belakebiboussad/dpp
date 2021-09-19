@@ -10,8 +10,8 @@
 					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 				</div>
-			</div>{{-- col-sm-6	 --}}
-			<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
@@ -19,7 +19,7 @@
 						{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 					</div>
 				</div>
-			</div>{{-- col-sm-6	 --}}
+			</div>
     </div>  {{-- row --}}
     <div class="row">
       <div class="col-sm-6">
@@ -219,7 +219,6 @@
 							 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
-								<!-- pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}" -->
 							</div>
 						</div>					
 					</div><div class="col-sm-6"></div>	
@@ -230,6 +229,3 @@
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
-{{-- @if(count($correspondants) == 0)	<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Homme de confiance</h4></div></div>
-<div class="row"><div class="col-sm-1"></div><div class="col-sm-11"><div class="form-group padding-left"><input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
-<span class="lbl lighter blue"> <strong>Ajouter un correspondant</strong></span></div></div>@endif</div> --}}		
