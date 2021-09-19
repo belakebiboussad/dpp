@@ -111,17 +111,13 @@
 	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
-		 {{-- <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
-		  	<span class="bigger-130"><strong>Garde Malade/Homme de Confiance</strong></span></a>
-		  </li> --}}
 	</ul>	
-  <div class="tab-content">
-  	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
-    	@include('assurs.editAssure')
-    </div>
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
-  	{{-- <div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div> --}}
-  </div> {{-- tab-content --}}<div class="hr hr-dotted"></div>
+  	<div class="tab-content">
+  		<div id="Assure" class='tab-pane fade @if($patient->Type =="5") hidden @else in active  @endif '>
+    			@include('assurs.editAssure')
+    		</div>
+		<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
+  </div> <div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center"><br>
 			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
