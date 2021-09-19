@@ -18,8 +18,9 @@
 				<div class="col-sm-12">
 			  	<label for="infos"><b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic : </b></label> <br>
 			   	<div class="imgsEx">
-	         	@foreach($examens as $examen)
-						  <div class="col-xs-2"><input type="radio" name="exmns"  value="{{ $examen->id }}"><label for="male">{{ $examen->nom }}</label> </div>
+	         	      	@foreach($specialite->exmsImg as $exImg)
+					  <div class="col-xs-2"><input type="radio" name="exmns"  value="{{ $exImg }}">
+					  <label for="male">{{ App\modeles\TypeExam::FindOrFail($exImg)->nom}}</label> </div>
 				   	@endforeach
 				  </div>
 			  </div>

@@ -25,7 +25,7 @@ use App\modeles\demandeexb;
 use App\User;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
-use App\modeles\specialite_exb;
+//use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
@@ -74,20 +74,20 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request,$id_patient)
       {
-        $etablissement = Etablissement::first(); 
-        $employe=Auth::user()->employ;
-        $modesAdmission = config('settings.ModeAdmissions') ;
-        $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-        $chapitres = chapitre::all();
-        $services = service::all();
-        $apareils = appareil::all();
-        $meds = User::where('role_id',1)->get()->all();
-        $specialites = Specialite::orderBy('nom')->get();
-        $specialitesExamBiolo = specialite_exb::all();
-        $infossupp = infosupppertinentes::all();
-        $examens = TypeExam::all();//CT,RMN
-        $examensradio = examenradiologique::all();//pied,poignet
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+              $etablissement = Etablissement::first(); 
+              $employe=Auth::user()->employ;
+              $modesAdmission = config('settings.ModeAdmissions') ;
+              $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+              $chapitres = chapitre::all();
+              $services = service::all();
+              $apareils = appareil::all();
+              $meds = User::where('role_id',1)->get()->all();
+              $specialites = Specialite::orderBy('nom')->get();
+                $infossupp = infosupppertinentes::all();
+              //$examens = TypeExam::all();//CT,RMN
+              $examensradio = examenradiologique::all();//pied,poignet
+             $specialite = Specialite::findOrFail($employe->specialite);
+              return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
      * Store a newly created resource in storage.
@@ -153,11 +153,11 @@ class ConsultationsController extends Controller
                           $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
                    }
              }
-            if($request->exm  != null && (count($request->exm) >0 ))//save ExamBiolo
+            if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
             {
                   $demandeExamBio = new demandeexb;
                   $consult->demandeexmbio()->save($demandeExamBio);
-                  foreach($request->exm as $id_exb) {
+                  foreach($request->exmsbio as $id_exb) {
                     $demandeExamBio->examensbios()->attach($id_exb);
                   }
               }

@@ -13,7 +13,7 @@
 	       	</div>
 	        </div><div class="spcae-12"></div>
 	        <div class="row">
-	     		 	<div class="col-xs-12">
+	     		 <div class="col-xs-12">
 	      			<label for="explication"><strong>	Explication de la demande de diagnostic</strong></label>
 			 				<textarea class="form-control" id="explication" name="explication"></textarea>
 			     	 {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
@@ -22,14 +22,14 @@
 	        <div class="row">
 	        	<div class="col-xs-12 infosup">
 	      	 	<label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
-						@foreach($infossupp as $info)
-						<div class="col-sm-2 col-xs-6">
-						<div class="checkbox col-xs-12">
-							 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
-					    </div>
-					  </div>
-						@endforeach
-						</div>
+			@foreach($infossupp as $info)
+				<div class="col-sm-2 col-xs-6">
+					<div class="checkbox col-xs-12">
+						<label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
+					 </div>
+				 </div>
+			@endforeach
+			</div>
       		</div>
        	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div><div class="space-12"></div>
 	      <div class="row">
