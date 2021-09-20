@@ -104,12 +104,19 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request ,$id)
     { 
-          $demande = demandeexb::FindOrFail($id);
+      $demande = demandeexb::FindOrFail($id);
+      $demande = demandeexb::destroy($id);
+      if($request->ajax())  
+      { 
+        return Response::json($demande);
+      }else
+      {
           $consult_id = $demande->consultation;
-          $demande = demandeexb::destroy($id);
           return redirect()->action('ConsultationsController@show',$consult_id);
+      }
+          
     }
     public function detailsdemandeexb($id)
     {

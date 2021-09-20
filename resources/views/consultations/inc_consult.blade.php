@@ -5,13 +5,53 @@ $('document').ready(function(){
 				heightStyle: "content",
 				animate: 250,
 				header: ".accordion-header"
-	 }).sortable({
+  }).sortable({
 				axis: "y",
 				handle: ".accordion-header",
 				stop: function( event, ui ) {
 					ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
 				}
-		});
+	});
+  jQuery('body').on('click', '.delete-demandeBio', function (e) {
+	 	 	  event.preventDefault();
+        var demande_id = $(this).val();
+        $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+          type: "DELETE",
+          url: '/demandeexb/' + demande_id,
+          success: function (data) {
+            $("#demandeBio" + demande_id).remove();
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+        });
+	});
+	jQuery('body').on('click', '.delete-demandeRad', function (e) {
+		 	event.preventDefault();
+      var demande_id = $(this).val();
+      $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+      });
+      $.ajax({
+          type: "DELETE",
+          url: '/demandeexr/' + demande_id,
+          success: function (data) {
+            $("#demandeRad" + demande_id).remove();
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+      });
+	});
+	
+  
 });
 </script>
 <div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
@@ -80,7 +120,7 @@ $('document').ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
 								<td>{{ $consultation->Date_Consultation }}{{ $consultation->docteur->id }}</td>
 								<td>
 								@if($consultation->demandeexmbio->etat == null)
@@ -96,7 +136,7 @@ $('document').ready(function(){
 									@if($consultation->docteur->id == Auth::user()->employ->id)
 										@if($consultation->demandeexmbio->etat == null)
 											<a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
-											<a href="{{ route('demandeexb.destroy',$consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i></a>
+											<button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 										@endif
 										<a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a>
 									@endif	
@@ -127,19 +167,22 @@ $('document').ready(function(){
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
 							<td>{{ $consultation->Date_Consultation }}</td>
 							<td>
-								 @if($consultation->examensradiologiques->etat == null)
-											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($consultation->examensradiologiques->etat == "1")
-											Validé
+							@if($consultation->examensradiologiques->etat == null)
+								<span class="badge badge-warning">En Attente</span>
+  						@elseif($consultation->examensradiologiques->etat == "1")
+									<span class="badge badge-warning">Validé</span>
 								@else
-										 <span class="badge badge-danger">Rejeté</span>
-								 @endif
+									<span class="badge badge-danger">Rejeté</span>
+						  @endif
 							</td>
 							<td class="center">
 								<a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
+								@if($consultation->examensradiologiques->etat == null)
+								<button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
+							  @endif 
 								<a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
 							</td>
 						</tr>

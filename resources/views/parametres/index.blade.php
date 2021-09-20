@@ -6,11 +6,6 @@
 <div class="container-fluid">
 	<div class="row">
   <div class="col-sm-12">
-    <ul class="nav nav-pills pull-right">
-    	<li class="btn btn-success btn-xs"><a id="" class="btns" title="" href="#"> <i class="fa fa-cloud-download" aria-hidden="true"></i></a></li>
-      <li class="btn btn-info btn-xs"><a class="XiboFormButton btns" title="" href=""> <i class="fa fa-cloud-upload" aria-hidden="true"></i></a></li>
-      <li class="btn btn-danger btn-xs"><a class="XiboFormButton btns" title="" href="/maintenance/form/tidy"> <i class="fa fa-trash" aria-hidden="true"></i></a></li>
-    </ul>
     <div class="widget">
       <div class="widget-title">Paramètres</div>
       <div class="widget-body">
@@ -25,42 +20,39 @@
             {{ csrf_field() }}
               <div class="tab-content">
                 <div class="tab-pane active" id="generale">
-                  <h3 class="section-heading">Générale</h3>  
+                	<h3 class="section-heading">Générale</h3>
+                	<div class="row"><div class="col-sm-12"><h4>Examens biologique</h4></div></div>
+                  <div class="row">
+                    @include('examenbio.bioExamList')
+                  </div>
+                  <div class="row"><div class="col-sm-12"><h4>Examens Radiologique</h4></div></div>
+                  <div class="row">
+                  @foreach($examensImg as $exImg)
+      	            <div class="col-xs-2">
+        						<input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
+                      <span class="lbl">{{ $exImg->nom }} </span> 
+                    </div>
+                  @endforeach
+                  </div>
                 </div>
                 <div class="tab-pane" id="cons">
                   <h3 class="section-heading">Consultation</h3>  
-                  <div class="row"><div class="col-sm-12"><h4>Examens biologique</h4></div></div>
-                  <div class="row">
-                      @include('examenbio.bioExamList')
-                  </div>
-                  <div class="row"><div class="col-sm-12"><h4>Examens Radiologique</h4></div></div>
-                   <div class="row">
-                          @foreach($examensImg as $exImg)
-                                 <div class="col-xs-2">
-                                 {{-- specExamsImg --}}
-<input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"  {{  (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
-                                              <span class="lbl">{{ $exImg->nom }} </span> 
-                                        </label>
-                                </div>
-                          @endforeach
-                    </div>
-            </div>
-                <div class="tab-pane" id="hosp">
-                  <h3 class="section-heading">Hospitalisation</h3>  
-                </div>
+               
+            		</div>
+                <div class="tab-pane" id="hosp"><h3 class="section-heading">Hospitalisation</h3></div>
              </div>
              <div class="space-12"></div>
              <div class="row">
-                    <div class="col-sm12">
-                           <div class="center" style="bottom:0px;">
-                                <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-                          <a href="" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
-        </div>
-      </div>
-    </div>
+                <div class="col-sm12">
+                  <div class="center" style="bottom:0px;">
+                    <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+                    <a href="" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
+        					</div>
+      					</div>
+    					</div>
             </form>                                            
-      </div>
-		</div>
-	</div>
+      		</div>
+				</div>
+			</div>
 	</div>
 @endsection

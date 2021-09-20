@@ -193,11 +193,18 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
-            $demande = demandeexr::FindOrFail($id);
-            $consult_id = $demande->consultation;
-            $demande = demandeexr::destroy($id);
-            return redirect()->action('ConsultationsController@show',$consult_id);
+    public function destroy(Request $request,$id){
+      
+      $demande = demandeexr::FindOrFail($id);
+      $demande = demandeexr::destroy($id);
+       if($request->ajax())  
+      { 
+        return Response::json($demande);
+      }else
+      {
+        $consult_id = $demande->consultation;
+        return redirect()->action('ConsultationsController@show',$consult_id);
+      }
     }
      public function search(Request $request)
     {
