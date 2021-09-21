@@ -74,7 +74,6 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request,$id_patient)
       {
-
         $etablissement = Etablissement::first(); 
         $employe=Auth::user()->employ;
         $modesAdmission = config('settings.ModeAdmissions') ;
@@ -84,10 +83,10 @@ class ConsultationsController extends Controller
         $apareils = appareil::all();
         $meds = User::where('role_id',1)->get()->all();
         $specialites = Specialite::orderBy('nom')->get();
-        $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
+        $infossupp = infosupppertinentes::all();
+        //$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $specialite = Specialite::findOrFail($employe->specialite);
-        dd("323656");
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
