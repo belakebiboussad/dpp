@@ -18,10 +18,12 @@
 				<div class="col-sm-12">
 			  	<label for="infos"><b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic : </b></label> <br>
 			   	<div class="imgsEx">
-	         	      	@foreach($specialite->exmsImg as $exImg)
+	        @isset($specialite->exmsImg)
+	         	@foreach($specialite->exmsImg as $exImg)
 					  <div class="col-xs-2"><input type="radio" name="exmns"  value="{{ $exImg }}">
 					  <label for="male">{{ App\modeles\TypeExam::FindOrFail($exImg)->nom}}</label> </div>
 				   	@endforeach
+				  @endisset 	
 				  </div>
 			  </div>
 				</div><div class="space-12"></div>
