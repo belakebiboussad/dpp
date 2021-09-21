@@ -1,5 +1,4 @@
 @extends('app')
-
 @section('page-script')
 @endsection
 @section('main-content')
@@ -29,8 +28,12 @@
                   <div class="row">
                   @foreach($examensImg as $exImg)
       	            <div class="col-xs-2">
-        						<input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
-                      <span class="lbl">{{ $exImg->nom }} </span> 
+        						  @if(isset($specExamsImg))
+                      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
+                      @else
+                      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"/>
+                      @endif   
+                      <span class="lbl">{{ $exImg->nom }} </span>
                     </div>
                   @endforeach
                   </div>
