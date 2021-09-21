@@ -64,7 +64,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="{{ $errors->has('adresse') ? "has-error" : "" }}">
 						<label for="adresse"><b>Adresse:</b></label>
-						<textarea class="form-control" name="adresse" placeholder="Adresse..."></textarea>
+						<input class="form-control"  type="text" name="adresse" placeholder="Adresse..."/>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -150,10 +150,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-actions center">
-				<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer	</button>
-				<button type="reset" class="btn btn-sm btn-default">	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i>&nbsp;Annuler</button>
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm12">
+					<div class="center">
+						<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer	</button>
+						<button type="reset" class="btn btn-sm btn-default">	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i>&nbsp;Annuler</button>
+					</div>
+				</div>
 			</div>
+			<div class="space-12"></div>
 			</form>
 		</div>
 	</div>
