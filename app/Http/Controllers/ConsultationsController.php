@@ -74,20 +74,20 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request,$id_patient)
       {
-              $etablissement = Etablissement::first(); 
-              $employe=Auth::user()->employ;
-              $modesAdmission = config('settings.ModeAdmissions') ;
-              $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-              $chapitres = chapitre::all();
-              $services = service::all();
-              $apareils = appareil::all();
-              $meds = User::where('role_id',1)->get()->all();
-              $specialites = Specialite::orderBy('nom')->get();
-                $infossupp = infosupppertinentes::all();
-              //$examens = TypeExam::all();//CT,RMN
-              $examensradio = examenradiologique::all();//pied,poignet
-             $specialite = Specialite::findOrFail($employe->specialite);
-              return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
+        $etablissement = Etablissement::first(); 
+        $employe=Auth::user()->employ;
+        $modesAdmission = config('settings.ModeAdmissions') ;
+        $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+        $chapitres = chapitre::all();
+        $services = service::all();
+        $apareils = appareil::all();
+        $meds = User::where('role_id',1)->get()->all();
+        $specialites = Specialite::orderBy('nom')->get();
+        $infossupp = infosupppertinentes::all();
+        //$examens = TypeExam::all();//CT,RMN
+        $examensradio = examenradiologique::all();//pied,poignet
+        $specialite = Specialite::findOrFail($employe->specialite);
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
      * Store a newly created resource in storage.
