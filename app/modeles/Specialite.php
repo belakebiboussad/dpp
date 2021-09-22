@@ -14,7 +14,7 @@ class Specialite extends Model
     	}
     	public function getExmsbioAttribute($value)
     	{
-     		   return $this->attributes['exmsbio'] = json_decode($value);
+     		   return $this->attributes['exmsbio'] = json_decode($value,true);
   	}
   	 public function setExmsImgAttribute($value)
     	{
@@ -22,7 +22,7 @@ class Specialite extends Model
     	}
     	public function getExmsImgAttribute($value)
     	{
-     		 return $this->attributes['exmsImg'] = json_decode($value);
+     		 return $this->attributes['exmsImg'] = json_decode($value,true);
   	}
 	public function employes ()
 	{
