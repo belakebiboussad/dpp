@@ -20,7 +20,6 @@
 	};
 	var errorElement = document.querySelector('#errorMsg');
 	$(function(){
-		/*
 		navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 			 App.init();
 			  Quagga.onProcessed(function(result) {
@@ -58,13 +57,7 @@
 	}).catch(function(error) {
 		console.log("gdf");
 	});
-	*/
-	try {
-​​  	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-		})
-​​	} catch (error) {
-​​  	console.log("No magazines have been favorited.");
-​	​}
+	
 });
 function errorMsg(msg, error) {
   errorElement.innerHTML += '<p>' + msg + '</p>';
