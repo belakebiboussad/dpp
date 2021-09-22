@@ -22,19 +22,34 @@
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
 	 		<div class="tab-pane active" id="biologique">
-	 	{{-- 	@if($bioExam) --}}
-	 	@foreach ($specialite->exmsbio as $exbio)
-	 	{{$exbio }}
-	 	  {{-- 	  	<div class="checkbox col-xs-4">
-	 	    	<label>
-			<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
-	 		    <span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
-	 		  </label>
-	 		  </div> --}}
-	 		@endforeach
-	 		{{-- @endif --}}
+	 			@isset($specialite->exmsbio)
+	 				@foreach ( json_decode($specialite->exmsbio, true) as $exbio)
+	 	  	  			<div class="checkbox col-xs-4">
+	 	   			 	<label>
+							<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
+					 		<span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
+				 		 </label>
+	 		  			</div>
+	 				@endforeach
+	 			@endisset
 	 		</div>
+	 		<div class="tab-pane" id="radiologique"> @include('ExamenCompl.ExamenRadio')</div>
+	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>
 	 		</div>
-	 		</div>
-	 		</div>
+	 </div>
+	 <div class= "col-md-3 col-sm-3">
+			<div class="row">
+			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}','{{ $patient->getAge() }}','{{$patient->IPP}}','{{ $employe->nom }}','{{ $employe->prenom }}')">
+					<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
+				</button>
+			</div>
+			<div class="space-12"></div>
+			<div>
+				@if(! isset( $hosp))
+					@include('consultations.actions')	
+				@endif
+			</div>
+	</div>
 </div>
+</div>
+<div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>

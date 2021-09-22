@@ -86,16 +86,7 @@ class ConsultationsController extends Controller
         $infossupp = infosupppertinentes::all();    //$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $specialite = Specialite::findOrFail($employe->specialite);
-        $bioExam = (isset($specialite->exmsbio));
-        /*foreach ($specialite->exmsbio as $key => $value) {
-              echo($value);
-        }*/
-        dd("gdfg");
-      /*if(isset($specialite->exmsbio))
-            dd('1');
-        else
-            dd('2');*/
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite','bioExam'));
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
      * Store a newly created resource in storage.
