@@ -18,12 +18,12 @@
 			</div>
 		</div>
 	</div>
-</div> {{-- row --}}
+</div>
 <div class="spce-12"></div>
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :<span style="color: red">*</span></strong></label>
+			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 			<div class="col-sm-9">
 				<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			</div>
@@ -158,7 +158,8 @@
 					<option value="2">Pere</option>
 					<option value="3">Mere</option>
 					<option value="4">Enfant</option>
-					<option value="5">Autre</option>
+					<option value="5">Dérogation</option>
+					<option value="6">Autre</option>
 				</select>
 				</div>
 			</div>		

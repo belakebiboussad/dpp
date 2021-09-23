@@ -226,7 +226,7 @@
     var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
     $.each(classList, function(index, item){
       if (item === 'hidden') { 
-         $( "ul#menuPatient li:eq(0)" ).removeClass( item );
+        $( "ul#menuPatient li:eq(0)" ).removeClass( item );
       }
     });             
     if($('ul#menuPatient li:eq(0)').css('display') == 'none')

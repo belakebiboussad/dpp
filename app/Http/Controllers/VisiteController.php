@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
+use App\modeles\Specialite;
 use DB;
 use Carbon;
 class VisiteController extends Controller
@@ -65,9 +66,10 @@ class VisiteController extends Controller
       $examens = TypeExam::all();//CT,RMN
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
+      $specialite = Specialite::findOrFail($employe->specialite);
       $visite->save();
       $consts = consts::all();
-      return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap'))->with('id',$visite->id);
+      return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

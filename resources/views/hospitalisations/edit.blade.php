@@ -55,13 +55,13 @@
 <div class="profile-user-info">
   <div class="row">
     <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Service:</div><div class="profile-info-value"><span>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</span></div>
+      <div class="profile-info-name col-sm-6">Service:</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</span></div>
     </div>
     <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Spécialité :</div><div class="profile-info-value"><span>{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</span></div>
+      <div class="profile-info-name col-sm-6">Spécialité :</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</span></div>
     </div>
      <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Mode admission:</div><div class="profile-info-value">
+      <div class="profile-info-name col-sm-6">Mode admission:</div><div class="profile-info-value col-sm-6">
         @foreach(config('settings.ModeAdmissions') as $key=>$value)
           @if($value == $hosp->admission->demandeHospitalisation->modeAdmission)
             <span class="badge badge-success">{{ $key}}</span>
@@ -73,15 +73,16 @@
   @if($hosp->admission->demandeHospitalisation->modeAdmission != "2")
   <div class="row">
     <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}</span></div>
+      <div class="profile-info-name col-sm-6">Médecin Traitant :</div>
+      <div class="profile-info-value col-sm-6"><span>{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}</span></div>
     </div>
     <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Priorité :</div><div class="profile-info-value">
+      <div class="profile-info-name col-sm-6">Priorité :</div><div class="profile-info-value col-sm-6">
         <span class="label label-sm label-primary">{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
       </div>
     </div>
     <div class="col-sm-4 profile-info-row">
-      <div class="profile-info-name">Observation :</div><div class="profile-info-value"><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span></div>
+      <div class="profile-info-name col-sm-6">Observation :</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span></div>
     </div>
   </div>
 @endif

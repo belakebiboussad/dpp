@@ -36,8 +36,11 @@
                  Enfant 
                  @break
           @case(5)
+                 Dérogation 
+                 @break   
+           @case(6)
                  Autre 
-                 @break              
+                 @break                     
 		      @endswitch  
 		     </span>
 			</h4>

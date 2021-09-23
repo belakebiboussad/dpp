@@ -105,7 +105,7 @@
 				$('#type').val(data.type).change();
 				$('#code_ngap').val(data.code_ngap).change();
 				$('#duree').val(data.duree).change();
-				$('#description').val(data.description);/*$.each(data.periodes, function( index, value ){$('#' + value).prop("checked",true);});$('#nbr_j').val(data.duree);*/
+				$('#description').val(data.description);
 				jQuery('#EnregistrerActe').val("update");		
 					jQuery('#acteModal').modal('show');
 			  });
@@ -144,7 +144,6 @@
 				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		/*$("input[name='pT[]']:checked").each(function(){periodes.push($(this).attr('value'));});*/
 		var formData = {
 				visite_id: $('#id_visiteT').val(),
 				med_id:$("#produit").val(),
@@ -393,7 +392,7 @@
 				</div>
 				</div><!-- tab-pane Trait-->
 				<div role="tabpanel" class ="tab-pane" id="ExamComp">
-					 @include('ExamenCompl.index')
+					@include('ExamenCompl.index')
 				</div>
 				<div role="tabpanel" class ="tab-pane" id="constantes"> 
 					<div class= "col-md-12 col-xs-12">

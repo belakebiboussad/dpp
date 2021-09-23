@@ -13,9 +13,9 @@ class paramController extends Controller
 	public function index()
 	{
   		$specialites = specialite_exb::all();
-  		$examensImg = TypeExam::all();//CT,RMN
-  		$specExamsBio = (specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio;
-  		$specExamsImg = (specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg;
+  		$examensImg = TypeExam::all();//CT,RMN// $specExamsBio = (specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio;
+      $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
+      $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);//$specExamsImg = (specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg;
   		return view('parametres.index',compact('specialites','specExamsBio','specExamsImg','examensImg'));
   	}
   	public function store(Request $request)

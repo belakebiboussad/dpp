@@ -24,8 +24,7 @@ use App\modeles\demandeExamImag;
 use App\modeles\demandeexb;
 use App\User;
 use App\modeles\Specialite;
-use App\modeles\LettreOrientation;
-//use App\modeles\specialite_exb;
+use App\modeles\LettreOrientation;//use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
@@ -195,11 +194,7 @@ class ConsultationsController extends Controller
         $consultation = consultation::with('patient','docteur')->FindOrFail($id);
         return view('consultations.show', compact('consultation'));
       }
-      // public function edit(consultation $consultation)
-      // {
-      //   dd($consultation->lettreOrintation);
-       
-      // }
+     
     /**
      * Show the form for editing the specified resource.
      *

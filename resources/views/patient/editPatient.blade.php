@@ -20,7 +20,7 @@
 					</div>
 				</div>
 			</div>
-    </div>  {{-- row --}}
+    </div>
     <div class="row">
       <div class="col-sm-6">
 				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
@@ -50,7 +50,7 @@
 				  </div>
 				</div>
    		</div>
-      </div>  {{-- row --}}
+      </div>
       <div class="row">
 	    	<div class="col-sm-6">
 			  	<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
@@ -68,7 +68,7 @@
 					  	</div>
 				  	</div>
 			  	</div>
-			  </div>	{{-- col-sm-6 --}}
+			  </div>
 		  	<div class="col-sm-6">
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
@@ -207,7 +207,8 @@
 								<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
 								<option value="3" @if($patient->Type =='3') selected @endif>Mere</option>
 								<option value="4" @if($patient->Type =='4') selected @endif>Enfant</option>
-								<option value="5" @if($patient->Type =='5') selected @endif>Autre</option>
+								<option value="5" @if($patient->Type =='5') selected @endif>Dérogation</option>
+								<option value="6" @if($patient->Type =='6') selected @endif>Autre</option>
 							</select>
 						</div>		
 				  	</div>{{-- col-sm-4 --}}

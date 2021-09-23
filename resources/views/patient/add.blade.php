@@ -20,10 +20,9 @@
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
-				$("#foncform").addClass('hide');//copyPatient();
+					$("#foncform").addClass('hide');//copyPatient();
   				addRequiredAttr();
-  			}
-  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
+  			}else if(jQuery.inArray($('#type').val(), [1,2,3,4]) !== -1)
   			{
   				$("#foncform").removeClass('hide');
 			    addRequiredAttr();
@@ -41,8 +40,8 @@
 			    	activaTab("Patient");
 	        	event.preventDefault();
 	      	}else{
-      			if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
-      				$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+      			if(jQuery.inArray($('#type').val(), [1,2,3,4]) !== -1){
+      			  $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
 							if( ! checkAssure() )
 							{
 							  activaTab("Assure");
