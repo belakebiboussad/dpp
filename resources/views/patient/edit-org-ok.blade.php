@@ -61,9 +61,7 @@
 						$( "ul#menuPatient li:eq(0)").removeClass("active");
 			  		$("ul#menuPatient li:eq(1)").addClass("active");
 						$('#Patient').addClass("active");
-		  			//$('#Patient').addClass("in");
 		  			$('#Assure').removeClass("active");
-		  			$('#Assure').removeClass("in");
 		  			$('#Assure').find('input').prop("required",false);
 						$('#Assure').find("select").prop("required",false);
 						$('#nsspatient').attr('disabled', true);  
