@@ -20,7 +20,7 @@
 					</div>
 				</div>
 			</div>
-    </div>
+    </div><div class="space-12"></div>
     <div class="row">
       <div class="col-sm-6">
 				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
@@ -50,7 +50,7 @@
 				  </div>
 				</div>
    		</div>
-      </div>
+      </div><div class="space-12"></div>
       <div class="row">
 	    	<div class="col-sm-6">
 			  	<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
@@ -201,7 +201,7 @@
 							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type :<span style="color: red">*</span></strong></label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onchange="showTypeEdit(this);">
+							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onchange="showTypeEdit(this.value);">
 								<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
 								<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
 								<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>

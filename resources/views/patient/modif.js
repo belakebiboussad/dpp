@@ -1,12 +1,12 @@
 if( $("#type").val() == "0")
-  	{
-  		if(i !=0)
-	 		{
-	 			$('#Assure').find('input').val('');
-	 			$('#Assure').find("select").prop("selectedIndex",0);
-	 			$('#description').val('');
-	 			addRequiredAttr();
-			}
+  {
+  	if(i !=0)
+	{
+		$('#Assure').find('input').val('');
+	 	$('#Assure').find("select").prop("selectedIndex",0);
+	 	$('#description').val('');
+	 	addRequiredAttr();
+	}
 			$("#foncform").addClass('hide');
 		}else if(jQuery.inArray($('#type').val(), [1,2,3,4]) !== -1)
   	{

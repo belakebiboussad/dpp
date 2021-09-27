@@ -14,26 +14,26 @@
 	{
 		$('.nav-pills li').eq(0).removeClass('hide');
  	 	$("div#Assure").removeClass('hide');
- 	  $(".starthidden").hide(250);	
- 	  $('#description').val('');
- 	  if(tpSelectVal == "0")
- 	  {
- 	  	$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
- 	  }
+ 	  	$(".starthidden").hide(250);	
+ 	  	$('#description').val('');
+ 		  if(tpSelectVal == "0")
+ 	  	{
+ 	  		$('.asDemograph').find('*').each(function () { $(this).attr("disabled", true); });
+ 	 	 }
 	}
- 	function showTypeEdit(sel)
- 	{
- 		switch(sel.value){
+ 	function showTypeEdit(type)
+ 	{	
+ 		switch(type){
  	 		case "0":case "1": case "2": case "3": case "4":
- 	 				assureShow(sel.value);
+ 	 				assureShow(type);
  	 				switch('{{ $patient->Type }}'){
- 	 					case "5":	case "6":
- 	 							break;
  	 					case "0":case "1": case "2": case "3": case "4":
- 	 							// if('{{ $patient->Type }}' == "0" && ($('#type').val() !== "0"))                       
- 	 							// { 
-
- 	 							// }	
+ 	 							if('{{ $patient->Type }}' == "0" && ( type !== "0")) //disasble  assure 'input element
+ 	 							{
+ 	 								$('.asDemograph').find('*').each(function () { $(this).attr("disabled", false); });
+ 	  								$('#Assure').find('input').val('');//initialiser les inputs de l'assuré
+	 								$('#Assure').find("select").prop("selectedIndex",0);
+ 	 							} 		
  	 							break;
  	 					default:
  	 						break;
@@ -44,16 +44,16 @@
  	 				break;
  	 		default:
  	 				break;
- 	 }
+ 		 }
  	 /*if(i ==0){
- 	 		if(jQuery.inArray('{{ $patient->Type }}', [5,6]))
+ 	 		if(jQuery.inArray('{{-- $patient->Type --}}', [5,6]))
  	 		{
  	  		$('.nav-pills a[href="#Patient"]').tab('show');
  			}	
  		}*/
-  }
+  	}
 	$(function(){
-	/*if(jQuery.inArray('{{ $patient->Type }}', [5,6]))
+	/*if(jQuery.inArray('{{-- $patient->Type --}}', [5,6]))
 	{	$('#menuPatient a:first').hide();
 	else	$('#menuPatient a:first').show();
 	$('.nav-pills li.active').removeClass('active');
@@ -62,26 +62,16 @@
 	  $('#menuPatient li.active').removeClass('active').addClass('hide');
 	 $('#menuPatient li.active').removeClass('active').css('display', 'none');  
 	 }*/
-		if(jQuery.inArray('{{ $patient->Type }}', ["5","6"]) !== -1)
-		{
-			assurHide();
-		}else
-		{
-			if('{{ $patient->Type }}' == "0")
-			{
-				$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-			}
-		}
+	showTypeEdit('{{ $patient->Type }}');	
 });
 </script>
 @endsection
 @section('main-content')
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class="active" role="presentation">
-		  <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
-		   <!-- onclick="copyPatientInfo('{{ $patient->id}}');"   -->
-	    	<span class="bigger-130"><strong>Assuré(e)</strong></span>
-	    </a>
+			 <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true" onclick="copyPatientInfo('{{ $patient->id }}');">
+		 		<span class="bigger-130"><strong>Assuré(e)</strong></span>
+	    		</a>
  		</li>
 	 	<li role="presentation">
 	 	<a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
@@ -92,7 +82,7 @@
   	<div id="Assure" class="tab-pane active">
 			{{--
 			<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
-			<div class="row  Asdemograph">
+			<div class="row  asDemograph">
 			  <div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>

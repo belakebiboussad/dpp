@@ -282,37 +282,36 @@
             }   
         }
         function copyPatient(){ 
-          $("#nomf").val($("#nom").val());
-          $("#prenomf").val($("#prenom").val());
-          $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-          $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
-          $('#adressef').val($('#adresse').val());
-          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
-          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-          if ( $("#gs option:selected").val() === "" ){
-                $(gsf).attr("disabled", false);
-                $("#rhf" ).attr("disabled", false);
+              $("#nomf").val($("#nom").val());
+              $("#prenomf").val($("#prenom").val());
+              $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+              $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
+              $('#adressef').val($('#adresse').val());
+              $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+              $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
+              if ( $("#gs option:selected").val() === "" ){
+                    $(gsf).attr("disabled", false);
+                    $("#rhf" ).attr("disabled", false);
+              }
+              else{
+                  $("#gsf").val($("#gs option:selected").val());
+                  $("#rhf").val($("#rh option:selected").val());
+                  $(gsf).attr("disabled", true);
+                  $("#rhf" ).attr("disabled", true);     
           }
-          else{
-              $("#gsf").val($("#gs option:selected").val());
-              $("#rhf").val($("#rh option:selected").val());
-              $(gsf).attr("disabled", true);
-              $("#rhf" ).attr("disabled", true);     
-          }
-          $('.Asdemograph').find('*').each(function () {
-            $(this).attr("disabled", true); 
-          });
-          addRequiredAttr();
+          $('.asDemograph').find('*').each(function () {   $(this).attr("disabled", true);   });
+          //addRequiredAttr();
         }
         function copyPatientInfo(idP)
         {
-          alert(idP);
-          if($("#type").val() =="0")
-            copyPatient();
-          else
-            if(idP == null)
-              emptyPatient();
+                if($("#type").val() =="0")
+                      copyPatient();
+              else
+                      if(idP == null)
+                             emptyPatient();
         }
+     
+
         function emptyPatient(){ 
           $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
           $('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");
@@ -322,7 +321,7 @@
             $('#gsf').attr("disabled", false);
           if($("#gsf").prop('disabled') == true)
             $("#rhf" ).attr("disabled", false);
-          $('.Asdemograph').find('*').each(function () {
+          $('.asDemograph').find('*').each(function () {
             $(this).attr("disabled", false); 
           });
         }

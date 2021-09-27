@@ -1,5 +1,5 @@
 <div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
-	<div class="row Asdemograph">
+	<div class="row asDemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
@@ -24,9 +24,8 @@
 				</div>
 			</div>
 		</div>
-  </div>
-  <div class="space-12"></div>
-  <div class="row Asdemograph">
+  </div><div class="space-12"></div>
+  <div class="row asDemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
@@ -53,9 +52,8 @@
 				</div>
 				</div>
 		</div>
-	</div>
-	<div class="space-12"></div>
-	<div class="row Asdemograph">
+	</div><div class="space-12"></div>
+	<div class="row asDemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
@@ -109,7 +107,7 @@
 	   	</div>
     		</div>
   </div><div class="space-12"></div>
-	<div class="row Asdemograph">
+	<div class="row asDemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
@@ -126,7 +124,7 @@
 		</div>
 	</div>
 	<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Contact</strong></h5></div></div>
-	<div class="row Asdemograph">
+	<div class="row asDemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
@@ -163,11 +161,11 @@
 	<div class="row">
 		<div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Fonction</strong></h5>	</div>
 	</div>	
-  <div class="row">
+  <div class="row asProfData">
     <div class="col-sm-6" id="statut">
-			<div class="form-group">
-				<label class="col-sm-3 control-label" for="Position"><strong>Position :<span style="color: red">*</span></strong></label>
-				<div class="col-sm-9">
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="Position"><strong>Position :<span style="color: red">*</span></strong></label>
+			<div class="col-sm-9">
 					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
 					
 						<option value="">Sélectionner...</option>
@@ -202,7 +200,7 @@
 			</div>
 		</div>
 	</div><div class="space-12"></div>	
-	<div class="row">
+	<div class="row asProfData">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label " for="grade"><strong>Grade :</strong></label>
@@ -232,9 +230,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="space-12"></div>
-	<div class="row">
+	</div><div class="space-12"></div>
+	<div class="row asProfData">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="control-label col-xs-12 col-sm-3" for="NMGSN"><strong>NMGSN :</strong>	</label>
@@ -254,9 +251,7 @@
 				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
-			{{--	<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
-			  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $patient->assure->NSS }}" maxlength =12 minlength =12 /> --}}
-			  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $patient->Assurs_ID_Assure }}" maxlength =12 minlength =12 />
+					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
 				 {{--  pattern="^\[0-9]{12}$"pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 				</div>
 			</div>

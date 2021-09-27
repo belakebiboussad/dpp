@@ -235,7 +235,7 @@
     }
     $(".starthidden").hide(250);
     if($("#type").val() != 0)
-      $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
+      $('.asDemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }
   function typep()
   {
