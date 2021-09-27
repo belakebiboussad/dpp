@@ -306,6 +306,7 @@
         }
         function copyPatientInfo(idP)
         {
+          alert(idP);
           if($("#type").val() =="0")
             copyPatient();
           else

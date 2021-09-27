@@ -6,7 +6,7 @@
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha />
+						<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control col-xs-12 col-sm-12" autocomplete= "off" alpha />
 					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 				</div>
@@ -15,7 +15,7 @@
 				<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off"/>
+						<input type="text" id="prenom" name="prenom" value="{{ $patient->Prenom }}" class="form-control col-xs-12 col-sm-12" autocomplete="off"/>
 						{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 					</div>
 				</div>
@@ -104,8 +104,8 @@
 				</select>
 				</div>
 			</div>
-			</div>{{-- col-sm-6 --}}
-	    </div> {{-- row --}}
+			</div>
+	    </div>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
@@ -126,8 +126,8 @@
 					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
 						 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 				</div>		
-			</div>{{-- /nom de jeune fille --}}
-		</div>	{{-- row --}}
+			</div>
+		</div>
 		<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Contact</strong></h5></div></div>
 		<div class="space-12"></div>	
 		<div class="row">
@@ -201,7 +201,7 @@
 							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type :<span style="color: red">*</span></strong></label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onclick="showTypeEdit(1)">
+							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onchange="showTypeEdit(this);">
 								<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
 								<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
 								<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
@@ -211,8 +211,8 @@
 								<option value="6" @if($patient->Type =='6') selected @endif>Autre</option>
 							</select>
 						</div>		
-				  	</div>{{-- col-sm-4 --}}
-				  </div>	{{-- row --}}
+				  	</div>
+				  </div>{{-- col-sm-4 --}}
 				</div><div class="space-12"></div>
 				<div class="row" id="foncform">
 					<div class="col-sm-6">

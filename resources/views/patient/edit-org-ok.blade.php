@@ -147,7 +147,7 @@
     			@include('assurs.editAssure')
     		</div>
 		<div id="Patient" class="tab-pane fade @if($patient->Type =="5") in active  @endif">@include('patient.editPatient')</div>
-  </div> <div class="hr hr-dotted"></div>
+  </div><div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center"><br>
 			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;

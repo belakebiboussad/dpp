@@ -1,11 +1,12 @@
-<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
+<div id ="assurePart">
+	 <div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
 	<div class="row Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" alpha/>
+						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@else
 						<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@endif	
@@ -17,22 +18,21 @@
 				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" alpha/>
+					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@else
-					<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					<input type="text" id="prenomf" name="prenomf" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@endif
 				</div>
 			</div>
 		</div>
   </div>
-  <div class="space-12"></div>
   <div class="row Asdemograph">
-		<div class="col-sm-6">
+		<div class="col-sm-6 " >
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
+					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
 					@else
 					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
 					@endif
@@ -43,24 +43,25 @@
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e) à:</strong></span></label>
 				<div class="col-sm-9">
+					<div class="col-sm-12">
 					@if(isset($assure) && isset($assure->lieunaissance))
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
-						<input type="text" id="lieunaissancef" class="autoCommune form-control col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}"/>
+						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
 					@else	
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="">
-						<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12" value=""/>
+						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="" autocomplete= "off" />
 					@endif
 				</div>
+					</div>
 				</div>
 		</div>
 	</div>
-	<div class="space-12"></div>
 	<div class="row Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
   				<div class="col-sm-9">
-	  				<select name="sexef" id="sexef" class="form-control">
+	  				<select name="sexef" id="sexef" class="form-control" >
 	  					@if(isset($assure))
 	  					<option value="M" @if($assure->Sexe == "M" ) selected @endif>Masculin</option>
 	  					<option value="F"  @if($assure->Sexe == "F")  selected @endif>Féminin</option>
@@ -108,8 +109,8 @@
 			</div>
 	   	</div>
     		</div>
-  </div><div class="space-12"></div>
-	<div class="row Asdemograph">
+  	</div>
+	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
@@ -132,9 +133,9 @@
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
 	  		<div class="col-sm-8">
 	  			@if(isset($assure))
-	  			<input  type="text" id="adressef" name="adressef" value="{{ $assure->adresse }}">
+	  			<input id="adressef" type="text" name="adressef" value="{{ $assure->adresse }}">
 	  			@else
-	  			<input type="text" id="adressef" name="adressef">
+	  			<input id="adressef" type="text" name="adressef">
 	  			@endif
 	  		</div>
 	  	</div>
@@ -143,20 +144,20 @@
 	  	<label class="col-sm-4 col-xs-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
 	  	@if(isset($assure->commune_res))
 	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
-			<input type="text" id="communef" class="autoCommune col-xs-8 col-sm-8" value="{{ $assure->commune->nom_commune }}"/>
+			<input type="text" id="communef" name="" class="autoCommune col-xs-8 col-sm-8" value="{{ $assure->commune->nom_commune }}"/>
 	  	@else	
 			<input type="hidden" name="idcommunef" id="idcommunef">
-	 		<input type="text" id="communef" placeholder="commune résidance" class="autoCommune col-xs-8 col-sm-8"/>
+	 		<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune col-xs-8 col-sm-8"/>
 	 		@endif
 	  </div>
 	  <div class="col-sm-4">
 	  	<label class="col-sm-4 col-xs-4" for="wilayaf"><strong>Wilaya:</strong></label>
 	  	@if(isset($assure->wilaya_res))
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{  $assure->wilaya_res  }}">
-		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="demographcol-sm-8 col-xs-8" readonly />	
+		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="col-sm-8 col-xs-8" readonly />	
 	  	@else	
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="col-sm-8 col-xs-8" readonly />
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8 col-xs-8" readonly />
 		  @endif
 	  </div>
   </div>
@@ -201,7 +202,7 @@
 				</div>
 			</div>
 		</div>
-	</div><div class="space-12"></div>	
+	</div>	
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -233,7 +234,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="space-12"></div>
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -259,7 +259,9 @@
 			  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $patient->Assurs_ID_Assure }}" maxlength =12 minlength =12 />
 				 {{--  pattern="^\[0-9]{12}$"pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 				</div>
+				</div>
 			</div>
-		</div>
-	</div>	
+		</div>	
+	</div>
 </div>
+
