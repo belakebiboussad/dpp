@@ -1,39 +1,40 @@
 <div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
-	<div class="row asDemograph">
-		<div class="col-sm-6">
+<div class="row">
+	<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" alpha/>
+						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12" alpha/>
 					@else
-						<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+						<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off" alpha/a
 					@endif	
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
+	</div>
+	<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" alpha/>
+					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12 asdemogData" alpha/>
 					@else
-					<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12 asdemogData" autocomplete= "off" alpha/>
 					@endif
 				</div>
 			</div>
 		</div>
-  </div><div class="space-12"></div>
-  <div class="row asDemograph">
+</div><div class="space-12"></div>
+<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
+					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow asdemogData" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
 					@else
-					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
+					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow asdemogData" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
 					@endif
 				</div>
 			</div>
@@ -44,21 +45,21 @@
 				<div class="col-sm-9">
 					@if(isset($assure) && isset($assure->lieunaissance))
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
-						<input type="text" id="lieunaissancef" class="autoCommune form-control col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}"/>
+						<input type="text" id="lieunaissancef" class="autoCommune form-control col-xs-12 col-sm-12 asdemogData" value="{{ $assure->lieuNaissance->nom_commune }}"/>
 					@else	
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="">
-						<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12" value=""/>
+						<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12 asdemogData" value=""/>
 					@endif
 				</div>
 				</div>
 		</div>
 	</div><div class="space-12"></div>
-	<div class="row asDemograph">
+	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
   				<div class="col-sm-9">
-	  				<select name="sexef" id="sexef" class="form-control">
+	  				<select name="sexef" id="sexef" class="form-control asdemogData">
 	  					@if(isset($assure))
 	  					<option value="M" @if($assure->Sexe == "M" ) selected @endif>Masculin</option>
 	  					<option value="F"  @if($assure->Sexe == "F")  selected @endif>Féminin</option>
@@ -74,7 +75,7 @@
      		 <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
-			  <select class="form-control groupeSanguin" id="gsf" name="gsf">
+			  <select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf">
 					@if(isset($assure))
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 					<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
@@ -92,7 +93,7 @@
 			</div>
 			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
-				<select id="rhf" name="rhf" class="groupeSanguin" >
+				<select id="rhf" name="rhf" class="groupeSanguin asdemogData">
 					@if(isset($assure))
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 					<option value="+" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "+" )? "selected" : ""  }}>+</option>
@@ -107,12 +108,12 @@
 	   	</div>
     		</div>
   </div><div class="space-12"></div>
-	<div class="row asDemograph">
+	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
 				<div class="col-sm-9">
-					<select class="form-control civilite" id="SituationFamille" name="SituationFamille">
+					<select class="form-control civilite asdemogData" id="SituationFamille" name="SituationFamille">
 						<option value="" @empty($assure->SituationFamille) selected @endempty>Sélectionner...</option>
 						<option value="C" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =='C')) selected @endif >Célibataire(e)</option>
 						<option value="M" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =='M')) selected @endif>Marié(e)</option>
@@ -124,15 +125,15 @@
 		</div>
 	</div>
 	<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Contact</strong></h5></div></div>
-	<div class="row asDemograph">
+	<div class="row">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
 	  		<div class="col-sm-8">
 	  			@if(isset($assure))
-	  			<input  type="text" id="adressef" name="adressef" value="{{ $assure->adresse }}">
+	  			<input  type="text" class="asdemogData" id="adressef" name="adressef" value="{{ $assure->adresse }}">
 	  			@else
-	  			<input type="text" id="adressef" name="adressef">
+	  			<input type="text" class="asdemogData" id="adressef" name="adressef">
 	  			@endif
 	  		</div>
 	  	</div>
@@ -144,17 +145,17 @@
 			<input type="text" id="communef" class="autoCommune col-xs-8 col-sm-8" value="{{ $assure->commune->nom_commune }}"/>
 	  	@else	
 			<input type="hidden" name="idcommunef" id="idcommunef">
-	 		<input type="text" id="communef" placeholder="commune résidance" class="autoCommune col-xs-8 col-sm-8"/>
+	 		<input type="text" id="communef" placeholder="commune résidance" class="autoCommune col-xs-8 col-sm-8 asdemogData"/>
 	 		@endif
 	  </div>
 	  <div class="col-sm-4">
 	  	<label class="col-sm-4 col-xs-4" for="wilayaf"><strong>Wilaya:</strong></label>
 	  	@if(isset($assure->wilaya_res))
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{  $assure->wilaya_res  }}">
-		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="demographcol-sm-8 col-xs-8" readonly />	
+		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="asdemogData col-sm-8 col-xs-8" readonly />	
 	  	@else	
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="col-sm-8 col-xs-8" readonly />
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData col-sm-8 col-xs-8" readonly />
 		  @endif
 	  </div>
   </div>
@@ -181,13 +182,12 @@
 						<option value="Service National" {{(isset($assure)) && ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
 						<option value="Contrat résilié" {{ (isset($assure)) &&($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
 						<option value="Congé Maladie" {{ (isset($assure)) &&($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
-						<option value="Révoqué" {{ (isset($assure)) && ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>
-						
+						<option value="Révoqué" {{ (isset($assure)) && ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>	
 					</select>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6" id = "serviceFonc">
+		<div class="col-sm-6" id ="serviceFonc">
 			<div class="form-group">
 				<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 				<div class="col-sm-9">
@@ -251,7 +251,13 @@
 				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
+				{{--
+					@if(!in_array($patient->Type,[5,6]))
 					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
+					@else
+					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="" maxlength =12 minlength =12 />
+					@endif
+					--}}
 				 {{--  pattern="^\[0-9]{12}$"pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 				</div>
 			</div>

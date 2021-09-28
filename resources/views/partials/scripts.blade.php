@@ -234,8 +234,9 @@
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
     $(".starthidden").hide(250);
-    if($("#type").val() != 0)
-      $('.asDemograph').find('*').each(function () {$(this).attr("disabled", false);});
+    if($("#type").val() != 0)// $('.asDemograph').find('*').each(function () {$(this).attr("disabled", false);});
+       $('.asdemogData').attr('disabled', 'disabled');
+
   }
   function typep()
   {

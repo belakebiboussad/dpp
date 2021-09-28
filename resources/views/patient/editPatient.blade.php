@@ -1,7 +1,7 @@
 	<div class="row">
-    		<div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations administratives</strong></h5></div>
-			</div>
-    	<div class="row">
+    <div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations administratives</strong></h5></div>
+	</div>
+  <div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>

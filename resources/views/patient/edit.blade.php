@@ -8,19 +8,16 @@
 		$('#menuPatient a[href="#Assure"]').parent().addClass('hide');
 		$(active_tab_selector).removeClass('active').addClass('hide');
 		$('.nav-pills a[href="#Patient"]').tab('show');
- 	 	$(".starthidden").show();	
+ 	/* 	$(".starthidden").show();*/
 	}
 	function assureShow(tpSelectVal)
 	{
 		$('.nav-pills li').eq(0).removeClass('hide');
  	 	$("div#Assure").removeClass('hide');
- 	  	$(".starthidden").hide(250);	
- 	  	$('#description').val('');
- 		  if(tpSelectVal == "0")
- 	  	{
- 	  		$('.asDemograph').find('*').each(function () { $(this).attr("disabled", true); });
- 	 	 }
-	}
+ 	  $(".starthidden").hide(250);
+ 	  $('#description').val('');
+ 		/*if(tpSelectVal == "0"){$('.asDemograph').find('*').each(function () { $(this).attr("disabled", true); });}*/
+ 	}
  	function showTypeEdit(type)
  	{	
  		switch(type){
@@ -29,9 +26,9 @@
  	 				switch('{{ $patient->Type }}'){
  	 					case "0":case "1": case "2": case "3": case "4":
  	 							if('{{ $patient->Type }}' == "0" && ( type !== "0")) //disasble  assure 'input element
- 	 							{
- 	 								$('.asDemograph').find('*').each(function () { $(this).attr("disabled", false); });
- 	  								$('#Assure').find('input').val('');//initialiser les inputs de l'assuré
+ 	 							{	//$('.asDemograph').find('*').each(function () { $(this).attr("disabled", false); });
+ 	  							$('.asdemogData').attr('disabled', '');
+ 	  							$('#Assure').find('input').val('');//initialiser les inputs de l'assuré
 	 								$('#Assure').find("select").prop("selectedIndex",0);
  	 							} 		
  	 							break;
@@ -40,7 +37,7 @@
  	 				}
  	 				break;
  	 		case "5":	case "6":
- 					assurHide();
+ 	 				assurHide();
  	 				break;
  	 		default:
  	 				break;
@@ -80,36 +77,7 @@
 	</ul>
 	<div class="tab-content">
   	<div id="Assure" class="tab-pane active">
-			{{--
-			<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
-			<div class="row  asDemograph">
-			  <div class="col-sm-6">
-						<div class="form-group">
-							<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
-							<div class="col-sm-9">
-								@if(isset($assure))
-									<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
-								@else
-									<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
-								@endif	
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6">
-					<div class="form-group">
-					<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
-					<div class="col-sm-9">
-						@if(isset($assure))
-						<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
-						@else
-						<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
-						@endif
-					</div>
-					</div>
-					</div>
-  			</div>
-  			--}}
-  			@include('assurs.editAssure')	
+			@include('assurs.editAssure')	
   	</div>
 		<div id="Patient" class="tab-pane">
 			@include('patient.editPatient')

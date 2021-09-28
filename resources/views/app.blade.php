@@ -282,33 +282,33 @@
             }   
         }
         function copyPatient(){ 
-              $("#nomf").val($("#nom").val());
-              $("#prenomf").val($("#prenom").val());
-              $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-              $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
-              $('#adressef').val($('#adresse').val());
-              $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
-              $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-              if ( $("#gs option:selected").val() === "" ){
-                    $(gsf).attr("disabled", false);
-                    $("#rhf" ).attr("disabled", false);
-              }
-              else{
-                  $("#gsf").val($("#gs option:selected").val());
-                  $("#rhf").val($("#rh option:selected").val());
-                  $(gsf).attr("disabled", true);
-                  $("#rhf" ).attr("disabled", true);     
+          $("#nomf").val($("#nom").val());
+          $("#prenomf").val($("#prenom").val());
+          $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+          $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
+          $('#adressef').val($('#adresse').val());
+          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
+          if ( $("#gs option:selected").val() === "" ){
+                $(gsf).attr("disabled", false);
+                $("#rhf" ).attr("disabled", false);
           }
-          $('.asDemograph').find('*').each(function () {   $(this).attr("disabled", true);   });
+          else{
+              $("#gsf").val($("#gs option:selected").val());
+              $("#rhf").val($("#rh option:selected").val());
+              $(gsf).attr("disabled", true);
+              $("#rhf" ).attr("disabled", true);     
+          }//$('.asDemograph').find('*').each(function () {   $(this).attr("disabled", true);});
+          $('.asdemogData').attr('disabled', 'disabled');
           //addRequiredAttr();
         }
         function copyPatientInfo(idP)
         {
-                if($("#type").val() =="0")
-                      copyPatient();
-              else
-                      if(idP == null)
-                             emptyPatient();
+          if($("#type").val() =="0")
+            copyPatient();
+          else
+            if(idP == null)
+              emptyPatient();
         }
      
 
@@ -320,10 +320,8 @@
           if($("#gsf").prop('disabled') == true)
             $('#gsf').attr("disabled", false);
           if($("#gsf").prop('disabled') == true)
-            $("#rhf" ).attr("disabled", false);
-          $('.asDemograph').find('*').each(function () {
-            $(this).attr("disabled", false); 
-          });
+            $("#rhf" ).attr("disabled", false);// $('.asDemograph').find('*').each(function () {//$(this).attr("disabled", false);// });
+          $('.asdemogData').attr('disabled', '');
         }
         function checkPatient()
         {
