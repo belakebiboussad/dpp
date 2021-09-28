@@ -8,30 +8,46 @@
 		$('#menuPatient a[href="#Assure"]').parent().addClass('hide');
 		$(active_tab_selector).removeClass('active').addClass('hide');
 		$('.nav-pills a[href="#Patient"]').tab('show');
- 	/* 	$(".starthidden").show();*/
+  	$(active_tab_selector).find('input, textarea, button, select').attr('disabled','disabled');	
+ 	 	$(".starthidden").show();
+ 	 	$("#foncform").addClass('hide'); 
+ 	 	$('#nsspatient').attr('disabled', true);
 	}
 	function assureShow(tpSelectVal)
 	{
 		$('.nav-pills li').eq(0).removeClass('hide');
  	 	$("div#Assure").removeClass('hide');
+ 	 	$("div#Assure").find('input, textarea, button, select').attr('disabled',false);	
  	  $(".starthidden").hide(250);
  	  $('#description').val('');
- 		/*if(tpSelectVal == "0"){$('.asDemograph').find('*').each(function () { $(this).attr("disabled", true); });}*/
+ 	  $("#foncform").removeClass('hide');
+ 	  $('#nsspatient').attr('disabled', false);  
+ 	}
+ 	function enableResetAsInp()
+ 	{
+ 	 	$('.asdemogData').attr('disabled', '');
+ 		$('#Assure').find('input').val('');
+		$('#Assure').find("select").prop("selectedIndex",0);
  	}
  	function showTypeEdit(type)
  	{	
  		switch(type){
- 	 		case "0":case "1": case "2": case "3": case "4":
- 	 				assureShow(type);
- 	 				switch('{{ $patient->Type }}'){
- 	 					case "0":case "1": case "2": case "3": case "4":
- 	 							if('{{ $patient->Type }}' == "0" && ( type !== "0")) //disasble  assure 'input element
- 	 							{	//$('.asDemograph').find('*').each(function () { $(this).attr("disabled", false); });
- 	  							$('.asdemogData').attr('disabled', '');
- 	  							$('#Assure').find('input').val('');//initialiser les inputs de l'assuré
-	 								$('#Assure').find("select").prop("selectedIndex",0);
- 	 							} 		
+        case "0":
+        	if(jQuery.inArray('{{ $patient->Type }}', [5,6]))
+        		assureShow(type);
+   				if(jQuery.inArray('{{ $patient->Type }}', [1,2,3,4]))
+   					$(".asProfData").val('');
+   				break;
+ 	 	  	case "1": case "2": case "3": case "4":
+        	switch('{{ $patient->Type }}'){
+ 	 					case "0"://enable  assure 'input element
+ 	 							enableResetAsInp();
  	 							break;
+ 	 				  case "5":case "6":
+ 								assureShow(type);
+ 								$('#Assure').find('input').val('');
+								$('#Assure').find("select").prop("selectedIndex",0);	 				
+ 								break;
  	 					default:
  	 						break;
  	 				}
@@ -42,29 +58,63 @@
  	 		default:
  	 				break;
  		 }
- 	 /*if(i ==0){
- 	 		if(jQuery.inArray('{{-- $patient->Type --}}', [5,6]))
- 	 		{
- 	  		$('.nav-pills a[href="#Patient"]').tab('show');
- 			}	
- 		}*/
-  	}
+  }
 	$(function(){
-	/*if(jQuery.inArray('{{-- $patient->Type --}}', [5,6]))
-	{	$('#menuPatient a:first').hide();
-	else	$('#menuPatient a:first').show();
-	$('.nav-pills li.active').removeClass('active');
-	$('.tab-content div.active').removeClass('active');
-	$("a[href='#Patient']").tab("show");
-	  $('#menuPatient li.active').removeClass('active').addClass('hide');
-	 $('#menuPatient li.active').removeClass('active').css('display', 'none');  
-	 }*/
-	showTypeEdit('{{ $patient->Type }}');	
-});
+		showTypeEdit('{{ $patient->Type }}');
+		$( "#editPatientForm" ).submit(function( event ) {
+			if( ! checkPatient() )
+      {
+				activaTab("Patient");
+				event.preventDefault();
+	    }else{
+  			if(jQuery.inArray('{{ $patient->Type }}', [0,1,2,3,4]) !== -1){		
+					$('.Asdemograph').find('*').each(function () { 
+							$(this).attr("disabled", false);
+					});	
+					if( ! checkAssure() )
+					{
+			 			activaTab("Assure");
+		  			event.preventDefault();
+					}else
+						$( "#editPatientForm" ).submit();
+  			}else{
+					$("#Position").prop("disabled", true);
+					$('#Assure').find('input').prop("disabled", true).attr('required', false);
+					$( "#editPatientForm" ).submit();
+				}
+    	}
+		});	
+	});
 </script>
 @endsection
 @section('main-content')
-	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+	<div class="row">
+		<h4 style="display: inline;"><strong>Modification des données du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
+		<div class="pull-right">
+			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
+				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un Patient
+			</a>
+		</div>
+	</div>
+	<form class="form-horizontal" id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+		{{ csrf_field() }}
+		{{ method_field('PUT') }}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" id="error" aria-live="polite">
+					@if (count($errors) > 0)
+			  	<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+					 	  <li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
+				</div>
+			</div>
+		</div>
+		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class="active" role="presentation">
 			 <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true" onclick="copyPatientInfo('{{ $patient->id }}');">
 		 		<span class="bigger-130"><strong>Assuré(e)</strong></span>
@@ -88,5 +138,6 @@
 			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
-	</div>	
+	</div>
+</form>	
 @endsection

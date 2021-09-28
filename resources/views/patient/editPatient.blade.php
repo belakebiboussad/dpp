@@ -91,7 +91,7 @@
 				</div>
 				<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
 				<div class="col-sm-2">
-				<select id="rh" name="rh" disabled>
+				<select id="rh" name="rh">
 				@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
 					<option value="" selected >------</option>
 					<option value="+">+</option>
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 			</div>
-	    </div>
+	  </div>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
@@ -155,8 +155,8 @@
 				<input type="text" id="wilaya" value="" class="col-sm-8 col-xs-8"readonly/>	
 				@endif
 			</div>
-			</div><div class="space-12"></div>{{-- row --}}
-			<div class="row">
+		</div><div class="space-12"></div>{{-- row --}}
+		<div class="row">
 				<div class="col-sm-4 col-xs-4">
 					<div class="form-group" style="padding-left:13%;">
 						<label class="control-label text-nowrap col-sm-3" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
@@ -213,8 +213,8 @@
 						</div>		
 				  	</div>
 				  </div>{{-- col-sm-4 --}}
-				</div><div class="space-12"></div>
-				<div class="row" id="foncform">
+			</div><div class="space-12"></div>
+			<div class="row" id="foncform">
 					<div class="col-sm-6">
 						<div class="form-group">
 							 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
@@ -224,7 +224,7 @@
 						</div>					
 					</div><div class="col-sm-6"></div>	
 				</div><div class="space-12"></div>
-				<div class="row">
+			<div class="row">
 				<div class="col-sm-6 starthidden">
 					<label for="description"><strong>Autre information :</strong></label>
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>

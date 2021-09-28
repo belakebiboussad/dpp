@@ -298,20 +298,21 @@
               $("#rhf").val($("#rh option:selected").val());
               $(gsf).attr("disabled", true);
               $("#rhf" ).attr("disabled", true);     
-          }//$('.asDemograph').find('*').each(function () {   $(this).attr("disabled", true);});
-          $('.asdemogData').attr('disabled', 'disabled');
-          //addRequiredAttr();
+          }
+          $(".asdemogData").attr("disabled", "disabled");
         }
         function copyPatientInfo(idP)
         {
-          if($("#type").val() =="0")
-            copyPatient();
+          if(idP != null)
+          {
+            if($("#type").val() =="0")
+              copyPatient();
+            // else // {//if($(".asdemogData").attr('disabled') || $(".asdemogData").prop('disabled')) //   {
+            //     $(".asdemogData").attr("disabled", false); //   }         // }
+          }
           else
-            if(idP == null)
-              emptyPatient();
+            emptyPatient();       
         }
-     
-
         function emptyPatient(){ 
           $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
           $('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");
@@ -325,7 +326,9 @@
         }
         function checkPatient()
         {
-          var erreur =true;  var nom = $('#nom').val(); var prenom = $('#prenom').val();//var idlieunaissance = $('#idlieunaissance').val();var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1", //var datenaissance = $('#datenaissance').val();
+          var erreur =true;
+          var nom = $('#nom').val();
+          var prenom = $('#prenom').val();//var idlieunaissance = $('#idlieunaissance').val();var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1", //var datenaissance = $('#datenaissance').val();
           var type = $('#type').val();
           var inputAssVal = new Array(type,datenaissance,prenom,nom);
           var inputMessage = new Array('Type',"Prenom","Nom");

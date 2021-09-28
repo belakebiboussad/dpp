@@ -1,17 +1,16 @@
 <div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
 <div class="row">
 	<div class="col-sm-6">
-			<div class="form-group">
+		<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
 						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12" alpha/>
 					@else
-						<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off" alpha/a
+						<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@endif	
 				</div>
 			</div>
-		</div>
 	</div>
 	<div class="col-sm-6">
 			<div class="form-group">
@@ -24,7 +23,7 @@
 					@endif
 				</div>
 			</div>
-		</div>
+	</div>
 </div><div class="space-12"></div>
 <div class="row">
 		<div class="col-sm-6">
@@ -162,12 +161,12 @@
 	<div class="row">
 		<div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Fonction</strong></h5>	</div>
 	</div>	
-  <div class="row asProfData">
+  <div class="row">
     <div class="col-sm-6" id="statut">
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="Position"><strong>Position :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
+					 <select name="Position" id="Position" class="col-xs-12 col-sm-12 asProfData">
 					
 						<option value="">Sélectionner...</option>
 						<option value="Activité" {{ (isset($assure)) && ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
@@ -192,20 +191,20 @@
 				<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" value=" {{ $assure->Service}} ">	
+					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12 asProfData" value=" {{ $assure->Service}} ">	
 					@else
-					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12">		
+					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12 asProfData">		
 					@endif
 				</div>
 			</div>
 		</div>
 	</div><div class="space-12"></div>	
-	<div class="row asProfData">
+	<div class= "row asProfData">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label " for="grade"><strong>Grade :</strong></label>
 				<div class="col-sm-9">
-					<select id="grade" name="grade" class=" col-xs-12 col-sm-6"/>
+					<select id="grade" name="grade" class=" col-xs-12 col-sm-6 asProfData"/>
 					<option value="">Sélectionner...</option>
 						@foreach ($grades as $key=>$grade)
 						<option value="{{ $grade->id }}" {{((isset($assure)) && ($assure->Grade === $grade->id)) ? "selected":"" }} >{{ $grade->nom }}</option>
@@ -222,9 +221,9 @@
 				<div class="col-sm-9">
 				<div class="clearfix">
 						@if(isset($assure))
-						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->matricule }}" maxlength="5" />	
+						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6 asProfData" value="{{ $assure->matricule }}" maxlength="5" />	
 						@else
-						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" maxlength="5" />	
+						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6 asProfData" maxlength="5" />	
 						@endif
 				</div>
 				</div>
@@ -238,9 +237,9 @@
 				<div class="col-sm-9">
 					<div class="clearfix">
 					@if(isset($assure))
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" value="{{ $assure->NMGSN }}" maxlength =12 minlength =12/>
+						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->NMGSN }}" maxlength =12 minlength =12/>
 					@else
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" maxlength =12 minlength =12/>
+						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" maxlength =12 minlength =12/>
 					@endif
 					</div>
 				</div>
@@ -251,13 +250,11 @@
 				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
-				{{--
 					@if(!in_array($patient->Type,[5,6]))
-					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
+					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
 					@else
-					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="" maxlength =12 minlength =12 />
+					  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12 asProfData" value="" maxlength =12 minlength =12 />
 					@endif
-					--}}
 				 {{--  pattern="^\[0-9]{12}$"pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 				</div>
 			</div>
