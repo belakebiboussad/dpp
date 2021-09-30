@@ -298,15 +298,14 @@
               $("#rhf").val($("#rh option:selected").val());
               $(gsf).attr("disabled", true);
               $("#rhf" ).attr("disabled", true);     
-          }
-          $(".asdemogData").attr("disabled", "disabled");
+          }//$(".asdemogData").attr("disabled", "disabled");
         }
         function copyPatientInfo(idP)
         {
           if(idP != null)
-          {
-            if($("#type").val() =="0")
-              copyPatient();
+          { // if($("#type").val() =="0")
+
+            copyPatient();
             // else // {//if($(".asdemogData").attr('disabled') || $(".asdemogData").prop('disabled')) //   {
             //     $(".asdemogData").attr("disabled", false); //   }         // }
           }

@@ -7,46 +7,62 @@
 		var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
 		$('#menuPatient a[href="#Assure"]').parent().addClass('hide');
 		$(active_tab_selector).removeClass('active').addClass('hide');
-		$('.nav-pills a[href="#Patient"]').tab('show');
-  	$(active_tab_selector).find('input, textarea, button, select').attr('disabled','disabled');	
+		$('.nav-pills a[href="#Patient"]').tab('show');//$(active_tab_selector).find('input, textarea, button, select').prop('disabled',true);	
  	 	$(".starthidden").show();
  	 	$("#foncform").addClass('hide'); 
  	 	$('#nsspatient').attr('disabled', true);
 	}
-	function assureShow(tpSelectVal)
+	function assureShow()
 	{
 		$('.nav-pills li').eq(0).removeClass('hide');
  	 	$("div#Assure").removeClass('hide');
- 	 	$("div#Assure").find('input, textarea, button, select').attr('disabled',false);	
  	  $(".starthidden").hide(250);
  	  $('#description').val('');
  	  $("#foncform").removeClass('hide');
  	  $('#nsspatient').attr('disabled', false);  
  	}
- 	function enableResetAsInp()
+ 	function resetAsInp()
  	{
- 	 	$('.asdemogData').attr('disabled', '');
- 		$('#Assure').find('input').val('');
+ 	 	$('#Assure').find('input').val('');
 		$('#Assure').find("select").prop("selectedIndex",0);
  	}
- 	function showTypeEdit(type)
+ 	function showTypeEdit(type, i)
  	{	
  		switch(type){
-        case "0":
-        	if(jQuery.inArray('{{ $patient->Type }}', [5,6]))
-        		assureShow(type);
-   				if(jQuery.inArray('{{ $patient->Type }}', [1,2,3,4]))
-   					$(".asProfData").val('');
+ 				case "0":
+ 					if(!$('.asdemogData').is('[disabled="disabled"]'))
+   					$('.asdemogData').prop('disabled', true);//$('.asdemogData').attr('disabled', 'disabled');
+   				copyPatient();
+   				switch('{{ $patient->Type }}'){
+   					case "0":
+   						if(i !=0)
+   							if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+									assureShow();
+   						break;
+   					case "1": case "2": case "3": case "4":
+   						if(i !=0)
+   							$(".asProfData").val('');
+   						break;
+   					case "5": case "6":
+   						assureShow();
+   						break;
+   				}
    				break;
  	 	  	case "1": case "2": case "3": case "4":
-        	switch('{{ $patient->Type }}'){
+ 	 				if($('.asdemogData').is('[disabled="disabled"]'))
+ 	 					$('.asdemogData').prop('disabled', false);
+ 	 				switch('{{ $patient->Type }}'){
  	 					case "0"://enable  assure 'input element
- 	 							enableResetAsInp();
+ 	 							resetAsInp();
  	 							break;
+ 	 					case "1": case "2": case "3": case "4":
+ 	 					    if(i !=0)
+   								if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+										assureShow();
+ 	 					    break;		
  	 				  case "5":case "6":
- 								assureShow(type);
- 								$('#Assure').find('input').val('');
-								$('#Assure').find("select").prop("selectedIndex",0);	 				
+ 								assureShow();
+ 								resetAsInp();	 				
  								break;
  	 					default:
  	 						break;
@@ -54,36 +70,37 @@
  	 				break;
  	 		case "5":	case "6":
  	 				assurHide();
+ 	 				resetAsInp();
  	 				break;
  	 		default:
  	 				break;
  		 }
   }
 	$(function(){
-		showTypeEdit('{{ $patient->Type }}');
+		showTypeEdit('{{ $patient->Type }}',0);
 		$( "#editPatientForm" ).submit(function( event ) {
 			if( ! checkPatient() )
       {
-				activaTab("Patient");
+      	activaTab("Patient");
 				event.preventDefault();
-	    }else{
-  			if(jQuery.inArray('{{ $patient->Type }}', [0,1,2,3,4]) !== -1){		
-					$('.Asdemograph').find('*').each(function () { 
-							$(this).attr("disabled", false);
-					});	
-					if( ! checkAssure() )
-					{
-			 			activaTab("Assure");
-		  			event.preventDefault();
-					}else
-						$( "#editPatientForm" ).submit();
-  			}else{
-					$("#Position").prop("disabled", true);
-					$('#Assure').find('input').prop("disabled", true).attr('required', false);
-					$( "#editPatientForm" ).submit();
-				}
-    	}
-		});	
+      }else
+      {
+      	switch($("#type").val()){
+      		case "0": case "1": case "1": case "2": case "3": case "4":
+      			if($("#type").val() == "0")
+ 							$('.asdemogData').prop("disabled", false);
+ 						if( ! checkAssure() )
+						{
+			 				activaTab("Assure");
+		  				event.preventDefault();
+						}
+						break;
+      		default:
+ 	 					break;
+      	}
+      }
+      $( "#editPatientForm" ).submit();	
+ 		});	
 	});
 </script>
 @endsection
@@ -116,9 +133,9 @@
 		</div>
 		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class="active" role="presentation">
-			 <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true" onclick="copyPatientInfo('{{ $patient->id }}');">
-		 		<span class="bigger-130"><strong>Assuré(e)</strong></span>
-	    		</a>
+			<a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
+				<span class="bigger-130"><strong>Assuré(e)</strong></span>
+	    </a>
  		</li>
 	 	<li role="presentation">
 	 	<a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">

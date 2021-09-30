@@ -284,10 +284,10 @@ class PatientController extends Controller
      */
       public function edit($id,$asure_id =null)
       {  
+        $assure=null ;
         $patient = patient::FindOrFail($id);
         if(!(isset($asure_id)))
         {
-          $assure=null ;
           $grades = grade::all(); 
           if(!in_array($patient->Type,[5,6]))
             $assure =  $patient->assure;
@@ -315,7 +315,7 @@ class PatientController extends Controller
         if(!in_array($request->type,$derogAutre ))
         {
           if(($request->type == $patient->Type) || ((in_array($request->type, $ayants) && (in_array($patient->Type, $ayants)))))
-          {
+          { 
             $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
             $assure->update([
                               "Nom"=>$request->nomf,
@@ -335,7 +335,7 @@ class PatientController extends Controller
                               "NMGSN"=>$request->NMGSN,
                               "NSS"=>$request->nss,
             ]);
-          }else{     
+          }else{  
             if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array($request->type, $ayants) && ($patient->Type =="0")) ||((in_array($patient->Type,$derogAutre )) && (in_array($request->type, $ayantsAssure))))
             { 
               $assure = $assure->firstOrCreate([
@@ -378,8 +378,7 @@ class PatientController extends Controller
                "description"=>isset($request->description)? $request->description: null,
                "NSS"=>(!in_array($patient->Type,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
                "Date_creation"=>$date,  
-        ]);
-        //dd($patient);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
+        ]);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
     public function updateP(Request $request,$id) 
