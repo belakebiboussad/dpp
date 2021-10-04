@@ -30,10 +30,11 @@
 </div>
 <div class="row ml-4">
 	<div class="col-sm-11">
-		<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6></div>   
+		<div class="sec-gauche">
+			<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128') }}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6>
+		</div>   
 	</div>
-</div>
-<br>
+</div><br>
 <div class="row ml-4">
 	<div class="col-sm-11">
 	<p class="espace" style="text-align : justify; letter-spacing: 20 em;">

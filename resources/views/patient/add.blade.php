@@ -3,30 +3,30 @@
 @section('page-script')
  <script>
   $(function(){
- 		$('#type').change(function(){
- 			showTypeEdit(this.value,1);
- 		})
- 		$( "#addPatientForm" ).submit(function( event ) {
- 				if( ! checkPatient() )
-      	{
-			   	activaTab("Patient");
-	       	event.preventDefault();
+ 	$('#type').change(function(){
+ 		showTypeEdit(this.value,1);
+ 	})
+ 	$( "#addPatientForm" ).submit(function( event ) {
+ 		if( ! checkPatient() )
+      		{
+		   	activaTab("Patient");
+	       		event.preventDefault();
 	      }else{
-	      	switch($("#type").val()){
-	      		case "0": case "1": case "1": case "2": case "3": case "4":
-      				if($("#type").val() == "0")
-      					$('.asdemogData').prop("disabled", false);
-      				if( ! checkAssure() )
-							{
-								activaTab("Assure");
+	      		switch($("#type").val()){
+	      			case "0": case "1": case "1": case "2": case "3": case "4":
+      					if($("#type").val() == "0")
+      						$('.asdemogData').prop("disabled", false);
+      						if( ! checkAssure() )
+						{
+							activaTab("Assure");
 		  					event.preventDefault();
-							}
-							break;
-						default:
- 	 						break;	
-	      	}
+						}
+						break;
+				default:
+ 	 					break;	
+	      		}
 	      }
- 		});
+ 	});
  })
 </script>
 @endsection

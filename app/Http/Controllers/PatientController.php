@@ -107,7 +107,7 @@ class PatientController extends Controller
         //$grades = grade::all();//$errors = $validator->errors();//return view('patient.add',compact('grades'))->withInput()->withErrors($validator->errors());
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
     }
-    if(!in_array($request->type,[5,6])) // if( $request->type !="5")
+     if(!in_array($request->type,[5,6])) 
     {  
       $assure = assur::where('NSS', $request->nss)->first(); 
       if ($assure === null) {

@@ -84,8 +84,8 @@ class ConsultationsController extends Controller
         $specialites = Specialite::orderBy('nom')->get();
         $infossupp = infosupppertinentes::all();    //$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
-        $specialite = Specialite::findOrFail($employe->specialite);
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examensradio','specialite'));
+        $specialite = Specialite::findOrFail($employe->specialite);     //,'specialitesExamBiolo'
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
      * Store a newly created resource in storage.

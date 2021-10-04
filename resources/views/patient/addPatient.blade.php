@@ -39,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-</div>{{-- row --}}
+</div>
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }}">
@@ -151,6 +151,7 @@
 			<label class="control-label col-sm-4 col-xs-4" for="type" ><strong>Type :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-8 col-xs-8">
 				<select class="form-control" id="type" name="type" onchange="showTypeEdit(this.value,1);">
+					<option value="" disabled selected>------</option>
 					<option value="0">Assure</option>
 					<option value="1">Conjoint(e)</option>
 					<option value="2">Pere</option>

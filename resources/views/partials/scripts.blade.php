@@ -263,32 +263,35 @@
   }
   function showTypeEdit(type, i)
   { 
-    switch(type){
-        case "0":
-          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
-          assureShow();
-          copyPatient();
-          $('.asdemogData').prop('disabled', true);
-          if(i !=0)
-            $(".asProfData").val('');
-          break;
-        case "1": case "2": case "3": case "4":
-          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
-          assureShow();
-          if($("#foncform").is(":hidden"))
-            $("#foncform").removeClass('hidden');
-          if($('.asdemogData').is('[disabled="disabled"]'))
-            $('.asdemogData').prop('disabled', false);
-          if(i !=0)
-            $(".asProfData").val('');
-          break;
-        case "5": case "6":
-          assurHide();
-          resetAsInp();
-          break;
-        default:
-          break;
-    }
+        switch(type){
+              case "0":
+                      if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+                               assureShow();
+                       copyPatient();
+                      $('.asdemogData').prop('disabled', true);
+                       if(i !=0)
+                            $(".asProfData").val('');
+                    break;
+               case "1": case "2": case "3": case "4":
+                       if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+                               assureShow();
+                      if($("#foncform").is(":hidden"))
+                               $("#foncform").removeClass('hidden');
+                      if($('.asdemogData').is('[disabled="disabled"]'))
+                      {
+                              $('.asdemogData').prop('disabled', false);
+                               $('.asdemogData').val('');
+                      }
+                       if(i !=0)
+                $(".asProfData").val('');
+              break;
+            case "5": case "6":
+              assurHide();
+              resetAsInp();
+              break;
+            default:
+              break;
+        }
   }
   $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")

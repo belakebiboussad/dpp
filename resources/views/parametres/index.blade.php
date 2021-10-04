@@ -20,28 +20,34 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="generale">
                 	<h3 class="section-heading">Générale</h3>
-                	<div class="row"><div class="col-sm-12"><h4>Examens biologique</h4></div></div>
-                  <div class="row">
-                    @include('examenbio.bioExamList')
-                  </div>
-                  <div class="row"><div class="col-sm-12"><h4>Examens Radiologique</h4></div></div>
-                  <div class="row">
-                  @foreach($examensImg as $exImg)
-      	            <div class="col-xs-2">
-        						  @if(isset($specExamsImg))
-                      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
-                      @else
-                      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"/>
-                      @endif   
-                      <span class="lbl">{{ $exImg->nom }} </span>
-                    </div>
+                	<div class="row"><div class="col-sm-12"><h4><u> Examens biologique</u></h4></div></div>
+                      <div class="row"> @include('examenbio.bioExamList')</div>
+                       <hr>
+                      <div class="row"><div class="col-sm-12"><h4><u>Examens Radiologique</u></h4></div></div>
+                       <div class="row">
+                              @foreach($examensImg as $exImg)
+      	                     <div class="col-xs-2">
+        			       @if(isset($specExamsImg))
+                                            <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
+                                     @else
+                                              <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"/>
+                                    @endif   
+                                      <span class="lbl">{{ $exImg->nom }} </span>
+                              </div>
                   @endforeach
                   </div>
-                </div>
-                <div class="tab-pane" id="cons">
-                  <h3 class="section-heading">Consultation</h3>  
-               
-            		</div>
+                  <hr>
+                    <div class="row"><div class="col-sm-12"><h4><u>Dérogations</u></h4></div></div>
+                       <div class="form-group">
+                                     <label class="col-sm-3 control-label" for="nom"><strong>Nombre de Dérogation par mois :</strong></label>
+                                    <div class="col-sm-9">
+                                             <input class="col-xs-12 col-sm-12"  name="derogationNbr" type="number" min="0" max="100"  />
+                                      </div>
+                              </div>
+                  </div>
+                  <div class="tab-pane" id="cons">
+                        <h3 class="section-heading">Consultation</h3>  
+                  </div>
                 <div class="tab-pane" id="hosp"><h3 class="section-heading">Hospitalisation</h3></div>
              </div>
              <div class="space-12"></div>
