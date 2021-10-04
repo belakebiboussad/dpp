@@ -182,7 +182,7 @@
                 }
         });
     });
-  $(function() {
+  /*$(function() {
       var checkbox = $("#hommeConf");
       checkbox.change(function() {
           if(checkbox.is(":checked"))
@@ -190,7 +190,7 @@
           else
             $("#hommelink").addClass('invisible');  
      })
-  });
+  });*/
 });
 </script>
 <script type="text/javascript">
@@ -234,40 +234,63 @@
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
     $(".starthidden").hide(250);
-    if($("#type").val() != 0)// $('.asDemograph').find('*').each(function () {$(this).attr("disabled", false);});
+    if($("#type").val() != 0)
        $('.asdemogData').attr('disabled', 'disabled');
-
   }
-  function typep()
+  function assurHide()
   {
-    if($('#fonc').is(':checked'))
-    {
-      $('#foncform').addClass("hidden").hide().fadeIn();
-      $('#NSSInput').addClass("hidden").hide().fadeIn();
-      $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-      $('#AssureInputs').removeClass("hidden").show();       
+    var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
+    $('#menuPatient a[href="#Assure"]').parent().addClass('hide');
+    $(active_tab_selector).removeClass('active').addClass('hide');
+    $('.nav-pills a[href="#Patient"]').tab('show');
+    $(".starthidden").show();
+    if(!$("#foncform").is(":hidden"))
+      $("#foncform").addClass('hidden');
+    $('#nsspatient').attr('disabled', true);
+  }
+  function assureShow()
+  {
+    $('.nav-pills li').eq(0).removeClass('hide');
+    $("div#Assure").removeClass('hide');
+    $(".starthidden").hide(250);
+    $('#description').val('');
+    $('#nsspatient').attr('disabled', false);  
+  }
+  function resetAsInp()
+  {
+    $('#Assure').find('input').val('');
+    $('#Assure').find("select").prop("selectedIndex",0);
+  }
+  function showTypeEdit(type, i)
+  { 
+    switch(type){
+        case "0":
+          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+          assureShow();
+          copyPatient();
+          $('.asdemogData').prop('disabled', true);
+          if(i !=0)
+            $(".asProfData").val('');
+          break;
+        case "1": case "2": case "3": case "4":
+          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+          assureShow();
+          if($("#foncform").is(":hidden"))
+            $("#foncform").removeClass('hidden');
+          if($('.asdemogData').is('[disabled="disabled"]'))
+            $('.asdemogData').prop('disabled', false);
+          if(i !=0)
+            $(".asProfData").val('');
+          break;
+        case "5": case "6":
+          assurHide();
+          resetAsInp();
+          break;
+        default:
+          break;
     }
-    else
-    {
-       if($('#ayant').is(':checked'))
-       { 
-         $('#AssureInputs').addClass("hidden").hide().fadeIn();
-         $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-         $('#foncform').removeClass("hidden").show();  
-         $('#NSSInput').removeClass("hidden").show();    
-       }
-       else
-       {
-          $('#foncform').addClass("hidden").hide().fadeIn();
-          $('#NSSInput').addClass("hidden").hide().fadeIn();                  
-          $('#AssureInputs').addClass("hidden").hide().fadeIn();
-          $('#descriptionDerog').removeClass("hidden").show();
-              
-       }
-}
-}
-//end
-$('#typeexm').on('change', function() {
+  }
+  $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")
     {
         $('#details').val('Je déclare que le patient nécessite un arrét de travail de 00 jours(s) a compter de '+$('#datedem').val());
@@ -486,7 +509,7 @@ $('#typeexm').on('change', function() {
           $(this).prev().focus();
       });
       $( function() {
-           $( ".ltnow" ).datepicker( "option", "maxDate", new Date );  //diable future date
+        $(".ltnow").datepicker( "option", "maxDate", new Date ); //diable future date
       }); 
       //or change it into a date range picker
       $('.input-daterange').datepicker({autoclose:true});

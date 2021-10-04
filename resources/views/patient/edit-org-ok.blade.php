@@ -134,7 +134,7 @@
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class=" @if($patient->Type !="5") active @else hidden @endif">
-		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo('{{ $patient->id}}');">
+		  <a data-toggle="tab" href="#Assure" data-toggle="tab">
 	    	<span class="bigger-130"><strong>Assuré(e)</strong></span>
 	    </a>
  		</li>

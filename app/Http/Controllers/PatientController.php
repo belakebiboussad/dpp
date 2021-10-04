@@ -85,6 +85,7 @@ class PatientController extends Controller
    */
   public function store(Request $request)
   {
+    //dd($request->all());
     static $assurObj;
     $date = Date::Now();
     $rule = array(

@@ -2,8 +2,31 @@
 @section('title','Ajouter un patient')
 @section('page-script')
  <script>
- $(function(){
- 	
+  $(function(){
+ 		$('#type').change(function(){
+ 			showTypeEdit(this.value,1);
+ 		})
+ 		$( "#addPatientForm" ).submit(function( event ) {
+ 				if( ! checkPatient() )
+      	{
+			   	activaTab("Patient");
+	       	event.preventDefault();
+	      }else{
+	      	switch($("#type").val()){
+	      		case "0": case "1": case "1": case "2": case "3": case "4":
+      				if($("#type").val() == "0")
+      					$('.asdemogData').prop("disabled", false);
+      				if( ! checkAssure() )
+							{
+								activaTab("Assure");
+		  					event.preventDefault();
+							}
+							break;
+						default:
+ 	 						break;	
+	      	}
+	      }
+ 		});
  })
 </script>
 @endsection
@@ -35,14 +58,22 @@
 					</div>
 	   		 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			  	 	<li class="active">
-			   			<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo(null);"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
+			   			<a data-toggle="tab" href="#Assure" class="jumbotron"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
 						</li>
 						<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
 			 		</ul>
 			 		<div class="tab-content">
 						<div id="Assure" class="tab-pane in active">@include("assurs.addAssure")</div>
 						<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
-		  		</div>	<!-- col-sm-12 -->
+					</div>
+					<div class="hr hr-dotted"></div>
+					<div class="row">
+						<div class="center"><br>
+							<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+							<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+						</div>
+					</div>	
+		  	</div>	<!-- col-sm-12 -->
 			</div><!-- row -->
 		</form>
 	</div>

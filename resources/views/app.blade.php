@@ -289,28 +289,17 @@
           $('#adressef').val($('#adresse').val());
           $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
           $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-          if ( $("#gs option:selected").val() === "" ){
-                $(gsf).attr("disabled", false);
-                $("#rhf" ).attr("disabled", false);
+          $("#foncform").addClass('hidden'); 
+          if ($("#gs option:selected").val() === ""){
+            $(gsf).attr("disabled", false);
+            $("#rhf" ).attr("disabled", false);
           }
           else{
-              $("#gsf").val($("#gs option:selected").val());
-              $("#rhf").val($("#rh option:selected").val());
-              $(gsf).attr("disabled", true);
-              $("#rhf" ).attr("disabled", true);     
-          }//$(".asdemogData").attr("disabled", "disabled");
-        }
-        function copyPatientInfo(idP)
-        {
-          if(idP != null)
-          { // if($("#type").val() =="0")
-
-            copyPatient();
-            // else // {//if($(".asdemogData").attr('disabled') || $(".asdemogData").prop('disabled')) //   {
-            //     $(".asdemogData").attr("disabled", false); //   }         // }
+            $("#gsf").val($("#gs option:selected").val());
+            $("#rhf").val($("#rh option:selected").val());
+            $(gsf).attr("disabled", true);
+            $("#rhf" ).attr("disabled", true);     
           }
-          else
-            emptyPatient();       
         }
         function emptyPatient(){ 
           $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
@@ -320,7 +309,7 @@
           if($("#gsf").prop('disabled') == true)
             $('#gsf').attr("disabled", false);
           if($("#gsf").prop('disabled') == true)
-            $("#rhf" ).attr("disabled", false);// $('.asDemograph').find('*').each(function () {//$(this).attr("disabled", false);// });
+            $("#rhf" ).attr("disabled", false);
           $('.asdemogData').attr('disabled', '');
         }
         function checkPatient()

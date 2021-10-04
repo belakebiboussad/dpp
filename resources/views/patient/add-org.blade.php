@@ -20,7 +20,7 @@
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
-					$("#foncform").addClass('hide');//copyPatient();
+					$("#foncform").addClass('hide');
   				addRequiredAttr();
   			}else if(jQuery.inArray($('#type').val(), [1,2,3,4]) !== -1)
   			{
@@ -84,7 +84,7 @@
 			</div>
 	    		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active">
-			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo(null);"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
 					</li>
 					<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
 			 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
@@ -219,7 +219,7 @@
 				</div>	{{-- row --}}	
 			</div><!-- homme_cPart -->
 			</div>	
-		</div>
+		</div><!-- tab-content -->
 		{{--fin homme--}}	{{-- tab-pane --}}
 	  <div class="hr hr-dotted"></div>
 		<div class="row">

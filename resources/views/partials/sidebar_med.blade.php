@@ -411,27 +411,20 @@
              $("#acte-" + $(this).val()).remove();
           });
           $('input[type=radio][name=sexe]').change(function(){
-            if($(this).val() == "M")
+            if(this.value == "M")
             {
               $('#Div-nomjeuneFille').attr('hidden','');
               $('#nom_jeune_fille').val(''); 
-            }else {
-              var civilite= $("select.civilite option").filter(":selected").val();
-              if((civilite ==="M")|| (civilite =="V"))
+            }else
+              if(($("#sf").val() ==="M")|| ($("#sf").val() =="V"))
                 $('#Div-nomjeuneFille').removeAttr('hidden');
-            }
           });
-          $( ".civilite" ).change(function() {
+          $( "#sf" ).change(function() {
               var sex =  $('input[name=sexe]:checked').val();
-              if(sex == "F")
-              {
-                var civilite= $("select.civilite option").filter(":selected").val(); 
-                if((civilite ==="M")|| (civilite ==="V"))
-                  $('#Div-nomjeuneFille').removeAttr('hidden');
-                else
-                  $('#Div-nomjeuneFille').attr('hidden','');  
-              }else
-                $('#Div-nomjeuneFille').attr('hidden','');      
+              if(sex == "F" && ((this.value ==="M") ||(this.value ==="V") ))
+                 $('#Div-nomjeuneFille').removeAttr('hidden');
+              else
+                $('#Div-nomjeuneFille').attr('hidden', true);
           }); 
           jQuery('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");
