@@ -23,7 +23,7 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :<span style="color: red">*</span></strong></label>
+			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 			<div class="col-sm-9">
 				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
@@ -44,7 +44,7 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :<span style="color: red">*</span></strong></label>
+			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
 					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
@@ -172,13 +172,4 @@
 			</div>
 		</div>		
 	</div><div class="col-sm-6"></div> 			
-</div> 	{{-- row --}}
-<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Homme de confiance</h4></div></div>
-<div class="row"><div class="col-sm-1"></div>
-	<div class="col-sm-11">
-		<div class="form-group padding-left">
-			<input  type="checkbox" name = "hommeConf" id="hommeConf" value="1"  class="ace input-lg"/>
-			<span class="lbl lighter blue"><strong>Ajouter un correspondant</strong></span>
-		</div>
-	</div>				
 </div>		

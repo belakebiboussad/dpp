@@ -1,7 +1,7 @@
 @extends('app')
 @section('title','Rechercher un Fonctionnaire')
 @section('page-script')
-<script>// function selectPatient(nom,prenom)// {// 	alert(nom);// }
+<script>
 	$(document).ready(function(){
 		$(document).on('click','.findAssure',function(event){
 					event.preventDefault();
@@ -73,8 +73,9 @@
 						</div>
 					</div><!-- row -->
 				</div><!-- body -->
-				<div class="panel-footer" style="height:40px;"> <!-- style ="margin-top:-0.5%;"  -->
+				<div class="panel-footer" style="height:40px;">
 					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
+					<a href="{{ route('assur.destroy',12122) }}" title="" data-method="DELETE">suprimer</a>
 				</div>
 			</div><!-- panel -->
 		</div>

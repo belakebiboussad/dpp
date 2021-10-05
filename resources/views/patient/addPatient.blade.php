@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" value="{{Input::old('prenom')}}" autocomplete="off"/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-12 col-sm-12" value="{{Input::old('prenom')}}" autocomplete="off"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -103,7 +103,7 @@
 <div  class="row demograph">
 	<div class="col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
-		<input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
+		<input type="text" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
 	</div> 
 	<div class="col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>

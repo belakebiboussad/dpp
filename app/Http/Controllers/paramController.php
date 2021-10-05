@@ -12,20 +12,19 @@ class paramController extends Controller
 {
 	public function index()
 	{
-  		$specialites = specialite_exb::all();
-  		$examensImg = TypeExam::all();
-               $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
-              $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
-  		return view('parametres.index',compact('specialites','specExamsBio','specExamsImg','examensImg'));
-  	}
-  	public function store(Request $request)
-      {
-                $specialite = specialite::FindOrFail(Auth::user()->employ->specialite);
-              $input = $request->all();
-              dd($input );
-      		$input['exmsbio'] = $request->input('exmsbio');
-      		$input['exmsImg'] = $request->input('exmsImg');
-      		$specialite->update($input);
-      		return redirect()->action('paramController@index'); 
-      }    
+  	$specialites = specialite_exb::all();
+  	$examensImg = TypeExam::all();
+    $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
+    $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
+  	return view('parametres.index',compact('specialites','specExamsBio','specExamsImg','examensImg'));
+  }
+  public function store(Request $request)
+  {
+    $specialite = specialite::FindOrFail(Auth::user()->employ->specialite);
+    $input = $request->all();
+  	$input['exmsbio'] = $request->input('exmsbio');
+  	$input['exmsImg'] = $request->input('exmsImg');
+  	$specialite->update($input);
+  	return redirect()->action('paramController@index'); 
+  }    
 }

@@ -74,38 +74,35 @@
 			</div>
 			<h5 class="header blue bolder smaller">Informations du poste</h5>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4">
+				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right"><b>Matricule :</b></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Matricule_dgsn }}</label></div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					@isset($user->employ->service)
+				@isset($user->employ->service)
+				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
 						<label class="col-sm-4 control-label"><b>Service :</b></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Service->nom }}</label></div>
 					</div>
-					@endisset
 				</div>
-				<div class="col-xs-12 col-sm-4">
+				@endisset
 				@isset($user->employ->Specialite)
+				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
 						<label class="col-sm-4 control-label"><strong>Spécialité :</strong></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Specialite->nom }}</label></div>
 					</div>
-				@endisset	
 				</div>
-			</div>
-			<h5 class="header blue bolder smaller">Informations d'assurance</h5>
-			<div class="row">
-				<div class="col-xs-12 col-sm-4">
+				@endisset	
+				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>N° Sécurité Sociale :</b></label>
+						<label class="col-sm-4 control-label"><b>NSS :</b></label>
 						<div class="col-sm-8">	<label class="blue">{{$user->employ->NSS }}</label>	</div>
 					</div>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<div id="info-compte" class="tab-pane">
 					<div class="space-12"></div>	

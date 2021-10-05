@@ -29,11 +29,11 @@
     var barChartData = {
         labels: date,date,
         datasets: [{
-            label: 'nouveau hospitalier',
+            label: 'nouvelle hospitalisaton',
             backgroundColor: "pink",
             data: nvhosp
         },
-           {label: 'nombre hospitalisation',
+           {label: 'nombre d\'Hospitalisations',
             backgroundColor: "blue",
             data:  nbhosp
 
@@ -44,7 +44,7 @@
        var barChartDataa = {
         labels:      serv,serv,
         datasets: [{
-            label: 'nombre consultation par service',
+            label: 'nombre de consultations par service',
             backgroundColor: "pink",
                data: nbcons
         },
@@ -54,18 +54,12 @@
 
    window.onload = function() {
 
-           var ctxXX = document.getElementById("canvass").getContext("2d");
+        var ctxXX = document.getElementById("canvass").getContext("2d");
         window.myBar = new Chart(ctxXX, {
-            type: 'bar',
-            data: barChartDataa,
-          
-
-
-         // Chart.defaults.global.elements.line.fill = false;
-
-
-
-              options: {
+        type: 'bar',
+        data: barChartDataa,
+        // Chart.defaults.global.elements.line.fill = false;
+         options: {
             scales: {
                 yAxes: [{
                     ticks: {

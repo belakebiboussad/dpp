@@ -11,16 +11,12 @@ class StatistiqusController extends Controller
 {
 	public function index()
 	{
-  	$date = [];
+  	$date = []; $nvhosp = []; $nbhosp = []; $nbcons = []; 
     $date = [ date('d.m.Y') ,date('d.m.Y',strtotime("-1 days")), date('d.m.Y',strtotime("-2 days")) , date('d.m.Y',strtotime("-3 days")), date('d.m.Y',strtotime("-4 days")) , date('d.m.Y',strtotime("-5 days")) , date('d.m.Y',strtotime("-6 days"))  ];
-    $nvhosp = []; 
-    $nbhosp = []; 
-    $nbcons = []; 
     $j=0;
     for ($i=1; $i <7; $i++) 
-    {  //$value =DATE_FORMAT($value, "%M %d %Y");
+    {  
       $value = strftime("%y-%m-%d", mktime(0, 0, 0, date('m'), date('d')-$j, date('y')));
-      // $value = date($value);
       $nvhosp[] = hospitalisation:: where('etat_hosp',null)->where('Date_entree','<=',$value)-> count ();
       $j++ ; 
     }

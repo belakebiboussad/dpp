@@ -76,6 +76,9 @@ class HomeController extends Controller
             case 6:
                   return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
                   break;
+            case 8:
+                  return redirect()->action('StatistiqusController@index');
+                  break;      
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       
@@ -89,7 +92,8 @@ class HomeController extends Controller
                      return redirect()->action('DemandeExamenRadio@index');
                 break;
             case 14://chef de service
-                return view('patient.index');   // return view('home.home_chef_ser');
+                return view('patient.index');
+
             default:
                return view('errors.500');
                break;

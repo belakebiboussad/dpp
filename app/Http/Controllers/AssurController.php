@@ -155,14 +155,21 @@ class AssurController extends Controller
         //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
         //J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!DLL_CDTA_My//I:/MessPrograms/program.net/com/GRH/GRH/bin/Debug/GRH.DLL 
         //vrai derniere dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-        //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
+        $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
         //dgsn network dll,path=J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!Last_DGSN_DLL//I:/MessPrograms/program.net/Pgm-Laptop/GRH_DLL/GRH_DLLL/bin/x64/Debug
-        $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
+        //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
         //teste network dll
         //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
         if($handle != null)
         {
           $assure = $handle->SelectPersonnel(trim('12122'),trim(''));//10246 3M534
+          $enfants = explode ( '|' , $assure->Enfants);
+          foreach ($enfants as $key => $enfant)
+          {
+            dd(str_replace($assure->Nom, "",$enfant));    
+          }
+          $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
+          dd("");
           $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
           $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
           try {
@@ -199,8 +206,8 @@ class AssurController extends Controller
     {
        try {
           //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-          $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
+          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
           $output=""; $ayants="";
           $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));
           if($assure->Nom != null)
@@ -214,22 +221,27 @@ class AssurController extends Controller
             switch(($assure->SituationFamille{0})){
               case "M"  :
                     $sf = "M";
-                     break; 
+                    $civ ="Marié(e)";
+                    break; 
                case  "C":
                     $sf = "C";
-                     break; 
-                     break;
+                    $civ ="Célibataire(e)";
+                    break; 
+                     
               case "D"  :
                     $sf = "D";
-                     break;
+                    $civ ="Divorcé(e)";
+                    break;
               case "V" :
                     $sf = "V";
-                     break; 
+                    $civ ="Veuf(veuve)";
+                    break; 
                default:
                     $sf = "M";
-                     break;
+                    $civ ="Marié(e)";
+                    break;
             }
-            if($this->assureSearch($assure->NSS) == null) //tester si l'assure existe
+            if($this->assureSearch($assure->NSS) == null)//tester si l'assure existe
               $this->save($assure,$date,$sf,$grade->id);//inserer l'assure
             else
               $this->updateAssure($sf, $assure->Matricule, utf8_encode($assure->Adresse) , $assure->WilayaResidence, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position),  $assure->NSS);
@@ -237,7 +249,7 @@ class AssurController extends Controller
             {
               if(!in_array(utf8_encode($assure->Position), $positions))
               { 
-                $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
+                $patientId = $this->patientSearchByfirstName($assure->Prenom,$assure->NSS);
                 if(isset($patientId))
                   $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
                 else
@@ -246,13 +258,13 @@ class AssurController extends Controller
                 $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
             }
             $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
-            $output.='<tr><td>'.utf8_encode($assure->SituationFamille).'</td><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'
+            $output.='<tr><td>'.utf8_encode($civ).'</td><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'
                     .$date.'</td><td>'.$sexe.'</td><td>'.$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'
                     .$assure->Matricule.'</td><td>'.utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
             if(!in_array(utf8_encode($assure->Position), $positions))//1
             {    
               if($assure->Conjoint != ''){
-                $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //recherche conjoint
+                $patientId = $this->patientSearchByType($assure->Conjoint,$assure->NSS);//Ayants  //recherche conjoint
                 if(Auth::user()->role_id !=4)
                 {
                   if(isset($patientId))
@@ -263,7 +275,7 @@ class AssurController extends Controller
                 $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
               }    
               if($assure->Pere != '') {
-                $patientId = $this->patientSearch($assure->Pere,$assure->NSS);  //recerche pere
+                $patientId = $this->patientSearchByfirstName($assure->Pere,$assure->NSS);  //recerche pere
                 if(Auth::user()->role_id !=4)
                 {
                   if(isset($patientId))
@@ -274,7 +286,8 @@ class AssurController extends Controller
                 $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
               }
               if($assure->Mere != '') {
-                $patientId = $this->patientSearch($assure->Mere,$assure->NSS); //Recherce Mere
+                $patientId = $this->patientSearchByType(3,$assure->NSS); //Recherce Mere
+                
                 if(Auth::user()->role_id !=4)
                 {
                   if(isset($patientId))
@@ -289,7 +302,7 @@ class AssurController extends Controller
                 $enfants = explode ( '|' , $assure->Enfants);
                 foreach ($enfants as $key => $enfant)
                 {
-                  $patientId = $this->patientSearch($enfant,$assure->NSS);
+                  $patientId = $this->patientSearchByfirstName(str_replace($assure->Nom, "",$enfant),$assure->NSS);
                   if(Auth::user()->role_id !=4)
                   {
                     if(isset($patientId))

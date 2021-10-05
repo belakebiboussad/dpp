@@ -68,7 +68,7 @@
 					</div>
 					<div class="hr hr-dotted"></div>
 					<div class="row">
-						<div class="center"><br>
+						<div class="col-sm-12 center">
 							<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 							<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 						</div>
