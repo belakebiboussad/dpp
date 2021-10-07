@@ -33,7 +33,6 @@ class StatistiqusController extends Controller
       //$value = date($value);
       //$nvhosp[] = hospitalisation::where('etat_hosp',null)->where('Date_entree',$value)->count();
       $nvhosp[] = hospitalisation::where('etat_hosp',null)->where('Date_entree',$date[$i])->count();
-      //dd(hospitalisation:: where('etat_hosp',null)->where('Date_entree',$date[2])->get()->count());
       $j++ ;        
     }
     //dd($nvhosp);
@@ -44,7 +43,6 @@ class StatistiqusController extends Controller
       $nbcons[] = consultation::join('employs', 'consultations.Employe_ID_Employe','employs.id')
              									->join('services', 'employs.service','=','services.id')->where('services.nom','=',$sevV->nom) 
                     					->where('Date_Consultation','=',$value)-> groupBy ( 'services.nom' )-> count ();
-
     }
     foreach  ($servs as $srv)
     {
