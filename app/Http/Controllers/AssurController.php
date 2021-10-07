@@ -245,7 +245,7 @@ class AssurController extends Controller
               $this->save($assure,$date,$sf,$grade->id);//inserer l'assure
             else
               $this->updateAssure($sf, $assure->Matricule, utf8_encode($assure->Adresse) , $assure->WilayaResidence, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position),  $assure->NSS);
-            if(Auth::user()->role_id !=4) //!=admin 
+            if(!(in_array(Auth::user()->role->id,[4,8])))
             {
               if(!in_array(utf8_encode($assure->Position), $positions))
               { 
@@ -258,14 +258,15 @@ class AssurController extends Controller
                 $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
             }
             $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
-            $output.='<tr><td>'.utf8_encode($civ).'</td><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'
-                    .$date.'</td><td>'.$sexe.'</td><td>'.$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'
+            $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'.$date.'</td><td>'.$sexe.'</td><td>'.$civ.'</td><td>'
+                    .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'
                     .$assure->Matricule.'</td><td>'.utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
+
             if(!in_array(utf8_encode($assure->Position), $positions))//1
             {    
               if($assure->Conjoint != ''){
                 $patientId = $this->patientSearchByType($assure->Conjoint,$assure->NSS);//Ayants  //recherche conjoint
-                if(Auth::user()->role_id !=4)
+                if(!(in_array(Auth::user()->role->id,[4,8])))
                 {
                   if(isset($patientId))
                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
@@ -276,7 +277,7 @@ class AssurController extends Controller
               }    
               if($assure->Pere != '') {
                 $patientId = $this->patientSearchByfirstName($assure->Pere,$assure->NSS);  //recerche pere
-                if(Auth::user()->role_id !=4)
+                if(!(in_array(Auth::user()->role->id,[4,8])))
                 {
                   if(isset($patientId))
                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
@@ -287,8 +288,7 @@ class AssurController extends Controller
               }
               if($assure->Mere != '') {
                 $patientId = $this->patientSearchByType(3,$assure->NSS); //Recherce Mere
-                
-                if(Auth::user()->role_id !=4)
+                if(!(in_array(Auth::user()->role->id,[4,8])))
                 {
                   if(isset($patientId))
                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
@@ -303,7 +303,7 @@ class AssurController extends Controller
                 foreach ($enfants as $key => $enfant)
                 {
                   $patientId = $this->patientSearchByfirstName(str_replace($assure->Nom, "",$enfant),$assure->NSS);
-                  if(Auth::user()->role_id !=4)
+                  if(!(in_array(Auth::user()->role->id,[4,8])))
                   {
                     if(isset($patientId))
                       $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 

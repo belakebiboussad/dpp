@@ -99,7 +99,7 @@
           </ul>
         </li>
         @endif
-        @if(Auth::user()->is(14)) {{-- @if( Auth::user()->role_id == 14) --}}
+        @if(Auth::user()->is(14))
         <li class="">
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
@@ -116,10 +116,10 @@
           </li>              
         </ul>
         </li>
-         <li>
-        <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
-        <b class="arrow"></b>
-      </li>
+        <li>
+          <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
+          <b class="arrow"></b>
+        </li>
         @endif
     </ul><!-- /.nav-list -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

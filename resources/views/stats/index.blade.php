@@ -3,7 +3,7 @@
 @section('main-content')
 <div class = "container" >
     <div class = "row" >
-        <div class = "col-md-10 offset-md-1" >
+        <div class = "col-md-12 offset-md-1" >
             <div class = "panel panel-default" >
                 <div class = "panel-header"> Tableau de bord hospitalisation</div>
                 <div class = "panel-body">
@@ -19,7 +19,7 @@
 </div >
 @endsection
 @section('page-script')
-<script src="{{ asset('/js/Chart.min.js') }}"></script>
+<!-- <script src="{{-- asset('/js/Chart.min.js') --}}"></script> -->
 <script>
     var date = <?php echo $date; ?>;
     var nvhosp = <?php echo $nvhosp; ?>;

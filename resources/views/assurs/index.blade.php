@@ -92,11 +92,11 @@
 					<thead>
 						<tr class="info"><th colspan="12">Détails fonctionnaire</th></tr>
 						<tr class="liste">
-						  <th class="blue" width="7%">Civilité</th>
 						  <th class="blue" width="9%">Nom</th>
 							<th class="blue" width="9%">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
 							<th class="blue" width="6%">Genre</th>
+							<th class="blue" width="7%">Civilité</th>
 							<th class="blue" width="5%">Wilaya Résidence</th>
 						  <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="8%">Position</th>
