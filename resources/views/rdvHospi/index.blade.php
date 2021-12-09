@@ -31,7 +31,6 @@ var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ now
 $('document').ready(function(){
  	$("#dateEntree").datepicker("setDate", now);			
   	$("#dateSortiePre").datepicker("setDate", now);
- 	// $( "#RDVForm" ).submit(function( event ) {  $("#dateSortiePre").prop('disabled', false); });	/*$('.filelink' ).click( function( e ) { e.preventDefault();   	});*/
 });
 </script>
 @endsection
@@ -101,9 +100,6 @@ $('document').ready(function(){
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
 									<div class="btn-group">
-										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm" value="{{ $demande->id }}">
-											<span syle="color:blue"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-										</a>&nbsp;
 										<button class="btn btn-sm btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
 											<i class="fa fa-clock-o" aria-hidden="true"></i>
 										</button>

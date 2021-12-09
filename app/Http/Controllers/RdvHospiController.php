@@ -41,7 +41,7 @@ class RdvHospiController extends Controller
   {
     $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
-    return view('rdvHospi.create', compact('demande','services'));
+    return view('rdvHospi.add', compact('demande','services'));
   }
   public function store(Request $request)
   {
