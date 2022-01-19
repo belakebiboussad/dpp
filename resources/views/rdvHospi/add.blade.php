@@ -136,7 +136,7 @@
 		  	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div></div><div class="space-12 hidden-xs"></div>
 				<div class="row ">
 					<div class="col-sm-4 col-xs-12">
-				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie">	<strong> Service :</strong>	</label>
+				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie"><strong> Service :</strong></label>
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
 							  <option value="0" selected >Selectionnez un service</option>
@@ -147,7 +147,7 @@
 					  </div>
 				  </div>
 				  <div class="col-sm-4 col-xs-12">
-			   		<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
+			   		<label class="col-sm-4 control-label no-padding-right" for="salle"><strong>Salle :</strong></label>
 					 	<div class="col-sm-8">
 							<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
 								<option value="0" selected>Selectionnez une salle</option>

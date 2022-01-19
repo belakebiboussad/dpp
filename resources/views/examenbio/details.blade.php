@@ -37,9 +37,9 @@
     });
   });
   $(function(){
-       $('#resultat').change(function(){
-                $('#crb-add').removeAttr('disabled');
-         });
+    $('#resultat').change(function(){
+        $('#crb-add').removeAttr('disabled');
+     });
    })
 </script>
 @endsection
@@ -147,7 +147,7 @@
             </div><br>
             <div class="row">
               <div class="col-xs-12 col-sm-12 center">
-                <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+                  <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
                </div>
             </div>
           </form>

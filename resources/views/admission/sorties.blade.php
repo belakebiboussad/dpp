@@ -105,13 +105,13 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
-       				<div class="form-group"><label><strong>Etat :</strong></label>
-           			 <select id='etat' class="form-control filter1" style="width: 200px">
-               				 <option value="0">En cours</option>
-			                <option value="1">Validée</option>
-			            </select>
-       				  </div>		
-    				</div>
+     				<div class="form-group"><label><strong>Etat :</strong></label>
+         			 <select id='etat' class="form-control filter1" style="width: 200px">
+             				 <option value="0">En cours</option>
+		                <option value="1">Validée</option>
+		            </select>
+     				  </div>		
+    		</div>
         <div class="col-sm-4">
         	<div class="form-group">
          		<label class="control-label" for="" ><strong>Date sortie:</strong></label>

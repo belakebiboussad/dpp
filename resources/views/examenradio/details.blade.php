@@ -31,11 +31,11 @@ function CRRPrint()
   generate(pdf);
 }
 function CRRSave()
-  {
+{
      $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
+        headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
       });
       var formData = {
         demande_id:'{{$demande->id}}',
@@ -207,21 +207,21 @@ function CRRSave()
         })
     });
 /* $(".open-AddCRRDialog").click(function () { $('#examId').val($(this).data('id'));  jQuery('#CRRForm').trigger("reset"); jQuery('#crrSave').val("add"); $('#addCRRDialog').modal('show'); });*/
-      $(".open-editCRRDialog").click(function (event) {
-              event.preventDefault();
-              $('#examId').val($(this).data('id'));
-              var crr_id = $(this).val();
-              $('#crrModalTitle').html('Editer un compte rendue radiologique');
-              $.get('/crrs/' + crr_id + '/edit', function (data) { 
-                $('#crrId').val(data.id);
-                $('#indication').val(data.indication);
-                $('#techRea').val(data.techRea);
-                $('#result').val(data.result);
-                $('#conclusion').val(data.conclusion);
-                jQuery('#crrSave').val("update");
-                $('#addCRRDialog').modal('show');
-              });
+    $(".open-editCRRDialog").click(function (event) {
+      event.preventDefault();
+      $('#examId').val($(this).data('id'));
+      var crr_id = $(this).val();
+      $('#crrModalTitle').html('Editer un compte rendue radiologique');
+      $.get('/crrs/' + crr_id + '/edit', function (data) { 
+        $('#crrId').val(data.id);
+        $('#indication').val(data.indication);
+        $('#techRea').val(data.techRea);
+        $('#result').val(data.result);
+        $('#conclusion').val(data.conclusion);
+        jQuery('#crrSave').val("update");
+        $('#addCRRDialog').modal('show');
       });
+    });
 });
   </script>
 @endsection
@@ -309,7 +309,7 @@ function CRRSave()
               </thead>
               <tbody>
                  @foreach ($demande->examensradios as $index => $examen)
-                  @if($examen->pivot->etat === null)
+                  {{-- @if($examen->pivot->etat === null) --}}
                   <tr id = "{{ $examen->id }}">
                     <td class="center">{{ $index }}</td>
                     <td>{{ $examen->nom }}</td>
@@ -339,7 +339,7 @@ function CRRSave()
                       @endif
                     </td>
                   </tr>
-                  @endif
+                 {{--  @endif --}}
                   @endforeach
               </tbody>
             </table>
