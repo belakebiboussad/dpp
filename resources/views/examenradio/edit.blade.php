@@ -15,9 +15,9 @@
 	<div class="col-xs-12 widget-container-col" id="consultation">
 		<div class="widget-box" id="infopatient">
 			<div class="widget-header"><h5 class="widget-title"><b><strong>Demande d'examen radiologique :</strong></b></h5> </div>
-	        </div><!-- widget-box -->
-		<div class="widget-body">
-                <div class="widget-main"><div class="space-12 hidden-xs"></div>
+	    </div><!-- widget-box -->
+      <div class="widget-body">
+        <div class="widget-main"><div class="space-12 hidden-xs"></div>
 	        <div class="row">
 	        	<div class="col-xs-12">
 	        		<label for="infosc">  <b>Informations cliniques pertinentes</b></label>

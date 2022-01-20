@@ -129,21 +129,21 @@ function CRRSave()
                 } 
             });
        $(".start").click( function(){
-      if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
-      {
-        Swal.fire({
-              title: 'Compte Rendue ?',
-              html: '<br/><h4><strong>'+'Voulez-vous ajouter un compte rendue ?'+'</strong></h4>',
-              icon: 'info',
-              type:'info',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Oui',
-               cancelButtonText: "Non",
-        }).then((result) => {
-          if(!isEmpty(result.value))
-          {
+        if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
+        {
+          Swal.fire({
+                title: 'Compte Rendue ?',
+                html: '<br/><h4><strong>'+'Voulez-vous ajouter un compte rendue ?'+'</strong></h4>',
+                icon: 'info',
+                type:'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                 cancelButtonText: "Non",
+          }).then((result) => {
+            if(!isEmpty(result.value))
+            {
             var examId =  $(this).val();
             $('#examId').val($(this).data('id'));
             jQuery('#CRRForm').trigger("reset");
@@ -206,7 +206,7 @@ function CRRSave()
           }
         })
     });
-/* $(".open-AddCRRDialog").click(function () { $('#examId').val($(this).data('id'));  jQuery('#CRRForm').trigger("reset"); jQuery('#crrSave').val("add"); $('#addCRRDialog').modal('show'); });*/
+/*$(".open-AddCRRDialog").click(function () { $('#examId').val($(this).data('id'));  jQuery('#CRRForm').trigger("reset"); jQuery('#crrSave').val("add"); $('#addCRRDialog').modal('show'); });*/
     $(".open-editCRRDialog").click(function (event) {
       event.preventDefault();
       $('#examId').val($(this).data('id'));
@@ -239,13 +239,12 @@ function CRRSave()
         @endif
     </div>
 </div><hr>
-<div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-10">
+<div class="col-xs-12 col-sm-12">
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
+      <div class="col-sm-6"><label><b>Date :</b></label></div>
       <div class="form-group col-sm-6">
         <label class="blue"> {{  (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</label>
       </div>
@@ -253,33 +252,27 @@ function CRRSave()
   </div>
    <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Médecin demandeur :</b></label></div>  
+      <div class="col-sm-6"><label><b>Médecin demandeur :</b></label></div>  
       <div class="form-group col-sm-6">
-            <label class="blue"> {{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</label>
+            <label class="blue">{{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</label>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Informations cliniques pertinentes :</b></label></div>
+      <div class="col-sm-6"><label><b>Informations cliniques pertinentes :</b></label></div>
        <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
       </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
-      <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
+      <div class="col-sm-6"><label><b>Explication de la demande de diagnostic :</b></label></div>
+      <div class="form-group col-sm-6"><label class="blue">{{ $demande->Explecations }}</label> </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
-      <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12">
-      <div class="col-sm-6"><label class=""><b>Informations supplémentaires pertinentes :</b></label></div>
+      <div class="col-sm-6"><label><b>Informations supplémentaires pertinentes :</b></label></div>
       <div class="form-group col-sm-6">
         <label class="blue">
         <ul class="list-inline"> 
@@ -297,7 +290,10 @@ function CRRSave()
         <div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique</b></h5></div>
         <div class="widget-body">
           <div class="widget-main">
-           <table class="table table-striped table-bordered">
+          <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
+          {{ csrf_field() }}
+          {{ method_field('PUT') }}
+          <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th class="center" width="10%">#</th>
@@ -308,26 +304,30 @@ function CRRSave()
                 </tr>
               </thead>
               <tbody>
-                 @foreach ($demande->examensradios as $index => $examen)
-                  {{-- @if($examen->pivot->etat === null) --}}
-                  <tr id = "{{ $examen->id }}">
-                    <td class="center">{{ $index }}</td>
-                    <td>{{ $examen->nom }}</td>
-                    <td>
-                      <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                      @foreach($exams as $id)
-                      <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
-                      @endforeach
-                    </td>
-                    <td>
-                      @if(Auth::user()->role->id == 12)
-                        <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
+               @foreach ($demande->examensradios as $index => $examen){{-- @if($examen->pivot->etat === null) --}}
+                <tr id = "{{ $examen->id }}">
+                  <td class="center">{{ $index }}</td>
+                  <td>{{ $examen->nom }}</td>
+                  <td>
+                    <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                    @foreach($exams as $id)
+                    <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
+                    @endforeach
+                  </td>
+                  <td>
+                    @if(Auth::user()->role->id == 12)
+                      @if( $examen->pivot->etat)
+                        {{ $examen->pivot->resultat }}
+                        1<input type="file" id="exm-{{ $examen->id }}" name="resultat[]" value="{{ $examen->pivot->resultat['1'] }}" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
+                      @else
+                        2<input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                       @endif
-                    </td>
-                    <td class="center" width="18%">
-                    {{--   <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}" disabled>
-                        <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                      </button>  --}}
+                       <p>size Max : 2 MB</p>
+                    @endif
+                  </td>
+                  <td class="center" width="18%">
+{{--<button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="Ajouter un compte rendu" data-id="{{ $examen->id }}" disabled>
+<i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i></button>--}}
                       <button type="button" class="btn btn-md btn-primary open-editCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{ $examen->id }}" value="{{ $examen->pivot->crr_id }}">
                         <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
                       </button>
@@ -353,17 +353,14 @@ function CRRSave()
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">
-      <div class="col-sm-12">
-              <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
-              {{ csrf_field() }}
-              {{ method_field('PUT') }}
-              <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                <div class="col-md-offset-5 col-md-7">
-                  <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
-                  <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
-                </div>
-              </form>
-      </div>
+  <div class="col-sm-12">
+    <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+        <div class="col-md-offset-5 col-md-7">
+          <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+          <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+        </div>
+      </form>
+  </div>
 </div>
 <div class="row text-center">@include('examenradio.ModalFoms.CRRModal')</div>
 <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  

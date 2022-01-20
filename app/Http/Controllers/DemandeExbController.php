@@ -34,9 +34,9 @@ class DemandeExbController extends Controller
           return view('examenbio.demande_exb', compact('specialites','consultation')); 
         }
         public function index() {
-              $services =service::where('type','!=',"2")->get();
-              $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
-              return view('examenbio.index', compact('demandesexb','services'));
+          $services =service::where('type','!=',"2")->get();
+          $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
+          return view('examenbio.index', compact('demandesexb','services'));
         }
   /**
    * Show the form for creating a new resource.
@@ -55,8 +55,8 @@ class DemandeExbController extends Controller
     $demande = demandeexb::FirstOrCreate([  
          "id_consultation" => $consultId,
     ]);
-   foreach($request->exm as $id_exb) {
-                $demande->examensbios()->attach($id_exb);
+    foreach($request->exm as $id_exb) {
+      $demande->examensbios()->attach($id_exb);
     }
   }
   /**
@@ -65,21 +65,21 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function show($id)
-     {
-        $demande = demandeexb::FindOrFail($id);
-        if(isset($demande->consultation))
-        {
-          $medecin =$demande->consultation->docteur ; 
-          $patient = $demande->consultation->patient;    
-         }
-         else
-        {
-          $medecin = $demande->visite->medecin ;
-          $patient = $demande->visite->hospitalisation->patient;          
-        }
-        return view('examenbio.show', compact('demande','medecin','patient'));
-     }
+   public function show($id)
+   {
+      $demande = demandeexb::FindOrFail($id);
+      if(isset($demande->consultation))
+      {
+        $medecin =$demande->consultation->docteur ; 
+        $patient = $demande->consultation->patient;    
+       }
+       else
+      {
+        $medecin = $demande->visite->medecin ;
+        $patient = $demande->visite->hospitalisation->patient;          
+      }
+      return view('examenbio.show', compact('demande','medecin','patient'));
+   }
     /**
      * Show the form for editing the specified resource.
      *
@@ -88,8 +88,8 @@ class DemandeExbController extends Controller
      */
     public function edit($id)
     {
-          $demande = demandeexb::FindOrFail($id);
-          return view('examenbio.edit', compact('demande'));
+      $demande = demandeexb::FindOrFail($id);
+      return view('examenbio.edit', compact('demande'));
     }
     /**
      * Update the specified resource in storage.
@@ -113,10 +113,9 @@ class DemandeExbController extends Controller
         return Response::json($demande);
       }else
       {
-          $consult_id = $demande->consultation;
-          return redirect()->action('ConsultationsController@show',$consult_id);
-      }
-          
+        $consult_id = $demande->consultation;
+        return redirect()->action('ConsultationsController@show',$consult_id);
+      }     
     }
     public function detailsdemandeexb($id)
     {
@@ -133,8 +132,7 @@ class DemandeExbController extends Controller
         $patient = $demande->visite->hospitalisation->patient;   
       }
       return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
-   }
-       /*public function detailsdemandeexb($id){return view('examenbio.teste');}*/
+    }/*public function detailsdemandeexb($id){return view('examenbio.teste');}*/
     public function uploadresultat(Request $request)
     {
       $request->validate([
