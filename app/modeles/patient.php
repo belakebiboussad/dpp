@@ -6,6 +6,11 @@ class patient extends Model
 {
 	public $timestamps = false;
 	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active','Date_creation','updated_at'];
+  protected $appends = ['full_name'];
+  public function getFullNameAttribute()
+  {
+    return $this->Nom." ".$this->Prenom ;
+  }
   public function getAge(){	//getAgeAttribute
  		if(isset($this->Dat_Naissance))
     	return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);

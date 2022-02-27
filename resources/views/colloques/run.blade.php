@@ -85,7 +85,7 @@
 		 			@foreach( $demandes as $i=>$demande)
 		    		<tr id= "{{ $j }}">
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
-		  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
+		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
 		  				<td>{{ $demande->Specialite->nom }}</td>
 		  				<td>{{$demande->consultation->Date_Consultation }}</td>
 						  <td>
@@ -105,7 +105,7 @@
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 									<option value="0" selected disabled>Selectionnez... </option>
 									@foreach ($medecins as $medecin)
-									<option value="{{ $medecin->id }}">{{ $medecin->nom }} {{ $medecin->prenom }}</option>
+									<option value="{{ $medecin->id }}">{{ $medecin->full_name }}</option>
 									@endforeach
 								</select>
 							</td>
@@ -149,7 +149,7 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"><strong>Établi par Dr:</strong></div>
 												<div class="profile-info-value">
-													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
+													<span>{{ $demande->consultation->docteur->full_name }}</span>
 												</div>
 											</div>
 									  </div>	{{-- profile-user-info-striped --}}

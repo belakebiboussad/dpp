@@ -64,7 +64,7 @@ $('document').ready(function(){
 						@foreach($demandes as $demande)
 							@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 							<tr>
-								<td>{{ $demande->demandeHosp->consultation->patient->Nom }} {{ $demande->demandeHosp->consultation->patient->Prenom }}</td>
+								<td>{{ $demande->demandeHosp->consultation->patient->full_name }}</td>
 								<td>
 									@switch( $demande->demandeHosp->modeAdmission )
    							  @case(0)
@@ -94,7 +94,7 @@ $('document').ready(function(){
   										@break
 									@endswitch
 								</td>
-								<th>{{ $demande->medecin->nom }} &nbsp; {{ $demande->medecin->prenom }}</th>
+								<th>{{ $demande->medecin->full_name }}</th>
 								<td class="hidden-xs">{{ $demande->observation }}</td>
 								<td>{{ $demande->demandeHosp->consultation->Date_Consultation }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
@@ -138,7 +138,7 @@ $('document').ready(function(){
 						<tbody>
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
-								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
+								<td>{{ $demande->consultation->patient->full_name }}</td>
 								<td>
 									@switch($demande->modeAdmission)
 			   							  @case(0)

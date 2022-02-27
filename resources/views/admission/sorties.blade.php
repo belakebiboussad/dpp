@@ -154,7 +154,7 @@
 	  				<tbody>
 	  				@foreach($hospitalistions as $hosp)
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
-							<td>{{ $hosp->patient->Nom }}&nbsp;{{ $hosp->patient->Prenom }}</td>
+							<td>{{ $hosp->patient->full_name }}</td>
 							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</td>
 							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date_RDVh }}</strong></span></td>
 							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>

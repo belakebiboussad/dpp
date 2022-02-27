@@ -270,7 +270,7 @@
            <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                      <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
+                      <td>{{ $hosp->patient->full_name }}</td>
                     <td class="priority-4">
                       @switch($hosp->admission->demandeHospitalisation->modeAdmission)
                           @case(0)
@@ -288,9 +288,7 @@
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
                     <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
-                    <td class="priority-6">{{  $hosp->medecin->nom }}
-                            {{  $hosp->medecin->prenom }}
-                     </td>
+                    <td class="priority-6">{{  $hosp->medecin->full_name }}</td>
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat_hosp)  ?  $hosp->etat_hosp : 'En Cours'}}</span>
                      </td>

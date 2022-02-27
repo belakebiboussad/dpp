@@ -32,7 +32,7 @@
           <label for="liste_membre"> <h5> <strong>Liste des médecins :</strong></h5></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $membre as $membres)
-            <option id="id_membre" value="{{$membres->id}}" >{{$membres->nom}} {{$membres->prenom}}</option>
+            <option id="id_membre" value="{{$membres->id}}" >{{$membres->full_name}}</option>
             @endforeach
           </select>
         </div>

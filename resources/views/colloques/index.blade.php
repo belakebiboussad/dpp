@@ -31,7 +31,7 @@
 		   			<td>{{ $col->date }}</td>
 		   			<td>
 						@foreach($col->membres as $i=>$employe)
-							<p class="text-primary">{{ $employe->nom }} {{ $employe->prenom }}</p> 
+							<p class="text-primary">{{ $employe->full_name }}</p> 
 						@endforeach
 					</td>
 					<td>{{ $col->date_creation }}</td>

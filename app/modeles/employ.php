@@ -8,7 +8,12 @@ class employ extends Model
 {
 	public $timestamps = false;
 	protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service','Matricule_dgsn','NSS'];
-	public function Service()
+	protected $appends = ['full_name'];
+   public function getFullNameAttribute()
+  {
+    return $this->nom." ".$this->prenom ;
+  }
+  public function Service()
 	{
 	     return $this->belongsTo('App\modeles\service','service');
 	} 

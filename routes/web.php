@@ -77,7 +77,7 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/createConsultation','ConsultationsController@choix');
 Route::get('/choixpat','ConsultationsController@choix');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir

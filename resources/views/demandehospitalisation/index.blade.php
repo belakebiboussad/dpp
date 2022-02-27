@@ -22,7 +22,7 @@
 				<tbody>
 					@foreach( $demandehospitalisations as $demande)
 						<tr>
-							<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
+							<td>{{ $demande->consultation->patient->full_name }}</td>
 							<td>
 								<span class="badge badge-{{ $demande->consultation->patient->getAge() < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->getAge() }}</span>
 							</td>
