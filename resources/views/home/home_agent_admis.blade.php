@@ -41,102 +41,63 @@
                                             mode ='<span class ="badge badge-'+cssClass +'"">'+mode+'</span>';
                                               forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false" data-target="#'+result[i].id+'" '+disabled+'><i class="fa fa-check"></i>&nbsp;Confirmer</button>&nbsp;';
                                              forms +='<a data-toggle="modal" class ="btn btn-info btn-sm" onclick ="ImprimerEtat(\'rdv_hospitalisation\','+result[i].id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+disabled+'><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>';
-                                            forms +='<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+'<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">confirmer l\'entrée du patient:</h4></div><div class="modal-body"><p><span style="color: blue;"><h3><strong>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name+'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>' +result[i].date +'</strong></span>&quot;&nbsp;à&nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div><form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="' +result[i].id+'" hidden>' + '<div class="modal-footer"><button type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button   type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
+                                            forms +='<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+'<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">confirmer l\'entrée du patient:</h4></div><div class="modal-body"><p><span style="color: blue;"><h3><strong>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name+'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>' +result[i].date_RDVh +'</strong></span>&quot;&nbsp;à&nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div><form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="' +result[i].id+'" hidden>' + '<div class="modal-footer"><button type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button   type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
                                              rows  +='<tr><td style="display: none;">'+result[i].id 
                                                         +'</td><td>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name+'</td><td>'
                                                         + result[i]['demande_hospitalisation']['service'].nom +'</td><td><span class ="text-danger"><strong>'
-                                                        + result[i].date +'</strong></span></td><td>'
+                                                        + result[i].date_RDVh +'</strong></span></td><td>'
                                                         + mode +'</td>'+bedAffect+'<td class="text-center">'+ forms +'</td></tr>'
                                      }
                                       $('#rdvs').html(rows);
                               }
-        /*
-        if(result.length != 0){
-          for(var i=0; i<result.length; i++){  
-            var disabled = 'disabled';
-            bedAffect = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>"
-            if(result[i]['demande_hospitalisation']['bed_affectation'] != null)
-            {
-                bedAffect ='<td>'+result[i]['demande_hospitalisation']['bed_affectation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['demande_hospitalisation']['bed_affectation']['lit']['salle'].nom+'</td><td>'+result[i]['demande_hospitalisation']['bed_affectation']['lit'].nom+'</td>'; 
-                if(field == 'date_RDVh') 
-                {
-                  var filter= new Date($("#date_RDVh").val()); 
-                  disabled =(areSameDate(dt, filter))?'':'disabled';
-                }
-              }
-              forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false" data-target="#'
-                    +result[i].id+'"'+disabled+'><i class="fa fa-check"></i>&nbsp;Confirmer</button>'
-                    +'&nbsp;<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat(\'rdv_hospitalisation\','+result[i].id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+disabled+'><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>'
-                    +'<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'
-                    +'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
-                    +'<button type="button" class="close" data-dismiss="modal">&times;</button>'
-                    +'<h4 class="modal-title">confirmer l\'entrée du patient:</h4></div>'
-                    +'<div class="modal-body"><p><span style="color: blue;"><h3><strong>'
-                    +result[i]['demande_hospitalisation']['consultation']['patient'].Nom +'&nbsp;'
-                    + result[i]['demande_hospitalisation']['consultation']['patient'].Prenom
-                    +'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>'+result[i].date_RDVh
-                    +'</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div>'
-                    +'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">'
-                    +'{{-- csrf_field() --}} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
-                    +'<div class="modal-footer"><button type="submit" class="btn btn-success">'
-                    +'<i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button   type="button" class="btn btn-default" data-dismiss="modal">'
-                    +'<i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
-              rows  +='<tr><td style="display: none;">'+result[i].id 
-                    +'</td><td>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name +'</td><td>'
-                    + result[i]['demande_hospitalisation']['service'].nom +'</td><td><span class ="text-danger"><strong>'
-                    + result[i].date_RDVh +'</strong></span></td><td>'
-                    + result[i]['demande_hospitalisation'].modeAdmission +'</td>'+bedAffect
-                    +'<td class="text-center">'+ forms +'</td></tr>';
-            }// for
-            $('#rdvs').html(rows);
-          } // if
-          */
-      } //success
-    }); //ajax programme
-    if(areSameDate(dt, filter) && (field == 'date_RDVh'))
-    {
-      url= '{{ route ("demandehosp.urg", ":slug") }}';
-      url = url.replace(':slug',$("#date_RDVh").val());
-      $.ajax({
-        url: url,
-        type :'GET',
-        dataType: 'JSON',
-        success:function(result,status, xhr)
-        {
-          if(result.length != 0){
-            for(var i=0; i<result.length; i++){
-              var disabled = 'disabled'; 
-              bedAffect = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>"
-              if(result[i]['bed_affectation'] != null)
+                       } //success
+               }); //ajax programme
+               if(areSameDate(dt, filter) && (field == 'date_RDVh'))
               {
-                 bedAffect ='<td>'+result[i]['bed_affectation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_affectation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_affectation']['lit'].nom+'</td>'; 
-                 disabled='';
-              }
-              forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'
-                    +result[i].id+'"'+disabled+'><i class="fa fa-check"></i>&nbsp;Confirmer</button>'
-                    +'&nbsp;<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat(\'DemandeHospitalisation\','+result[i].id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+disabled+'><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>'  
-                    +'<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'
-                    +'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
-                    +'<button type="button" class="close" data-dismiss="modal">&times;</button>'
-                    +'<h4 class="modal-title">confirmer l\'entrée du patient:</h4></div>'
-                    +'<div class="modal-body"><p><h3><span style="color: blue;"><strong>'
-                    +result[i]['consultation']['patient'].full_name +'</strong></span></h3></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>'
-                    +result[i]['consultation'].Date_Consultation+'</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>'
-                    +time+'</strong></span></h3></p></div>'
-                    +'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">'
-                    +'{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
-                    +'<div class="modal-footer"><button  type="submit" class="btn btn-success">'
-                    +'<i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button type="button" class="btn btn-default" data-dismiss="modal">'
-                    +'<i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
-                    +'</div></div></div>';
-               rows +='<tr><td style="display: none;">'+ result[i].id +'</td><td>'+result[i]['consultation']['patient'].full_name + '</td><td>'
-                    + result[i]['service'].nom +'</td><td><span class ="text-danger"><strong>'
-                    + result[i]['consultation'].Date_Consultation +'</strong></span></td><td><span class="badge badge-danger">'
-                    + result[i].modeAdmission +'</span></td>'+bedAffect
-                      +'<td class="text-center">'+ forms +'</td></tr>';
-            }// for
-            $('#rdvs').html(rows); 
-          } // if
+                      url= '{{ route ("demandehosp.urg", ":slug") }}';
+                      url = url.replace(':slug',$("#date_RDVh").val());
+                      $.ajax({
+                      url: url,
+                      type :'GET',
+                      dataType: 'JSON',
+                      success:function(result,status, xhr)
+                      {
+                              if(result.length != 0){
+                                    /*
+                                     for(var i=0; i<result.length; i++){
+                                          var disabled = 'disabled'; 
+                                          bedAffect = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>"
+                                          if(result[i]['bed_affectation'] != null)
+                                           {
+                                                   bedAffect ='<td>'+result[i]['bed_affectation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_affectation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_affectation']['lit'].nom+'</td>'; 
+                                                    disabled='';
+                                           }
+                                            forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'
+                                                        +result[i].id+'"'+disabled+'><i class="fa fa-check"></i>&nbsp;Confirmer</button>'
+                                                        +'&nbsp;<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat(\'DemandeHospitalisation\','+result[i].id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+disabled+'><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>'  
+                                                        +'<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'
+                                                         +'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
+                                                        +'<button type="button" class="close" data-dismiss="modal">&times;</button>'
+                                                      +'<h4 class="modal-title">confirmer l\'entrée du patient:</h4></div>'
+                                                  +'<div class="modal-body"><p><h3><span style="color: blue;"><strong>'
+                                                  +result[i]['consultation']['patient'].full_name +'</strong></span></h3></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>'
+                                                  +result[i]['consultation'].Date_Consultation+'</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>'
+                                                  +time+'</strong></span></h3></p></div>'
+                                                  +'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">'
+                                                  +'{{-- csrf_field() --}} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
+                                                  +'<div class="modal-footer"><button  type="submit" class="btn btn-success">'
+                                                  +'<i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button type="button" class="btn btn-default" data-dismiss="modal">'
+                                                  +'<i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
+                                                  +'</div></div></div>';
+                                             rows +='<tr><td style="display: none;">'+ result[i].id +'</td><td>'+result[i]['consultation']['patient'].full_name + '</td><td>'
+                                                  + result[i]['service'].nom +'</td><td><span class ="text-danger"><strong>'
+                                                  + result[i]['consultation'].Date_Consultation +'</strong></span></td><td><span class="badge badge-danger">'
+                                                  + result[i].modeAdmission +'</span></td>'+bedAffect
+                                                    +'<td class="text-center">'+ forms +'</td></tr>';
+                                          }// for
+                                          $('#rdvs').html(rows); 
+                                          */
+                                        } // if
         } // success
       }) //ajax
     }

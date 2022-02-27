@@ -142,13 +142,13 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-          $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
-                                                            ->where('modeAdmission','2')->where('etat','0')
-                                                            ->whereHas('consultation',function($q) use($date){
-                                                                $q->where('Date_Consultation', $date);
-                                                            })->get();
-          if (!empty($demandehospitalisations)) {
-                return json_encode($demandehospitalisations);        
+              $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
+                                                                                                                          ->where('modeAdmission','2')->where('etat','programme')
+                                                                                                                          ->whereHas('consultation',function($q) use($date){
+                                                                                                                              $q->where('Date_Consultation', $date);
+                                                                                                                          })->get();
+              if (!empty($demandehospitalisations)) {
+                    return json_encode($demandehospitalisations);        
           }
     }
 }
