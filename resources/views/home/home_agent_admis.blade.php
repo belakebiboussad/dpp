@@ -1,23 +1,21 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-  var dt = new Date();
-  var time = dt.getHours() + ":" + dt.getMinutes();  
-  var field ="date_RDVh"; 
+       var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes();  
+       var field ="date_RDVh"; 
  	function getAdmissions(field,value)
 	{
-    var rows =""; var bedAffect = "";
-    $('#rdvs').empty();
-    var filter= new Date($("#date_RDVh").val());
-    var rows ="";
-    var bedAffect = "";
-    $.ajax({
-      url : '{{ URL::to('/getRdvs') }}',
-      data: { "field":field, "value":value },
-      dataType: "json",// recommended response type
-      success: function(result) {
-        var admissions = $('#rdvs').empty();
-        $('#total_records').text(result.length);
+              var rows =""; var bedAffect = "";
+              $('#rdvs').empty();
+              var filter= new Date($("#date_RDVh").val());
+               $.ajax({
+                      url : '{{ URL::to('/getRdvs') }}',
+                      data: { "field":field, "value":value },
+                      dataType: "json",// recommended response type
+                      success: function(result) {
+                        var admissions = $('#rdvs').empty();
+                        $('#total_records').text(result.length);
         if(result.length != 0){
           for(var i=0; i<result.length; i++){  
             var disabled = 'disabled';
@@ -41,7 +39,9 @@
                 break;
             }
             mode ='<span class ="badge badge-'+cssClass +'"">'+mode+'</span>';
-            alert(mode);
+              forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false" data-target="#'+result[i].id+'" '+disabled+'><i class="fa fa-check"></i>&nbsp;Confirmer</button>&nbsp;';
+            forms +='<a data-toggle="modal" class ="btn btn-info btn-sm" onclick ="ImprimerEtat(\'rdv_hospitalisation\','+result[i].id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+disabled+'><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>';
+            forms +='<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+'<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">confirmer l\'entrée du patient:</h4></div><div class="modal-body"><p><span style="color: blue;"><h3><strong>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name+'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>' +result[i].date +'</strong></span>&quot;&nbsp;à&nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div><form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="' +result[i].id+'" hidden>' + '<div class="modal-footer"><button type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button   type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';
           }
         }
         /*
@@ -71,7 +71,7 @@
                     +'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>'+result[i].date_RDVh
                     +'</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div>'
                     +'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">'
-                    +'{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
+                    +'{{-- csrf_field() --}} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
                     +'<div class="modal-footer"><button type="submit" class="btn btn-success">'
                     +'<i class="ace-icon fa fa-check bigger-120"></i>Valider</button><button   type="button" class="btn btn-default" data-dismiss="modal">'
                     +'<i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></div></form></div></div></div>';

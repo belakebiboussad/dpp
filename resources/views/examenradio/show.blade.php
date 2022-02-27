@@ -50,7 +50,7 @@
 				<div class="form-group">		
 					<label class="col-sm-6 control-label no-padding-right" for=""><strong>Informations supplémentaires pertinentes :</strong></label>
 					<div class="col-sm6 col-xs-6"><label class="blue">
-						<ul class="list-inline"> 
+						<ul class="list-inline spaced"> 
 					        @foreach($demande->infossuppdemande as $index => $info)
 					            <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>&nbsp;
 					         @endforeach
@@ -79,16 +79,16 @@
 			  			<div class="col-xs-12 widget-container-col">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header" style="text-align: left;">
-				     			<h5 class="widget-title lighter">
-				     				<i class="ace-icon fa fa-table"></i>Examens radiologique demandés
-				     			</h5>
-				     		</div>
-				     						      	<div class="widget-body">
+    				     			             <h5 class="widget-title lighter">
+    				     			              	<i class="ace-icon fa fa-table"></i>Examens radiologique demandés
+    				     			             </h5>
+				     		             </div>
+			                               	<div class="widget-body">
 				       		<div class="widget-main">
 				       			<table class="table table-striped table-bordered">
 				             	<thead>
 				              	<tr>
-				                	<th class="center" width="5%">#</th>
+				                	<th class="center" width="5%">N°</th>
 				               	 <th class="center" width="40%">Nom</th>
 				               	 <th class="center" width="5%"><strong>Type</strong></th>
 				                	<th class="center" width="20%"><strong>Résultat</strong></th>

@@ -110,9 +110,9 @@ class RDVController extends Controller
         ]);
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
         $rdv = rdv::firstOrCreate([
-          "Date_RDV"=>$request->daterdv,
-          "Employe_ID_Employe"=>Auth::user()->employee_id,
-          "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
+            "Date_RDV"=>$request->daterdv,
+            "Employe_ID_Employe"=>Auth::user()->employee_id,
+            "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
         ]);
         return redirect()->route("rdv.show",$rdv->id);
     }

@@ -4,7 +4,7 @@
 <div id="login-box" class="login-box visible widget-box no-border">
 	<div class="widget-body">
 		<div class="widget-main">
-			<h4 class="header blue lighter bigger"><img src = "img/policeman.png" class ="img1">Veuillez entrer vos informations</h4>
+			<h4 class="header blue lighter bigger"><img src = "img/policeman.png" class ="img1"> Veuillez entrer vos information</h4>
 			<div class="space-6"></div>
 			<form role="form" method="POST" action="{{ route('login') }}">
 			  <input type="hidden" name="_token" value="{{ csrf_token() }}">
