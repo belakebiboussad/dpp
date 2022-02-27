@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class rdv_hospitalisation extends Model
 {
     public $timestamps = false;
-    protected $fillable  = ['id','date_RDVh','heure_RDVh','id_demande','etat_RDVh','date_Prevu_Sortie','heure_Prevu_Sortie'];
+    protected $fillable  = ['id','date','heure','id_demande','etat','date_Prevu_Sortie','heure_Prevu_Sortie'];
     public function demandeHospitalisation()
     {
         return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');

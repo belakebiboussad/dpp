@@ -4,7 +4,7 @@
 		<h4 class="widget-title grey lighter"><i class="ace-icon fa fa-calendar blue"></i> &nbsp;Détails RDV</h4> 	
 		<div class="pull-right">
 			<a href="{{ route('rdv.index') }}" class="btn btn-white"><i class="fa fa-list-ul"></i>Liste Rendez-Vous</a>
-			@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))) &&($rdv->Etat_RDV !=0))
+			@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->date->format('Y-m-d H:i:s'))) &&($rdv->etat !=0))
 			<a href="{{route('order.pdf',$rdv->id)}}" class="btn btn-white"><i class="ace-icon fa fa-print"></i>Imprimer recu</a>
 			@endif
 	  </div>
@@ -71,16 +71,16 @@
 						<ul class="list-unstyled spaced">
 							<li>
 								<i class="ace-icon fa fa-caret-right blue"></i><strong>Date RDV :</strong>
-								<b class="red">{{ $rdv->Date_RDV->format('Y-m-d') }}</b>
+								<b class="red">{{ $rdv->date->format('Y-m-d') }}</b>
 							</li>
 						</ul>
 					</div>
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Etat RDV :</strong>
-									@if(isset($rdv->Etat_RDV))
-											@switch($rdv->Etat_RDV)
+								<i class="ace-icon fa fa-caret-right blue"></i><strong>Etat  :</strong>
+									@if(isset($rdv->etat))
+											@switch($rdv->etat)
 												@case(0)
        										<span class="label label-sm label-danger"><b>Annuler</b></span>
         								 	@break

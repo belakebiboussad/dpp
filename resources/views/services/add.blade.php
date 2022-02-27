@@ -32,7 +32,7 @@
 						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
 									<option value="" selected disabled>Selectionner le chef de service</option>
 									@foreach ($users as $user)
-									<option value="{{ $user->employ->id}}"> {{ $user->employ->nom }} {{ $user->employ->prenom }}</option>
+									<option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
 									@endforeach
 								</select>	
 							</div>

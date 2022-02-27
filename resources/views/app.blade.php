@@ -233,7 +233,7 @@
           {
             if('{{ Auth::user()->role_id }}' == 1)
             {
-              var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+              var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
               $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -264,16 +264,16 @@
                   }
                 });
               }else{
-                      $('#Debut_RDV').val(debut);
-                      $('#Fin_RDV').val(fin);
+                      $('#date').val(debut);
+                      $('#fin').val(fin);
                       $('#fixe').val(fixe);
                       $('#addRDVModal').modal({
                              show: 'true'
                      }); 
                 }
             }else{
-                  $('#Debut_RDV').val(debut);
-                  $('#Fin_RDV').val(fin);
+                  $('#date').val(debut);
+                  $('#fin').val(fin);
                   $(".es-list").empty(); 
                   $('#fixe').val(fixe);
                   $('#addRDVModal').modal({

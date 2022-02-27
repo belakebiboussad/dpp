@@ -40,9 +40,9 @@ class StatistiqusController extends Controller
     foreach  ($servs as $sevV)
     {  
         
-      $nbcons[] = consultation::join('employs', 'consultations.Employe_ID_Employe','employs.id')
+      $nbcons[] = consultation::join('employs', 'consultations.employ_id','employs.id')
              									->join('services', 'employs.service','=','services.id')->where('services.nom','=',$sevV->nom) 
-                    					->where('Date_Consultation','=',$value)-> groupBy ( 'services.nom' )-> count ();
+                    					->where('date','=',$value)-> groupBy ( 'services.nom' )-> count ();
     }
     foreach  ($servs as $srv)
     {

@@ -11,7 +11,7 @@
 		</div><!-- /.col -->
 		<div class="col-xs-12 col-sm-9">
 			<h4 class="blue">
-				<span class="middle"> {{ $homme_c->nom }} {{ $homme_c->prénom }}</span>
+				<span class="middle"> {{ $homme_c->full_name }}</span>
 				<span class="label label-purple arrowed-in-right"><i class="ace-icon fa fa-circle smaller-80 align-middle"></i>{{ $homme_c->mob }}</span>
 			</h4>
 			<div class="profile-user-info">

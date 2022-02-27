@@ -41,16 +41,14 @@
                                 <input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
                               </label>
                             </td>
-                            <td>
-                                 {{ $rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}  
-                            </td>
-                            <td class ="text-danger"><strong>{{ $rdv->date_RDVh }}</strong></td>
-                            <td><strong>{{ \Carbon\Carbon::parse($rdv->heure_RDVh)->format('H:i') }}</strong></td>
+                            <td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+                            <td class ="text-danger"><strong>{{ $rdv->date }}</strong></td>
+                            <td><strong>{{ \Carbon\Carbon::parse($rdv->heure)->format('H:i') }}</strong></td>
                             <td class="center text-danger"><strong>{{ $rdv->date_Prevu_Sortie }}</strong></td>
                             <td class="center text-danger">
                               <strong>{{ \Carbon\Carbon::parse($rdv->heure_Prevu_Sortie)->format('H:i') }}</strong>
                             </td>
-                            <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</strong></td>
+                            <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</strong></td>
                             <td class="center">
                               @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @else <strong>/</strong>  @endif    
                             </td>

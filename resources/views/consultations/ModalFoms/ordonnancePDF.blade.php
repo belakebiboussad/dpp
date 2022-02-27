@@ -43,7 +43,7 @@
     	<div class="pull-right"><strong>Alger le :</strong>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div><br><br> 
 			<div class="row">
 				<div class="col-sm-6">
-				  <h6><strong>Médecin prescripteur :</strong>{{ $employe->nom}} {{ $employe->prenom}}</h6>
+				  <h6><strong>Médecin prescripteur :</strong>{{ $employe->full_name}}</h6>
 				 </div>
 			</div>
 			<div class="row"><div class="col-sm-12"><span><strong>Patient(e) :</strong></span></div></div>

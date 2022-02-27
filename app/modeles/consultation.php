@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class consultation extends Model
 {
     public $timestamps = false;
-    protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','Date_Consultation','Diagnostic',
-                          'id_code_sim','Resume_OBS','Employe_ID_Employe','Patient_ID_Patient','id_lieu'];//modeAdmission
+    protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','date','Diagnostic',
+                          'id_code_sim','Resume_OBS','employ_id','pid','id_lieu'];//modeAdmission
     public function docteur()
     {
-        return $this->belongsTo('App\modeles\employ','Employe_ID_Employe');
+        return $this->belongsTo('App\modeles\employ','employ_id');
     }
     public function patient()
     {
-        return $this->belongsTo('App\modeles\patient','Patient_ID_Patient');
+        return $this->belongsTo('App\modeles\patient','pid');
     }
     public function demandeexmbio()
     {

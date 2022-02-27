@@ -36,9 +36,7 @@
 						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue"><strong>Chef de Service:</strong></label>
-							<div class="col-sm-9">
-							<strong>{{ $service->responsable->nom }} {{ $service->responsable->prenom }}</strong>
-							</div>
+							<div class="col-sm-9"><strong>{{ $service->responsable->full_name }}</strong></div>
 						</div>
 						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">

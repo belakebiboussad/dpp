@@ -15,7 +15,7 @@
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6 tab-space"><strong>Médecin prescripteur :</strong> 
-	{{ $medecin->nom }} {{ $medecin->prenom }}</div><div class="col-sm-3"></div>	
+	{{ $medecin->full_name }}</div><div class="col-sm-3"></div>	
 	<div class="col-sm-3 pull-right"><strong>Alger le :</strong>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>	
 </div>
 <div class="row"><div class="col-sm-12 tab-space"><strong>Patient(e) :</strong></div></div>

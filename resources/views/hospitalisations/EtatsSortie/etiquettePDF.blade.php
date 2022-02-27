@@ -25,14 +25,8 @@
 		</style>
 	</head>
 	<body>
-    
-		   	<div>
-		   		<small><strong>Nom :</strong> {{ $hosp->patient->Nom }}</small>
-		   	</div>	
-		
-			<div>
-		  	<small><strong>Prénom :</strong> {{ $hosp->patient->Prenom }}</small>
-		  </div>
+		<div><small><strong>Nom :</strong> {{ $hosp->patient->Nom }}</small></div>	
+		<div>	<small><strong>Prénom :</strong> {{ $hosp->patient->Prenom }}</small></div>
 		<div>
 		  <small><strong>DDN :</strong> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small>
 		</div>
@@ -41,6 +35,5 @@
 		  	<small><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($hosp->patient->IPP, 'C128')}}" alt="barcode"/></small>
 		  	<small>IPP: {{$hosp->patient->IPP}}</small>
 		  </div>
-
 	</body>
 </html>

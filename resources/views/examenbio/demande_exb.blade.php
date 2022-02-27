@@ -35,7 +35,7 @@
       <div class="section">
         <div class="sec-gauche">
           <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  
-          {{ $patient->Nom }} {{ $patient->Prenom }},&nbsp;
+          {{ $patient->full_name }},&nbsp;
           {{ $patient->getAge() }} ans,{{ $patient->Sexe }}
         </div>
       </div>
@@ -66,7 +66,7 @@
     <div class="row foo">
     <div class="col-sm-12">
       <div class="section">
-        <div class="sec-droite"><span><strong> Docteur :</strong> {{ $medecin->nom }} {{ $medecin->prenom }}</span></div>
+        <div class="sec-droite"><span><strong> Docteur :</strong> {{ $medecin->full_name }}</span></div>
       </div>
     </div>
   </div>

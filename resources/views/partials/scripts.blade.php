@@ -598,10 +598,10 @@
                $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
                $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
             }else{
-              var date = new Date(data.rdv.Date_RDV);
-              $("#daterdv").val(data.rdv.Date_RDV);
+              var date = new Date(data.rdv.date);
+              $("#daterdv").val(data.rdv.date);
               $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-              $("#datefinrdv").val(data.rdv.Fin_RDV); 
+              $("#datefinrdv").val(data.rdv.fin); 
             }
             $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
             $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));

@@ -47,8 +47,7 @@
               <td>
               <strong>Etablissement :</strong>&nbsp;<span>{{ $etablissement->nom }}</span><br>
               <strong>Service de :</strong>&nbsp;<span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span><br>
-              <strong>Chef de Service :</strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->nom }}
-                               {{ $obj->admission->demandeHospitalisation->Service->responsable->prenom }}</span><br>
+              <strong>Chef de Service :</strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span><br>
               </td>
               <td>
                 <div class="center mt-5">
@@ -70,7 +69,7 @@
                   @endif
                 </h5>&nbsp;&nbsp;&nbsp;&nbsp;
                 <h5 class="rect"><strong>&nbsp;&nbsp;N° Dossier :<span> &nbsp;{{ $obj->patient->IPP}}</span></strong></h5>
-                <strong>Nom et Prénoms : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span><br>
+                <strong>Nom et Prénoms : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->full_name }}</span><br>
                 <strong>Date de naissance(âge) :<strong>&nbsp;
                 <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}&nbsp;({{ $obj->patient->getAge() }} ans)</span>
                 <strong class=""> Sexe :</strong>&nbsp;&nbsp;&nbsp;<span>{{ $obj->patient->Sexe }}</span><br>
@@ -91,10 +90,7 @@
                   <hr class="hr-1 mt-2"/>
                   <strong>Date d'entrée au service :</strong>&nbsp;<span>{{ $obj->Date_entree }}</span><br>
                   <strong>Médecin traitant :</strong>&nbsp;
-                  <span>
-                    {{ $obj->admission->hospitalisation->medecin->nom }}
-                    {{ $obj->admission->hospitalisation->medecin->prenom }}
-                  </span><br>
+                  <span>{{ $obj->admission->hospitalisation->medecin->full_name }}</span><br>
                   <strong>Mode de Sortie :</strong>&nbsp;
                   <span>
                     @switch($obj->modeSortie)

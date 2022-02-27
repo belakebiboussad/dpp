@@ -23,7 +23,7 @@
 						</div>
 					</div><div class="space-12"></div>
 {{--<div class="row"><div class="col-xs-12"><label for="medecin"><b>Médecin :</b></label><select class="form-control" id="medecinOrient" name="medecinOrient"><option value="">Sélectionner...</option> 
-@foreach($meds as $med)<option value="{{ $med->employ->id}}">{{ $med->employ->nom}} {{$med->employ->prenom}}</option>@endforeach</select></div></div><div class="space-12"></div>--}}
+@foreach($meds as $med)<option value="{{ $med->employ->id}}">{{ $med->employ->full_name}}</option>@endforeach</select></div></div><div class="space-12"></div>--}}
 	   			<div class="row">
 	   				<div class="col-xs-12">
 							<label for="motif"><b>Examen général :</b></label>     

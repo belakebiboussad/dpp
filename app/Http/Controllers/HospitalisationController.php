@@ -60,13 +60,13 @@ class HospitalisationController extends Controller
                 $serviceID = Auth::user()->employ->service;
                 $adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
                                   ->whereHas('rdvHosp', function($q){
-                                                      $q->where('date_RDVh','=',date("Y-m-d"));
+                                                      $q->where('date','=',date("Y-m-d"));
                                     })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
                                                     $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                               })->get(); //admission d'urgenes
                 $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.docteur','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
                                   ->whereHas('demandeHospitalisation.consultation', function($q){
-                                                      $q->where('Date_Consultation','=',date("Y-m-d"));
+                                                      $q->where('date','=',date("Y-m-d"));
                                   })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
                                                     $q->where('service', $serviceID)->where('modeAdmission','2')->where('etat','admise');
                                               })->get();                                                    
@@ -93,7 +93,7 @@ class HospitalisationController extends Controller
     ]);
     if(isset($dmission->rdvHosp))
     { 
-      $admission->rdvHosp->update([ "etat_RDVh" =>1 ]);
+      $admission->rdvHosp->update([ "etat" =>1 ]);
       $admission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
     }else
       $admission->demandeHospitalisation->update(["etat" => "hospitalisation"]);

@@ -12,7 +12,7 @@
 							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><strong>Liste des demandes</strong></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;
-						@if(Auth::User()->employee_id == $demande->Employe_ID_Employe)
+						@if(Auth::User()->employee_id == $demande->employ_id)
 							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><strong>Modifier</strong></a>
 								&nbsp;&nbsp;&nbsp;
 						@endif
@@ -59,7 +59,7 @@
 									</li>
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><strong>Date de consultation :</strong>
-													<b class="blue">{{ $demande->consultation->Date_Consultation }}</b>
+													<b class="blue">{{ $demande->consultation->date }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i><strong>Service :</strong>
@@ -73,7 +73,7 @@
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
 													<strong>Nom du médecin traitant :</strong>
-													<b class="blue">{{ $demande->consultation->docteur->nom}} {{ $demande->consultation->docteur->prenom}}</b>
+													<b class="blue">{{ $demande->consultation->docteur->full_name}}</b>
 												</li>
 											</ul>
 										</div>

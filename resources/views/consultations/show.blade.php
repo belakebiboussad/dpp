@@ -8,7 +8,7 @@
  <div class="pull-right">
    <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div>
-<div class="row"><h4>Détails de la Consultation du {{ $consultation->Date_Consultation}} :</h4></div> 
+<div class="row"><h4>Détails de la Consultation du {{ $consultation->date}} :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
         <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
@@ -23,7 +23,7 @@
           <div id="Intero" class="tab-pane in active">
           <div class="row">
           <ul class="list-unstyled spaced">
-                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
@@ -72,7 +72,7 @@
                                 <tbody>
                                   <tr>
                                     <td class="center"></td>
-                                    <td>{{ $consultation->Date_Consultation }}</td>
+                                    <td>{{ $consultation->date }}</td>
                                     <td>
                                     @if($consultation->demandeexmbio->etat == null)
                                       <span class="badge badge-success">En Cours
@@ -125,7 +125,7 @@
                                 <tbody>
                                       <tr>
                                       <td class="center"></td>
-                                      <td>{{ $consultation->Date_Consultation }}</td>
+                                      <td>{{ $consultation->date }}</td>
                                       <td>
                                         @if($consultation->examensradiologiques->etat == null)
                                                <span class="badge badge-warning"> En Attente</span>

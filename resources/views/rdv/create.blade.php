@@ -126,16 +126,16 @@ $(document).ready(function() {
               events :[
                       @foreach($rdvs as $key =>   $rdv)
                       {
-                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->Date_RDV }}',
-                          end:   '{{ $rdv->Fin_RDV }}',
+                          title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                          start : '{{ $rdv->date }}',
+                          end:   '{{ $rdv->fin }}',
                           id :'{{ $rdv->id }}',
                           idPatient:'{{ $rdv->patient->id}}',
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                           specialite: {{ $rdv->specialite_id }},
                           civ : {{ $rdv->patient->getCiviliteCode() }},
-                          key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
+                          key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
                           fixe:  {{ $rdv->fixe }},
                       },
                      @endforeach   

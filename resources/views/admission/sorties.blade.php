@@ -156,7 +156,7 @@
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->full_name }}</td>
 							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</td>
-							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date_RDVh }}</strong></span></td>
+							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date }}</strong></span></td>
 							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
 							<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
 							<td><span class="badge badge-info">{{ $hosp->modeSortie }}</span></td>

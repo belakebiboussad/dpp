@@ -63,8 +63,8 @@ class ConsultationsController extends Controller
     }
     public function listecons($id)
     {
-        $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-        return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
+          $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+          return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
     }
     /**
      * Show the form for creating a new resource.
@@ -106,20 +106,20 @@ class ConsultationsController extends Controller
             $consult = consultation::create([
                 "motif"=>$request->motif,
                 "histoire_maladie"=>$request->histoirem,
-                "Date_Consultation"=>Date::Now(),
+                "date"=>Date::Now(),
                 "Diagnostic"=>$request->diagnostic,
                 "Resume_OBS"=>$request->resume,
                 "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
                 "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-                "Employe_ID_Employe"=>Auth::User()->employee_id,
-                "Patient_ID_Patient"=>$request->patient_id,
+                "employ_id"=>Auth::User()->employee_id,
+                "pid"=>$request->patient_id,
                 "id_code_sim"=>$request->codesim,
                "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
             ]);
             foreach($consult->patient->rdvs as $rdv)
              {
-                   if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
-                           $rdv->update(['Etat_RDV'=>1]);
+                   if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
+                           $rdv->update(['etat'=>1]);
              }
              if($request->poids != 0 || $request->taille !=0 || $request->autre)//$request->temp != null ||
             {
@@ -222,7 +222,7 @@ class ConsultationsController extends Controller
       {
               if($request->ajax())  
               {         
-                if($request->field == 'Date_Consultation')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+                if($request->field == 'date')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
                   $consults =consultation::with('patient','docteur')->where(trim($request->field),'=',trim($request->value))->get();
                 else
                   $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){

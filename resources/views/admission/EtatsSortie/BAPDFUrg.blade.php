@@ -114,15 +114,9 @@
 	     	 <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->Service->nom }}</span></td>
 	     	 <td><span>&nbsp;Spécialité:</span><span>&nbsp;{{ $obj->consultation->docteur->Specialite->nom }}</span></td>
 	     	</tr>
+	     	<tr><td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $obj->consultation->docteur->full_name }} </span></td></tr>
 	     	<tr>
-	     		<td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $obj->consultation->docteur->nom }} {{ $obj->consultation->docteur->prenom }}</span></td>
-	     	</tr>
-	     	<tr>
-	     		<td><span>&nbsp;Chargé des admissions :</span>
-	     			<span>
-	     				{{ Auth::user()->employ->Service->responsable->nom }}	{{ Auth::user()->employ->Service->responsable->prenom }} 
-	     			</span>
-	     		</td>
+	     		<td><span>&nbsp;Chargé des admissions :</span><span> {{ Auth::user()->employ->Service->responsable->full_name }} </span></td>
 	     	</tr>
 	     </table>
 	  </section>

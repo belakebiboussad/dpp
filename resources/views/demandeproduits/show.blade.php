@@ -52,7 +52,7 @@
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Demandeur : </div>
 													<div class="profile-info-value">
-														<span class="editable" id="username">{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</span>
+														<span class="editable" id="username">{{ $demande->demandeur->full_nam }}</span>
 													</div>
 												</div>
 												</div>

@@ -22,10 +22,7 @@
 	<br><br>
 	<table width="100%">
 		<tr>
-			<td class="col-md-4">
-				<strong> Patient :</strong>
-				<span>{{ $ticket->Patient->Nom }} {{ $ticket->Patient->Prenom }}</span>
-			</td>
+			<td class="col-md-4">	<strong> Patient :</strong><span>{{ $ticket->Patient->full_name }} </span></td>
 			<td class="col-md-4"><strong>Date :</strong><span>&nbsp;{{ $ticket->date }}</span></td>
 		</tr>
 		<tr>

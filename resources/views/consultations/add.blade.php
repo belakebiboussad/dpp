@@ -68,7 +68,7 @@ $(document).on('click','.findptient',function(event){
 $("#patient").html(xhr.getResponseHeader("patient"));$('#consultList tbody').empty();	if(data.length != 0){$("#consultList").DataTable ({"processing": true, "paging":   true,
 "destroy": true,"ordering": true,"searching":false,"info" : false,"language":{"url": '/localisation/fr_FR.json'},"data" : data, "columns": [{ data:null,render: function ( data, type, row ) {
 if ( type === 'display' ) {return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
-}return data;  },title:'#', "orderable":false,searchable: false},{ data: 'Date_Consultation', title:'Date' },{ data: 'motif', title:'Motif',"orderable": false},{ data: "docteur.nom",
+}return data;  },title:'#', "orderable":false,searchable: false},{ data: 'date', title:'Date' },{ data: 'motif', title:'Motif',"orderable": false},{ data: "docteur.nom",
 render: function ( data, type, row ) { return row.docteur.nom + ' ' + row.docteur.prenom;},title:'Médecine Traitant',"orderable": false	},{ data: 'docteur.service.nom', title:'Service',"orderable": false},
 { data:null,"render": function(data,type,full,meta){ if ( type === 'display' ) {return  '<a onclick ="showConsult('+data.id+');" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
 } return data;},title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }],	"columnDefs": [{"targets": 0,  className: "dt-head-center"},{"targets": 1,  className: "dt-head-center"},

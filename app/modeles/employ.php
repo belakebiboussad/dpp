@@ -23,7 +23,7 @@ class employ extends Model
 	}
 	public function rdvs()
 	{
-	   return $this->hasMany('App\modeles\rdv','Employe_ID_Employe')->where('Etat_RDV',null)->orwhere('Etat_RDV',1);//->where('Etat_RDV','!=','0' ->orderBy('Date_RDV')     
+	   return $this->hasMany('App\modeles\rdv','employ_id')->where('etat',null)->orwhere('etat',1);//->where('etat','!=','0' ->orderBy('date')     
 	}
 	public function User()
 	{

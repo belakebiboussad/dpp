@@ -51,7 +51,7 @@ function getServiceRoom(id)
 						<td>{{ ($service->type ==0) ?'médicale':'chirurgicale' }}	</td>				
 						<td>
 							@isset($service->responsable)
-								{{ $service->responsable->nom }} {{ $service->responsable->prenom }}
+								{{ $service->responsable->full_name }}
 							@endisset	
 							</td>
 						<td class="priority-4"> {{($service->hebergement) ?'Oui':'Non' }}</td>

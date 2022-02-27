@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Structure de la vue `nextrdvs`
 --
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `id`,`rdvs`.`Date_RDV` AS `Date_RDV`,`rdvs`.`Patient_ID_Patient` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`specialites`.`nom` AS `specialite` from ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite` = `specialites`.`id`))) where (`rdvs`.`Date_RDV` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) order by `rdvs`.`Date_RDV` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `id`,`rdvs`.`date` AS `date`,`rdvs`.`Patient_ID_Patient` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`specialites`.`nom` AS `specialite` from ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite` = `specialites`.`id`))) where (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) order by `rdvs`.`date` desc ;
 
 --
 -- VIEW  `nextrdvs`

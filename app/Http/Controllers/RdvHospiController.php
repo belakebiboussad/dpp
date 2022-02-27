@@ -33,7 +33,7 @@ class RdvHospiController extends Controller
                             })->get();
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                           ->whereHas('consultation',function($q) use($now){
-                                               $q->where('Date_Consultation', $now);
+                                               $q->where('date', $now);
                                           })->where('modeAdmission','2')->where('etat','en attente')->where('service',Auth::user()->employ->service)->get(); 
       return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
@@ -46,8 +46,8 @@ class RdvHospiController extends Controller
   public function store(Request $request)
   {
        $rdv = rdv_hospitalisation::firstOrCreate([
-                "date_RDVh"         =>$request->dateEntree,
-                "heure_RDVh"        =>$request->heure_rdvh,   
+                "date"         =>$request->dateEntree,
+                "heure"        =>$request->heure,   
                 "id_demande"        =>$request->demande_id,       
                 "date_Prevu_Sortie" =>$request->dateSortiePre,
                 "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
@@ -71,7 +71,7 @@ class RdvHospiController extends Controller
                                                            $q->where('etat', 'programme');
                                                  })->whereHas('demandeHospitalisation.Service',function($q){
                                                       $q->where('id',Auth::user()->employ->service);       
-                                                 })->where('etat_RDVh','=',null)->get();
+                                                 })->where('etat','=',null)->get();
         return view('rdvHospi.liste',compact('rdvHospis'));
   }
   public function edit($id)
@@ -102,8 +102,8 @@ class RdvHospiController extends Controller
         $rdvHospi->bedReservation()->delete();
     }
     $rdvHospi->update([//update un nouveu Rendez-Vous
-          "date_RDVh"=>$request->dateEntree,
-          "heure_RDVh"=>$request->heure_rdvh,   
+          "date"=>$request->dateEntree,
+          "heure"=>$request->heure,   
           "id_demande"=>$rdvHospi->demandeHospitalisation->id,
           "date_Prevu_Sortie"=>$request->dateSortiePre,
           "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
@@ -117,7 +117,7 @@ class RdvHospiController extends Controller
       $rdvHospi->bedReservation()->delete();
     $rdvHospi->demandeHospitalisation->etat ="valide";
     $rdvHospi->demandeHospitalisation->save();
-    $rdvHospi->etat_RDVh=0;
+    $rdvHospi->etat=0;
     $rdvHospi->save(); 
     return redirect()->action('RdvHospiController@getlisteRDVs');
   }
@@ -126,7 +126,7 @@ class RdvHospiController extends Controller
     $today = Carbon::now()->format('Y-m-d');
     switch($request->field)
     {
-      case "date_RDVh":
+      case "date":
         $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                   ->whereHas('demandeHospitalisation', function($q){
                                           $q->where('etat', 'programme');
@@ -139,7 +139,7 @@ class RdvHospiController extends Controller
                                            $q->where('etat', '0');
                                   })->whereHas('demandeHospitalisation.consultation.patient',function($q)use($ipp){
                                            $q->where('IPP', $ipp);
-                                  })->where('date_RDVh',$today)->get();
+                                  })->where('date',$today)->get();
         break;  
       default:
         break;       

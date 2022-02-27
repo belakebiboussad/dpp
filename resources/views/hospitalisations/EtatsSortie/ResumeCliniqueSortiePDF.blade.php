@@ -33,9 +33,7 @@
           <strong>Service : </strong>
           <span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span>
         </div>
-        <div>
-        <strong>Chef de servise : </strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->demandeHospitalisation->Service->responsable->prenom }}</span>
-        </div>
+        <div><strong>Chef de servise : </strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span></div>
         <br><hr/>
          <section class="table"> 
           <table class="head" style="width:100%;">
@@ -49,7 +47,7 @@
             <td colspan = 2><strong>N° Dossier :</strong>&nbsp;<span>{{ $obj->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">
-            <td ><strong>Nom et Prénom :</strong>&nbsp;<span>{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></td>
+            <td ><strong>Nom et Prénom :</strong>&nbsp;<span>{{ $obj->patient->full_name }}</span></td>
             <td><strong>Date de naissance :<strong>&nbsp;
             <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}</span></td>
             <td><strong>Sexe :<strong>&nbsp;<span>{{ $obj->patient->Sexe }}</span></td>

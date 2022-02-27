@@ -7,7 +7,7 @@
 </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 <div class="row">
   <div class="col-sm-12" style="margin-top: -2%;">
-    <h3>Détails de l'ordonnance du {{ $ordonnance->consultation->Date_Consultation }} :</h3>
+    <h3>Détails de l'ordonnance du {{ $ordonnance->consultation->date }} :</h3>
   </div>
 </div><div class="space-12 hidden-xs"></div>
 <div class="row">

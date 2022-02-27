@@ -23,7 +23,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h3>Détails du fonctionnaire : {{ $assure->Nom }} {{ $assure->Prenom }}</h3>
+	<h3>Détails du fonctionnaire : {{ $assure->full_name }}</h3>
 	<div class="pull-right">
 		<a href="{{ route('assur.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Rechercher un fonctionnire</a>
 		<a href="{{route('assur.destroy',$assure->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>

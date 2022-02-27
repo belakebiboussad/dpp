@@ -17,7 +17,7 @@
 		@endif
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
-		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
+		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
 			<span class="label label-purple arrowed-in-right"><i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
 			@switch($patient->Type)
           @case(0)

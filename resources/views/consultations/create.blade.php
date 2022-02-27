@@ -286,7 +286,7 @@
 		{
 			var tabName = "antsTab";
 			var formData = {
-				Patient_ID_Patient      : '{{ $patient->id }}',
+				pid      : '{{ $patient->id }}',
 				Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 				typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
 				stypeatcd            : jQuery('#sstypeatcdc').val(),
@@ -298,7 +298,7 @@
 		{
 			var tabName = "antsFamTab";
 			var formData = {
-				Patient_ID_Patient   : '{{ $patient->id }}',
+				pid   : '{{ $patient->id }}',
 				  Antecedant         : 'Familiaux',
 				date               : $('#dateAntcd').val(),
 				cim_code					 : $('#cim_code').val(),
@@ -330,12 +330,12 @@
 			   success: function (data) {
 					if(data.Antecedant == "Personnels")
 					{
-						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.description + '</td>';
+						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.description + '</td>';
 				  		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 					}else
 					{
-						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
+						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.date + '</td><td>' +data.cim_code
 							  +	'</td><td>'	+ data.description + '</td>';
 						atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -358,7 +358,7 @@
 			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 			e.preventDefault();
 			var formData = {
-				Patient_ID_Patient   : '{{ $patient->id }}',
+				pid   : '{{ $patient->id }}',
 				Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 				typeAntecedant       : '1',//jQuery('#typeAntecedant').val(),
 				date                 : $('#dateAntcdPhys').val(),
@@ -391,7 +391,7 @@
 			   success: function (data) {
 					var tabac = data.tabac != 0 ? 'Oui' : 'Non';
 					var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
-					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
+					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>'+data.date+'</td><td>'
 									 + data.cim_code +'</td><td>'+data.description+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
 						atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -473,9 +473,9 @@
 				events: [
 				   @foreach($employe->rdvs as $rdv)
 				   {	
-						  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-							  start : '{{ $rdv->Date_RDV }}',
-							   end:   '{{ $rdv->Fin_RDV }}',
+						  title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+							  start : '{{ $rdv->date }}',
+							   end:   '{{ $rdv->fin }}',
 							   id :'{{ $rdv->id }}',
 							   idPatient:{{$rdv->patient->id}},
 							   tel:'{{$rdv->patient->tele_mobile1}}',

@@ -29,13 +29,13 @@
 				  	  	   	<td>{{ $col->date }}</td>
 				  	  	   	<td>
 							@foreach($col->employs as $i=>$med)
-								<p class="text-primary">{{ $med->nom}} {{ $med->prenom}} {{$col->id}}</p></p> 
+								<p class="text-primary">{{ $med->full_name}} {{$col->id}}</p></p> 
 							@endforeach
 							</td>
 							<td>
 								@foreach($col->demandes as $key=>$demande)
 								<p class="text-primary">
-									{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} &nbsp;&nbsp;
+									{{ $demande->consultation->patient->full_name }}&nbsp;&nbsp;
 									<a  href="#" class="green btn-sm show-details-btn" title="Afficher Détails" data-toggle="collapse" id="{{ $demande->id }}"  data-target=".{{ $demande->id }} collapsed">
 										<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
 									</a>
@@ -45,9 +45,7 @@
 										<td style =" border: none!important;">
 											<div class="profile-info-row profile-user-info-striped">
 											<div class="profile-info-name"><strong>Date:</strong></div>
-											<div class="profile-info-value">
-												<span>{{ $demande->consultation->Date_Consultation }}</span>
-											</div>
+											<div class="profile-info-value"><span>{{ $demande->consultation->date }}</span></div>
 											</div>
 										</td>
 										<td class="">
@@ -60,7 +58,7 @@
 										<td>
 											<div class="profile-info-row profile-user-info-striped">
 											<div class="profile-info-name"><strong>Médecin:</strong></div>
-											<div class="profile-info-value"><span>{{ $demande->DemeandeColloque->medecin->nom }} {{ $demande->DemeandeColloque->medecin->prenom }} </span>
+											<div class="profile-info-value"><span>{{ $demande->DemeandeColloque->medecin->full_name }}</span>
 											</div>
 											</div>
 										</td>

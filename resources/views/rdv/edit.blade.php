@@ -32,15 +32,15 @@
         events: [
           	     @foreach($rdvs as $rdv)
                 {
-                    title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                    start : '{{ $rdv->Date_RDV }}',
-                    end:   '{{ $rdv->Fin_RDV }}',
+                    title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                    start : '{{ $rdv->date }}',
+                    end:   '{{ $rdv->fin }}',
                     id :'{{ $rdv->id }}',
                     idPatient:'{{$rdv->patient->id}}',
                     tel:'{{$rdv->patient->tele_mobile1}}',
                     age:{{ $rdv->patient->getAge() }},
                     specialite: {{ $rdv->specialite_id }},
-                    medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
+                    medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
                     fixe:  {{ $rdv->fixe }},
                     etat : '{{ $rdv->Etat_RDV }}',   
                 },
@@ -70,7 +70,7 @@
            select: function(start, end) {
                $('.calendar1').fullCalendar('unselect');
            }, 	
-    }).fullCalendar('gotoDate','{{ $Rdv->Date_RDV }}');
+    }).fullCalendar('gotoDate','{{ $Rdv->date }}');
   });
 </script>
 @endsection
@@ -78,7 +78,7 @@
 <div class="page-header">
 	<h1 style="display: inline;"><strong>Modifier RDV du Patient :</strong>
   	<i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
- 		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->Nom }} {{ $Rdv->patient->Prenom }}
+ 		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->full_name }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
  	</h1>
     <div class="pull-right">
@@ -91,7 +91,7 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-      <div class="left">Modifier le rendez-vous du&nbsp;<span class= "red"><strong>{{ $Rdv->Date_RDV->format('Y-m-d') }}</strong></span></div>
+      <div class="left">Modifier le rendez-vous du&nbsp;<span class= "red"><strong>{{ $Rdv->date->format('Y-m-d') }}</strong></span></div>
       </div>
 	    <div class="panel-body">
 	    	<div class="calendar1"></div>

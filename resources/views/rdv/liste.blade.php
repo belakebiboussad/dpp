@@ -19,9 +19,9 @@
 				@if($rdvs->count() > 0)
 					@foreach($rdvs as $rdv)
 					<tr>
-						<td>{{ $rdv->Date_RDV->format('Y-m-d') }}</td>
+						<td>{{ $rdv->date->format('Y-m-d') }}</td>
 						<td>{{ $rdv->fixe ? 'Fixe' : 'Non Fixe' }}</td>
-						<td>{{$rdv->specialite->nom}} </td>{{-- <td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td> --}}
+						<td>{{$rdv->specialite->nom}} </td>
 						<td class="center">
 						@if(isset($rdv->Etat_RDV))
 							@switch($rdv->Etat_RDV)
@@ -41,11 +41,11 @@
 						</td>
 						<td class="center">
 							<div>
-							@if(!(isset($rdv->Etat_RDV))  && ($rdv->specialite_id == Auth::user()->employ->specialite) &&(Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s')))))
+							@if(!(isset($rdv->etat))  && ($rdv->specialite_id == Auth::user()->employ->specialite) &&(Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->date->format('Y-m-d H:i:s')))))
 							<a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier"><i class="fa fa-edit blue"></i>&nbsp;</a>
 							<a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur d\'annuler le RDV ?" title="Annuler RDV"><i class="ace-icon fa fa-trash-o orange"></i>&nbsp;</a>
 							@endif
-							@if (\Carbon\Carbon::now()->lte($rdv->Date_RDV->format('Y-m-d H:i:s')))
+							@if (\Carbon\Carbon::now()->lte($rdv->date->format('Y-m-d H:i:s')))
   							<a href="{{route('rdv.print',$rdv->id)}}" class="btn btn-xs btn-white" title="Imprimer recu"><i class="ace-icon fa fa-print"></i></a>
 							@endif
 						     	</div>

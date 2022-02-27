@@ -60,7 +60,7 @@ $('document').ready(function(){
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation :</strong><span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation :</strong><span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>{{ $consultation->motif }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
 		</span></li>
@@ -121,7 +121,7 @@ $('document').ready(function(){
 						</thead>
 						<tbody>
 							<tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
-								<td>{{ $consultation->Date_Consultation }}{{ $consultation->docteur->id }}</td>
+								<td>{{ $consultation->date }}{{ $consultation->docteur->id }}</td>
 								<td>
 								@if($consultation->demandeexmbio->etat == null)
 									<span class="badge badge-success">En Cours</span>
@@ -168,7 +168,7 @@ $('document').ready(function(){
 					</thead>
 					<tbody>
 						<tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
-							<td>{{ $consultation->Date_Consultation }}</td>
+							<td>{{ $consultation->date }}</td>
 							<td>
 							@if($consultation->examensradiologiques->etat == null)
 								<span class="badge badge-warning">En Attente</span>
@@ -298,7 +298,7 @@ $('document').ready(function(){
 						</thead>
 						<tbody>
 							<tr>
-								<td>{{ $consultation->Date_Consultation }}</td>
+								<td>{{ $consultation->date }}</td>
 								<td>
 									{{-- $consultation->lettreOrintation->Specialite->nom --}}
 									{{ $consultation->lettreOrintation->id }}

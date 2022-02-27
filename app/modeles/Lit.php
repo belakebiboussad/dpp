@@ -27,7 +27,7 @@ class Lit extends Model
                                                                           $q->where('id',$idlit);
                                                                       })->get(); 
               foreach ($reservations as $key => $reservation) {
-               if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
+               if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
                          return false;
                 }   
               return true;

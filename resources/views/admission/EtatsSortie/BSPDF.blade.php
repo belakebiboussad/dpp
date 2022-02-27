@@ -26,7 +26,7 @@
       <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
             <td colspan="2"><strong>N° :</strong><span>&nbsp;{{ $obj->id }}</td>
-            <td><strong>Date d'admission :</strong><span>&nbsp;{{  (\Carbon\Carbon::parse($obj->date_RDVh))->format('d/m/Y') }}</span></td>
+            <td><strong>Date d'admission :</strong><span>&nbsp;{{  (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
@@ -39,7 +39,7 @@
               <td><strong>Nom :</strong><span>&nbsp;{{ $patient->Nom}}</span></td>
               <td><strong>Prénom :</strong><span>&nbsp;{{ $patient->Prenom }}</span></td>
                @if(($patient->situation_familiale == "M") && ( $patient->Type == "1") )
-                   <td><strong>Epoux(se)  :</strong><span>&nbsp;{{ $patient->assure->Nom }} &nbsp; {{ $patient->assure->Prenom }} </span></td>
+                   <td><strong>Epoux(se)  :</strong><span>&nbsp;{{ $patient->assure->full_name }}</span></td>
               @endif
               </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
          <tr>

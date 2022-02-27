@@ -54,7 +54,7 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Traitement de la demande du </strong> &quot;{{ $demande->demandeur->nom }} &nbsp;{{ $demande->demandeur->prenom}}&quot;</h1>
+	<h1 style="display: inline;"><strong>Traitement de la demande du </strong> &quot;{{ $demande->demandeur->full_name }}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
@@ -84,7 +84,7 @@ $('document').ready(function(){
 							</div>
 							<div class="profile-info-row"><div class="profile-info-name"> Demandeur : </div>
 							<div class="profile-info-value">
-							<span class="editable">{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</span>
+							<span class="editable">{{ $demande->demandeur->full_name }}</span>
 							</div>
 							</div>
 							</div>

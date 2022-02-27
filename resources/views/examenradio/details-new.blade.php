@@ -46,9 +46,7 @@
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><strong>Médecin demandeur :</strong></label>
-      <div class="col-sm-8 col-xs-8">
-        <label class="blue">{{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</label>
-      </div>
+      <div class="col-sm-8 col-xs-8"><label class="blue">{{ $medecin->full_name }}</label></div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><strong>Informations cliniques pertinentes :</strong></label>

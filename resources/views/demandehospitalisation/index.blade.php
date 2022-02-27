@@ -26,7 +26,7 @@
 							<td>
 								<span class="badge badge-{{ $demande->consultation->patient->getAge() < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->getAge() }}</span>
 							</td>
-							<td>{{ $demande->consultation->Date_Consultation }}</td>
+							<td>{{ $demande->consultation->date }}</td>
 							<td>
 								@switch($demande->modeAdmission)
     									@case("0")		
@@ -68,7 +68,7 @@
 								<a href="{{route('demandehosp.show', $demande->id)}}" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 									<i class="ace-icon fa fa-hand-o-up bigger-120" aria-hidden="true"></i>
 								</a>
-								@if(Auth::User()->employee_id == $demande->consultation->Employe_ID_Employe || (Auth::User()->role_id == 6))
+								@if(Auth::User()->employee_id == $demande->consultation->employ_id || (Auth::User()->role_id == 6))
 								@if($demande->etat == 'en attente')	 
 								<a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
 									<i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>

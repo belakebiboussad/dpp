@@ -1,8 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1 style="display: inline;"><strong>Modifier antécédent du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
-	</div>
+	<div class="page-header"><h1 style="display: inline;"><strong>Modifier antécédent du :</strong> {{ $patient->full_name }}</h1></div>
 	<form class="form-horizontal" action="{{route('atcd.update',$atcd->id)}}" method="POST">
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}

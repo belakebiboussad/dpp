@@ -45,8 +45,7 @@
 @section('main-content')
 <div class="page-header">
 	<h1>
-		Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
-		 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
+		Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->full_name}}&raquo;</strong>
 	</h1>
 </div><!-- /.page-header -->
 <div class="row">
@@ -87,7 +86,7 @@
 			  <div class="col-xs-4">
 			  	<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Médecin traitant:</strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-10 col-sm-5" disabled/>
+						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->full_name}}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 			  </div>
 			<div class="col-xs-4">
@@ -128,9 +127,9 @@
 					</div>
 				</div>
 				<div class="col-xs-4">
-					<label class="col-sm-4 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">	<strong> Heure entrée prévue :</strong></label>
+					<label class="col-sm-4 control-label no-padding-right" for="heure" style="padding: 0.9%;">	<strong> Heure entrée prévue :</strong></label>
 					<div class="input-group col-sm-8" style ="width:35.8%;padding: 0.8%;">	
-					  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
+					  <input id="heure" name="heure" class="form-control timepicker" type="text"  required>
 						<span class="input-group-addon">	<i class="fa fa-clock-o bigger-110"></i></span>
 					</div>
 				</div>

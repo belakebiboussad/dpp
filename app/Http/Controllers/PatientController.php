@@ -548,13 +548,13 @@ class PatientController extends Controller
   {
           $patient1=patient::FindOrFail($request->patient1_id);
           $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
-          $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
-          $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+          $consuls = consultation::where('pid',$request->patient2_id)->get();
+          $antecedants=antecedant::where('pid',$request->patient2_id)->get();
           foreach ($antecedants as $key => $antecedant) {
-             $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+             $antecedant->update(["pid"=>$patient1->id]);  
           }
           foreach ($consuls as $key => $consult) {
-                $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+                $consult->update(["pid"=>$patient1->id]);  
           }
           $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
           foreach ($tickets as $key => $ticket) {

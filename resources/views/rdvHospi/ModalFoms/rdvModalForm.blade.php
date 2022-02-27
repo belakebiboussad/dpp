@@ -23,9 +23,9 @@
 			  </div>
 			  <div class="row">
 			    <div class="col-xs-12">
-			    	<label for="heure_rdvh"><strong>Heure entrée :</strong></label>
+			    	<label for="heure"><strong>Heure entrée :</strong></label>
 			    	<div class="input-group">
-			    		<input type="text" name ="heure_rdvh" id ="heure_rdvh" class="form-control timepicker1"  required>
+			    		<input type="text" name ="heure" id ="heure" class="form-control timepicker1"  required>
 					 <div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
 				</div>	
 			   	</div>
@@ -50,7 +50,7 @@
 			 </div>
 			  <div class="row">
 			    	<div class="col-xs-12">
-			    	        <label for="heure_rdvh"><strong>Heure sortie :</strong></label>
+			    	        <label for="heureSortiePrevue"><strong>Heure sortie :</strong></label>
 			    		<div class="input-group">
 			    			<input type="text" name ="heureSortiePrevue" id ="heureSortiePrevue" class="form-control timepicker1"  required>
 					 	<div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>

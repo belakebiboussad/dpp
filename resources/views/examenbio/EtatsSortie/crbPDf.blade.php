@@ -13,7 +13,7 @@
   <body>
   <div><img src="img/entete.png" class="center thumb img-icons mt-25" alt="entete"/></div>
   <hr class="mt-6 hr-1">
-  <div class="sec-gauche"><strong>Médecin prescripteur :</strong><span> {{ $medecin->nom }} {{ $medecin->prenom }}</span></div>
+  <div class="sec-gauche"><strong>Médecin prescripteur :</strong><span> {{ $medecin->full_name }}</span></div>
   <div class="sec-droite"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</span></div><br>
   <div>
   	<table width="90%">

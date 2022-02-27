@@ -50,7 +50,7 @@
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
-							{{ $hosp->medecin->nom }}	{{$hosp->medecin->prenom}}		
+							{{ $hosp->medecin->full_name }}
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}</li>	
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}</li>
@@ -137,9 +137,7 @@
 				<div class="col-sm-12">
 					<div class="col-sm-8">
 						<div class="widget-box">
-							<div class="widget-header">
-								<h5 class="widget-title"><strong>Patient : {{ $patient->Nom }} {{ $patient->Prenom }}</strong></h5>
-							</div>
+							<div class="widget-header"><h5 class="widget-title"><strong>Patient : {{ $patient->full_name }}</strong></h5></div>
 							<div class="widget-body">
 								<div class="widget-main">
 									<canvas id="poid" width="400" height="100"></canvas>

@@ -14,7 +14,7 @@
 <div class="row ml-4">
 	<div class="col-sm-8">
 		<div class="sec-gauche">
-			<strong>Docteur</strong> :&nbsp;{{ $employe->nom}} {{ $employe->prenom}}&nbsp;&nbsp;&nbsp;&nbsp;
+			<strong>Docteur</strong> :&nbsp;{{ $employe->full_name}}&nbsp;&nbsp;&nbsp;&nbsp;
 			<strong>Specialité</strong>:&nbsp;
 		<span id="orSpecialite"></span>
 		</div>
@@ -24,7 +24,7 @@
 <div class="row ml-4">
 	<div class="col-sm-11">
 		<div class="sec-gauche">
-			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;</strong>{{ $patient->getAge() }} ans</h4>
+			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</strong>{{ $patient->getAge() }} ans</h4>
 		</div>
 	</div>
 </div>
@@ -38,7 +38,7 @@
 <div class="row ml-4">
 	<div class="col-sm-11">
 	<p class="espace" style="text-align : justify; letter-spacing: 20 em;">
-		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->Nom }} &nbsp; {{ $patient->Prenom}} âgé(e) de {{ $patient->getAge() }}ans,
+		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }} âgé(e) de {{ $patient->getAge() }}ans,
 	</p> 
 	@if($patient->antecedants != null)
 	<p style="text-align : justify; letter-spacing: 20 em;">aux Antcd de 

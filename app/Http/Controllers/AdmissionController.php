@@ -33,16 +33,16 @@ class AdmissionController extends Controller
       }
       public function index()
       {
-        $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
-                                    ->whereHas('demandeHospitalisation', function($q){
-                                           $q->where('etat', 'programme');//programme
-                                    })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
-        $demandesUrg = DemandeHospitalisation::with('bedAffectation')
-                                             ->whereHas('consultation', function($q){
-                                                $q->where('Date_Consultation', date("Y-m-d"));
-                                             })->where('modeAdmission','2')->where('etat','programme')->get();
-        $etatsortie = Etatsortie::where('type','1')->get();
-        return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
+              $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
+                                          ->whereHas('demandeHospitalisation', function($q){
+                                                 $q->where('etat', 'programme');//programme
+                                          })->where('etat','=',null)->where('date','=',date("Y-m-d"))->get();
+              $demandesUrg = DemandeHospitalisation::with('bedAffectation')
+                                                   ->whereHas('consultation', function($q){
+                                                      $q->where('date', date("Y-m-d"));
+                                                   })->where('modeAdmission','2')->where('etat','programme')->get();
+              $etatsortie = Etatsortie::where('type','1')->get();
+              return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.
@@ -72,7 +72,7 @@ class AdmissionController extends Controller
                "etat" => "admise",
           ]);
           $adm->rdvHosp->update([
-              "etat_RDVh" => 1
+              "etat" => 1
           ]);
         }else
         {
@@ -181,7 +181,7 @@ class AdmissionController extends Controller
       {
         $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
         $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
-        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_RDVh);
+        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
         $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
         $nbr = $toDate->diffInDays($fromDate);
       }

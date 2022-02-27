@@ -32,7 +32,7 @@
 @endsection
 @section('main-content')
 	<div class="row">
-		<h4 style="display: inline;"><strong>Modification des données du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
+		<h4 style="display: inline;"><strong>Modification des données du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->full_name }}</h4>
 		<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un Patient

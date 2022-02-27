@@ -1,8 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Détails de : {{ $employe->nom }} {{ $employe->prenom }}</h1>
-	</div>
+	<div class="page-header"><h1>Détails de : {{ $employe->full_name }}</h1></div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Nom</div>

@@ -78,16 +78,16 @@
 											<tr>
 											@if(isset($exr->consultation))
 												<td class="center">{{ $index + 1 }}</td>
-												<td>{{ $exr->consultation->Date_Consultation }}</td>
+												<td>{{ $exr->consultation->date }}</td>
 												<td>{{ $exr->consultation->docteur->Service->nom }}</td>
-												<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
-												<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small></td>
+												<td>{{ $exr->consultation->docteur->full_name }} </td>
+												<td>{{ $exr->consultation->patient->full_name}}<small class="text-primary">(Consultation)</small></td>
 											@else
 												<td class="center">{{ $index + 1 }}</td>
 												<td>{{ $exr->visite->date }}</td>
 												<td>{{ $exr->visite->medecin->Service->nom }}</td>
-												<td>{{ $exr->visite->medecin->nom }} {{ $exr->visite->medecin->prenom }}</td>
-												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}<small class="text-warning">(Hospitalisation)</small></td>
+												<td>{{ $exr->visite->medecin->full_name }}</td>
+												<td>{{ $exr->visite->hospitalisation->patient->full_name }}<small class="text-warning">(Hospitalisation)</small></td>
 											@endif
 												<td>
 												

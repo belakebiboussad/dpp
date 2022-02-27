@@ -96,7 +96,7 @@ $('document').ready(function(){
 								</td>
 								<th>{{ $demande->medecin->full_name }}</th>
 								<td class="hidden-xs">{{ $demande->observation }}</td>
-								<td>{{ $demande->demandeHosp->consultation->Date_Consultation }}</td>
+								<td>{{ $demande->demandeHosp->consultation->date }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
 									<div class="btn-group">
@@ -152,7 +152,7 @@ $('document').ready(function(){
 			        							@break		
 									 @endswitch
 								</td>
-								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
+								<td>{{ $demande->consultation->date }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="text-center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>

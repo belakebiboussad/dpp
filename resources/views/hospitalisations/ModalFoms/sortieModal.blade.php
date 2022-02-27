@@ -75,7 +75,7 @@
 					<label for="medecin"><strong>Médecin constatant décès  :</strong></label>
 					<select class="form-control" id="medecin">
 					@foreach($medecins as $medecin)
-						<option value="{{ $medecin->id }}">{{$medecin->nom }} {{$medecin->prenom }} </option> 
+						<option value="{{ $medecin->id }}">{{$medecin->full_name }}</option> 
 					@endforeach
 					</select>
 				</div>

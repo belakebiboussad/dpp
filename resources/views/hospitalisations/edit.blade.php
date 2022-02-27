@@ -74,7 +74,7 @@
   <div class="row">
     <div class="col-sm-4 profile-info-row">
       <div class="profile-info-name col-sm-6">Médecin Traitant :</div>
-      <div class="profile-info-value col-sm-6"><span>{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}</span></div>
+      <div class="profile-info-value col-sm-6"><span>{{ $hosp->medecin->full_name }}</span></div>
     </div>
     <div class="col-sm-4 profile-info-row">
       <div class="profile-info-name col-sm-6">Priorité :</div><div class="profile-info-value col-sm-6">
@@ -146,7 +146,7 @@
 							<select name="garde_id" id="garde_id" @if(in_array(Auth::user()->role->id,[5])) disabled @endif>
 							 		<option value="0" selected>Selectionnez le garde malade</option>
 							 		@foreach( $hosp->patient->hommesConf as $homme)
-							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->nom }} {{ $homme->prenom }}</option>
+							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
 								  @endforeach
 							</select>
 							</div>
@@ -183,7 +183,7 @@
           </div>
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-4 control-label" for="heure_rdvh"><strong>Lit :</strong></label>
+          <label class="col-sm-4 control-label" for="lit"><strong>Lit :</strong></label>
           <div class="col-sm-8">
             <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
               <option value="0" selected>Selectionnez le lit d'hospitalisation</option>      

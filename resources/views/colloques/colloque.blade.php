@@ -17,7 +17,7 @@
 			<select id="liste_membre" data-placeholder="sélectionner les membres..."  style="width: 300px ">
 				<option value="" selected disabled>Sélectionner les membres...</option>
 				@foreach( $membre as $membres)
-				<option id="id_membre" value="{{$membres->id}}" >{{$membres->nom}} {{$membres->prenom}}</option>
+				<option id="id_membre" value="{{$membres->id}}" >{{$membres->full_name}}</option>
 				@endforeach
 			</select> 
 		  <div><br/>

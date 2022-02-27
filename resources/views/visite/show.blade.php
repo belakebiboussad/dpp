@@ -18,9 +18,7 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-1 no-padding-right"><label>Médecin :</label></div>
-		<div class="form-group col-sm-6">
-	    <label class="blue">{{ $visite->medecin->nom }}&nbsp; {{ $visite->medecin->prenom }}</label>
-		</div>
+		<div class="form-group col-sm-6"><label class="blue">{{ $visite->medecin->full_name }}</label></div>
 	</div>
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist">

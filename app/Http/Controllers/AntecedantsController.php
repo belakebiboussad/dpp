@@ -27,7 +27,7 @@ class AntecedantsController extends Controller
     public function index($id)
     {   
             $patient = patient::FindOrFail($id);
-            $atcds = antecedant::where("Patient_ID_Patient",$patient->id)->get()->all();
+            $atcds = antecedant::where("pid",$patient->id)->get()->all();
             return view('antecedents.index',compact('patient','atcds'));
     }
     /**
@@ -73,7 +73,7 @@ class AntecedantsController extends Controller
     public function edit($id)
     {
         $atcd = antecedant::FindOrFail($id);
-        $patient = patient::FindOrFail($atcd->Patient_ID_Patient);
+        $patient = patient::FindOrFail($atcd->pid);
         return view('antecedents.edit',compact('atcd','patient'));
     }
 

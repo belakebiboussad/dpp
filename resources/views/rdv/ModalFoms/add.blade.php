@@ -9,7 +9,7 @@
 	      <div class="modal-body">
 			   {{ csrf_field() }}
        		<input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
-          	<input type="hidden" id="Fin_RDV" name="Fin_RDV" value="">
+          	<input type="hidden" id="fin" name="fin" value="">
           	<input type="hidden" id="fixe" name="fixe" value="">
            	@if(Auth::user()->role_id == 2)
 					 <div class="panel panel-default">

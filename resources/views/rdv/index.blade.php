@@ -71,17 +71,17 @@ $(document).ready(function() {
           events: [
                     @foreach($rdvs as $rdv)
                     {
-                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->Date_RDV }}',
-                          end:   '{{ $rdv->Fin_RDV }}',
+                          title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                          start : '{{ $rdv->date }}',
+                          end:   '{{ $rdv->fin }}',
                           id :'{{ $rdv->id }}',
                           idPatient:'{{$rdv->patient->id}}',
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
                           specialite: {{ $rdv->specialite_id }},
-                          medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
+                          medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
                           fixe:  {{ $rdv->fixe }},
-                          etat : '{{ $rdv->Etat_RDV }}',
+                          etat : '{{ $rdv->etat }}',
                     },
                  @endforeach 
               ],

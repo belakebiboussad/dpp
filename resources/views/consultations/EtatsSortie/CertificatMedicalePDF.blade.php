@@ -22,18 +22,17 @@
       		<div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div><br>
       		<div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div>
       		<div>
-      			<strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
-        		{{ $obj->docteur->Service->responsable->prenom }}
+      			<strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->full_name }}
       		</div><br><br><br><br>
         	<div>
 	          <p class="espace">
-	           Je soussigné, Dr <strong>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</strong>
+	           Je soussigné, Dr <strong>{{ $obj->docteur->full_name }}</strong>
 	           Docteur en  <strong> {{ $obj->docteur->Specialite->nom }}</strong>,
 	          </p>
 	          <p>
-	          certifie avoir examiné ce <strong>{{ (\Carbon\Carbon::parse($obj->Date_Consultation))->format('d/m/Y') }}</strong>
+	          certifie avoir examiné ce <strong>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</strong>
 	            <strong> {{ $obj->patient->getCivilite() }} </strong>
-	            <strong>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom }}</strong> né(e) le  <strong> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </strong>
+	            <strong>{{ $obj->patient->full_name }}</strong> né(e) le  <strong> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </strong>
 	            et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
 	          </p>
 	        </div>

@@ -87,7 +87,7 @@
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
 		  				<td>{{ $demande->Specialite->nom }}</td>
-		  				<td>{{$demande->consultation->Date_Consultation }}</td>
+		  				<td>{{$demande->consultation->date }}</td>
 						  <td>
 						  	@switch( $demande->modeAdmission )
    							  @case(0)

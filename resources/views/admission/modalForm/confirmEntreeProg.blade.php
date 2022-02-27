@@ -7,15 +7,13 @@
 		<div class="modal-body">
 			<div class="row">
 				<div class="col-sm-12">
-					<h3>
-						<span style="color: blue;"><strong>{{$rdv->demandeHospitalisation->consultation->patient->Nom}} &nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom}}</strong></span>
-					</h3>
+					<h3><span style="color: blue;"><strong>{{$rdv->demandeHospitalisation->consultation->patient->full_name}}</strong></span></h3>
 				</div>
 			</div>
 			<div class="row">
 			 	<div class="col-sm-12">
 				 	<h3>
-						&quot;<span  style="color: orange;"><strong>{{  (\Carbon\Carbon::parse($rdv->date_RDVh))->format('d/m/Y') }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{ Date("H:i")}}</strong></span>
+						&quot;<span  style="color: orange;"><strong>{{  (\Carbon\Carbon::parse($rdv->date))->format('d/m/Y') }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{ Date("H:i")}}</strong></span>
 				 	 </h3>
 			 	</div>	
 			</div>

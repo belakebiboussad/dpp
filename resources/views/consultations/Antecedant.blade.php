@@ -26,7 +26,7 @@
 				 @foreach($patient->antecedants as $antcd)
 					@if(($antcd->Antecedant == "Personnels") &&($antcd->typeAntecedant == "0"))
 					<tr id="{{ 'atcd'.$antcd->id }}">
-						<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td><!-- 	<td>Pathologiques</td> -->
+						<td class ="hidden" >{{ $antcd->pid }}</td><!-- 	<td>Pathologiques</td> -->
 						<td> {{ $antcd->stypeatcd }}</td>	     
 						<td>{{ $antcd->date }}</td>
 						<td>{{ $antcd->cim_code }}</td>
@@ -121,7 +121,7 @@
 					 @foreach($patient->antecedants as $antcd)
 						 @if($antcd->Antecedant == "Familiaux") 
 						<tr id="{{ 'atcd'.$antcd->id }}">
-							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td> 
+							<td class ="hidden" >{{ $antcd->pid }}</td> 
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->description }}</td>

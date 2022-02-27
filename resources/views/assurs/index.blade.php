@@ -36,9 +36,7 @@
 @section('main-content')
 <div class="page-content">
 	<div class="row">	
-		<div >
-			<h4><strong>Bienvenu(e) Monsieur :</strong> &nbsp;<q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h4>
-		</div>		
+		<div ><h4><strong>Bienvenu(e) Monsieur :</strong> &nbsp;<q class="blue">{{ Auth::User()->employ->full_name }}</q></h4></div>		
 	</div><div class="space-12"></div>
 	<div class="row">
 		<div class="col-sm-12">

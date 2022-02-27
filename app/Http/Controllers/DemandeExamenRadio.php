@@ -40,7 +40,7 @@ class DemandeExamenRadio extends Controller
       {
         $medecin =  $patient = $demande->consultation->docteur ;     
         $patient = $demande->consultation->patient;
-        $date =$demande->consultation->Date_Consultation ;
+        $date =$demande->consultation->date ;
       }else
       {
         $medecin =  $patient = $demande->visite->medecin ;   
@@ -157,7 +157,7 @@ class DemandeExamenRadio extends Controller
             if(isset($demande->consultation))
              {
                    $patient = $demande->consultation->patient;
-                   $date =$demande->consultation->Date_Consultation ;
+                   $date =$demande->consultation->date ;
              }
             else
             {
@@ -232,7 +232,7 @@ class DemandeExamenRadio extends Controller
       if(isset($demande->consultation))
       {
         $patient = $demande->consultation->patient;
-        $date = $demande->consultation->Date_Consultation;
+        $date = $demande->consultation->date;
       }
       else
       {

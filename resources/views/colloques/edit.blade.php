@@ -50,7 +50,7 @@
           <br>
           <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
             @foreach( $colloque->membres as $med)
-            <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
+            <option id="id_membre" value="{{$med->id}}" >{{$med->full_name}}</option>
             @endforeach
           </select>
         </div>

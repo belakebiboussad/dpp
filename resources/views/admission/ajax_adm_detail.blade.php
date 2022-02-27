@@ -12,7 +12,7 @@
 					<div class="form-group">		
 						<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>  Patient :</strong></label>
 						<div class="col-sm-8 col-xs-8">
-							<input type="text" class="col-xs-11 col-sm-11" value="{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Nom }}"  readonly>			
+							<input type="text" class="col-xs-11 col-sm-11" value="{{ $adm->demandeHospitalisation->consultation->patient->fullname }}"  readonly>			
 						</div>
 					</div>
 				</div>
@@ -30,10 +30,10 @@
 						<div class="col-sm-8 col-xs-8">
 							<select name="medecin" id="medecin" class="col-xs-11 col-sm-11">
 							@isset($adm->demandeHospitalisation->DemeandeColloque)
-								<option value="{{ $adm->demandeHospitalisation->DemeandeColloque->medecin->id }}" selected>{{ $adm->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{ $adm->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</option>}
+								<option value="{{ $adm->demandeHospitalisation->DemeandeColloque->medecin->id }}" selected>{{ $adm->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</option>}
 							@endisset
 							@foreach($medecins as $medecin)
-								<option value="{{ $medecin->id }}">{{$medecin->nom }} {{$medecin->prenom }} </option> 
+								<option value="{{ $medecin->id }}">{{$medecin->full_name }}</option> 
 							@endforeach
 							</select>
 						</div>
@@ -91,7 +91,7 @@
 					<select id="garde_id" name="garde_id" placeholder="Ajouter garde malade" value="" class="col-xs-11 col-sm-11">
 							<option value="">Selectionnez...</option>
 							@foreach($adm->demandeHospitalisation->consultation->patient->hommesConf as $hom)
-							<option value="{{ $hom->id}}">{{ $hom->nom }}&nbsp; {{ $hom->prenom }}</option>}
+							<option value="{{ $hom->id}}">{{ $hom->full_name }}</option>}
 							option
 							@endforeach
 						</select>

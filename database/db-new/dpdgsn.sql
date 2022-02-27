@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 27 fév. 2022 à 16:29
--- Version du serveur :  5.7.23
--- Version de PHP : 7.2.10
+-- Généré le :  Dim 27 fév. 2022 à 22:53
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dpdgsn`
+-- Base de données :  `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -161,12 +162,12 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   `date` date DEFAULT NULL,
   `cim_code` varchar(3) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `Patient_ID_Patient` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
   `tabac` tinyint(1) DEFAULT '0',
   `ethylisme` tinyint(1) DEFAULT '0',
   `habitudeAlim` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`,`Patient_ID_Patient`),
-  KEY `fk_Antecedant_Patient` (`Patient_ID_Patient`),
+  PRIMARY KEY (`id`,`pid`),
+  KEY `fk_Antecedant_Patient` (`pid`),
   KEY `fk_Antecedant_cim10` (`cim_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
 
@@ -174,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
 -- Déchargement des données de la table `antecedants`
 --
 
-INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `description`, `Patient_ID_Patient`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
+INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `description`, `pid`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
 (58, 'Personnels', '0', 'Medicaux', '2021-01-04', 'D61', 'description', 188, 0, 0, NULL),
 (61, 'Familiaux', NULL, NULL, '2021-01-03', 'F42', 'f42 inconue', 188, 0, 0, NULL),
 (68, 'Personnels', '1', NULL, '2021-01-10', 'D12', 'gdf', 188, 0, 1, 'alimentaire'),
@@ -612,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `colloques` (
   `date_creation` date NOT NULL,
   `type` tinyint(1) NOT NULL COMMENT '0:medicale,1:chirurgical',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `colloques`
@@ -625,7 +626,8 @@ INSERT INTO `colloques` (`id`, `date`, `etat`, `date_creation`, `type`) VALUES
 (161, '2021-07-12', 'cloture', '2021-07-12', 0),
 (162, '2021-07-12', 'cloture', '2021-07-12', 0),
 (163, '2021-12-09', 'cloture', '2021-12-09', 0),
-(164, '2022-02-27', 'cloture', '2022-02-27', 0);
+(164, '2022-02-27', 'cloture', '2022-02-27', 0),
+(165, '2022-02-28', 'en cours', '2022-02-27', 0);
 
 -- --------------------------------------------------------
 
@@ -2338,18 +2340,18 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `motif` text,
   `histoire_maladie` text,
-  `Date_Consultation` date DEFAULT NULL,
+  `data` date DEFAULT NULL,
   `Diagnostic` varchar(100) DEFAULT NULL,
   `Resume_OBS` text,
   `isOriented` tinyint(3) UNSIGNED DEFAULT '0',
   `lettreorientaioncontent` varchar(255) DEFAULT NULL,
-  `Employe_ID_Employe` int(11) NOT NULL,
-  `Patient_ID_Patient` int(11) UNSIGNED NOT NULL,
+  `employ_id` int(11) NOT NULL,
+  `pid` int(11) UNSIGNED NOT NULL,
   `id_code_sim` varchar(3) DEFAULT NULL,
   `id_lieu` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`Employe_ID_Employe`,`Patient_ID_Patient`),
-  KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
-  KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`),
+  PRIMARY KEY (`id`,`employ_id`,`pid`),
+  KEY `fk_Consultation_Employe1_idx` (`employ_id`),
+  KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
 ) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8;
 
@@ -2357,7 +2359,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
 -- Déchargement des données de la table `consultations`
 --
 
-INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
+INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `data`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `employ_id`, `pid`, `id_code_sim`, `id_lieu`) VALUES
 (162, 'avec dh', NULL, '2021-07-08', NULL, 'avec dh', 0, NULL, 102, 190, NULL, 21),
 (163, 'dhu', NULL, '2021-07-12', NULL, 'dhu', 0, NULL, 102, 190, NULL, 21),
 (164, 'dhu', NULL, '2021-07-10', NULL, 'dhu', 0, NULL, 88, 190, NULL, 21),
@@ -10538,7 +10540,11 @@ INSERT INTO `membres` (`id_colloque`, `id_employ`) VALUES
 (163, 119),
 (164, 79),
 (164, 82),
-(164, 119);
+(164, 119),
+(165, 80),
+(165, 79),
+(165, 82),
+(165, 119);
 
 -- --------------------------------------------------------
 
@@ -10608,15 +10614,6 @@ INSERT INTO `modes_hospitalisations` (`id`, `nom`) VALUES
 --
 DROP VIEW IF EXISTS `nextrdvs`;
 CREATE TABLE IF NOT EXISTS `nextrdvs` (
-`Id` int(11)
-,`DateRdv` varchar(10)
-,`PatientId` int(11) unsigned
-,`Ipp` varchar(100)
-,`Nom` varchar(100)
-,`Prenom` varchar(100)
-,`DateNaissance` varchar(10)
-,`Sexe` enum('M','F')
-,`SpecialiteId` int(11)
 );
 
 -- --------------------------------------------------------
@@ -11243,24 +11240,24 @@ INSERT INTO `pres_cons` (`prescription_id`, `cons_id`) VALUES
 DROP TABLE IF EXISTS `rdvs`;
 CREATE TABLE IF NOT EXISTS `rdvs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Date_RDV` datetime DEFAULT NULL,
-  `Fin_RDV` datetime DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `fin` datetime DEFAULT NULL,
   `fixe` tinyint(1) NOT NULL DEFAULT '1',
   `specialite_id` int(11) DEFAULT NULL,
-  `Employe_ID_Employe` int(11) DEFAULT NULL,
+  `employ_id` int(11) DEFAULT NULL,
   `patient_id` int(11) UNSIGNED NOT NULL,
-  `Etat_RDV` tinyint(1) DEFAULT NULL COMMENT 'null;attente,0:Annuler,1:valide',
+  `etat` tinyint(1) DEFAULT NULL COMMENT 'null;attente,0:Annuler,1:valide',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
+  KEY `fk_RDV_Employe` (`employ_id`),
   KEY `fk_RDV_Patient` (`patient_id`),
   KEY `fk_specialite` (`specialite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
 --
 
-INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `specialite_id`, `Employe_ID_Employe`, `patient_id`, `Etat_RDV`) VALUES
+INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `patient_id`, `etat`) VALUES
 (177, '2021-06-26 10:45:00', '2021-06-26 11:00:00', 1, 3, NULL, 211, NULL),
 (178, '2021-06-26 13:00:00', '2021-06-26 13:15:00', 1, 15, NULL, 225, NULL),
 (180, '2021-06-26 12:45:00', '2021-06-26 13:00:00', 0, 1, NULL, 190, 1),
@@ -11303,7 +11300,10 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `specialite_id`, `Emplo
 (227, '2021-07-08 14:15:00', '2021-07-08 14:30:00', 1, 3, NULL, 222, NULL),
 (228, '2021-07-11 14:00:00', '2021-07-11 14:15:00', 1, 1, NULL, 243, NULL),
 (229, '2021-07-13 12:45:00', '2021-07-13 13:00:00', 1, 1, NULL, 190, 1),
-(230, '2021-07-28 11:15:00', '2021-07-28 11:30:00', 1, 2, NULL, 206, NULL);
+(230, '2021-07-28 11:15:00', '2021-07-28 11:30:00', 1, 2, NULL, 206, NULL),
+(231, '2022-03-02 10:15:00', '2022-03-02 10:30:00', 1, 3, NULL, 268, NULL),
+(232, '2022-03-03 11:45:00', '2022-03-03 12:00:00', 1, 3, NULL, 193, NULL),
+(233, '2022-03-02 09:30:00', '2022-03-02 09:45:00', 1, 1, NULL, 207, NULL);
 
 -- --------------------------------------------------------
 
@@ -11314,10 +11314,10 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `specialite_id`, `Emplo
 DROP TABLE IF EXISTS `rdv_hospitalisations`;
 CREATE TABLE IF NOT EXISTS `rdv_hospitalisations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_RDVh` date NOT NULL,
-  `heure_RDVh` time DEFAULT '10:00:00',
+  `date` date NOT NULL,
+  `heure` time DEFAULT '10:00:00',
   `id_demande` int(11) NOT NULL,
-  `etat_RDVh` tinyint(1) DEFAULT NULL COMMENT 'null:attente,0:Annuler,1:valide',
+  `etat` tinyint(1) DEFAULT NULL COMMENT 'null:attente,0:Annuler,1:valide',
   `date_Prevu_Sortie` date DEFAULT NULL,
   `heure_Prevu_Sortie` time DEFAULT '15:00:00',
   PRIMARY KEY (`id`),
@@ -11328,7 +11328,7 @@ CREATE TABLE IF NOT EXISTS `rdv_hospitalisations` (
 -- Déchargement des données de la table `rdv_hospitalisations`
 --
 
-INSERT INTO `rdv_hospitalisations` (`id`, `date_RDVh`, `heure_RDVh`, `id_demande`, `etat_RDVh`, `date_Prevu_Sortie`, `heure_Prevu_Sortie`) VALUES
+INSERT INTO `rdv_hospitalisations` (`id`, `date`, `heure`, `id_demande`, `etat`, `date_Prevu_Sortie`, `heure_Prevu_Sortie`) VALUES
 (3, '2021-07-10', '08:00:00', 47, 1, '2021-07-13', '11:00:00'),
 (4, '2021-07-13', '08:00:00', 50, 1, '2021-07-16', '12:00:00'),
 (5, '2021-07-14', '10:00:00', 51, NULL, '2021-07-17', '12:00:00'),
@@ -11904,16 +11904,16 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'A7d4vxc3msyABIdd4LDZsgFyIWGI5SLsDniz97tHtbcaG6mizMVbM50r2E5R', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'a6ib98KF2nWgJmg8luIZuz3ivpq8bDBjuel9H2GNlSlP1h5wWfrZ6VQy8wWW', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'EfxyEmBfuTVpCAWJspVXskq7fXA8wthlBbyIMXdTUEJ4bdCBBRi1Ob9xVisQ', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'uw1suouQ5fmiwoxhd0Spcbz6z7SwH7m1b0TEza4jklRhwp1vNY09LYua1Hky', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'nBmKWNciQqdZAmgT52rw5dwJKUWKeBeCgB4NK2XkmSj7eJXeCti7kCCVlfiD', 1),
-(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'whdWpAc3xKvMjUaGT84vvIQszzboDignFymflgrI1HQADZsZbAyaSd6ry4hp', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '1gAyb0vVkJ4vRzYYTOoQSQsaPwXIinrlqy6p8VNS7l4B41VoOHLA9Yw42mi4', 1),
+(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'OlwhSbrT56s7bwY16VjKfBWoiA46MUY0UcL5H4bxBNZGABhHWQWTyNeDVI88', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'yY9OOT0WedA9aoybOmgafonQPfuhjnkAZvQV7fmRX81zjkpo8uqGkVBL5Sz1', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'VYvhQwCASn44zwLJmxvDyaRRHo2qZ3SdvPwoVnCEt0vbdsirXtsiTQivjIHj', 1),
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'SfTXE6DZ19OIm0dHsj772sqD9xbD8tOwEEDHhqfaFcUPr5EPasOoEyvU490V', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, NULL, 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
-(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'Z6SwZM0q3E1INbu6pRzkqKvqcMteUArN2PA8t6W9dJSvZZPKTHf7UL9xCKqo', 1),
+(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'j5gr1keOlBn7DdFhxuxgQ6NYqAaucNTinbEpUpnGgv6Mwf7Ied6GhDy28pqZ', 1),
 (59, 'chefint', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'chefint@hop.com', 114, 14, 'iJhn3DpHdJT1BPY66lojswWu1YybgoQUki9RdO0SRFQP761b14NonznnXBi2', 1),
 (60, 'medger', '$2y$10$2Mrra7cY3/Lb9AiHzbitI.n99.H4cmtMxtzhB4NGKK4BSD2pOrcCq', 'medger@hotmail.com', 115, 1, 'j53Y0Pm3SLoiyrFNToDfjxEkl6abNyU6HEuACzm6qlgpXsowBxJyfmBCFr2W', 1),
 (61, 'medgen', '$2y$10$spTXvp3EM/0N8vCPuQP87u.T06AKea2TsWgU2t4Oyd69Cqxr3xWzu', NULL, 116, 1, 'gwChVFTDGwHUaqBUfDmAa0BmCAeaqJ8rIm1bnsJrcU8jN9v0PYF6NbHFlbPx', 1),
@@ -12041,8 +12041,7 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `Id`, date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `PatientId`, `patients`.`IPP` AS `Ipp`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`, `patients`.`Sexe` AS `Sexe`, `rdvs`.`specialite_id` AS `SpecialiteId` FROM (`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) WHERE ((cast(`rdvs`.`Date_RDV` as date) = curdate()) AND isnull(`rdvs`.`Etat_RDV`)) ORDER BY `rdvs`.`Date_RDV` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `Id`,date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `PatientId`,`patients`.`IPP` AS `Ipp`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`,`patients`.`Sexe` AS `Sexe`,`rdvs`.`specialite_id` AS `SpecialiteId` from (`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) where ((cast(`rdvs`.`Date_RDV` as date) = curdate()) and isnull(`rdvs`.`Etat_RDV`)) order by `rdvs`.`Date_RDV` desc ;
 
 --
 -- Contraintes pour les tables déchargées
@@ -12070,7 +12069,7 @@ ALTER TABLE `constantes`
 -- Contraintes pour la table `consultations`
 --
 ALTER TABLE `consultations`
-  ADD CONSTRAINT `fk_consult_patient` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`);
+  ADD CONSTRAINT `fk_consult_patient` FOREIGN KEY (`pid`) REFERENCES `patients` (`id`);
 
 --
 -- Contraintes pour la table `crrs`
@@ -12141,57 +12140,12 @@ ALTER TABLE `examen_appareil`
   ADD CONSTRAINT `appareil_examen_cliniques_examen_clinique_id_foreign` FOREIGN KEY (`examen_clinique_id`) REFERENCES `examen_clinique` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `examradio_typeexam`
---
-ALTER TABLE `examradio_typeexam`
-  ADD CONSTRAINT `fk_demandeRadio` FOREIGN KEY (`id_demandeexradio`) REFERENCES `demandeexr` (`id`),
-  ADD CONSTRAINT `fk_typeEaxam` FOREIGN KEY (`id_typexam`) REFERENCES `typesexam-old` (`id`);
-
---
 -- Contraintes pour la table `hospitalisations`
 --
 ALTER TABLE `hospitalisations`
   ADD CONSTRAINT `fk_hosp` FOREIGN KEY (`id_admission`) REFERENCES `admissions` (`id`),
   ADD CONSTRAINT `fk_hosp_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
   ADD CONSTRAINT `fk_medecin_traitant` FOREIGN KEY (`medecin_id`) REFERENCES `employs` (`id`);
-
---
--- Contraintes pour la table `lettre_oriantations`
---
-ALTER TABLE `lettre_oriantations`
-  ADD CONSTRAINT `fk_orientation_consultation` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`),
-  ADD CONSTRAINT `fk_orientation_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites-old` (`id`);
-
---
--- Contraintes pour la table `lits`
---
-ALTER TABLE `lits`
-  ADD CONSTRAINT `fk_salle` FOREIGN KEY (`salle_id`) REFERENCES `salles` (`id`);
-
---
--- Contraintes pour la table `rdvs`
---
-ALTER TABLE `rdvs`
-  ADD CONSTRAINT `fk_rdv_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
-  ADD CONSTRAINT `fk_specialite` FOREIGN KEY (`specialite_id`) REFERENCES `specialites-old` (`id`);
-
---
--- Contraintes pour la table `salles`
---
-ALTER TABLE `salles`
-  ADD CONSTRAINT `fk_service` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`);
-
---
--- Contraintes pour la table `transferts`
---
-ALTER TABLE `transferts`
-  ADD CONSTRAINT `fk_transf_hosp` FOREIGN KEY (`hosp_id`) REFERENCES `hospitalisations` (`id`);
-
---
--- Contraintes pour la table `visites`
---
-ALTER TABLE `visites`
-  ADD CONSTRAINT `fk_visite_hosp` FOREIGN KEY (`id_hosp`) REFERENCES `hospitalisations` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

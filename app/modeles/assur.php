@@ -10,7 +10,12 @@ class assur extends Model
 	protected $primaryKey = 'NSS';
 	public $incrementing = false;
 	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','SituationFamille', 'Sexe','Matricule','adresse','commune_res','wilaya_res','grp_sang','NSS','NMGSN','Grade','Service','Position'];
-	public function lieuNaissance()
+	protected $appends = ['full_name'];
+        public function getFullNameAttribute()
+        {
+          return $this->Nom." ".$this->Prenom ;
+        }
+        public function lieuNaissance()
 	{
 		return $this->belongsTo('App\modeles\Commune','lieunaissance');
 	}

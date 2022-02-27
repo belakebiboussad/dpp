@@ -76,7 +76,7 @@
                 var x = moment.tz(new Date(), "Africa/Algiers").format('YYYY-MM-DD HH:mm');
                 var CurrentDate = moment(x).format("YYYY-MM-DD");            
                 if (mydate >= CurrentDate  ) { 
-                     $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
+                     $('#date').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
                     $("#fullCalModal").modal();
                 }
      }
@@ -176,7 +176,7 @@
             </div>
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
-                <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">
+                <input type="datetime" id="date" name="date" data-date-format='yyyy-mm-dd' value="">
                   <div id="modalBody" class="modal-body">
                       <div class="row">
                            <fieldset class="inline-fields"> 

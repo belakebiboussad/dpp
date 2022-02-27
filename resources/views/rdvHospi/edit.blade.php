@@ -26,8 +26,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-  <h1 style="display: inline;">Modification du  RDV Hospitalisation du: <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
-  {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong></h1>
+  <h1 style="display: inline;">Modification du  RDV Hospitalisation du: <strong>&laquo;{{$demande->demandeHosp->consultation->patient->full_name}}&raquo;</strong></h1>
   <div class="pull-right">
     <a href="{{route('rdvHospi.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
   </div>
@@ -65,7 +64,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4 profile-info-row">
-          <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{$demande->medecin->nom}} {{$demande->medecin->prenom}}</span></div>
+          <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{$demande->medecin->full_name}}</span></div>
           </div>
           <div class="col-sm-4 profile-info-row">
           <div class="profile-info-name">Priorité :</div><div class="profile-info-value">
@@ -82,14 +81,14 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label no-padding-right" for="dateEntree"><strong> Date entrée prévue :</strong></label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date_RDVh }}" data-date-format="yyyy-mm-dd" required />
+              <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure_rdvh"><strong> Heure entrée prévue :</strong> </label>
+            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure"><strong> Heure entrée prévue :</strong> </label>
             <div class="input-group col-sm-5 col-xs-5">
-              <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_RDVh }}" required />
+              <input id="heure" name="heure" class="form-control timepicker1" type="text" value = "{{ $rdv->heure }}" required />
               <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span> 
             </div>
           </div>
@@ -159,7 +158,7 @@
                 <option value="0" >Selectionnez le lit d'hospitalisation</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                  @if($lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie))) 
+                  @if($lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie))) 
                   <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
                   @endif
                 @endforeach

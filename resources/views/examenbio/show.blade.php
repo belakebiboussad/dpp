@@ -26,7 +26,7 @@
                                             <div class="profile-info-name">Date : </div>
                                             <div class="profile-info-value"><span class="editable">
                                               @if(isset($demande->consultation))
-                                                {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
+                                                {{  (\Carbon\Carbon::parse($demande->consultation->date))->format('d/m/Y') }}
                                               @else
                                                 {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
                                               @endif 
@@ -48,9 +48,7 @@
                                             </div> {{-- profile-info-row --}}
                                             <div class="profile-info-row">
                                                       <div class="profile-info-name"> Demandeur : </div>
-                                                      <div class="profile-info-value">
-                                                        <span class="editable">{{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</span>
-                                                      </div>
+                                                      <div class="profile-info-value"><span class="editable">{{ $medecin->full_name }}</span></div>
                                            </div>
                                           </div> {{-- profile-user-info   profile-user-info-striped--}}
                                     </div> {{-- col-sm-5 --}}

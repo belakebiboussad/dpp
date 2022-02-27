@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 	<div class="page-header">
-		<h1>Détails de l'assuré(e): {{ $assur->Nom }} {{ $assur->Prenom }}</h1>
+		<h1>Détails de l'assuré(e): {{ $assur->full_name }}</h1>
 	</div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">

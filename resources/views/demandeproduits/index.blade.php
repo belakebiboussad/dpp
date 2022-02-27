@@ -196,10 +196,10 @@
 													</td>
 													<td>
 														@isset($demande->id_employe)
-															{{-- $demande->id_employe --}} {{ $demande->demandeur->Service->nom }} 
+															 {{ $demande->demandeur->Service->nom }} 
 														@endisset
 													</td>
-													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
+													<td>{{ $demande->demandeur->full_name }}</td>
 													<td class="center">
 														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
 															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>

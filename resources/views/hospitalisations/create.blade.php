@@ -47,7 +47,7 @@
 							<tbody>
 							@foreach($adms as $key=>$adm)
 							<tr>
-								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->Nom }} {{$adm->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}</td>
+								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->full_name }}</td>
 								<td>
 									@switch(  $adm->rdvHosp->demandeHospitalisation->modeAdmission )
 		   							  @case(0)
@@ -62,10 +62,10 @@
 								  	@endswitch
 								</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->Service->nom }}</td>
-								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</td>
+								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}	</td>
-								<td>{{ $adm->rdvHosp->date_RDVh	}}</td>
+								<td>{{ $adm->rdvHosp->date	}}</td>
 								<td>{{ $adm->rdvHosp->date_Prevu_Sortie}}	</td>
 								<td class ="center">
 									<a href="javascript:formFill({{ $adm->id }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
@@ -98,7 +98,7 @@
 						<tbody>
 						@foreach($admsUrg as $key=>$adm)
 							<tr>
-								<td>{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Prenom }}</td>
+								<td>{{ $adm->demandeHospitalisation->consultation->patient->full_name }}</td>
 								<td>
 									@switch( $adm->demandeHospitalisation->modeAdmission )
 		   							  @case(0)

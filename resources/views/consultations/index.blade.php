@@ -35,10 +35,10 @@
                                },
                                className: "dt-body-center",
                         },
-                        { data: "Date_Consultation" , title:'Date' },
+                        { data: "date" , title:'Date' },
                         { data: "patient.Nom",
                           render: function ( data, type, row ) {
-                            return row.patient.Nom + ' ' + row.patient.Prenom;
+                            return row.patient.full_name;
                           },
                           title:'Patient',"orderable": true
                         },
@@ -49,7 +49,7 @@
                         },
                         {   data: "docteur.nom" ,
                              render: function ( data, type, row ) {
-                                      return row.docteur.nom + ' ' + row.docteur.prenom ;
+                                      return row.docteur.full_name;
                              },
                              title:'Medecin', "orderable":false, 
                         },
@@ -75,11 +75,11 @@
 	  return actions;
 	}
  	$('document').ready(function(){
-    getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
-   	field= "Date_Consultation"; 
+    getConsultations("date",'<?= date("Y-m-j") ?>');
+   	field= "date"; 
     $(document).on('click','.findconsult',function(event){	//var value = $('#'+field).val().trim();
       getConsultations(field,$('#'+field).val().trim());
-    	if(field != "Date_Consultation")
+    	if(field != "date")
     		$('#'+field).val('');	
     });
   });
@@ -100,7 +100,7 @@
       		<div class="col-sm-4">
       			<div class="form-group"><label class="control-label" for="" ><strong>Date de la consultation:</strong></label>
     			    <div class="input-group">
-			     		  <input type="text" id ="Date_Consultation" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+			     		  <input type="text" id ="date" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
 					       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					    </div>
 		        </div>

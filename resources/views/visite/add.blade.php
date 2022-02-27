@@ -327,7 +327,7 @@
 										<td> {{ $acte->type}}</td>
 										<td> {{ $acte->code_ngap}}</td>{{-- <td>@foreach($acte->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $acte->duree }}</td> --}}
 										<td> {{ $acte->description }}</td>
-										<td> {{ $acte->visite->medecin->nom}}&nbsp; {{ $acte->visite->medecin->prenom}}</td>
+										<td> {{ $acte->visite->medecin->full_name}}</td>
 										<td class="center nosort">
 										<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							  <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
@@ -376,7 +376,7 @@
 										<td> {{ $trait->visite->date }}</td>
 									  <td>{{ $trait->medicament['nom'] }}</td> 
 									  <td> {{ $trait->posologie}}</td>{{--<td>@foreach($trait->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $trait->duree }}</td>--}}
-										<td> {{ $trait->visite->medecin->nom}}&nbsp; {{ $trait->visite->medecin->prenom}}</td>
+										<td> {{ $trait->visite->medecin->full_name}}</td>
 								 		<td class="center nosort">
 											<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							  			<button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>

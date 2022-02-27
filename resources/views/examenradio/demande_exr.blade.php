@@ -107,7 +107,7 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div></div>
+      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
     </div>
   </div>
 </div><!-- container-fluid -->

@@ -253,9 +253,7 @@ function CRRSave()
    <div class="row">
     <div class="col-xs-12 col-sm-12">
       <div class="col-sm-6"><label><b>Médecin demandeur :</b></label></div>  
-      <div class="form-group col-sm-6">
-            <label class="blue">{{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}</label>
-      </div>
+      <div class="form-group col-sm-6"><label class="blue">{{ $medecin->full_name }}</label></div>
     </div>
   </div>
   <div class="row">

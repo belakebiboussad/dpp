@@ -44,7 +44,7 @@ class DemandeHospitalisationController extends Controller
     public function create($id)
     {
         $consultation = consultation::FindOrFail($id);
-        $patient = patient::FindOrFail($consultation->Patient_ID_Patient); 
+        $patient = patient::FindOrFail($consultation->pid); 
         return view('demandehospitalisation.create_demande', compact('patient','consultation'));
     }
     /**
@@ -143,12 +143,9 @@ class DemandeHospitalisationController extends Controller
     public function getUrgDemanades($date)
     {
               $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
-                                                                                                                          ->where('modeAdmission','2')->where('etat','programme')
-                                                                                                                          ->whereHas('consultation',function($q) use($date){
-                                                                                                                              $q->where('Date_Consultation', $date);
-                                                                                                                          })->get();
-              if (!empty($demandehospitalisations)) {
-                    return json_encode($demandehospitalisations);        
-          }
+                                                                                                                      ->whereHas('consultation',function($q) use($date){
+                                                                                                                              $q->where('date', $date);
+                                                                                                                      }) ->where('modeAdmission','2')->where('etat','programme')->get();
+               return json_encode($demandehospitalisations);        
     }
 }

@@ -31,8 +31,7 @@
         <h3 class="center"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
         <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
         <div><br><br><br>
-          <strong>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</strong>
-          <span>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom}}</span>.
+          <strong>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</strong><span>{{ $obj->patient->full_name }}</span>.
         </div>
         <div><strong>Né le :</strong><span>{{ $obj->patient->Dat_Naissance }}</span></div>
         <div>
@@ -91,7 +90,7 @@
       <div><strong>Diagnostic :</strong><span>{{ $obj->diagSortie }}</span></div><br>
       <div>
         <div class="sec-droite"><span><strong>Respectueusement</strong></span></div><br/><br/>
-        <div class="sec-droite"><span><strong>Dr :&nbsp;</strong></span><span>{{ $obj->medecin->nom}} {{ $obj->medecin->prenom}}</span></div>
+        <div class="sec-droite"><span><strong>Dr :&nbsp;</strong></span><span>{{ $obj->medecin->full_name}}</span></div>
       </div>
       </main>
     </div>

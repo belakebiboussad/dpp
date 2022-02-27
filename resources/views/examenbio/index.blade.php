@@ -79,7 +79,7 @@
 								<td class="center">{{ $index + 1 }}</td>
 								<td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->Date_Consultation }}
+									{{ $demande->consultation->date }}
 								@else		
 									{{ $demande->visite->date }}
 								@endif
@@ -93,16 +93,16 @@
 								</td>
 								<td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}
+									{{ $demande->consultation->docteur->full_name }}
 								@else
-									{{ $demande->visite->hospitalisation->medecin->nom }} {{ $demande->visite->hospitalisation->medecin->prenom }}
+									{{ $demande->visite->hospitalisation->medecin->full_name }}
 								@endif	
 								</td>
 								<td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small>
+									{{ $demande->consultation->patient->full_name }}<small class="text-primary">(Consultation)</small>
 								@else
-									{{ $demande->visite->hospitalisation->patient->Nom }} {{ $demande->visite->hospitalisation->patient->Prenom }} <small class="text-warning">(Hospitalisation)</small>
+									{{ $demande->visite->hospitalisation->patient->full_name}}<small class="text-warning">(Hospitalisation)</small>
 								@endif
 								</td>
 								<td>

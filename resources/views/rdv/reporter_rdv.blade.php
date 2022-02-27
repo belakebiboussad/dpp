@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Reporter rendez-vous Pour :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1 style="display: inline;"><strong>Reporter rendez-vous Pour :</strong> {{ $patient->full_name }}</h1>
 </div>
 <div class="col-xs-12">
 	<form class="form-horizontal" role="form" action="/rdv/reporte/{{$rdv->id}}" method="POST">
@@ -38,7 +38,7 @@
 								<div class="form-inline">
 									<label class="inline">
 										<span class="lbl"><b>Reporter le rendez-vous vers :</b></span>
-										<input class="date-picker" id="daterdv" type="text" name="daterdv" value="{{$rdv->Date_RDV }}" data-date-format="yyyy-mm-dd" required/>
+										<input class="date-picker" id="daterdv" type="text" name="daterdv" value="{{$rdv->date }}" data-date-format="yyyy-mm-dd" required/>
 									</label>
 									<button type="submit" class="btn btn-info btn-sm">
 										<i class="ace-icon fa fa-calendar bigger-110"></i>Reporter

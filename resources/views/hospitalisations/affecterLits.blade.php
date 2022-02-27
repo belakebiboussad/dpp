@@ -60,15 +60,9 @@
 								<span class="lbl"></span>   
 					   		</label>
 						</td>
-					
-						<td>
-					   	  {{$rdv->demandeHospitalisation->consultation->patient->Nom }}
-								{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	
-						</td>
-						<td>
-							<strong>{{ $rdv->date_RDVh }}</strong>
-				    </td>
-						<td><strong>  {{ $rdv->heure_RDVh }}</strong></td>
+					       <td> {{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+						<td><strong>{{ $rdv->date }}</strong></td>
+						<td><strong>  {{ $rdv->heure }}</strong></td>
 					<td class="center">
 						<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
 					</td>

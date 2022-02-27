@@ -177,7 +177,7 @@ class DemandeExbController extends Controller
       if(isset($demande->id_consultation))
       {
         $patient = $demande->consultation->patient ;
-        $date = $demande->consultation->Date_Consultation ;
+        $date = $demande->consultation->date ;
         $medecin = $demande->consultation->docteur;
 
       }  else
@@ -197,7 +197,7 @@ class DemandeExbController extends Controller
           if(isset($demande->id_consultation))
           {
             $patient = $demande->consultation->patient ;
-            $date = $demande->consultation->Date_Consultation ;
+            $date = $demande->consultation->date ;
             $medecin = $demande->consultation->docteur;
 
           }  else

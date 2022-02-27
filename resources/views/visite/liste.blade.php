@@ -24,7 +24,7 @@
 					 @foreach($hosp->visites as $visite)
 					<tr  role="row" class="even">
 						<td>{{ $visite->date }}</td>
-						<td class ="center sorting_disabled">{{ $visite->medecin->nom }}&nbsp;{{ $visite->medecin->prenom }}</td>
+						<td class ="center sorting_disabled">{{ $visite->medecin->full_name }}</td>
 						<td class="center">
 					 		@if(isset($visite->demandeexmbio))
 								@if($visite->demandeexmbio->etat == null)

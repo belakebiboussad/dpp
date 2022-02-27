@@ -32,7 +32,7 @@ function getRequests(url,field,value)
             { data: null,
                         render: function ( data, type, row ) {
                             if(data.id_consultation != null)
-                              return  row.consultation.Date_Consultation;
+                              return  row.consultation.date;
                             else
                               return row.visite.date;
                             return data;  

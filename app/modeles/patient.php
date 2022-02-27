@@ -23,7 +23,7 @@ class patient extends Model
 	}
 	public function antecedants()
 	{
-		return $this->hasMany('App\modeles\antecedant','Patient_ID_Patient');
+		return $this->hasMany('App\modeles\antecedant','pid');
 	}
 	public function commune()
 	{
@@ -45,7 +45,7 @@ class patient extends Model
  	}
  	public function Consultations()
  	{
- 		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
+ 		 return $this->hasMany('App\modeles\consultation','pid');
  	}
  	public function rdvs()
  	{
