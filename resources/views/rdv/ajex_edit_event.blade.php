@@ -77,13 +77,10 @@
                 <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
               </button>
               @if(Auth::user()->role->id == 1)          
-              <a  href="" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
-                <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+              <a  href="" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">  <i class="fa fa-trash" aria-hidden="true"></i> Annuler
               </a>
               @endif
-              <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal">
-                <i class="ace-icon fa fa-print"></i>Imprimer
-              </a> 
+              <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a> 
               <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
                 <i class="fa fa-close" aria-hidden="true" ></i> Fermer
               </button>

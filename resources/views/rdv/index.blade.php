@@ -34,122 +34,161 @@ function reset_in()
   $("#fixe").prop("checked", false);
 }
 $(function(){
-  $('#updateRdv').submit(function(e){
-    if($("#fixe").prop('disabled') == true)
-      $("#fixe" ).attr("disabled", false);
-    $('#updateRdv').submit();
-  });
+        $('#updateRdv').submit(function(e){
+               if($("#fixe").prop('disabled') == true)
+                      $("#fixe" ).attr("disabled", false);
+               $('#updateRdv').submit();
+        });
+        var today = (new Date()).setHours(0, 0, 0, 0);
+       $('.calendar1').fullCalendar({
+              header: {
+                      left: 'prev,next today',
+                      center: 'title',
+                      right: 'month,agendaWeek,agendaDay'
+              },
+              timeZone: 'local',
+              defaultView: 'agendaWeek',  //weekends: false,
+              height:650,
+              firstDay: 0,
+              slotDuration: '00:15:00',
+              minTime:'08:00:00',
+              maxTime: '17:00:00',
+              navLinks: true, // can click day/week names to navigate views
+              selectable: true,
+              selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
+              editable: true,
+              eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+              hiddenDays: [ 5, 6 ],
+              allDaySlot: false,
+              weekNumberCalculation: 'ISO',
+              aspectRatio: 1.5,
+              disableDragging: false,
+              eventDurationEditable : false,
+              displayEventTime : false,
+               views: {},
+                events: [
+                          @foreach($rdvs as $rdv)
+                          {
+                                title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                                start : '{{ $rdv->date }}',
+                                end:   '{{ $rdv->fin }}',
+                                id :'{{ $rdv->id }}',
+                                idPatient:'{{$rdv->patient->id}}',
+                                tel:'{{$rdv->patient->tele_mobile1}}',
+                                age:{{ $rdv->patient->getAge() }},
+                                specialite: {{ $rdv->specialite_id }},
+                                medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
+                                fixe:  {{ $rdv->fixe }},
+                                etat : '{{ $rdv->etat }}',
+                          },
+                       @endforeach 
+                    ],
+                      select: function(start, end) {
+                                $('.calendar1').fullCalendar('unselect');
+                      },
+                       eventClick: function(calEvent, jsEvent, view) {
+                              if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+                              {
+                                reset_in();
+                                if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
+                                       $('#printRdv').removeClass('hidden'); 
+                                if($('#fixe').length &&(calEvent.fixe))
+                                       $("#fixe"). prop("checked", true);
+                                $('#idRDV').val(calEvent.id);
+                                ajaxEditEvent(calEvent,false);
+                              }
+                      },
+                       eventRender: function (event, element, webData) {
+                              if((event.start < today) || (event.etat == 1))
+                                element.css('background-color', '#D3D3D3'); 
+                              else 
+                              {
+                                if(event.fixe)
+                                       element.css('background-color', '#87CEFA'); 
+                                else
+                                        element.css('background-color', '#378006');   
+                                element.css("padding", "5px");
+                              }  
+                              element.popover({
+                                    delay: { "show": 500, "hide": 100 },
+                                    content: event.tel,
+                                    trigger: 'hover',
+                                    animation:true,
+                                    placement: 'bottom',
+                                    container: 'body',
+                                    template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+                              });                   
+                      },
+                      eventAllow: function(dropLocation, draggedEvent) {
+                           if (draggedEvent.start < today)  
+                                 return false;
+                      },
+                      eventDrop: function(event, delta, revertFunc)
+                      {  
+                        jQuery('#btnclose').click(function(){
+                             revertFunc();
+                        });
+                        if($('#fixe').length &&(event.fixe))
+                          $("#fixe"). prop("checked", true);
+                        ajaxEditEvent(event,true);          
+                      },      
+              }); // calendar
+               $('#patient').editableSelect({
+                  effects: 'default', 
+                  editable: false, 
+               }).on('select.editable-select', function (e, li) {
+                             $('#last-selected').html(
+                                     li.val() + '. ' + li.text()
+                              );
+                             $("#btnSave").removeAttr("disabled");
+               });
+               $("#patient").on("keyup", function() {
+                     var field = $("select#filtre option").filter(":selected").val();
+                     if(field != "Dat_Naissance")
+                            remoteSearch(field,$("#patient").val()); //to call ajax
+               });
+               $('#updateRDV').on('click keyup', function(e) { 
+                      e.preventDefault();
+                      var formData = {
+                              
+                      };  
+                      $.ajaxSetup({
+                              headers: {
+                                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                              }
+                      });
+                     $.ajax({
+                             type = "PUT";
+                             url = '/rdv/' + $(this).val();
+                             data: formData,
+                             dataType: 'json',
+                              success: function (data) {
+                                    alert(data);
+                              },
+                              error : function(data){
+
+                              }
+                      });
+                }
+               $('#btnDelete').on('click keyup', function(e) {
+                      e.preventDefault();
+                       $.ajaxSetup({
+                              headers: {
+                                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                               }
+                     });
+                     $.ajax({
+                              type: "DELETE",
+                              url: '/rdv/' + $(this).val(),
+                              success: function (data) {
+                                    $(".calendar1").fullCalendar('removeEvents', data.id);  
+                              },
+                              error: function (data) {
+                                     console.log('Error:', data);
+                                }
+                      });
+               })
 })
-$(document).ready(function() {
-      var today = (new Date()).setHours(0, 0, 0, 0);
-      $('.calendar1').fullCalendar({
-          header: {
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'month,agendaWeek,agendaDay'
-          },
-          timeZone: 'local',
-          defaultView: 'agendaWeek',  //weekends: false,
-          height:650,
-          firstDay: 0,
-          slotDuration: '00:15:00',
-          minTime:'08:00:00',
-          maxTime: '17:00:00',
-          navLinks: true, // can click day/week names to navigate views
-          selectable: true,
-          selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
-          editable: true,
-          eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-          hiddenDays: [ 5, 6 ],
-          allDaySlot: false,
-          weekNumberCalculation: 'ISO',
-          aspectRatio: 1.5,
-          disableDragging: false,
-          eventDurationEditable : false,
-          displayEventTime : false,
-           views: {},
-          events: [
-                    @foreach($rdvs as $rdv)
-                    {
-                          title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->date }}',
-                          end:   '{{ $rdv->fin }}',
-                          id :'{{ $rdv->id }}',
-                          idPatient:'{{$rdv->patient->id}}',
-                          tel:'{{$rdv->patient->tele_mobile1}}',
-                          age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->specialite_id }},
-                          medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
-                          fixe:  {{ $rdv->fixe }},
-                          etat : '{{ $rdv->etat }}',
-                    },
-                 @endforeach 
-              ],
-              select: function(start, end) {
-                        $('.calendar1').fullCalendar('unselect');
-              },
-               eventClick: function(calEvent, jsEvent, view) {
-                      if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
-                      {
-                        reset_in();
-                        if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
-                               $('#printRdv').removeClass('hidden'); 
-                        if($('#fixe').length &&(calEvent.fixe))
-                               $("#fixe"). prop("checked", true);
-                        $('#idRDV').val(calEvent.id);
-                        ajaxEditEvent(calEvent,false);
-                      }
-              },
-               eventRender: function (event, element, webData) {
-                      if((event.start < today) || (event.etat == 1))
-                        element.css('background-color', '#D3D3D3'); 
-                      else 
-                      {
-                        if(event.fixe)
-                               element.css('background-color', '#87CEFA'); 
-                        else
-                                element.css('background-color', '#378006');   
-                        element.css("padding", "5px");
-                      }  
-                      element.popover({
-                            delay: { "show": 500, "hide": 100 },
-                            content: event.tel,
-                            trigger: 'hover',
-                            animation:true,
-                            placement: 'bottom',
-                            container: 'body',
-                            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-                      });                   
-          },
-          eventAllow: function(dropLocation, draggedEvent) {
-               if (draggedEvent.start < today)  
-                     return false;
-          },
-          eventDrop: function(event, delta, revertFunc)
-          {  
-            jQuery('#btnclose').click(function(){
-                 revertFunc();
-            });
-            if($('#fixe').length &&(event.fixe))
-              $("#fixe"). prop("checked", true);
-            ajaxEditEvent(event,true);          
-          },      
-       }); // calendar
-       $('#patient').editableSelect({
-          effects: 'default', 
-          editable: false, 
-       }).on('select.editable-select', function (e, li) {
-                     $('#last-selected').html(
-                             li.val() + '. ' + li.text()
-                      );
-                     $("#btnSave").removeAttr("disabled");
-       });
-       $("#patient").on("keyup", function() {
-             var field = $("select#filtre option").filter(":selected").val();
-             if(field != "Dat_Naissance")
-                    remoteSearch(field,$("#patient").val()); //to call ajax
-       });
-       });
   </script>
 @endsection
 @section('main-content'){{--  --}}
@@ -167,91 +206,5 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
-  <div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-      <h4 class="modal-title">Modifier le rendez-vous du&nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
-    </div>
-    <form id ="updateRdv" role="form" action="" method="POST"> 
-      <div class="modal-body">
-      {{ csrf_field() }}
-      {{ method_field('PUT') }}
-      <input type="hidden" id="idRDV">
-      <input  id="daterdv" name ="daterdv" type="hidden" />
-      <input  id="datefinrdv" name ="datefinrdv" type="hidden" />
-             <div class="well">   
-            <div class="row">
-              <div class="col-sm-6">
-                 <div class="form-group">
-                 <label for="patient_tel" class="col-form-label" ><i class="fa fa-phone" aria-hidden="true"></i><strong>&nbsp;Téléphone :</strong></label>
-                  <div class="input-group col-sm-12"><input type="text"  class="form-control" id="patient_tel"  disabled/> </div>  
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <label for="agePatient" class="col-form-label" ><strong>&nbsp;Âge :</strong></label>
-                <div class="input-group col-sm-12"><input type="text"  class="form-control" id="agePatient" disabled/> </div>  
-              </div>
-            </div>
-          </div>
-      @if(Auth::user()->role->id == 2)
-       <div class="well">
-             <div class="row">
-                 <div class="col-sm-12">                   
-                      <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Spécialité:</strong></label>
-                      <div class="input-group col-sm-12">
-                            <select  placeholder="Selectionner... " class="form-control" id="specialite" name ="specialite"> </select>
-                       </div> 
-                  </div>
-             </div>
-       </div>
-      @endif
-      <div class="well">
-        <div class="row">
-          <div class="col-sm-6">
-            <fieldset class="scheduler-border">
-                  <legend class="scheduler-border">Rendez-Vous</legend>
-                   <div class="control-group">
-                        <label class="control-label input-label" for="startTime">Date :</label>
-                        <div class="controls bootstrap-timepicker">
-                              <input type="text" class="datetime" id="meetingdate" data-date-format="yyyy-mm-dd" readonly/>
-                              <span class="glyphicon glyphicon-time fa-lg"></span> 
-                          </div>
-                   </div>
-            </fieldset>
-          </div>
-          <div class="col-sm-6">
-            <fieldset class="scheduler-border">
-              <legend class="scheduler-border">Type rendez-vous</legend>
-              <div class="control-group">
-                <label class="control-label input-label">&nbsp;</label>
-                <div class="controls form-check">
-                      <label class="block"><input type="checkbox" class="ace" id="fixe" name="fixe" {{ (Auth::user()->role_id == 2) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
-                </div>
-             </div>
-            </fieldset>
-           </div> 
-        </div>
-      </div>  
-    </div> {{-- modal-body --}} 
-    <div class="modal-footer">
-       @if(Auth::user()->role->id == 1)
-        <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-        @endif 
-        <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-        </button>      
-        <a id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</a>
-                          <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-       <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-        </button>
-    </div>
-  </form>  
-  </div>{{-- modal-content --}}
-</div>
-</div>{{-- modal --}}
-</div>
+<div class="row">@include('rdv.ModalFoms.edit')</div>
 @endsection
-

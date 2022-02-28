@@ -61,7 +61,7 @@
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-warning" type="button" id ="btnSave"  data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
+		      	<button  class="btn btn-success" type="button" id ="btnSave"  data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
 			 			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
 		      </div>
       	</form>

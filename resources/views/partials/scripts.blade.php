@@ -561,56 +561,58 @@
           $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
       });
     });
-  function edit(event)
-  {       
-      $('#patient_tel').text(event.tel);
-      $('#agePatient').text(event.age);
-      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-      $('#lien').text(event.title);
-      $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-      $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-      $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-      $('#btnDelete').attr('href','/rdv/'.concat(event.id));
-      $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-      var url = '{{ route("rdv.update", ":slug") }}'; 
-      url = url.replace(':slug',event.id);
-      $('#updateRdv').attr('action',url);
-     $('#fullCalModal').modal({ show: 'true' }); 
-    }
-     function ajaxEditEvent(event,bool)
-     {
-        $.get('/rdv/'+event.id +'/edit', function (data) {
-            var html ='';
-            $('#specialite').empty();
-            jQuery(data.specialites).each(function(i, spec){
-                html += '<option value="'+spec.id+'" >'+spec.nom +'</option>';
-            });
-            $('#specialite').removeAttr("disabled");  
-            $('#specialite').append(html);
-            $("#specialite").val(data.rdv.specialite_id);                  
-            $('#patient_tel').val(data.rdv.patient.tele_mobile1);
-            $('#agePatient').val(event.age);
-            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+      function edit(event)
+      {       
+            $('#patient_tel').text(event.tel);
+            $('#agePatient').text(event.age);
+            $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
             $('#lien').text(event.title);
-            if(bool)
-            {
-               $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-               $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
-               $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-            }else{
-              var date = new Date(data.rdv.date);
-              $("#daterdv").val(data.rdv.date);
-              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-              $("#datefinrdv").val(data.rdv.fin); 
-            }
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
-            $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
-            var url = '{{ route("rdv.update", ":slug") }}';
-            url = url.replace(':slug',data.rdv.id);
+            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+             $('#btnDelete').attr('href','/rdv/'.concat(event.id));
+            $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+            var url = '{{ route("rdv.update", ":slug") }}'; 
+            url = url.replace(':slug',event.id);
             $('#updateRdv').attr('action',url);
-            $('#fullCalModal').modal({ show: 'true' });
-        });
-    } 
+           $('#fullCalModal').modal({ show: 'true' }); 
+       }
+       function ajaxEditEvent(event,bool)
+       {
+             
+               $.get('/rdv/'+event.id +'/edit', function (data) {
+                     var html ='';$('#specialite').empty();
+                      jQuery(data.specialites).each(function(i, spec){
+                           html += '<option value="'+spec.id+'" >'+spec.nom +'</option>';
+                    });
+                    $('#specialite').removeAttr("disabled");  
+                    $('#specialite').append(html);
+                    $("#specialite").val(data.rdv.specialite_id);                  
+                    $('#patient_tel').val(data.rdv.patient.tele_mobile1);
+                    $('#agePatient').val(event.age);
+                    $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+                    $('#lien').text(event.title);
+                     if(bool)
+                     {
+                           $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                           $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+                           $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                      }else{
+                            var date = new Date(data.rdv.date);
+                            $("#daterdv").val(data.rdv.date);
+                            $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+                            $("#datefinrdv").val(data.rdv.fin); 
+                      }
+                     $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+                      $('#btnDelete').attr('value',data.rdv.id);
+                      $('#updateRDV').attr('value',data.rdv.id);
+                      //  var url = '{{-- route("rdv.update", ":slug") --}}';
+                      //  url = url.replace(':slug',data.rdv.id);
+                      // $('#updateRdv').attr('action',url);
+
+                      $('#fullCalModal').modal({ show: 'true' });
+              });
+       } 
     function isEmpty(value) {
       return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
     }

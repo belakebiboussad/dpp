@@ -220,14 +220,14 @@ $(document).ready(function() {
             },
               eventRender: function (event, element, webData) {
                       if(event.start < today)
-                        element.css('background-color', '#D3D3D3');  
+                            element.css('background-color', '#D3D3D3');  
                       else
                       {
-                        if(event.fixe)
-                          element.css('background-color', '#87CEFA'); 
-                        else
-                          element.css('background-color', '#378006');   
-                        element.css("padding", "5px");
+                               if(event.fixe)
+                                    element.css('background-color', '#87CEFA'); 
+                              else
+                                  element.css('background-color', '#378006');   
+                             element.css("padding", "5px");
                       }
                       element.popover({
                           delay: { "show": 500, "hide": 100 },  // title: event.title,
@@ -262,10 +262,10 @@ $(document).ready(function() {
         url:url,
         data:formData,//dataType: 'json',
         success:function(data){         
-          // var color = (data['rdv']['fixe'] !== 1)? '#87CEFA':'#378006';
-          var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
-          var event = new Object();
-          event = {
+             //var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';
+             var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
+             var event = new Object();
+              event = {
                   title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                   start: formData.date,
                   end: formData.fin,
@@ -274,7 +274,8 @@ $(document).ready(function() {
                   fixe: data['rdv']['fixe'],
                   tel:data['patient']['tele_mobile1'] ,
                   age:data['age'],         
-                  allDay: false,   //color:color, //'#87CEFA'
+                  allDay: false,
+                  color:color, //'#87CEFA'
           };
           $('.calendar').fullCalendar( 'renderEvent', event );
         },//success

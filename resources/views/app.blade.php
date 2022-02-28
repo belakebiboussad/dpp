@@ -256,7 +256,8 @@
                       fixe: data['rdv']['fixe'],
                       tel:data['patient']['tele_mobile1'] ,
                       age:data['age'],         
-                      allDay: false,   //color:color, //'#87CEFA'
+                      allDay: false,
+                      color:color, //'#87CEFA'
                     };
                     $('.calendar').fullCalendar( 'renderEvent', event );//calendar1
                   },
