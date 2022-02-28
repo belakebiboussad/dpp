@@ -74,7 +74,8 @@ class ConsultationsController extends Controller
       public function create(Request $request,$id_patient)
       {
         $etablissement = Etablissement::first(); 
-        $employe=Auth::user()->employ;
+        $employe = Auth::user()->employ;
+       // dd($employe->rdvs);
         $modesAdmission = config('settings.ModeAdmissions') ;
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();

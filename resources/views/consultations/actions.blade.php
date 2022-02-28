@@ -4,7 +4,8 @@
 		</a>
 	</div><div class="space-12"></div>
   <div class="row">
-			<a data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link col-sm-12 col-xs-12" data-toggle="modal">
+  <!-- data-target="#RDV" -->
+			<a class="btn  btn-primary btn-lg tooltip-link col-sm-12 col-xs-12" data-toggle="modal" id="rdvadd">
 		  <div class="fa fa-plus-circle"></div><span class="bigger-110">&nbsp;Rendez-vous</span>
 		</a>
 	</div><div class="space-12"></div>

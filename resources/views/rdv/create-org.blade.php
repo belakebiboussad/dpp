@@ -2,7 +2,7 @@
 @section('style')
 	<style> /*#dialog { display: none; }*/
   .make-scrolling {/* overflow-y: scroll; height: 100px;*/
-    overflow-y: scroll; 
+    overflow-y: scroll; /*overflow: hidden;*/
     max-height: 100px;
     margin-left:-0.7%;
   }
@@ -46,28 +46,21 @@ function getPatient()
 {
   var spec ='{{ Auth::user()->role_id ==1 }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
-  var html = '<option value="">Sélectionner...</option>';
   $.ajax({
         url : '{{URL::to('getPatients')}}',
         data: {    
-          "field":field,
-          "value":$("#patient").val(),
-          "specialite":spec,
+            "field":field,
+            "value":$("#patient").val(),
+            "specialite":spec,
         },
        dataType: "json",
        success: function(data) {
-          $(".es-list").html("");//remove list
-          $(".es-list").addClass("make-scrolling");
-          $("#patient").empty();
-         $.each(data['data'], function(key, pat) {
-            //$(".es-list").append($('<li></li>').attr('value', pat['id']).attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['Nom']+"-"+pat['Prenom']));
-            $(".es-list").append($('<li></li>')
-                         .attr('value', pat['id'])
-                         .attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['full_name']));
-            
-        });
-         
-      },
+         $(".es-list").html("");//remove list
+         $(".es-list").addClass("make-scrolling");
+         $.each(data['data'], function(i, v) {
+            $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
+         });
+       },
       error: function() {
          alert("can't connect to db");
       }
@@ -149,8 +142,8 @@ $(document).ready(function() {
         select: function(start, end) {
             var minutes = end.diff(start,"minutes"); 
             if( (minutes == 15) && (start >=today ))//CurrentDate
-            {
-              if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+            {                                    
+              if('{{ Auth::user()->role_id }}' == 1)
               {
                 Swal.fire({
                     title: 'Confimer vous  le Rendez-Vous ?',
@@ -166,7 +159,7 @@ $(document).ready(function() {
                 }).then((result) => {
                     if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                     {
-                      if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
+                      if('{{ $patient->id}}' != null)
                         createRDVModal(start,end,'{{ $patient->id }}',result.value);
                       else
                         createRDVModal(start,end,0,result.value);
@@ -242,55 +235,20 @@ $(document).ready(function() {
             eventMouseover: function(event, jsEvent, view) {
             }
     });//calendar //fincalendar 
-    $('#btnSave').on('click keyup', function(e) {
-      url ="{{ route('rdv.store') }}";
-      var formData = {
-          date:$('#date').val(),
-          fin:$('#fin').val(),
-          id_patient:$('#pat_id').val(),
-          fixe :$('#fixe').val()
-      }
-      if('{{ Auth::user()->role_id }}' == 2)
-      {
-        formData.specialite = $('#specialite').val();
-      }
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type:"POST",
-        url:url,
-        data:formData,//dataType: 'json',
-        success:function(data){         
-          // var color = (data['rdv']['fixe'] !== 1)? '#87CEFA':'#378006';
-          var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
-          var event = new Object();
-          event = {
-                  title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                  start: formData.date,
-                  end: formData.fin,
-                  id : data['rdv']['id'],
-                  idPatient:data['patient']['id'],
-                  fixe: data['rdv']['fixe'],
-                  tel:data['patient']['tele_mobile1'] ,
-                  age:data['age'],         
-                  allDay: false,   //color:color, //'#87CEFA'
-          };
-          $('.calendar').fullCalendar( 'renderEvent', event );
-        },//success
-
-      })
-    });
     $('#patient').editableSelect({
         effects: 'default', 
         editable: true,
     }).on('select.editable-select', function (e, li) {
-        $("#pat_id").val(li.attr('value'));
+        $('#last-selected').html(
+          li.val() + '. ' + li.text()
+        ); 
         if('{{ Auth::user()->role_id}}' == 1)
-          $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
+            $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
         else
+        {
           if($('#specialite').val() != null)
             $("#btnSave").removeAttr("disabled");
+        }
     });
     $('#patient').val('');
     $("#patient").on("keyup", function() {

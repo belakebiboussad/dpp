@@ -4,8 +4,7 @@
 	$('document').ready(function(){
 		$('#service').change(function(){
 			$('#chambre').removeAttr("disabled");
-		  $.ajax({
-          //url : '/getsalles/'+ $('#service').val(),
+		  $.ajax({//url : '/getsalles/'+ $('#service').val(),
           url : '/salles/'+ $('#service').val(),
           type : 'GET',
           dataType : 'json',

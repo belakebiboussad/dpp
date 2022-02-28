@@ -9,13 +9,13 @@ class employ extends Model
 	public $timestamps = false;
 	protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service','Matricule_dgsn','NSS'];
 	protected $appends = ['full_name'];
-   public function getFullNameAttribute()
+  public function getFullNameAttribute()
   {
     return $this->nom." ".$this->prenom ;
   }
   public function Service()
 	{
-	     return $this->belongsTo('App\modeles\service','service');
+	  return $this->belongsTo('App\modeles\service','service');
 	} 
 	public function Specialite()
 	{
@@ -23,7 +23,7 @@ class employ extends Model
 	}
 	public function rdvs()
 	{
-	   return $this->hasMany('App\modeles\rdv','employ_id')->where('etat',null)->orwhere('etat',1);//->where('etat','!=','0' ->orderBy('date')     
+	  return $this->hasMany('App\modeles\rdv','employ_id')->where('etat',null)->orwhere('etat',1);//->where('etat','!=','0' ->orderBy('date')     
 	}
 	public function User()
 	{

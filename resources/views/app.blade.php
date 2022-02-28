@@ -229,9 +229,9 @@
         { 
           var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
           var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-          if(pid != 0)
+          if(pid !== 0)
           {
-            if('{{ Auth::user()->role_id }}' == 1)
+            if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
             {
               var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
               $.ajaxSetup({
@@ -239,47 +239,46 @@
                   'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
               }); 
+              var url = "{{ route('rdv.store') }}"; 
               $.ajax({
-                  type : 'POST',
-                  url : '/createRDV',
-                  data:formData, //dataType: 'json',
+                  type : 'POST',//url : '/createRDV',
+                  url :url,
+                  data:formData,//dataType: 'json',
                   success:function(data){         
-                        var color = (data['rdv']['fixe'] != 1)? '#87CEFA':'#378006';
-                        var event = new Object();
-                        event = {
-                                title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                start: debut,
-                                end: fin,
-                                id : data['rdv']['id'],
-                                idPatient:data['patient']['id'],
-                                fixe: data['rdv']['fixe'],
-                                tel:data['patient']['tele_mobile1'] ,
-                                age:data['age'],         
-                                allDay: false,   //color:color, //'#87CEFA'
-                        };
-                        $('.calendar').fullCalendar( 'renderEvent', event );//calendar1
+                    var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
+                    var event = new Object();
+                    event = {
+                      title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                      start: debut,
+                      end: fin,
+                      id : data['rdv']['id'],
+                      idPatient:data['patient']['id'],
+                      fixe: data['rdv']['fixe'],
+                      tel:data['patient']['tele_mobile1'] ,
+                      age:data['age'],         
+                      allDay: false,   //color:color, //'#87CEFA'
+                    };
+                    $('.calendar').fullCalendar( 'renderEvent', event );//calendar1
                   },
                   error: function (data) {
-                console.log('Error:', data);
+                    console.log('Error:', data);
                   }
-                });
-              }else{
-                      $('#date').val(debut);
-                      $('#fin').val(fin);
-                      $('#fixe').val(fixe);
-                      $('#addRDVModal').modal({
-                             show: 'true'
-                     }); 
-                }
-            }else{
-                  $('#date').val(debut);
-                  $('#fin').val(fin);
-                  $(".es-list").empty(); 
-                  $('#fixe').val(fixe);
-                  $('#addRDVModal').modal({
-                    show: 'true'
-                  }); 
-            }   
+              });
+              
+              }else
+                showRdvModal(debut,fin,fixe); 
+            }else
+              showRdvModal(debut,fin,fixe); 
+        }
+        function showRdvModal(date,fin,fixe)
+        {
+          $('#date').val(date);
+          $('#fin').val(fin);
+          $('#fixe').val(fixe);
+          $(".es-list").empty(); 
+          $('#addRDVModal').modal({
+            show: 'true'
+          }); 
         }
         function copyPatient(){ 
           $("#nomf").val($("#nom").val());
@@ -377,7 +376,7 @@
         }
         function getProducts(id_gamme, id_spec=0,med_id = 0)
         {
-          var html = '<option value="0">Sélectionner...</option>';
+          var html = '<option value="">Sélectionner...</option>';
           $.ajax({
               url : '/getproduits/'+id_gamme+'/'+id_spec,
               type : 'GET',
