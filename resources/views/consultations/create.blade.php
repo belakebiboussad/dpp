@@ -208,46 +208,46 @@
 				  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
 				],
 	  });
-	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
-		jQuery('#EnregistrerAntecedant').val("add");
-		jQuery('#modalFormData').trigger("reset");
-		$('#AntecCrudModal').html("Ajouter un antécédent");
-		if(this.id == "AntFamil-add")
-		{
-			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
-			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
-				$( "#atcdsstypehide" ).addClass("hidden");
-		}else{
-			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
-				$('#atcdsstypehide').removeClass("hidden");
-		}
-		jQuery('#antecedantModal').modal('show');
-	});
-	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
-			jQuery('#EnregistrerAntecedantPhys').val("add");
-			jQuery('#modalFormDataPhysio').trigger("reset");
-			jQuery('#AntecPhysCrudModal').html("Ajouter un antécédent");
-			jQuery('#antecedantPhysioModal').modal('show');
-	});	
-	jQuery('body').on('click', '.open-modal', function (event) {//EDIT
-		event.preventDefault();
-		var atcd_id = $(this).val();
-		$.get('/atcd/' + atcd_id, function (data) { 
-			$('#atcd_id').val(data.id);
-		        $('#typeAntecedant').val(data.typeAntecedant).change();
-			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
-			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
-				$( "#atcdsstypehide" ).removeClass("hidden"); 
-			$('#dateAntcd').val(data.date);
-			$('#cim_code').val(data.cim_code);
-			$('#description').val(data.description);
-			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
-			$('#AntecCrudModal').html("Editer un Antecedant");	
-			jQuery('#EnregistrerAntecedant').val("update");	
-			jQuery('#antecedantModal').modal('show');
-	  });
-	});
+	  jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
+  		jQuery('#EnregistrerAntecedant').val("add");
+  		jQuery('#modalFormData').trigger("reset");
+  		$('#AntecCrudModal').html("Ajouter un antécédent");
+  		if(this.id == "AntFamil-add")
+  		{
+  			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+  			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+  				$( "#atcdsstypehide" ).addClass("hidden");
+  		}else{
+  			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+  			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
+  				$('#atcdsstypehide').removeClass("hidden");
+  		}
+  		jQuery('#antecedantModal').modal('show');
+  	});
+  	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
+  			jQuery('#EnregistrerAntecedantPhys').val("add");
+  			jQuery('#modalFormDataPhysio').trigger("reset");
+  			jQuery('#AntecPhysCrudModal').html("Ajouter un antécédent");
+  			jQuery('#antecedantPhysioModal').modal('show');
+  	});	
+  	jQuery('body').on('click', '.open-modal', function (event) {//EDIT
+  		event.preventDefault();
+  		var atcd_id = $(this).val();
+  		$.get('/atcd/' + atcd_id, function (data) { 
+  			$('#atcd_id').val(data.id);
+  		        $('#typeAntecedant').val(data.typeAntecedant).change();
+  			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
+  			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
+  				$( "#atcdsstypehide" ).removeClass("hidden"); 
+  			$('#dateAntcd').val(data.date);
+  			$('#cim_code').val(data.cim_code);
+  			$('#description').val(data.description);
+  			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
+  			$('#AntecCrudModal').html("Editer un Antecedant");	
+  			jQuery('#EnregistrerAntecedant').val("update");	
+  			jQuery('#antecedantModal').modal('show');
+  	  });
+  	});
 	jQuery('body').on('click', '.open-modalFamil', function (event) {
 		event.preventDefault();
 		var atcd_id = $(this).val();
@@ -445,16 +445,20 @@
     //calendrier  	
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
-		$('.calendar').fullCalendar({
-			  plugins: [ 'dayGrid', 'timeGrid' ],
-		  	header: {
-				  left: 'prev,next today',
-				  center: 'title,dayGridMonth,timeGridWeek',
-				  right: 'agendaWeek,agendaDay'
-				},
-		  	defaultView: 'agendaWeek',
+		$('.calendar').fullCalendar({//plugins: [ 'dayGrid', 'timeGrid' ],
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+         right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView : 'basicWeek',//'agendaWeek',
 		  	height: 650,
-				firstDay: 0,
+        //teste
+        showAgendaButton: true,
+        timeFormat: 'H:mm',
+        axisFormat: 'H:mm',
+        //  teste
+        firstDay: 0,
 		  	slotDuration: '00:15:00',
 		  	minTime:'08:00:00',
 				maxTime: '17:00:00',
@@ -465,13 +469,11 @@
 				editable: true,
 				hiddenDays: [ 5, 6 ],
 				weekNumberCalculation: 'ISO',
-				aspectRatio: 1.5,
+				aspectRatio: 2,
 				eventLimit: true,
 				allDaySlot: false,
-				eventDurationEditable : false,
-		  	weekNumbers: true,
-		  	views: {},
-        events: [
+       	eventDurationEditable : false,//weekNumbers: true,views: {},
+		  	events: [
 				   @foreach($employe->rdvs as $rdv)
 				   {	
 						  title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
@@ -487,11 +489,11 @@
 				  @endforeach 
 			],
 		  eventRender: function (event, element, webData) {
-			if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-				 element.css('background-color', '#D3D3D3');
+			  if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+				   element.css('background-color', '#D3D3D3');
 				else
 				{	
-				if(event.fixe)
+				  if(event.fixe)
 						element.css('background-color', '#87CEFA'); 
 					else
 						element.css('background-color', '#378006');
@@ -522,15 +524,15 @@
 						   cancelButtonText: "Non",
 						 allowOutsideClick: false,  
 					  }).then((result) => {
-						if(!isEmpty(result.value))
-						{
-							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
-						}
+  						if(!isEmpty(result.value))
+  						{
+  							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
+  						}
 			  		})
 				}else
 					$('.calendar').fullCalendar('unselect');//calendar1
 			},
-		    eventAllow: function(dropLocation, draggedEvent) {  return false; },
+		  eventAllow: function(dropLocation, draggedEvent) {  return false; },
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 		});
@@ -587,10 +589,9 @@
 			})
 	  })//fin drug  print
     $(document).on("click","#rdvadd",function(){
-    //$(".calendar").fullCalendar('render');
-    $(".calendar").fullCalendar( 'refetchEvents' );
-    $('#RDV').modal("show");
-  });
+      $(".calendar").fullCalendar( 'refetchEvents' );
+      $('#RDV').modal("show");
+    });
 
  });// ready
 </script>

@@ -34,13 +34,13 @@ function reset_in()
   $("#fixe").prop("checked", false);
 }
 $(function(){
-        $('#updateRdv').submit(function(e){
-               if($("#fixe").prop('disabled') == true)
-                      $("#fixe" ).attr("disabled", false);
-               $('#updateRdv').submit();
-        });
-        var today = (new Date()).setHours(0, 0, 0, 0);
-       $('.calendar1').fullCalendar({
+  /*$('#updateRdv').submit(function(e){
+    if($("#fixe").prop('disabled') == true)
+       $("#fixe" ).attr("disabled", false);
+   $('#updateRdv').submit();
+  });*/
+  var today = (new Date()).setHours(0, 0, 0, 0);
+    $('.calendar1').fullCalendar({
               header: {
                       left: 'prev,next today',
                       center: 'title',
@@ -86,17 +86,17 @@ $(function(){
                       select: function(start, end) {
                                 $('.calendar1').fullCalendar('unselect');
                       },
-                       eventClick: function(calEvent, jsEvent, view) {
-                              if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
-                              {
-                                reset_in();
-                                if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
-                                       $('#printRdv').removeClass('hidden'); 
-                                if($('#fixe').length &&(calEvent.fixe))
-                                       $("#fixe"). prop("checked", true);
-                                $('#idRDV').val(calEvent.id);
-                                ajaxEditEvent(calEvent,false);
-                              }
+                      eventClick: function(calEvent, jsEvent, view) {
+                        if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+                        {
+                          reset_in();
+                          if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
+                                 $('#printRdv').removeClass('hidden'); 
+                          if($('#fixe').length &&(calEvent.fixe))
+                                 $("#fixe"). prop("checked", true);
+                          $('#idRDV').val(calEvent.id);
+                          ajaxEditEvent(calEvent,false);
+                        }
                       },
                        eventRender: function (event, element, webData) {
                               if((event.start < today) || (event.etat == 1))
@@ -137,10 +137,10 @@ $(function(){
                   effects: 'default', 
                   editable: false, 
                }).on('select.editable-select', function (e, li) {
-                             $('#last-selected').html(
-                                     li.val() + '. ' + li.text()
-                              );
-                             $("#btnSave").removeAttr("disabled");
+                   $('#last-selected').html(
+                           li.val() + '. ' + li.text()
+                    );
+                   $("#btnSave").removeAttr("disabled");
                });
                $("#patient").on("keyup", function() {
                      var field = $("select#filtre option").filter(":selected").val();
@@ -148,46 +148,55 @@ $(function(){
                             remoteSearch(field,$("#patient").val()); //to call ajax
                });
                $('#updateRDV').on('click keyup', function(e) { 
-                      e.preventDefault();
-                      var formData = {
-                              
-                      };  
-                      $.ajaxSetup({
-                              headers: {
-                                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                              }
-                      });
-                     $.ajax({
-                             type = "PUT";
-                             url = '/rdv/' + $(this).val();
-                             data: formData,
-                             dataType: 'json',
-                              success: function (data) {
-                                    alert(data);
-                              },
-                              error : function(data){
+                  e.preventDefault();
+                  var  fixe = 1;
+                  if(!$("#fixe").prop('disabled'))
+                    if (!$("#fixe").is(':checked'))
+                      fixe = 0;
+                  var formData = {
+                    id : $(this).val(),
+                    date : $("#daterdv").val(),
+                    fin  : $("#datefinrdv").val(), 
+                    fixe : fixe,       
+                  };  
+                  if('{{ Auth::user()->role_id == 2 }}')
+                    formData.specialite = $('#specialite').val();
+                  $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                  });
+                  $.ajax({
+                     type : "PUT",
+                     url : '/rdv/' + $(this).val(),
+                     data: formData,
+                     dataType: 'json',
+                      success: function (data) {
+                        alert(data);
+                      },
+                      error : function(data){
 
-                              }
-                      });
-                }
-               $('#btnDelete').on('click keyup', function(e) {
-                      e.preventDefault();
-                       $.ajaxSetup({
-                              headers: {
-                                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                               }
-                     });
-                     $.ajax({
-                              type: "DELETE",
-                              url: '/rdv/' + $(this).val(),
-                              success: function (data) {
-                                    $(".calendar1").fullCalendar('removeEvents', data.id);  
-                              },
-                              error: function (data) {
-                                     console.log('Error:', data);
-                                }
-                      });
-               })
+                      }
+                  });
+                });
+              $('#btnDelete').on('click keyup', function(e) {
+                  e.preventDefault();
+                   $.ajaxSetup({
+                          headers: {
+                             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                           }
+                 });
+                 $.ajax({
+                          type: "DELETE",
+                          url: '/rdv/' + $(this).val(),
+                          success: function (data) {
+                                $(".calendar1").fullCalendar('removeEvents', data.id);  
+                          },
+                          error: function (data) {
+                                 console.log('Error:', data);
+                            }
+                  });
+             })
 })
   </script>
 @endsection
