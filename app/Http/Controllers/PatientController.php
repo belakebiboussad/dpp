@@ -273,7 +273,7 @@ class PatientController extends Controller
           $specialites = Specialite::all();
           $grades = grade::all(); 
           $employe=Auth::user()->employ;
-          $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient ->rdvsSpecialite( $employe->specialite)->get();
+          $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
           return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades'));
         }

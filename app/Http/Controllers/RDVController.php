@@ -155,14 +155,15 @@ class RDVController extends Controller
         { //$medecins = ($Rdv->specialite)->employes;// $medecins = ($Rdv->employe->Specialite)->employes;
           $specialites =Specialite::where('type','<>',null)->get();//if(isset($Rdv->employ_id)) // return Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]);
           if(isset($Rdv->specialite_id))
-                  return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
+            return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
           else //return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
-                  return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+            return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
         }else{
-          $specialite = Auth::user()->employ->specialite;
-          $rdvs = rdv::with('patient','employe')->whereHas('specialite',function($q) use ($specialite){//employe.Specialite
-                                                                $q->where('id',$specialite);
-                                  })->where('etat',null)->orwhere('etat',1)->get(); 
+          $specialite =$Rdv->specialite_id;
+          $rdvs = rdv::with('patient','employe')
+                      ->whereHas('specialite',function($q) use ($specialite){
+                        $q->where('id',$specialite);
+                      })->where('etat',null)->orwhere('etat',1)->get(); 
           return view('rdv.edit',compact('Rdv','rdvs'));
         } 
       }
@@ -188,7 +189,8 @@ class RDVController extends Controller
         ]);
         return Response::json($rdv); 
         if($request->ajax())
-          return $rdv;
+          // return $rdv;
+          return Response::json($rdv); 
         else
           return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
       }

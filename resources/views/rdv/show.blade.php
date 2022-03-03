@@ -88,7 +88,7 @@
         									<span class="label label-sm label-success"><b>Valider</b></span>
         									@break
         								@default
-        									<span class="label label-sm label-success"><b>{{ $rdv->Etat_RDV }}</b></span>
+        									<span class="label label-sm label-success"><b>{{ $rdv->etat }}</b></span>
         									@break
 											@endswitch
 										@else

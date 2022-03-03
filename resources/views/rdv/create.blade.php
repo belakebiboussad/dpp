@@ -179,6 +179,7 @@ $(document).ready(function() {
                 else
                   createRDVModal(start,end,0,result.value);//createRDVModal(start,end);  
               }
+              resetPatin();
             }else
               $('.calendar').fullCalendar('unselect');
         },

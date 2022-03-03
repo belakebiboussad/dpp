@@ -34,105 +34,102 @@ function reset_in()
   $("#fixe").prop("checked", false);
 }
 $(function(){
-  /*$('#updateRdv').submit(function(e){
-    if($("#fixe").prop('disabled') == true)
-       $("#fixe" ).attr("disabled", false);
-   $('#updateRdv').submit();
-  });*/
-  var today = (new Date()).setHours(0, 0, 0, 0);
-    $('.calendar1').fullCalendar({
-              header: {
-                      left: 'prev,next today',
-                      center: 'title',
-                      right: 'month,agendaWeek,agendaDay'
-              },
-              timeZone: 'local',
-              defaultView: 'agendaWeek',  //weekends: false,
-              height:650,
-              firstDay: 0,
-              slotDuration: '00:15:00',
-              minTime:'08:00:00',
-              maxTime: '17:00:00',
-              navLinks: true, // can click day/week names to navigate views
-              selectable: true,
-              selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
-              editable: true,
-              eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-              hiddenDays: [ 5, 6 ],
-              allDaySlot: false,
-              weekNumberCalculation: 'ISO',
-              aspectRatio: 1.5,
-              disableDragging: false,
-              eventDurationEditable : false,
-              displayEventTime : false,
-               views: {},
-                events: [
-                          @foreach($rdvs as $rdv)
-                          {
-                                title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                                start : '{{ $rdv->date }}',
-                                end:   '{{ $rdv->fin }}',
-                                id :'{{ $rdv->id }}',
-                                idPatient:'{{$rdv->patient->id}}',
-                                tel:'{{$rdv->patient->tele_mobile1}}',
-                                age:{{ $rdv->patient->getAge() }},
-                                specialite: {{ $rdv->specialite_id }},
-                                medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
-                                fixe:  {{ $rdv->fixe }},
-                                etat : '{{ $rdv->etat }}',
-                          },
-                       @endforeach 
-                    ],
-                      select: function(start, end) {
-                                $('.calendar1').fullCalendar('unselect');
-                      },
-                      eventClick: function(calEvent, jsEvent, view) {
-                        if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
-                        {
-                          reset_in();
-                          if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
-                                 $('#printRdv').removeClass('hidden'); 
-                          if($('#fixe').length &&(calEvent.fixe))
-                                 $("#fixe"). prop("checked", true);
-                          $('#idRDV').val(calEvent.id);
-                          ajaxEditEvent(calEvent,false);
-                        }
-                      },
-                       eventRender: function (event, element, webData) {
-                              if((event.start < today) || (event.etat == 1))
-                                element.css('background-color', '#D3D3D3'); 
-                              else 
-                              {
-                                if(event.fixe)
-                                       element.css('background-color', '#87CEFA'); 
-                                else
-                                        element.css('background-color', '#378006');   
-                                element.css("padding", "5px");
-                              }  
-                              element.popover({
-                                    delay: { "show": 500, "hide": 100 },
-                                    content: event.tel,
-                                    trigger: 'hover',
-                                    animation:true,
-                                    placement: 'bottom',
-                                    container: 'body',
-                                    template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-                              });                   
-                      },
-                      eventAllow: function(dropLocation, draggedEvent) {
-                           if (draggedEvent.start < today)  
-                                 return false;
-                      },
-                      eventDrop: function(event, delta, revertFunc)
-                      {  
-                        jQuery('#btnclose').click(function(){
-                             revertFunc();
-                        });
-                        if($('#fixe').length &&(event.fixe))
-                          $("#fixe"). prop("checked", true);
-                        ajaxEditEvent(event,true);          
-                      },      
-              }); // calendar
+/*$('#updateRdv').submit(function(e){if($("#fixe").prop('disabled') == true)
+$("#fixe" ).attr("disabled", false); $('#updateRdv').submit();  });*/
+var today = (new Date()).setHours(0, 0, 0, 0);
+$('.calendar1').fullCalendar({
+    header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+    },
+    timeZone: 'local',
+    defaultView: 'agendaWeek',  //weekends: false,
+    height:650,
+    firstDay: 0,
+    slotDuration: '00:15:00',
+    minTime:'08:00:00',
+    maxTime: '17:00:00',
+    navLinks: true, // can click day/week names to navigate views
+    selectable: true,
+    selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+    hiddenDays: [ 5, 6 ],
+    allDaySlot: false,
+    weekNumberCalculation: 'ISO',
+    aspectRatio: 1.5,
+    disableDragging: false,
+    eventDurationEditable : false,
+    displayEventTime : false,
+    views: {},
+    events: [
+            @foreach($rdvs as $rdv)
+            {
+                  title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                  start : '{{ $rdv->date }}',
+                  end:   '{{ $rdv->fin }}',
+                  id :'{{ $rdv->id }}',
+                  idPatient:'{{$rdv->patient->id}}',
+                  tel:'{{$rdv->patient->tele_mobile1}}',
+                  age:{{ $rdv->patient->getAge() }},
+                  specialite: {{ $rdv->specialite_id }},
+                  medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
+                  fixe:  {{ $rdv->fixe }},
+                  etat : '{{ $rdv->etat }}',
+            },
+         @endforeach 
+      ],
+      select: function(start, end) {
+                $('.calendar1').fullCalendar('unselect');
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+        {
+          reset_in();
+          if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
+            $('#printRdv').removeClass('hidden'); 
+          if($('#fixe').length &&(calEvent.fixe))
+            $("#fixe"). prop("checked", true);
+          $('#idRDV').val(calEvent.id);
+          ajaxEditEvent(calEvent,false);
+        }
+      },
+       eventRender: function (event, element, webData) {
+              if((event.start < today) || (event.etat == 1))
+                element.css('background-color', '#D3D3D3'); 
+              else 
+              {
+                if(event.fixe)
+                       element.css('background-color', '#87CEFA'); 
+                else
+                        element.css('background-color', '#378006');   
+                element.css("padding", "5px");
+              }  
+              element.popover({
+                    delay: { "show": 500, "hide": 100 },
+                    content: event.tel,
+                    trigger: 'hover',
+                    animation:true,
+                    placement: 'bottom',
+                    container: 'body',
+                    template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+              });                   
+      },
+      eventAllow: function(dropLocation, draggedEvent) {
+           if (draggedEvent.start < today)  
+                 return false;
+      },
+      eventDrop: function(event, delta, revertFunc)
+      {  
+        jQuery('#btnclose').click(function(){
+             revertFunc();
+        });
+        if($('#fixe').length &&(event.fixe))
+          $("#fixe"). prop("checked", true);
+        ajaxEditEvent(event,true);          
+      },      
+    }); // calendar
                $('#patient').editableSelect({
                   effects: 'default', 
                   editable: false, 
@@ -172,7 +169,7 @@ $(function(){
                      data: formData,
                      dataType: 'json',
                       success: function (data) {
-                        alert(data);
+                        $('#fullCalModal').modal('hide');
                       },
                       error : function(data){
 
@@ -181,26 +178,30 @@ $(function(){
                 });
               $('#btnDelete').on('click keyup', function(e) {
                   e.preventDefault();
-                   $.ajaxSetup({
-                          headers: {
-                             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                           }
-                 });
-                 $.ajax({
-                          type: "DELETE",
-                          url: '/rdv/' + $(this).val(),
-                          success: function (data) {
-                                $(".calendar1").fullCalendar('removeEvents', data.id);  
-                          },
-                          error: function (data) {
-                                 console.log('Error:', data);
-                            }
-                  });
+                  var eventDelete = confirm("êtes-vous sûr ?");
+                  if(eventDelete)
+                  {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                      type: "DELETE",
+                      url: '/rdv/' + $(this).val(),
+                      success: function (data) {
+                        $(".calendar1").fullCalendar('removeEvents', data.id);  
+                      },
+                      error: function (data) {
+                             console.log('Error:', data);
+                      }
+                    });
+                  }
              })
 })
-  </script>
+</script>
 @endsection
-@section('main-content'){{--  --}}
+@section('main-content')
 <div class="row"><h4 style="display: inline;"><strong>Liste des rendez-vous:</strong></h4></div>
 <div class="space-12"></div>
 <div class="row"  style="margin-left:-2%;">
