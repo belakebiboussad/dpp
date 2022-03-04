@@ -300,18 +300,17 @@ $('document').ready(function(){
 							<tr>
 								<td>{{ $consultation->date }}</td>
 								<td>
-									{{-- $consultation->lettreOrintation->Specialite->nom --}}
-									{{ $consultation->lettreOrintation->id }}
+									{{ $consultation->lettreOrintation->Specialite->nom }}
 								</td>
 								<td class="center">
-									<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
+								<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
 										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
-									</a><!-- <a href="" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a> -->
-				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}',		'{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
+								</a>
+				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}','{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
 								</td>
 							</tr>
 							<tr class="collapse out budgets collapsed">
-			      	  <td colspan="12">
+			      	                       <td colspan="12">
 				    			<div class="table-detail">
 				     				<div class="row">
 				     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
@@ -334,4 +333,5 @@ $('document').ready(function(){
 	</div>
 </div>
 @endif
-<div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>
+{{-- <div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div> --}}
+<div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>

@@ -14,7 +14,7 @@
         </tr>
         <tr>
              <td class ="noborders"><strong><strong>Âge :</strong></strong></td>
-             <td align="left"><span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }}">{{ $patient->getAge() }}</span>Ans</td>
+             <td align="left"><span class="badge badge-{{ $patient->age< 18 ? 'danger':'success' }}">{{ $patient->age }}</span>Ans</td>
              <td class ="noborders"><strong>Né(e) a:</strong></td>
              <td align="left">
                 @if(isset($patient->Lieu_Naissance))

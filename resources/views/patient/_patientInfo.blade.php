@@ -18,7 +18,7 @@
 			<label class="inline">
 				<span class="lbl">Âge:</span>
 				<span>
-				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">{{ $patient->getAge() }}</span>
+				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline"> 	
 				<span class="lbl"><i class="fa fa-phone"></i>&nbsp;Mobile :</span>

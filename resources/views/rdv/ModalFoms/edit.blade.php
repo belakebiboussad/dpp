@@ -20,12 +20,14 @@
       </div><div class="space-12"></div>
       @if(Auth::user()->role->id == 2)
       <div class="row">
-        <div class="form-group">
-          <label for="specialite"><strong>Spécialité:</strong></label>
-          <div class="input-group col-sm-12">
-            <select  class="form-control" id="specialite"></select>
-          </div> 
-        </div>
+              <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="specialite"><strong>Spécialité:</strong></label>
+                       <div class="input-group col-sm-12">
+                              <select  class="form-control" id="specialite"></select>
+                      </div> 
+                     </div>
+               </div>
       </div><div class="space-12"></div>
       @endif
       <div class="row">
@@ -54,16 +56,16 @@
      <!--  </div>   -->
     </div> {{-- modal-body --}} 
     <div class="modal-footer">
-       @if(Auth::user()->role->id == 1)
-        <a  id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+       @if(in_array(Auth::user()->role_id,[1,13,14]))
+              <a  id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
         <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
         </button>      
         <button  type="button" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</button>
                           <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
        <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-        </button>
+           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
+        
     </div>
   </form>  
   </div>{{-- modal-content --}}

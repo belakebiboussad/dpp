@@ -24,7 +24,7 @@
 <div class="row ml-4">
 	<div class="col-sm-11">
 		<div class="sec-gauche">
-			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</strong>{{ $patient->getAge() }} ans</h4>
+			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</strong>{{ $patient->age }}ans</h4>
 		</div>
 	</div>
 </div>
@@ -38,18 +38,16 @@
 <div class="row ml-4">
 	<div class="col-sm-11">
 	<p class="espace" style="text-align : justify; letter-spacing: 20 em;">
-		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }} âgé(e) de {{ $patient->getAge() }}ans,
+		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }} âgé(e) de {{ $patient->age }} ans,
 	</p> 
 	@if($patient->antecedants != null)
-	<p style="text-align : justify; letter-spacing: 20 em;">aux Antcd de 
-	@foreach($patient->antecedants as $atcd)
-		{{ $atcd->description }},
-	@endforeach
+	       <p style="text-align : justify; letter-spacing: 20 em;">aux Antcd de 
+        	@foreach($patient->antecedants as $atcd)
+        		{{ $atcd->description }},
+        	@endforeach
 	@endif
 	,qui s'est présenté ce jour pour <span id ="motifCons"></span>, et dont l'éxamen général du patient retouve <span id ="motifO"></span>.Je vous le confie pour une méilleure prise en charge.
 	</p>.
 	</div>
-	<div class="col-sm-12">
-		<p class="espace">	<strong>Respectueusement</strong>		</p>
-	</div>
+	<div class="col-sm-12"><p class="espace">	<strong>Respectueusement</strong></p></div>
 </div>

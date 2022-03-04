@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
 	public $timestamps = false;
-	protected $fillable = ['nom','type','exmsbio','exmsImg'];	/*public function type(){return $this->belongsTo('App\modeles\Type_specialite','type');}*/
+	protected $fillable = ['nom','type','consConst','exmsbio','exmsImg'];	/*public function type(){return $this->belongsTo('App\modeles\Type_specialite','type');}*/
 	public function setExmsbioAttribute($value)
   {
     $this->attributes['exmsbio'] = json_encode($value);

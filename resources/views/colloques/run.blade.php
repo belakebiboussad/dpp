@@ -136,7 +136,7 @@
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Age:</strong></div>
-													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
+													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->age }} ans</span></div>
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Groupe sanguin:</strong></div>

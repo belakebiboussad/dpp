@@ -75,7 +75,7 @@
       </div><br><br> 
       <div>Chère Consœur, Cher Confrère;</div><br><br>
         <div>
-          Merci de prendre en charge {{ $obj->patient->getCivilite() }} <span>{{ $obj->patient->full_name }}</span> âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
+          Merci de prendre en charge {{ $obj->patient->getCivilite() }} <span>{{ $obj->patient->full_name }}</span> âgé(e) de {{ $obj->patient->age }}&nbsp;ans.
         </div>
         <div>
           Je vous confie ce (cette) patient(e) qui s'est présenté ce jour a notre service pour Motif "{{ $obj->motif }}",

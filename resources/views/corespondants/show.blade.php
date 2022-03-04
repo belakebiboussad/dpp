@@ -34,7 +34,7 @@
 				</div>
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Age </div>
-					<div class="profile-info-value"><span>{{ $homme_c->getAge() }} ans</span></div>
+					<div class="profile-info-value"><span>{{ $homme_c->age }} ans</span></div>
 				</div>
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Lien de parenté </div>

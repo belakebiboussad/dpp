@@ -20,14 +20,13 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-gauche">
-          <b><u>Patient(e) :</u></b> 
-          <b> {{ $patient->getCivilite() }} </b> 
-          {{ $patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
-          {{ $patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
-        </div>
-      </div>
+              s<div class="section">
+                    <div class="sec-gauche">
+                          <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
+                          {{ $patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
+                          {{ $patient->age }} ans,{{ $demande->consultation->patient->Sexe }}
+                    </div>
+              </div>
     </div>
   </div><br>
   <div class="row">

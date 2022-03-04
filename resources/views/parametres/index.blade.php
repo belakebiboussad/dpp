@@ -3,12 +3,12 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
-	<div class="row">
+  <div class="row">
   <div class="col-sm-12">
     <div class="widget">
       <div class="widget-title">Paramètres</div>
       <div class="widget-body">
-      	<div class="row">
+        <div class="row">
           <div class="col-md-12">
             <ul class="nav nav-tabs" role="tablist">
               <li class="active"><a href="#generale" role="tab" data-toggle="tab"><span>Générale</span></a></li>
@@ -16,39 +16,54 @@
               <li><a href="#hosp" role="tab" data-toggle="tab"><span>Hosppitalisation</span></a></li>
             </ul>
             <form id="SettingsForm" class="form-horizontal" role="form" method="POST" action="{{ route('params.store')}}">
-            {{ csrf_field() }}
+              {{ csrf_field() }}
               <div class="tab-content">
-                <div class="tab-pane active" id="generale">
-                	<h3 class="section-heading">Générale</h3>
-                	<div class="row"><div class="col-sm-12"><h4><u> Examens biologique</u></h4></div></div>
-                      <div class="row"> @include('examenbio.bioExamList')</div>
-                       <hr>
-                      <div class="row"><div class="col-sm-12"><h4><u>Examens Radiologique</u></h4></div></div>
-                       <div class="row">
-                              @foreach($examensImg as $exImg)
-      	                     <div class="col-xs-2">
-        			       @if(isset($specExamsImg))
-                                            <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
-                                     @else
-                                              <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"/>
-                                    @endif   
-                                      <span class="lbl">{{ $exImg->nom }} </span>
-                              </div>
+                <div class="tab-pane active" id="generale">@include('parametres.generale')</div>
+                <div class="tab-pane" id="cons">
+                  <h3 class="section-heading">Consultation</h3>  
+                  <div class="row"><div class="col-sm-12"><h4><u>Types antecédants</u></h4></div></div>
+                  <div class="row">
+                  @foreach($antecTypes as $antecType)
+                    <div class="col-xs-2">
+                    @if(isset($specAntecTypes))
+                      <input name="antecTypes[]" type="checkbox" class="ace" value="{{ $antecType->id}}" {{ (in_array($antecType->id, $specAntecTypes))? 'checked' : '' }}/>
+                    @else
+                      <input name="antecTypes[]" type="checkbox" class="ace" value="{{ $antecType->id}}"/>
+                    @endif   
+                    <span class="lbl">{{ $antecType->nom_complet }}</span>
+                    </div>
                   @endforeach
-                  </div>
-                  <hr>
-                    <div class="row"><div class="col-sm-12"><h4><u>Dérogations</u></h4></div></div>
-                       <div class="form-group">
-                                     <label class="col-sm-3 control-label" for="nom"><strong>Nombre de Dérogation par mois :</strong></label>
-                                    <div class="col-sm-9">
-                                             <input class="col-xs-12 col-sm-12"  name="derogationNbr" type="number" min="0" max="100"  />
-                                      </div>
-                              </div>
-                  </div>
-                  <div class="tab-pane" id="cons">
-                        <h3 class="section-heading">Consultation</h3>  
-                  </div>
-                <div class="tab-pane" id="hosp"><h3 class="section-heading">Hospitalisation</h3></div>
+                  </div><div class="space-12"></div>
+                  <div class="row"><div class="col-sm-12"><h4><u>Constantes médicaux</u></h4></div></div>
+                    <div class="row">
+                    @foreach($consts as $const)
+                    <div class="col-xs-2">
+                    @if(isset($conscConsts))
+                      <input name="consConsts[]" type="checkbox" class="ace" value="{{ $const->id}}" {{ (in_array($const->id, $conscConsts))? 'checked' : '' }}/>
+                    @else
+                      <input name="consConsts[]" type="checkbox" class="ace" value="{{ $const->id}}"/>
+                    @endif
+                      <span class="lbl">{{ $const->nom }}</span>
+                    </div>
+                    @endforeach
+                    </div>
+                    <div class="row"><div class="col-sm-12"><h4><u>Appareils</u></h4></div></div>
+                    <div class="row">
+                       @foreach($appareils as $appar)
+                      <div class="col-xs-2">
+                        @if(isset($specappreils))
+                         <input name="appareils[]" type="checkbox" class="ace" value="{{ $appar->id}}" {{ (in_array($appar->id, $specappreils))? 'checked' : '' }}/>
+                        @else
+                        <input name="appareils[]" type="checkbox" class="ace" value="{{ $appar->id}}"/>
+                        @endif
+                        <span class="lbl">{{ $appar->nom }}</span>
+                      </div>
+                      @endforeach
+                   </div>
+                </div>
+                <div class="tab-pane" id="hosp"><h3 class="section-heading">Hospitalisation</h3>
+                    @include('hospitalisations.config')
+                </div>
              </div>
              <div class="space-12"></div>
              <div class="row">
@@ -56,12 +71,12 @@
                   <div class="center" style="bottom:0px;">
                     <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
                     <a href="" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
-        					</div>
-      					</div>
-    					</div>
+                  </div>
+                </div>
+              </div>
             </form>                                            
-      		</div>
-				</div>
-			</div>
-	</div>
+          </div>
+        </div>
+      </div>
+  </div>
 @endsection

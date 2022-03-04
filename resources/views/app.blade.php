@@ -241,7 +241,7 @@
               }); 
               var url = "{{ route('rdv.store') }}"; 
               $.ajax({
-                  type : 'POST',//url : '/createRDV',
+                  type : 'POST',
                   url :url,
                   data:formData,//dataType: 'json',
                   success:function(data){         

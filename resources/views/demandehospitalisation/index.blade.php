@@ -24,7 +24,7 @@
 						<tr>
 							<td>{{ $demande->consultation->patient->full_name }}</td>
 							<td>
-								<span class="badge badge-{{ $demande->consultation->patient->getAge() < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->getAge() }}</span>
+								<span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
 							</td>
 							<td>{{ $demande->consultation->date }}</td>
 							<td>

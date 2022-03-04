@@ -474,19 +474,19 @@
 				allDaySlot: false,
        	eventDurationEditable : false,//weekNumbers: true,views: {},
 		  	events: [
-				   @foreach($employe->rdvs as $rdv)
-				   {	
-						  title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-							start : '{{ $rdv->date }}',
-							end:   '{{ $rdv->fin }}',
-							id :'{{ $rdv->id }}',
-							idPatient:{{$rdv->patient->id}},
-							tel:'{{$rdv->patient->tele_mobile1}}',
-							age:{{ $rdv->patient->getAge() }},
-							specialite:{{ $rdv->specialite_id }}, 
-							fixe:  {{ $rdv->fixe }},
-					},
-				  @endforeach 
+				 @foreach($employe->rdvs as $rdv)
+				 {	
+					title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+					start : '{{ $rdv->date }}',
+					end:   '{{ $rdv->fin }}',
+					id :'{{ $rdv->id }}',
+					idPatient:{{$rdv->patient->id}},
+					tel:'{{$rdv->patient->tele_mobile1}}',
+					age:{{ $rdv->patient->age }},
+					specialite:{{ $rdv->specialite_id }}, 
+					fixe:  {{ $rdv->fixe }},
+				},
+				@endforeach 
 			],
 		  eventRender: function (event, element, webData) {
 			  if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");

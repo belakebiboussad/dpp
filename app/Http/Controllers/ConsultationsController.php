@@ -56,9 +56,11 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-      $consultation = consultation::FindOrFail($request->id);
+      $consultation = consultation::with('patient','docteur')->FindOrFail($request->id);
       $etablissement = Etablissement::first();
-      $view =  view("consultations.inc_consult",compact('consultation','etablissement'))->render();
+      $patient =   $consultation->patient;
+      $employe =   $consultation->docteur;
+      $view =  view("consultations.inc_consult",compact('consultation','patient','etablissement','employe'))->render();
       return response()->json(['html'=>$view]);
     }
     public function listecons($id)

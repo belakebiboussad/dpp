@@ -71,20 +71,30 @@
           </ul>
         </li>
         <li>
-          <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
-          </a><b class="arrow"></b>
-          <ul class="submenu">
-            <li>
-              <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
-            </li>
-            <li>
-              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a><b class="arrow"></b>
-            </li>
-            <li>
-              <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
-            </li>
-          </ul>
+                <a href="#" class="dropdown-toggle">
+                  <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
+                </a><b class="arrow"></b>
+                <ul class="submenu">
+                  <li>
+                    <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
+                  </li>
+                  <li>
+                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a><b class="arrow"></b>
+                  </li>
+                  <li>
+                    <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
+                  </li>
+                </ul>
+          </li>
+        <li>
+                <a href="#" class="dropdown-toggle">
+                     <i class="menu-icon fa fa-table"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+                </a><b class="arrow"></b>
+                <ul class="submenu">
+                     <li>
+                            <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a> <b class="arrow"></b>
+                     </li>
+                </ul>
         </li>
         @if(Auth::user()->role_id == "10")
         <li class="">
@@ -299,23 +309,23 @@
         champ.appendTo(form);
     }
       function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-        $('#OrientLetterPdf').removeAttr('hidden');
-        $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-        $("#motifCons").text($( "#motifC" ).val());
-        $("#motifO").text($( "#motifOrient" ).val());
-        var element = document.getElementById('OrientLetterPdf');
-        var options = {
-               filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-        };
-        var exporter = new html2pdf(element, options);
-        $("#OrientLetterPdf").attr("hidden",true);
-         exporter.getPdf(true).then((pdf) => {
-                console.log('pdf file downloaded');
-        });
-         exporter.getPdf(false).then((pdf) => {
-                console.log('doing something before downloading pdf file');
-               pdf.save();
-        });
+            $('#OrientLetterPdf').removeAttr('hidden');
+            $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+            $("#motifCons").text($( "#motifC" ).val());
+            $("#motifO").text($( "#motifOrient" ).val());
+            var element = document.getElementById('OrientLetterPdf');
+            var options = {
+                   filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+            };
+            var exporter = new html2pdf(element, options);
+            $("#OrientLetterPdf").attr("hidden",true);
+             exporter.getPdf(true).then((pdf) => {
+                    console.log('pdf file downloaded');
+            });
+             exporter.getPdf(false).then((pdf) => {
+                    console.log('doing something before downloading pdf file');
+                   pdf.save();
+            });
       }
       function IMC1(){
         var poids = $("#poids").val();

@@ -7,16 +7,21 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\modeles\Specialite;
 use App\modeles\specialite_exb;
+use App\modeles\antecType;
 use App\modeles\TypeExam;
+use App\modeles\Vaccin;
 class paramController extends Controller
 {
 	public function index()
 	{
-  	$specialites = specialite_exb::all();
-  	$examensImg = TypeExam::all();
-    $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
-    $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
-  	return view('parametres.index',compact('specialites','specExamsBio','specExamsImg','examensImg'));
+        	$specialites = specialite_exb::all();
+        	$examensImg = TypeExam::all();
+               $vaccins = Vaccin::all();
+               $antecTypes = antecType::orderBy('id')->get();
+               dd($antecTypes);
+               $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
+                $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
+        	return view('parametres.index',compact('specialites','specExamsBio','specExamsImg','examensImg','antecTypes','vaccins'));
   }
   public function store(Request $request)
   {

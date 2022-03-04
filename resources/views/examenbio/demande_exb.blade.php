@@ -34,9 +34,7 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  
-          {{ $patient->full_name }},&nbsp;
-          {{ $patient->getAge() }} ans,{{ $patient->Sexe }}
+                <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  {{ $patient->full_name }},&nbsp; {{ $patient->age }} ans,{{ $patient->Sexe }}  
         </div>
       </div>
     </div>

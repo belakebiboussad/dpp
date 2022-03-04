@@ -11,19 +11,13 @@ class patient extends Model
   {
     return $this->Nom." ".$this->Prenom ;
   }
-  public function getAgeAttribute(){ //getAgeAttribute
+  public function getAgeAttribute(){ 
     if(isset($this->Dat_Naissance))
       return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
     else
     return "99";
   }
-  public function getAge(){	//getAgeAttribute
- 		if(isset($this->Dat_Naissance))
-    	return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
-  	else
- 		return "99";
-	}
-	public function lieuNaissance()
+  	public function lieuNaissance()
 	{
 		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
 	}
@@ -72,7 +66,7 @@ class patient extends Model
  	{
 		if(isset($this->Dat_Naissance))
  		{
- 			if($this->getAge() >16)
+ 			if($this->age >16)
  			{
 	 			if($this->Sexe == "F")
  					if($this->situation_familiale== "celibataire")

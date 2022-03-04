@@ -60,7 +60,7 @@
 					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
 				</div>
 				<div class="profile-info-row"><div class="profile-info-name"> Âge </div>
-					<div class="numberCircle">{{ $patient->getAge() }}</div> <span class="blue">Ans</span>
+					<div class="numberCircle">{{ $patient->age }}</div> <span class="blue">Ans</span>
 				</div>
 				@endif
 				@if(isset($patient->Lieu_Naissance))

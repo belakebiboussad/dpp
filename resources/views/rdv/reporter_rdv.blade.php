@@ -21,7 +21,7 @@
 								<label><b>Lieu naissance : </b><span class="blue">{{ $patient->Lieu_Naissance }}</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
 								<label><b>Genre : </b><span class="blue">{{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 								</label>&nbsp;&nbsp;&nbsp;&nbsp;
-									<label><b>Age : </b><span class="blue">{{ $patient->getAge() }} ans</span></label>
+									<label><b>Age : </b><span class="blue">{{ $patient->age }} ans</span></label>
 								</fieldset>
 							</div>
 						</div>	

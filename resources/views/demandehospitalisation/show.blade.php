@@ -42,7 +42,7 @@
 										<li class="divider"></li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>
-											<strong>Age :</strong><b class="green">{{ $demande->consultation->patient->getAge() }} ans</b>
+											<strong>Age :</strong><b class="green">{{ $demande->consultation->patient->age }} ans</b>
 										</li>
 									</ul>
 								</div>

@@ -45,7 +45,7 @@
 					<b>{{ $ordonnance->consultation->patient->getCivilite() }} </b> 
 					{{ $ordonnance->consultation->patient->full_name }}	,
 					&nbsp;
-					{{ $ordonnance->consultation->patient->getAge() }} ans,{{ $ordonnance->consultation->patient->Sexe }}
+					{{ $ordonnance->consultation->patient->age }} ans,{{ $ordonnance->consultation->patient->Sexe }}
 				</div>
 			</div>
 		</div>

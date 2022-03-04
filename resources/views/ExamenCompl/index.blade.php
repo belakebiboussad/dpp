@@ -39,7 +39,7 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}','{{ $patient->getAge() }}','{{$patient->IPP}}','{{ $employe->nom }}','{{ $employe->prenom }}')">
+			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}','{{ $patient->age }}','{{$patient->IPP}}','{{ $employe->nom }}','{{ $employe->prenom }}')">
 					<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
 				</button>
 			</div>

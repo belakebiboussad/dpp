@@ -71,7 +71,7 @@
                 <h5 class="rect"><strong>&nbsp;&nbsp;N° Dossier :<span> &nbsp;{{ $obj->patient->IPP}}</span></strong></h5>
                 <strong>Nom et Prénoms : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->full_name }}</span><br>
                 <strong>Date de naissance(âge) :<strong>&nbsp;
-                <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}&nbsp;({{ $obj->patient->getAge() }} ans)</span>
+                <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}&nbsp;({{ $obj->patient->age }} ans)</span>
                 <strong class=""> Sexe :</strong>&nbsp;&nbsp;&nbsp;<span>{{ $obj->patient->Sexe }}</span><br>
                 <strong>Lieu de Naissance  :<strong>&nbsp;
                   @if(isset($obj->patient->Lieu_Naissance))

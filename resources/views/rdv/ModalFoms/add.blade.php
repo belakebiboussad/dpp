@@ -6,8 +6,7 @@
     		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
   	</div>
   	<form  id ="addRdv" role="form" class="form-horizontal"> 
-	      <div class="modal-body">
-			   {{ csrf_field() }}
+	      <div class="modal-body"> {{-- csrf_field() --}}
        		<input type="hidden" id="date"><input type="hidden" id="fin">
           <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
            	@if(Auth::user()->role_id == 2)

@@ -17,30 +17,26 @@
 @section('page-script')<!-- 
 <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
 <script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+@include('rdv.scripts.print'){{-- print rdv --}}
 <script>
 var rdvs = @json($rdvs);
-var loaded;/*function resetaddModIn(){}*/
-function resetPrintModIn()
-{
-  $('#doctor').val('');
-  $('#printRdv').addClass('hidden')
-}
+var loaded;
 function resetPatin()
 {
-  $('#patient').editableSelect('clear');
-  $('.es-list').val(''); 
-  $('#patient').val('');
+        $('#patient').editableSelect('clear');
+        $('.es-list').val(''); 
+        $('#patient').val('');
 }
 function reset_in()
 { //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');$('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
-  $("#filtre").val('');
-  if('{{ Auth::user()->role_id == 2 }}')
-  {
-    $('#specialite').val('');
-    $("#filtre").attr("disabled", true);
-  }
-  resetPatin();
-  $("#btnSave").attr("disabled", true);
+        $("#filtre").val('');
+        if('{{ Auth::user()->role_id == 2 }}')
+        {
+              $('#specialite').val('');
+              $("#filtre").attr("disabled", true);
+        }
+        resetPatin();
+        $("#btnSave").attr("disabled", true);
 }
 function getPatient()
 {
@@ -59,14 +55,10 @@ function getPatient()
           $(".es-list").html("");//remove list
           $(".es-list").addClass("make-scrolling");
           $("#patient").empty();
-         $.each(data['data'], function(key, pat) {
-            //$(".es-list").append($('<li></li>').attr('value', pat['id']).attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['Nom']+"-"+pat['Prenom']));
-            $(".es-list").append($('<li></li>')
-                         .attr('value', pat['id'])
-                         .attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['full_name']));
-            
+         $.each(data['data'], function(key, pat) { //$(".es-list").append($('<li></li>').attr('value', pat['id']).attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['Nom']+"-"+pat['Prenom']));
+            $(".es-list").append($('<li></li>') .attr('value', pat['id'])
+                         .attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['full_name']));           
         });
-         
       },
       error: function() {
          alert("can't connect to db");
@@ -91,14 +83,18 @@ $(function () {
   }
 });
 $(function () {
-  $( "#filtre" ).change(function() {
-    resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
-    $("#btnSave").attr("disabled", true);
-    if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
-      $("#patient").prop('disabled',false);
-  });
+        $( "#filtre" ).change(function() {
+              resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+              $("#btnSave").attr("disabled", true);
+              if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
+                $("#patient").prop('disabled',false);
+      });
+       $("#showfullCalModal").on('hide.bs.modal', function(){
+               $('#printRdv').attr("data-id",'');
+               $('#printRdv').addClass('hidden');
+      });
 });
-$(document).ready(function() {
+$(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     var today = (new Date()).setHours(0, 0, 0, 0); 
     $('.calendar').fullCalendar({
@@ -119,7 +115,7 @@ $(document).ready(function() {
         eventColor: '#87CEFA',
         editable: true,
         eventLimit: true,     
-        hiddenDays: [ 5, 6 ],
+       // hiddenDays: [ 5, 6 ],
         allDaySlot: false,
         weekNumberCalculation: 'ISO',
         aspectRatio: 1.5,        // disableDragging: true,
@@ -132,13 +128,13 @@ $(document).ready(function() {
         events :[
             @foreach($rdvs as $key =>   $rdv)
             {
-                title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
                 start : '{{ $rdv->date }}',
                 end:   '{{ $rdv->fin }}',
                 id :'{{ $rdv->id }}',
                 idPatient:'{{ $rdv->patient->id}}',
                 tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->getAge() }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                 specialite: {{ $rdv->specialite_id }},
                 civ : {{ $rdv->patient->getCiviliteCode() }},
                 key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
@@ -188,35 +184,34 @@ $(document).ready(function() {
               {
                   $("#lien").attr("href", '/patient/'+calEvent.idPatient);
                   $('#lien').text(calEvent.title); 
-                  $('#patient_tel').val(calEvent.tel);
-                  $('#agePatient').val(calEvent.age); 
-                  $('#idRDV').val(calEvent.id);
-//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                  $('#patient_tel').html(calEvent.tel);
+                  $('#agePatient').html(calEvent.age); 
+                  $('#idRDV').val(calEvent.id);//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].full_name);
                   $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                   $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-                  $("#specialite").val(calEvent.specialite);
                   $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
                   (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                   $('#civiliteCode').val(calEvent.civ);
                   $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); //if(calEvent.fixe &&(!(isEmpty(calEvent.key)))  )
-                  if( calEvent.fixe && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )
-                  {
-                    if($('#printRdv').hasClass( "hidden" ))
-                      $('#printRdv').removeClass('hidden');
-                    if(!$('#printTck').hasClass( "hidden" ))
-                      $('#printTck').addClass('hidden');
-                  }
+                  // if(  (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )// {
+                        if($('#printRdv').hasClass( "hidden" ))
+                     {
+                              $('#printRdv').attr("data-id",calEvent.id);
+                              $('#printRdv').removeClass('hidden');
+                     }         
+                      if(!$('#printTck').hasClass( "hidden" ))
+                               $('#printTck').addClass('hidden');
                   if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
                   {
-                    if(loaded)
-                    {
-                      if($('#printTck').hasClass( "hidden" ))
-                        $('#printTck').removeClass('hidden');
-                    }
-                    if($('#printRdv').hasClass( "hidden" ))
-                      $('#printRdv').hasClass('hidden');
+                       if(loaded)
+                       {
+                              if($('#printTck').hasClass( "hidden" ))
+                                     $('#printTck').removeClass('hidden');
+                       }
+                      if(!$('#printRdv').hasClass( "hidden" ))
+                           $('#printRdv').addClass('hidden');
                   }  
-                  $('#fullCalModal').modal({ show: 'true' });
+                  $('#showfullCalModal').modal({ show: 'true' });
                 }
             },
               eventRender: function (event, element, webData) {
@@ -243,45 +238,44 @@ $(document).ready(function() {
             eventMouseover: function(event, jsEvent, view) {
             }
     });//calendar //fincalendar 
-    $('#btnSave').on('click keyup', function(e) {
-      url ="{{ route('rdv.store') }}";
-      var formData = {
-          date:$('#date').val(),
-          fin:$('#fin').val(),
-          id_patient:$('#pat_id').val(),
-          fixe :$('#fixe').val()
-      }
-      if('{{ Auth::user()->role_id }}' == 2)
-      {
-        formData.specialite = $('#specialite').val();
-      }
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type:"POST",
-        url:url,
-        data:formData,//dataType: 'json',
-        success:function(data){         
-             //var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';
-             var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
-             var event = new Object();
-              event = {
-                  title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                  start: formData.date,
-                  end: formData.fin,
-                  id : data['rdv']['id'],
-                  idPatient:data['patient']['id'],
-                  fixe: data['rdv']['fixe'],
-                  tel:data['patient']['tele_mobile1'] ,
-                  age:data['age'],         
-                  allDay: false,
-                  color:color, //'#87CEFA'
-          };
-          $('.calendar').fullCalendar( 'renderEvent', event );
-        },//success
-
-      })
+        $('#btnSave').on('click keyup', function(e) {
+              url ="{{ route('rdv.store') }}";
+              var formData = {
+                  date:$('#date').val(),
+                  fin:$('#fin').val(),
+                  id_patient:$('#pat_id').val(),
+                  fixe :$('#fixe').val()
+              }
+              if('{{ Auth::user()->role_id }}' == 2)
+              {
+                formData.specialite = $('#specialite').val();
+              }
+              $.ajax({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"POST",
+                url:url,
+                data:formData,//dataType: 'json',
+                success:function(data){         
+                     //var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';
+                     var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
+                     var event = new Object();
+                      event = {
+                          title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                          start: formData.date,
+                          end: formData.fin,
+                          id : data['rdv']['id'],
+                          idPatient:data['patient']['id'],
+                          fixe: data['rdv']['fixe'],
+                          tel:data['patient']['tele_mobile1'] ,
+                          age:data['age'],         
+                          allDay: false,
+                          color:color, //'#87CEFA'
+                  };
+                  $('.calendar').fullCalendar( 'renderEvent', event );
+                },//success
+          })
     });
     $('#patient').editableSelect({
         effects: 'default', 
