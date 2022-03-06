@@ -227,28 +227,28 @@
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }  
-    function printExBio(nomp,prenomp,age,ipp,mnom,mprenom){// JsBarcode("#itf", "12345678901237", {format: "itf"});
-      ol = document.getElementById('listBioExam');
-      ol.innerHTML = '';
-      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-         $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
-      });
-      var pdf = new jsPDF('p', 'pt', 'a4');
-      JsBarcode("#barcode",ipp,{
-        format: "CODE128",
-        width: 2,
-        height: 30,
-        textAlign: "left",
-        text: "IPP: " + ipp 
-      });
-      var canvas = document.getElementById('barcode');
-      var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-      pdf.setFontSize(12);
-      pdf.text(320,730, 'Docteur : ' + mnom + ' ' + mprenom);
-      generate(pdf,'bioExamsPdf');
+       function printExBio(ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
+               ol = document.getElementById('listBioExam');
+               ol.innerHTML = '';
+               $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+                       $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
+               });
+               var pdf = new jsPDF('p', 'pt', 'a4');
+               JsBarcode("#barcode",ipp,{
+                      format: "CODE128",
+                      width: 2,
+                      height: 30,
+                      textAlign: "left",
+                       text: "IPP: " + ipp 
+                });
+                var canvas = document.getElementById('barcode');
+                var jpegUrl = canvas.toDataURL("image/jpeg");
+                pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+               pdf.setFontSize(12);
+               pdf.text(320,730, 'Docteur : ' + med);
+               generate(pdf,'bioExamsPdf');
     }
-    function printExImg(nomp,prenomp,age,ipp,mnom,mprenom)
+    function printExImg(ipp,med)
     {
       $("#infoSupPertinante").text('');
       ol = document.getElementById('listImgExam');
@@ -280,21 +280,21 @@
       var jpegUrl = canvas.toDataURL("image/jpeg");
       pdf.addImage(jpegUrl, 'JPEG', 25, 175);
       pdf.setFontSize(12);
-      pdf.text(320,730, 'Docteur : ' + mnom + ' ' + mprenom);
+      pdf.text(320,730, 'Docteur : ' + med);
       generate(pdf,'imagExamsPdf');
     }
-    function printExamCom(nom, prenom, age, ipp,mednom,medprenom)
+    function printExamCom(ipp, med)
     {
-      var interest = $('ul#compl').find('li.active').data('interest');
-      switch(interest){
-        case 0:
-          printExBio(nom, prenom, age, ipp,mednom,medprenom);
-          break;
-        case 1:
-          printExImg(nom, prenom, age, ipp,mednom,medprenom);
-          break;
-        case 2:
-          break;
+               var interest = $('ul#compl').find('li.active').data('interest');
+               switch(interest){
+                      case 0:
+                              printExBio(ipp,med);
+                              break;
+                      case 1:
+                              printExImg(ipp,med);
+                              break;
+                       default :
+                              break;
       }
     }
     function addExamsImg(form)

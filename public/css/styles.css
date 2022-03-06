@@ -1,17 +1,13 @@
 @import url('/css/bootstrap.min.css');
-.tab-content>.tab-pane {
-    display: none;
-}
-.tab-content>.active {
-  display: block;
-}
+.tab-content>.tab-pane { display: none;}
+.tab-content>.active {  display: block;}
 .removeButton{
-  margin-bottom: 2px;
-  margin-left: 0px;
-  margin-right: 0px;
-  position:relatif;
-  right:0;
-  top:0;
+      margin-bottom: 2px;
+      margin-left: 0px;
+      margin-right: 0px;
+      position:relatif;
+      right:0;
+      top:0;
 }
 .required:after {
   content: '*';
@@ -52,7 +48,7 @@
 .mtp20 {  margin-top: +20px !important; }
 .mtp33 {  margin-top: +33px !important; }
 /*teste*/
-.mtP40 { margin-top:+40%; }
+.mtP40 { margin-top:+40px !important;}
 .mtP45 { margin-top:+45% !important;}
 .mtP50 { margin-top:+50% !important;}
 .mtP90 { margin-top:+90% !important;}
@@ -79,7 +75,6 @@ footer {
   left: 0px; 
   right: 0px;
   height: 35px; 
-  /** Extra personal styles **/  /*color: white;*/
   text-align: center;
   line-height: 35px;
 }
@@ -94,9 +89,9 @@ header {
   line-height: 35px;
 }
 .foo { position: absolute; top: 96%; right: 22%; }
-.foot { position: absolute; top: 97%;}
 .foot { position: absolute; top: 1200px !important;}
 .footer { position: absolute; top: 100%; }
+.footer1 { position:fixed;  bottom:20;}
 .sign { position: absolute; top: 85%; padding-left: 60%; }
 .hr-1{ border: 1px solid }
 .modal-backdrop { z-index:0; }
@@ -171,7 +166,6 @@ ol { list-style: none; counter-reset: li }
   { 
     #nav-bar { font-size: 1em } 
   }
-/*  .list--wrapper {   position: relative;    margin: auto 2em;    max-width: 1140px;  }*/
 .list-title {
   margin: 50px 0 25px;
   padding-bottom: 5px;
@@ -192,8 +186,8 @@ ol { list-style: none; counter-reset: li }
   color: inherit;
 }
 .imgCenter{
-  text-align: center;/*border: 1px solid black;*/
-  width:13%;/*margin-top: -10px !important;*/
+  text-align: center;
+  width:13%;
   height:13%;
 }
 .espace{ margin-left:6em }
@@ -202,3 +196,6 @@ ol { list-style: none; counter-reset: li }
 .textCenter {  text-align: center;}
 .brd-0 { border:0px; }
 .brd-2 { border:3px solid black; }
+.solid {border-style: solid;}
+.rectangle {  width:100%;   height:25px; background:#ccc;}
+span.f-16 { font-size:16px; }

@@ -13,8 +13,4 @@ class examen_cliniqu extends Model
 	{
 	  return $this->belongsTo('App\modeles\consultation','id_consultation');
 	} 
-	public function examsAppareil()
-  {
-  	return $this->hasMany('App\modeles\examAppareil','examen_clinique_id');
-  }
 }

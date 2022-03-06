@@ -14,7 +14,7 @@ class AppareilExamenCliniqueController extends Controller
  	{
  		$a =examAppareil::firstOrCreate([
 		        "appareil_id"=>$appareilID,
-		        "examen_clinique_id"=>$ExamClinID,
+		        "cons_id"=>$ExamClinID,
 		        "description"=>$Desccrip,
 		 ]);
 	} 

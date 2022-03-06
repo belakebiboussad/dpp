@@ -663,7 +663,6 @@
 <div class="row">@include('cim10.cimModalForm')</div>
 <div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
 <div class="row"><div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-{{-- <div class="row"><div id="imagExamsPdf" hidden>@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>--}}
 <div class="row"><div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
 <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>
 @endsection

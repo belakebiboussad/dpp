@@ -21,7 +21,7 @@
 <div class="row">
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
-	 		<div class="tab-pane active" id="biologique">
+	 		<div class="tab-pane active examsBio" id="biologique">
 	 			@isset($specialite->exmsbio)
 	 				@foreach ( json_decode($specialite->exmsbio, true) as $exbio)
 	 	  	  			<div class="checkbox col-xs-4">
@@ -39,7 +39,7 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}','{{ $patient->age }}','{{$patient->IPP}}','{{ $employe->nom }}','{{ $employe->prenom }}')">
+			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{$patient->IPP}}','{{ $employe->full_name }}')">
 					<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
 				</button>
 			</div>

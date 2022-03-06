@@ -12,10 +12,13 @@
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
         <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
-          @if(isset($consultation->examensCliniques->id) )
+        @isset($consultation->examensCliniques->id)
         <li ><a data-toggle="tab" href="#ExamClin">Examen Clinique</a> </li>
-          @endif
-          @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
+        @endisset
+       @isset($consultation->examsAppareil) 
+        <li ><a data-toggle="tab" href="#ExamApar">Examen Appareils</a> </li>
+       @endisset
+        @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
           @endif
      </ul>
@@ -31,7 +34,7 @@
           </ul>
           </div>
           </div>{{-- Intero --}}
-          @if(isset($consultation->examensCliniques->id) )
+          @isset($consultation->examensCliniques->id) 
           <div id="ExamClin" class="tab-pane">
               <div class="row">
                      <ul class="list-unstyled spaced">
@@ -45,7 +48,22 @@
                      </ul>
                 </div>
           </div>{{-- ExamClin --}}
-          @endif
+          @endisset
+             @isset($consultation->examsAppareil) 
+             <div id="ExamApar" class="tab-pane">
+                      <div class="row">
+                              <div class="group">
+                              @foreach($consultation->examsAppareil as $examAppareil)
+                                    @if(null !== $examAppareil )
+                                    <h4 ><strong>Appareil {{ $examAppareil->Appareil->nom }} :</strong></h4>
+                                     <div ><p>{{ $examAppareil->description}}</p></div>  
+                                     @endif
+                            @endforeach
+                             </div>
+                       </div>
+             </div>
+          @endisset
+
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) ||(isset($consultation->ordonnances)))
            <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
                 @if(isset($consultation->demandeexmbio))

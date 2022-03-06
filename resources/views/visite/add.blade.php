@@ -1,48 +1,51 @@
 @extends('app')
-@section('style')
-<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />
-@endsection
 @section('page-script')
   <script type="text/javascript">
-	$(document).ready(function(){
-			$('#listActes').DataTable({
-				processing: true,
-				ordering: true,
-				bInfo : false,
-				searching: false,
-				bLengthChange: false,
-				"info":     false,
-				bLengthChange: false,
-				'aoColumnDefs': [{
-					'bSortable': false,
-					'aTargets': ['nosort'],
-				}],
-				'language': {
-				 "url": '/localisation/fr_FR.json',
-			  },
-			 });
-			$('#listTraits').DataTable({
-				processing: true,
-				ordering: true,
-				bInfo : false,
-				searching: false,
-				bLengthChange: false,
-				"info":     false,
-				'aoColumnDefs': [{
-					'bSortable': false,
-					'aTargets': ['nosort']
-				}],
-				'language': {
-				 "url": '/localisation/fr_FR.json',
-			  },
-			});
-			$('td.dataTables_empty').html('');
-			$('#btn-addActe').click(function () {
-				$('#EnregistrerActe').val("add");
-				$('#addActe').trigger("reset");
-				$('#acteCrudModal').html("Prescrire un Acte Médicale");
-				$('#acteModal').modal('show');
-			});  
+	$(function(){
+      imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+               base64Img = base64; 
+        });
+        imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+             footer64Img = base64; 
+       }); 
+        $('#listActes').DataTable({
+		processing: true,
+		ordering: true,
+		bInfo : false,
+		searching: false,
+		bLengthChange: false,
+		"info":     false,
+		bLengthChange: false,
+		'aoColumnDefs': [{
+			'bSortable': false,
+			'aTargets': ['nosort'],
+		}],
+		'language': {
+		       "url": '/localisation/fr_FR.json',
+	       },
+	 });
+	$('#listTraits').DataTable({
+		processing: true,
+		ordering: true,
+		bInfo : false,
+		searching: false,
+		bLengthChange: false,
+		"info":     false,
+		'aoColumnDefs': [{
+			'bSortable': false,
+			'aTargets': ['nosort']
+		}],
+		'language': {
+	         	 "url": '/localisation/fr_FR.json',
+	       },
+	});
+	$('td.dataTables_empty').html('');
+	$('#btn-addActe').click(function () {
+		$('#EnregistrerActe').val("add");
+		$('#addActe').trigger("reset");
+		$('#acteCrudModal').html("Prescrire un Acte Médicale");
+		$('#acteModal').modal('show');
+	});  
 	  $("#EnregistrerActe").click(function (e) {
 			e.preventDefault();//var periodes = [];
 			
@@ -441,5 +444,6 @@
 	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
 	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
 	<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+       <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>
  </div>
   @endsection

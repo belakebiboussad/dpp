@@ -87,21 +87,23 @@ $('document').ready(function(){
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha  }}</span></li>
 	</ul>
 </div>
-<div class="row">
-		<div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
-		<div class="group">
-		@foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
-				@if(null !== $examAppareil )
-				<h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab"  aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>{{ $examAppareil->Appareil->nom }}</h3>
-				<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"  role="tabpanel" style="display: none;" aria-hidden="true">
-				<p>{{ $examAppareil->description}}</p>
-		</div>	
-		@endif
-	@endforeach
-</div>
-	</div> <!-- fin -->
-</div>
 @endif
+@isset($consultation->examsAppareil )
+      <div class="row">
+                <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
+                    <div class="group">
+                          @foreach($consultation->examsAppareil as $examAppareil)
+                              @if(null !== $examAppareil )
+                              <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab"  aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Appareil {{ $examAppareil->Appareil->nom }}</h3>
+                              <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"  role="tabpanel" style="display: none;" aria-hidden="true">
+                              <p>{{ $examAppareil->description}}</p>
+                          </div>  
+                          @endif
+                        @endforeach
+                </div>
+              </div> <!-- fin -->
+      </div>
+@endisset
 @if(isset($consultation->demandeexmbio))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'examen biologique</span></strong>

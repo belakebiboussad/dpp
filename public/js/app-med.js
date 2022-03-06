@@ -1,11 +1,11 @@
 function checkForm(form)
 {
  	$('.nav-pills li.active').removeClass('active');
-  $('div#ExamClinique').removeClass('active');
-  $('div#ExamComp').removeClass('active');
-  $('div#Interogatoire').addClass('in active');
-  $( "li[name='motif']" ).addClass('active');
-  $('div#ATCD').removeClass('active');
+        $('div#ExamClinique').removeClass('active');
+        $('div#ExamComp').removeClass('active');
+        $('div#Interogatoire').addClass('in active');
+        $( "li[name='motif']" ).addClass('active');
+        $('div#ATCD').removeClass('active');
                    $('div#Motif').addClass('in active');
               	var lieu = $('#lieuc').val();
               	var motif = $('#motif').val();
@@ -33,20 +33,5 @@ function checkForm(form)
         			 $('#error').after('<span class="error"> STP saisir le ' + inputMessage[3]+' de la consultation '  + '</span>'+'<br/>');
         			 return false;
         		}
-			
       		return true; 
 }
-function addAppareils(appareil)
-{
-  	       $("#"+appareil).each(function(i){
-		if(($(this).find(".wysiwyg-editor").text()) !=" ");
-			$('input:hidden[name="' + appareil + '"]').val($(this).find(".wysiwyg-editor").text());
-                 $(this).collapse('hide');
-	});
-}
-function removeAppareilsContent(appareil)
-{
-	$("#"+appareil).each(function(i){
-		$(this).find(".wysiwyg-editor").text("");
-	});
-}  
