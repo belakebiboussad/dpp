@@ -24,12 +24,12 @@
 	 		<div class="tab-pane active" id="biologique">
 	 			@isset($specialite->exmsbio)
 	 				@foreach ( json_decode($specialite->exmsbio, true) as $exbio)
-	 	  	  			<div class="checkbox col-xs-4">
-	 	   			 	<label>
+	 	  	  	<div class="checkbox col-xs-4">
+	 	   			 <label>
 							<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
 					 		<span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
 				 		 </label>
-	 		  			</div>
+	 		  		</div>
 	 				@endforeach
 	 			@endisset
 	 		</div>
