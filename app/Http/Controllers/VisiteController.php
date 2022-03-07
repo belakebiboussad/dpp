@@ -18,6 +18,7 @@ use App\modeles\demandeexr;
 use App\modeles\Etablissement;
 use App\modeles\prescription_constantes;
 use App\modeles\Constontes;
+use App\modeles\Constante;
 use App\modeles\consts;
 use App\modeles\NGAP;
 use Illuminate\Http\Request;
@@ -105,13 +106,10 @@ class VisiteController extends Controller
            $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
         }
       }
-
       $prescription_constantes = prescription_constantes::FirstOrCreate([
-        "hospitalisation_id" => $request->id_hosp,
-        "date_prescription" => Carbon\Carbon::now(),
+        "visite_id" => $visite->id,
         "observation" => $request->observation
       ]);
-
       if($request->consts != null)
       {
         $prescription_constantes->constantes()->attach($request->consts);

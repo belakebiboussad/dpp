@@ -228,17 +228,16 @@
 					</div>
 				</div>	
 			</div>
-		</div>
-        <div class="space-12"></div>
-        <div id="prescriptionconst" class="tab-pane">
+		</div><div class="space-12"></div>
+    <div id="prescriptionconst" class="tab-pane">
 			<div class="row">
-			    <div class="col-sm-12">
-                    <div class="widget-main padding-6 no-padding-left no-padding-right">
-						<div class="space-6"></div>
+			  <div class="col-sm-12">
+          <div class="widget-main padding-6 no-padding-left no-padding-right">
+					<div class="space-12"></div>
 						<div class="row">
 							<form class="form-horizontal" role="form" method="POST" action="/storeprescriptionconstantes">
 							{{ csrf_field() }}	
-                            <input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
+                <input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
                             @foreach($consts as $const)
 								<div class="col-xs-3">
 									<div class="checkbox">

@@ -57,20 +57,20 @@ class HospitalisationController extends Controller
    */
        public function create()
       {
-                $serviceID = Auth::user()->employ->service;
-                $adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-                                  ->whereHas('rdvHosp', function($q){
-                                                      $q->where('date','=',date("Y-m-d"));
-                                    })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                                    $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
-                                              })->get(); //admission d'urgenes
-                $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.docteur','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-                                  ->whereHas('demandeHospitalisation.consultation', function($q){
-                                                      $q->where('date','=',date("Y-m-d"));
-                                  })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                                    $q->where('service', $serviceID)->where('modeAdmission','2')->where('etat','admise');
-                                              })->get();                                                    
-                  return view('hospitalisations.create', compact('adms','admsUrg'));
+        $serviceID = Auth::user()->employ->service;
+        $adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
+                          ->whereHas('rdvHosp', function($q){
+                                              $q->where('date','=',date("Y-m-d"));
+                            })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
+                                            $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
+                                      })->get(); //admission d'urgenes
+        $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.docteur','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
+                          ->whereHas('demandeHospitalisation.consultation', function($q){
+                                              $q->where('date','=',date("Y-m-d"));
+                          })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
+                                            $q->where('service', $serviceID)->where('modeAdmission','2')->where('etat','admise');
+                                      })->get();                                                    
+          return view('hospitalisations.create', compact('adms','admsUrg'));
       }
   /**
    * Store a newly created resource in storage.
@@ -109,6 +109,7 @@ class HospitalisationController extends Controller
   {
       $hosp = hospitalisation::find($id);
       $consts = consts::all();
+      dd($hosp);
       return View::make('hospitalisations.show', compact('hosp','consts'));
   }
   /**

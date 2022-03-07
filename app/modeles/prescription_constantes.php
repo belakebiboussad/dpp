@@ -8,8 +8,7 @@ class prescription_constantes extends Model
 {
     protected $table = 'prescription_constantes';
     public $timestamps = false;
-    protected $fillable = ['hospitalisation_id', 'date_prescription', 'patient_id', 'observation'];
-
+    protected $fillable = ['visite_id', 'observation'];
     public function constantes()
     {
         return $this->belongsToMany('App\modeles\consts', 'pres_cons', 'prescription_id', 'cons_id');

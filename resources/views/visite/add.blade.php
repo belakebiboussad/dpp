@@ -400,23 +400,23 @@
 							<div class="space-6"></div>
 							<div class="row">	
 								<input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
-								@foreach($consts as $const)
-									<div class="col-xs-3">
-										<div class="checkbox">
-											<label>
-												<input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" />
-												<span class="lbl"> 
-													{{ $const->name }}
-												</span>
-											</label>
-										</div>
+								@foreach( json_decode($specialite->hospConst ,true) as $const)
+                <?php $const = App\modeles\Constante::FindOrFail($const) ?>
+								<div class="col-xs-3">
+									<div class="checkbox">
+										<label>
+											<input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" />
+											<span class="lbl"> 
+												{{ $const->nom }}
+											</span>
+										</label>
 									</div>
-								@endforeach
+                </div>
+								 @endforeach
 								<div class="col-xs-12">
 									<br><br>
 									<div>
 										<label for="form-field-8">Observation</label>
-
 										<textarea class="form-control" id="observation" name="observation" placeholder="Observation"></textarea>
 									</div>
 								</div>                           
