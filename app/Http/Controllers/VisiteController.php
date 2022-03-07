@@ -18,6 +18,7 @@ use App\modeles\demandeexr;
 use App\modeles\Etablissement;
 use App\modeles\prescription_constantes;
 use App\modeles\Constontes;
+use App\modeles\Constante;
 use App\modeles\consts;
 use App\modeles\NGAP;
 use Illuminate\Http\Request;
@@ -48,28 +49,42 @@ class VisiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id_hosp)
-    {
-      $date = Carbon\Carbon::now();
-      $etablissement = Etablissement::first(); 
-      $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-      $employe = Auth::user()->employ;
-      $visite =new visite;
-      $visite->date=$date;
-      $visite->heure=$date->format("H:i");
-      $visite->id_hosp=$id_hosp;
-      $visite->id_employe=Auth::User()->employee_id;
-      $specialitesProd = specialite_produit::all();
-      $specialitesExamBiolo = specialite_exb::all();
-      $infossupp = infosupppertinentes::all();
-      $examens = TypeExam::all();//CT,RMN
-      $examensradio = examenradiologique::all();
-      $codesNgap = NGAP::all();
-      $specialite = Specialite::findOrFail($employe->specialite);
-      $visite->save();
-      $consts = consts::all();
-      return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite'))->with('id',$visite->id);
+      public function create($id_hosp)
+      {
+              $prescredconst =array();
+              $date = Carbon\Carbon::now();
+              $etablissement = Etablissement::first(); 
+              $hosp = hospitalisation::FindOrFail($id_hosp);  //$v = visite::with('prescreptionconstantes')->findOrFail(48);
+              foreach($hosp->visites as $visite)
+              {
+                      if(isset($visite->prescreptionconstantes))
+                      {
+                              foreach( $visite->prescreptionconstantes->constantes  as $c)
+                              {
+                                     if(!in_array($c, $prescredconst, true)){
+                                            array_push($prescredconst, $c->id);
+                                     }
+                              }
+                      }
+              }
+              $prescredconst = array_unique($prescredconst);
+              $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
+               $employe = Auth::user()->employ;
+               $visite =new visite;
+               $visite->date=$date;
+                $visite->heure=$date->format("H:i");
+                $visite->id_hosp=$id_hosp;
+                $visite->id_employe=Auth::User()->employee_id;
+                $specialitesProd = specialite_produit::all();
+                $specialitesExamBiolo = specialite_exb::all();
+                $infossupp = infosupppertinentes::all();
+                $examens = TypeExam::all();//CT,RMN
+                $examensradio = examenradiologique::all();
+                $codesNgap = NGAP::all();
+                $specialite = Specialite::findOrFail($employe->specialite);
+                $visite->save();
+                $consts = consts::all();
+                return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite','prescredconst'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -105,13 +120,10 @@ class VisiteController extends Controller
            $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
         }
       }
-
       $prescription_constantes = prescription_constantes::FirstOrCreate([
-        "hospitalisation_id" => $request->id_hosp,
-        "date_prescription" => Carbon\Carbon::now(),
+        "visite_id" => $visite->id,
         "observation" => $request->observation
       ]);
-
       if($request->consts != null)
       {
         $prescription_constantes->constantes()->attach($request->consts);
@@ -120,26 +132,26 @@ class VisiteController extends Controller
     }
     public function edit($id)
     {
-      $hosp = hospitalisation::find($id);
-      return view('visite.edit',compact('hosp'));  
+            $hosp = hospitalisation::find($id);
+            return view('visite.edit',compact('hosp'));  
     }
     public function destroy($id)
     {
-      $visite = visite::find($id);
-      try {
-          $obj = $visite->delete();
-      } catch (Exception $e) {
-        report($e);
-        return false;
-      }
-      $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-      return response()->json([
-         'message' =>$obj
-      ]);   
+            $visite = visite::find($id);
+            try {
+                $obj = $visite->delete();
+            } catch (Exception $e) {
+              report($e);
+              return false;
+            }
+            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+            return response()->json([
+               'message' =>$obj
+            ]);   
     }
     public function show($id)
     {
-      $visite = visite::with('actes','traitements')->FindOrFail($id);
-      return view('visite.show', compact('visite'));
+            $visite = visite::with('actes','traitements')->FindOrFail($id);
+            return view('visite.show', compact('visite'));
     }
 }

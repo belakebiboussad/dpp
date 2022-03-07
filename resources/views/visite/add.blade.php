@@ -199,8 +199,7 @@
 						jQuery('#EnregistrerTrait').val("update");		
 						jQuery('#traitModal').modal('show');
 		  	});
-	});
-	////----- DELETE a Traitement and remove from the tabele -----////
+	});////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
 	var trait_id = $(this).val();
 	$.ajaxSetup({
@@ -285,7 +284,7 @@
 						</a>
 					</li>
 					<li role= "presentation" class="col-md-4">
-						<a href="#constantes" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-warning">
+						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
 						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
 						</a>
 					</li>
@@ -372,7 +371,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							  @foreach($hosp->visites as $visite)
+							       @foreach($hosp->visites as $visite)
 									@foreach($visite->traitements as $trait)
 									<tr id="{{ 'trait'.$trait->id }}">
 									  <td hidden> {{ $trait->visite_id }}</td>
@@ -400,27 +399,27 @@
 				<div role="tabpanel" class ="tab-pane" id="constantes"> 
 					<div class= "col-md-12 col-xs-12">
 						<div class="widget-main padding-6 no-padding-left no-padding-right">
-							<div class="space-6"></div>
+							<div class="space-12"></div>
 							<div class="row">	
 								<input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
-								@foreach($consts as $const)
-									<div class="col-xs-3">
-										<div class="checkbox">
-											<label>
-												<input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" />
-												<span class="lbl"> 
-													{{ $const->name }}
-												</span>
-											</label>
-										</div>
+								@if(null !== $specialite->hospConst )
+                                                            @foreach( json_decode($specialite->hospConst ,true) as $const)
+                                                            <?php $const = App\modeles\Constante::FindOrFail($const) ?>
+								<div class="col-xs-3">
+								         <div class="checkbox">
+										<label>
+                                                                                  <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" @if(in_array($const->id,$prescredconst) )  checked="checked"@endif />
+											<span class="lbl">{{ $const->nom }} </span>
+									       </label>
 									</div>
-								@endforeach
-								<div class="col-xs-12">
-									<br><br>
-									<div>
-										<label for="form-field-8">Observation</label>
-
-										<textarea class="form-control" id="observation" name="observation" placeholder="Observation"></textarea>
+                                                          </div>
+								 @endforeach
+                                                           @endif
+								<div class="col-xs-12"><br><br>
+									<div><label for="form-field-8">Observation</label>
+										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">
+                                                                          {{   $hosp->visites->last()->prescreptionconstantes->observation   }}
+                                                                           </textarea>
 									</div>
 								</div>                           
 							</div>
@@ -429,19 +428,16 @@
 				</div>
 			</div><!-- tab-content -->
 			</div>
-		</div><!-- tabpanel -->
-		<div class="hr hr-dotted"></div><div class="space-12 hidden-xs"></div>
+		</div><div class="hr hr-dotted"></div><div class="space-12 hidden-xs"></div><!-- tabpanel -->
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 				<a href="{{ route('visites.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
-				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
-				</a>
-			</div>
+				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+                      </div>
 		</div>	
 	</form>
-	<div class="row">@include('visite.ModalFoms.acteModal')</div>
-	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
+	<div class="row">@include('visite.ModalFoms.acteModal')</div><div class="row">@include('visite.ModalFoms.TraitModal')</div>
 	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
 	<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
        <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>

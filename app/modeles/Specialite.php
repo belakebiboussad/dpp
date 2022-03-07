@@ -3,15 +3,16 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Specialite extends Model
 {
+      //head
 	public $timestamps = false;
-	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils'];	/*public function type(){return $this->belongsTo('App\modeles\Type_specialite','type');}*/
+	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils'];
         public function setConsConstAttribute($value)
         {
               $this->attributes['consConst'] = json_encode($value);
         }
+
         public function setHospConstAttribute($value)
         {
               $this->attributes['hospConst'] = json_encode($value);

@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 06 mars 2022 à 21:44
+-- Généré le :  lun. 07 mars 2022 à 21:17
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   PRIMARY KEY (`id`),
   KEY `fk_code_ngap` (`code_ngap`),
   KEY `fk_acte_viste` (`id_visite`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   PRIMARY KEY (`id`,`pid`),
   KEY `fk_Antecedant_Patient` (`pid`),
   KEY `fk_Antecedant_cim10` (`cim_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `antecedants`
@@ -200,7 +200,9 @@ INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `d
 (111, 'Familiaux', NULL, NULL, '2021-06-28', NULL, 'père atteint du diabète', 189, 0, 0, NULL),
 (113, 'Personnels', '0', NULL, '2021-07-19', NULL, 'dsqdsqdqsd', 191, 0, 0, NULL),
 (114, 'Familiaux', NULL, NULL, '2021-07-11', NULL, 'dfghh', 191, 0, 0, NULL),
-(115, 'Personnels', '1', NULL, '2021-07-11', NULL, 'hfghfgh', 191, 1, 0, 'hdfghfh');
+(115, 'Personnels', '1', NULL, '2021-07-11', NULL, 'hfghfgh', 191, 1, 0, 'hdfghfh'),
+(116, 'Personnels', '0', 'Chirurigicaux', '2022-03-06', 'C02', 'dqsd', 194, 0, 0, NULL),
+(117, 'Personnels', '1', NULL, '2022-03-07', 'D60', NULL, 194, 0, 0, 'dqs');
 
 -- --------------------------------------------------------
 
@@ -2376,7 +2378,7 @@ INSERT INTO `constantes` (`id`, `poids`, `taille`, `PAS`, `PAD`, `pouls`, `temp`
 
 DROP TABLE IF EXISTS `constantesliste`;
 CREATE TABLE IF NOT EXISTS `constantesliste` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nom` varchar(60) NOT NULL,
   `description` varchar(70) NOT NULL,
   `min` int(11) NOT NULL,
@@ -2434,7 +2436,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2466,7 +2468,8 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (194, 'avec dh', NULL, '2022-02-27', NULL, 'avec dh', 0, NULL, 113, 270, NULL, 21),
 (195, 'avec dhu', NULL, '2022-03-04', NULL, 'avec dhu', 0, NULL, 100, 190, NULL, 21),
 (196, 'aven lettre rientation', NULL, '2022-03-04', NULL, 'aven lettre rientation', 0, NULL, 100, 191, NULL, 21),
-(203, 'avec examen appareil', NULL, '2022-03-06', NULL, 'avec examen appareil', 0, NULL, 100, 190, NULL, 21);
+(203, 'avec examen appareil', NULL, '2022-03-06', NULL, 'avec examen appareil', 0, NULL, 100, 190, NULL, 21),
+(204, 'avec examen appareil', NULL, '2022-03-07', NULL, 'avec examen appareilavec examen appareil', 0, NULL, 113, 194, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -3205,8 +3208,7 @@ INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `resul
 (8, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', '1', NULL, NULL, NULL, 4),
 (9, 'Informations cliniques pertinentes', 'Informations cliniques pertinentes', NULL, NULL, NULL, NULL, 6),
 (10, 'Informations cliniques pertinentes', 'Informations cliniques pertinentes', '1', NULL, NULL, NULL, 9),
-(11, 'ryuryu', 'uryury', NULL, NULL, NULL, 192, NULL),
-(12, 'dsqd', 'dqs', NULL, NULL, NULL, NULL, 25);
+(11, 'ryuryu', 'uryury', NULL, NULL, NULL, 192, NULL);
 
 -- --------------------------------------------------------
 
@@ -3277,9 +3279,7 @@ INSERT INTO `demandeexr_examenradio` (`id_demandeexr`, `id_examenradio`, `examsR
 (10, 11, '3', b'1', '{\"0\": \"etudiant.png\"}', NULL, 13),
 (11, 9, '3', b'1', '{\"0\": \"etudiant.png\"}', NULL, 14),
 (11, 11, '3', b'1', '{\"0\": \"etudiant.png\"}', NULL, 15),
-(11, 15, '3', NULL, NULL, NULL, NULL),
-(12, 8, '1', NULL, NULL, NULL, NULL),
-(12, 22, '2', NULL, NULL, NULL, NULL);
+(11, 15, '3', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4099,7 +4099,10 @@ CREATE TABLE IF NOT EXISTS `examen_appareil` (
 
 INSERT INTO `examen_appareil` (`appareil_id`, `cons_id`, `description`, `created_at`, `updated_at`) VALUES
 (1, 203, 'fdsfds fsdfdsfsd', NULL, NULL),
+(1, 204, 'qsdqs', NULL, NULL),
 (2, 203, 'fdsfdsfsd', NULL, NULL),
+(2, 204, 'dqsdqsd', NULL, NULL),
+(3, 204, 'qsdqs', NULL, NULL),
 (4, 203, 'fsdfsd sfsdfsdf ', NULL, NULL),
 (5, 203, 'fsdfdsf fsdfds', NULL, NULL);
 
@@ -11318,27 +11321,20 @@ INSERT INTO `patient_vaccin` (`patient_id`, `vaccin_id`, `date`, `created_at`, `
 
 DROP TABLE IF EXISTS `prescription_constantes`;
 CREATE TABLE IF NOT EXISTS `prescription_constantes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hospitalisation_id` int(11) DEFAULT NULL,
-  `date_prescription` date DEFAULT NULL,
-  `patient_id` int(11) DEFAULT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `visite_id` int(11) UNSIGNED DEFAULT NULL,
   `observation` longtext,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `fk_prescription_visite` (`visite_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `prescription_constantes`
 --
 
-INSERT INTO `prescription_constantes` (`id`, `hospitalisation_id`, `date_prescription`, `patient_id`, `observation`) VALUES
-(9, 4, '2021-07-24', NULL, NULL),
-(10, 5, '2021-07-25', NULL, NULL),
-(11, 5, '2021-07-25', NULL, NULL),
-(12, 5, '2021-07-25', NULL, NULL),
-(13, 5, '2021-07-26', NULL, NULL),
-(14, 5, '2021-07-26', NULL, NULL),
-(15, 3, '2021-09-23', NULL, 'utyu'),
-(16, 2, '2022-03-06', NULL, NULL);
+INSERT INTO `prescription_constantes` (`id`, `visite_id`, `observation`) VALUES
+(19, 48, 'y'),
+(20, 49, 'hhfhfg');
 
 -- --------------------------------------------------------
 
@@ -11362,18 +11358,22 @@ CREATE TABLE IF NOT EXISTS `prescription_soins` (
 
 DROP TABLE IF EXISTS `pres_cons`;
 CREATE TABLE IF NOT EXISTS `pres_cons` (
-  `prescription_id` int(11) NOT NULL,
-  `cons_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `prescription_id` int(11) UNSIGNED NOT NULL,
+  `cons_id` int(11) UNSIGNED NOT NULL,
+  KEY `fk_constante` (`cons_id`),
+  KEY `fk_prescription` (`prescription_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `pres_cons`
 --
 
 INSERT INTO `pres_cons` (`prescription_id`, `cons_id`) VALUES
-(15, 2),
-(15, 6),
-(15, 8);
+(19, 2),
+(19, 6),
+(19, 8),
+(20, 6),
+(20, 7);
 
 -- --------------------------------------------------------
 
@@ -11778,7 +11778,7 @@ CREATE TABLE IF NOT EXISTS `specialites` (
 INSERT INTO `specialites` (`id`, `nom`, `type`, `consConst`, `hospConst`, `exmsbio`, `exmsImg`, `antecTypes`, `vaccins`, `appareils`, `nbMax`) VALUES
 (1, 'Cardiologie', 0, '[\"1\",\"2\",\"3\",\"7\"]', '[\"1\",\"2\",\"3\"]', '[\"3\",\"8\",\"22\",\"35\",\"39\",\"40\",\"55\",\"59\",\"78\"]', '[\"1\",\"2\",\"3\",\"4\",\"5\",\"9\",\"10\"]', '[\"1\",\"2\",\"3\",\"4\"]', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"4\",\"5\"]', NULL),
 (2, 'Ophtalmologie', 0, '', '', 'null', 'null', '', '', '0', NULL),
-(3, 'Pédiatrie', 0, 'null', 'null', '[\"1\",\"2\",\"3\",\"7\",\"8\",\"12\",\"13\",\"14\",\"15\",\"18\",\"19\",\"20\",\"22\",\"24\",\"25\",\"26\",\"28\",\"32\",\"37\"]', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"3\",\"4\"]', 'null', '[\"1\",\"2\",\"3\"]', NULL),
+(3, 'Pédiatrie', 0, 'null', '[\"1\",\"6\",\"7\",\"9\"]', '[\"1\",\"2\",\"3\",\"7\",\"8\",\"12\",\"13\",\"14\",\"15\",\"18\",\"19\",\"20\",\"22\",\"24\",\"25\",\"26\",\"28\",\"32\",\"37\"]', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"3\",\"4\"]', 'null', '[\"1\",\"2\",\"3\"]', NULL),
 (4, 'ORL', 0, '', '', 'null', 'null', '', '', '0', NULL),
 (5, 'Génécologie', 0, '', '', 'null', 'null', '', '', '0', NULL),
 (6, 'Chirurgie dentaire', 1, '', '', 'null', 'null', '', '', '0', NULL),
@@ -12089,7 +12089,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12114,51 +12114,17 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (20, '2021-09-23', '13:39:00', 4, 114, NULL, NULL),
 (21, '2021-09-23', '13:47:00', 4, 114, NULL, NULL),
 (22, '2021-10-07', '10:00:00', 4, 88, NULL, NULL),
-(23, '2022-03-06', '20:21:00', 2, 113, NULL, NULL),
-(24, '2022-03-06', '20:22:00', 2, 113, NULL, NULL),
-(25, '2022-03-06', '20:26:00', 2, 113, NULL, NULL),
-(26, '2022-03-06', '20:28:00', 2, 113, NULL, NULL),
-(27, '2022-03-06', '20:29:00', 2, 113, NULL, NULL),
 (28, '2022-03-06', '20:56:00', 2, 113, NULL, NULL),
-(29, '2022-03-06', '20:57:00', 2, 113, NULL, NULL),
-(30, '2022-03-06', '20:57:00', 2, 113, NULL, NULL),
-(31, '2022-03-06', '21:00:00', 2, 113, NULL, NULL),
 (32, '2022-03-06', '21:09:00', 2, 113, NULL, NULL),
 (33, '2022-03-06', '21:24:00', 2, 113, NULL, NULL),
 (34, '2022-03-06', '21:27:00', 2, 113, NULL, NULL),
 (35, '2022-03-06', '21:32:00', 2, 113, NULL, NULL),
 (36, '2022-03-06', '21:33:00', 2, 113, NULL, NULL),
 (37, '2022-03-06', '21:35:00', 2, 113, NULL, NULL),
-(38, '2022-03-06', '21:37:00', 2, 113, NULL, NULL),
-(39, '2022-03-06', '21:40:00', 2, 113, NULL, NULL),
-(40, '2022-03-06', '21:41:00', 2, 113, NULL, NULL),
-(41, '2022-03-06', '21:44:00', 2, 113, NULL, NULL),
-(42, '2022-03-06', '21:45:00', 2, 113, NULL, NULL),
-(43, '2022-03-06', '21:46:00', 2, 113, NULL, NULL),
-(44, '2022-03-06', '21:49:00', 2, 113, NULL, NULL),
-(45, '2022-03-06', '21:49:00', 2, 113, NULL, NULL),
-(46, '2022-03-06', '21:50:00', 2, 113, NULL, NULL),
-(47, '2022-03-06', '21:52:00', 2, 113, NULL, NULL),
 (48, '2022-03-06', '21:54:00', 2, 113, NULL, NULL),
 (49, '2022-03-06', '21:55:00', 2, 113, NULL, NULL),
-(50, '2022-03-06', '21:56:00', 2, 113, NULL, NULL),
-(51, '2022-03-06', '21:57:00', 2, 113, NULL, NULL),
-(52, '2022-03-06', '21:58:00', 2, 113, NULL, NULL),
-(53, '2022-03-06', '22:03:00', 2, 113, NULL, NULL),
-(54, '2022-03-06', '22:04:00', 2, 113, NULL, NULL),
-(55, '2022-03-06', '22:08:00', 2, 113, NULL, NULL),
-(56, '2022-03-06', '22:10:00', 2, 113, NULL, NULL),
-(57, '2022-03-06', '22:11:00', 2, 113, NULL, NULL),
-(58, '2022-03-06', '22:12:00', 2, 113, NULL, NULL),
-(59, '2022-03-06', '22:14:00', 2, 113, NULL, NULL),
-(60, '2022-03-06', '22:15:00', 2, 113, NULL, NULL),
-(61, '2022-03-06', '22:15:00', 2, 113, NULL, NULL),
-(62, '2022-03-06', '22:21:00', 2, 113, NULL, NULL),
-(63, '2022-03-06', '22:26:00', 2, 113, NULL, NULL),
-(64, '2022-03-06', '22:29:00', 2, 113, NULL, NULL),
-(65, '2022-03-06', '22:32:00', 2, 113, NULL, NULL),
-(66, '2022-03-06', '22:33:00', 2, 113, NULL, NULL),
-(67, '2022-03-06', '22:34:00', 2, 113, NULL, NULL);
+(97, '2022-03-07', '22:12:00', 2, 113, NULL, NULL),
+(98, '2022-03-07', '22:16:00', 2, 113, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12245,7 +12211,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Contraintes pour la table `actes`
 --
 ALTER TABLE `actes`
-  ADD CONSTRAINT `fk_acte_viste` FOREIGN KEY (`id_visite`) REFERENCES `visites` (`id`);
+  ADD CONSTRAINT `fk_acte_viste` FOREIGN KEY (`id_visite`) REFERENCES `visites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `admissions`
@@ -12283,8 +12249,8 @@ ALTER TABLE `demandeexb`
 -- Contraintes pour la table `demandeexr`
 --
 ALTER TABLE `demandeexr`
-  ADD CONSTRAINT `fk_consultation` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`),
-  ADD CONSTRAINT `fk_demanderadio_viste` FOREIGN KEY (`visite_id`) REFERENCES `visites` (`id`);
+  ADD CONSTRAINT `fk_consultation` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_demanderadio_viste` FOREIGN KEY (`visite_id`) REFERENCES `visites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `demandeexr_examenradio`
@@ -12342,6 +12308,19 @@ ALTER TABLE `hospitalisations`
 ALTER TABLE `patient_vaccin`
   ADD CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
   ADD CONSTRAINT `fk_vaccin` FOREIGN KEY (`vaccin_id`) REFERENCES `vaccins` (`id`);
+
+--
+-- Contraintes pour la table `prescription_constantes`
+--
+ALTER TABLE `prescription_constantes`
+  ADD CONSTRAINT `fk_prescription_visite` FOREIGN KEY (`visite_id`) REFERENCES `visites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `pres_cons`
+--
+ALTER TABLE `pres_cons`
+  ADD CONSTRAINT `fk_constante` FOREIGN KEY (`cons_id`) REFERENCES `constantesliste` (`id`),
+  ADD CONSTRAINT `fk_prescription` FOREIGN KEY (`prescription_id`) REFERENCES `prescription_constantes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `rdvs`

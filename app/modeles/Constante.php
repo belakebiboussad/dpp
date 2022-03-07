@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Constante extends Model
 {
-    //
-    protected $table = 'constantesListe';
-    public $timestamps = false;
-    protected $fillable = ['nom','description','min','max','lwrang','hnrang','unite'];
+        protected $table = 'constantesListe';
+        public $timestamps = false;
+        protected $fillable = ['nom','description','min','max','lwrang','hnrang','unite'];
 }

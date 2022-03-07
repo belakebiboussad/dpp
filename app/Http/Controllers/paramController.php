@@ -43,6 +43,6 @@ class paramController extends Controller
               $input['vaccins'] = $request->vaccs;
               $input['appareils'] = $request->appareils;
               $specialite->update($input);
-            return redirect()->action('paramController@index');  
-        }    
+               return redirect()->action('paramController@index');  
+        }           
 }
