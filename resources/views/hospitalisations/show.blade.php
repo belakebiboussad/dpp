@@ -20,41 +20,41 @@
 		<div id="hospi" class="tab-pane in active">
 			<div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="f-16"><strong>Hospitalisation</strong></span></div></div>
 			<div class="row">
-			<div class="col-sm-12">
-		   <ul class="nav navbar-nav list-inline">
-              <li class="list-inline-item" style="width:200px;">
-                <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
-              </li>
-               <li class="list-inline-item" style="width:200px;">
-              <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
-              </li>
-               <li class="list-inline-item" style="width:300px;">
-               <i class="ace-icon fa fa-caret-right blue"></i>
-              <strong>Mode d'admission:</strong>&nbsp;&nbsp;
-                @switch($hosp->admission->demandeHospitalisation->modeAdmission)
-                  @case(0)
-                    <span class="label label-sm label-primary">Programme</span>
-                    @break
-                  @case(1)
-                    <span class="label label-sm label-success">Ambulatoire</span>
-                    @break
-                  @case(2)
-                    <span class="label label-sm label-warning">Urgence</span>
-                    @break    
-                @endswitch
-              </li>
-               <li class="list-inline-item" style="width:300px;">
-                <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
-              {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
-              </li>
-               <li class="list-inline-item" style="width:270px;">
-               <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}
-              </li>
-               <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
-               </i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}
-              </li>
-            </ul>
-			</div>
+  			<div class="col-sm-12">
+  		   <ul class="nav navbar-nav list-inline">
+            <li class="list-inline-item" style="width:200px;">
+              <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+            </li>
+             <li class="list-inline-item" style="width:200px;">
+            <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+            </li>
+             <li class="list-inline-item" style="width:300px;">
+             <i class="ace-icon fa fa-caret-right blue"></i>
+            <strong>Mode d'admission:</strong>&nbsp;&nbsp;
+              @switch($hosp->admission->demandeHospitalisation->modeAdmission)
+                @case(0)
+                  <span class="label label-sm label-primary">Programme</span>
+                  @break
+                @case(1)
+                  <span class="label label-sm label-success">Ambulatoire</span>
+                  @break
+                @case(2)
+                  <span class="label label-sm label-warning">Urgence</span>
+                  @break    
+              @endswitch
+            </li>
+             <li class="list-inline-item" style="width:300px;">
+              <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
+            {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
+            </li>
+             <li class="list-inline-item" style="width:270px;">
+             <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}
+            </li>
+             <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
+             </i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}
+            </li>
+          </ul>
+  			</div>
 			</div><div class="space-12"></div>	
 			<div class="row">
 				<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
@@ -91,7 +91,11 @@
 			</div>
 		 @endif
 		</div><!-- hospi -->
-	<div id="visites" class="tab-pane in"><div class="row">@include('visite.liste')</div></div>
-	</div><!-- tab-content -->
-</div>
+	  <div id="visites" class="tab-pane">
+      <div class="row">{{-- @include('visite.liste') --}}
+          dfds
+      </div>
+    </div>
+  </div>
+</div><!-- tab-content -->
 @endsection

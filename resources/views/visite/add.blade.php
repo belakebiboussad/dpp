@@ -403,23 +403,25 @@
 							<div class="row">	
 								<input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
 								@if(null !== $specialite->hospConst )
-                                                            @foreach( json_decode($specialite->hospConst ,true) as $const)
-                                                            <?php $const = App\modeles\Constante::FindOrFail($const) ?>
+                @foreach( json_decode($specialite->hospConst ,true) as $const)
+                <?php $const = App\modeles\Constante::FindOrFail($const) ?>
 								<div class="col-xs-3">
-								         <div class="checkbox">
-										<label>
-                                                                                  <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" @if(in_array($const->id,$prescredconst) )  checked="checked"@endif />
-											<span class="lbl">{{ $const->nom }} </span>
-									       </label>
+								  <div class="checkbox">
+                    <label>
+                      @if(isset($lastViste))
+                      <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastViste->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
+											@else
+                      <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
+                      @endif
+                      <span class="lbl">{{ $const->nom }} </span>
+									  </label>
 									</div>
-                                                          </div>
-								 @endforeach
-                                                           @endif
+                </div>
+								@endforeach
+                @endif
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>
-										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">
-                                                                          {{   $hosp->visites->last()->prescreptionconstantes->observation   }}
-                                                                           </textarea>
+										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">{{ $lastViste->prescreptionconstantes->observation }}</textarea>
 									</div>
 								</div>                           
 							</div>
@@ -434,7 +436,7 @@
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 				<a href="{{ route('visites.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
 				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
-                      </div>
+      </div>
 		</div>	
 	</form>
 	<div class="row">@include('visite.ModalFoms.acteModal')</div><div class="row">@include('visite.ModalFoms.TraitModal')</div>

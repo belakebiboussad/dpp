@@ -537,8 +537,8 @@ class PatientController extends Controller
        );
        foreach ($statuses as $status) {
              $counts[$status]++;
-       }    //ArrayClass
-         $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+       }  
+        $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
       return response()->json(['html'=>$view]);
   }
   public function merge(Request $request)

@@ -80,16 +80,16 @@ class HospitalisationController extends Controller
    */
       public function store(Request $request)
       { 
-                $today = Carbon::now()->format('Y-m-d');
-                $admission =  admission::find($request->id_admission); 
-                $hosp = hospitalisation::create([
-                  "Date_entree"=>$today,//>$request->Date_entree,
-                  "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
-                  "patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
-                  "id_admission"=>$request->id_admission,
-                  'medecin_id'=>$request->medecin,
-                  "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
-                  "modeHosp_id"=>$request->mode,//"etat_hosp"=>"en cours",
+        $today = Carbon::now()->format('Y-m-d');
+        $admission =  admission::find($request->id_admission); 
+        $hosp = hospitalisation::create([
+          "Date_entree"=>$today,//>$request->Date_entree,
+          "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
+          "patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
+          "id_admission"=>$request->id_admission,
+          'medecin_id'=>$request->medecin,
+          "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
+          "modeHosp_id"=>$request->mode,//"etat_hosp"=>"en cours",
         ]);
     if(isset($dmission->rdvHosp))
     { 
@@ -107,9 +107,9 @@ class HospitalisationController extends Controller
    */
   public function show($id)
   {
-          $hosp = hospitalisation::find($id);
-          $consts = consts::all();
-          return View::make('hospitalisations.show', compact('hosp','consts'));
+    $hosp = hospitalisation::find($id);
+    $consts = consts::all();
+    return View::make('hospitalisations.show', compact('hosp','consts'));
   }
   /**
    * Show the form for editing the specified resource.

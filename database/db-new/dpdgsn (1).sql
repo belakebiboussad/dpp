@@ -1,14 +1,13 @@
-﻿-- phpMyAdmin SQL Dump
--- version 4.7.9
+-- phpMyAdmin SQL Dump
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 07 mars 2022 à 21:17
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le : mar. 08 mars 2022 à 17:48
+-- Version du serveur :  5.7.23
+-- Version de PHP : 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `dpdgsn`
+-- Base de données : `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   PRIMARY KEY (`id`),
   KEY `fk_code_ngap` (`code_ngap`),
   KEY `fk_acte_viste` (`id_visite`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -3196,7 +3195,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr` (
   PRIMARY KEY (`id`),
   KEY `fk_consultation` (`id_consultation`),
   KEY `fk_demanderadio_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr`
@@ -10732,6 +10731,13 @@ INSERT INTO `modes_hospitalisations` (`id`, `nom`) VALUES
 --
 DROP VIEW IF EXISTS `nextrdvs`;
 CREATE TABLE IF NOT EXISTS `nextrdvs` (
+`id` int(11)
+,`date` datetime
+,`patientId` int(11) unsigned
+,`IPP` varchar(100)
+,`Nom` varchar(100)
+,`Prenom` varchar(100)
+,`specialite` varchar(70)
 );
 
 -- --------------------------------------------------------
@@ -11326,15 +11332,17 @@ CREATE TABLE IF NOT EXISTS `prescription_constantes` (
   `observation` longtext,
   PRIMARY KEY (`id`),
   KEY `fk_prescription_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `prescription_constantes`
 --
 
 INSERT INTO `prescription_constantes` (`id`, `visite_id`, `observation`) VALUES
-(19, 48, 'y'),
-(20, 49, 'hhfhfg');
+(19, 48, 'observatio'),
+(20, 49, 'observatio'),
+(27, 137, 'observation'),
+(28, 138, 'observation');
 
 -- --------------------------------------------------------
 
@@ -11373,7 +11381,8 @@ INSERT INTO `pres_cons` (`prescription_id`, `cons_id`) VALUES
 (19, 6),
 (19, 8),
 (20, 6),
-(20, 7);
+(20, 7),
+(27, 7);
 
 -- --------------------------------------------------------
 
@@ -11395,7 +11404,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   KEY `fk_RDV_Employe` (`employ_id`),
   KEY `fk_RDV_Patient` (`patient_id`),
   KEY `fk_specialite` (`specialite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -11420,7 +11429,9 @@ INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `
 (252, '2022-03-14 10:00:00', '2022-03-14 10:15:00', 0, 1, 100, 191, NULL),
 (253, '2022-03-14 10:15:00', '2022-03-14 10:30:00', 1, 1, 100, 191, 0),
 (254, '2022-03-05 12:45:00', '2022-03-05 13:00:00', 1, 3, 113, 277, NULL),
-(255, '2022-03-15 11:30:00', '2022-03-15 11:45:00', 1, 1, 100, 189, NULL);
+(255, '2022-03-15 11:30:00', '2022-03-15 11:45:00', 1, 1, 100, 189, NULL),
+(256, '2022-03-08 11:30:00', '2022-03-08 11:45:00', 1, 3, 113, 225, NULL),
+(257, '2022-03-09 08:30:00', '2022-03-09 08:45:00', 1, 3, 113, 192, NULL);
 
 -- --------------------------------------------------------
 
@@ -12035,7 +12046,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'SfTXE6DZ19OIm0dHsj772sqD9xbD8tOwEEDHhqfaFcUPr5EPasOoEyvU490V', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, NULL, 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
-(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'u7oFZAttFtlHX4lKhUiemx7GGsR3LCKgseyl7t84G4ZGo8mU1l1Jh9fPHLdG', 1),
+(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'njwSYDaesSVm3UyTyieZaLnBE36isTxcNSJR12ZabvJ0FE74jfpi8qRMNI8p', 1),
 (59, 'chefint', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'chefint@hop.com', 114, 14, 'iJhn3DpHdJT1BPY66lojswWu1YybgoQUki9RdO0SRFQP761b14NonznnXBi2', 1),
 (60, 'medger', '$2y$10$2Mrra7cY3/Lb9AiHzbitI.n99.H4cmtMxtzhB4NGKK4BSD2pOrcCq', 'medger@hotmail.com', 115, 1, 'j53Y0Pm3SLoiyrFNToDfjxEkl6abNyU6HEuACzm6qlgpXsowBxJyfmBCFr2W', 1),
 (61, 'medgen', '$2y$10$spTXvp3EM/0N8vCPuQP87u.T06AKea2TsWgU2t4Oyd69Cqxr3xWzu', NULL, 116, 1, 'gwChVFTDGwHUaqBUfDmAa0BmCAeaqJ8rIm1bnsJrcU8jN9v0PYF6NbHFlbPx', 1),
@@ -12089,7 +12100,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12124,7 +12135,36 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (48, '2022-03-06', '21:54:00', 2, 113, NULL, NULL),
 (49, '2022-03-06', '21:55:00', 2, 113, NULL, NULL),
 (97, '2022-03-07', '22:12:00', 2, 113, NULL, NULL),
-(98, '2022-03-07', '22:16:00', 2, 113, NULL, NULL);
+(111, '2022-03-08', '15:07:00', 2, 113, NULL, NULL),
+(112, '2022-03-08', '15:07:00', 2, 113, NULL, NULL),
+(113, '2022-03-08', '15:08:00', 2, 113, NULL, NULL),
+(114, '2022-03-08', '15:10:00', 2, 113, NULL, NULL),
+(115, '2022-03-08', '15:11:00', 2, 113, NULL, NULL),
+(116, '2022-03-08', '15:11:00', 2, 113, NULL, NULL),
+(117, '2022-03-08', '15:13:00', 2, 113, NULL, NULL),
+(118, '2022-03-08', '15:15:00', 2, 113, NULL, NULL),
+(119, '2022-03-08', '15:22:00', 2, 113, NULL, NULL),
+(120, '2022-03-08', '15:23:00', 2, 113, NULL, NULL),
+(121, '2022-03-08', '15:23:00', 2, 113, NULL, NULL),
+(122, '2022-03-08', '15:23:00', 2, 113, NULL, NULL),
+(123, '2022-03-08', '15:23:00', 2, 113, NULL, NULL),
+(124, '2022-03-08', '15:24:00', 2, 113, NULL, NULL),
+(125, '2022-03-08', '15:24:00', 2, 113, NULL, NULL),
+(126, '2022-03-08', '15:28:00', 2, 113, NULL, NULL),
+(127, '2022-03-08', '15:29:00', 2, 113, NULL, NULL),
+(128, '2022-03-08', '16:58:00', 2, 113, NULL, NULL),
+(129, '2022-03-08', '17:08:00', 2, 113, NULL, NULL),
+(130, '2022-03-08', '17:08:00', 2, 113, NULL, NULL),
+(131, '2022-03-08', '17:11:00', 2, 113, NULL, NULL),
+(132, '2022-03-08', '17:12:00', 2, 113, NULL, NULL),
+(133, '2022-03-08', '17:15:00', 2, 113, NULL, NULL),
+(134, '2022-03-08', '17:20:00', 2, 113, NULL, NULL),
+(135, '2022-03-08', '17:20:00', 2, 113, NULL, NULL),
+(136, '2022-03-08', '17:21:00', 2, 113, NULL, NULL),
+(137, '2022-03-08', '17:32:00', 2, 113, NULL, NULL),
+(138, '2022-03-08', '17:32:00', 2, 113, NULL, NULL),
+(139, '2022-03-08', '17:34:00', 2, 113, NULL, NULL),
+(140, '2022-03-08', '17:37:00', 2, 113, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12201,7 +12241,8 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `Id`,date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `PatientId`,`patients`.`IPP` AS `Ipp`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`,`patients`.`Sexe` AS `Sexe`,`rdvs`.`specialite_id` AS `SpecialiteId` from (`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) where ((cast(`rdvs`.`Date_RDV` as date) = curdate()) and isnull(`rdvs`.`Etat_RDV`)) order by `rdvs`.`Date_RDV` desc ;
+DROP VIEW IF EXISTS `nextrdvs`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, `rdvs`.`date` AS `date`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `specialites`.`nom` AS `specialite` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
 
 --
 -- Contraintes pour les tables déchargées
