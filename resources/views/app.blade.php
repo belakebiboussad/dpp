@@ -247,6 +247,7 @@
                   success:function(data){         
                     var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
                     var event = new Object();
+                    alert(data['patient']['civ']);
                     event = {
                       title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                       start: debut,
@@ -255,7 +256,9 @@
                       idPatient:data['patient']['id'],
                       fixe: data['rdv']['fixe'],
                       tel:data['patient']['tele_mobile1'] ,
-                      age:data['age'],         
+                      age:data['age'],
+                      specialite: data['rdv']['specialite_id'],         
+                      civ : data['patient']['civ'],
                       allDay: false,
                       color:color, //'#87CEFA'
                     };

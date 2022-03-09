@@ -7,12 +7,12 @@
 </div>
 <div class="row"><div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div></div>
 <div class="tabbable"  class="user-profile">
-      <ul class = "nav nav-pills nav-justified list-group" role="tablist">
+  <ul class = "nav nav-pills nav-justified list-group" role="tablist">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
 		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
 		@endif
-              @if(in_array(Auth::user()->role_id,[1,14]))
+     @if(in_array(Auth::user()->role_id,[1,14]))
 		<li ><a data-toggle="tab" href="#prescriptionconst"><strong>Prescription constantes</strong></a></li>
 		@endif
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
@@ -31,7 +31,7 @@
 					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-                                              <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+              <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i>
 							<strong>Mode d'admission:</strong>&nbsp;&nbsp;

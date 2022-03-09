@@ -15,28 +15,30 @@
   </style>
 @endsection
 @section('page-script')
-<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
-<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
-@include('rdv.scripts.print'){{-- print rdv --}}
+
+<!-- <script type="text/javascript" src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script> -->
+<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
+<script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+
+@include('rdv.scripts.print')
 <script>
 var rdvs = @json($rdvs);
 var loaded;
 function resetPatin()
 {
-        $('#patient').editableSelect('clear');
-        $('.es-list').val(''); 
-        $('#patient').val('');
+  $('#patient').editableSelect('clear');
+  $('.es-list').val(''); 
+  $('#patient').val('');
 }
-function reset_in()
-{ //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');$('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
-        $("#filtre").val('');
-        if('{{ Auth::user()->role_id == 2 }}')
-        {
-              $('#specialite').val('');
-              $("#filtre").attr("disabled", true);
-        }
-        resetPatin();
-        $("#btnSave").attr("disabled", true);
+function reset_in(){//$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');$('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
+  $("#filtre").val('');
+  if('{{ Auth::user()->role_id == 2 }}')
+  {
+    $('#specialite').val('');
+    $("#filtre").attr("disabled", true);
+  }
+  resetPatin();
+  $("#btnSave").attr("disabled", true);
 }
 function getPatient()
 {
@@ -66,16 +68,18 @@ function getPatient()
   });
 }
 $(function () {
+  alert(loaded);
   if(loaded)
   {
-    $.connection.hub.url = 'http://192.168.1.60:90/myhubs';
-     // Connect Hubs without the generated proxy
+    $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+    // Connect Hubs without the generated proxy
      var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
      console.log("Hub connected.");
     $("#printTck").click(function(){
         var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-        chatHubProxy.server.send(barcode);       
+        alert($("#civiliteCode").val());
+        // chatHubProxy.server.send(barcode);       
       });
     }).fail(function () {
       console.log("Could not connect to Hub.");
@@ -83,16 +87,17 @@ $(function () {
   }
 });
 $(function () {
-        $( "#filtre" ).change(function() {
-              resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
-              $("#btnSave").attr("disabled", true);
-              if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
-                $("#patient").prop('disabled',false);
-      });
-       $("#showfullCalModal").on('hide.bs.modal', function(){
-               $('#printRdv').attr("data-id",'');
-               $('#printRdv').addClass('hidden');
-      });
+    $( "#filtre" ).change(function() {
+      resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+      $("#btnSave").attr("disabled", true);
+      if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
+        $("#patient").prop('disabled',false);
+    });
+    $("#showfullCalModal").on('hide.bs.modal', function(){
+      $('#printRdv').attr("data-id",'');
+      $('#printRdv').addClass('hidden');
+    });
+    //teste code barre
 });
 $(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
@@ -133,12 +138,12 @@ $(function() {
                 end:   '{{ $rdv->fin }}',
                 id :'{{ $rdv->id }}',
                 idPatient:'{{ $rdv->patient->id}}',
+                fixe:  {{ $rdv->fixe }},
                 tel:'{{$rdv->patient->tele_mobile1}}',
                 age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                 specialite: {{ $rdv->specialite_id }},
-                civ : {{ $rdv->patient->getCiviliteCode() }},
+                civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
                 key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
-                fixe:  {{ $rdv->fixe }},
             },
            @endforeach   
         ], 
@@ -192,51 +197,52 @@ $(function() {
                   $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
                   (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                   $('#civiliteCode').val(calEvent.civ);
-                  $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); //if(calEvent.fixe &&(!(isEmpty(calEvent.key)))  )
-                  // if(  (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )// {
-                        if($('#printRdv').hasClass( "hidden" ))
-                     {
-                              $('#printRdv').attr("data-id",calEvent.id);
-                              $('#printRdv').removeClass('hidden');
-                     }         
-                      if(!$('#printTck').hasClass( "hidden" ))
-                               $('#printTck').addClass('hidden');
+                  $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
+                  if($('#printRdv').hasClass( "hidden" ))
+                  {
+                    $('#printRdv').attr("data-id",calEvent.id);
+                    $('#printRdv').removeClass('hidden');
+                  }         
                   if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
                   {
-                       if(loaded)
-                       {
-                              if($('#printTck').hasClass( "hidden" ))
-                                     $('#printTck').removeClass('hidden');
-                       }
-                      if(!$('#printRdv').hasClass( "hidden" ))
-                           $('#printRdv').addClass('hidden');
+                    if(loaded)
+                    {
+                      if($('#printTck').hasClass( "hidden" ))
+                        $('#printTck').removeClass('hidden');
+                    }
+                    if(!$('#printRdv').hasClass( "hidden" ))
+                         $('#printRdv').addClass('hidden');
+                  }else
+                  {
+                    if(!$('#printTck').hasClass( "hidden" ))
+                    $('#printTck').addClass('hidden');
                   }  
                   $('#showfullCalModal').modal({ show: 'true' });
-                }
-            },
-              eventRender: function (event, element, webData) {
-                      if(event.start < today)
-                            element.css('background-color', '#D3D3D3');  
+          }
+      },
+      eventRender: function (event, element, webData) {
+              if(event.start < today)
+                    element.css('background-color', '#D3D3D3');  
+              else
+              {
+                       if(event.fixe)
+                            element.css('background-color', '#87CEFA'); 
                       else
-                      {
-                               if(event.fixe)
-                                    element.css('background-color', '#87CEFA'); 
-                              else
-                                  element.css('background-color', '#378006');   
-                             element.css("padding", "5px");
-                      }
-                      element.popover({
-                          delay: { "show": 500, "hide": 100 },  // title: event.title,
-                          content: event.tel,
-                          trigger: 'hover',
-                          animation:true,
-                          placement: 'bottom',
-                          container: 'body',
-                          template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-                    });       
-            },
-            eventMouseover: function(event, jsEvent, view) {
-            }
+                          element.css('background-color', '#378006');   
+                     element.css("padding", "5px");
+              }
+              element.popover({
+                  delay: { "show": 500, "hide": 100 },  // title: event.title,
+                  content: event.tel,
+                  trigger: 'hover',
+                  animation:true,
+                  placement: 'bottom',
+                  container: 'body',
+                  template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+            });       
+      },
+      eventMouseover: function(event, jsEvent, view) {
+      }
     });//calendar //fincalendar 
         $('#btnSave').on('click keyup', function(e) {
               url ="{{ route('rdv.store') }}";
@@ -257,8 +263,7 @@ $(function() {
                 type:"POST",
                 url:url,
                 data:formData,//dataType: 'json',
-                success:function(data){         
-                     //var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';
+                success:function(data){//var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';         
                      var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
                      var event = new Object();
                       event = {
@@ -269,7 +274,8 @@ $(function() {
                           idPatient:data['patient']['id'],
                           fixe: data['rdv']['fixe'],
                           tel:data['patient']['tele_mobile1'] ,
-                          age:data['age'],         
+                          age:data['age'],
+                          civ:data['patient']['civ'],         
                           allDay: false,
                           color:color, //'#87CEFA'
                   };

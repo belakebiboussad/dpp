@@ -61,10 +61,10 @@ class HomeController extends Controller
             case 1://medecin & meecinChef
                   return view('patient.index');
                   break;
-            case 2:
+            case 2://rec
                    return view('patient.index'); //return view('home.home_recep');
                   break;
-            case 3:                    
+            case 3://inf                    
                   return redirect()->action('HospitalisationController@index');
                   break;
             case 4: 
@@ -91,6 +91,9 @@ class HomeController extends Controller
             case 12://radiologue
                      return redirect()->action('DemandeExamenRadio@index');
                 break;
+            case 13://med chef
+                return view('patient.index');
+
             case 14://chef de service
                 return view('patient.index');
 

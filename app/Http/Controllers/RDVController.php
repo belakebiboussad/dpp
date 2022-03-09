@@ -189,8 +189,7 @@ class RDVController extends Controller
           "fixe"=>$request->fixe,
         ]);
         return Response::json($rdv); 
-        if($request->ajax())
-          // return $rdv;
+        if($request->ajax())// return $rdv;
           return Response::json($rdv); 
         else
           return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
@@ -214,15 +213,15 @@ class RDVController extends Controller
       { 
         $rdv = rdv::findOrFail($id);
         $etablissement = Etablissement::first();
-        $civilite = $rdv->patient->getCiviliteCode() ;
+        $civilite = $rdv->patient->getCiviliteCode();//$civilite = $rdv->patient->civ ;
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
         $renderer = new ImageRenderer([
-                'format' => 'png', //'color' => '#FF0000',
-                'scale' => 1,//1
-                'ratio'=>3,//hauteur,largeur
-                'padding'=>0,//espace par rapport left
-                'format' =>'data-url'
+            'format' => 'png', //'color' => '#FF0000',
+            'scale' => 1,//1
+            'ratio'=>3,//hauteur,largeur
+            'padding'=>0,//espace par rapport left
+            'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
         $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
@@ -232,21 +231,20 @@ class RDVController extends Controller
         $dompdf->render();
         $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
         return $dompdf->stream($name); 
-      }
-//function AddRDV(Request $request)  {$specialite ="";if(Auth::user()->role_id ==2)$specialite = $request->specialite ; else $specialite = Auth::user()->employ->specialite; if($request->ajax())$patient = patient::find($request->id_patient);else$patient=patient::where('IPP', explode("-", $request->patient)[0])->first();$rdv = rdv::firstOrCreate(["date"=>new DateTime($request->date),"fin" =>new DateTime($request->fin), "fixe"    => $request->fixe,"patient_id"=> $patient->id, "specialite_id"=> $specialite ]); if($request->ajax())return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));elsereturn redirect()->route("rdv.create"); }     
+      }//function AddRDV(Request $request)  {$specialite ="";if(Auth::user()->role_id ==2)$specialite = $request->specialite ; else $specialite = Auth::user()->employ->specialite; if($request->ajax())$patient = patient::find($request->id_patient);else$patient=patient::where('IPP', explode("-", $request->patient)[0])->first();$rdv = rdv::firstOrCreate(["date"=>new DateTime($request->date),"fin" =>new DateTime($request->fin), "fixe"    => $request->fixe,"patient_id"=> $patient->id, "specialite_id"=> $specialite ]); if($request->ajax())return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));elsereturn redirect()->route("rdv.create"); }     
       public function checkFullCalendar(Request $request)
       {
-              $events = array(); 
-              $today = Carbon::now()->format('Y-m-d');
-              $rendezVous = rdv::all();
-              foreach ($rendezVous as $rdv) {
-                $patient = patient::FindOrFail($rdv->patient_id);
-                $rdv = array();
-                $e['id'] = $patient->id;
-                $e['title'] =$patient->Nom + $patient->Prenom  ;
-                $e['start'] = new DateTime($rdv->date);
-                $e['end'] = new DateTime($$rdv->date.' +1 day');
-                array_push($events, $e);
+        $events = array(); 
+        $today = Carbon::now()->format('Y-m-d');
+        $rendezVous = rdv::all();
+        foreach ($rendezVous as $rdv) {
+          $patient = patient::FindOrFail($rdv->patient_id);
+          $rdv = array();
+          $e['id'] = $patient->id;
+          $e['title'] =$patient->Nom + $patient->Prenom  ;
+          $e['start'] = new DateTime($rdv->date);
+          $e['end'] = new DateTime($$rdv->date.' +1 day');
+          array_push($events, $e);
         }
         return response()->json($events); // return response()->json(['events' , $events]);
       } // public function orderPdf($id){ $rdv = rdv::findOrFail($id);$pdf = PDF::loadView('rdv.rdv_pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-pour:".patient::where("id",$rdv->patient_id)->get()->first()->Nom."".patient::where("id",$rdv->patient_id)->get()->first()->Prenom.".pdf";return $pdf->download($name); }

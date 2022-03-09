@@ -56,12 +56,12 @@
 	  </div>
 		<div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
 		<div class="row" >
-		  	<div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
-		  </div>
-		  <div id="container" class="mt-2">
+		  <div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
+		</div>
+		<div id="container" class="mt-2">
 		 		<div id ="row">
-		 			<div id="left"><img src="<?= $img->encoded ?>"/><br>	<strong>IPP :</strong><span>{{ $rdv->patient->IPP }}</span></div>
-		 		</div>
+		 			<div id="left"><img src="<?= $img->encoded ?>"/><br><strong>IPP :</strong><span>{{ $rdv->patient->IPP }}</span></div>
+        </div>
 		 		<div id ="parent" class="row mb-12">
 		 			<span>&nbsp;Le jour de votre consultation</span>
 			 		<ul style="font-size: xx-small;">	

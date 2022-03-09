@@ -60,9 +60,9 @@
         @if(Auth::user()->role->id == 1)
              <a  id="btnConsulter" class="btn btn btn-primary"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
-        <a  id="printRdv" class="btn btn-success hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-        <a  id="printTck" class="btn btn-info hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
-       <button type="button" class="btn btn-default" data-dismiss="modal"  id ="btnclose" >
+        <a  id="printRdv" class="btn btn-success"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
+        <a  id="printTck" class="btn btn-info hiden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal"  id ="btnclose" >
              <i class="fa fa-close" aria-hidden="true" ></i>&nbsp;Annuler
         </button>
         </div>

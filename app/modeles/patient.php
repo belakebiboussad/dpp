@@ -6,7 +6,7 @@ class patient extends Model
 {
 	public $timestamps = false;
 	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active','Date_creation','updated_at'];
-  protected $appends = ['full_name','age'];
+  protected $appends = ['full_name','age','civ'];
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;
@@ -85,6 +85,31 @@ class patient extends Model
  				return "M.";
  		}
  	}
+  public function getCivAttribute()
+  {
+    $civcode = "";
+    switch ($civilite = $this->getCivilite()) {
+        case 'M.':
+          $civcode = 1; 
+          return $civcode;
+          break;
+        case 'Mlle.':
+          $civcode =2; 
+          return $civcode;
+          break; 
+        case 'Mme.':
+          $civcode =2;//2
+          return $civcode;
+          break; 
+        case 'Enf.':
+          $civcode =3; 
+          return $civcode;
+          break;
+        default :
+          return 1;
+          break;     
+    }
+  }
  	public function getCiviliteCode()
  	{
  		$civcode = "";
@@ -92,14 +117,13 @@ class patient extends Model
         case 'M.':
           $civcode = 1; 
     			return $civcode;
-          
           break;
         case 'Mlle.':
           $civcode =2; 
     			return $civcode;
           break; 
         case 'Mme.':
-          $civcode =2;
+          $civcode =4;
     			return $civcode;
           break; 
         case 'Enf.':
@@ -107,11 +131,8 @@ class patient extends Model
    				return $civcode;
           break;
         default :
-          $civcode =1; 
-   				return $civcode;
+   				return 1;
           break;     
     }
  	}
-
-
 }

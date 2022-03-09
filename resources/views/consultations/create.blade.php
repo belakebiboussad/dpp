@@ -525,9 +525,7 @@
 						 allowOutsideClick: false,  
 					  }).then((result) => {
   						if(!isEmpty(result.value))
-  						{
-  							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
-  						}
+  							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);							
 			  		})
 				}else
 					$('.calendar').fullCalendar('unselect');//calendar1

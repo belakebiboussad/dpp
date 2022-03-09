@@ -7,13 +7,13 @@
 </div>
 <div class="row"><div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div></div>
 <div class="tabbable"  class="user-profile">
-  <ul class = "nav nav-pills nav-justified list-group" role="tablist">
-		<li class="active"><a data-toggle="tab" href="#hospi"><strong><h4>Hospitalisation</h4></strong></a></li>
+  <ul class = "nav nav-tabs padding-18" role="tablist">
+		<li class="active"><a data-toggle="tab" href="#hospi"><h4>Hospitalisation</a></li>
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
-		<li ><a data-toggle="tab" href="#visites"><strong><h4>Visites & Contrôles</h4></strong></a></li>
+		<li ><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
 		@endif
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
-		<li ><a data-toggle="tab" href="#constantes"><strong><h4>Surveillance clinique</h4></strong></a></li>
+		<li ><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
 		@endif
 	</ul>
 	<div class="tab-content no-border padding-24">
@@ -91,11 +91,11 @@
 			</div>
 		 @endif
 		</div><!-- hospi -->
-	  <div id="visites" class="tab-pane">
-      <div class="row">{{-- @include('visite.liste') --}}
-          dfds
-      </div>
+	  @if(in_array(Auth::user()->role_id,[1,13,14]))
+      <div id="visites" class="tab-pane">
+        <div class="row">{{ @include('visite.liste') }} </div>
     </div>
+    @endif
   </div>
 </div><!-- tab-content -->
 @endsection
