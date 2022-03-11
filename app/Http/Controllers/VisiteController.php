@@ -26,8 +26,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use App\modeles\Specialite;
-use App\Utils\ArrayClass;
-use DB;
+use App\Utils\ArrayClass;//use DB;
 use Carbon;
 class VisiteController extends Controller
 {
@@ -56,11 +55,6 @@ class VisiteController extends Controller
         $date = Carbon\Carbon::now();
         $etablissement = Etablissement::first(); 
         $hosp = hospitalisation::FindOrFail($id_hosp);
-//$v = visite::with('prescreptionconstantes')->findOrFail(48);
-/*foreach($hosp->visites as $visite)
-{ if(isset($visite->prescreptionconstantes)){foreach( $visite->prescreptionconstantes->constantes  as $c)
-{if(!in_array($c, $prescredconst, true)){array_push($prescredconst, $c->id);}} }}*/
-        //$prescredconst = array_unique($prescredconst);
         $lastViste = $hosp->getlastVisite();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
         $employe = Auth::user()->employ;

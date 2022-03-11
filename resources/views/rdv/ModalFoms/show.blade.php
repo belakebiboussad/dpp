@@ -27,8 +27,6 @@
                 </div>
               </div>
             </div>
-{{--<div class="well"><div class="row"><div class="col-sm-12"><div class="form-group"><label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
-<div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor" disabled/></div></div></div></div></div> --}}
               <div class="row">
                  <div class="col-sm-6">
                  <fieldset class="scheduler-border">
@@ -61,7 +59,7 @@
              <a  id="btnConsulter" class="btn btn btn-primary"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
         <a  id="printRdv" class="btn btn-success"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-        <a  id="printTck" class="btn btn-info hiden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
+        <a  id="printTck" class="btn btn-info hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
         <button type="button" class="btn btn-default" data-dismiss="modal"  id ="btnclose" >
              <i class="fa fa-close" aria-hidden="true" ></i>&nbsp;Annuler
         </button>

@@ -1,6 +1,5 @@
 <?php
-namespace App\Http\Controllers;
-use DB;
+namespace App\Http\Controllers;//use DB;
 use App\modeles\patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -443,51 +442,53 @@ class PatientController extends Controller
     }
   public function getPatientsArray(Request $request)
   {
-    $today = Carbon::now();
-    $sub17 = ($today->subYears(17))->format('Y-m-d');
-    if($request->ajax())  
-    { 
-      switch($request->specialite) 
-      {
-        // ->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')
-        case 3 :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)->get();
-          break;
-        case 5 :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')->get();
-          break;
-        case 8  :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)->get();
-          break;  
-        default :
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get(); 
-          break;                   
-      }          
-      return ['success' => true, 'data' => $patients]; 
-    }
+        $output="";
+        $today = Carbon::now();
+        $sub17 = ($today->subYears(17))->format('Y-m-d');
+        if($request->ajax())  
+          { 
+            switch($request->specialite) 
+            {
+              case 3 :
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)->get();
+                break;
+              case 5 :
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')->get();
+                break;
+              case 8  :
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)->get();
+                break;  
+              default :
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get(); 
+                break;                   
+            }          
+            //return ['success' => true, 'data' => $patients]; 
+            foreach ($patients as $key => $pat) {
+                    $output.='<li>'.$pat->full_name.'</li>';
+            }
+            return Response($output);
   }
   public function search(Request $request)
   {
-    $today = Carbon::now();
-    $sub17 = ($today->subYears(17))->format('Y-m-d');
-    //$patients=patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
-    if($request->ajax())  
-    {
-      switch(Auth::user()->employ->specialite)
-      {       
-        case 3 :
-          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '>', $sub17)->get();
-          break;
-        case 5 :
-          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
-          break;
-        case 8 :
-          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '<=', $sub17)->get();
-          break;
-        default :
-          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->get();
-          break;
-      }
+          $today = Carbon::now();
+          $sub17 = ($today->subYears(17))->format('Y-m-d');   //$patients=patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
+          if($request->ajax())  
+          {
+            switch(Auth::user()->employ->specialite)
+            {       
+                    case 3 :
+                           $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '>', $sub17)->get();
+                           break;
+                    case 5 :
+                          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
+                          break;
+                    case 8 :
+                          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '<=', $sub17)->get();
+                           break;
+                    default :
+                          $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->get();
+                          break;    
+             }
       return Response::json($patients);
     }
   }

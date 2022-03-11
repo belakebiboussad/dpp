@@ -1,16 +1,16 @@
 @extends('app')
 @section('style')
 	<style>
-  .make-scrolling {
+  .make-scrolling {/* overflow-y: scroll; height: 100px;*/
     overflow-y: scroll; 
     max-height: 100px;
     margin-left:-0.7%;
   }
   .es-list option{
-         padding:5px 0;
+    padding:5px 0;
    }
   .es-list li{
-        padding:5px 0;
+    padding:5px 0;
   }
   </style>
 @endsection
@@ -19,42 +19,14 @@
 <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 @include('rdv.scripts.print')
 <script>
-function showResult(str) {
-        if (str.length==0) {
-              document.getElementById("livesearch").innerHTML="";
-               document.getElementById("livesearch").style.border="0px";
-               return;
-       }
-       var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
-        var field = $("select#filtre option").filter(":selected").val();
-        var html = '<option value="">Sélectionner...</option>';
-        $.ajax({
-               url : '{{ URL::to('getPatients') }}',
-               data: {    
-                    "field":field,
-                    "value":$("#patient").val(),
-                    "specialite":spec,
-               },
-               dataType: "json",
-               success: function(html) {
-                alert()
-                       //document.getElementById("livesearch").innerHTML=this.responseText;
-                       $("#livesearch").html(html).show();
-                       // $('tbody').html(data);
-                      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-               },
-               error:function(){
-                      alert("error");
-               }
-        });
-}
-function resetPation()
+var loaded;
+//var rdvs = @json($rdvs);
+function resetPatin()
 {
       $('#patient').editableSelect('clear');
       $('.es-list').val(''); 
       $('#patient').val('');
 }
- var loaded;
 function reset_in(){
         $("#filtre").val('');
         if('{{ Auth::user()->role_id == 2 }}')
@@ -62,57 +34,58 @@ function reset_in(){
           $('#specialite').val('');
           $("#filtre").attr("disabled", true);
         }
-         resetPation();
+        resetPatin();
         $("#btnSave").attr("disabled", true);
 }
 function getPatient()
 {
-        var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
-        var field = $("select#filtre option").filter(":selected").val();
+        var spec ='{{ Auth::user()->role_id ==1 }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+        var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
         var html = '<option value="">Sélectionner...</option>';
         $.ajax({
-              url : '{{ URL::to('getPatients') }}',
+              url : '{{URL::to('getPatients')}}',
               data: {    
-                    "field":field,
-                    "value":$("#patient").val(),
-                    "specialite":spec,
+                "field":field,
+                "value":$("#patient").val(),
+                "specialite":spec,
               },
-               dataType: "json",
-               success: function(data) {
-                      $(".es-list").html("");
-                      $(".es-list").addClass("make-scrolling"); //$("#patient").empty();
-                      $.each(data['data'], function(key, pat) {
-                                $(".es-list").append($('<li></li>') .attr('value', pat['id'])
-                               .attr('class','es-visible list-group-item option').text(pat['full_name']));           
-                      });
-               },
-              error: function() {
-                        alert("can't connect to db");
-              }
-        });
+           dataType: "json",
+           success: function(data) {
+              $(".es-list").html("");//remove list
+              $(".es-list").addClass("make-scrolling");
+              $("#patient").empty();
+             $.each(data['data'], function(key, pat) { //$(".es-list").append($('<li></li>').attr('value', pat['id']).attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['Nom']+"-"+pat['Prenom']));
+                $(".es-list").append($('<li></li>') .attr('value', pat['id'])
+                             .attr('class','es-visible list-group-item option').text(pat['IPP']+"-"+pat['full_name']));           
+            });
+      },
+      error: function() {
+         alert("can't connect to db");
+      }
+  });
 }
 $(function () {
-        alert(loaded);
-        if(loaded)
-        {
-               $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
-                // Connect Hubs without the generated proxy
-               var chatHubProxy = $.connection.myChatHub;
-              $.connection.hub.start().done(function (e) {
+      alert(loaded);
+      if(loaded)
+      {
+              $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+             // Connect Hubs without the generated proxy
+             var chatHubProxy = $.connection.myChatHub;
+            $.connection.hub.start().done(function (e) {
                      console.log("Hub connected.");
-                      $("#printTck").click(function(){
+                     $("#printTck").click(function(){
                             var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-                           chatHubProxy.server.send(barcode);       
-                      });
-                }).fail(function () {
-                          console.log("Could not connect to Hub.");
-                });
-        }
+                            chatHubProxy.server.send(barcode);       
+                    });
+            }).fail(function () {
+                   console.log("Could not connect to Hub.");
+            });
+  }
 });
 $(function () {
         $( "#filtre" ).change(function() {
-              resetPation();
-               $("#btnSave").attr("disabled", true);
+                resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+                $("#btnSave").attr("disabled", true);
                 if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
                          $("#patient").prop('disabled',false);
         });
@@ -120,71 +93,72 @@ $(function () {
                $('#printRdv').attr("data-id",'');
                $('#printRdv').addClass('hidden');
         });
+    //teste code barre
 });
 $(function() {
-        var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-        var today = (new Date()).setHours(0, 0, 0, 0); 
-       $('.calendar').fullCalendar({
-               header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                },
-                timeZone: 'local',
-                defaultView: 'agendaWeek',
-                firstDay: 0, 
-                slotDuration: '00:15:00',
-                minTime:'08:00:00',
-                maxTime: '17:00:00',
-                navLinks: true,
-                selectable: true,
-                selectHelper: true, 
-                eventColor: '#87CEFA',
-                editable: true,
-                eventLimit: true,     
-               // hiddenDays: [ 5, 6 ],
-                allDaySlot: false,
-                weekNumberCalculation: 'ISO',
-                aspectRatio: 1.5,        // disableDragging: true,
-                eventStartEditable : false,
-                eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
-                weekNumbers: true,
-                aspectRatio: 2,
-                displayEventTime : false,
-                views: {},
-                events :[
-                    @foreach($rdvs as $key =>   $rdv)
-                    {
-                        title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
-                        start : '{{ $rdv->date }}',
-                        end:   '{{ $rdv->fin }}',
-                        id :'{{ $rdv->id }}',
-                        idPatient:'{{ $rdv->patient->id}}',
-                        fixe:  {{ $rdv->fixe }},
-                        tel:'{{$rdv->patient->tele_mobile1}}',
-                        age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
-                        specialite: {{ $rdv->specialite_id }},
-                        civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
-                        key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
-                    },
-                   @endforeach   
-                ], 
-                select: function(start, end) {
-                    var minutes = end.diff(start,"minutes"); 
-                    if( (minutes == 15) && (start >=today ))//CurrentDate
-                    {
-                      if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
-                      {
-                        Swal.fire({
-                            title: 'Confimer vous  le Rendez-Vous ?',
-                            html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-                            input: 'checkbox',
-                            inputPlaceholder: 'Redez-Vous Fixe',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Oui',
-                            cancelButtonText: "Non",
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+    var today = (new Date()).setHours(0, 0, 0, 0); 
+    $('.calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        timeZone: 'local',
+        defaultView: 'agendaWeek',
+        firstDay: 0, 
+        slotDuration: '00:15:00',
+        minTime:'08:00:00',
+        maxTime: '17:00:00',
+        navLinks: true,
+        selectable: true,
+        selectHelper: true, 
+        eventColor: '#87CEFA',
+        editable: true,
+        eventLimit: true,     
+       // hiddenDays: [ 5, 6 ],
+        allDaySlot: false,
+        weekNumberCalculation: 'ISO',
+        aspectRatio: 1.5,        // disableDragging: true,
+        eventStartEditable : false,
+        eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
+        weekNumbers: true,
+        aspectRatio: 2,
+        displayEventTime : false,
+        views: {},
+        events :[
+            @foreach($rdvs as $key =>   $rdv)
+            {
+                title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+                start : '{{ $rdv->date }}',
+                end:   '{{ $rdv->fin }}',
+                id :'{{ $rdv->id }}',
+                idPatient:'{{ $rdv->patient->id}}',
+                fixe:  {{ $rdv->fixe }},
+                tel:'{{$rdv->patient->tele_mobile1}}',
+                age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                specialite: {{ $rdv->specialite_id }},
+                civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
+                key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
+            },
+           @endforeach   
+        ], 
+        select: function(start, end) {
+            var minutes = end.diff(start,"minutes"); 
+            if( (minutes == 15) && (start >=today ))//CurrentDate
+            {
+              if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+              {
+                Swal.fire({
+                    title: 'Confimer vous  le Rendez-Vous ?',
+                    html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                    input: 'checkbox',
+                    inputPlaceholder: 'Redez-Vous Fixe',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui',
+                    cancelButtonText: "Non",
                     allowOutsideClick: false,
                 }).then((result) => {
                     if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
@@ -202,7 +176,7 @@ $(function() {
                 else
                          createRDVModal(start,end,0,result.value);//createRDVModal(start,end);  
               }
-              resetPation();
+              resetPatin();
             }else
               $('.calendar').fullCalendar('unselect');
         },
@@ -247,11 +221,7 @@ $(function() {
                     element.css('background-color', '#D3D3D3');  
               else
               {
-                      if(event.fixe>0)
-                              element.css('background-color', '#87CEFA'); //#378006
-                      else
-                              element.css('background-color', '#378006');
-
+                       element.css('background-color', '#87CEFA'); //#378006
                         element.css("padding", "5px");
               }
               element.popover({
@@ -287,8 +257,8 @@ $(function() {
                 url:url,
                 data:formData,//dataType: 'json',
                 success:function(data){//var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';         
-                        var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
-                       $('.calendar').fullCalendar( 'renderEvent', {
+                     var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
+                     $('.calendar').fullCalendar( 'renderEvent',  {
                           title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                           start: formData.date,
                           end: formData.fin,
@@ -299,42 +269,42 @@ $(function() {
                           age:data['age'],
                           civ:data['patient']['civ'],         
                           allDay: false,
-                          color:color, 
-                      });
-                  resetPation();
+                          color:color, //'#87CEFA'
+                  } );
                 },//success
           })
     });
     $('#patient').editableSelect({
-             editable: true,
+        effects: 'default', 
+        editable: true,
     }).on('select.editable-select', function (e, li) {
-              $("#pat_id").val(li.attr('value'));//resetPation();
-                if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
-                      $("#btnSave").removeAttr("disabled");
-                else
-                      if($('#specialite').val() != null)
-                               $("#btnSave").removeAttr("disabled");
-        });
-        $('#patient').val('');
-        $("#patient").on("keyup", function() {
-                 getPatient(); 
-         });
-        $( "#specialite" ).change(function() {
+        $("#pat_id").val(li.attr('value'));
+        if('{{ Auth::user()->role_id}}' == 1)
+          $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
+        else
+          if($('#specialite').val() != null)
+            $("#btnSave").removeAttr("disabled");
+    });
+      $('#patient').val('');
+       $("#patient").on("keyup", function() {
+             getPatient(); 
+      });
+      $( "#specialite" ).change(function() {
               if("#specialite" != '') 
               {
-                      if($("#filtre").prop('disabled') == true)
-                            $("#filtre").prop('disabled',false);
+                     if($("#filtre").prop('disabled') == true)
+                             $("#filtre").prop('disabled',false);
                       else
-                      {
-                            $("#filtre").val('');
-                            $("#patient").val('');
-                      }
-                    if($('#patient').val() != "")
-                            $("#btnSave").removeAttr("disabled"); 
-              }else
+                       {
+                              $("#filtre").val('');
+                              $("#patient").val('');
+                       }
+                      if($('#patient').val() != "")
+                             $("#btnSave").removeAttr("disabled"); 
+               }else
                {
-                        $("#filtre").val('');
-                        $("#filtre").prop('disabled',true);  
+                      $("#filtre").val('');
+                      $("#filtre").prop('disabled',true);  
                 }
         });
   });

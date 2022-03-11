@@ -227,52 +227,49 @@
         }
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         { 
-          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-          if(pid !== 0)
-          {
-            if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
+            var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+            var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+            if(pid !== 0)
             {
-              var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
-              $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-              }); 
-              var url = "{{ route('rdv.store') }}"; 
-              $.ajax({
-                  type : 'POST',
-                  url :url,
-                  data:formData,//dataType: 'json',
-                  success:function(data){         
-                    var color = (data['rdv']['fixe'] > 0) ? '#378006':'#87CEFA';
-                    var event = new Object();
-                    alert(data['patient']['civ']);
-                    event = {
-                      title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                      start: debut,
-                      end: fin,
-                      id : data['rdv']['id'],
-                      idPatient:data['patient']['id'],
-                      fixe: data['rdv']['fixe'],
-                      tel:data['patient']['tele_mobile1'] ,
-                      age:data['age'],
-                      specialite: data['rdv']['specialite_id'],         
-                      civ : data['patient']['civ'],
-                      allDay: false,
-                      color:color, //'#87CEFA'
-                    };
-                    $('.calendar').fullCalendar( 'renderEvent', event );//calendar1
-                  },
-                  error: function (data) {
-                    console.log('Error:', data);
+              if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
+              {
+                var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                   }
-              });
-              
+                }); 
+                var url = "{{ route('rdv.store') }}"; 
+                $.ajax({
+                    type : 'POST',
+                    url :url,
+                    data:formData,//dataType: 'json',
+                    success:function(data){         
+                      var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                      $('.calendar').fullCalendar( 'renderEvent',  {
+                              title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                              start: debut,
+                              end: fin,
+                              id : data['rdv']['id'],
+                              idPatient:data['patient']['id'],
+                              fixe: data['rdv']['fixe'],
+                              tel:data['patient']['tele_mobile1'] ,
+                              age:data['age'],
+                              specialite: data['rdv']['specialite_id'],         
+                              civ : data['patient']['civ'],
+                              allDay: false,
+                              color:color
+                      } );//calendar1
+                    },
+                    error: function (data) {
+                      console.log('Error:', data);
+                    }
+                });
+                
+                }else
+                  showRdvModal(debut,fin,fixe); 
               }else
                 showRdvModal(debut,fin,fixe); 
-            }else
-              showRdvModal(debut,fin,fixe); 
         }
         function showRdvModal(date,fin,fixe)
         {

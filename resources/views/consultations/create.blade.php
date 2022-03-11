@@ -493,7 +493,7 @@
 				   element.css('background-color', '#D3D3D3');
 				else
 				{	
-				  if(event.fixe)
+				       if(event.fixe>0)
 						element.css('background-color', '#87CEFA'); 
 					else
 						element.css('background-color', '#378006');
@@ -525,7 +525,7 @@
 						 allowOutsideClick: false,  
 					  }).then((result) => {
   						if(!isEmpty(result.value))
-  							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);							
+  							createRDVModal(start,end,'{{ $patient->id }}',result.value);					
 			  		})
 				}else
 					$('.calendar').fullCalendar('unselect');//calendar1

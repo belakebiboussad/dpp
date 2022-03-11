@@ -110,17 +110,17 @@ class RDVController extends Controller
         {
                 $specialite ="";
                 if(Auth::user()->role_id ==2)
-                  $specialite = $request->specialite ;
+                        $specialite = $request->specialite ;
                 else
-                  $specialite = Auth::user()->employ->specialite;
+                        $specialite = Auth::user()->employ->specialite;
                 $patient = patient::find($request->id_patient);
                 $rdv = rdv::firstOrCreate([
-                  "date"=>new DateTime($request->date),
-                  "fin" =>new DateTime($request->fin),
-                  "fixe"    => $request->fixe,
-                  "patient_id"=> $patient->id,
-                  "employ_id"=>Auth::user()->employee_id,
-                  "specialite_id"=> $specialite
+                        "date"=>new DateTime($request->date),
+                        "fin" =>new DateTime($request->fin),
+                        "fixe"    => $request->fixe,
+                        "patient_id"=> $patient->id,
+                        "employ_id"=>Auth::user()->employee_id,
+                        "specialite_id"=> $specialite
                 ]);   
                 return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));
         }else

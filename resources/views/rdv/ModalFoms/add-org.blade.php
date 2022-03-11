@@ -16,7 +16,7 @@
 	         		<div class="row">
 			         	<div class="col-sm-12">
 		           		<div class="form-group">
-				          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+				          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>   {{-- onchange="getMedecinsSpecialite($(this).val());" --}}
 				          	<select class="form-control" id="specialite" required>
                     	                       	<option value="" selected disabled> Selectionner...</option>
                     	                       	@foreach($specialites as $specialite)
@@ -35,38 +35,32 @@
 	          		<div class="row">
 			          	<div class="col-sm-4">
 				          	<div class="form-group">
-        		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
-        		          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
-        		                 		       <option value="" selected disabled="">Selectionner...	</option>
-                  		                 		<option value="Nom">Nom</option>
-                          		                  	<option value="Prenom">Prenom</option>
-                          		                  	<option value="IPP">IPP</option>
-        		                              </select>
+		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
+		          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+		                 		<option value="" selected disabled="">Selectionner...	</option>
+		                 		<option value="Nom">Nom</option>
+		                  	<option value="Prenom">Prenom</option>
+		                  	<option value="IPP">IPP</option>
+		                  </select>
 				          	</div>
 			          	</div><div class="col-sm-1"></div>
 			          	<div class="col-sm-7">
 			          		<div class="form-group">
 			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			{{-- <select class="form-control" id="patient" required disabled>
-                                                    @if(isset($patient))
-                                                           <option value="{{$patient->id}}" selected>{{ $patient->full_name }}</option>
-                                                    @endif
-                                                 	</select> --}}
-                                                   @if(isset($patient))
-                                                          <input type="search"  class="form-control"  id="pat-search" name="q"  value ="{{ $patient->full_name }}"  }}>
-                                                   @else
-                                                     <input type="search"  class="form-control"  id="pat-search" name="q"  value =""  onkeyup="showResult(this.value)">
-                                                    @endif
-                                                    <div id="livesearch"></div>
-                                            </div>
+			          			<select class="form-control" id="patient" required disabled><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
+                        @if(isset($patient))
+                          <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                        @endif
+                     	</select>
+                    </div>
 			          	</div>
 		          	</div>
 		          </div>
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-success" type="button" id ="btnSave"  data-dismiss="modal" ><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
-			 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
+		      	<button  class="btn btn-success" type="button" id ="btnSave"  data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
+			 			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
 		      </div>
       	</form>
   		</div>
