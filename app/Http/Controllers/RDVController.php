@@ -6,6 +6,7 @@ use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
 use App\modeles\Etablissement;
+use App\modeles\Parametre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -74,26 +75,20 @@ class RDVController extends Controller
     // Request $request
     public function create(Request $request)//,$patient_id = null
     {
-       if((in_array(Auth::user()->role->id,[1,13,14]))) 
-        {  
-          $specialite = Auth::user()->employ->specialite;
-          $specialites = specialite::all();
-          $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite)
-                      ->where('etat',null)->orwhere('etat',1)->get();
-          if(isset($request->patient_id))//(isset($patient_id) && !empty($patient_id)) ||(
-                $patient = patient::FindOrFail( $request->patient_id);//$pid = (isset($patient_id))? $patient_id : $request->patient_id;
-          else
-                 $patient = new patient;
-          return view('rdv.create',compact('patient','rdvs','specialites'));  // }else //   return view('rdv.create', compact('rdvs'));  
-      }else{ 
-              $rdvs = rdv::with(['patient','specialite'])->where('etat',null)->orwhere('etat',1)->get();
-               $specialites = specialite::all();
-                if(isset($request->patient_id))//isset($patient_id) && !empty($patient_id)) ||( //$pid = (isset($patient_id))? $patient_id : $request->patient_id;
-                       $patient = patient::FindOrFail($request->patient_id);
-             else
-                      $patient = new patient;
-                return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
-      }
+      $borneIp =  (Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value;
+      $specialites = specialite::all();
+      if(isset($request->patient_id))
+        $patient = patient::FindOrFail( $request->patient_id);
+      else
+        $patient = new patient;
+      if((in_array(Auth::user()->role->id,[1,13,14]))) 
+      {  
+        $specialite = Auth::user()->employ->specialite;
+        $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite)
+                    ->where('etat',null)->orwhere('etat',1)->get();
+      }else
+        $rdvs = rdv::with(['patient','specialite'])->where('etat',null)->orwhere('etat',1)->get();
+      return view('rdv.create', compact('rdvs','patient','specialites','borneIp'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
     }
     /**
      * Store a newly created resource in storage.

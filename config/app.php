@@ -164,7 +164,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-         // Collective\Html\HtmlServiceProvider::class,
+        // Collective\Html\HtmlServiceProvider::class,
        
         /*
          * Package Service Providers...
@@ -183,8 +183,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
-        MercurySeries\Flashy\FlashyServiceProvider::class,
-       // MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        MercurySeries\Flashy\FlashyServiceProvider::class,// MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         App\Providers\ToUtfServerProvider::class,
     ],
 

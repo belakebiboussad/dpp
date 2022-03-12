@@ -16,159 +16,130 @@
 @endsection
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
-<script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 @include('rdv.scripts.print')
 <script>
-function showResult(str) {
-        if (str.length==0) {
-              document.getElementById("livesearch").innerHTML="";
-               document.getElementById("livesearch").style.border="0px";
-               return;
-       }
-       var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
-        var field = $("select#filtre option").filter(":selected").val();
-        var html = '<option value="">Sélectionner...</option>';
-        $.ajax({
-               url : '{{ URL::to('getPatients') }}',
-               data: {    
-                    "field":field,
-                    "value":$("#patient").val(),
-                    "specialite":spec,
-               },
-               dataType: "json",
-               success: function(html) {
-                alert()
-                       //document.getElementById("livesearch").innerHTML=this.responseText;
-                       $("#livesearch").html(html).show();
-                       // $('tbody').html(data);
-                      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-               },
-               error:function(){
-                      alert("error");
-               }
-        });
-}
 function resetPation()
 {
-      $('#patient').editableSelect('clear');
-      $('.es-list').val(''); 
-      $('#patient').val('');
+  $("#livesearch").html("");
+  $("#btnSave").attr("disabled", true);
+  $("#pat-search").val("");
 }
- var loaded;
+var loaded;
 function reset_in(){
-        $("#filtre").val('');
-        if('{{ Auth::user()->role_id == 2 }}')
-        {
-          $('#specialite').val('');
-          $("#filtre").attr("disabled", true);
-        }
-         resetPation();
-        $("#btnSave").attr("disabled", true);
+  $("#filtre").val('');
+  if('{{ Auth::user()->role_id == 2 }}')
+  {
+    $('#specialite').val('');
+    $("#filtre").attr("disabled", true);
+  }
+  resetPation();
+}
+function Fill(pid, name)
+{
+  $("#pat_id").val(pid);
+  $("#pat-search").val(name);
+  $("#livesearch").html("");
+  $("#btnSave").attr("disabled", false);
 }
 function getPatient()
 {
-        var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
-        var field = $("select#filtre option").filter(":selected").val();
-        var html = '<option value="">Sélectionner...</option>';
-        $.ajax({
-              url : '{{ URL::to('getPatients') }}',
-              data: {    
-                    "field":field,
-                    "value":$("#patient").val(),
-                    "specialite":spec,
-              },
-               dataType: "json",
-               success: function(data) {
-                      $(".es-list").html("");
-                      $(".es-list").addClass("make-scrolling"); //$("#patient").empty();
-                      $.each(data['data'], function(key, pat) {
-                                $(".es-list").append($('<li></li>') .attr('value', pat['id'])
-                               .attr('class','es-visible list-group-item option').text(pat['full_name']));           
-                      });
-               },
-              error: function() {
-                        alert("can't connect to db");
-              }
-        });
+  var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var field = $("select#filtre option").filter(":selected").val();
+  var ajaxurl = '{{ URL::to('getPatients') }}';
+  $.ajax({
+        url : ajaxurl,
+        data: {    
+              "field":field,
+              "value":$("#pat-search").val(),
+              "specialite":spec,
+        },
+        dataType: "json",
+        success: function(html) {
+          $("#livesearch").html(html).show();
+           document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+        },
+        error: function() {
+          console.log("can't connect to db");
+        }
+  });
 }
 $(function () {
-        alert(loaded);
-        if(loaded)
-        {
-               $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
-                // Connect Hubs without the generated proxy
-               var chatHubProxy = $.connection.myChatHub;
-              $.connection.hub.start().done(function (e) {
-                     console.log("Hub connected.");
-                      $("#printTck").click(function(){
-                            var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-                           chatHubProxy.server.send(barcode);       
-                      });
-                }).fail(function () {
-                          console.log("Could not connect to Hub.");
-                });
-        }
-});
-$(function () {
-        $( "#filtre" ).change(function() {
-              resetPation();
-               $("#btnSave").attr("disabled", true);
-                if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
-                         $("#patient").prop('disabled',false);
-        });
-        $("#showfullCalModal").on('hide.bs.modal', function(){
-               $('#printRdv').attr("data-id",'');
-               $('#printRdv').addClass('hidden');
-        });
+  alert(loaded);
+  if(loaded)
+  {
+    $.connection.hub.url = '{{ $borneIp }}/myhubs';//$.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+    // Connect Hubs without the generated proxy
+     var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function (e) {
+           console.log("Hub connected.");
+            $("#printTck").click(function(){
+              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
+              chatHubProxy.server.send(barcode);       
+            });
+      }).fail(function () {
+                console.log("Could not connect to Hub.");
+      });
+  }
 });
 $(function() {
-        var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-        var today = (new Date()).setHours(0, 0, 0, 0); 
-       $('.calendar').fullCalendar({
-               header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
+  $( "#filtre" ).change(function() {
+    resetPation();
+    if($(this).val() != '' && ( $("#pat-search").prop('disabled') == true))
+      $("#pat-search").prop('disabled',false);
+  });
+  $("#showfullCalModal").on('hide.bs.modal', function(){
+    $('#printRdv').attr("data-id",'');
+    $('#printRdv').addClass('hidden');
+  });
+  var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+  var today = (new Date()).setHours(0, 0, 0, 0); 
+  $('.calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        timeZone: 'local',
+        defaultView: 'agendaWeek',
+        firstDay: 0, 
+        slotDuration: '00:15:00',
+        minTime:'08:00:00',
+        maxTime: '17:00:00',
+        navLinks: true,
+        selectable: true,
+        selectHelper: true, 
+        eventColor: '#87CEFA',
+        editable: true,
+        eventLimit: true,     
+       // hiddenDays: [ 5, 6 ],
+        allDaySlot: false,
+        weekNumberCalculation: 'ISO',
+        aspectRatio: 1.5,        // disableDragging: true,
+        eventStartEditable : false,
+        eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
+        weekNumbers: true,
+        aspectRatio: 2,
+        displayEventTime : false,
+        views: {},
+        events :[
+                @foreach($rdvs as $key =>   $rdv)
+                {
+                    title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+                    start : '{{ $rdv->date }}',
+                    end:   '{{ $rdv->fin }}',
+                    id :'{{ $rdv->id }}',
+                    idPatient:'{{ $rdv->patient->id}}',
+                    fixe:  {{ $rdv->fixe }},
+                    tel:'{{$rdv->patient->tele_mobile1}}',
+                    age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                    specialite: {{ $rdv->specialite_id }},
+                    civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
+                    key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
                 },
-                timeZone: 'local',
-                defaultView: 'agendaWeek',
-                firstDay: 0, 
-                slotDuration: '00:15:00',
-                minTime:'08:00:00',
-                maxTime: '17:00:00',
-                navLinks: true,
-                selectable: true,
-                selectHelper: true, 
-                eventColor: '#87CEFA',
-                editable: true,
-                eventLimit: true,     
-               // hiddenDays: [ 5, 6 ],
-                allDaySlot: false,
-                weekNumberCalculation: 'ISO',
-                aspectRatio: 1.5,        // disableDragging: true,
-                eventStartEditable : false,
-                eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
-                weekNumbers: true,
-                aspectRatio: 2,
-                displayEventTime : false,
-                views: {},
-                events :[
-                    @foreach($rdvs as $key =>   $rdv)
-                    {
-                        title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
-                        start : '{{ $rdv->date }}',
-                        end:   '{{ $rdv->fin }}',
-                        id :'{{ $rdv->id }}',
-                        idPatient:'{{ $rdv->patient->id}}',
-                        fixe:  {{ $rdv->fixe }},
-                        tel:'{{$rdv->patient->tele_mobile1}}',
-                        age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
-                        specialite: {{ $rdv->specialite_id }},
-                        civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
-                        key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
-                    },
-                   @endforeach   
-                ], 
+               @endforeach   
+        ], 
                 select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
                     if( (minutes == 15) && (start >=today ))//CurrentDate
@@ -222,18 +193,18 @@ $(function() {
                       $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
                       if($('#printRdv').hasClass( "hidden" ))
                       {
-                              $('#printRdv').attr("data-id",calEvent.id);
-                              $('#printRdv').removeClass('hidden');
+                        $('#printRdv').attr("data-id",calEvent.id);
+                        $('#printRdv').removeClass('hidden');
                       }         
                       if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
                       {
-                              if(loaded)
-                              {
-                                      if($('#printTck').hasClass( "hidden" ))
-                                            $('#printTck').removeClass('hidden');
-                              }
-                              if(!$('#printRdv').hasClass( "hidden" ))
-                                   $('#printRdv').addClass('hidden');
+                        if(loaded)
+                        {
+                                if($('#printTck').hasClass( "hidden" ))
+                                      $('#printTck').removeClass('hidden');
+                        }
+                        if(!$('#printRdv').hasClass( "hidden" ))
+                             $('#printRdv').addClass('hidden');
                       }else
                        {
                              if(!$('#printTck').hasClass( "hidden" ))
@@ -305,38 +276,21 @@ $(function() {
                 },//success
           })
     });
-    $('#patient').editableSelect({
-             editable: true,
-    }).on('select.editable-select', function (e, li) {
-              $("#pat_id").val(li.attr('value'));//resetPation();
-                if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
-                      $("#btnSave").removeAttr("disabled");
-                else
-                      if($('#specialite').val() != null)
-                               $("#btnSave").removeAttr("disabled");
-        });
-        $('#patient').val('');
-        $("#patient").on("keyup", function() {
-                 getPatient(); 
-         });
-        $( "#specialite" ).change(function() {
-              if("#specialite" != '') 
-              {
-                      if($("#filtre").prop('disabled') == true)
-                            $("#filtre").prop('disabled',false);
-                      else
-                      {
-                            $("#filtre").val('');
-                            $("#patient").val('');
-                      }
-                    if($('#patient').val() != "")
-                            $("#btnSave").removeAttr("disabled"); 
-              }else
-               {
-                        $("#filtre").val('');
-                        $("#filtre").prop('disabled',true);  
-                }
-        });
+    $("#pat-search").on("keyup", function() {//patient
+      if (!($("#btnSave").is(":disabled")))
+      {
+        $("#btnSave").prop('disabled',true);
+        $('#pat_id').val('');
+      }
+      getPatient(); 
+    });
+    $( "#specialite" ).change(function() {
+      if("#specialite" != '')
+      {
+        if($("#filtre").prop('disabled') == true)
+          $("#filtre").prop('disabled',false);
+      }
+    });
   });
 </script>
 @endsection

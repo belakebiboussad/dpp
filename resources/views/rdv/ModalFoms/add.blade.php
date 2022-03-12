@@ -6,59 +6,54 @@
     		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
   	</div>
   	<form  id ="addRdv" role="form" class="form-horizontal"> 
-	      <div class="modal-body"> {{-- csrf_field() --}}
-       		<input type="hidden" id="date"><input type="hidden" id="fin">
-          <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
-           	@if(Auth::user()->role_id == 2)
-					 <div class="panel panel-default">
-		 			    <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
-             		<div class="panel-body">
-	         		<div class="row">
-			         	<div class="col-sm-12">
-		           		<div class="form-group">
-				          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
-				          	<select class="form-control" id="specialite" required>
-                    	                       	<option value="" selected disabled> Selectionner...</option>
-                    	                       	@foreach($specialites as $specialite)
-                    	                     		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
-                    	                     		 @endforeach
-                    	                      </select>
-			         		</div>
-		           	</div>
-		          </div>
-			        </div>
-	          </div>
-	          @endif
-	          <div class="panel panel-default">
-          		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
-	          	<div class="panel-body">	
-	          		<div class="row">
-			          	<div class="col-sm-4">
-				          	<div class="form-group">
-        		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
-        		          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
-        		                 		       <option value="" selected disabled="">Selectionner...	</option>
-                  		                 		<option value="Nom">Nom</option>
-                          		                  	<option value="Prenom">Prenom</option>
-                          		                  	<option value="IPP">IPP</option>
-        		                              </select>
-				          	</div>
-			          	</div><div class="col-sm-1"></div>
-			          	<div class="col-sm-7">
-			          		<div class="form-group">
-			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			{{-- <select class="form-control" id="patient" required disabled>
-                                                    @if(isset($patient))
-                                                           <option value="{{$patient->id}}" selected>{{ $patient->full_name }}</option>
-                                                    @endif
-                                                 	</select> --}}
-                                                   @if(isset($patient))
-                                                          <input type="search"  class="form-control"  id="pat-search" name="q"  value ="{{ $patient->full_name }}"  }}>
-                                                   @else
-                                                     <input type="search"  class="form-control"  id="pat-search" name="q"  value =""  onkeyup="showResult(this.value)">
-                                                    @endif
-                                                    <div id="livesearch"></div>
-                                            </div>
+	    <div class="modal-body">
+       	<input type="hidden" id="date"><input type="hidden" id="fin">
+        <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
+        @if(Auth::user()->role_id == 2)
+			  <div class="panel panel-default">
+ 			    <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
+         	<div class="panel-body">
+       	  	<div class="row">
+	         	<div class="col-sm-12">
+           		<div class="form-group">
+		          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+		          	<select class="form-control" id="specialite" required>
+                 	<option value="" selected disabled> Selectionner...</option>
+                 	@foreach($specialites as $specialite)
+               		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
+               		 @endforeach
+                </select>
+	         		</div>
+           	</div>
+          </div>
+	        </div>
+        </div>
+	      @endif
+        <div class="panel panel-default">
+      		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
+        	<div class="panel-body">	
+        		<div class="row">
+	          	<div class="col-sm-4">
+		          	<div class="form-group">
+          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
+          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+         		        <option value="" selected disabled="">Selectionner...	</option>
+	                 		<option value="Nom">Nom</option>
+	                  	<option value="Prenom">Prenom</option>
+	                  	<option value="IPP">IPP</option>
+                  </select>
+		          	</div>
+	          	</div><div class="col-sm-1"></div>
+	          	<div class="col-sm-7">
+			          <div class="form-group">
+			          	<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
+			              @if(isset($patient))
+                    <input type="search"  class="form-control"  id="pat-search" name="q"  value ="{{ $patient->full_name }}" disabled autocomplete="off">
+                    @else
+                     <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
+                    @endif
+                    <div id="livesearch"></div>
+                    </div>
 			          	</div>
 		          	</div>
 		          </div>

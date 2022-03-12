@@ -265,18 +265,19 @@
                       console.log('Error:', data);
                     }
                 });
-                
-                }else
-                  showRdvModal(debut,fin,fixe); 
               }else
                 showRdvModal(debut,fin,fixe); 
+            }else
+              showRdvModal(debut,fin,fixe); 
         }
         function showRdvModal(date,fin,fixe)
         {
           $('#date').val(date);
           $('#fin').val(fin);
           $('#fixe').val(fixe);
-          $(".es-list").empty(); 
+          //TO DO
+          // if('{{--$patient->id--}}' != null)$("#pat-search").val('{{-- $patient->full_name --}}').change(); 
+         
           $('#addRDVModal').modal({
             show: 'true'
           }); 

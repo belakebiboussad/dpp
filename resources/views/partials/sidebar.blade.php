@@ -49,5 +49,9 @@
           <li class=""><a href="{{ route('lit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Lits </a><b class="arrow"></b></li>
         </ul>
       </li>
+       <li>
+        <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
+        <b class="arrow"></b>
+      </li>
     </ul><!-- /.nav-list -->
 </div>

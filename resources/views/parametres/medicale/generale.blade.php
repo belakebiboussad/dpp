@@ -29,13 +29,3 @@
   </div>
   @endforeach
 </div>
-@if( Auth::user()->role_id == 8)
-<hr>
-<div class="row"><div class="col-sm-12"><h4><u>Dérogations</u></h4></div></div>
-<div class="form-group">
-  <label class="col-sm-3 control-label" for="nom"><strong>Nombre de Dérogation par mois :</strong></label>
-  <div class="col-sm-9">
-    <input class="col-xs-12 col-sm-12"  name="derogationNbr" type="number" min="0" max="100"  />
-  </div>
-</div>
-@endif
