@@ -112,10 +112,10 @@
                   <canvas id="taille" width="400" height="100"></canvas>
                   <canvas id="pas" width="400" height="100"></canvas>
                   <canvas id="pad" width="400" height="100"></canvas>
-                  <!-- <canvas id="pouls" width="400" height="100"></canvas>
+                  <canvas id="pouls" width="400" height="100"></canvas>
                   <canvas id="temp" width="400" height="100"></canvas>
-                  <canvas id="glycemie" width="400" height="100"></canvas>
-                  <canvas id="cholest" width="400" height="100"></canvas> -->
+                   <canvas id="glycemie" width="400" height="100"></canvas>
+                  <canvas id="cholest" width="400" height="100"></canvas> 
                 </div>
               </div>
           </div>
@@ -358,6 +358,211 @@
           }
       }
   });
+  //pouls
+  var ctx = document.getElementById('pouls').getContext('2d');
+var pou = [];
+var poulsfun = $.ajax({
+    url: "/getpouls/{{ $hosp->id }}",
+    async: false,
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.pouls;
+        });
+
+        Array.prototype.push.apply(pou, finalArray);
+
+        return finalArray;
+    }
+});
+var pouls = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Pouls (bpm)',
+            data: pou,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+  });
+//end pouls
+//temp
+var ctx = document.getElementById('temp').getContext('2d');
+var tem = [];
+var tempfun = $.ajax({
+    url: "/gettemp/{{ $hosp->id }}",
+    async: false,
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.temp;
+        });
+
+        Array.prototype.push.apply(tem, finalArray);
+
+        return finalArray;
+    }
+});
+var temp = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Temp (°C)',
+            data: tem,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});// end temp
+// glycemie begin
+var ctx = document.getElementById('glycemie').getContext('2d');
+var glyc = [];
+var glycemiefun = $.ajax({
+    url: "/getglycemie/{{ $hosp->id }}",
+    async: false,
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.glycemie;
+        });
+
+        Array.prototype.push.apply(glyc, finalArray);
+
+        return finalArray;
+    }
+});
+var glycemie = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Glycémie (g/l)',
+            data: glyc,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+  });
+// glycemie end
+var ctx = document.getElementById('cholest').getContext('2d');
+var choles = [];
+var cholestfun = $.ajax({
+    url: "/getcholest/{{ $hosp->id }}",
+    async : false,
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.LDL;
+        });
+
+        Array.prototype.push.apply(choles, finalArray);
+
+        return finalArray;
+    }
+});
+var cholest = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Cholést (mmol/l)',
+            data: choles,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 });
 </script>
 @endsection

@@ -304,7 +304,7 @@ class HospitalisationController extends Controller
 
   public function get_cholest($id_hosp)
   {
-    $cholest = Constantes::select('cholest')->where('hospitalisation_id', $id_hosp)->get();
+    $cholest = Constantes::select('LDL')->where('hospitalisation_id', $id_hosp)->get();//cholest
     return $cholest->toArray();
   }
 }

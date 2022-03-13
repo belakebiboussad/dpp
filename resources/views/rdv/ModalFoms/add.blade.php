@@ -29,7 +29,7 @@
 	        </div>
         </div>
 	      @endif
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="patientPanel">
       		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
         	<div class="panel-body">	
         		<div class="row">
@@ -46,12 +46,12 @@
 	          	</div><div class="col-sm-1"></div>
 	          	<div class="col-sm-7">
 			          <div class="form-group">
-			          	<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			              @if(isset($patient))
-                    <input type="search"  class="form-control"  id="pat-search" name="q"  value ="{{ $patient->full_name }}" disabled autocomplete="off">
-                    @else
-                     <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
-                    @endif
+			          	<label class="col-form-label" for="patient"><strong>&nbsp;</strong></label>
+			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
+                    {{-- @if(isset($patient))
+                       @else
+                     <input type="search"  class="form-control"  id="pat-search" name="q" value ="{{ $patient->full_name }}"autocomplete="off">
+                    @endif --}}
                     <div id="livesearch"></div>
                     </div>
 			          	</div>
@@ -60,10 +60,63 @@
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-success" type="button" id ="btnSave"  data-dismiss="modal" ><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
+		      	<button  class="btn btn-success" type="button" id ="btnSave"   data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
 			 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
 		      </div>
       	</form>
   		</div>
   </div><!-- modal-dialog -->
  </div>
+ <script type="text/javascript" charset="utf-8">
+  function Fill(pid, name)
+  {
+    $("#pat_id").val(pid);
+    $("#pat-search").val(name);
+    $("#livesearch").html('')
+    $("#btnSave").attr("disabled", false);
+  }
+  function showRdvModal(date,fin,pid = 0,fixe)
+  {
+    $('#date').val(date); $('#fin').val(fin);  $('#fixe').val(fixe);
+    if(pid !== 0)
+    { // $("#pat-search").val('{{-- $patient->full_name --}}').show();   // $("#pat_id").val(pid);
+     // $("#pat-search").attr("disabled", false);//$("#btnSave").removeAttr("disabled");
+      $("#pat_id").val(pid); //$("#pat-search").val(name);
+      if(! ($( "#patientPanel" ).hasClass( "hidden" )))
+        $("#patientPanel").addClass("hidden");
+    }else
+    {
+      if( $( "#patientPanel" ).hasClass( "hidden" ))
+        $("#patientPanel").removeClass("hidden"); 
+    }
+    $('#addRDVModal').modal({
+      show: 'true'
+    }); 
+  }
+  $(function(){
+    $("#pat-search").on("keyup", function() {//patient
+    if (!($("#btnSave").is(":disabled")))
+    {
+      $("#btnSave").prop('disabled',true);
+      $('#pat_id').val('');
+    }
+    getPatient(); 
+  });
+  $("#specialite" ).change(function() {
+    if($("#specialite") != '')
+    {
+      if('{{ $patient->id }}' == '')
+      {
+        if($("#filtre").prop('disabled') == true)
+          $("#filtre").prop('disabled',false);
+      }else
+        $("#btnSave").removeAttr("disabled");  
+    }
+  });
+  $( "#filtre" ).change(function() {
+    resetPation();
+    if($(this).val() != '' && ( $("#pat-search").prop('disabled') == true))
+      $("#pat-search").prop('disabled',false);
+  });
+})
+</script>

@@ -76,7 +76,7 @@ class RDVController extends Controller
     public function create(Request $request)//,$patient_id = null
     {
       $borneIp =  (Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value;
-      $specialites = specialite::all();
+      $specialites = Specialite::where('type','!=',null)->get();
       if(isset($request->patient_id))
         $patient = patient::FindOrFail( $request->patient_id);
       else

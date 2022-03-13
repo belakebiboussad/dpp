@@ -228,7 +228,7 @@
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         { 
             var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-            var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+            var fin = moment(fin).format('YYYY-MM-DD HH:mm');
             if(pid !== 0)
             {
               if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
@@ -266,21 +266,13 @@
                     }
                 });
               }else
-                showRdvModal(debut,fin,fixe); 
+              {
+                showRdvModal(debut,fin,pid,fixe); 
+              }
             }else
-              showRdvModal(debut,fin,fixe); 
-        }
-        function showRdvModal(date,fin,fixe)
-        {
-          $('#date').val(date);
-          $('#fin').val(fin);
-          $('#fixe').val(fixe);
-          //TO DO
-          // if('{{--$patient->id--}}' != null)$("#pat-search").val('{{-- $patient->full_name --}}').change(); 
-         
-          $('#addRDVModal').modal({
-            show: 'true'
-          }); 
+            {
+              showRdvModal(debut,fin,0,fixe); 
+            }
         }
         function copyPatient(){ 
           $("#nomf").val($("#nom").val());

@@ -15,33 +15,28 @@
   </style>
 @endsection
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
-<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
-<!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
+<script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script type="text/javascript" src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+<!-- <script type="text/javascript" src="{{-- $borneIp --}}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 @include('rdv.scripts.print')
 <script>
 function resetPation()
 {
-  $("#livesearch").html("");
-  $("#btnSave").attr("disabled", true);
+  $("#livesearch").html("");//$("#btnSave").attr("disabled", true);
   $("#pat-search").val("");
 }
 var loaded;
 function reset_in(){
   $("#filtre").val('');
+  $("#pat-search").attr("disabled", true);
+  $("#btnSave").attr("disabled", true);
   if('{{ Auth::user()->role_id == 2 }}')
   {
     $('#specialite').val('');
     $("#filtre").attr("disabled", true);
   }
   resetPation();
-}
-function Fill(pid, name)
-{
-  $("#pat_id").val(pid);
-  $("#pat-search").val(name);
-  $("#livesearch").html("");
-  $("#btnSave").attr("disabled", false);
 }
 function getPatient()
 {
@@ -66,10 +61,12 @@ function getPatient()
   });
 }
 $(function () {
-  alert(loaded);
   if(loaded)
   {
-    $.connection.hub.url = '{{ $borneIp }}/myhubs';//$.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+    //$.connection.hub.url = '{{ $borneIp }}/myhubs';
+    $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+    //$.connection.hub.url = 'http://192.168.1.244:90/myhubs';
+
     // Connect Hubs without the generated proxy
      var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
@@ -79,17 +76,12 @@ $(function () {
               chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {
-                console.log("Could not connect to Hub.");
+        console.log("Could not connect to Hub.");
       });
   }
 });
 $(function() {
-  $( "#filtre" ).change(function() {
-    resetPation();
-    if($(this).val() != '' && ( $("#pat-search").prop('disabled') == true))
-      $("#pat-search").prop('disabled',false);
-  });
-  $("#showfullCalModal").on('hide.bs.modal', function(){
+   $("#showfullCalModal").on('hide.bs.modal', function(){
     $('#printRdv').attr("data-id",'');
     $('#printRdv').addClass('hidden');
   });
@@ -140,42 +132,44 @@ $(function() {
                 },
                @endforeach   
         ], 
-                select: function(start, end) {
-                    var minutes = end.diff(start,"minutes"); 
-                    if( (minutes == 15) && (start >=today ))//CurrentDate
-                    {
-                      if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+        select: function(start, end) {
+                var minutes = end.diff(start,"minutes"); 
+                if( (minutes == 15) && (start >=today ))//CurrentDate
+                {
+                  if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+                  {
+                    Swal.fire({
+                        title: 'Confimer vous  le Rendez-Vous ?',
+                        html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                        input: 'checkbox',
+                        inputPlaceholder: 'Redez-Vous Fixe',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oui',
+                        cancelButtonText: "Non",
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                      if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                       {
-                        Swal.fire({
-                            title: 'Confimer vous  le Rendez-Vous ?',
-                            html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-                            input: 'checkbox',
-                            inputPlaceholder: 'Redez-Vous Fixe',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Oui',
-                            cancelButtonText: "Non",
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
-                    {
-                      if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
-                        createRDVModal(start,end,'{{ $patient->id }}',result.value);
-                      else
-                        createRDVModal(start,end,0,result.value);
-                    }
-                })
-              }else
-              {
-                if('{{ $patient}}' != null)
-                         createRDVModal(start,end,'{{ $patient->id }}');
-                else
-                         createRDVModal(start,end,0,result.value);//createRDVModal(start,end);  
-              }
-              resetPation();
-            }else
-              $('.calendar').fullCalendar('unselect');
+                        if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
+                          createRDVModal(start,end,'{{ $patient->id }}',result.value);
+                        else
+                          createRDVModal(start,end,0,result.value);
+                      }
+                    })
+                  }else
+                  {
+                    if('{{ $patient->id}}' != '') 
+                      createRDVModal(start,end,'{{ $patient->id }}',1);
+                    
+                    else
+                      createRDVModal(start,end,0,1);
+                    
+                  }
+                  resetPation();
+                }else
+          $('.calendar').fullCalendar('unselect');
         },
         eventClick: function(calEvent, jsEvent, view) {
               if(Date.parse(calEvent.start) > today)
@@ -275,21 +269,6 @@ $(function() {
                   resetPation();
                 },//success
           })
-    });
-    $("#pat-search").on("keyup", function() {//patient
-      if (!($("#btnSave").is(":disabled")))
-      {
-        $("#btnSave").prop('disabled',true);
-        $('#pat_id').val('');
-      }
-      getPatient(); 
-    });
-    $( "#specialite" ).change(function() {
-      if("#specialite" != '')
-      {
-        if($("#filtre").prop('disabled') == true)
-          $("#filtre").prop('disabled',false);
-      }
     });
   });
 </script>

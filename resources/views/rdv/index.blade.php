@@ -133,20 +133,20 @@ $(function(){
             ajaxEditEvent(event,true);          
           },      
         }); // calendar
-               $('#patient').editableSelect({
-                  effects: 'default', 
-                  editable: false, 
-               }).on('select.editable-select', function (e, li) {
-                   $('#last-selected').html(
-                           li.val() + '. ' + li.text()
-                    );
-                   $("#btnSave").removeAttr("disabled");
-               });
-               $("#patient").on("keyup", function() {
-                     var field = $("select#filtre option").filter(":selected").val();
-                     if(field != "Dat_Naissance")
-                            remoteSearch(field,$("#patient").val()); //to call ajax
-               });
+           $('#patient').editableSelect({
+              effects: 'default', 
+              editable: false, 
+           }).on('select.editable-select', function (e, li) {
+               $('#last-selected').html(
+                       li.val() + '. ' + li.text()
+                );
+               $("#btnSave").removeAttr("disabled");
+           });
+           $("#patient").on("keyup", function() {
+                 var field = $("select#filtre option").filter(":selected").val();
+                 if(field != "Dat_Naissance")
+                        remoteSearch(field,$("#patient").val()); //to call ajax
+           });
 })
 </script>
 @endsection
