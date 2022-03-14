@@ -23,10 +23,23 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
-			<div class="col-sm-9">
-<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-</div>
+			<div id ="dateExact">
+                            <label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+                             <div class="col-sm-8">
+                              <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+                              </div>
+                      </div>
+                      <div id ="datePresume"  class="hidden">
+                              <label class="col-sm-3 control-label" ><strong>Age  :</strong></label>
+                              <div class="radio col-sm-8">
+                               <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
+                              <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
+                               <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
+                               </div>
+                      </div>
+                      <div class="col-sm-1">
+                      <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"> <strong>Inc</strong></span>
+                      </div>
 		</div>
 	</div>
 	<div class="col-sm-6">

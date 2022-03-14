@@ -84,9 +84,26 @@ class PatientController extends Controller
    */
   public function store(Request $request)
   {
-    static $assurObj;
-    $date = Date::Now();
-    $rule = array(
+        $DOB="";
+        static $assurObj;
+        $date = Date::Now();
+       if(isset($request->presume))
+        {
+              switch($request->presume)
+              {
+                      case 1:
+                              $DOB= ($date->subYears(16))->format('Y-m-d');
+                              break;
+                      case 2:
+                          $DOB= ($date->subYears(64))->format('Y-m-d');
+                           break; 
+                      case 3:
+                        $DOB= ($date->subYears(65))->format('Y-m-d');
+                        break;
+              }
+        }else
+              $DOB  = $request->datenaissance;   
+        $rule = array(
               "nom" => 'required',
               "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
               "nomf" => 'required_if:type,1,2,3,4',
@@ -153,7 +170,7 @@ class PatientController extends Controller
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,
-        "Dat_Naissance"=>$request->datenaissance,
+        "Dat_Naissance"=>$DOB,
         "Lieu_Naissance"=>$request->idlieunaissance,
         "Sexe"=>$request->sexe,
         "situation_familiale"=>$request->sf,
