@@ -84,14 +84,14 @@ class PatientController extends Controller
    */
   public function store(Request $request)
   {
-    //dd($request->all());
     static $assurObj;
     $date = Date::Now();
     $rule = array(
               "nom" => 'required',
               "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
-              "nomf" => 'required_if:type,1,2,3,4'
-/*"prenomf"=> 'required_if:type,Ayant_droit',"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
+              "nomf" => 'required_if:type,1,2,3,4',
+              "prenomf" => 'required_if:type,1,2,3,4'
+/*"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
 "npiece_id"=>'required_with:nom_homme_c',"mobile_homme_c"=>['required_with:nom_homme_c'],"operateur_h"=>'required_with:mobileA',"nss" => 'regex:/[0-9]{12}/',*/
 /*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',"NMGSN"=> 'required_if:type,Ayant_droit',
 "idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'], //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',            
@@ -106,7 +106,7 @@ class PatientController extends Controller
         //$grades = grade::all();//$errors = $validator->errors();//return view('patient.add',compact('grades'))->withInput()->withErrors($validator->errors());
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
     }
-     if(!in_array($request->type,[5,6])) 
+    if(!in_array($request->type,[5,6])) 
     {  
       $assure = assur::where('NSS', $request->nss)->first(); 
       if ($assure === null) {
@@ -118,7 +118,7 @@ class PatientController extends Controller
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,      
-          "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
+          "commune_res"=>$request->idcommunef,// "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
           'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
@@ -440,17 +440,28 @@ class PatientController extends Controller
             ->rawColumns(['action2','action'])
             ->make(true);
     }
-/*public function getPatientsArrayEditSelect(Request $request) {$today = Carbon::now();$sub17 = ($today->subYears(17))->format('Y-m-d');
- if($request->ajax()){ switch($request->specialite){case 3 :$patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)->get();
-break; case 5 :$patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')->get();
-break;case 8  :$patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)->get();
-break;default :$patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get(); break;}return ['success' => true, 'data' => $patients]; }}*/  
+//public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
   public function getPatientsArray(Request $request)
   {
     $output="";
+    $today = Carbon::now();
+    $sub17 = ($today->subYears(17))->format('Y-m-d');
     if($request->ajax())  
-    {
-      $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+    {//$patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+      switch($request->specialite){
+        case 3 ://ped
+            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '>', $sub17)->get();
+            break;
+        case 5 ://geneco
+            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Sexe','F')->get();
+            break;
+        case 8  ://geriatrie
+            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '<=', $sub17)->get();
+            break;
+        default :
+            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+             break;
+           }
       foreach ($patients as $key => $pat) {         
         $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';     
       }

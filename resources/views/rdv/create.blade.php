@@ -16,9 +16,9 @@
 @endsection
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
-<script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 <!-- <script type="text/javascript" src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<!-- <script type="text/javascript" src="{{-- $borneIp --}}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 @include('rdv.scripts.print')
 <script>
 function resetPation()
@@ -61,19 +61,20 @@ function getPatient()
   });
 }
 $(function () {
+  alert('{{ $borneIp }}');
   if(loaded)
   {
-    //$.connection.hub.url = '{{ $borneIp }}/myhubs';
-    $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
-    //$.connection.hub.url = 'http://192.168.1.244:90/myhubs';
-
+    $.connection.hub.url = '{{ $borneIp }}/myhubs';
+    alert($.connection.hub.url);
+    // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
+    // $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
     // Connect Hubs without the generated proxy
      var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
            console.log("Hub connected.");
             $("#printTck").click(function(){
               var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-              chatHubProxy.server.send(barcode);       
+              var a =  chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {
         console.log("Could not connect to Hub.");

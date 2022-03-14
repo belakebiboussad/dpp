@@ -1,3 +1,5 @@
+ <!-- begin -->
+ <div id="asdemogData">
  <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Informations démographiques</strong></h4></div></div>
  <div class="row">
 	<div class="col-sm-6">
@@ -107,7 +109,9 @@
 	  <input type="hidden" name="idwilayaf" id="idwilayaf"  value="49">
 	  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
 	</div>
-</div><!-- <div class="space-12 hidden-xs"></div> -->
+</div>
+</div><!-- / -->
+<!-- end demog data-->
 <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Fonction</strong></h4></div></div>	{{-- row --}}
 <div class="row">
   <div class="col-sm-4">

@@ -311,7 +311,7 @@
           var nom = $('#nom').val();
           var prenom = $('#prenom').val();//var idlieunaissance = $('#idlieunaissance').val();var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1", //var datenaissance = $('#datenaissance').val();
           var type = $('#type').val();
-          var inputAssVal = new Array(type,datenaissance,prenom,nom);
+          var inputAssVal = new Array(type,prenom,nom);
           var inputMessage = new Array('Type',"Prenom","Nom");
           $('.error').each(function(i, obj) {
             $(obj).next().remove();
