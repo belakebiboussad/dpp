@@ -54,20 +54,20 @@ class ConsultationsController extends Controller
       $consultation = consultation::FindOrFail($id_cons);
       return view('consultations.resume_cons', compact('consultation'));
     }
-      public function detailconsXHR(Request $request)
-      {
-              $consultation = consultation::with('patient','docteur')->FindOrFail($request->id);
-              $etablissement = Etablissement::first();
-              $patient =   $consultation->patient;
-              $employe =   $consultation->docteur;
-              $view =  view("consultations.inc_consult",compact('consultation','patient','etablissement','employe'))->render();
-              return response()->json(['html'=>$view]);
-       }
-        public function listecons($id)
-        {
-              $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-              return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
-        }
+    public function detailconsXHR(Request $request)
+    {
+            $consultation = consultation::with('patient','docteur')->FindOrFail($request->id);
+            $etablissement = Etablissement::first();
+            $patient =   $consultation->patient;
+            $employe =   $consultation->docteur;
+            $view =  view("consultations.inc_consult",compact('consultation','patient','etablissement','employe'))->render();
+            return response()->json(['html'=>$view]);
+    }
+    public function listecons($id)
+    {
+          $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+          return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -77,18 +77,17 @@ class ConsultationsController extends Controller
       {
         $etablissement = Etablissement::first(); 
         $employe = Auth::user()->employ;
-       // dd($employe->rdvs);
         $modesAdmission = config('settings.ModeAdmissions') ;
+        $infossupp = infosupppertinentes::all();    //$examens = TypeExam::all();//CT,RMN
+        $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();
         $services = service::all();
         $apareils = appareil::all();
         $meds = User::where('role_id',1)->get()->all();
-        $specialites = Specialite::orderBy('nom')->get();
-        $infossupp = infosupppertinentes::all();    //$examens = TypeExam::all();//CT,RMN
-        $examensradio = examenradiologique::all();//pied,poignet
+        $specialites = Specialite::where('type','!=',2)->orderBy('nom')->get();
         $specialite = Specialite::findOrFail($employe->specialite);     //,'specialitesExamBiolo'
-       return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
      * Store a newly created resource in storage.
@@ -149,7 +148,7 @@ class ConsultationsController extends Controller
                if(($request->motifOr != "") ||(isset($request->specialite))){
                          $this->LettreOrientationCTRL->store($request,$consult->id);
                }
-             if($request->liste != null) //save Ordonnance
+             if($request->liste != null)//save Ordonnance
              {
                     $ord = new ordonnance;
                     $ord->date = Date::Now();

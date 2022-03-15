@@ -191,7 +191,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4 col-xs-4" for="type" ><strong>Type :<span style="color: red">*</span></strong></label>
 						<div class="col-sm-8 col-xs-8">
-						<select class="form-control" id="type" name="type" onchange="showTypeEdit(this.value,1);">
+						<select class="form-control" id="type" name="type" onchange="showTypeEdit(1);"><!-- ,1 -->
 							<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
 							<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
 							<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>

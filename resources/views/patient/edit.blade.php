@@ -2,8 +2,59 @@
 @section('title','Modifier  le patient')
 @section('page-script')
 <script type="text/javascript">
-	$(function(){
-		showTypeEdit('{{ $patient->Type }}',0);
+   function patTypeChange(value)
+   {
+      switch(value){
+        case "0":
+          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+            assureShow();
+          copyPatient();
+          $("#foncform").addClass('hide');
+          $('.asdemogData').prop('disabled', true);
+          break;
+        case  "1": case "2": case "3": case "4":
+          $("#foncform").removeClass('hide');
+          $('#nsspatient').attr('disabled', false);
+          $('.asdemogData').prop('disabled', false);
+          break;
+        case "5": case "6":
+          assurHide();
+          resetAsInp();
+          break;    
+      }
+   } 
+	 function showTypeEdit(i){//edition patient
+    var value = {{ $patient->Type}};
+    switch(value){
+      case 0:
+        if(i == 0)// if ($('ul#menuPatient li:eq(0)').hasClass("hide"))assureShow();
+        {   
+          $("#foncform").addClass('hide');
+          $('.asdemogData').prop('disabled', true);
+        }else
+          patTypeChange($('#type').val());
+        break;
+      case  1: case 2: case 3: case 4:
+          if(i == 0)
+          {   
+            $("#foncform").removeClass('hide');
+            $('#nsspatient').attr('disabled', false);
+          }else
+            patTypeChange($('#type').val());
+            
+          break;
+      case 5: case 6:
+          if(i == 0)
+          {   
+            assurHide();
+            resetAsInp();
+          }else
+            patTypeChange($('#type').val()); 
+          break;
+    }     
+  }
+  $(function(){
+		showTypeEdit(0);
 		$( "#editPatientForm" ).submit(function( event ) {
 			if( ! checkPatient() )
       {

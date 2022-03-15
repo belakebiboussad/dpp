@@ -5,7 +5,7 @@
   $(function(){
  	$('#type').change(function(){
                $('#patientSave').removeAttr('disabled');
-         	showTypeEdit(this.value,1);
+         	showTypeAdd(this.value,1);
          });
         $( "#addPatientForm" ).submit(function( event ) {
        		if( ! checkPatient() )

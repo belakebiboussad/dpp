@@ -237,15 +237,13 @@
     $('#Assure').find('input').val('');
     $('#Assure').find("select").prop("selectedIndex",0);
   }
-  function showTypeEdit(type, i)
+  function showTypeAdd(type, i)//ajout patient
   { 
     switch(type){
       case "0":
         if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
           assureShow();
-        copyPatient();
-        // if(!($("#asdemogData").hasClass("hide")))
-        //   $("#asdemogData").addClass("hide");
+        copyPatient(); // if(!($("#asdemogData").hasClass("hide")))//   $("#asdemogData").addClass("hide");
         $('.asdemogData').prop('disabled', true);
         if(i !=0)
           $(".asProfData").val('');
@@ -254,9 +252,8 @@
         if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
           assureShow();
         if($("#foncform").is(":hidden"))
-          $("#foncform").removeClass('hidden');
-        // if($("#asdemogData").hasClass("hide"))
-        //   $("#asdemogData").removeClass("hide");
+          $("#foncform").removeClass('hidden');// if($("#asdemogData").hasClass("hide"))//$("#asdemogData").removeClass("hide");
+        
         if($('.asdemogData').is('[disabled="disabled"]'))
         {
           $('.asdemogData').prop('disabled', false);
@@ -276,7 +273,7 @@
   $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")
     {
-        $('#details').val('Je déclare que le patient nécessite un arrét de travail de 00 jours(s) a compter de '+$('#datedem').val());
+      $('#details').val('Je déclare que le patient nécessite un arrét de travail de 00 jours(s) a compter de '+$('#datedem').val());
     }
     else if($("#typeexm").val() == "AB")
     {

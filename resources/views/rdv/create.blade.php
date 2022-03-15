@@ -65,7 +65,6 @@ $(function () {
   if(loaded)
   {
     $.connection.hub.url = '{{ $borneIp }}/myhubs';
-    alert($.connection.hub.url);
     // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
     // $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
     // Connect Hubs without the generated proxy
@@ -74,7 +73,8 @@ $(function () {
            console.log("Hub connected.");
             $("#printTck").click(function(){
               var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-              var a =  chatHubProxy.server.send(barcode);       
+              alert(barcode);
+              //chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {
         console.log("Could not connect to Hub.");
@@ -119,7 +119,7 @@ $(function() {
         events :[
                 @foreach($rdvs as $key =>   $rdv)
                 {
-                    title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+                    title : '{{ $rdv->patient->full_name  --}} ' +', ('+{{ $rdv->patient->age }} +' ans)',
                     start : '{{ $rdv->date }}',
                     end:   '{{ $rdv->fin }}',
                     id :'{{ $rdv->id }}',
@@ -129,7 +129,7 @@ $(function() {
                     age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                     specialite: {{ $rdv->specialite_id }},
                     civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
-                    key :(isEmpty({{ $rdv->employ_id }}))? "":'{{ $key }}',
+                    // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
                 },
                @endforeach   
         ], 
@@ -173,39 +173,39 @@ $(function() {
           $('.calendar').fullCalendar('unselect');
         },
         eventClick: function(calEvent, jsEvent, view) {
-              if(Date.parse(calEvent.start) > today)
+            if(Date.parse(calEvent.start) > today)
+            {
+              $("#lien").attr("href", '/patient/'+calEvent.idPatient);
+              $('#lien').text(calEvent.title); 
+              $('#patient_tel').html(calEvent.tel);
+              $('#agePatient').html(calEvent.age); 
+              $('#idRDV').val(calEvent.id);//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].full_name);
+              $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+              $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+              $('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", "selected");   
+              (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+              $('#civiliteCode').val(calEvent.civ);
+              $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
+              if($('#printRdv').hasClass( "hidden" ))
               {
-                      $("#lien").attr("href", '/patient/'+calEvent.idPatient);
-                      $('#lien').text(calEvent.title); 
-                      $('#patient_tel').html(calEvent.tel);
-                      $('#agePatient').html(calEvent.age); 
-                      $('#idRDV').val(calEvent.id);//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].full_name);
-                      $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                      $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-                      $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
-                      (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                      $('#civiliteCode').val(calEvent.civ);
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
-                      if($('#printRdv').hasClass( "hidden" ))
-                      {
-                        $('#printRdv').attr("data-id",calEvent.id);
-                        $('#printRdv').removeClass('hidden');
-                      }         
-                      if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
-                      {
-                        if(loaded)
-                        {
-                                if($('#printTck').hasClass( "hidden" ))
-                                      $('#printTck').removeClass('hidden');
-                        }
-                        if(!$('#printRdv').hasClass( "hidden" ))
-                             $('#printRdv').addClass('hidden');
-                      }else
-                       {
-                             if(!$('#printTck').hasClass( "hidden" ))
-                                    $('#printTck').addClass('hidden');
-                      }  
-                      $('#showfullCalModal').modal({ show: 'true' });
+                $('#printRdv').attr("data-id",calEvent.id);
+                $('#printRdv').removeClass('hidden');
+              }         
+              if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
+              {
+                if(loaded)
+                {
+                  if($('#printTck').hasClass( "hidden" ))
+                    $('#printTck').removeClass('hidden');
+                }
+                if(!$('#printRdv').hasClass( "hidden" ))
+                  $('#printRdv').addClass('hidden');
+              }else
+               {
+                 if(!$('#printTck').hasClass( "hidden" ))
+                        $('#printTck').addClass('hidden');
+              }  
+              $('#showfullCalModal').modal({ show: 'true' });
           }
       },
       eventRender: function (event, element, webData) {

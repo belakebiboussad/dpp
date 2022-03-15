@@ -6,12 +6,12 @@
 	     			<i class="fa fa-2x fa-flask deep-purple-text"></i><span class="bigger-130">Examen Biologique</span>	
 	   		 </a>
 	 	 </li>
-		<li role= "presentation" data-interest = "1">
+		<li role= "presentation"><!-- data-interest = "1" -->
   			<a href="#radiologique" aria-controls="radiologique" role="tab" data-toggle="tab" class="jumbotron">
   			<span class="medical medical-icon-mri-pet" aria-hidden="true"></span><span class="bigger-130">Examen Radiologique</span>
     	 		</a>
    		</li>
-   		<li role= "presentation" data-interest = "2">
+   		<li role= "presentation"><!-- data-interest = "2" -->
      			<a href="#anapath" aria-controls="anapath" role="tab" data-toggle="tab" class="jumbotron">
    			<span class="medical medical-icon-pathology" aria-hidden="true"></span><span class="bigger-130"> Examen Anapath</span>
     			</a>
@@ -22,16 +22,16 @@
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
 	 		<div class="tab-pane active examsBio" id="biologique">
-	 			@isset($specialite->exmsbio)
-	 				@foreach ( json_decode($specialite->exmsbio, true) as $exbio)
+	 			@if('null' != $specialite->exmsbio)
+           @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
 	 	  	  	<div class="checkbox col-xs-4">
 	 	   			 <label>
 							<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
 					 		<span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
 				 		 </label>
 	 		  		</div>
-	 				@endforeach
-	 			@endisset
+	 				@endforeach 
+	 			@endif
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> @include('ExamenCompl.ExamenRadio')</div>
 	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>

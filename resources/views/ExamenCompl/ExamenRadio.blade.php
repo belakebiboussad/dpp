@@ -22,13 +22,13 @@
 	        <div class="row">
 	        	<div class="col-xs-12 infosup">
 	      	 	<label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
-			@foreach($infossupp as $info)
-				<div class="col-sm-2 col-xs-6">
-					<div class="checkbox col-xs-12">
-						<label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
-					 </div>
-				 </div>
-			@endforeach
+      			@foreach($infossupp as $info)
+      				<div class="col-sm-2 col-xs-6">
+      					<div class="checkbox col-xs-12">
+      						<label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
+      					 </div>
+      				 </div>
+      			@endforeach
 			</div>
       		</div>
        	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div><div class="space-12"></div>

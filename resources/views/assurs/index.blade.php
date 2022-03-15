@@ -16,7 +16,7 @@
 						if(data != "")
 						{
 							$('#assure').html(data[0]);
-							 if($('#widget').hasClass('hidden'))
+							if($('#widget').hasClass('hidden'))
 								$("#widget").removeClass('hidden');
 							 $('#liste_ayants').html(data[1]);	
 						}else
