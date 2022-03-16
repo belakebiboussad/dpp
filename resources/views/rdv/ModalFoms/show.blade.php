@@ -9,20 +9,21 @@
         <div class="modal-body">
           <input type="hidden" id="idRDV">
           <input type="hidden" id ="civiliteCode">
-            <div class="row">
-                    <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i>
-                            <strong>&nbsp;Téléphone :</strong><span id="patient_tel" ></span>
-                      </div>
-                       <div class="col-sm-6"><strong>&nbsp;Âge :</strong> <span id="agePatient"></span><small>Ans</small></div>
-                </div><div class="space-12"></div>
-            <div class="row">
+          <input type="hidden" id ="specialiteId">
+          <div class="row">
+            <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i>
+              <strong>&nbsp;Téléphone :</strong><span id="patient_tel" ></span>
+            </div>
+            <div class="col-sm-6"><strong>&nbsp;Âge :</strong> <span id="agePatient"></span><small>Ans</small></div>
+          </div><div class="space-12"></div>
+           <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label  class="col-form-label" ><strong>&nbsp;Spécialité:</strong></label>
-                  <select class="form-control" id="specialite" disabled>
-                     @foreach($specialites as $specialite)
-                        <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
-                       @endforeach
+                  <select class="form-control" id="specialite" disabled> -->
+                    @foreach($specialites as $specialite)
+                      <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
+                    @endforeach -->
                   </select>
                 </div>
               </div>
@@ -59,7 +60,7 @@
              <a  id="btnConsulter" class="btn btn btn-primary"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
         <a  id="printRdv" class="btn btn-success"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-        <a  id="printTck" class="btn btn-info hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
+        <a  id="printTck" class="btn btn-info hiden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
         <button type="button" class="btn btn-default" data-dismiss="modal"  id ="btnclose" >
              <i class="fa fa-close" aria-hidden="true" ></i>&nbsp;Annuler
         </button>

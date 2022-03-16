@@ -60,21 +60,20 @@ function getPatient()
         }
   });
 }
-$(function () {
-  alert('{{ $borneIp }}');
+$(function () {//alert('{{ $borneIp }}');
   if(loaded)
   {
-    $.connection.hub.url = '{{ $borneIp }}/myhubs';
-    // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';
-    // $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
+    $.connection.hub.url = '{{ $borneIp}}/myhubs';
+    // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';// $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
     // Connect Hubs without the generated proxy
-     var chatHubProxy = $.connection.myChatHub;
+    var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
            console.log("Hub connected.");
             $("#printTck").click(function(){
-              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
+              var spec = $('#specialite').find(":selected").val();
+              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialiteId").val()+"|"+$("#daterdvHidden").val();
               alert(barcode);
-              //chatHubProxy.server.send(barcode);       
+              chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {
         console.log("Could not connect to Hub.");
@@ -83,8 +82,10 @@ $(function () {
 });
 $(function() {
    $("#showfullCalModal").on('hide.bs.modal', function(){
-    $('#printRdv').attr("data-id",'');
-    $('#printRdv').addClass('hidden');
+        $('#specialiteId').val('');
+        $('#printRdv').attr("data-id",'');
+        $('#printRdv').addClass('hidden');
+        $('#showfullCalModal form')[0].reset();
   });
   var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
   var today = (new Date()).setHours(0, 0, 0, 0); 
@@ -177,12 +178,14 @@ $(function() {
             {
               $("#lien").attr("href", '/patient/'+calEvent.idPatient);
               $('#lien').text(calEvent.title); 
+              $('#specialiteId').val(calEvent.specialite).change();
               $('#patient_tel').html(calEvent.tel);
               $('#agePatient').html(calEvent.age); 
-              $('#idRDV').val(calEvent.id);//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].full_name);
+              $('#idRDV').val(calEvent.id);
               $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-              $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-              $('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", "selected");   
+              $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));//$('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", "selected").change();   
+              $('#specialite option').removeAttr('selected');
+              $('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", true).change();   
               (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
               $('#civiliteCode').val(calEvent.civ);
               $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
@@ -201,9 +204,9 @@ $(function() {
                 if(!$('#printRdv').hasClass( "hidden" ))
                   $('#printRdv').addClass('hidden');
               }else
-               {
-                 if(!$('#printTck').hasClass( "hidden" ))
-                        $('#printTck').addClass('hidden');
+              {
+                if(!$('#printTck').hasClass( "hidden" ))
+                  $('#printTck').addClass('hidden');
               }  
               $('#showfullCalModal').modal({ show: 'true' });
           }
@@ -233,43 +236,44 @@ $(function() {
       eventMouseover: function(event, jsEvent, view) {
       }
     });//calendar //fincalendar 
-        $('#btnSave').on('click keyup', function(e) {
-              url ="{{ route('rdv.store') }}";
-              var formData = {
-                  date:$('#date').val(),
-                  fin:$('#fin').val(),
-                  id_patient:$('#pat_id').val(),
-                  fixe :$('#fixe').val()
-              }
-              if('{{ Auth::user()->role_id }}' == 2)
-              {
-                formData.specialite = $('#specialite').val();
-              }
-              $.ajax({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:"POST",
-                url:url,
-                data:formData,//dataType: 'json',
-                success:function(data){//var color = (data['rdv']['fixe'] > 0 )? '#87CEFA':'#378006';         
-                        var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
-                       $('.calendar').fullCalendar( 'renderEvent', {
-                          title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                          start: formData.date,
-                          end: formData.fin,
-                          id : data['rdv']['id'],
-                          idPatient:data['patient']['id'],
-                          fixe: data['rdv']['fixe'],
-                          tel:data['patient']['tele_mobile1'] ,
-                          age:data['age'],
-                          civ:data['patient']['civ'],         
-                          allDay: false,
-                          color:color, 
-                      });
-                  resetPation();
-                },//success
-          })
+    $('#btnSave').on('click keyup', function(e) {
+          url ="{{ route('rdv.store') }}";
+          var formData = {
+              date:$('#date').val(),
+              fin:$('#fin').val(),
+              id_patient:$('#pat_id').val(),
+              fixe :$('#fixe').val()
+          }
+          if('{{ Auth::user()->role_id }}' == 2)
+          {
+            formData.specialite = $('#specialite').val();
+          }
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:"POST",
+            url:url,
+            data:formData,
+            success:function(data){      
+                    var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                   $('.calendar').fullCalendar( 'renderEvent', {
+                      title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                      start: formData.date,
+                      end: formData.fin,
+                      id : data['rdv']['id'],
+                      idPatient:data['patient']['id'],
+                      fixe: data['rdv']['fixe'],
+                      tel:data['patient']['tele_mobile1'] ,
+                      age:data['age'],
+                      specialite: data['rdv']['specialite_id'],
+                      civ:data['patient']['civ'],         
+                      //allDay: false,
+                      color:color,
+                  });
+              resetPation();
+            },//success
+      })
     });
   });
 </script>

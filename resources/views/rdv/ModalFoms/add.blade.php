@@ -79,7 +79,7 @@
   {
     $('#date').val(date); $('#fin').val(fin);  $('#fixe').val(fixe);
     if(pid !== 0)
-    { // $("#pat-search").val('{{-- $patient->full_name --}}').show();   // $("#pat_id").val(pid);
+    { // $("#pat-search").val('{{-- $patient->full_name --}}').show();// $("#pat_id").val(pid);
      // $("#pat-search").attr("disabled", false);//$("#btnSave").removeAttr("disabled");
       $("#pat_id").val(pid); //$("#pat-search").val(name);
       if(! ($( "#patientPanel" ).hasClass( "hidden" )))

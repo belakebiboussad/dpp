@@ -255,7 +255,7 @@
                               fixe: data['rdv']['fixe'],
                               tel:data['patient']['tele_mobile1'] ,
                               age:data['age'],
-                              specialite: data['rdv']['specialite_id'],         
+                              specialite: data['rdv']['specialite_id'],
                               civ : data['patient']['civ'],
                               allDay: false,
                               color:color
