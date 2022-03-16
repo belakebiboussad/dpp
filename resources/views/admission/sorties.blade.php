@@ -136,19 +136,19 @@
 				<table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
 	  				<thead class="thin-border-bottom thead-light">
 				      	<tr>
-					          <th rowspan="2" class="text-center"><h5><strong>Patient</strong></h5></th> 
-					          <th rowspan="2" class="text-center"><h5><strong>Service</strong></h5></th>
-					          <th rowspan="2" class="text-center"><h5><strong>Date Entrée</strong></h5></th>
-					          <th rowspan="2" class="text-center"><h5><strong>Mode Entrée</strong></h5></th>
-					          <th rowspan="2" class="text-center"><h5><strong>Date Sortie</strong></h5></th>
-					          <th rowspan="2" class="text-center"><h5><strong>Mode Sortie</strong></h5></th>
-					          <th colspan="3" scope="colgroup" class="text-center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
-					          <th rowspan="2" class="text-center"><em class="fa fa-cog"></em></th>	
+					          <th rowspan="2" class="center"><h5><strong>Patient</strong></h5></th> 
+					          <th rowspan="2" class="center"><h5><strong>Service</strong></h5></th>
+					          <th rowspan="2" class="center"><h5><strong>Date Entrée</strong></h5></th>
+					          <th rowspan="2" class="center"><h5><strong>Mode Entrée</strong></h5></th>
+					          <th rowspan="2" class="center"><h5><strong>Date Sortie</strong></h5></th>
+					          <th rowspan="2" class="center"><h5><strong>Mode Sortie</strong></h5></th>
+					          <th colspan="3" scope="colgroup" class="center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
+					          <th rowspan="2" class="center"><em class="fa fa-cog"></em></th>	
 				      	</tr>
 				      	<tr>
-				          <th scope="col" class="text-center"><h6><strong>Service</strong></h6></th>
-									<th scope="col" class="text-center"><h6><strong>Salle</strong></h6></th>
-									<th scope="col" class="text-center"><h6><strong>Lit</strong></h6></th>							
+				          <th scope="col" class="center"><h6><strong>Service</strong></h6></th>
+									<th scope="col" class="center"><h6><strong>Salle</strong></h6></th>
+									<th scope="col" class="center"><h6><strong>Lit</strong></h6></th>							
 				      		</tr>
 	  				</thead>
 	  				<tbody>

@@ -10,7 +10,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th  width="8%">Type </th>
+							<th  class="center" width="8%">Type </th>
 							<th class="center" width="6%">Date</th>
 							 <th class="center">Code CIM-10</th>
 							<th class="detail-col"class="">Description</th>
@@ -48,7 +48,7 @@
 				     						<div class="col-xs-6 col-sm-6"><div class="space visible-xs"></div>
 													<div class="profile-user-info profile-user-info-striped">
 														<div class="profile-info-row">
-															<div class="profile-info-name text-center"><strong>Type:</strong></div>
+															<div class="profile-info-name center"><strong>Type:</strong></div>
 															<div class="profile-info-value"><span class="label label-lg label-inverse arrowed-in">{{ $atcd->stypeatcd }}</span>
 															</div>
 														</div>
@@ -58,21 +58,21 @@
 					     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
 													<div class="profile-user-info profile-user-info-striped">
 														<div class="profile-info-row">
-															<div class="profile-info-name text-center col-xs-1 col-sm-1"><strong>Tabac:</strong></div>
+															<div class="profile-info-name center col-xs-1 col-sm-1"><strong>Tabac:</strong></div>
 															<div class="profile-info-value col-xs-1 col-sm-1">
 															  <label>
 			            								<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled />
 			            								<span class="lbl" >&nbsp; &nbsp;tabac</span>
 			            							</label>&nbsp; &nbsp; &nbsp;
 															</div>
-															<div class="profile-info-name text-center col-xs-1 col-sm-1"><strong>ethylisme:</strong></div>
+															<div class="profile-info-name center col-xs-1 col-sm-1"><strong>ethylisme:</strong></div>
 															<div class="profile-info-value  col-xs-1 col-sm-1">
 														 		<label>
 								            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme" {{ ($atcd->ethylisme)? "checked" :"" }} disabled/>
 								            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
 							        					</label>
 															</div>
-															<div class="profile-info-name text-center col-xs-2 col-sm-2"><strong>Habitudes Alimentaires:</strong></div>
+															<div class="profile-info-name center col-xs-2 col-sm-2"><strong>Habitudes Alimentaires:</strong></div>
 															<div class="profile-info-value col-xs-6 col-sm-6">
 					         	 						<textearea>{{ $atcd->habitudeAlim }}</textearea>
 												 			</div>
@@ -108,7 +108,7 @@
 							<th class ="hidden"></th>
 							<th class="center" width="6%"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i><strong>&nbsp;<span style="font-size:14px;">Date</span></strong></th>
 							<th class="center">Code CIM</th>
-							<th class="detail-col"class="">Description</th>
+							<th class="center" class="detail-col"class="">Description</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>

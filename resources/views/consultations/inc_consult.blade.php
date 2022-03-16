@@ -318,7 +318,7 @@ $('document').ready(function(){
 				     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
 												<div class="profile-user-info profile-user-info-striped">
 													<div class="profile-info-row">
-														<div class="profile-info-name text-center"><strong>Motif:</strong></div>
+														<div class="profile-info-name center"><strong>Motif:</strong></div>
 														<div class="profile-info-value">{{ $consultation->lettreOrintation->motif }}</div>
 													</div>
 												</div>

@@ -23,17 +23,14 @@
   }
  </style>
 @endsection
-@section('page-script') {{-- {!! $planning->script() !!} --}}
+@section('page-script')
  @include('rdv.scripts.calendar')
  @include('rdv.scripts.print'){{-- print rdv --}}
 <script>
 function reset_in()
 {
-        $('.es-list').val('');
-        $('#patient').val('');
-        $('#medecin').val('');
-        $('#printRdv').addClass('hidden');
-        $("#fixe").prop("checked", false);
+  $('.es-list').val('');$('#patient').val('');  $('#medecin').val('');
+  $('#printRdv').addClass('hidden');$("#fixe").prop("checked", false);     
 }
 $(function(){
         var today = (new Date()).setHours(0, 0, 0, 0);
@@ -151,8 +148,7 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4 style="display: inline;"><strong>Liste des rendez-vous:</strong></h4></div>
-<div class="space-12"></div>
+<div class="row"><h4 style="display: inline;"><strong>Liste des rendez-vous:</strong></h4></div><div class="space-12"></div>
 <div class="row"  style="margin-left:-2%;">
   <div class="col-md-12">
      <div class="panel panel-default">

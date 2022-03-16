@@ -35,13 +35,13 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="text-center"><h6><strong>Patient</strong></h6></th>
-							<th class="text-center"><h6><strong>Mode d'admission</strong></h6></th>
-							<th class="text-center" width="3%"><h6><strong>Priorité</strong></h6></th>
-							<th class="text-center"><h6><strong>Médecin traitant</strong></h6></th>
-							<th class="text-center"><h6><strong>Date d'entrée</strong></h6></th>
-							<th class="text-center"><h6><strong>Date sortie prévue</strong></h6></th>
-						  <th class="text-center"><em class="fa fa-cog"></em></th>
+							<th class="center"><h6><strong>Patient</strong></h6></th>
+							<th class="center"><h6><strong>Mode d'admission</strong></h6></th>
+							<th class="center" width="3%"><h6><strong>Priorité</strong></h6></th>
+							<th class="center"><h6><strong>Médecin traitant</strong></h6></th>
+							<th class="center"><h6><strong>Date d'entrée</strong></h6></th>
+							<th class="center"><h6><strong>Date sortie prévue</strong></h6></th>
+						  <th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>

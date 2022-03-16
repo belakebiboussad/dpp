@@ -81,7 +81,7 @@
 					<div class="table-detail">
 						<div class="row">
 							<div class="col-xs-12 col-sm-2">
-								<div class="text-center">
+								<div class="center">
 									<img height="150" width="160" class="thumbnail inline no-margin-bottom" alt="Domain Owner's Avatar" src="{{asset('/avatars/atcds.jpg')}}" />
 									<br/>
 								</div>

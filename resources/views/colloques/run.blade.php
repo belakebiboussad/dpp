@@ -71,7 +71,7 @@
 			      	<thead class="thin-border-bottom">
 		       		<tr>
 							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Spécialité</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong>Date demande</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong>Mode admission</strong></h5></th>
 							<th class ="center" width="12%"><h5><strong>Médecin traitant</strong></h5></th>
@@ -135,11 +135,11 @@
 											<div class="space visible-xs"></div>
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
-													<div class="profile-info-name text-center"><strong>Age:</strong></div>
-													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->age }} ans</span></div>
+													<div class="profile-info-name center"><strong>Age:</strong></div>
+													<div class="profile-info-value"><span>{{ $demande->consultation->patient->age }} ans</span></div>
 												</div>
 												<div class="profile-info-row">
-													<div class="profile-info-name text-center"><strong>Groupe sanguin:</strong></div>
+													<div class="profile-info-name center"><strong>Groupe sanguin:</strong></div>
 													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
@@ -147,7 +147,7 @@
 										 		</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Établi par Dr:</strong></div>
+												<div class="profile-info-name center"><strong>Établi par Dr:</strong></div>
 												<div class="profile-info-value">
 													<span>{{ $demande->consultation->docteur->full_name }}</span>
 												</div>
@@ -158,7 +158,7 @@
 										<div class="space visible-xs"></div>
 										<div class="profile-user-info profile-user-info-striped">
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Mode d'admission:</strong></div>
+												<div class="profile-info-name center"><strong>Mode d'admission:</strong></div>
 												<div class="profile-info-value"><h4>
 													@switch( $demande->modeAdmission )
 						   							 @case(0)
@@ -175,13 +175,13 @@
 												</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Service:</strong></div>
+												<div class="profile-info-name center"><strong>Service:</strong></div>
 												<div class="profile-info-value">
 													<span class="label label-sm" resize="none" readonly>{{$demande->Service->nom}}</span>
 												</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Etat:</strong></div>
+												<div class="profile-info-name center"><strong>Etat:</strong></div>
 												<div class="profile-info-value"><h4><span class = "label label-lg label-warning">{{ $demande->etat }}</span></h4></div>
 											</div>
 										</div>	

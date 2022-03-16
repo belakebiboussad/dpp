@@ -98,7 +98,7 @@ class patient extends Model
           return $civcode;
           break; 
         case 'Mme.':
-          $civcode =2;//2
+          $civcode =4;//2
           return $civcode;
           break; 
         case 'Enf.':
@@ -110,29 +110,4 @@ class patient extends Model
           break;     
     }
   }
- 	public function getCiviliteCode()
- 	{
- 		$civcode = "";
- 		switch ($civilite = $this->getCivilite()) {
-        case 'M.':
-          $civcode = 1; 
-    			return $civcode;
-          break;
-        case 'Mlle.':
-          $civcode =2; 
-    			return $civcode;
-          break; 
-        case 'Mme.':
-          $civcode =4;
-    			return $civcode;
-          break; 
-        case 'Enf.':
-          $civcode =3; 
-   				return $civcode;
-          break;
-        default :
-   				return 1;
-          break;     
-    }
- 	}
 }

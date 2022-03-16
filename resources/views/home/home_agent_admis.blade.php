@@ -46,7 +46,7 @@
                                                         +'</td><td>'+result[i]['demande_hospitalisation']['consultation']['patient'].full_name+'</td><td>'
                                                         + result[i]['demande_hospitalisation']['service'].nom +'</td><td><span class ="text-danger"><strong>'
                                                         + result[i].date +'</strong></span></td><td>'
-                                                        + mode +'</td>'+bedAffect+'<td class="text-center">'+ form +'</td></tr>'
+                                                        + mode +'</td>'+bedAffect+'<td class="center">'+ form +'</td></tr>'
                                      }
                                       $('#rdvs').html(rows);
                               }
@@ -79,7 +79,7 @@
                                                           +'</td><td>'+result[i]['consultation']['patient'].full_name+'</td><td>'
                                                           + result[i]['service'].nom +'</td><td><span class ="text-danger"><strong>'
                                                           + result[i]['consultation'].date +'</strong></span></td><td>'
-                                                          + mode +'</td>'+bedAffect+'<td class="text-center">'+ form +'</td></tr>'; 
+                                                          + mode +'</td>'+bedAffect+'<td class="center">'+ form +'</td></tr>'; 
                                             }
                                             $('#rdvs').html(rows); 
                                       } // if
@@ -134,17 +134,17 @@
         <table class="table table-striped table-bordered table-hover irregular-header">
           <thead class="thin-border-bottom thead-light">
             <tr>
-              <th rowspan="2" class="text-center"><h5><strong>Patient</strong></h5></th> 
-              <th rowspan="2" class="text-center"><h5><strong>Service</strong></h5></th>
-              <th rowspan="2" class="text-center"><h5><strong>Date d'entrée</strong></h5></th>
-              <th rowspan="2" class="text-center"><h5><strong>Mode d'entrée</strong></h5></th>
-              <th colspan="3" scope="colgroup" class="text-center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
-              <th rowspan="2" class="text-center"><em class="fa fa-cog"></em></th>  
+              <th rowspan="2" class="center"><h5><strong>Patient</strong></h5></th> 
+              <th rowspan="2" class="center"><h5><strong>Service</strong></h5></th>
+              <th rowspan="2" class="center"><h5><strong>Date d'entrée</strong></h5></th>
+              <th rowspan="2" class="center"><h5><strong>Mode d'entrée</strong></h5></th>
+              <th colspan="3" scope="colgroup" class="center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
+              <th rowspan="2" class="center"><em class="fa fa-cog"></em></th>  
             </tr>
             <tr>
-              <th scope="col" class="text-center"><h6><strong>Service</strong></h6></th>
-              <th scope="col" class="text-center"><h6><strong>Salle</strong></h6></th>
-              <th scope="col" class="text-center"><h6><strong>Lit</strong></h6></th>              
+              <th scope="col" class="center"><h6><strong>Service</strong></h6></th>
+              <th scope="col" class="center"><h6><strong>Salle</strong></h6></th>
+              <th scope="col" class="center"><h6><strong>Lit</strong></h6></th>              
             </tr>
           </thead>
                                      <tbody id="rdvs">
@@ -172,7 +172,7 @@
                                             <td><strong>/</strong></td>
                                             <td><strong>/</strong></td>
                                           @endif
-                                          <td class="text-center">
+                                          <td class="center">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i>&nbsp;Confirmer</button>
                                             @include('admission.modalForm.confirmEntreeProg')
                                             <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('rdv_hospitalisation',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>
@@ -196,7 +196,7 @@
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
-                                                    <td class="text-center">
+                                                    <td class="center">
                                                       <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif data-toggle="tooltip" title="valider l'admission" data-placement="bottom"> <i class="fa fa-check"></i>Confirmer</button>  
                                                       @include('admission.modalForm.confirmEntreeUrg')
                                                       <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($demande->bedAffectation))) disabled @endif ><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;Imprimer</i></a>

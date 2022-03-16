@@ -23,9 +23,9 @@
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
      function cloturerHosp(hospID)
      { 
-          $("#hospID").val( hospID );
-          $('#sortieHosp').modal('show');
-          $('#Heure_sortie').timepicker({ template: 'modal' });
+        $("#hospID").val( hospID );
+        $('#sortieHosp').modal('show');
+        $('#Heure_sortie').timepicker({ template: 'modal' });
      }
      function getMedecin (data, type, dataToSet) {
          return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
@@ -293,22 +293,20 @@
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat_hosp)  ?  $hosp->etat_hosp : 'En Cours'}}</span>
                      </td>
                     <td class ="center"  width="12%">
-                      <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                      @if(Auth::user()->role_id != 3){{-- inf --}}
+                      @if(Auth::user()->role_id != 3)<!-- inf -->
+                        <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
                         @if(in_array(Auth::user()->role_id,[1,13,14]))
                           <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>           
                           <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
                           <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation" onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
                         @endif
-                      @endif
+                        @endif
                       @if(Auth::user()->role_id == 5){{-- surmed --}}
                         <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('{{ $hosp->id }}')"><i class="fa fa-barcode"></i></a>                      
                       @endif
                       @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
-                        <a href="" class="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins" data-placement="bottom">
-                           <!-- style="height:15px;width:15px" -->
-                          <!-- <span class="medical medical-icon-i-cardiology fa-xs" aria-hidden="true"></span> -->
-                          <img src="{{ asset('/img/medicine.png') }}" alt="" width="10px" height="15px">
+                        <a href="{{ route('soins.index', ["hosp_id"=>$hosp->id]) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins" data-placement="bottom">
+                          <img src="{{ asset('/img/medicine.png') }}" alt="" width="10px" height="15px"><!-- <span class="medical medical-icon-i-cardiology fa-xs" aria-hidden="true"></span> -->
                         </a>
                       @endif
                     </td>

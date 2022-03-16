@@ -38,15 +38,15 @@
 			         	<tr>
 				     		<th hidden></th>
 						<th class="center" width="3%" ></th>
-						<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-						<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-						<th class="text-center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
-						<th width="12%" class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
-						<th class="detail-col text-center"><h5><strong>Heure sortie prévue</strong></h5></th>
-						<th class="detail-col text-center"><h5><strong>Service</strong></h5></th>
-						<th class="detail-col text-center"><h5><strong>Salle</strong></h5></th>
-						<th class="detail-col text-center"><h5><strong>Lit</strong></h5></th>
-						<th class="detail-col text-center"></th>
+						<th class="center" width="11%"><h5><strong>Patient</strong></h5></th>
+						<th class="center" width="15%"><h5><strong>Date RDV</strong></h5></th>
+						<th class="center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
+						<th width="12%" class="center"><h5><strong>Date sortie prévue</strong></h5></th>
+						<th class="detail-col center"><h5><strong>Heure sortie prévue</strong></h5></th>
+						<th class="detail-col center"><h5><strong>Service</strong></h5></th>
+						<th class="detail-col center"><h5><strong>Salle</strong></h5></th>
+						<th class="detail-col center"><h5><strong>Lit</strong></h5></th>
+						<th class="detail-col center"></th>
 		       			</tr>
 		      		</thead>
         			<tbody id ="rendez-VousBody" class="bodyClass">

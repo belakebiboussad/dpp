@@ -49,14 +49,14 @@ $('document').ready(function(){
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="text-center"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
-								<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
-								<th class="text-center"><h5><strong>Médecin Traitant</strong></h5></th>
-								<th class="text-center hidden-xs"><h5><strong>Observation</strong></h5></th>
-								<th class="text-center"><h5><strong>Date</strong></h5></th>
-								<th class="text-center"><h5><strong>Spécialité</strong></h5></th>
-								<th class="text-center"><em class="fa fa-cog"></em></th>
+								<th class="center"><h5><strong>Patient</strong></h5></th>
+								<th class="center"><h5><strong>Mode d'admission</strong></h5></th>
+								<th class="center" width="3%"><h5><strong>Priorité</strong></h5></th>
+								<th class="center"><h5><strong>Médecin Traitant</strong></h5></th>
+								<th class="center hidden-xs"><h5><strong>Observation</strong></h5></th>
+								<th class="center"><h5><strong>Date</strong></h5></th>
+								<th class="center"><h5><strong>Spécialité</strong></h5></th>
+								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -98,7 +98,7 @@ $('document').ready(function(){
 								<td class="hidden-xs">{{ $demande->observation }}</td>
 								<td>{{ $demande->demandeHosp->consultation->date }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
-								<td class="text-center">
+								<td class="center">
 									<div class="btn-group">
 										<button class="btn btn-sm btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
 											<i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -128,11 +128,11 @@ $('document').ready(function(){
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="text-center"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
-								<th class="text-center"><h5><strong>Date</strong></h5></th>
-								<th class="text-center"><h5><strong>Spécialité</strong></h5></th>
-								<th class="text-center"><em class="fa fa-cog"></em></th>
+								<th class="center"><h5><strong>Patient</strong></h5></th>
+								<th class="center"><h5><strong>Mode d'admission</strong></h5></th>
+								<th class="center"><h5><strong>Date</strong></h5></th>
+								<th class="center"><h5><strong>Spécialité</strong></h5></th>
+								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -153,7 +153,7 @@ $('document').ready(function(){
 									 @endswitch
 								</td>
 								<td>{{ $demande->consultation->date }}</td><td>{{ $demande->Specialite->nom }}</td>
-								<td class="text-center">
+								<td class="center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 									</button>

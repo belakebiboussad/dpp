@@ -34,9 +34,9 @@ class RDVController extends Controller
       }
       public function valider($id)
       {
-            $rdv = rdv::FindOrFail($id);
-            $rdv ->update([  "etat"=>"Valider" ]);
-              return redirect()->route("rdv.show",$rdv->id);
+        $rdv = rdv::FindOrFail($id);
+        $rdv ->update([  "etat"=>"Valider" ]);
+          return redirect()->route("rdv.show",$rdv->id);
       }
       public function reporter($id)
       {
@@ -198,7 +198,7 @@ class RDVController extends Controller
       public function destroy(Request $request, $id)
       {
         $rdv = rdv::findOrFail($id); 
-        $rdv->update(['etat'=>0]); //rdv::destroy($id);
+        $rdv->update(['etat'=>0]);
         if($request->ajax())
           return Response::json($rdv);//return ($rdv);
         else
@@ -208,7 +208,7 @@ class RDVController extends Controller
       { 
         $rdv = rdv::findOrFail($id);
         $etablissement = Etablissement::first();
-        $civilite = $rdv->patient->getCiviliteCode();//$civilite = $rdv->patient->civ ;
+        $civilite = $civilite = $rdv->patient->civ;
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
         $renderer = new ImageRenderer([
@@ -226,7 +226,7 @@ class RDVController extends Controller
         $dompdf->render();
         $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
         return $dompdf->stream($name); 
-      }//function AddRDV(Request $request)  {$specialite ="";if(Auth::user()->role_id ==2)$specialite = $request->specialite ; else $specialite = Auth::user()->employ->specialite; if($request->ajax())$patient = patient::find($request->id_patient);else$patient=patient::where('IPP', explode("-", $request->patient)[0])->first();$rdv = rdv::firstOrCreate(["date"=>new DateTime($request->date),"fin" =>new DateTime($request->fin), "fixe"    => $request->fixe,"patient_id"=> $patient->id, "specialite_id"=> $specialite ]); if($request->ajax())return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));elsereturn redirect()->route("rdv.create"); }     
+      }
       public function checkFullCalendar(Request $request)
       {
         $events = array(); 

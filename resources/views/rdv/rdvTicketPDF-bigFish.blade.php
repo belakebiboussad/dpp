@@ -44,7 +44,9 @@
 		<div class="row"><hr class ="mt-5"></div>
 	  <div class="row">
 	   	<div class="col-md-4 col-sm-4 float-left" style="font-size:x-small;"></div>
-	   	<div class="col-md-4 col-sm-4 content text-center pt-21"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
+	   	<div class="col-md-4 col-sm-4 content text-center pt-21">
+      <h4><strong>Rendez-Vous de Consultation {{ $rdv->patient->civ }}
+      </strong></h4></div>		
 	  </div><br>	
 	  <div class="row mt-10 pt-10">
 		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<strong>{{ $rdv->specialite->nom}}</strong></div>

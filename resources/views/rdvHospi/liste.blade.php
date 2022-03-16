@@ -10,25 +10,25 @@
                         <thead class="thin-border-bottom">
                               <tr>
                                     <th rowspan="2" hidden></th>
-                                     <th class="text-center" width="3%"  rowspan="2"  ></th>
-                                     <th class="text-center" rowspan="2" width="11%"><h5><strong>Patient</strong></h5></th>
-                                     <th class="text-center" colspan="2"><h5><strong>Entrée</strong></h5></th>
-                                     <th class="text-center" colspan="2"><h5><strong>Sortie prévue</strong></h5></th>
-                                      <th class="font-weight-bold text-center" rowspan="2"><h5><strong>Médecin traitant</strong></h5></th>
-                                    <th class="text-center" colspan="3"><h5><strong>Lit réservé</strong></h5></th>
-                                    {{-- <th class="font-weight-bold text-center" rowspan="2"><strong>Lit</strong></th>
-                                    <th class="font-weight-bold text-center" rowspan="2"><strong>Salle</strong></th>
-                                    <th class="font-weight-bold text-center" rowspan="2"><strong>Service</strong></th> --}}
-                                    <th class="detail-col text-center" rowspan="2"><em class="fa fa-cog"></em></th>
+                                     <th class="center" width="3%"  rowspan="2"  ></th>
+                                     <th class="center" rowspan="2" width="11%"><h5><strong>Patient</strong></h5></th>
+                                     <th class="center" colspan="2"><h5><strong>Entrée</strong></h5></th>
+                                     <th class="center" colspan="2"><h5><strong>Sortie prévue</strong></h5></th>
+                                      <th class="font-weight-bold center" rowspan="2"><h5><strong>Médecin traitant</strong></h5></th>
+                                    <th class="center" colspan="3"><h5><strong>Lit réservé</strong></h5></th>
+                                    {{-- <th class="font-weight-bold center" rowspan="2"><strong>Lit</strong></th>
+                                    <th class="font-weight-bold center" rowspan="2"><strong>Salle</strong></th>
+                                    <th class="font-weight-bold center" rowspan="2"><strong>Service</strong></th> --}}
+                                    <th class="detail-col center" rowspan="2"><em class="fa fa-cog"></em></th>
                           </tr>
                           <tr>
-                            <th class="text-center"><h5><strong>Date</strong></h5></th>
-                            <th class="text-center"><h5><strong>Heure</strong></h5></th>
-                            <th class="text-center"><h5><strong>Date</strong></h5></th>
-                            <th class="text-center"><h5><strong>Heure</strong></h5></th>
-                            <th class="font-weight-bold text-center"><strong>Lit</strong></th>
-                            <th class="font-weight-bold text-center"><strong>Salle</strong></th>
-                            <th class="font-weight-bold text-center"><strong>Service</strong></th>
+                            <th class="center"><h5><strong>Date</strong></h5></th>
+                            <th class="center"><h5><strong>Heure</strong></h5></th>
+                            <th class="center"><h5><strong>Date</strong></h5></th>
+                            <th class="center"><h5><strong>Heure</strong></h5></th>
+                            <th class="font-weight-bold center"><strong>Lit</strong></th>
+                            <th class="font-weight-bold center"><strong>Salle</strong></th>
+                            <th class="font-weight-bold center"><strong>Service</strong></th>
                           </tr>
                         </thead>
                         <tbody id ="rendez-VousBody" class="bodyClass">

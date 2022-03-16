@@ -8,13 +8,13 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="text-center"><h5><strong>Patient</strong></h5></th>
-							<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
-							<th class="text-center"><h5><strong>Priorité</strong></h5></th>
-							<th class="text-center"><h5><strong>Observation</strong></h5></th>
-							<th class="text-center"><h5><strong>Date</strong></h5></th>
-							<th class="text-center"><h5><strong>Etat</strong></h5></th>
-							<th class="text-center"><em class="fa fa-cog"></em></th>
+							<th class="center"><h5><strong>Patient</strong></h5></th>
+							<th class="center"><h5><strong>Mode d'admission</strong></h5></th>
+							<th class="center"><h5><strong>Priorité</strong></h5></th>
+							<th class="center"><h5><strong>Observation</strong></h5></th>
+							<th class="center"><h5><strong>Date</strong></h5></th>
+							<th class="center"><h5><strong>Etat</strong></h5></th>
+							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>

@@ -129,7 +129,7 @@ $(function() {
                     tel:'{{$rdv->patient->tele_mobile1}}',
                     age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                     specialite: {{ $rdv->specialite_id }},
-                    civ : {{ $rdv->patient->civ }},//civ : {{ $rdv->patient->getCiviliteCode() }},
+                    civ : {{ $rdv->patient->civ }},
                     // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
                 },
                @endforeach   

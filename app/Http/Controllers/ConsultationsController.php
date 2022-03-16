@@ -78,7 +78,7 @@ class ConsultationsController extends Controller
         $etablissement = Etablissement::first(); 
         $employe = Auth::user()->employ;
         $modesAdmission = config('settings.ModeAdmissions') ;
-        $infossupp = infosupppertinentes::all();    //$examens = TypeExam::all();//CT,RMN
+        $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();
