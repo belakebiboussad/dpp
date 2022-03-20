@@ -86,24 +86,17 @@ class patient extends Model
  		}
  	}
   public function getCivAttribute()
-  {
-    $civcode = "";
+  {    //$civcode = "";
     switch ($civilite = $this->getCivilite()) {
-        case 'M.':
-          $civcode = 1; 
-          return $civcode;
+        case 'M.': //$civcode = 1; 
+          return 1;
           break;
-        case 'Mlle.':
-          $civcode =2; 
-          return $civcode;
-          break; 
+        case 'Mlle.'://$civcode =2; 
         case 'Mme.':
-          $civcode =4;//2
-          return $civcode;
+          return 2;
           break; 
-        case 'Enf.':
-          $civcode =3; 
-          return $civcode;
+        case 'Enf.':// $civcode =3; 
+          return 3;
           break;
         default :
           return 1;

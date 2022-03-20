@@ -7,7 +7,7 @@
   <div class="space-12"></div>
   <div class="row">
     <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-      <span class="f-16"><strong>Traitements</strong></span>
+      <span class="f-16"><strong>Actes</strong></span>
     </div>
   </div>
   <div class="row">
@@ -15,12 +15,23 @@
       <table id="simple-table" class="table  table-bordered table-hover">
         <thead>
           <tr>
-            <th class="center"><h5><strong>Etat</strong></h5></th>
-             <th class="center"><em class="fa fa-cog"></em></th>
-            
+            <th class="center"><strong>nom</strong></th>
+            <th class="center"><strong>description</strong></th>
+            <th class="center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
         <tbody>
+          @foreach($hosp->visites as $visite)
+            @foreach($visite->actes as $acte )
+              @if(!$acte->retire)
+              <td>{{ $acte->nom }}</td> 
+              <td>{{ $acte->description }}</td> 
+              <td class="center">
+                <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute">&faire</button>
+              </td> 
+              @endif
+            @endforeach
+          @endforeach
           <tr></tr>
         </tbody>
     </div>    

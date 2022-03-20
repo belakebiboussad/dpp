@@ -72,7 +72,7 @@ $(function () {//alert('{{ $borneIp }}');
             $("#printTck").click(function(){
               var spec = $('#specialite').find(":selected").val();
               var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialiteId").val()+"|"+$("#daterdvHidden").val();
-              alert(barcode);
+              //alert(barcode);
               chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {

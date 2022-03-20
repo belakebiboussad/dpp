@@ -235,7 +235,7 @@
   		var atcd_id = $(this).val();
   		$.get('/atcd/' + atcd_id, function (data) { 
   			$('#atcd_id').val(data.id);
-  		        $('#typeAntecedant').val(data.typeAntecedant).change();
+  		    $('#typeAntecedant').val(data.typeAntecedant).change();
   			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
   			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
   				$( "#atcdsstypehide" ).removeClass("hidden"); 
