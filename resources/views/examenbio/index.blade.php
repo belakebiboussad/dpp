@@ -1,4 +1,4 @@
-@extends('app_laboanalyses') 
+@extends('app')<!-- app_laboanalyses  -->
 @section('title','Demandes examens biologique ')
 @section('page-script')
  <script>

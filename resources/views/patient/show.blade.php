@@ -74,7 +74,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
         $.ajax({
             type : 'POST',
             url : '/createTicket',
-            data:formData,  //dataType: 'json',
+            data:formData,
             success:function(data){ 
             	location.reload(true);
             },
@@ -190,7 +190,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				<div  class="col-sm-12 form-group">
 					<label for="specialite"><b>Spécialité:</b></label>
 					<select class="form-control" id="specialiteTick" name="specialite"  required>
-						<option value="">Selectionner...</option>
+						<option value="" selected diasabled>Selectionner...</option>
 						@foreach($specialites as $specialite)
 						<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
 						@endforeach

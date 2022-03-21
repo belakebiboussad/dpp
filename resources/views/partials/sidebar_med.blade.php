@@ -228,25 +228,25 @@
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }  
        function printExBio(ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
-               ol = document.getElementById('listBioExam');
-               ol.innerHTML = '';
-               $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-                       $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
-               });
-               var pdf = new jsPDF('p', 'pt', 'a4');
-               JsBarcode("#barcode",ipp,{
-                      format: "CODE128",
-                      width: 2,
-                      height: 30,
-                      textAlign: "left",
-                       text: "IPP: " + ipp 
-                });
-                var canvas = document.getElementById('barcode');
-                var jpegUrl = canvas.toDataURL("image/jpeg");
-                pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-               pdf.setFontSize(12);
-               pdf.text(320,730, 'Docteur : ' + med);
-               generate(pdf,'bioExamsPdf');
+          ol = document.getElementById('listBioExam');
+          ol.innerHTML = '';
+          $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+                 $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
+          });
+          var pdf = new jsPDF('p', 'pt', 'a4');
+          JsBarcode("#barcode",ipp,{
+                format: "CODE128",
+                width: 2,
+                height: 30,
+                textAlign: "left",
+                 text: "IPP: " + ipp 
+          });
+          var canvas = document.getElementById('barcode');
+          var jpegUrl = canvas.toDataURL("image/jpeg");
+          pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+         pdf.setFontSize(12);
+         pdf.text(320,730, 'Docteur : ' + med);
+         generate(pdf,'bioExamsPdf');
     }
     function printExImg(ipp,med)
     {
@@ -285,16 +285,16 @@
     }
     function printExamCom(ipp, med)
     {
-               var interest = $('ul#compl').find('li.active').data('interest');
-               switch(interest){
-                      case 0:
-                              printExBio(ipp,med);
-                              break;
-                      case 1:
-                              printExImg(ipp,med);
-                              break;
-                       default :
-                              break;
+      var interest = $('ul#compl').find('li.active').data('interest');
+      switch(interest){
+        case 0:
+                printExBio(ipp,med);
+                break;
+        case 1:
+                printExImg(ipp,med);
+                break;
+         default :
+                break;
       }
     }
     function addExamsImg(form)

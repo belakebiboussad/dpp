@@ -61,19 +61,19 @@ class DemandeExamenRadio extends Controller
         {
           if( $exam->pivot->id_examenradio == $request->id_examenradio)
           {
-                for ($x = 0; $x < $request->TotalFiles; $x++) 
-                {
-                        if ($request->hasFile('files'.$x)) 
-                        {
-                              $file = $request->file('files'.$x);
-                              $namefile = $file->getClientOriginalName();
-                              $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                              $data[] = $namefile;
-                        }
-                 }
-                $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
-                $exam->pivot->etat = 1;
-                $exam->pivot->save();
+            for ($x = 0; $x < $request->TotalFiles; $x++) 
+            {
+                    if ($request->hasFile('files'.$x)) 
+                    {
+                          $file = $request->file('files'.$x);
+                          $namefile = $file->getClientOriginalName();
+                          $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                          $data[] = $namefile;
+                    }
+             }
+            $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
+            $exam->pivot->etat = 1;
+            $exam->pivot->save();
           }
         }
         return Response()->json([ "rowID" => $request->id_examenradio, ]);
@@ -86,9 +86,9 @@ class DemandeExamenRadio extends Controller
         {
           if( $exam->pivot->id_examenradio == $request->id_examenradio)
           {
-                  $exam->pivot->etat = 0;
-                  $exam->pivot->observation = $request->observation;
-                  $exam->pivot->save();
+            $exam->pivot->etat = 0;
+            $exam->pivot->observation = $request->observation;
+            $exam->pivot->save();
           }
         }
         return Response()->json([ "rowID" => $request->id_examenradio, ]);
@@ -109,11 +109,11 @@ class DemandeExamenRadio extends Controller
       }
       public function createexr($id)
       {
-            $infossupp = infosupppertinentes::all();
-            $examens = TypeExam::all();
-            $examensradio = examenradiologique::all();
-           $consultation = consultation::FindOrFail($id);
-           return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
+        $infossupp = infosupppertinentes::all();
+        $examens = TypeExam::all();
+        $examensradio = examenradiologique::all();
+        $consultation = consultation::FindOrFail($id);
+        return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
       }
     /**
      * Show the form for creating a new resource.
@@ -128,12 +128,12 @@ class DemandeExamenRadio extends Controller
      */
       public function store(Request $request, $consultID)
       {
-             $demande = demandeexr::FirstOrCreate([
-                     "Date" => Date::now(),
-                     "InfosCliniques" => $request->infosc,
-                     "Explecations" => $request->explication,
-                     "id_consultation" => $consultID,
-             ]);
+         $demande = demandeexr::FirstOrCreate([
+                 "Date" => Date::now(),
+                 "InfosCliniques" => $request->infosc,
+                 "Explecations" => $request->explication,
+                 "id_consultation" => $consultID,
+         ]);
              $examsImagerie = json_decode ($request->ExamsImg);
               foreach ($examsImagerie as $key => $value) {       
                 $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);

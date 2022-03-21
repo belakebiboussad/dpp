@@ -653,11 +653,10 @@
       function header(doc)
       {      
         doc.setFontSize(40);
-          doc.setTextColor(40);
-          doc.setFontStyle('normal');
-            if (base64Img) {
-              doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
-         }
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        if (base64Img)
+          doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
         doc.line(10, 95, margins.width + 33,95); // horizontal line
       }
       function headerFooterFormatting(doc, totalPages)
@@ -674,9 +673,8 @@
         doc.setFontSize(40);
         doc.setTextColor(40);
         doc.setFontStyle('normal');
-        if (footer64Img) {
-                doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
-         } 
+        if (footer64Img)
+          doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
       }
       function generate(pdf,pdfContent)
       {// var pdf = new jsPDF('p', 'pt', 'a4');

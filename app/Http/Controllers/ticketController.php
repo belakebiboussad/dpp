@@ -37,29 +37,19 @@ class ticketController extends Controller
      */
       public function store(Request $request)
       {
-        if($request->ajax())  
+        if($request->ajax())  //a pofiner
         {
           $date = Date::Now()->toDateString();
           $datea = Date::Now();
           if($request->typecons == "Normale")
-          {
-               $tickets = ticket::where("date", $date)
-                              ->where("specialite",$request->specialite)
-                              ->get()->count();
-                $ticket = ticket::firstOrCreate([
-                      "date" => $datea,
-                      "specialite" => $request->specialite,
-                      "type_consultation" => $request->typecons,
-                      "document" => $request->document,
-                      "num_order" => ($tickets+1),
-                      "id_patient" => $request->id_patient,
-                ]);
-          }else
-          {
-                $tickets = ticket::where("date", $date)
+            $tickets = ticket::where("date", $date)
+                            ->where("specialite",$request->specialite)
+                            ->get()->count();
+          else
+            $tickets = ticket::where("date", $date)
                                 ->where("type_consultation",$request->typecons)
-                                ->get()->count();
-                $ticket = ticket::firstOrCreate([
+                                ->get()->count();   
+          $ticket = ticket::firstOrCreate([
                              "date" => $datea,
                               "specialite" => $request->specialite,
                               "type_consultation" => $request->typecons,
@@ -67,7 +57,6 @@ class ticketController extends Controller
                                "num_order" => ($tickets+1),
                               "id_patient" => $request->id_patient,
                  ]);
-          }
           return redirect()->route("ticket.pdf",$ticket->id);
         }
        }

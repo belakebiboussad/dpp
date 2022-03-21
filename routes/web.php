@@ -183,7 +183,6 @@ Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/404', function () {
     return view('errors.404');
 });
-
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);

@@ -26,7 +26,7 @@
       <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
             <td colspan="2"><strong>N° :</strong><span>&nbsp;{{ $obj->id }}</td>
-            <td><strong>Date d'admission :</strong><span>&nbsp;{{  (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
+            <td><strong>Date d'admission :</strong><span>&nbsp;{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>

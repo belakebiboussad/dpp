@@ -302,7 +302,7 @@ function CRRSave()
                 </tr>
               </thead>
               <tbody>
-               @foreach ($demande->examensradios as $index => $examen){{-- @if($examen->pivot->etat === null) --}}
+               @foreach ($demande->examensradios as $index => $examen)
                 <tr id = "{{ $examen->id }}">
                   <td class="center">{{ $index }}</td>
                   <td>{{ $examen->nom }}</td>
@@ -315,10 +315,12 @@ function CRRSave()
                   <td>
                     @if(Auth::user()->role->id == 12)
                       @if( $examen->pivot->etat)
-                        {{ $examen->pivot->resultat }}
-                        1<input type="file" id="exm-{{ $examen->id }}" name="resultat[]" value="{{ $examen->pivot->resultat['1'] }}" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
+                        @foreach(json_decode($examen->pivot->resultat,true) as $res)
+                          {{$res }}
+                        @endforeach
+                        <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" value="{{ $examen->pivot->resultat['1'] }}" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                       @else
-                        2<input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
+                       <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                       @endif
                        <p>size Max : 2 MB</p>
                     @endif
