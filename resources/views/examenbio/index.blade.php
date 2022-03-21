@@ -86,14 +86,14 @@
 								</td>
 							              <td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->docteur->Service->nom }} 
+									{{ $demande->consultation->medecin->Service->nom }} 
 								@else
 									{{ $demande->visite->hospitalisation->medecin->Service->nom }}
 								@endif	
 								</td>
 								<td>
 								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->docteur->full_name }}
+									{{ $demande->consultation->medecin->full_name }}
 								@else
 									{{ $demande->visite->hospitalisation->medecin->full_name }}
 								@endif	

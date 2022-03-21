@@ -56,16 +56,16 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-            $consultation = consultation::with('patient','docteur')->FindOrFail($request->id);
+            $consultation = consultation::with('patient','medecin')->FindOrFail($request->id);
             $etablissement = Etablissement::first();
             $patient =   $consultation->patient;
-            $employe =   $consultation->docteur;
+            $employe =   $consultation->medecin;
             $view =  view("consultations.inc_consult",compact('consultation','patient','etablissement','employe'))->render();
             return response()->json(['html'=>$view]);
     }
     public function listecons($id)
     {
-          $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+          $patient = patient::with('Consultations.patient','Consultations.medecin','Consultations.medecin.service')->FindOrFail($id);
           return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
     }
     /**
@@ -197,7 +197,7 @@ class ConsultationsController extends Controller
      */
       public function show($id)
       {
-              $consultation = consultation::with('patient','docteur')->FindOrFail($id);
+              $consultation = consultation::with('patient','medecin')->FindOrFail($id);
               return view('consultations.show', compact('consultation'));
       }
      
@@ -228,10 +228,10 @@ class ConsultationsController extends Controller
       {
               if($request->ajax())  
               {         
-                if($request->field == 'date')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                  $consults =consultation::with('patient','docteur')->where(trim($request->field),'=',trim($request->value))->get();
+                if($request->field == 'date')
+                  $consults =consultation::with('patient','medecin')->where(trim($request->field),'=',trim($request->value))->get();
                 else
-                  $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
+                  $consults =consultation::with('patient','medecin')->whereHas('patient',function($q) use ($request){
                                                               $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                                           })->get();
                 return Response::json($consults);

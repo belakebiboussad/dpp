@@ -26,7 +26,7 @@
 					<div class="col-sm6 col-xs-6">
 						 <label class="blue">
 							@if(isset($demande->consultation))
-			     					 {{ $demande->consultation->docteur->full_name }}
+			     					 {{ $demande->consultation->medecin->full_name }}
 			      				@else
 			       				{{ $demande->visite->medecin->full_name }}
 			      				@endif

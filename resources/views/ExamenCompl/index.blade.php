@@ -6,13 +6,13 @@
 	     			<i class="fa fa-2x fa-flask deep-purple-text"></i><span class="bigger-130">Examen Biologique</span>	
 	   		 </a>
 	 	 </li>
-		<li role= "presentation"><!-- data-interest = "1" -->
-  			<a href="#radiologique" aria-controls="radiologique" role="tab" data-toggle="tab" class="jumbotron">
+		<li role= "presentation" data-interest = "1">
+  			<a href="#radiologique" aria-controls="radiologique" role="tab" data-toggle="tab" class="jumbotron" >
   			<span class="medical medical-icon-mri-pet" aria-hidden="true"></span><span class="bigger-130">Examen Radiologique</span>
     	 		</a>
    		</li>
-   		<li role= "presentation"><!-- data-interest = "2" -->
-     			<a href="#anapath" aria-controls="anapath" role="tab" data-toggle="tab" class="jumbotron">
+   		<li role= "presentation" data-interest = "2">
+     			<a href="#anapath" aria-controls="anapath" role="tab" data-toggle="tab" class="jumbotron" >
    			<span class="medical medical-icon-pathology" aria-hidden="true"></span><span class="bigger-130"> Examen Anapath</span>
     			</a>
    		</li>

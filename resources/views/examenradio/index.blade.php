@@ -79,8 +79,8 @@
 											@if(isset($exr->consultation))
 												<td class="center">{{ $index + 1 }}</td>
 												<td>{{ $exr->consultation->date }}</td>
-												<td>{{ $exr->consultation->docteur->Service->nom }}</td>
-												<td>{{ $exr->consultation->docteur->full_name }} </td>
+												<td>{{ $exr->consultation->medecin->Service->nom }}</td>
+												<td>{{ $exr->consultation->medecin->full_name }} </td>
 												<td>{{ $exr->consultation->patient->full_name}}<small class="text-primary">(Consultation)</small></td>
 											@else
 												<td class="center">{{ $index + 1 }}</td>

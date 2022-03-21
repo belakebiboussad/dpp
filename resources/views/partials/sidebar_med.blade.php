@@ -248,40 +248,39 @@
          pdf.text(320,730, 'Docteur : ' + med);
          generate(pdf,'bioExamsPdf');
     }
-    function printExImg(ipp,med)
-    {
-      $("#infoSupPertinante").text('');
-      ol = document.getElementById('listImgExam');
-      ol.innerHTML = '';
-      var len = $(".infosup :checkbox:checked").length;
-      if($('.infosup input[type="checkbox"]').is(':checked')){
-        $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
-        $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-          if(index != len-1)
-            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
-          else
-            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
-
-        });
-      }else
-        $("#infoSupPertinante").text('');
-      $("#ExamsImgtab tbody tr").each(function(){
-        $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-      });        
-      var pdf = new jsPDF('p', 'pt', 'a4');
-      JsBarcode("#barcode",ipp,{
-        format: "CODE128",
-        width: 2,
-        height: 30,
-        textAlign: "left",
-        text: "IPP: " + ipp 
-      });
-      var canvas = document.getElementById('barcode');
-      var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-      pdf.setFontSize(12);
-      pdf.text(320,730, 'Docteur : ' + med);
-      generate(pdf,'imagExamsPdf');
+        function printExImg(ipp,med)
+       {
+               $("#infoSupPertinante").text('');
+               ol = document.getElementById('listImgExam');
+               ol.innerHTML = '';
+               var len = $(".infosup :checkbox:checked").length;
+               if($('.infosup input[type="checkbox"]').is(':checked')){
+                       $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
+                      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+                               if(index != len-1)
+                                      $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
+                               else
+                                     $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
+                      });
+               }else
+                      $("#infoSupPertinante").text('');
+                $("#ExamsImgtab tbody tr").each(function(){
+                         $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
+                });        
+                var pdf = new jsPDF('p', 'pt', 'a4');
+                JsBarcode("#barcode",ipp,{
+                        format: "CODE128",
+                        width: 2,
+                        height: 30,
+                        textAlign: "left",
+                        text: "IPP: " + ipp 
+                });
+                var canvas = document.getElementById('barcode');
+                var jpegUrl = canvas.toDataURL("image/jpeg");
+                pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+                pdf.setFontSize(12);
+                pdf.text(320,730, 'Docteur : ' + med);
+                generate(pdf,'imagExamsPdf');
     }
     function printExamCom(ipp, med)
     {

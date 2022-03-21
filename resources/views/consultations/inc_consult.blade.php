@@ -123,7 +123,7 @@ $('document').ready(function(){
 						</thead>
 						<tbody>
 							<tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
-								<td>{{ $consultation->date }}{{ $consultation->docteur->id }}</td>
+								<td>{{ $consultation->date }}</td>
 								<td>
 								@if($consultation->demandeexmbio->etat == null)
 									<span class="badge badge-success">En Cours</span>
@@ -135,7 +135,7 @@ $('document').ready(function(){
 								</td>
 								<td class="center">
 									<a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
-									@if($consultation->docteur->id == Auth::user()->employ->id)
+									@if($consultation->medecin->id == Auth::user()->employ->id)
 										@if($consultation->demandeexmbio->etat == null)
 											<a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
 											<button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 

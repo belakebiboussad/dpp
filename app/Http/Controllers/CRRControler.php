@@ -63,12 +63,12 @@ class CRRControler extends Controller
             if(isset($demande->id_consultation))
              {
                    $patient = $demande->consultation->patient;
-                   $medecin = $demande->consultation->docteur;
+                   $medecin = $demande->consultation->medecin;
              }  
              else
              {
                     $patient = $demande->visite->hospitalisation->patient ;
-                    $medecin = $demande->consultation->docteur;
+                    $medecin = $demande->consultation->medecin;
              }
              $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin'));
              $filename = "cr-radio-".$patient->Nom."-".$patient->Prenom.".pdf";

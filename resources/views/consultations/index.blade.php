@@ -47,9 +47,9 @@
                                return '<small>'+data.motif+'</small>';
                             }
                         },
-                        {   data: "docteur.nom" ,
+                        {   data: "medecin.nom" ,
                              render: function ( data, type, row ) {
-                                      return row.docteur.full_name;
+                                      return row.medecin.full_name;
                              },
                              title:'Medecin', "orderable":false, 
                         },

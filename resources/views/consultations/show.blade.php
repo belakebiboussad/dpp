@@ -103,7 +103,7 @@
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                      @if($consultation->docteur->id == Auth::user()->employ->id)
+                                      @if($consultation->medecin->id == Auth::user()->employ->id)
                                         @if($consultation->demandeexmbio->etat == null)
                                         <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
                                         <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>

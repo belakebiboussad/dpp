@@ -73,7 +73,7 @@
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
 													<strong>Nom du médecin traitant :</strong>
-													<b class="blue">{{ $demande->consultation->docteur->full_name}}</b>
+													<b class="blue">{{ $demande->consultation->medecin->full_name}}</b>
 												</li>
 											</ul>
 										</div>

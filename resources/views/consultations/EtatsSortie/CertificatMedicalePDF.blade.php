@@ -20,14 +20,14 @@
         <main><br><br><br>	
       	  <hr class="hr-1"/>
       		<div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div><br>
-      		<div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div>
+      		<div><strong>Service : </strong>{{ $obj->medecin->Service->nom }}</div>
       		<div>
-      			<strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->full_name }}
+      			<strong>Chef de Servise : </strong>{{ $obj->medecin->Service->responsable->full_name }}
       		</div><br><br><br><br>
         	<div>
 	          <p class="espace">
-	           Je soussigné, Dr <strong>{{ $obj->docteur->full_name }}</strong>
-	           Docteur en  <strong> {{ $obj->docteur->Specialite->nom }}</strong>,
+	           Je soussigné, Dr <strong>{{ $obj->medecin->full_name }}</strong>
+	           Docteur en  <strong> {{ $obj->medecin->Specialite->nom }}</strong>,
 	          </p>
 	          <p>
 	          certifie avoir examiné ce <strong>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</strong>

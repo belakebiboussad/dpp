@@ -9,7 +9,7 @@ class consultation extends Model
         public $timestamps = false;
         protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','date','Diagnostic',
                               'id_code_sim','Resume_OBS','employ_id','pid','id_lieu'];//modeAdmission
-        public function docteur()
+        public function medecin()
         {
             return $this->belongsTo('App\modeles\employ','employ_id');
         }

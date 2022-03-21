@@ -159,7 +159,7 @@ route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
-route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
+route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-file', 'DemandeExamenRadio@upload');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');

@@ -149,7 +149,7 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name center"><strong>Établi par Dr:</strong></div>
 												<div class="profile-info-value">
-													<span>{{ $demande->consultation->docteur->full_name }}</span>
+													<span>{{ $demande->consultation->medecin->full_name }}</span>
 												</div>
 											</div>
 									  </div>	{{-- profile-user-info-striped --}}

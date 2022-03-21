@@ -64,7 +64,7 @@ class HospitalisationController extends Controller
                             })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                       })->get(); //admission d'urgenes
-        $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.docteur','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
+        $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.medecin','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
                           ->whereHas('demandeHospitalisation.consultation', function($q){
                                               $q->where('date','=',date("Y-m-d"));
                           })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {

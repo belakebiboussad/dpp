@@ -521,7 +521,7 @@ class PatientController extends Controller
     switch(Auth::user()->employ->specialite)
     {       
       case 3 ://ped
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active','=',1)->where('Dat_Naissance', '>', sub17)->limit(15)->get();  
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active','=',1)->where('Dat_Naissance', '>',$sub17)->limit(15)->get();  
         break;
       case 5 ://geneco
         $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Sexe','F')->limit(15)->get();

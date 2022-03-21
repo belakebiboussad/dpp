@@ -32,22 +32,32 @@ class DemandeExamenRadio extends Controller
       $demandesexr = demandeexr::with('consultation','visite')->where('etat',null)->get();
       return view('examenradio.index', compact('demandesexr','services')); 
     }
-    public function details_exr($id)
+    public function details($id)
     {
       $demande = demandeexr::FindOrFail($id);
       $etablissement = Etablissement::first();
-      if(isset($demande->consultation))
-      {
-        $medecin =  $patient = $demande->consultation->docteur ;     
-        $patient = $demande->consultation->patient;
-        $date =$demande->consultation->date ;
-      }else
-      {
-        $medecin =  $patient = $demande->visite->medecin ;   
-        $patient = $demande->visite->hospitalisation->patient;
-        $date = $demande->visite->date;
-      }
-      return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));
+      /*    if(isset($demande->consultation))
+          {
+            $medecin =  $patient = $demande->consultation->medecin ;     
+            $patient = $demande->consultation->patient;
+            $date =$demande->consultation->date ;
+          }else
+          {
+            $medecin =  $patient = $demande->visite->medecin ;   
+            $patient = $demande->visite->hospitalisation->patient;
+            $date = $demande->visite->date;
+          }
+          return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));*/
+        if(isset($demande->id_consultation))
+        {
+            $obj = $demande->consultation;
+            $patient = $demande->consultation->patient;
+        }else
+        {
+          $obj = $demande->visite;
+           $patient = $demande->visite->hospitalisation->patient;
+        }
+        return view('examenradio.details', compact('demande','obj','patient','etablissement'));   
     }
     public function upload(Request $request)
     {
@@ -210,14 +220,14 @@ class DemandeExamenRadio extends Controller
       if($request->field != "service")  
       {
         if(isset($request->value))
-             $demandes = demandeexr::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
         else
-             $demandes = demandeexr::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
+             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
       }else
       {
         $serviceID = $request->value;
-        $demandes = demandeexr::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
-                           ->whereHas('consultation.docteur.Service', function($q) use ($serviceID) {
+        $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
+                           ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);
                             })->orWhereHas('visite.hospitalisation.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);

@@ -41,7 +41,7 @@ function getRequests(url,field,value)
             { data: null,
                         render: function ( data, type, row ) {
                           if(data.id_consultation != null)
-                             return row.consultation.docteur.service.nom ;
+                             return row.consultation.medecin.service.nom ;
                           else
                             return  row.visite.hospitalisation.medecin.service.nom;
                           return data;  
@@ -50,7 +50,7 @@ function getRequests(url,field,value)
             { data: null,
                           render: function ( data, type, row ) {
                             if(data.id_consultation != null)
-                               return row.consultation.docteur.nom + ' ' + row.consultation.docteur.prenom ;
+                               return row.consultation.medecin.nom + ' ' + row.consultation.medecin.prenom ;
                             else
                               return row.visite.hospitalisation.medecin.nom + ' ' + row.visite.hospitalisation.medecin.prenom;
                             return data;  

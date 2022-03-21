@@ -70,7 +70,7 @@ class DemandeExbController extends Controller
       $demande = demandeexb::FindOrFail($id);
       if(isset($demande->consultation))
       {
-        $medecin =$demande->consultation->docteur ; 
+        $medecin =$demande->consultation->medecin ; 
         $patient = $demande->consultation->patient;    
        }
        else
@@ -123,7 +123,7 @@ class DemandeExbController extends Controller
       $etablissement = Etablissement::first();
       if(isset($demande->consultation))
       {
-        $medecin =  $patient = $demande->consultation->docteur;     
+        $medecin =  $patient = $demande->consultation->medecin;     
         $patient = $demande->consultation->patient;
       }
       else
@@ -155,14 +155,14 @@ class DemandeExbController extends Controller
       if($request->field != "service")  
       {
         if(isset($request->value))
-          $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
         else
-          $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
+          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
       }else
       {
         $serviceID = $request->value;
-        $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
-                               ->whereHas('consultation.docteur.Service', function($q) use ($serviceID) {
+        $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
+                               ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
                                     $q->where('id', $serviceID);
                                 })->orWhereHas('visite.hospitalisation.medecin.Service', function($q) use ($serviceID) {
                                     $q->where('id', $serviceID);
@@ -178,7 +178,7 @@ class DemandeExbController extends Controller
       {
         $patient = $demande->consultation->patient ;
         $date = $demande->consultation->date ;
-        $medecin = $demande->consultation->docteur;
+        $medecin = $demande->consultation->medecin;
 
       }  else
       {
@@ -198,7 +198,7 @@ class DemandeExbController extends Controller
           {
             $patient = $demande->consultation->patient ;
             $date = $demande->consultation->date ;
-            $medecin = $demande->consultation->docteur;
+            $medecin = $demande->consultation->medecin;
 
           }  else
           {

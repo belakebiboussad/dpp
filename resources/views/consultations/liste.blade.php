@@ -22,7 +22,7 @@
 					@foreach($patient->Consultations as $consult)
 					<tr id ="{{ $consult->id }}">
 					  <td>{{ $consult->date }}</td>
-						<td>{{ $consult->docteur->full_name }}</td>
+						<td>{{ $consult->medecin->full_name }}</td>
 						<td><small>{{ $consult->motif }}</small></td>
 						<td><button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-hand-o-up"></i></button></td>	
 					</tr>
