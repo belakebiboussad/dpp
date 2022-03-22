@@ -9,9 +9,21 @@ class demandeexr extends Model
   public $timestamps = false;
   protected $table = "demandeexr";
   protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation','visite_id'];
+  public const ETATS = [
+      ''=> 'En Cours',
+      0 => 'Rejetée',  
+      1 => 'Validée'
+  ];
+  public function getEtatAttribute()
+  {
+    return self::ETATS[ $this->attributes['etat'] ];
+  }
+  public static function getEtatID($etat) {
+     return array_search($etat, self::ETATS); 
+  }
   public function examensradios()
   { 
-    return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif','resultat','etat','observation','crr_id');       
+    return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');       
   }
   public function typeExam()
   {

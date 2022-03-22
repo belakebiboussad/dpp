@@ -8,13 +8,9 @@ class CRR extends Model
 {
 	public $timestamps = false;
 	protected $table = "crrs";
-	protected $fillable = ['indication','techRea','result','conclusion','demande_id','exam_id'];
-	public function demandeRadio()
-	{
-		return $this->belongsTo('App\modeles\demandeexr','demande_id');
-	}
+	protected $fillable = ['indication','techRea','result','conclusion','exam_id'];
 	public function examenRadio()
 	{
-		return $this->belongsTo('App\modeles\examenradiologique','exam_id');
+		return $this->belongsTo('App\modeles\Demandeexr_Examenradio','exam_id');
 	}
 }

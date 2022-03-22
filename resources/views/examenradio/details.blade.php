@@ -25,78 +25,80 @@
 <script>
 function CRRPrint()
 { 
-        $("#conclusionPDF").text($("#conclusion").val());
-        var pdf = new jsPDF('p', 'pt', 'a4');
-        generate(pdf,'pdfContent')
+  $("#conclusionPDF").text($("#conclusion").val());
+  var pdf = new jsPDF('p', 'pt', 'a4');
+  generate(pdf,'pdfContent')
 }
 function CRRSave()
 {
-      $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
-       });
-      var formData = {
-              conclusion:$("#conclusion").val(),  
-      };
-      var state = jQuery('#crrSave').val();
-       if (state == "add") 
-            formData.exam_id = $("#examId").val();
-      var type = "POST";
-      var ajaxurl = '/crrs';
-      if (state == "update") {
-              type = "PUT";
-             ajaxurl = '/crrs/' +  $('#crrId').val();
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
       }
-      $.ajax({
-             type: type,
-             url: ajaxurl,
-             data: formData,
-             dataType : 'json',
-             success: (data) => {
-                    if (state == "add")
-                    {
-                           $('#crr-edit-'+data).removeClass("hidden");$('#crr-add-'+data).addClass("hidden");     
-                    }  
-             },
-             error: function(data){
-                    console.log(data);
-             }
-       });
+    });
+    var formData = {
+      conclusion:$("#conclusion").val(),  
+    };
+    var state = jQuery('#crrSave').val();
+    if (state == "add") 
+      formData.exam_id = $("#examId").val();
+    var type = "POST";
+    var ajaxurl = '/crrs';
+    if (state == "update") {
+      type = "PUT";
+      ajaxurl = '/crrs/' +  $('#crrId').val();
+    }
+    $.ajax({
+           type: type,
+           url: ajaxurl,
+           data: formData,
+           dataType : 'json',
+           success: (data) => {
+                  if (state == "add")
+                  {
+                         $('#crr-edit-'+data).removeClass("hidden");$('#crr-add-'+data).addClass("hidden");     
+                  }  
+           },
+           error: function(data){
+                  console.log(data);
+           }
+     });
 }
 function uploadFiles(examId)
 {
-      $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-      });
-       var formData = new FormData();
-      formData.append('demande_id', '{{ $demande->id }}');
-      formData.append('exam_id',examId); 
-      formData.append("resultat", $("#exm-" + examId)[0].files[0]);
-      $.ajax({
-             type:'POST',
-             url: "{{ url('store-file') }}",
-             data: formData,
-             enctype: 'multipart/form-data',
-             contentType: false,
-             processData: false,
-             dataType : 'json', 
-             success: (data) => {
-                    $("#btn-"+data['exId']).addClass("hidden");
-                    $("#cancel-"+data['exId']).addClass("hidden");
-                    $("#delet-"+data['exId']).removeClass("hidden"); 
-                    url = '{{-- URL::asset('storage/files') --}}'+"/" +data['fileName'] ;
-                    if(data['isImg'])
-                    $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');
-                   else
-                       $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
-             },
-             error: function(data){
-                   console.log(data);
-             }
-      });
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  var formData = new FormData();
+  formData.append('demande_id', '{{ $demande->id }}');
+  formData.append('exam_id',examId); 
+  formData.append("resultat", $("#exm-" + examId)[0].files[0]);
+  $.ajax({
+     type:'POST',
+     url: "{{ url('store-file') }}",
+     data: formData,
+     enctype: 'multipart/form-data',
+     contentType: false,
+     processData: false,
+     dataType : 'json', 
+     success: (data) => {    
+      $("#btn-"+data['exId']).addClass("hidden");
+      $("#exm-"+data['exId']).addClass("hidden");
+      $("#cancel-"+data['exId']).addClass("hidden");
+      $("#delet-"+data['exId']).removeClass("hidden"); 
+      url = '{{-- URL::asset('storage/files') --}}'+"/" +data['fileName'] ;
+      if(data['isImg'])
+      $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');
+     else
+        $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
+     },
+     error: function(data){
+           console.log(data);
+     }
+  });
 }
 $(function(){
       $('.result').change(function() {
@@ -116,12 +118,12 @@ $(function(){
           footer64Img = base64; 
         });    
       $(".start").click( function(e){
-             e.preventDefault(); //if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
-             var  id  = "#exm-"+$(this).val();
-             if ($(id)[0].files.length !== 0) 
-             {
-                   uploadFiles($(this).val()); 
-             }
+        e.preventDefault(); //if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
+        var  id  = "#exm-"+$(this).val();
+        if ($(id)[0].files.length !== 0) 
+        {
+          uploadFiles($(this).val()); 
+        }
        });
        $(".cancel").click( function(){
              Swal.fire({
@@ -171,10 +173,10 @@ $(function(){
       $(".open-editCRRDialog").click(function () { 
          jQuery('#CRRForm').trigger("reset");
          crrId =  $(this).val();
-         $.get('/crrs/' +crrId, function (data) { 
-             $('#crrModalTitle').html('Editer un compte rendue radiologique');
-            $('#crrId').val(data.id);
+         $.get('/crrs/' +crrId+'/edit', function (data) { 
             jQuery('#conclusion').val(data.conclusion);
+            $('#crrModalTitle').html('Editer un compte rendue radiologique');
+            $('#crrId').val(data.id);
             jQuery('#crrSave').val("update");
             $('#addCRRDialog').modal('show');
          })
@@ -191,18 +193,20 @@ $(function(){
                  examId : examId ,
             };
             $.ajax({
-                   type: "POST",
-                   url: "{{ url('delete-file') }}",
-                   data: formData,
-                   dataType : 'json', 
-                    success: function (data) {
-                          $("#btn-"+data).removeClass("hidden");
-                          $("#cancel-"+data).removeClass("hidden");$("#delet-"+data).addClass("hidden");
-                          $("tr#"+ data+" td").eq(4).html('');
-                    },
-                  error: function (data) {
-                      console.log('Error:', data);
-                  }
+               type: "POST",
+               url: "{{ url('delete-file') }}",
+               data: formData,
+               dataType : 'json', 
+                success: function (data) {
+                  $("#btn-"+data).removeClass("hidden");
+                  $("#cancel-"+data).removeClass("hidden");
+                  $("#exm-"+data).removeClass("hidden");
+                  $("#delet-"+data).addClass("hidden");
+                  $("tr#"+ data+" td").eq(4).html('');
+                },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
              }); 
       })
   });
@@ -253,18 +257,18 @@ $(function(){
                       <td>{{ $examen->Examen->nom }}</td>
                       <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
                       <td class="center">
-                        @if(Auth::user()->role->id == 12)
-                           <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
-                        @endif
+                        {{-- @if((Auth::user()->role->id == 12) && ($examen->getEtatID($examen->etat) == ""))@endif --}}
+                        <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role->id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
                       </td>
                       <td class="center" width="30%">
                         <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?>     
-                        @if($examen->etat === 1 ) 
-                          @if(in_array($extension, config('constants.imageExtensions'))) 
-                         <img   id="preview-{{ $examen->id }}"  src="{{ asset('storage/files/'.$examen->resultat) }}"  style="width:10%"/>
+                        @if($examen->getEtatID($examen->etat) === 1)
+                          {{--@if(in_array($extension, config('constants.imageExtensions'))) 
+                         <img  id="preview-{{ $examen->id }}"  src="{{ asset('storage/files/'.$examen->resultat) }}"  style="width:10%"/>
                          @else
                          <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
-                         @endif
+                         @endif--}}
+                         <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
                        @endif      
                       </td>
                       <td class="center" width="18%">

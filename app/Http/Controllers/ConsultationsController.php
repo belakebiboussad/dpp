@@ -13,6 +13,7 @@ use App\modeles\Etablissement;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\examenbiologique;
 use App\modeles\examenimagrie;
+use App\modeles\Demandeexr_Examenradio;
 use App\modeles\examenanapath;
 use App\modeles\hospitalisation;
 use App\modeles\service;
@@ -24,7 +25,7 @@ use App\modeles\demandeExamImag;
 use App\modeles\demandeexb;
 use App\User;
 use App\modeles\Specialite;
-use App\modeles\LettreOrientation;//use App\modeles\specialite_exb;
+use App\modeles\LettreOrientation;
 use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
@@ -167,18 +168,24 @@ class ConsultationsController extends Controller
               }
               if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
               {
-                    $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
-                    $demandeExImg->Explecations = $request->explication; $demandeExImg->id_consultation = $consult->id;
-                    $consult->examensradiologiques()->save($demandeExImg);
-                    if(isset($request->infos))
-                    {
-                      foreach ($request->infos as $id_info) {
-                        $demandeExImg->infossuppdemande()->attach($id_info);
-                      }
-                    }
-                    foreach (json_decode ($request->ExamsImg) as $key => $value) {       
-                          $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-                    }
+                $demandeExImg = new demandeexr;
+                $demandeExImg->InfosCliniques = $request->infosc;
+                $demandeExImg->Explecations = $request->explication;
+                $demandeExImg->id_consultation = $consult->id;
+                $demandeExImg->save();  
+                if(isset($request->infos))
+                {
+                  foreach ($request->infos as $id_info) {
+                    $demandeExImg->infossuppdemande()->attach($id_info);
+                  }
+                }
+                foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
+                  $exam = new Demandeexr_Examenradio;
+                  $exam->demande_id = $demandeExImg->id;
+                  $exam->exm_id = $acte->acteId;
+                  $exam->type_id = $acte->type;
+                  $exam->save();
+                }
             } 
             if($request->modeAdmission != null)
             {

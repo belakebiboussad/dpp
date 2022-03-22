@@ -18,7 +18,7 @@
                     <div class="profile-info-row">
                       <div class="profile-info-name col-sm-3">Etat :</div>
                       <div class="profile-info-value col-sm-9">
-                      <span class="badge badge-sucess">{{ $demande->etat }}</span>
+                      <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
                       </div>
                     </div>
                   </div><!-- striped   -->
