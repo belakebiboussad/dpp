@@ -40,8 +40,7 @@ class DemandeExamenRadio extends Controller
 /* if(isset($demande->consultation)){ $medecin =  $patient = $demande->consultation->medecin ;
  $patient = $demande->consultation->patient; $date =$demande->consultation->date ;}else
 {$medecin =  $patient = $demande->visite->medecin ;$patient = $demande->visite->hospitalisation->patient;   
-  $date = $demande->visite->date; }return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));*/
-      //dd($demande->examensradios);
+  $date = $demande->visite->date; }return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));*///dd($demande->examensradios);
       if(isset($demande->id_consultation))
       {
           $obj = $demande->consultation;
@@ -114,14 +113,8 @@ $data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJE
       $demande->save();
       return redirect()->action('DemandeExamenRadio@index');
     }
-      public function createexr($id)
-      {
-        $infossupp = infosupppertinentes::all();
-        $examens = TypeExam::all();
-        $examensradio = examenradiologique::all();
-        $consultation = consultation::FindOrFail($id);
-        return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
-      }
+/*public function createexr($id){$infossupp = infosupppertinentes::all();$examens = TypeExam::all();$examensradio = examenradiologique::all();
+$consultation = consultation::FindOrFail($id);return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));}*/
     /**
      * Show the form for creating a new resource.
      *
@@ -240,7 +233,7 @@ $data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJE
       $ex ->update([   "etat" => null,  "resultat" => null ]);
         return Response::json($ex->id);
     }
-    public function print($id)//imprime
+    public function print($id)
     {
       $demande = demandeexr::FindOrFail($id); 
       $etablissement = Etablissement::first();
@@ -255,7 +248,7 @@ $data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJE
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','patient','date','etablissement'));
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etablissement'));
       return $pdf->stream($filename);
     }
 }

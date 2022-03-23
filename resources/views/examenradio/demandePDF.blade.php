@@ -16,17 +16,17 @@
   <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examen radiologique</strong></span></h5> 
   <br>
   <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>
-        {{   (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
+        {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-              s<div class="section">
-                    <div class="sec-gauche">
-                          <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
-                          {{ $patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
-                          {{ $patient->age }} ans,{{ $demande->consultation->patient->Sexe }}
-                    </div>
-              </div>
+      <div class="section">
+            <div class="sec-gauche">
+                  <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
+                  {{ $patient->full_name }},&nbsp;
+                  {{ $patient->age }} ans,{{ $patient->Sexe }}
+            </div>
+      </div>
     </div>
   </div><br>
   <div class="row">
@@ -83,13 +83,8 @@
                           @foreach($demande->examensradios as $index => $examen)
                           <tr>
                             <td class="center">{{ $index + 1 }}</td>
-                            <td>{{ $examen->nom }}</td>
-                            <td>
-                              <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                              @foreach($exams as $id)
-                              <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
-                              @endforeach
-                            </td>
+                            <td>{{ $examen->Examen->nom }}</td>
+                            <td class="center">{{ $examen->Type->nom }}</td>
                           </tr>
                          @endforeach
                         </tbody>

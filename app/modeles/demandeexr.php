@@ -43,13 +43,13 @@ class demandeexr extends Model
   }
   public function hasCCR()
   {
-    foreach($this->examensradios as $examen)
-    {
-      if(isset($examen->pivot->crr_id))
+   foreach($this->examensradios as $examen)
       {
-        return true;       
-      }
-    }  
-    return false;
+        if(isset($examen->crr_id))
+        {
+          return true;       
+        }
+      }  
+      return false;
   }
 }

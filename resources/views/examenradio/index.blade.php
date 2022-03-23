@@ -4,17 +4,17 @@
  <script>
  	var field ="etat";
  	var url = '{{ URL::to('searchImgRequests') }}';
- 	 function getAction(data, type, dataToSet) {
-            var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-            if(data.etat == null)
-              actions +='&nbsp;<a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
-             return actions;
-    } 
- 	 $(function(){
- 		$(".demandeImgExamSearch").click(function(e){
-			getRequests(url,field,$('#'+field).val().trim());
-		})
+ 	function getAction(data, type, dataToSet) {
+    var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
+    if(data.etat == "En Cours")
+      actions +='&nbsp;<a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
+     return actions;
+  } 
+  $(function(){
+		$(".demandeImgExamSearch").click(function(e){
+	   	getRequests(url,field,$('#'+field).val().trim());
   	})
+	})
  </script>
  @endsection
 @section('main-content')
@@ -74,38 +74,30 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($demandesexr as $index => $exr)
+										@foreach($demandesexr as $index => $demande)
 											<tr>
-											@if(isset($exr->consultation))
+											@if(isset($demande->consultation))
 												<td class="center">{{ $index + 1 }}</td>
-												<td>{{ $exr->consultation->date }}</td>
-												<td>{{ $exr->consultation->medecin->Service->nom }}</td>
-												<td>{{ $exr->consultation->medecin->full_name }} </td>
-												<td>{{ $exr->consultation->patient->full_name}}<small class="text-primary">(Consultation)</small></td>
+												<td>{{ $demande->consultation->date }}</td>
+												<td>{{ $demande->consultation->medecin->Service->nom }}</td>
+												<td>{{ $demande->consultation->medecin->full_name }} </td>
+												<td>{{ $demande->consultation->patient->full_name}}<small class="text-primary">(Consultation)</small></td>
 											@else
 												<td class="center">{{ $index + 1 }}</td>
-												<td>{{ $exr->visite->date }}</td>
-												<td>{{ $exr->visite->medecin->Service->nom }}</td>
-												<td>{{ $exr->visite->medecin->full_name }}</td>
-												<td>{{ $exr->visite->hospitalisation->patient->full_name }}<small class="text-warning">(Hospitalisation)</small></td>
+												<td>{{ $demande->visite->date }}</td>
+												<td>{{ $demande->visite->medecin->Service->nom }}</td>
+												<td>{{ $demande->visite->medecin->full_name }}</td>
+												<td>{{ $demande->visite->hospitalisation->patient->full_name }}<small class="text-warning">(Hospitalisation)</small></td>
 											@endif
-												<td>
-												
-													@if($exr->etat == null)
-														<span class="badge badge-success">
-														En Cours
-													@elseif($exr->etat == "1")
-														<span class="badge badge-info">
-														Validé
-													@else	
-														<span class="badge badge-warning">
-														Rejeté
-													@endif
+												<td class="center">
+												  <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
+											{{--@if($demande->etat == null)<span class="badge badge-success">
+														En Cours@elseif($demande->etat == "1")<span class="badge badge-info">Validé@else<span class="badge badge-warning">Rejeté@endif --}}
 													</span>
 												</td>
 												<td class="center">
-												 	<a href="{{ route('demandeexr.show', $exr->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
-			              						<a href="/details_exr/{{ $exr->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
+												 	<a href="{{ route('demandeexr.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
+			              						<a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
 												</td>
 											</tr>
 										@endforeach

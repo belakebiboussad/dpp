@@ -170,16 +170,8 @@ $('document').ready(function(){
 					</thead>
 					<tbody>
 						<tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
-							<td>{{ $consultation->date }}</td>
-							<td>
-							@if($consultation->examensradiologiques->etat == null)
-								<span class="badge badge-warning">En Attente</span>
-  						@elseif($consultation->examensradiologiques->etat == "1")
-									<span class="badge badge-warning">Validé</span>
-								@else
-									<span class="badge badge-danger">Rejeté</span>
-						  @endif
-							</td>
+							<td>{{ $consultation->date }} {{ $consultation->examensradiologiques->etat }}</td>
+							<td>{{ $consultation->examensradiologiques->etat }}</td>
 							<td class="center">
 								<a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
 								@if($consultation->examensradiologiques->etat == null)
