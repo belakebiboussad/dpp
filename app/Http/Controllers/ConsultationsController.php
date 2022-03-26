@@ -85,7 +85,7 @@ class ConsultationsController extends Controller
         $services = service::all();
         $apareils = appareil::all();
         $meds = User::where('role_id',1)->get()->all();
-        $specialites = Specialite::where('type','!=',2)->orderBy('nom')->get();
+         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
         $specialite = Specialite::findOrFail($employe->specialite);     //,'specialitesExamBiolo'
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
@@ -126,8 +126,7 @@ class ConsultationsController extends Controller
              }
                if(($request->poids > 0.5) || ($request->taille > 10) ||($request->temp !=37))//$request->temp != null ||
               {
-                      $apareils = appareil::all();
-                      $exam = new examen_cliniqu;
+                       $exam = new examen_cliniqu;
                       $input = $request->all();
                       $input['id_consultation'] = $consult->id ;
                      $exam = examen_cliniqu::create($input);
@@ -135,6 +134,7 @@ class ConsultationsController extends Controller
                       $const =Constantes::create($input);
                       $consult->examensCliniques()->save($exam);
               }
+              $apareils = appareil::all();
                 foreach (json_decode ($specialite->appareils ) as  $appareil) {   
                       $appareil = appareil::FindOrFail($appareil);
                       if( null !== $request->input($appareil->nom))
