@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CRR;
 use App\modeles\demandeexr;
+use App\modeles\Demandeexr_Examenradio;
 use App\modeles\Etablissement;
 use Response;
 use PDF;
@@ -17,23 +18,30 @@ class CRRControler extends Controller
       }
       public function store(Request $request)
       {
-          	$crr = CRR::create($request->all());
-             $demande = demandeexr::with('examensradios')->FindOrFail($request->demande_id);
-             foreach ($demande->examensradios as $key => $exam)
-             {
-                  	if( $exam->pivot->id_examenradio == $request->exam_id)
-                    {
-                    	$exam->pivot->crr_id = $crr->id;
-                    	$exam->pivot->save();
-                    }
-            }
-            return Response::json($crr);
+        /*
+      	$crr = CRR::create($request->all());
+         $demande = demandeexr::with('examensradios')->FindOrFail($request->demande_id);
+         foreach ($demande->examensradios as $key => $exam)
+         {
+              	if( $exam->pivot->id_examenradio == $request->exam_id)
+                {
+                	$exam->pivot->crr_id = $crr->id;
+                	$exam->pivot->save();
+                }
+        }
+        return Response::json($crr);
+        */
+        $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
+        $crr = CRR::create($request->all());
+        $ex->update(['crr_id'=>$crr->id]);
+        return  Response::json($ex->id);
  	}
  	public function edit($id)
  	{
  		$crr= CRR::find($id);
-              return Response::json($crr);
+    return Response::json($crr);
  	}
+  /*public function show($id){$crr= CRR::find($id);return Response::json($crr); }*/
  	public function update(Request $request, $id)
        {
               $crr = CRR::find($id);

@@ -70,7 +70,7 @@
 	}
 	function resetField()
 	{
-		$("#description").val(' ');$('#dateAntcd').val('');
+		$("#description").val('');$('#dateAntcd').val('');
 	}
 	function print()
 	{
@@ -133,7 +133,7 @@
   }
   function fct(elem)
   {
-  	elem.submit();
+  	 elem.submit();
   }
   $( function() {
 		var date = new Date('{{ $patient->Dat_Naissance }}');
@@ -441,8 +441,7 @@
           });
 				}
 			}	    
-		});
-    //calendrier  	
+		});//calendrier  	
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar').fullCalendar({//plugins: [ 'dayGrid', 'timeGrid' ],
@@ -590,7 +589,6 @@
       $(".calendar").fullCalendar( 'refetchEvents' );
       $('#RDV').modal("show");
     });
-
  });// ready
 </script>
 @endsection
