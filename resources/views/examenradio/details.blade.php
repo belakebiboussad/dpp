@@ -89,11 +89,9 @@ function uploadFiles(examId)
       $("#exm-"+data['exId']).addClass("hidden");
       $("#cancel-"+data['exId']).addClass("hidden");
       $("#delet-"+data['exId']).removeClass("hidden"); 
-      url = '{{-- URL::asset('storage/files') --}}'+"/" +data['fileName'] ;
-      if(data['isImg'])
-      $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');
-     else
-        $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
+      url = '{{ URL::asset('storage/files') }}'+"/" +data['fileName'] ;
+      /*if(data['isImg']) $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');   else*/
+       $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
      },
      error: function(data){
            console.log(data);
@@ -256,19 +254,16 @@ $(function(){
                       <td class="center">{{ $index+1 }}</td>
                       <td>{{ $examen->Examen->nom }}</td>
                       <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
-                      <td class="center">
-                        {{-- @if((Auth::user()->role->id == 12) && ($examen->getEtatID($examen->etat) == ""))@endif --}}
+                      <td class="center"> {{-- @if((Auth::user()->role->id == 12) && ($examen->getEtatID($examen->etat) == ""))@endif --}}
                         <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role->id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
                       </td>
                       <td class="center" width="30%">
-                        <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?>     
-                        @if($examen->getEtatID($examen->etat) === 1)
-                          {{--@if(in_array($extension, config('constants.imageExtensions'))) 
+                        <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
+                        @if($examen->getEtatID($examen->etat) ===1)
+                       {{--   @if(in_array($extension, config('constants.imageExtensions')))
                          <img  id="preview-{{ $examen->id }}"  src="{{ asset('storage/files/'.$examen->resultat) }}"  style="width:10%"/>
-                         @else
-                         <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
-                         @endif--}}
-                         <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
+                            src="{{ url('/files/'.$examen->resultat) }}"@else   <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>@endif --}}
+                        <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
                        @endif      
                       </td>
                       <td class="center" width="18%">

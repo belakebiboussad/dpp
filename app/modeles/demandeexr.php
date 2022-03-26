@@ -9,6 +9,7 @@ class demandeexr extends Model
   public $timestamps = false;
   protected $table = "demandeexr";
   protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation','visite_id'];
+  protected $appends = ['infos'];
   public const ETATS = [
       ''=> 'En Cours',
       0 => 'Rejetée',  
@@ -33,6 +34,10 @@ class demandeexr extends Model
   {
       return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
   }
+      public function getInfosAttribute()
+    {
+        return $this->infossuppdemande->pluck('id')->toArray();
+    }
   public function consultation()
   {
      return $this->belongsTo('App\modeles\consultation','id_consultation');
@@ -52,4 +57,15 @@ class demandeexr extends Model
       }  
       return false;
   }
+     public function hasResult()
+    {
+      foreach($this->examensradios as $examen)
+      {
+        if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
+        {
+          return true;       
+        }
+      }  
+      return false;
+    }
 }

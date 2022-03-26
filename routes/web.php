@@ -163,6 +163,7 @@ route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-file', 'DemandeExamenRadio@upload');
 Route::post('delete-file', 'DemandeExamenRadio@delResult');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
+route::get('/examradioDel/{id}', 'DemandeExamenRadio@examDestroy')->name('examRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 route::get('/searchImgRequests','DemandeExamenRadio@search');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');

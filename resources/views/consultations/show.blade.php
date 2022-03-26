@@ -134,7 +134,7 @@
                                 <table class="table table-striped table-bordered table-hover">
                                 <thead class="thin-border-bottom">
                                       <tr>
-                                            <th class="center"><strong>#</strong></th>
+                                            
                                             <th class="center"><strong>Date</strong></th>
                                             <th class="center"><strong>Etat</strong></th>
                                             <th class="center"><em class="fa fa-cog"></em></th>
@@ -142,25 +142,18 @@
                                 </thead>
                                 <tbody>
                                       <tr>
-                                      <td class="center"></td>
                                       <td>{{ $consultation->date }}</td>
                                       <td>
-                                        @if($consultation->examensradiologiques->etat == null)
-                                               <span class="badge badge-warning"> En Attente</span>
-                                        @elseif($consultation->examensradiologiques->etat == "1")
-                                              <span class="badge badge-success">Validé</span>   
-                                        @else
-                                                <span class="badge badge-danger">Rejeté</span>
-                                        @endif
+                                     <span class="badge badge-{{( $consultation->examensradiologiques->getEtatID($consultation->examensradiologiques->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->examensradiologiques->etat }}</span>
                                       </td>
                                       <td class="center">
-                                          <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                          @if($consultation->examensradiologiques->etat == "E")
-                                          <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                          <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
-                                          @endif
-                                           <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;
-                                            </a>
+                                      <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                                    @if(!$consultation->examensradiologiques->hasResult())
+                                    <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
+                                    <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
+                                    @endif
+                                     <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;
+                                      </a>
                                       </td>
                                      </tr>
                                 </tbody>

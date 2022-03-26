@@ -13,18 +13,19 @@
 					<thead >
 						<tr>
 							<th class="center">Date</th>	
-							<th class ="center sorting_disabled">Médecin Consultant</th>
-							<th class ="center sorting_disabled">Motif</th>
+							<th class ="center sorting_disabled">Médecin Consultant</th>{{-- <th class ="center sorting_disabled">Motif</th> --}}
 							<th class ="center sorting_disabled"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($patient->Consultations as $consult)
 					<tr id ="{{ $consult->id }}">
-					  <td>{{ $consult->date }}</td>
-						<td>{{ $consult->medecin->full_name }}</td>
-						<td><small>{{ $consult->motif }}</small></td>
-						<td><button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-hand-o-up"></i></button></td>	
+					      <td>{{ $consult->date }}</td>
+						<td>{{ $consult->medecin->full_name }}</td>{{-- <td><small>{{ $consult->motif }}</small></td> --}}
+						<td class="center">
+                                                    <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-eye"></i></button>
+                                                    <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
+                                            </td>	
 					</tr>
 					@endforeach
 					</tbody>

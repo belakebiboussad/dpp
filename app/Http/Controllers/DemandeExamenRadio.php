@@ -16,6 +16,7 @@ use Jenssegers\Date\Date;
 use PDF;
 use ToUtf;
 use Response;
+use Auth;
 class DemandeExamenRadio extends Controller
 {
     public function __construct()
@@ -54,12 +55,6 @@ class DemandeExamenRadio extends Controller
     }
     public function upload(Request $request)
     {
-/*if($request->TotalFiles >0){if(isset($demande->visite))$patient 
-foreach ($demande->examensradios as $key => $exam){if( $exam->pivot->id_examenradio == $request->id_examenradio)
-{for ($x = 0; $x < $request->TotalFiles; $x++){if ($request->hasFile('files'.$x)){$file = $request->file('files'.$x);
-$namefile = $file->getClientOriginalName();$file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-$data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);$exam->pivot->etat = 1;$exam->pivot->save();
-}}return Response()->json([ "rowID" => $request->id_examenradio, ]); }*/
       $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
       $filename= ""; $filename= ""; $isImg = 0;
       if($request->hasfile('resultat')){
@@ -72,9 +67,7 @@ $data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJE
         $request->file('resultat')->storeAs('public/files',$filename);  
       }
       $ex->update([  "etat" =>1, "resultat"=>$filename]);
-      $extension = request("resultat")->getClientOriginalExtension(); 
-      if(in_array($extension, config('constants.imageExtensions'))) 
-        $isImg = 1;
+     /* $extension = request("resultat")->getClientOriginalExtension();   if(in_array($extension, config('constants.imageExtensions')))   $isImg = 1;*/
       return Response::json(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
     }
     public function examCancel(Request $request)
@@ -100,21 +93,30 @@ $data[] = $namefile;}}$exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJE
     }
     public function update(Request $request, demandeexr $demande)
     {
-      $demande = demandeexr::FindOrFail($request->demande_id);
-      foreach ($demande->examensradios as $key => $exam)
-      {     
-        if(!isset($exam->etat))
-        {
-         
-          return redirect()->action('DemandeExamenRadio@index');
-        }
-      } 
-      $demande->update([ "etat" => 1 ]);
-      $demande->save();
-      return redirect()->action('DemandeExamenRadio@index');
+              $demande = demandeexr::FindOrFail($request->demande_id);  
+               if(Auth::user()->is(12))
+                {
+                      foreach ($demande->examensradios as $key => $exam)
+                      {
+                              if($exam->getEtatID($exam->etat) ==="")
+                                      return redirect()->action('DemandeExamenRadio@index');
+                      } 
+                      $demande->update([ "etat" => 1 ]);$demande->save();
+                      return redirect()->action('DemandeExamenRadio@index');
+               }else
+               {
+                      if($demande->examensradios->count() == 0)
+                             $demande->delete();
+                       else
+                       {
+                              $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
+                              $demande->save();
+                               $demande->infossuppdemande()->sync($request->infos);
+                      }
+                      return redirect(Route('consultations.show',$demande->id_consultation));   
+               }
     }
-/*public function createexr($id){$infossupp = infosupppertinentes::all();$examens = TypeExam::all();$examensradio = examenradiologique::all();
-$consultation = consultation::FindOrFail($id);return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));}*/
+
     /**
      * Show the form for creating a new resource.
      *
@@ -152,20 +154,19 @@ $consultation = consultation::FindOrFail($id);return view('examenradio.demande_e
      * @return \Illuminate\Http\Response
      */
       public function show($id)
-      {/*if(isset($demande->consultation)){$patient = $demande->consultation->patient; $date =$demande->consultation->date ;             }            else
-{$patient = $demande->visite->hospitalisation->patient;$date = $demande->visite->date;}return view('examenradio.show', compact('demande','patient','date'));*/
+      {
              $demande = demandeexr::FindOrFail($id);
-        if(isset($demande->consultation))
-        {
-          $patient = $demande->consultation->patient;
-          $obj = $demande->consultation;
-        } else
-        {
-            $patient = $demande->visite->hospitalisation->patient;
-            $obj = $demande->visite;
-        }
-        return view('examenradio.show', compact('demande','obj','patient'));
-      }
+               if(isset($demande->consultation))
+              {
+                $patient = $demande->consultation->patient;
+                $obj = $demande->consultation;
+              } else
+              {
+                  $patient = $demande->visite->hospitalisation->patient;
+                  $obj = $demande->visite;
+              }
+              return view('examenradio.show', compact('demande','obj','patient'));
+            }
     /**
      * Show the form for editing the specified resource.
      *
@@ -233,6 +234,12 @@ $consultation = consultation::FindOrFail($id);return view('examenradio.demande_e
       $ex ->update([   "etat" => null,  "resultat" => null ]);
         return Response::json($ex->id);
     }
+     public function examDestroy($id)
+      {
+               $ex = Demandeexr_Examenradio::FindOrFail($id);
+               $ex->delete();
+               return Response::json($ex);   
+      }
     public function print($id)
     {
       $demande = demandeexr::FindOrFail($id); 
