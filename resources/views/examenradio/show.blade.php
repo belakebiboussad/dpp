@@ -18,6 +18,10 @@ $(function(){
     <div class="col-sm-7 pull-right btn-toolbar"> 
       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>
+      @if((!$demande->hasResult()) && (( $obj->medecin->id == Auth::user()->employ->id)))
+       <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i>Modifier</a>
+       @endif
+      </a>
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
   </div><hr>
@@ -71,24 +75,27 @@ $(function(){
                             {{ $ex->etat }}</span>
                           </td>
                           <td class="center" width="20%">
-                            @if($ex->etat == 1)
-                              @if((pathinfo($ex->resultat, PATHINFO_EXTENSION) == 'dcm')||(pathinfo($ex->resultat, PATHINFO_EXTENSION) == ""))
-                              <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $ex->resultat }}">
-                                <i class="ace-icon fa fa-eye-slash"></i>
-                              </button>
-                              @endif
-                              <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
-                              @elseif($ex->etat == "0")
-                              <span class="badge badge-danger">Annuler</span>
-                              <a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" >
-                                <i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
-                              </a>
-                            @elseif($ex->getEtatID($ex->etat) === 0)
-                             <button type="button" class="btn btn-info btn-sm obsShow" data-toggle="modal" value="{{ $ex->observation }}"><i class="fa fa-eye"></i></button>
-                            @endif
+                            @switch($ex->etat)
+                              @case('En Cours')
+                                @break
+                              @case('Validé')
+                                @if((pathinfo($ex->resultat, PATHINFO_EXTENSION) == 'dcm')||(pathinfo($ex->resultat, PATHINFO_EXTENSION) == ""))
+                                <button type="button" class="btn btn-info btn-xs open-modal" value="{{ $ex->resultat }}" title="Voir le résultat">
+                                  <i class="ace-icon fa fa-eye-slash"></i>
+                                </button>
+                                @endif
+                                <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
+                                @break
+                              @case('Rejeté')
+                                <span class="badge badge-danger">Annuler</span>
+                                <a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" >
+                                   <i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
+                                </a>
+                                @break
+                            @endswitch
                             @isset($ex->Crr) 
-                              <a href="{{ route('crrs.download',$ex->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
-                            @endisset
+                              <a href="{{ route('crrs.download',$ex->crr_id )}}" title="télécharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                            @endisset 
                           </td>
                         </tr>
                         @if($ex->etat == "0")

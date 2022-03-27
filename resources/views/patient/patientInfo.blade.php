@@ -110,13 +110,13 @@
 				@endif
 				@if(isset($patient->tele_mobile1) &&($patient->tele_mobile1 != ''))
 				<div class="profile-info-row">
-					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
+					<div class="profile-info-name"><i class="fa fa-phone"></i>Tél mobile</div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile1 }}</span></div>
 				</div>
 				@endif
 				@if(isset($patient->tele_mobile2) &&($patient->tele_mobile2 != ''))
 				<div class="profile-info-row">
-					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
+					<div class="profile-info-name"><i class="fa fa-phone"></i>Tél mobile 2</div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
 				</div>
 				@endif

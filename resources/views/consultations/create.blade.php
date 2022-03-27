@@ -130,16 +130,19 @@
   function supcolonne(id)
   {
 		$("#"+id).remove();
-  }
-  function fct(elem)
+  }//function fct(elem)elem.submit();{}
+  function formatConsuConsts(specId)
   {
-  	 elem.submit();
+    var conts = {!! $specialite->consConst !!};
+    $.each(conts,function(key,id){
+      $.get('/const/'+id+'/edit', function (data) {
+         $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
+      });
+    });
   }
-  $( function() {
-		var date = new Date('{{ $patient->Dat_Naissance }}');
-		$( ".gdob" ).datepicker( "option", "minDate", date );	//great to date of bearth	
-	});
  	$('document').ready(function(){
+      var date = new Date('{{ $patient->Dat_Naissance }}');
+      $( ".gdob" ).datepicker( "option", "minDate", date ); //great to date of bearth 
 			$( 'ul.nav li' ).on( 'click', function() {
 				$(this).siblings().addClass('filter');
 			});
@@ -533,15 +536,10 @@
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 		});
-		$("#taille").ionRangeSlider({
-		  min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
-	  });
-	  $("#poids").ionRangeSlider({
-		  min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
-	  });
-	  $("#temp").ionRangeSlider({
-		  min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
-	 });
+		$(".apgar").ionRangeSlider({ min:0,max:10,step:1, values:5, grid:true, grid_num:10, postfix:"", skin:"big" });
+    $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
+    $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
+    formatConsuConsts('{{ $specialite->id}}');
 	  $("#drugsPrint").click(function(){
 	  	var pid = '{{ $patient->id }}';
 	  	var mid = '{{  Auth::User()->employ->id }}';

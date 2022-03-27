@@ -72,11 +72,11 @@
       			<ul class="list-unstyled spaced">
       				<li>
 			    			<i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-			    			<strong>Télé mobile :</strong>  <label class="blue">{{ $employe->tele_mobile  }}</label>
+			    			<strong>Tél mobile :</strong>  <label class="blue">{{ $employe->tele_mobile  }}</label>
 							</li>
 			  			<li>
 				        <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-				      	<strong>Télé fixe :</strong>  <label class="blue">{{ $employe->Tele_fixe  }}</label>
+				      	<strong>Tél fixe :</strong>  <label class="blue">{{ $employe->Tele_fixe  }}</label>
 						  </li>
 
          		</ul>

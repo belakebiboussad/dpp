@@ -119,15 +119,7 @@
 <div class="col-sm-4 col-xs-4">
 		<div class="form-group" style="padding-left:15%;">
 			<label class="control-label text-nowrap col-sm-4" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
-			<div class="col-sm-4" >
-				<select name="operateur1" id="operateur1" class="form-control">
-					<option value="" selected >XX</option>
-					<option value="05">05</option>         
-				  <option value="06">06</option>
-				  <option value="07">07</option>
-	      </select>	
-			</div>
-			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
+			<input name="mobile1" type="tel" class="col-sm-8 mobile" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXXXX"/>	
 		</div>		
 		</div>	 
 		<div class="col-sm-4 col-xs-4">

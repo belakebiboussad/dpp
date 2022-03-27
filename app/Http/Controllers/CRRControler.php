@@ -18,19 +18,8 @@ class CRRControler extends Controller
       }
       public function store(Request $request)
       {
-        /*
-      	$crr = CRR::create($request->all());
-         $demande = demandeexr::with('examensradios')->FindOrFail($request->demande_id);
-         foreach ($demande->examensradios as $key => $exam)
-         {
-              	if( $exam->pivot->id_examenradio == $request->exam_id)
-                {
-                	$exam->pivot->crr_id = $crr->id;
-                	$exam->pivot->save();
-                }
-        }
-        return Response::json($crr);
-        */
+/*$crr = CRR::create($request->all());$demande = demandeexr::with('examensradios')->FindOrFail($request->demande_id);foreach ($demande->examensradios as $key => $exam)
+{if( $exam->pivot->id_examenradio == $request->exam_id){$exam->pivot->crr_id = $crr->id;$exam->pivot->save();}}return Response::json($crr);*/
         $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
         $crr = CRR::create($request->all());
         $ex->update(['crr_id'=>$crr->id]);
@@ -40,8 +29,7 @@ class CRRControler extends Controller
  	{
  		$crr= CRR::find($id);
     return Response::json($crr);
- 	}
-  /*public function show($id){$crr= CRR::find($id);return Response::json($crr); }*/
+ 	}/*public function show($id){$crr= CRR::find($id);return Response::json($crr); }*/
  	public function update(Request $request, $id)
        {
               $crr = CRR::find($id);
@@ -66,20 +54,21 @@ class CRRControler extends Controller
       }
       public function download($id)
       {
-            $crr = CRR::find($id);
-            $demande = $crr->demandeRadio;
-            if(isset($demande->id_consultation))
-             {
-                   $patient = $demande->consultation->patient;
-                   $medecin = $demande->consultation->medecin;
-             }  
-             else
-             {
-                    $patient = $demande->visite->hospitalisation->patient ;
-                    $medecin = $demande->consultation->medecin;
-             }
-             $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin'));
-             $filename = "cr-radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-            return $pdf->stream($filename);
+        $crr = CRR::find($id);
+        //$demande = $crr->demandeRadio;
+         $demande = $crr->examenRadio->Demande;
+        if(isset($demande->id_consultation))
+        {
+          $patient = $demande->consultation->patient;
+          $medecin = $demande->consultation->medecin;
+        }  
+        else
+        {
+          $patient = $demande->visite->hospitalisation->patient ;
+          $medecin = $demande->visite->medecin;
+        }
+        $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin'));
+        $filename = "cr-radio-".$patient->Nom."-".$patient->Prenom.".pdf";
+        return $pdf->stream($filename);
       }
 }

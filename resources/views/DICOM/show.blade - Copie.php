@@ -63,8 +63,9 @@
         showSVGCursors: true,
       });
       cornerstone.enable(element);
-      const toolName = 'Length';
+      const toolName = 'Length'; //var APP_URL = {--!! json_encode(url('/')) !!--} +'/Patients/{{-- $patient->id--}}/examsRadio/{{--$demande->id--}}/'+$(this).val();
       var APP_URL = {!! json_encode(url('/')) !!} +'/storage/files/'+$(this).val();
+      alert(APP_URL);
       var url = "wadouri:" + APP_URL;
       const imageIds = [  url  ];
       const stack = {
@@ -80,8 +81,7 @@
         document.getElementById('institution').textContent =  image.data.string('x00080080'); 
         document.getElementById('patientName').textContent =  image.data.string('x00100010');
         document.getElementById('patientId').textContent =  image.data.string('x00100020'); 
-        document.getElementById('date').textContent =  image.data.string('x00080032'); 
-        //document.getElementById('machine').textContent = image.data.string('x00081010');
+        document.getElementById('date').textContent =  image.data.string('x00080032');//document.getElementById('machine').textContent = image.data.string('x00081010');
         document.getElementById('genre').textContent = image.data.string('x00100040');
         document.getElementById('age').textContent = image.data.string('x00101010');
         cornerstone.reset(element);

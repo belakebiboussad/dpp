@@ -11,67 +11,68 @@
       },
       dataType: "json",// recommended response type
     	success: function(data) {
-              $(".numberResult").html(data.length);
-              $("#liste_conultations").DataTable ({
-                   "processing": true,
-                   "paging":   true,
-                   "destroy": true,
-                   "ordering": true,
-                   "searching":false,
-                   "info" : false,
-                   "responsive": true,
-                   "language":{"url": '/localisation/fr_FR.json'},
-                   "data" : data,  // "scrollX": true,
-                   "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                         $(nRow).attr('id',"consult"+aData.id);
-                    },
-                    "columns": [
-                        { data:null,title:'#', "orderable": false,searchable: false,
-                               render: function ( data, type, row ) {
-                                    if ( type === 'display' ) {
-                                          return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';
-                                    }
-                                    return data;
-                               },
-                               className: "dt-body-center",
-                        },
-                        { data: "date" , title:'Date' },
-                        { data: "patient.Nom",
-                          render: function ( data, type, row ) {
-                            return row.patient.full_name;
-                          },
-                          title:'Patient',"orderable": true
-                        },
-                        { data: null , title:'Motif', "orderable":false,  
-                            "render": function(data,type,full,meta){
-                               return '<small>'+data.motif+'</small>';
+            $(".numberResult").html(data.length);
+            $("#liste_conultations").DataTable ({
+           "processing": true,
+           "paging":   true,
+           "destroy": true,
+           "ordering": true,
+           "searching":false,
+           "info" : false,
+           "responsive": true,
+           "language":{"url": '/localisation/fr_FR.json'},
+           "data" : data,  // "scrollX": true,
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                 $(nRow).attr('id',"consult"+aData.id);
+            },
+            "columns": [
+                { data:null,title:'#', "orderable": false,searchable: false,
+                       render: function ( data, type, row ) {
+                            if ( type === 'display' ) {
+                                  return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';
                             }
-                        },
-                        {   data: "medecin.nom" ,
-                             render: function ( data, type, row ) {
-                                      return row.medecin.full_name;
-                             },
-                             title:'Medecin', "orderable":false, 
-                        },
-                        { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+                            return data;
+                       },
+                       className: "dt-body-center",
+                },
+                { data: "date" , title:'Date' },
+                { data: "patient.Nom",
+                  render: function ( data, type, row ) {
+                    return row.patient.full_name;
+                  },
+                  title:'Patient',"orderable": true
+                },
+                { data: null , title:'Motif', "orderable":false,  
+                    "render": function(data,type,full,meta){
+                       return '<small>'+data.motif+'</small>';
+                    }
+                },
+                {   data: "medecin.nom" ,
+                     render: function ( data, type, row ) {
+                              return row.medecin.full_name;
+                     },
+                     title:'Medecin', "orderable":false, 
+                },
+                { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
 
-                    ],
-                    "columnDefs": [
-                      {"targets": 0 ,  className: "dt-head-center" },
-                      {"targets": 1 ,  className: "dt-head-center" },
-                      {"targets": 2 ,  className: "dt-head-center" },
-                      {"targets": 3 ,  className: "dt-head-center" },
-                      {"targets": 4 ,  className: "dt-head-center" },
-                      {"targets": 5 ,  className: "dt-head-center dt-body-center" },
-                    ]
+            ],
+            "columnDefs": [
+              {"targets": 0 ,  className: "dt-head-center" },
+              {"targets": 1 ,  className: "dt-head-center" },
+              {"targets": 2 ,  className: "dt-head-center" },
+              {"targets": 3 ,  className: "dt-head-center" },
+              {"targets": 4 ,  className: "dt-head-center" },
+              {"targets": 5 ,  className: "dt-head-center dt-body-center" },
+            ]
 
               });
       }
 		});
   }
   function getAction(data, type, dataToSet) {
-	  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-	  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+	  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Détails consultation"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;';
+	  actions +='<a href = "/consultations/create/'+data.patient.id+'" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter consultation"><i class="fa fa-plus-circle"></i></a>&nbsp;';
+    actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
 	  return actions;
 	}
  	$('document').ready(function(){

@@ -45,7 +45,7 @@
 					<div class="profile-info-value"><i class="fa fa-map-marker light-orange bigger-110"></i><span>{{ $homme_c->adresse }}</span></div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Télé mobile  </div>
+					<div class="profile-info-name"> Tél mobile  </div>
 					<div class="profile-info-value"><span>{{ $homme_c->mob }}</span></div>
 				</div>
 				<div class="profile-info-row">

@@ -49,6 +49,7 @@ Route::resource('crrs','CRRControler');
 Route::resource('stat','StatistiqusController');
 Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
+route::resource('/const','ConstanteController');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));

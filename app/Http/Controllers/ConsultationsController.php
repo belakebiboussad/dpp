@@ -4,6 +4,7 @@ namespace App\Http\Controllers;//use DB;
 use App\modeles\patient;
 use App\modeles\consultation;
 use App\modeles\Constantes;
+use App\modeles\constante;
 use App\modeles\antecedant;
 use App\modeles\codesim;
 use Illuminate\Http\Request;
@@ -57,12 +58,11 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-            $consultation = consultation::with('patient','medecin')->FindOrFail($request->id);
-            $etablissement = Etablissement::first();
-            $patient =   $consultation->patient;
-            $employe =   $consultation->medecin;
-            $view =  view("consultations.inc_consult",compact('consultation','patient','etablissement','employe'))->render();
-            return response()->json(['html'=>$view]);
+      $etablissement = Etablissement::first();
+      $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
+      $consultation = consultation::FindOrFail($request->id);
+      $view =  view("consultations.inc_consult",compact('consultation','etablissement','specialite'))->render();
+      return response()->json(['html'=>$view]);
     }
     public function listecons($id)
     {
@@ -82,12 +82,10 @@ class ConsultationsController extends Controller
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-        $chapitres = chapitre::all();
-        $services = service::all();
-        $apareils = appareil::all();
-        $meds = User::where('role_id',1)->get()->all();
-         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
-        $specialite = Specialite::findOrFail($employe->specialite);     //,'specialitesExamBiolo'
+        $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
+        $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
+        $specialite = Specialite::findOrFail($employe->specialite);//,'specialitesExamBiolo'
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
@@ -97,104 +95,118 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {      //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
-               $specialite = Specialite::findOrFail((Auth::user()->employ)->specialite);  
-             $validator = Validator::make($request->all(), [
-                    'motif' => 'required|max:255',
-                    'resume' => 'required',
-              ]);
-              if($validator->fails())
-                     return redirect()->back()->withErrors($validator)->withInput();
-              $etablissement = Etablissement::first(); 
-              $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
-              $consult = consultation::create([
-                        "motif"=>$request->motif,
-                        "histoire_maladie"=>$request->histoirem,
-                        "date"=>Date::Now(),
-                        "Diagnostic"=>$request->diagnostic,
-                        "Resume_OBS"=>$request->resume,
-                        "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-                        "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-                        "employ_id"=>Auth::User()->employee_id,
-                        "pid"=>$request->patient_id,
-                        "id_code_sim"=>$request->codesim,
-                       "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
-               ]);
-              foreach($consult->patient->rdvs as $rdv)
-             {
-                   if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
-                           $rdv->update(['etat'=>1]);
-             }
-               if(($request->poids > 0.5) || ($request->taille > 10) ||($request->temp !=37))//$request->temp != null ||
-              {
-                       $exam = new examen_cliniqu;
-                      $input = $request->all();
-                      $input['id_consultation'] = $consult->id ;
-                     $exam = examen_cliniqu::create($input);
-                      $input['examCl_id'] = $exam->id ;
-                      $const =Constantes::create($input);
-                      $consult->examensCliniques()->save($exam);
-              }
-              $apareils = appareil::all();
-                foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-                      $appareil = appareil::FindOrFail($appareil);
-                      if( null !== $request->input($appareil->nom))
-                      {
-                             $examAppareil = new examAppareil;
-                             $examAppareil->appareil_id = $appareil->id;
-                             $examAppareil->description = $request->input($appareil->nom);
-                             $consult->examsAppareil()->save($examAppareil);
-                      }
-                }
-               if(($request->motifOr != "") ||(isset($request->specialite))){
-                         $this->LettreOrientationCTRL->store($request,$consult->id);
-               }
-             if($request->liste != null)//save Ordonnance
-             {
-                    $ord = new ordonnance;
-                    $ord->date = Date::Now();
-                    $consult->ordonnances()->save($ord);
-                    foreach (json_decode($request->liste) as $key => $trait) {
-                          $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
-                   }
-             }
-            if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
+      { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+        $constvalue =  collect();
+        $exam;
+        $etablissement = Etablissement::first(); 
+        $validator = Validator::make($request->all(), [
+                'motif' => 'required',
+                'resume' => 'required',
+         ]);
+         if($validator->fails())
+                return redirect()->back()->withErrors($validator)->withInput();
+        $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
+        foreach(json_decode($specialite->consConst) as $const)
+        {
+          $c = Constante::FindOrFail($const);
+          if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
+     
+            $constvalue->put($c->nom, $request->input($c->nom));
+            
+        }
+        $consult = consultation::create([
+          "motif"=>$request->motif,
+          "histoire_maladie"=>$request->histoirem,
+          "date"=>Date::Now(),
+          "Diagnostic"=>$request->diagnostic,
+          "Resume_OBS"=>$request->resume,
+          "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+          "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+          "employ_id"=>Auth::User()->employee_id,
+          "pid"=>$request->patient_id,
+          "id_code_sim"=>$request->codesim,
+          "id_lieu"=>$etablissement->id
+        ]);    
+        foreach($consult->patient->rdvs as $rdv)
+        {
+         if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
+                $rdv->update(['Etat_RDV'=>1]);
+        }
+        if($constvalue->count()>0)
+        {
+          $input = $request->all();
+          $input['id_consultation'] = $consult->id ;
+          $exam = examen_cliniqu::create($input);
+          $constvalue['examCl_id'] = $exam->id ;
+          $const =Constantes::create($constvalue->toArray());
+          $consult->examensCliniques()->save($exam);
+        } 
+        foreach (json_decode ($specialite->appareils ) as  $appareil) {   
+         $appareil = appareil::FindOrFail($appareil);
+          if( null !== $request->input($appareil->nom))
+         {
+            if(!isset( $exam->id))
             {
-                  $demandeExamBio = new demandeexb;
-                  $consult->demandeexmbio()->save($demandeExamBio);
-                  foreach($request->exmsbio as $id_exb) {
-                    $demandeExamBio->examensbios()->attach($id_exb);
-                  }
+              $input = $request->all();
+              $input['id_consultation'] = $consult->id ;
+              $exam = examen_cliniqu::create($input);
+            }  
+            $examAppareil = new examAppareil;
+            $examAppareil->appareil_id = $appareil->id;
+            $examAppareil->description = $request->input($appareil->nom); 
+            $examAppareil->examen_clinique_id =  $exam->id;
+            $exam->examsAppareil()->save($examAppareil);
+          }
+        }  
+        if(($request->motifOr != "") ||(isset($request->specOr))){
+          $this->LettreOrientationCTRL->store($request,$consult->id);
+        }
+        if($request->liste != null)//save Ordonnance
+        {
+            $ord = new ordonnance;
+            $ord->date = Date::Now();
+            $consult->ordonnances()->save($ord);
+            foreach (json_decode($request->liste) as $key => $trait) {
+              $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+            }
+        }
+          if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
+        {
+              $demandeExamBio = new demandeexb;
+              $consult->demandeexmbio()->save($demandeExamBio);
+              foreach($request->exmsbio as $id_exb) {
+                $demandeExamBio->examensbios()->attach($id_exb);
               }
-              if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
-              {
-                $demandeExImg = new demandeexr;
-                $demandeExImg->InfosCliniques = $request->infosc;
-                $demandeExImg->Explecations = $request->explication;
-                $demandeExImg->id_consultation = $consult->id;
-                $demandeExImg->save();  
-                if(isset($request->infos))
-                {
-                  foreach ($request->infos as $id_info) {
-                    $demandeExImg->infossuppdemande()->attach($id_info);
-                  }
-                }
-                foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
-                  $exam = new Demandeexr_Examenradio;
-                  $exam->demande_id = $demandeExImg->id;
-                  $exam->exm_id = $acte->acteId;
-                  $exam->type_id = $acte->type;
-                  $exam->save();
-                }
-            } 
-            if($request->modeAdmission != null)
+        }
+          if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+          { 
+            $demandeExImg = new demandeexr;
+            $demandeExImg->InfosCliniques = $request->infosc;
+            $demandeExImg->Explecations = $request->explication;
+            $demandeExImg->id_consultation = $consult->id;
+            $demandeExImg->save();
+            
+            if(isset($request->infos))
             {
-                    $dh = new DemandeHospitalisation;
-                    $dh->modeAdmission = $request->modeAdmission;  $dh->service = $request->service;
-                    $dh->specialite = $request->specialiteDemande; 
-                    $consult->demandeHospitalisation()->save($dh);
-             }
-             return redirect(Route('patient.show',$request->patient_id));
+              foreach ($request->infos as $id_info) {
+                $demandeExImg->infossuppdemande()->attach($id_info);
+              }
+            }
+            foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
+              $exam = new Demandeexr_Examenradio;
+              $exam->demande_id = $demandeExImg->id;
+              $exam->exm_id = $acte->acteId;
+              $exam->type_id = $acte->type;
+              $exam->save();
+            }
+        } 
+         if($request->modeAdmission != null)
+         { 
+            $input = $request->all();
+            $input['id_consultation'] = $consult->id ;
+            DemandeHospitalisation::create( $input);
+         }
+         return redirect(Route('patient.show',$request->patient_id));
        }
     /**
      * Display the specified resource.
@@ -204,8 +216,9 @@ class ConsultationsController extends Controller
      */
       public function show($id)
       {
-              $consultation = consultation::with('patient','medecin')->FindOrFail($id);
-              return view('consultations.show', compact('consultation'));
+        $consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
+        $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
+        return view('consultations.show', compact('consultation','specialite'));
       }
      
     /**

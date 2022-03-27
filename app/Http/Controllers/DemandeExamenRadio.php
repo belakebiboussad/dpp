@@ -66,25 +66,14 @@ class DemandeExamenRadio extends Controller
           $filename = $filename.'_'.time().'.'.$ext;
         $request->file('resultat')->storeAs('public/files',$filename);  
       }
-      $ex->update([  "etat" =>1, "resultat"=>$filename]);
-     /* $extension = request("resultat")->getClientOriginalExtension();   if(in_array($extension, config('constants.imageExtensions')))   $isImg = 1;*/
+      $ex->update([  "etat" =>1, "resultat"=>$filename]);/* $extension = request("resultat")->getClientOriginalExtension();if(in_array($extension, config('constants.imageExtensions')))   $isImg = 1;*/
       return Response::json(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
     }
     public function examCancel(Request $request)
     {
-      /*
-      $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-      foreach ($demande->examensradios as $key => $exam)
-      {
-        if( $exam->pivot->id_examenradio == $request->id_examenradio)
-        {
-          $exam->pivot->etat = 0;
-          $exam->pivot->observation = $request->observation;
-          $exam->pivot->save();
-        }
-      }
-      return Response()->json([ "rowID" => $request->id_examenradio, ]);
-      */
+/*$demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+foreach ($demande->examensradios as $key => $exam){if( $exam->pivot->id_examenradio == $request->id_examenradio){
+$exam->pivot->etat = 0;$exam->pivot->observation = $request->observation;$exam->pivot->save();}}return Response()->json([ "rowID" => $request->id_examenradio, ]); */
       $ex = Demandeexr_Examenradio::FindOrFail($request->exmId);
       if($ex->Crr)
         $ex->Crr()->delete();
@@ -93,30 +82,29 @@ class DemandeExamenRadio extends Controller
     }
     public function update(Request $request, demandeexr $demande)
     {
-              $demande = demandeexr::FindOrFail($request->demande_id);  
-               if(Auth::user()->is(12))
-                {
-                      foreach ($demande->examensradios as $key => $exam)
-                      {
-                              if($exam->getEtatID($exam->etat) ==="")
-                                      return redirect()->action('DemandeExamenRadio@index');
-                      } 
-                      $demande->update([ "etat" => 1 ]);$demande->save();
-                      return redirect()->action('DemandeExamenRadio@index');
-               }else
+      $demande = demandeexr::FindOrFail($request->demande_id);  
+       if(Auth::user()->is(12))
+        {
+              foreach ($demande->examensradios as $key => $exam)
+              {
+                      if($exam->getEtatID($exam->etat) ==="")
+                              return redirect()->action('DemandeExamenRadio@index');
+              } 
+              $demande->update([ "etat" => 1 ]);$demande->save();
+              return redirect()->action('DemandeExamenRadio@index');
+       }else
+       {
+              if($demande->examensradios->count() == 0)
+                     $demande->delete();
+               else
                {
-                      if($demande->examensradios->count() == 0)
-                             $demande->delete();
-                       else
-                       {
-                              $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
-                              $demande->save();
-                               $demande->infossuppdemande()->sync($request->infos);
-                      }
-                      return redirect(Route('consultations.show',$demande->id_consultation));   
-               }
+                      $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
+                      $demande->save();
+                       $demande->infossuppdemande()->sync($request->infos);
+              }
+              return redirect(Route('consultations.show',$demande->id_consultation));   
+       }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -155,18 +143,18 @@ class DemandeExamenRadio extends Controller
      */
       public function show($id)
       {
-             $demande = demandeexr::FindOrFail($id);
-               if(isset($demande->consultation))
-              {
-                $patient = $demande->consultation->patient;
-                $obj = $demande->consultation;
-              } else
-              {
-                  $patient = $demande->visite->hospitalisation->patient;
-                  $obj = $demande->visite;
-              }
-              return view('examenradio.show', compact('demande','obj','patient'));
-            }
+        $demande = demandeexr::FindOrFail($id);
+        if(isset($demande->consultation))
+        {
+          $patient = $demande->consultation->patient;
+          $obj = $demande->consultation;
+        } else
+        {
+            $patient = $demande->visite->hospitalisation->patient;
+            $obj = $demande->visite;
+        }
+        return view('examenradio.show', compact('demande','obj','patient'));
+      }
     /**
      * Show the form for editing the specified resource.
      *

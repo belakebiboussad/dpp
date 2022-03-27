@@ -160,31 +160,13 @@
 			<div class="col-sm-3 col-xs-3">
 				<div class="form-group">
 					<label class="control-label col-sm-4 col-xs-4" for="operateur1" ><strong>Mob1:</strong></label>
-					<div class="col-sm-3">
-						<select name="operateur1" id="operateur1" class="form-control">
-			    		@php	$operator = substr($patient->tele_mobile1,0,2) @endphp
-		 						<option value="" @if($operator == '') selected @endif >XX</option>         
-		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
-					  		<option value="06" @if($operator == '06') selected @endif >06</option>
-					  		<option value="07" @if($operator == '07') selected @endif>07</option>
-          	</select>
-          </div>
-          <input type="tel" name="mobile1" id="mobile1" maxlength =8 minlength =8 class="mobileform col-sm-5" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{  substr($patient->tele_mobile1,2,10) }}">
+				  <input type="tel" name="mobile1" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{ $patient->tele_mobile1 }}">
 				</div>
 				</div>
 				<div class="col-sm-3  col-xs-3">
 					<div class="form-group">
 						<label class="control-label col-sm-4 col-xs-4" for="mobile2" ><strong>Mob2:</strong></label>
-						<div class="col-sm-3">
-							<select name="operateur2" id="operateur2" class="form-control">
-			    		@php	$operator = substr($patient->tele_mobile2,0,2) @endphp
-		 						<option value="" @if($operator == '') selected @endif >XX</option>         
-		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
-					  		<option value="06" @if($operator == '06') selected @endif >06</option>
-					  		<option value="07" @if($operator == '07') selected @endif>07</option>
-          		</select>
-          	</div>
-          	<input type="tel" name="mobile2" id="mobile2" maxlength =8 minlength =8 class="mobileform col-sm-5" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{  substr($patient->tele_mobile2,2,10) }}">
+					 	<input type="tel" name="mobile2" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{ $patient->tele_mobile2 }}">
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-3">

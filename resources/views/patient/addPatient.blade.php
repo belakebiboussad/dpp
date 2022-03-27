@@ -24,22 +24,22 @@
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
 			<div id ="dateExact">
-                            <label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
-                             <div class="col-sm-8">
-                              <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-                              </div>
-                      </div>
-                      <div id ="datePresume"  class="hidden">
-                              <label class="col-sm-3 control-label" ><strong>Age  :</strong></label>
-                              <div class="radio col-sm-8">
-                               <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
-                              <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
-                               <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
-                               </div>
-                      </div>
-                      <div class="col-sm-1">
-                      <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"> <strong>Inc</strong></span>
-                      </div>
+        <label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+               <div class="col-sm-8">
+                <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+                </div>
+        </div>
+        <div id ="datePresume"  class="hidden">
+                <label class="col-sm-3 control-label" ><strong>Age  :</strong></label>
+                <div class="radio col-sm-8">
+                 <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
+                <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
+                 <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
+                 </div>
+        </div>
+        <div class="col-sm-1">
+        <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"> <strong>Inc</strong></span>
+        </div>
 		</div>
 	</div>
 	<div class="col-sm-6">
@@ -134,29 +134,13 @@
 	<div class="col-sm-3 col-xs-3">
 		<div class="form-group">
 			<label class="control-label col-sm-4 col-xs-4" for="operateur1" ><strong>Mob1:</strong></label>
-			<div class="col-sm-3">
-				<select name="operateur1" id="operateur1" class="form-control">
-			    <option value="">XX</option>         
-		 			<option value="05">05</option>         
-					<option value="06">06</option>
-					<option value="07" >07</option>
-        </select>
-      </div>
-      <input type="tel" name="mobile1" id="mobile1" maxlength =8 minlength =8 class="mobileform col-sm-5" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
+      <input type="tel" name="mobile1" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
 		</div>
 	</div>
 	<div class="col-sm-3  col-xs-3">
 		<div class="form-group">
 			<label class="control-label col-sm-4 col-xs-4" for="mobile2" ><strong>Mob2:</strong></label>
-			<div class="col-sm-3">
-				<select name="operateur2" id="operateur2" class="form-control">
-					<option value="">XX</option>         
-		 				<option value="05">05</option>         
-					  <option value="06">06</option>
-					  <option value="07">07</option>
-        </select>
-      </div>
-      <input type="tel" name="mobile2" id="mobile2" maxlength =8 minlength =8 class="mobileform col-sm-5" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
+		  <input type="tel" name="mobile2" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
 		</div>
 	</div>
 	<div class="col-sm-3 col-xs-3">
