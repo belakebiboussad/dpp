@@ -25,14 +25,8 @@ class DemandeExbController extends Controller
    */
         public function __construct()
         {
-               $this->middleware('auth');
-        }
-        public function createexb($id)
-        {
-          $specialites = specialite_exb::all();
-          $consultation = consultation::FindOrFail($id);
-          return view('examenbio.demande_exb', compact('specialites','consultation')); 
-        }
+          $this->middleware('auth');
+        }/*public function createexb($id){$specialites = specialite_exb::all();$consultation = consultation::FindOrFail($id);return view('examenbio.demande_exb', compact('specialites','consultation'));}*/
         public function index() {
           $services =service::where('type','!=',"2")->get();
           $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
@@ -50,15 +44,7 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request,$consultId)
-  {
-    $demande = demandeexb::FirstOrCreate([  
-         "id_consultation" => $consultId,
-    ]);
-    foreach($request->exm as $id_exb) {
-      $demande->examensbios()->attach($id_exb);
-    }
-  }
+  /*public function store(Request $request,$consultId){$demande = demandeexb::FirstOrCreate([ "id_consultation" => $consultId,]); foreach($request->exm as $id_exb) {  $demande->examensbios()->attach($id_exb);}}*/
   /**
      * Display the specified resource.
      *
@@ -104,14 +90,21 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function update(Request $request,$id){
+      $demande = demandeexb::FindOrFail($request->demande_id);  
+      if($demande->examensbios->count() == 0)
+        $demande->delete();
+      else
+        $demande->save();
+      return redirect(Route('consultations.show',$demande->id_consultation));  
+    }
     public function destroy(Request $request ,$id)
     { 
       $demande = demandeexb::FindOrFail($id);
       $demande = demandeexb::destroy($id);
       if($request->ajax())  
-      { 
         return Response::json($demande);
-      }else
+      else
       {
         $consult_id = $demande->consultation;
         return redirect()->action('ConsultationsController@show',$consult_id);
@@ -132,23 +125,22 @@ class DemandeExbController extends Controller
         $patient = $demande->visite->hospitalisation->patient;   
       }
       return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
-    }/*public function detailsdemandeexb($id){return view('examenbio.teste');}*/
+    }
     public function uploadresultat(Request $request)
     {
       $request->validate([
           'resultat' => 'required',
       ]);
+      $filename= "";
       $demande = demandeexb::FindOrFail($request->id_demande);
-      $filename = $request->file('resultat')->getClientOriginalName();
-      $filename =  ToUtf::cleanString($filename);
-      $file = file_get_contents($request->file('resultat')->getRealPath());
-      Storage::disk('local')->put($filename, $file);
-      $demande->update([
-          "etat" => "1",
-          "resultat" =>$filename ,
-          "crb"  => $request->crb
-      ]);
-      return  redirect()->action('DemandeExbController@index');//return redirect()->route('homelaboexb');
+      if($request->hasfile('resultat')){
+        $ext = $request->file('resultat')->getClientOriginalExtension();
+        $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
+        $file = file_get_contents($request->file('resultat')->getRealPath());
+        $request->file('resultat')->storeAs('public/files',$filename);  
+      }  
+      $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
+      return  redirect()->action('DemandeExbController@index');
     }
     public function search(Request $request)
     {
@@ -187,27 +179,27 @@ class DemandeExbController extends Controller
         $medecin = $demande->visite->medecin;
       }
       $filename = "demandeExamensBio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','patient','date','etablissement','medecin'));
+      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etablissement','medecin'));
       return $pdf->stream($filename);
     }
     public function downloadcrb($id)
     {
-          $demande = demandeexb::find($id);
-          $crb = $demande->crb;
-          if(isset($demande->id_consultation))
-          {
-            $patient = $demande->consultation->patient ;
-            $date = $demande->consultation->date ;
-            $medecin = $demande->consultation->medecin;
+      $demande = demandeexb::find($id);
+      $crb = $demande->crb;
+      if(isset($demande->id_consultation))
+      {
+        $patient = $demande->consultation->patient ;
+        $date = $demande->consultation->date ;
+        $medecin = $demande->consultation->medecin;
 
-          }  else
-          {
-            $patient = $demande->visite->hospitalisation->patient ;
-            $date = $demande->visite->date;
-            $medecin = $demande->visite->medecin;
-          }
-          $pdf = PDF::loadView('examenbio.EtatsSortie.crbPDf',compact('patient','medecin','crb'));
-          $filename = "Compte-Rendu-BioPDF-".$patient->Nom."-".$patient->Prenom.".pdf";
-          return $pdf->stream($filename);
+      }  else
+      {
+        $patient = $demande->visite->hospitalisation->patient ;
+        $date = $demande->visite->date;
+        $medecin = $demande->visite->medecin;
+      }
+      $pdf = PDF::loadView('examenbio.EtatsSortie.crbPDf',compact('patient','medecin','crb'));
+      $filename = "Compte-Rendu-BioPDF-".$patient->Nom."-".$patient->Prenom.".pdf";
+      return $pdf->stream($filename);
     }
 }

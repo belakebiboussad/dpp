@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
+use App\modeles\demandeexb_examenbio;
 use Illuminate\Support\Facades\Auth;
+use Response;
 class ExamenbioController extends Controller
 {
     /**
@@ -37,27 +39,23 @@ class ExamenbioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,$consultID){
-       if($request->AutreBiol != null)  //save examen biologique autre 
-       {
-          $tags = explode(",", $request->AutreBiol);
-          foreach($tags as $k=>$v){    
-               examenbiologique::create([
-                          "id_consultation"=>$consultID,
-                          "classe"=>"Autre",
-                          "nom"=>$v
-                      ]);
-              }
+      if($request->AutreBiol != null)  //save examen biologique autre 
+      {
+        $tags = explode(",", $request->AutreBiol);
+        foreach($tags as $k=>$v){    
+          examenbiologique::create([
+                    "id_consultation"=>$consultID,
+                    "classe"=>"Autre",
+                    "nom"=>$v
+                ]);
+        }
       }
-       if($request->exambio != null)
+      if($request->exambio != null)
       {
         foreach($request->exambio as $k=>$v){  
           foreach($v as $value)
           {
-            examenbiologique::create([
-                "id_consultation"=>$consultID,
-                "classe"=>$k,
-                "nom"=>$value,
-            ]);
+            examenbiologique::create(["id_consultation"=>$consultID,"classe"=>$k,"nom"=>$value]);
           }
         }
       }
@@ -83,11 +81,10 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
-    {       
+    public function update(Request $request,$id){
+      dd($id);
     }
-
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -96,9 +93,16 @@ class ExamenbioController extends Controller
     /*public function destroy($examid, $demandeid)  {   dd($examid);     // dd($id);  }*/
     public function destroy($id)
     { 
-      $ids = explode("|", $id);
-      $demande = demandeexb::FindOrFail($ids[1]);//$examen = examenbiologique::FindOrFail($ids[0]);
-      $demande->examensbios()->detach($ids[0]);
-      return redirect()->action('DemandeExbController@edit',$ids[1]);
+      $ex = demandeexb_examenbio::FindOrFail($id);
+      $ex->delete();
+      return Response::json($ex);   
+      /*$ids = explode("|", $id); $demande = demandeexb::FindOrFail($ids[1]);//$examen = examenbiologique::FindOrFail($ids[0]);
+      $demande->examensbios()->detach($ids[0]);   return redirect()->action('DemandeExbController@edit',$ids[1]);*/
     }
+   /* public function examDestroy($id)
+    {
+      $ex = demandeexb_examenbio::FindOrFail($id);
+      $ex->delete();
+      return Response::json($ex);   
+    }*/
 }

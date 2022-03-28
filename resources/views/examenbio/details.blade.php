@@ -10,7 +10,7 @@
     CRBave();
     $("#crbPDF").text($("#crbm").val());
     var pdf = new jsPDF('p', 'pt', 'a4');
-    generate(pdf); 
+    generate(pdf,'pdfContent'); 
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {
@@ -79,17 +79,10 @@
                 </div>
               </div><!-- striped -->
               <div class="profile-user-info profile-user-info-striped">
-                 <div class="profile-info-row">
-                  <div class="profile-info-name">Etat :</div>
+                <div class="profile-info-row">
+                <div class="profile-info-name">Etat :</div>
                   <div class="profile-info-value">
-                      @if($demande->etat == null)
-                        <span class="badge badge-success">En Cours
-                      @elseif($demande->etat == 1)
-                        <span class="badge badge-primary">Validé  
-                      @elseif($demande->etat == 0)
-                        <span class="badge badge-warning">Rejeté
-                      @endif
-                      </span>
+                    <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
                   </div>
                 </div>
               </div><!-- striped   -->
@@ -111,8 +104,8 @@
                 <thead>
                   <tr>
                     <th class="center" width="5%">#</th>
-                    <th class="center" width="30%">Nom Examen</th>
-                    <th class="center" width="15%">Class Examen</th>
+                    <th class="center" width="30%">Nom examen</th>
+                    <th class="center" width="15%">Classe examen</th>
                     <th class="center" width="40%">Attacher le Résultat:</th>
                     <th class="center" width="10%"><em class="fa fa-cog"></em></th>
                   </tr>
@@ -121,8 +114,8 @@
                   @foreach($demande->examensbios as $index => $exm)
                   <tr>
                     <td class="center">{{ $index + 1 }}</td>
-                    <td>{{ $exm->nom }}</td>
-                    <td>{{ $exm->Specialite->specialite }}</td>
+                    <td>{{ $exm->Examen->nom }}</td>
+                    <td>{{ $exm->Examen->specialite->nom }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                       <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
@@ -130,7 +123,7 @@
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                      @if($demande->etat == null)
+                      @if($demande->etat == "En Cours")
                       <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{ $demande->id }}" id ="crb-add" @if( isset($exm->pivot->crb)) hidden @endif" disabled>
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>

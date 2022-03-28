@@ -5,11 +5,11 @@
  	field ="etat";
  	var url = '{{ URL::to('searchBioRequests') }}';
  	function getAction(data, type, dataToSet) {
-            var actions = '<a href = "/demandeexb/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-            if(data.etat == null)
-              actions +='&nbsp;<a href="/detailsdemandeexb/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
-             return actions;
-    }
+    var actions = '<a href = "/demandeexb/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
+    if(data.etat == "En Cours")
+      actions +='&nbsp;<a href="/detailsdemandeexb/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
+    return actions;
+  }
  	$(function(){
  		$(".demandeBioSearch").click(function(e){
 	  		getRequests(url,field,$('#'+field).val().trim());
@@ -106,21 +106,13 @@
 								@endif
 								</td>
 								<td>
-									@if($demande->etat == null)
-										 <span class="badge badge-success">En Cours</span>
-									@elseif($demande->etat == "1")
-										 <span class="badge badge-info">Validée</span>
-									@else
-										 <span class="badge badge-warning">Rejetée</span>
-									@endif
+								  <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span></span>
 								</td>
 								<td class="center">
-									 <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-eye"></i></a>
-			    					@if($demande->etat == null)
-			    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
-										<i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-										</a>
-										@endif	
+								  <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-eye"></i></a>
+		    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
+									 <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+									</a>
 								</td>
 							</tr>
 						@endforeach

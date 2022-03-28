@@ -38,10 +38,6 @@ class DemandeExamenRadio extends Controller
     {
       $demande = demandeexr::FindOrFail($id);
       $etablissement = Etablissement::first();
-/* if(isset($demande->consultation)){ $medecin =  $patient = $demande->consultation->medecin ;
- $patient = $demande->consultation->patient; $date =$demande->consultation->date ;}else
-{$medecin =  $patient = $demande->visite->medecin ;$patient = $demande->visite->hospitalisation->patient;   
-  $date = $demande->visite->date; }return view('examenradio.details', compact('demande','patient','medecin','etablissement','date'));*///dd($demande->examensradios);
       if(isset($demande->id_consultation))
       {
           $obj = $demande->consultation;
@@ -56,7 +52,7 @@ class DemandeExamenRadio extends Controller
     public function upload(Request $request)
     {
       $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
-      $filename= ""; $filename= ""; $isImg = 0;
+      $filename= ""; $isImg = 0;
       if($request->hasfile('resultat')){
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME);
@@ -71,9 +67,6 @@ class DemandeExamenRadio extends Controller
     }
     public function examCancel(Request $request)
     {
-/*$demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-foreach ($demande->examensradios as $key => $exam){if( $exam->pivot->id_examenradio == $request->id_examenradio){
-$exam->pivot->etat = 0;$exam->pivot->observation = $request->observation;$exam->pivot->save();}}return Response()->json([ "rowID" => $request->id_examenradio, ]); */
       $ex = Demandeexr_Examenradio::FindOrFail($request->exmId);
       if($ex->Crr)
         $ex->Crr()->delete();
@@ -83,7 +76,7 @@ $exam->pivot->etat = 0;$exam->pivot->observation = $request->observation;$exam->
     public function update(Request $request, demandeexr $demande)
     {
       $demande = demandeexr::FindOrFail($request->demande_id);  
-       if(Auth::user()->is(12))
+      if(Auth::user()->is(12))
         {
               foreach ($demande->examensradios as $key => $exam)
               {

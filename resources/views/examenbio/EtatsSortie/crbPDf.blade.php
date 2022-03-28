@@ -27,8 +27,8 @@
 	  	</tbody>
 	  </table>
   </div><br><br>
-  <div class="center"><h3><strong>Compte rendu d'analyses médicales</strong></h3></div>
+  <div class="center"><h3><strong>Compte rendu d'analyses médicales</strong></h3></div><br/>
   <div>{!! nl2br(e($crb)) !!}</div>
-  <div class="foot"><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></div>
+  <div class="footer2"><img src="img/footer.png" alt="footer" class="center" width="100%"/></div>
 </body>  
 </html>

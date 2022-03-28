@@ -92,6 +92,7 @@ header {
 .foot { position: absolute; top: 1200px !important;}
 .footer { position: absolute; top: 100%; }
 .footer1 { position:fixed;  bottom:20;}
+.footer2 { position: absolute; top: 98%; }
 .sign { position: absolute; top: 85%; padding-left: 60%; }
 .hr-1{ border: 1px solid }
 .modal-backdrop { z-index:0; }

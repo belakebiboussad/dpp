@@ -22,8 +22,8 @@
 	  	</tbody>
 		  </table>
  		 </div><br>
-        	<div class="center"><h3><strong>Compte rendu d'exploration radiologique</strong></h3></div>
-        	<div>{!! nl2br(e($crr->conclusion)) !!}</div>
- 		 <div class="foot"><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></div>
+        <div class="center"><h3><strong>Compte rendu d'exploration radiologique</strong></h3></div><br><br>
+        <div>{!! nl2br(e($crr->conclusion)) !!}</div><!-- <div class="foot"><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></div> -->
+     <div class="footer2"><img src="img/footer.png" alt="footer" class="center" width="100%"/></div>
     </body>
 </html>

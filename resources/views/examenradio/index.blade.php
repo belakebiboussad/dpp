@@ -91,13 +91,11 @@
 											@endif
 												<td class="center">
 												  <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
-											{{--@if($demande->etat == null)<span class="badge badge-success">
-														En Cours@elseif($demande->etat == "1")<span class="badge badge-info">Validé@else<span class="badge badge-warning">Rejeté@endif --}}
 													</span>
 												</td>
 												<td class="center">
 												 	<a href="{{ route('demandeexr.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
-			              						<a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
+			              				<a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
 												</td>
 											</tr>
 										@endforeach

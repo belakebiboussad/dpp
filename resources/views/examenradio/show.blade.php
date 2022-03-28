@@ -21,7 +21,6 @@ $(function(){
       @if((!$demande->hasResult()) && (( $obj->medecin->id == Auth::user()->employ->id)))
        <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i>Modifier</a>
        @endif
-      </a>
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
   </div><hr>

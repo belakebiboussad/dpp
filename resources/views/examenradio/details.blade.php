@@ -27,7 +27,7 @@ function CRRPrint()
 { 
   $("#conclusionPDF").text($("#conclusion").val());
   var pdf = new jsPDF('p', 'pt', 'a4');
-  generate(pdf,'pdfContent')
+  generate(pdf,'pdfContent');
 }
 function CRRSave()
 {

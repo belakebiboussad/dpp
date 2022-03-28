@@ -1,4 +1,30 @@
 @extends('app')
+@section('page-script')
+<script>
+ $(function(){
+    $('body').on('click', '.examBio-Delete', function (e) {  
+      event.preventDefault();
+      var exam_id = $(this).val(); 
+     
+      $.ajaxSetup({
+              headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
+      });
+      $.ajax({
+        type: "DELETE",
+        url: '/exmbio/' + exam_id,
+        dataType: 'json',
+        success: function (data) {
+          $("#exm-" + data.id).remove(); 
+        },
+        error: function (data) {
+          console.log('Error:', data); 
+        } 
+      });
+      
+    });
+   })
+  </script>
+@endsection
 @section('main-content')
 <div class="row" width="100%"><?php $patient = $demande->consultation->patient; ?>@include('patient._patientInfo')</div>
 <div class="content">
@@ -6,42 +32,51 @@
   <div class="row">
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
     <div class="col-sm-3">
-          <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
-            <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
-          </a>&nbsp; &nbsp;
-          <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"> <i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+      <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
+        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+      </a>&nbsp; &nbsp;
+      <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"> <i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+    </div>
+  </div><div class="space-12"></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="center"><strong>#</strong></th>
+              <th class="center"><strong>Nom examen</strong></th>
+               <th class="center"><strong>Specialite</strong></th>
+              <th class="center"><em class="fa fa-cog"></em></th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach($demande->examensbios as $index => $ex)
+                <tr id="{{ 'exm-'.$ex->id }}">
+                  <td class="center">{{ $index + 1 }}</td>
+                  <td>{{ $ex->Examen->nom }}</td>
+                   <td>{{ $ex->Examen->specialite->nom }}</td>
+                  <td class="center">
+                    <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger examBio-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
+                  </td>
+                </tr>
+              @endforeach                         
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  </div> <div class="space-12"></div>
-   <div class="row">
-        <div class="col-sm-12">
-            <div>
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th class="center"><strong>#</strong></th>
-                    <th class="center"><strong>Nom Examen</strong></th>
-                    <th><!-- <a href="" class="btn btn-primary btn-sm pull-right" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></a> --></th><!-- <div class="fa fa-plus-circle"></div> -->
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach($demande->examensbios as $index => $exm)
-                      <tr>
-                        <td class="center">{{ $index + 1 }}</td>
-                        <td>{{ $exm->nom }}</td>
-                        <td class="center">
-                           <?php $id = $exm->id.'|'.$demande->id ?>
-                           <form method="POST" action="{{ route('exmbio.destroy', [ 'id'=>$id]) }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn  btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
-                          </form>
-                        </td>
-                      </tr>
-                    @endforeach                         
-                </tbody>
-              </table>
-            </div>
-{{--@if($demande->etat == "1")<label>Résultat {{ $demande->etat}}:</label>&nbsp;&nbsp;<span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>@endif--}}
-        </div>
+  <div class="row">
+    <div class="col-sm12">
+      <div class="center" style="bottom:0px;">
+      <form class="form-horizontal" method="POST" action="{{ route('demandeexb.update',$demande->id) }}" > 
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
+        <input type="hidden" name="demande_id" value="{{ $demande->id }}" >
+         <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+      </form>
+      </div>
+    </div>
   </div>
 </div>
 @endsection

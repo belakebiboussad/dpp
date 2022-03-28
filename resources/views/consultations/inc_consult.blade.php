@@ -134,14 +134,16 @@ $('document').ready(function(){
                 {{ $consultation->demandeexmbio->etat }}</span>
                 </td>
                 <td class="center">
-                  <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
                   @if($consultation->medecin->id == Auth::user()->employ->id)
-                    <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a>
-                    @if($consultation->demandeexmbio->etat == null)
+                    <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs">
+                      <i class="fa fa-hand-o-up fa-xs"></i>
+                    </a>
+                    @if($consultation->demandeexmbio->etat == "En Cours")
                     <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
                      <button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
-                     @endif
-                  @endif  
+                    @endif
+                     <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a> 
+                  @endif
                 </td>
             </tbody>
           </table>

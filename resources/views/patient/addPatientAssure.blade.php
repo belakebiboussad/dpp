@@ -102,12 +102,16 @@
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div><div class="space-12"></div>
 <div  class="row demograph">
 	<div class="col-sm-4">
-		<label class="col-sm-4  text-nowrap" for="adresse" ><strong>Adresse:</strong></label>
-		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
+    <label class="col-sm-4" for="adresse" ><strong>Adresse:</strong></label>
+	   <div class="col-sm-8">
+		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
+    </div>
 	</div> 
 	<div class="col-sm-4">
-		<label class="col-sm-4 text-nowrap" for="commune"><strong>Commune:</strong></label><input type="hidden" name="idcommune" id="idcommune">
+		<div class="form-group">
+      <label class="col-sm-4" for="commune"><strong>Commune:</strong></label><input type="hidden" name="idcommune" id="idcommune">
 	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="autoCommune col-sm-8"/>
+    </div>
 	</div>
 	<div class="col-sm-4">
 		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label>
@@ -125,15 +129,7 @@
 		<div class="col-sm-4 col-xs-4">
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="mobile2"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong></label>
-				<div class="col-sm-4">
-					<select name="operateur2" id="operateur2" class="form-control">
-					  <option value="" selected >XX</option>
-				    <option value="05" >05</option>
-						<option value="06">06</option>
-						<option value="07">07</option>
-			    </select>
-				</div>
-				<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+				<input name="mobile2" type="tel" class="col-sm-4 mobile" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 			</div>
 		</div>		
 		<div class="col-sm-4 col-xs-4">
@@ -159,8 +155,7 @@
 		<div class="form-group">
 	   	    <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX"/>
-						<!-- pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$" -->
+				<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX"/><!-- pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$" -->
 			</div>
 		</div>		
 	</div><div class="col-sm-6"></div> 			

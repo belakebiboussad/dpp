@@ -4,12 +4,25 @@ namespace App\modeles;
 use Illuminate\Database\Eloquent\Model;
 class demandeexb extends Model
 {
-  public $timestamps = false;    //protected $primaryKey = 'id_demandeexb';
+  public $timestamps = false;
   protected $table = "demandeexb";
   protected $fillable = ['etat', 'resultat', 'id_consultation','visite_id','crb'];
+  public const ETATS = [
+    ''=> 'En Cours',
+    0 => 'Rejetée',  
+    1 => 'Validée'
+  ];
+  public function getEtatAttribute()
+  {
+    return self::ETATS[ $this->attributes['etat'] ];
+  }
+  public static function getEtatID($etat) {
+    return array_search($etat, self::ETATS); 
+  }
+  /*public function examensbios(){return $this->belongsToMany('App\modeles\examenbiologique', 'demandeexb_examenbio', 'id_demandeexb', 'id_examenbio');}*/
   public function examensbios()
   {
-    return $this->belongsToMany('App\modeles\examenbiologique', 'demandeexb_examenbio', 'id_demandeexb', 'id_examenbio');//->withPivot('crb'); 
+    return $this->hasMany('App\modeles\demandeexb_examenbio', 'id_demandeexb');
   }
   public function consultation()
   {

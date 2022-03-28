@@ -86,26 +86,26 @@
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ExamsImgtab">
-					 	 <thead class="thin-border-bottom">
-							 <tr>
-                  						 <th class="center" width="5%">N°</th>
-							    	<th class ="center" class="nsort"><strong>Nom </strong></th>
-								 <th class ="center"><strong>Type</strong></th>
-								 <th class="center" width="5%"><em class="fa fa-cog"></em></th>
-						    </tr>
-							  </thead>
-							  <tbody id="ExamsImg">
-                                                     @foreach ($demande->examensradios as $index => $ex)
-                                                      <tr id="{{ 'exm-'.$ex->id }}">
-                                                            <td class="center" width="5%">{{ $index }}</td>  
-                                                            <td>{{ $ex->Examen->nom }}</td>
-                                                            <td>{{ $ex->Type->nom }}</td>
-                                                            <td class="center">
-                                                             <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
-                                                           </td>
-                                                    </tr>
-                                                    @endforeach   
-                                                    </tbody>
+				 	  <thead class="thin-border-bottom">
+						 <tr>
+                <th class="center" width="5%">N°</th>
+						    <th class ="center" class="nsort"><strong>Nom </strong></th>
+							  <th class ="center"><strong>Type</strong></th>
+							  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
+					    </tr>
+						</thead>
+						  <tbody id="ExamsImg">
+                @foreach ($demande->examensradios as $index => $ex)
+                  <tr id="{{ 'exm-'.$ex->id }}">
+                        <td class="center" width="5%">{{ $index }}</td>  
+                        <td>{{ $ex->Examen->nom }}</td>
+                        <td>{{ $ex->Type->nom }}</td>
+                        <td class="center">
+                         <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
+                       </td>
+                </tr>
+                @endforeach   
+              </tbody>
 					</table>
 				</div>
 			</div>
@@ -113,11 +113,11 @@
                </div>
       </div> 	<!-- widget-main -->
       <div class="row">
-          <div class="col-sm12">
-                <div class="center" style="bottom:0px;">
-                      <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
-               </div>
-            </div>
+        <div class="col-sm12">
+          <div class="center" style="bottom:0px;">
+            <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+         </div>
+          </div>
         </div>
         </form>
     </div><!-- widget-body -->

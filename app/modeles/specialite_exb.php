@@ -8,7 +8,7 @@ class specialite_exb extends Model
 {
     public $timestamps = false;
     protected $table = "specialite_exb";
-    protected $fillable = ['specialite'];
+    protected $fillable = ['nom'];
 
     public function examensbio()
     {
