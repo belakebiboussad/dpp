@@ -19,7 +19,6 @@ class demandeexb extends Model
   public static function getEtatID($etat) {
     return array_search($etat, self::ETATS); 
   }
-  /*public function examensbios(){return $this->belongsToMany('App\modeles\examenbiologique', 'demandeexb_examenbio', 'id_demandeexb', 'id_examenbio');}*/
   public function examensbios()
   {
     return $this->hasMany('App\modeles\demandeexb_examenbio', 'id_demandeexb');
