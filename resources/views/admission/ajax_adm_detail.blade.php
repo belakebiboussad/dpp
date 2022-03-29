@@ -10,7 +10,7 @@
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="form-group">		
-						<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>  Patient :</strong></label>
+						<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
 						<div class="col-sm-8 col-xs-8">
 							<input type="text" class="col-xs-11 col-sm-11" value="{{ $adm->demandeHospitalisation->consultation->patient->fullname }}"  readonly>			
 						</div>

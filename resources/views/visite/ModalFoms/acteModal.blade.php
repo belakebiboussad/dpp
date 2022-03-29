@@ -6,7 +6,7 @@
 			  			<h4 class="modal-title" id="acteCrudModal">Prescrire un Acte Médicale</h4>
 			  		</div>
 					<div class="modal-body">
-				      <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">	<!-- /Acte/save -->
+				      <form id="addActe" method="POST" action ="{{ route('acte.store')}}" name="form1" id="form1">
 				 		{{ csrf_field() }}
 				 		<input type="hidden" value="" name="idhosp">
 				 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">

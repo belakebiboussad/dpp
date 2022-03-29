@@ -73,9 +73,9 @@ class demandeprodController extends Controller
      */
       public function create()
       {
-            $gammes = gamme::all();
-            $specialites = specialite_produit::all();
-            return view('demandeproduits.add', compact('gammes','specialites'));
+        $gammes = gamme::all();
+        $specialites = specialite_produit::all();
+        return view('demandeproduits.add', compact('gammes','specialites'));
       }
     /**
      * Store a newly created resource in storage.
@@ -85,34 +85,34 @@ class demandeprodController extends Controller
      */
        public function store(Request $request)
       {
-              $date = date('Y-m-d');
-              $demande = demand_produits::Create([
-                 "Date" => $date, // "Etat" => "E",
-                "id_employe" => Auth::user()->employee_id,
-             ]);
-             $listes = json_decode($request->liste);
-            for ($i=1; $i < count($listes); $i++) { 
+          $date = date('Y-m-d');
+          $demande = demand_produits::Create([
+             "Date" => $date, // "Etat" => "E",
+            "id_employe" => Auth::user()->employee_id,
+         ]);
+         $listes = json_decode($request->liste);
+        for ($i=1; $i < count($listes); $i++) { 
 
-                    $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+                $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
 
-                    if($gamme->id == "1")
-                    {
-                        $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                    }
-                    elseif($gamme->id == "2") 
-                    {
-                        $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                    }
-                    elseif($gamme->id == "3") 
-                    {
-                        $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                    }
-                    elseif($gamme->id == "4")
-                    {
-                        $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                    }
-             }
-            return redirect()->route('demandeproduit.show',$demande->id); 
+                if($gamme->id == "1")
+                {
+                    $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                }
+                elseif($gamme->id == "2") 
+                {
+                    $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                }
+                elseif($gamme->id == "3") 
+                {
+                    $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                }
+                elseif($gamme->id == "4")
+                {
+                    $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                }
+         }
+        return redirect()->route('demandeproduit.show',$demande->id); 
     }
     /**
      * Display the specified resource.

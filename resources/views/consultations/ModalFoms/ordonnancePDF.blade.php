@@ -76,10 +76,7 @@
 				</div>
 			</div>
    </div>
-   <footer class="">
-   	<img src='{{ asset("img/footer.png") }}' alt="footer" width="100%"/>
-   </footer>
+    <footer><img src='{{ asset("img/footer.png") }}' alt="footer" width="100%"/></div></footer>
  </div>
 </body>
-
 </html>

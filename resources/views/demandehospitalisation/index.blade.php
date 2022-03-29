@@ -10,7 +10,7 @@
 					<tr>
 						<th class="center"><h5><strong>Patient</h5></strong></th>
 						<th class="center" width="3%"><strong>Age(Ans)</strong></th>
-						<th class="center"><strong>Date Demande</strong></th>
+						<th class="center"><strong>Date</strong></th>
 						<th class="center"><strong>Mode Admission</strong></th>
 						<th class="center"><strong>Spécialité</strong></th>
 						<th class="center"><strong>Service</strong></th>
@@ -27,39 +27,25 @@
 								<span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
 							</td>
 							<td>{{ $demande->consultation->date }}</td>
-							<td>
-								@switch($demande->modeAdmission)
-    									@case("0")		
-        									<span class="label label-sm label-success">Programme
-         									@break
-    									@case("1")
-        									<span class="label label-sm label-warning">Ambulatoire
-        									@break
-         								@case("2")
-        									<span class="label label-sm label-danger">Urgence
-        									@break
-								@endswitch	
-								</span>
-							</td>
+							<td>{{ $demande->modeAdmission }}</td>
 							<td>{{ $demande->Specialite->nom }}</td>
 							<td>{{ $demande->Service->nom }}</td>
 							<td>{{ $demande->consultation->motif }}</td>
 							<td>
-							@switch($demande->etat)
-    							@case("en attente")
-        						<span class="label label-sm label-warning">
+              @switch($demande->etat)
+    							@case("en Cours")
+        				  @case("programme")
+                		<span class="label label-sm label-primary">
         						@break
          					@case("valide")
-          					<span class="label label-sm label-primary">
+          					<span class="label label-sm label-info">
          						@break	
-                  @case("programme")
-        						<span class="label label-sm label-primary">	
-        						@break
-        					@case("annule")
+                 	@case("annule")
         						<span class="label label-sm label-danger">
         						@break
-        					@case("admise")		
-        						<span class="label label-sm label-success">
+        					@case("admise")
+                  @case("Hospitalisation")   		
+        					  <span class="label label-sm label-success">
         						@break	
 							@endswitch	
 							{{ $demande->etat }}</span>

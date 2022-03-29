@@ -205,7 +205,7 @@
 															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
 														</a>
 														@if((Auth::user()->is(14)) && ($demande->etat == null))
-														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-white btn-xs" title="editer Demande">
+														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-primary btn-xs" title="editer Demande">
 															<i class="fa fa-edit fa-xs"></i>
 														</a>
 														<a href="{{ route('demandeproduit.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">

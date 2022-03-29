@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acte extends Model
 {
    	public $timestamps = false;
-  	protected $fillable  = ['nom','id_visite','description','type','code_ngap','periodes','duree','fait','retire'];
+  	protected $fillable  = ['nom','id_visite','description','type','code_ngap','periodes','duree','retire'];
  	  public  $casts = [
  	     'periodes' => 'array'
  	  ];
@@ -18,6 +18,5 @@ class Acte extends Model
 		public function CodeNGAP()
 		{
 			return $this->belongsTo('App\modeles\NGAP','code_ngap');
-
 		}
 }

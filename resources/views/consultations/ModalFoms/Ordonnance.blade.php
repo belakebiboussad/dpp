@@ -23,7 +23,7 @@
               <div class="col-sm-3 hidden-xs">
                 <label for="form-field-8"> <strong>Forme :</strong></label><input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
               </div>
-            </div><div class="space-12 hidden-xs"></div>{{-- row --}}
+            </div><div class="space-12 hidden-xs"></div>
             <div class="row">
               <div class="col-xs-6">
                    <label for="dosage">Dosage:</label><input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>

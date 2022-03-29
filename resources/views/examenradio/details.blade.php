@@ -89,8 +89,7 @@ function uploadFiles(examId)
       $("#exm-"+data['exId']).addClass("hidden");
       $("#cancel-"+data['exId']).addClass("hidden");
       $("#delet-"+data['exId']).removeClass("hidden"); 
-      url = '{{ URL::asset('storage/files') }}'+"/" +data['fileName'] ;
-      /*if(data['isImg']) $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');   else*/
+      url = '{{ URL::asset('storage/files') }}'+"/" +data['fileName'] ;/*if(data['isImg']) $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');   else*/
        $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
      },
      error: function(data){

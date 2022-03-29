@@ -53,9 +53,9 @@ class ColloqueController extends Controller
     {  
        $rols =  array(1,2,2,5,6,13,14);
        $membre = employ::whereHas('User', function ($q) use ($rols) {
-                                        $q->whereIn('role_id',$rols);                           
-                                    })->get();
-          return view('colloques.add',compact('membre'));//,'type_c'
+                            $q->whereIn('role_id',$rols);                           
+                        })->get();
+          return view('colloques.add',compact('membre'));//'type_c'
     }
  /**
      * Store a newly created resource in storage.
@@ -139,7 +139,7 @@ class ColloqueController extends Controller
         $type = $colloque->type;
         $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
                               $q->where('type',$type);
-                      })->where('etat','en attente')->where('modeAdmission','<>','2')->get();
+                      })->where('etat',null)->where('modeAdmission','<>','2')->get();
         $medecins = employ::whereHas('User', function($q){
           $q->whereIn('role_id', [1,13,14]);
         })->orderBy('nom')->get();

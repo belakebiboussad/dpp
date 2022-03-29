@@ -204,12 +204,16 @@ class ConsultationsController extends Controller
             $exam->save();
           }
         } 
-         if($request->modeAdmission != null)
-         { 
-            $input = $request->all();
-            $input['id_consultation'] = $consult->id ;
-            DemandeHospitalisation::create( $input);
-         }
+        if($request->modeAdmission != null)
+        {  // $input = $request->all();// $input['etat'] = "en attente" ; $input['id_consultation'] = $consult->id ;
+            DemandeHospitalisation::create([
+                "modeAdmission"=>$request->modeAdmission,
+                "specialite"=>$request->specialiteDemande,
+                "service"=>$request->service,
+                "etat" => NULL,
+                "id_consultation"=>$consult->id
+            ]);
+        }
          return redirect(Route('patient.show',$request->patient_id));
        }
     /**

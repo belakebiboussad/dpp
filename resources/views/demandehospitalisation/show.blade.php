@@ -72,9 +72,14 @@
 												<li class="divider"></li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
-													<strong>Nom du médecin traitant :</strong>
+													<strong>Médecin traitant :</strong>
 													<b class="blue">{{ $demande->consultation->medecin->full_name}}</b>
 												</li>
+                        <li>
+                          <i class="ace-icon fa fa-caret-right green"></i>
+                          <strong>Etat :</strong>
+                          <b class="blue">{{ $demande->etat}}</b>
+                        </li>
 											</ul>
 										</div>
 									</div><!-- /.col -->

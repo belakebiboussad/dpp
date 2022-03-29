@@ -16,7 +16,7 @@
         <thead>
           <tr>
             <th class="center"><strong>nom</strong></th>
-            <th class="center"><strong>description</strong></th>
+            <th class="center"><strong>posologie</strong></th>
             <th class="center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
@@ -27,7 +27,7 @@
               <td>{{ $acte->nom }}</td> 
               <td>{{ $acte->description }}</td> 
               <td class="center">
-                <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute">&faire</button>
+                <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute"><em class="fa fa-cog"></em></button>
               </td> 
               @endif
             @endforeach
@@ -37,4 +37,5 @@
     </div>    
   </div>
 </div>
+<div class="row">@include('soins.ModalFoms.acteExecute')</div>
 @endsection

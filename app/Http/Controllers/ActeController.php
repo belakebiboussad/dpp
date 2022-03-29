@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;//use App\modeles\consigne;
 use App\modeles\Acte;
+use App\modeles\ActeExec;
 use Response;
 // use Validator;
 class ActeController extends Controller
@@ -48,12 +49,17 @@ class ActeController extends Controller
     }
     public function destroy($id)
     {
-        $acte = Acte::FindOrFail($id);
-        $acte -> update([
-            "retire"=>1,
-        ]);
-        $acte->save();
-        return Response::json($acte);
+      $acte = Acte::FindOrFail($id);
+      $acte -> update([
+          "retire"=>1,
+      ]);
+      $acte->save();
+      return Response::json($acte);
     }
+    public function run($id)
+    {
+      $exec = ActeExec::FindOrFail($id);
+    }
+
 
 }

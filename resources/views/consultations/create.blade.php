@@ -161,8 +161,8 @@
 			$('.select2').removeClass('tag-input-style');
 		});
 		$(function() {
-			var checkbox = $("#isOriented");  // Get the form fields and hidden div
-			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+			var checkbox = $("#isOriented");// Get the form fields and hidden div
+			var hidden = $("#hidden_fields");// Setup an event listener for when the state of the    // checkbox changes.
 			 checkbox.change(function() {
 				if (checkbox.is(':checked')) {
 					hidden.show();
@@ -633,8 +633,10 @@
 		</div><!-- tabpanel -->
 		<div class="row">
 			<div class="col-sm12"><!-- les inputs de modal form(Demande Hospitalisation)  -->
-				<input type="hidden" name="service" id="service"><input type="hidden" name="specialiteDemande" id="specialiteDemande">
-				<input type="hidden" name="modeAdmission" id="modeAdmission"><input type="hidden" name="specialite" id="specialite">
+				<input type="hidden" name="service" id="service">
+        <input type="hidden" name="specialiteDemande" id="specialiteDemande">
+				<input type="hidden" name="modeAdmission" id="modeAdmission">
+        <input type="hidden" name="specialite" id="specialite">
 				<input type="hidden" name="motifOr" id="motifOr">
 				</div>
 		</div>

@@ -381,9 +381,9 @@
         $('#motifOr').val($('#motifOrient').val()); }
       function demandehosp()
       {
-              $('#modeAdmission').val($('#modeAdmissionHospi').val());
-              $('#specialiteDemande').val($('#specialiteHospi').val()); 
-              $('#service').val($('#serviceHospi').val());
+        $('#modeAdmission').val($('#modeAdmissionHospi').val());
+        $('#specialiteDemande').val($('#specialiteHospi').val()); 
+        $('#service').val($('#serviceHospi').val());
       }
       $(document).ready(function () {
           $('.select2').css('width','50%').select2({allowClear:true});

@@ -11,22 +11,22 @@
 		var  select = $("#" + line).find("select");//row = $(".bodyClass").find('tr').eq(line);
 		if (select.val() == null) {
 			if (!$(".red")[0]){
-	    			select.after('<div class="red">Sélectionner un Medecin</div>'); 
+	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
 			}  
-	  	}else {
-	  		var formData = {
-  	   			 id_medecin : $("#" + line).find('[name=medecin]').val(),
-  	   			 observation : $("#" + line).find('[name=observation]').val(),
-	     		     ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-		           id_demande : $("#" + line).find('[name=demandeId]').val(),
-		           id_colloque :$("#colloqueId").val(),
-		     };
-	    		var ajaxurl = '/demandehosp/valider';
-	    		if(!($(elm).hasClass("btn-success")))
-		      {	
-		       	ajaxurl = '/demandehosp/invalider';
-		      }
-    		 	$.ajax({
+	  } else {
+	  	var formData = {
+  	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
+	   	  	observation : $("#" + line).find('[name=observation]').val(),
+   		    ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+          id_demande : $("#" + line).find('[name=demandeId]').val(),
+          id_colloque :$("#colloqueId").val(),
+		  };
+  		var ajaxurl = '/demandehosp/valider';
+  		if(!($(elm).hasClass("btn-success")))
+      {	
+       	ajaxurl = '/demandehosp/invalider';
+      }
+		 	$.ajax({
 			 	headers: {
 			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			     },
@@ -34,15 +34,17 @@
 		        	type:'POST',
 			     data:formData,
 			     dataType: 'json',
-		        	success: function (data) {
-			         	if(data.etat == 'valide')
+		        	
+            success: function (data) {
+               	alert(data.etat);
+                if(data.etat == "Valide")
 			          {
-			     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-			       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
-			 		}else{
-				     	      $(elm).removeClass("btn-danger").addClass("btn-success");
-					      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-					}
+			     			  $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+			       		  $(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+			 		      } else {
+				     	    $(elm).removeClass("btn-danger").addClass("btn-success");
+					        $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+					      }
 			      },
 			      error:function(data){
 			          console.log('Error:', data);
@@ -89,17 +91,18 @@
 		  				<td>{{ $demande->Specialite->nom }}</td>
 		  				<td>{{$demande->consultation->date }}</td>
 						  <td>
-						  	@switch( $demande->modeAdmission )
+              	@switch( $demande->modeAdmission )
    							  @case(0)
-     								<span class="label label-sm label-primary">Programme</span>
+     								<span class="label label-sm label-primary">
         						@break
         					@case(1)
-     								<span class="label label-sm label-success">Ambulatoire</span>
+     								<span class="label label-sm label-success">
         						@break
         					@case(2)
-     								<span class="label label-sm label-warning">Urgence</span>
+     								<span class="label label-sm label-warning">
         						@break		
 						  	@endswitch
+                   {{ $demande->modeAdmission }}</span>
 						  </td>
 							<td>
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
@@ -123,7 +126,7 @@
 				   			<a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse"  id="{{$i}}" data-target=".{{$i}}collapsed" >
 				    			<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
 				   			</a>
-				   	 		<a href="#" class="btn btn-success btn-xs aaaa" value ="valider" title= "Valider demande"	onclick= "valideDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i> Valider</a>     
+				   	 		<a href="#" class="btn btn-success btn-xs aaaa" value ="valider" title= "Valider demande"	onclick= "valideDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i>Valider</a>     
 				    	</td>   			
 			    	</tr> 
 			    	<?php $j++ ?>
@@ -160,17 +163,18 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name center"><strong>Mode d'admission:</strong></div>
 												<div class="profile-info-value"><h4>
-													@switch( $demande->modeAdmission )
-						   							 @case(0)
-						     								<span class="label label-sm label-primary">Programme</span>
-						        							@break
-						        						@case(1)
-						     								<span class="label label-sm label-success">Ambulatoire</span>
-						        							@break
-						        						@case(2)
-						     								<span class="label label-sm label-warning">Urgence</span>
-						        							@break		
-												  	@endswitch
+												@switch( $demande->modeAdmission )
+                          @case(0)
+                            <span class="label label-sm label-primary">
+                            @break
+                          @case(1)
+                            <span class="label label-sm label-success">
+                            @break
+                          @case(2)
+                            <span class="label label-sm label-warning">
+                            @break    
+                        @endswitch
+                        {{ $demande->modeAdmission }}</span>
 													</h4>
 												</div>
 											</div>
@@ -182,7 +186,7 @@
 											</div>
 											<div class="profile-info-row">
 												<div class="profile-info-name center"><strong>Etat:</strong></div>
-												<div class="profile-info-value"><h4><span class = "label label-lg label-warning">{{ $demande->etat }}</span></h4></div>
+												<div class="profile-info-value"><h4><span class = "label label-lg label-primary">{{ $demande->etat }}</span></h4></div>
 											</div>
 										</div>	
 								</div>						

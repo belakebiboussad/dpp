@@ -69,10 +69,10 @@ class DemandeHospitalisationController extends Controller
      */
       public function edit($id)
       {
-              $demande = DemandeHospitalisation::FindOrFail($id);
-              $services = service::all();
-              $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
-              return view('demandehospitalisation.edit', compact('demande','services','specialites'));
+        $demande = DemandeHospitalisation::FindOrFail($id);
+        $services = service::all();
+        $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
+        return view('demandehospitalisation.edit', compact('demande','services','specialites'));
     }
     /**
      * Update the specified resource in storage.
@@ -83,13 +83,14 @@ class DemandeHospitalisationController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $demande = DemandeHospitalisation::FindOrFail($id);
-            $demande->update([
-                    "service"      =>$request->service,
-                    "specialite"  =>$request->specialite,
-                    "modeAdmission" =>$request->mode,
-            ]);
-             return redirect()->action('DemandeHospitalisationController@index');
+      $demande = DemandeHospitalisation::FindOrFail($id);
+      $demande->update($request->all());        
+      return redirect()->action('DemandeHospitalisationController@index');
+      // $demande = DemandeHospitalisation::FindOrFail($id);
+      
+      // // $demande->update([     // //         "service"      =>$request->service,
+      // //         "specialite"  =>$request->specialite,//"modeAdmission" =>$request->mode,
+      // // ]);  //  return redirect()->action('DemandeHospitalisationController@index');
     }
 
     /**
@@ -120,18 +121,19 @@ class DemandeHospitalisationController extends Controller
       }
       public function valider(Request $request)
       {
-               $dem = dem_colloque::firstOrCreate($request->all());
-               $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-               $demande->etat ="valide";
-               $demande->save();
-               return Response::json($demande);
+        $dem = dem_colloque::firstOrCreate($request->all());
+        $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+        //$demande->etat ="valide";
+        $demande->etat =5;
+        $demande->save();
+        return Response::json($demande);
       }
     public function invalider(Request $request)
     {
               $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
               $colloque = colloque::find($request->id_colloque);
               $colloque->demandes()->detach($request->id_demande);
-              $demande->etat ="en attente";
+              $demande->etat =null;
               $demande->save();
               return Response::json($demande);   
     }

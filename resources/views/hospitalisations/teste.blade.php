@@ -18,7 +18,7 @@
     @if(in_array(Auth::user()->role_id,[1,13,14]))
     <li><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
     @endif
-    @if(in_array(Auth::user()->role_id,[1,3,13,14]))
+    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
     <li><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
     @endif
   </ul>
@@ -101,6 +101,7 @@
       @include('visite.liste')
      </div>
     @endif
+    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
     <div id="constantes" class="tab-pane">
       <div class="row">
         <div class="col-sm-8">
@@ -192,6 +193,7 @@
         </div>
       </div>
     </div>
+    @endif
   </div>
 </div>
 @endsection

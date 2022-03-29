@@ -261,7 +261,7 @@ $('document').ready(function(){
               <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
               <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
               <td>
-                <span class="badge badge-pill badge-default">{{ $consultation->demandeHospitalisation->etat }}</span>
+                <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
               </td>
               @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
               <td class="center">
