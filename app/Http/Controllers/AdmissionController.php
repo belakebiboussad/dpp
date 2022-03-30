@@ -35,12 +35,12 @@ class AdmissionController extends Controller
       {
               $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
                                           ->whereHas('demandeHospitalisation', function($q){
-                                                 $q->where('etat', 'programme');//programme
+                                                 $q->where('etat', 1);
                                           })->where('etat','=',null)->where('date','=',date("Y-m-d"))->get();
               $demandesUrg = DemandeHospitalisation::with('bedAffectation')
                                                    ->whereHas('consultation', function($q){
                                                       $q->where('date', date("Y-m-d"));
-                                                   })->where('modeAdmission','2')->where('etat','programme')->get();
+                                                   })->where('modeAdmission',2)->where('etat',1)->get();
               $etatsortie = Etatsortie::where('type','1')->get();
               return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
@@ -60,20 +60,15 @@ class AdmissionController extends Controller
         $now = \Carbon\Carbon::now();
         if(isset($request->id_RDV))
         {
-          
-          $demande =  DemandeHospitalisation::find($request->demande_id);
-          $adm=admission::create([     
-            "id_rdvHosp"=>$request->id_RDV,
-            "demande_id"=>$request->demande_id,
-            "date"=>$now,        
-            "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
+               $demande =  DemandeHospitalisation::find($request->demande_id);
+              $adm=admission::create([     
+                    "id_rdvHosp"=>$request->id_RDV,
+                    "demande_id"=>$request->demande_id,
+                    "date"=>$now,        
+                    "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
           ]);
-          $adm->rdvHosp->demandeHospitalisation->update([
-               "etat" => "admise",
-          ]);
-          $adm->rdvHosp->update([
-              "etat" => 1
-          ]);
+          $adm->rdvHosp->demandeHospitalisation->update([ "etat" =>2  ]);// "admise"
+          $adm->rdvHosp->update([  "etat" => 1    ]);
         }else
         {
           if(isset($request->demande_id))
@@ -84,10 +79,8 @@ class AdmissionController extends Controller
                 "date"=>$now,        
                 "id_lit"=>$demande->bedAffectation->lit_id
             ]);
-            $demande->update([
-                "etat" => "admise",
-             ]);
-          }
+            $demande->update([  "etat" =>2  ]);
+            }
         }
         return redirect()->action('AdmissionController@index');
       }  
@@ -111,11 +104,7 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function edit(Request $request, $id)
-      {
-        $adm =  admission::find($id);
-        dd($adm->hospitalisation->patient);
-      }
+    /* public function edit(Request $request, $id)   {       $adm =  admission::find($id);   }*/
 
    /**
    * Remove the specified resource from storage.
@@ -123,12 +112,22 @@ class AdmissionController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-   public function destroy($id) {
-    $adm = admission::destroy($id);
-    if($request->ajax())   
-      return redirect()->action('AdmissionController@index'); 
-    else   
-      return Response::json($adm);   
+   public function destroy(Request $request, $id) {
+      $adm = admission::findOrFail($id);
+        if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) != 2)
+        {
+              $adm->rdvHosp->update(['etat'=>0]);//redonner un rendez-vous
+              $adm->demandeHospitalisation->setEtatAttribute(5);
+       }else
+               $adm->demandeHospitalisation->setEtatAttribute(null);
+        $adm->demandeHospitalisation->save();
+        $adm->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>0]);
+        $adm->demandeHospitalisation->bedAffectation()->delete();// liberer le lit
+        $adm->delete();
+        if($request->ajax())   
+          return Response::json($adm);   
+        else   
+          return redirect()->action('HospitalisationController@create');
    } 
    public function sortir()
    {
@@ -177,13 +176,13 @@ class AdmissionController extends Controller
       $modesHosp = ModeHospitalisation::all();  
       $to = $from =  \Carbon\Carbon::now()->format('Y-m-d');
       $nbr=0;
-      if($adm->demandeHospitalisation->modeAdmission !="2")
+      if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) !=2)
       {
-        $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
-        $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
-        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
-        $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
-        $nbr = $toDate->diffInDays($fromDate);
+                $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
+                $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
+                $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
+                $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
+                $nbr = $toDate->diffInDays($fromDate);
       }
       $view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','from','nbr','to'))->render();
       return response()->json(['html'=>$view]);

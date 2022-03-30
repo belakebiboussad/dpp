@@ -2,25 +2,24 @@
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
-    var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
-    var fin = new Date($('#dateSortiePre').val());
-    var diff = new Date(fin - debut);
-    $('#numberDays').val(diff/1000/60/60/24);
-    $( "#RDVForm" ).submit(function( event ) {  
-      $("#dateSortiePre").prop('disabled', false);
-    });
-    $('.timepicker').timepicker({
-      timeFormat: 'HH:mm',
-      interval: 15,
-      minTime: '08',
-      maxTime: '17:00pm',
-      defaultTime: '09:00',   
-      startTime: '08:00',
-      dynamic: true,
-      dropdown: true,
-      scrollbar: true
-    });  
-//$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+              var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
+              var fin = new Date($('#dateSortiePre').val());
+              var diff = new Date(fin - debut);
+              $('#numberDays').val(diff/1000/60/60/24);
+              $( "#RDVForm" ).submit(function( event ) {  
+                       $("#dateSortiePre").prop('disabled', false);
+               });
+                $('.timepicker').timepicker({
+                      timeFormat: 'HH:mm',
+                      interval: 15,
+                      minTime: '08',
+                      maxTime: '17:00pm',
+                      defaultTime: '09:00',   
+                      startTime: '08:00',
+                      dynamic: true,
+                      dropdown: true,
+                      scrollbar: true
+               });  //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	});
 </script>
 @endsection
@@ -45,26 +44,22 @@
       <div class="profile-user-info">
         <div class="row">
           <div class="col-sm-4 profile-info-row">
-            <div class="profile-info-name">Service:</div><div class="profile-info-value"><span>{{ $demande->demandeHosp->Service->nom }}</span></div>
+            <div class="profile-info-name col-sm-4">Service:</div><div class="profile-info-value col-sm-8"><span>{{ $demande->demandeHosp->Service->nom }}</span></div>
           </div>
           <div class="col-sm-4 profile-info-row">
-            <div class="profile-info-name">Spécialité :</div><div class="profile-info-value"><span>{{ $demande->demandeHosp->Specialite->nom }}</span></div>
+            <div class="profile-info-name col-sm-4">Spécialité :</div><div class="profile-info-value col-sm-8"><span>{{ $demande->demandeHosp->Specialite->nom }}</span></div>
           </div>
            <div class="col-sm-4 profile-info-row">
-            <div class="profile-info-name">Mode admission:</div><div class="profile-info-value">
-              @foreach(config('settings.ModeAdmissions') as $key=>$value)
-                @if($value == $rdv->demandeHospitalisation->modeAdmission)
-                  <span class="badge badge-success">
-                      {{ $key}}
-                  </span>
-                @endif
-              @endforeach 
+            <div class="profile-info-name col-sm-4">Mode admission:</div><div class="profile-info-value col-sm-8">
+                      <span class="badge badge-{{ ( $demande->demandeHosp->getModeAdmissionID( $demande->demandeHosp->modeAdmission) == 1)  ? 'success':'primary'  }}">
+                                                                         {{ $demande->demandeHosp->modeAdmission }}</span>
+            </div>
             </div>
           </div>  
         </div>
         <div class="row">
           <div class="col-sm-4 profile-info-row">
-          <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{$demande->medecin->full_name}}</span></div>
+          <div class="profile-info-name col-sm-4">Médecin Traitant :</div><div class="profile-info-value col-sm-8"><span>{{$demande->medecin->full_name}}</span></div>
           </div>
           <div class="col-sm-4 profile-info-row">
           <div class="profile-info-name">Priorité :</div><div class="profile-info-value">

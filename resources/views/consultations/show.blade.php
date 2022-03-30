@@ -10,8 +10,11 @@
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
         <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
+          @if(isset($consultation->demandeHospitalisation) )
+        <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
+          @endif
           @if(isset($consultation->examensCliniques) )
-        <li ><a data-toggle="tab" href="#ExamClin">Examen Clinique</a> </li>
+        <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
           @endif
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
@@ -29,6 +32,60 @@
           </ul>
           </div>
           </div>{{-- Intero --}}
+            @if(isset($consultation->demandeHospitalisation) )
+              <div id="DH" class="tab-pane">
+                 <div class="row">
+                    <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
+                      <strong><span style="font-size:18px;">Demande d'hospitalisation</span></strong>
+                    </div>
+                </div>
+               <div class="row">
+                     <div class="col-xs-11 widget-container-col" >
+                             <div class="widget-box widget-color-blue">
+                              <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
+                               <div class="widget-body">
+                               <div class="widget-main no-padding">
+                                 <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="center">Mode Admission</th>
+                <th class="center">Spécialité</th>
+                <th class="center">Service</th>
+                <th class="center">Etat</th>
+                @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+                <th class="center"><em class="fa fa-cog"></em></th>
+                @endif
+              </tr>
+            </thead>
+            <tr>
+              <td>
+               <span class="badge badge-{{( $consultation->demandeHospitalisation->getModeAdmissionID($consultation->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
+                  {{ $consultation->demandeHospitalisation->modeAdmission }}
+              </span>
+              </td>
+              <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
+              <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
+              <td>
+                <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
+              </td>
+              @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+              <td class="center">
+                <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
+                  <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i>
+                </a>
+                <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
+                  <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
+              </td>
+              @endif
+          </table>
+                               </div>
+                              </div>
+                            </div>
+                      </div>
+              </div>
+            @endif
           @if(isset($consultation->examensCliniques) )
           <div id="ExamClin" class="tab-pane">
             <div class="row">
@@ -70,8 +127,8 @@
                     </div>
                 </div>
                 <div class="row">
-                     <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
-                          <div class="widget-box widget-color-blue" id="widget-box-2">
+                     <div class="col-xs-11 widget-container-col" >
+                          <div class="widget-box widget-color-blue">
                           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
@@ -86,8 +143,7 @@
                                   <tr>
                                     <td>{{ $consultation->date }}</td>
                                     <td>
-<span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $consultation->demandeexmbio->etat }}</span>
+                                        <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}"> {{ $consultation->demandeexmbio->etat }}</span>
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>

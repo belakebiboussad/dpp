@@ -62,15 +62,16 @@ class HospitalisationController extends Controller
                           ->whereHas('rdvHosp', function($q){
                                               $q->where('date','=',date("Y-m-d"));
                             })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                            $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
+                                            $q->where('service', $serviceID)->where('etat',2);//->where('etat','admise')
                                       })->get(); //admission d'urgenes
+       //dd( $adms);
         $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.medecin','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
                           ->whereHas('demandeHospitalisation.consultation', function($q){
-                                              $q->where('date','=',date("Y-m-d"));
+                                              $q->where('date',date("Y-m-d"));
                           })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                            $q->where('service', $serviceID)->where('modeAdmission','2')->where('etat','admise');
+                                            $q->where('service', $serviceID)->where('modeAdmission',2)->where('etat',2);
                                       })->get();                                                    
-          return view('hospitalisations.create', compact('adms','admsUrg'));
+        return view('hospitalisations.create', compact('adms','admsUrg'));
       }
   /**
    * Store a newly created resource in storage.
@@ -94,9 +95,9 @@ class HospitalisationController extends Controller
     if(isset($dmission->rdvHosp))
     { 
       $admission->rdvHosp->update([ "etat" =>1 ]);
-      $admission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
+      $admission->rdvHosp->demandeHospitalisation->update(["etat" => 3]);
     }else
-      $admission->demandeHospitalisation->update(["etat" => "hospitalisation"]);
+      $admission->demandeHospitalisation->update(["etat" =>3]);
     return redirect()->action('HospitalisationController@index');
   }
   /**
@@ -119,11 +120,10 @@ class HospitalisationController extends Controller
    */
   public function edit($id)
   {
-    $hosp = hospitalisation::find($id); 
-    $services =service::all();
-    return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+          $hosp = hospitalisation::find($id); 
+          $services =service::all();
+          return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
   }
-
   /**
    * Update the specified resource in storage.
    *

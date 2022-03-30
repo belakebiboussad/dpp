@@ -29,10 +29,11 @@ class DemandeHospitalisationController extends Controller
       }
       public function index()
       {
+
               $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           
               $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
                               $q->where('id',$employeID);
-                          })->get();                  
+                })->get();  
               return view('demandehospitalisation.index',compact('demandehospitalisations'));
       }
 
@@ -116,15 +117,14 @@ class DemandeHospitalisationController extends Controller
       {
               $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
                                              $q->where('type',$type);                           
-                                      })->where('etat','en attente')->get();                      
+                                      })->where('etat',null)->get();                      
               return view('demandehospitalisation.index',compact('demandehospitalisations'));
       }
       public function valider(Request $request)
       {
         $dem = dem_colloque::firstOrCreate($request->all());
         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-        //$demande->etat ="valide";
-        $demande->etat =5;
+        $demande->etat =5;    //$demande->etat ="valide";
         $demande->save();
         return Response::json($demande);
       }

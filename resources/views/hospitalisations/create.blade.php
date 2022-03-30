@@ -48,19 +48,7 @@
 							@foreach($adms as $key=>$adm)
 							<tr>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->full_name }}</td>
-								<td>
-									@switch(  $adm->rdvHosp->demandeHospitalisation->modeAdmission )
-		   							  @case(0)
-		     								<span class="label label-sm label-primary">Programme</span>
-		        							@break
-		        						@case(1)
-		     								<span class="label label-sm label-success">Ambulatoire</span>
-		        							@break
-		        						@case(2)
-		     								<span class="label label-sm label-warning">Urgence</span>
-		        							@break		
-								  	@endswitch
-								</td>
+								<td><span class="label label-sm label-primary">{{ $adm->rdvHosp->demandeHospitalisation->modeAdmission}}</span></td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</td>
@@ -99,19 +87,7 @@
 						@foreach($admsUrg as $key=>$adm)
 							<tr>
 								<td>{{ $adm->demandeHospitalisation->consultation->patient->full_name }}</td>
-								<td>
-									@switch( $adm->demandeHospitalisation->modeAdmission )
-		   							  @case(0)
-		     								<span class="label label-sm label-primary">Programme</span>
-		        						@break
-		        					@case(1)
-		     								<span class="label label-sm label-success">Ambulatoire</span>
-		        						@break
-		        					@case(2)
-		     								<span class="label label-sm label-warning">Urgence</span>
-		        						@break		
-								  	@endswitch
-									</td>
+								<td><span class="label label-sm label-warning">{{  $adm->demandeHospitalisation->modeAdmission }}</span></td>
 								<td>{{ $adm->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ date("Y-m-d")	}}</td>
 								<td>{{ date("Y-m-d")	}}</td>

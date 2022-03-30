@@ -62,21 +62,33 @@ $('document').ready(function(){
 						<tbody>
 						<?php $d=Date::Now().' monday next week' ?>
 						@foreach($demandes as $demande)
-	                                          @if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
+	                                          @if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 							<tr>
-								<td>{{ $demande->consultation->patient->full_name }} </td>
-								<td>{{ $demande->modeAdmission }}</td>
+								<td>{{ $demande->demandeHosp->consultation->patient->full_name }}</td>
+								<td>{{ $demande->demandeHosp->modeAdmission }}	</td>
 								<td>
-                                                                <span class="badge badge-{{ ($demande->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
-                                                                         {{ $demande->DemeandeColloque->ordre_priorite }}</span>
+									@switch($demande->ordre_priorite)
+										 @case(1)
+ 											<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
+    									@break
+										@case(2)
+   											<span class="label label-sm label-warning">{{ $demande->ordre_priorite }}</span>
+    										@break
+										@case(3)
+											<span class="label label-sm label-danger">{{ $demande->ordre_priorite }}</span>
+											@break
+    								@default
+  										<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
+  										@break
+									@endswitch
 								</td>
-								<th>{{ $demande->DemeandeColloque->medecin->full_name }}</th>
-								<td class="hidden-xs">{{ $demande->DemeandeColloque->observation }}</td>
-								<td>{{ $demande->consultation->date }}</td>
-								<td>{{ $demande->Specialite->nom }}</td>
+								<th>{{ $demande->medecin->full_name }}</th>
+								<td class="hidden-xs">{{ $demande->observation }}</td>
+								<td>{{ $demande->demandeHosp->consultation->date }}</td>
+								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="center">
 									<div class="btn-group">
-										<button class="btn btn-sm btn-success addRdvh"  title="Affecter un Rendez-Vous" value="{{ $demande->id }}">
+										<button class="btn btn-sm btn-success addRdvh"  title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
 											<i class="fa fa-clock-o" aria-hidden="true"></i>
 										</button>
 									</div>
@@ -115,13 +127,27 @@ $('document').ready(function(){
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
-								<td><span class="label label-sm label-warning">Urgence</span></td>
+								<td>
+									@switch($demande->modeAdmission)
+			   							  @case(0)
+			     								<span class="label label-sm label-primary">Programme</span>
+			        							@break
+			        						@case(1)
+			     								<span class="label label-sm label-success">Ambulatoire</span>
+			        							@break
+			        						@case(2)
+			     								<span class="label label-sm label-warning">Urgence</span>
+			        							@break		
+									 @endswitch
+								</td>
 								<td>{{ $demande->consultation->date }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="center">
-									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'><i class="fa fa-bed fa-1x" aria-hidden="true"></i>
+									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
+										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 									</button>
-{{-- <a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-120"></i>
-									</a> --}}
+									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									</a>
 								</td>
 							</tr>
 							@endforeach

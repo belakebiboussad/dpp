@@ -11,12 +11,11 @@ class DemandeHospitalisation extends Model
   public const STATES = [
     ''=> 'en Cours',
     0 => 'Annule',
-    5 => 'Valide',
     1 => 'Programme',
     2 => 'Admise',
     3 => 'Hospitalisation',
     4 => 'en Attente',
-    5 => 'Valdie'
+    5 => 'Valide'
   ];
   protected $table = "demandehospitalisations";
   public $timestamps = false;

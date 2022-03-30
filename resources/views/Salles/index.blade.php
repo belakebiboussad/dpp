@@ -80,8 +80,7 @@ function getServiceRoom($id)
 							<a href="{{ route('salle.edit', $salle->id) }}" class="btn btn-xs btn-info smalltext">
 								<i class="ace-icon fa fa-pencil fa-xs"></i>
 							</a>
-							<a href="/lit/create/{{ $salle->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter un lit">
-									<i class="ace-icon fa fa-plus fa-xs"></i>
+							<a href="/lit/create/{{ $salle->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter un lit"><i class="ace-icon fa fa-plus fa-xs"></i>	
 							</a>
 							<a href="{{ route('salle.destroy', $salle->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?"class="btn btn-xs btn-danger smalltext" >
 								<i class="ace-icon fa fa-trash-o fa-xs"></i>

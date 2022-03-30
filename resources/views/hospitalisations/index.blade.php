@@ -271,18 +271,8 @@
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
                       <td>{{ $hosp->patient->full_name }}</td>
-                    <td class="priority-4">
-                      @switch($hosp->admission->demandeHospitalisation->modeAdmission)
-                          @case(0)
-                          <span class="label label-sm label-primary">Programme</span>
-                          @break
-                        @case(1)
-                          <span class="label label-sm label-success">Ambulatoire</span>
-                          @break
-                        @case(2)
-                          <span class="label label-sm label-warning">Urgence</span>
-                          @break    
-                      @endswitch
+                      <td class="priority-4">
+                      <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
                     </td>
                     <td>{{  $hosp->Date_entree}}</td>
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>

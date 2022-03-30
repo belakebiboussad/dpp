@@ -37,17 +37,7 @@
           <li class="list-inline-item" style="width:300px;">
              <i class="ace-icon fa fa-caret-right blue"></i>
             <strong>Mode d'admission:</strong>&nbsp;&nbsp;
-              @switch($hosp->admission->demandeHospitalisation->modeAdmission)
-                @case(0)
-                  <span class="label label-sm label-primary">Programme</span>
-                  @break
-                @case(1)
-                  <span class="label label-sm label-success">Ambulatoire</span>
-                  @break
-                @case(2)
-                  <span class="label label-sm label-warning">Urgence</span>
-                  @break    
-              @endswitch
+               <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
             </li>
             <li class="list-inline-item" style="width:300px;">
               <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;

@@ -66,7 +66,7 @@
                                     for(var i=0; i<result.length; i++){
                                              var disabled = 'disabled'; 
                                              bedAffect = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>"
-                                              if(result[i]['bed_affectation'] != null)
+                                             if(result[i]['bed_affectation'] != null )
                                              {
                                                    bedAffect ='<td>'+result[i]['bed_affectation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_affectation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_affectation']['lit'].nom+'</td>'; 
                                                    disabled='';
@@ -82,7 +82,7 @@
                                                           + mode +'</td>'+bedAffect+'<td class="center">'+ form +'</td></tr>'; 
                                             }
                                             $('#rdvs').html(rows); 
-                                      } // if
+                             }
         } // success
       }) //ajax
     }
@@ -154,24 +154,14 @@
                                           </td>
                                           <td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
                                           <td><span class ="text-danger"><strong>{{ $rdv->date }}</strong></span></td>
-                                          <td>
-                                              @foreach(config('settings.ModeAdmissions') as $key=>$value)
-                                                @if($value == $rdv->demandeHospitalisation->modeAdmission)
-                                                  <span class="badge badge-success">
-                                                  {{ $key}}
-                                                  </span>
-                                                @endif
-                                              @endforeach
-                                          </td>
+                                          <td><span class="badge badge-primary">{{ $rdv->demandeHospitalisation->modeAdmission  }}</td>
                                           @if($rdv->demandeHospitalisation->bedAffectation)
                                             <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
                                             <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
                                             <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->nom}}</td>
                                           @else
-                                            <td><strong>/</strong></td>
-                                            <td><strong>/</strong></td>
-                                            <td><strong>/</strong></td>
-                                          @endif
+                                            <td></td> <td></td> <td></td>
+                                             @endif
                                           <td class="center">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i>&nbsp;Confirmer</button>
                                             @include('admission.modalForm.confirmEntreeProg')
@@ -184,15 +174,7 @@
                                                     <td>{{ $demande->consultation->patient->full_name }}</td>
                                                     <td>{{ $demande->Service->nom }}</td>
                                                     <td><span class ="text-danger"><strong>{{ $demande->consultation->date }}</strong></span></td>
-                                                    <td>
-                                                     <span class="badge badge-danger">
-                                                      @foreach(config('settings.ModeAdmissions') as $key=>$value)
-                                                        @if($value == $demande->modeAdmission)
-                                                          {{ $key}}
-                                                        @endif
-                                                      @endforeach
-                                                    </span>
-                                                    </td>
+                                                    <td><span class="badge badge-danger">{{ $demande->modeAdmission}}</span></td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>

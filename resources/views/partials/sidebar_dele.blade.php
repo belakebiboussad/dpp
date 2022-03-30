@@ -22,10 +22,7 @@
   </li>
   <ul class="nav nav-list">
     <li class="">
-        <a href="/home_dele">
-                <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span>
-        </a>
-
+        <a href="/home_dele"><i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
     </li>
     <li class="">
@@ -37,10 +34,7 @@
           <b class="arrow"></b>
           <ul class="submenu">
                 <li class="">
-                    <a href="/listecolloques/0">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Colloques médicaux
-                    </a>
+                    <a href="/listecolloques/0"><i class="menu-icon fa fa-eye pink"></i>Colloques médicaux </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
@@ -55,8 +49,7 @@
     <li class="">
         <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-user-md"></i>
-            <span class="menu-text">Colloques cloturé</span>
-            <b class="arrow fa fa-angle-down"></b>
+            <span class="menu-text">Colloques cloturé</span><b class="arrow fa fa-angle-down"></b>
         </a>
         <b class="arrow"></b>
         <ul class="submenu">
@@ -77,15 +70,14 @@
         </a>
            <b class="arrow"></b>
         <ul class="submenu">
-           @php $x = 0 @endphp
-          <li class="">             
-              <a href="/demandehosp/listedemandes/{{ $x }}">                 
+          <li >             
+              <a href="/demandehosp/listedemandes/0">
                    <i class="menu-icon fa fa-eye pink"></i>Demandes médicales
               </a>
               <b class="arrow"></b>
           </li>
           <li class="">
-              <a href="/demandehosp/listedemandes/{{ ++$x }}">
+              <a href="/demandehosp/listedemandes/1">
                   <i class="menu-icon fa fa-eye pink"></i>Demandes chirurgicales
               </a>
               <b class="arrow"></b>

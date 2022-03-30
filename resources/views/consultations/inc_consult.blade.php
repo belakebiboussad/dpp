@@ -59,7 +59,7 @@ $('document').ready(function(){
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation {{ $consultation->id }} :</strong><span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>{{ $consultation->motif }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
     </span></li>
@@ -307,7 +307,7 @@ $('document').ready(function(){
                   <a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
                     <i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
                   </a>
-                  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
+                  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
                 </td>
               </tr>
               <tr class="collapse out budgets collapsed">

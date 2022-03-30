@@ -62,15 +62,11 @@
     </div>
      <div class="col-sm-4 profile-info-row">
       <div class="profile-info-name col-sm-6">Mode admission:</div><div class="profile-info-value col-sm-6">
-        @foreach(config('settings.ModeAdmissions') as $key=>$value)
-          @if($value == $hosp->admission->demandeHospitalisation->modeAdmission)
-            <span class="badge badge-success">{{ $key}}</span>
-          @endif
-        @endforeach 
+             <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
       </div>
     </div>  
   </div>
-  @if($hosp->admission->demandeHospitalisation->modeAdmission != "2")
+  @if($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) != 2)
   <div class="row">
     <div class="col-sm-4 profile-info-row">
       <div class="profile-info-name col-sm-6">Médecin Traitant :</div>

@@ -23,33 +23,14 @@
 					@foreach( $demandehospitalisations as $demande)
 						<tr>
 							<td>{{ $demande->consultation->patient->full_name }}</td>
-							<td>
-								<span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
+							<td><span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
 							</td>
 							<td>{{ $demande->consultation->date }}</td>
-							<td>{{ $demande->modeAdmission }}</td>
+							<td><span class="badge badge-{{($demande->getModeAdmissionID($demande->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $demande->modeAdmission }}</span></td>
 							<td>{{ $demande->Specialite->nom }}</td>
 							<td>{{ $demande->Service->nom }}</td>
 							<td>{{ $demande->consultation->motif }}</td>
-							<td>
-              @switch($demande->etat)
-    							@case("en Cours")
-        				  @case("programme")
-                		<span class="label label-sm label-primary">
-        						@break
-         					@case("valide")
-          					<span class="label label-sm label-info">
-         						@break	
-                 	@case("annule")
-        						<span class="label label-sm label-danger">
-        						@break
-        					@case("admise")
-                  @case("Hospitalisation")   		
-        					  <span class="label label-sm label-success">
-        						@break	
-							@endswitch	
-							{{ $demande->etat }}</span>
-							</td>
+							<td><span class="label label-sm label-success">{{ $demande->etat}}</span></td>
 							<td class="center">
 								<a href="{{route('demandehosp.show', $demande->id)}}" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 									<i class="ace-icon fa fa-hand-o-up bigger-120" aria-hidden="true"></i>
