@@ -26,7 +26,7 @@
 							<td>{{ $hosp->Date_Prevu_Sortie }}</td>
 							<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
 							<td><span class="badge badge-danger">
-							@if(!(isset($hosp->etat_hosp)))
+							@if(!(isset($hosp->etat)))
 								En Cours
 							@else
 								 Cloturé 

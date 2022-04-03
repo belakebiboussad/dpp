@@ -6,8 +6,7 @@
 		{{ csrf_field() }}
 		 <input type="hidden" name="id_admission" id="id_admission" value="{{ $adm->id }}" >
 		<div class="widget-body">
-			<div class="widget-main no-padding">
-				<div class="space-12"></div>
+			<div class="widget-main no-padding"><div class="space-12"></div>
 				<div class="row">
 					<div class="form-group">		
 						<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
@@ -63,9 +62,7 @@
 						@if($adm->demandeHospitalisation->modeAdmission =="Urgence")
 						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" value="<?= date("Y-m-j") ?>"  autocomplete="off"/> 
 						@else
-						{{-- <input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/> --}}
 						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $to }}" onchange="updateDureePrevue()"  autocomplete="off"/>
-						
 						@endif
 						</div>
 					</div>
@@ -181,5 +178,5 @@
       			addDays();
     	});
     	
-	});	// $(function() {	$( "#sendBtn" ).click(function() { 		$("#Date_entree").prop("disabled", false);});}); 
+	});
 </script>

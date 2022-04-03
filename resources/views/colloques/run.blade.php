@@ -8,7 +8,7 @@
 		  });
 	});
 	function valideDemande(elm,line,id){
-		var  select = $("#" + line).find("select");//row = $(".bodyClass").find('tr').eq(line);
+		var  select = $("#" + line).find("select");
 		if (select.val() == null) {
 			if (!$(".red")[0]){
 	    	              select.after('<div class="red">Sélectionner un Medecin</div>'); 
@@ -87,20 +87,7 @@
 		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
 		  				<td>{{ $demande->Specialite->nom }}</td>
 		  				<td>{{$demande->consultation->date }}</td>
-						  <td>
-              	@switch( $demande->modeAdmission )
-   							  @case(0)
-     								<span class="label label-sm label-primary">
-        						@break
-        					@case(1)
-     								<span class="label label-sm label-success">
-        						@break
-        					@case(2)
-     								<span class="label label-sm label-warning">
-        						@break		
-						  	@endswitch
-                   {{ $demande->modeAdmission }}</span>
-						  </td>
+						  <td>{{ $demande->modeAdmission }}</span></td>
 							<td>
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 									<option value="0" selected disabled>Selectionnez... </option>

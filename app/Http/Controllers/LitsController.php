@@ -37,8 +37,8 @@ class LitsController extends Controller
      */
     public function createlit()
     {
-        $services = service::all();
-        return view('lits.create_lit_2', compact('services'));
+      $services = service::all();
+      return view('lits.create_lit_2', compact('services'));
     }
 
     public function create($id_salle = null)
@@ -131,43 +131,39 @@ class LitsController extends Controller
     //affeter lit pour demande d'urgence
       public function affecterLit(Request $request )
       {
-              $demande= DemandeHospitalisation::find($request->demande_id); 
-               $lit = lit::FindOrFail( $request->lit_id);
-               if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-               {
-                      $rdv = $demande->RDVs->where('etat', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
-                      $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
-               }else {
-                              $now = $today = Carbon::now()->toDateString();
-                              $newDateTime = Carbon::now()->addDay(3)->toDateString();
-                              $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
-                                $demande->update([ 'etat' => 1 ]);   
-              }
-               if(!$free)
-                       $lit->bedReservation()->delete(); 
-               $affect = bedAffectation::create($request->all());
-               $lit->update([ "affectation" =>1 ]);
-               if($request->ajax())  
-                    return Response::json($affect);
-  /*if($lit->has('bedReservation')){if($demande->modeAdmission !="2" ){$free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
-if(!$free) $lit->bedReservation()->delete(); }else {$now = $today = Carbon::now()->toDateString();$newDateTime = Carbon::now()->addDay(3)->toDateString();
-$free = $lit->isFree(strtotime($now),strtotime( $newDateTime));if(!$free)$lit->bedReservation()->delete(); $demande->update([
-'etat' => '0' ]); }} $affect = bedAffectation::create($request->all()); $lit->update([   "affectation" =>1, ]); if($request->ajax())return Response::json($affect);  */
+          $demande= DemandeHospitalisation::find($request->demande_id); 
+           $lit = lit::FindOrFail( $request->lit_id);
+           if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
+           {
+                  $rdv = $demande->RDVs->where('etat', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
+                  $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
+           }else {
+                          $now = $today = Carbon::now()->toDateString();
+                          $newDateTime = Carbon::now()->addDay(3)->toDateString();
+                          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+                          $demande->update([ 'etat' => 1 ]);   
+          }
+           if(!$free)
+                   $lit->bedReservation()->delete(); 
+           $affect = bedAffectation::create($request->all());
+           $lit->update([ "affectation" =>1 ]);
+           if($request->ajax())  
+                return Response::json($affect);
        }
         public function affecter()
         {
-               $now = date("Y-m-d", strtotime('now'));
-               $services = service::where('type','<>',2)->where('hebergement','1')->get();
-               $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
-                                                                   ->whereHas('demandeHospitalisation',function ($q){
-                                                                         $q->where('service',Auth::user()->employ->service)
-                                                                           ->where('etat',1);    
-                                                                  })->where('date','>=',$now)->get();
-                $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
-                                          ->whereHas('consultation',function($q) use($now){
-                                               $q->where('date', $now);
-                                          })->where('modeAdmission',2)->where('etat',null)->where('service',Auth::user()->employ->service)->get(); 
-               return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
+          $now = date("Y-m-d", strtotime('now'));
+          $services = service::where('type','<>',2)->where('hebergement','1')->get();
+          $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
+                                                               ->whereHas('demandeHospitalisation',function ($q){
+                                                                     $q->where('service',Auth::user()->employ->service)
+                                                                       ->where('etat',1);    
+                                                              })->where('date','>=',$now)->get();
+          $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
+                                      ->whereHas('consultation',function($q) use($now){
+                                           $q->where('date', $now);
+                                      })->where('modeAdmission',2)->where('etat',null)->where('service',Auth::user()->employ->service)->get(); 
+           return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }
   /**
   **function ajax return lits ,on retourne pas les lits bloque ou reservé

@@ -96,7 +96,6 @@ class HomeController extends Controller
 
             case 14://chef de service
                 return view('patient.index');
-
             default:
                return view('errors.500');
                break;

@@ -182,9 +182,10 @@ Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download'
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
+Route::get('/soins/index/{id}','SoinsController@index');
 Route::get('/404', function () {
     return view('errors.404');
-});/*route::get('/download/{filename}', function($filename){return Storage::download($filename);});*/
+});
 route::post('/storeconstantes','HospitalisationController@storeconstantes');
 route::get('/getpoids/{id}', 'HospitalisationController@get_poids');
 route::get('/getdayspoids/{id}', 'HospitalisationController@get_days_poids');

@@ -129,16 +129,17 @@ class AdmissionController extends Controller
         else   
           return redirect()->action('HospitalisationController@create');
    } 
-   public function sortir()
-   {
-        $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
-                                                                      $q->where('etat',null);
-                                                        })->where('etat_hosp','1')->where('Date_Sortie' , date('Y-m-d'))->get();
-        $etatsortie = Etatsortie::where('type','2')->get();
-        return view('admission.sorties', compact('hospitalistions','etatsortie')); 
-   }
-     public function updateAdm(Request $request, $id)
-     {
+    public function sortir()
+    {
+      $hospitalistions = hospitalisation::with('admission.demandeHospitalisation')->whereHas('admission', function ($q) {
+                                            $q->where('etat',null);
+                                        })->where('etat','1')->where('Date_Sortie' , date('Y-m-d'))->get();
+      //dd($hospitalistions);
+      $etatsortie = Etatsortie::where('type','2')->get();//etets de sortie por hospital
+      return view('admission.sorties', compact('hospitalistions','etatsortie')); 
+    }
+    public function updateAdm(Request $request, $id)
+    {
            if($request->ajax())  
           {
                 $adm =  admission::find($id);
@@ -157,7 +158,7 @@ class AdmissionController extends Controller
             else
               $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                 ->whereHas('hospitalisation',function($q){
-                                   $q->where('etat_hosp','=',"1");
+                                   $q->where('etat','=',"1");
                                 })->where('etat','=',null)->get();
           else
           {

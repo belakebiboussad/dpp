@@ -65,18 +65,17 @@ class ColloqueController extends Controller
      */
       public function store(Request $request)
       {  
-             $colloque=colloque::create([
-                                    "date"=>$request->date_colloque,
-                                    "etat"=>"en cours",
-                                    "date_creation"=>Date::Now(),
-                                    "type"=>$request->type_colloque,              
-               ]); 
-               $type = $colloque->type;
-              foreach ($request->membres as $medecin) {
-                     $colloque->employs()->attach($medecin);
-              }
-              // return redirect()->action('ColloqueController@show',$colloque->id);//
-              return redirect()->action('ColloqueController@index', 'type');//
+        $colloque=colloque::create([
+                              "date"=>$request->date_colloque,
+                              "etat"=>"en cours",
+                              "date_creation"=>Date::Now(),
+                              "type"=>$request->type_colloque,              
+        ]); 
+         $type = $colloque->type;
+        foreach ($request->membres as $medecin) {
+               $colloque->employs()->attach($medecin);
+        }// return redirect()->action('ColloqueController@show',$colloque->id);//
+        return redirect()->action('ColloqueController@index', 'type');//
     }
 //  public function show($id_colloque){ }
   /**
@@ -135,15 +134,15 @@ class ColloqueController extends Controller
       }
     public function run($id)
     {  
-        $colloque=colloque::find($id);
-        $type = $colloque->type;
-        $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
-                              $q->where('type',$type);
-                      })->where('etat',null)->where('modeAdmission','<>','2')->get();
-        $medecins = employ::whereHas('User', function($q){
-          $q->whereIn('role_id', [1,13,14]);
-        })->orderBy('nom')->get();
-        return view('colloques.run', compact('demandes','medecins','colloque'));
+      $colloque=colloque::find($id);
+      $type = $colloque->type;
+      $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
+                            $q->where('type',$type);
+                    })->where('etat',null)->where('modeAdmission','<>','2')->get();
+      $medecins = employ::whereHas('User', function($q){
+        $q->whereIn('role_id', [1,13,14]);
+      })->orderBy('nom')->get();
+      return view('colloques.run', compact('demandes','medecins','colloque'));
     }
     public function save(Request $request ,$id)
     {

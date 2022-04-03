@@ -24,16 +24,16 @@ class RdvHospiController extends Controller
       }
   public function index()
   {
-      $now = date("Y-m-d", strtotime('now'));    
-      $services = service::where('type','<>',2)->where('hebergement','1')->get();
-      /*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
-                                                                  $q->where('id', Auth::user()->employ->service);    })->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/   
-        $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service)->get();
-        $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
-                                          ->whereHas('consultation',function($q) use($now){
-                                               $q->where('date', $now);
-                                          })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service)->get(); //'en attente'
-       return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
+    $now = date("Y-m-d", strtotime('now'));    
+    $services = service::where('type','<>',2)->where('hebergement','1')->get();
+    /*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
+                                                                $q->where('id', Auth::user()->employ->service);    })->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/   
+    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service)->get();
+    $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
+                                        ->whereHas('consultation',function($q) use($now){
+                                             $q->where('date', $now);
+                                        })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service)->get(); //'en attente'
+     return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
   public function create($id)
   {

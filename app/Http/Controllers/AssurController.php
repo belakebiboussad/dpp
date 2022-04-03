@@ -96,11 +96,6 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    
-      public function edit($id)
-      {
-      
-      }
     /**
      * Update the specified resource in storage.
      *

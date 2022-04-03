@@ -219,27 +219,7 @@
 		}
 	});
   });
-	$("#deleteViste").click(function(e){
-		e.preventDefault();
-		var id = $(this).data("id");
-		var token = $(this).data("token");
-		var url = e.target;
-		$.ajax(
-		{
-			url: url.href,
-			type: 'GET',//dataType: "JSON",
-			data: {
-				"id": id,
-				"_token": token,
-			},
-			success: function (response)
-			{
-				var loc = window.location;
-			  window.location.replace('/hospitalisation');  
-			}
-		});
-		return false;
-		});//////////Traitement
+	//////////Traitement
 		$('body').on('change', '#specialiteProd', function () {
 		  if($(this).val() != "0" )
 			{
@@ -408,7 +388,7 @@
 								<div class="col-xs-3">
 								  <div class="checkbox">
                     <label>
-                      @if(isset($lastViste))
+                      @if( null !== $lastViste)
                       <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastViste->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
 											@else
                       <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
@@ -421,7 +401,11 @@
                 @endif
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>
-										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">{{ $lastViste->prescreptionconstantes->observation }}</textarea>
+										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">
+                    @if( null !== $lastViste)
+                      {{ $lastViste->prescreptionconstantes->observation }}
+                    @endif
+                  </textarea>
 									</div>
 								</div>                           
 							</div>
@@ -434,8 +418,8 @@
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<a href="{{ route('visites.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
-				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+		      <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+              <i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
       </div>
 		</div>	
 	</form>

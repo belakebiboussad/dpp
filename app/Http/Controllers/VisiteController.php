@@ -106,8 +106,7 @@ class VisiteController extends Controller
         foreach (json_decode ($request->ExamsImg) as $key => $value) {       
            $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
         }
-      }
-      // si(observ change et constante change) on crée une prescription
+      }// si(observ change et constante change) on crée une prescription
       if(ArrayClass::diffRecursive($visite->hospitalisation->getlastVisite()->prescreptionconstantes->ConstIds->toArray(),$request->consts) ||( $visite->hospitalisation->getlastVisite()->prescreptionconstantes->observation != $request->observation))
       {
         $prescription_constantes = prescription_constantes::FirstOrCreate([
@@ -115,30 +114,19 @@ class VisiteController extends Controller
           "observation" => $request->observation
         ]);
         if($request->consts != null)
-        {
           $prescription_constantes->constantes()->attach($request->consts);
-        }
       }
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
     {
-            $hosp = hospitalisation::find($id);
-            return view('visite.edit',compact('hosp'));  
+      $hosp = hospitalisation::find($id);
+      return view('visite.edit',compact('hosp'));  
     }
     public function destroy($id)
     {
-            $visite = visite::find($id);
-            try {
-                $obj = $visite->delete();
-            } catch (Exception $e) {
-              report($e);
-              return false;
-            }
-            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-            return response()->json([
-               'message' =>$obj
-            ]);   
+      $visite = visite::destroy($id);
+      return redirect()->action('VisiteController@index');
     }
     public function show($id)
     {

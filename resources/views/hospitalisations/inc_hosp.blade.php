@@ -8,13 +8,13 @@
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Specialité :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'hospitalisation:</strong> {{ $hosp->modeHospi->nom }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
-		 	@if($hosp->etat_hosp == "1" )
+		 	@if($hosp->etat == "1" )
 		 		<span class="badge badge-pill badge-succes">Cloturé</span>
 		 	@else
 		 		<span class="badge badge-pill badge-warning">En Cours</span>
 		 	@endif
 		 </li>
-		@if($hosp->etat_hosp == "1" )
+		@if($hosp->etat == "1" )
 			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé de sortie :</strong> {{ $hosp->resumeSortie }}</li>	
 			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat a la sortie :</strong> {{ $hosp->etatSortie }}</li>	
 			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de sortie :</strong>

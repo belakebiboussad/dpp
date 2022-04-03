@@ -155,23 +155,28 @@
 	  				@foreach($hospitalistions as $hosp)
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->full_name }}</td>
-							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</td>
-							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date }}</strong></span></td>
-							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
+							<td>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</td>
+							<td><span class ="text-danger"><strong>{{ $hosp->admission->date }}</strong></span></td>
+							<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
 							<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
-							<td><span class="badge badge-info">{{ $hosp->modeSortie }}</span></td>
-						 	@if($hosp->admission->rdvHosp->demandeHospitalisation->bedAffectation)
-						 	<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
-						 	<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->bedAffectation->lit->salle->nom }}</td>
-						 	<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->bedAffectation->lit->nom }}</td>
+							<td><span class="badge badge-info">
+                @if(isset($hosp->modeSortie))
+                  {{ $hosp->modeSortie }}
+                @else
+                  Domicile
+                @endif
+                </span>
+              </td>
+						 	@if($hosp->admission->demandeHospitalisation->bedAffectation)
+						 	<td>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
+						 	<td>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</td>
+						 	<td>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</td>
 						 	@else
-							<td><strong>/</strong></td>
-							<td><strong>/</strong></td>
-							<td><strong>/</strong></td>
+							<td>/td><td></td><td></td>
 							@endif
 							<td class="center">
 								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie">
-								<i class="fa fa-sign-out" aria-hidden="false"></i>s</button>
+								<i class="fa fa-sign-out" aria-hidden="false"></i></button>
 							</td>
 						</tr>
 	  				@endforeach

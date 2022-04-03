@@ -8,7 +8,11 @@ class SoinsController extends Controller
 {
   function index(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->hosp_id);
+    $hosp = hospitalisation::FindOrFail($request->id);
     return view('soins.index', compact('hosp')); 
+  }
+  public function show(Request $request)
+  {
+    return redirect()->action('SoinsController@index',$request);
   } 
 }
