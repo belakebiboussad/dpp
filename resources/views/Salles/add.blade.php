@@ -12,13 +12,14 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
-					<div class="col-sm-9">
-					@if(isset($service->id))
-					<select class="col-xs-10 col-sm-5" id="service" name="service_id" readonly>
-						<option value="{{ $service->id }}">{{ $service->nom }}</option>
-					</select>
-					@else
-					<select class="col-xs-10 col-sm-5" id="service" name="service_id">
+          <div class="col-sm-9">
+          @if(isset($service->id))
+            <input type="hidden"  name="service_id" value="{{ $service->id }}">
+            <div class="col-xs-10 col-sm-5 ">
+              <span class="form-control"><strong>{{ $service->nom }}</strong></span>
+              </div>
+          @else
+          <select class="col-xs-10 col-sm-5" id="service" name="service_id">
 						<option value="">Selectionnez....</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -56,7 +57,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> N° d'étage : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" name="etage" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
+						<input type="number" name="etage" placeholder="N° d'etage" class="col-xs-10 col-sm-5" min="0" />
 					</div>
 				</div>
 				<div class="space-12 hidden-xs"></div>

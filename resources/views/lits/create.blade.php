@@ -41,7 +41,47 @@
 			<form class="form-horizontal" role="form" method="POST" action="{{ route('lit.store') }}">
 				{{ csrf_field() }}
 				<div class="space-12"></div>	
-				<div class="form-group">
+		<!-- begin -->
+          @if(isset($salle->id))
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right"><strong>Service :</strong></label>
+              <div class="col-sm-9">
+                <div class="col-xs-10 col-sm-5 "> <span class="form-control"><strong>{{ $salle->service->nom }}</strong></span>
+               </div>
+               </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right"><strong>Salle :</strong></label>
+              <div class="col-sm-9">
+                <input type="hidden"  name="salle_id" value="{{ $salle->id }}">
+                <div class="col-xs-10 col-sm-5 ">
+                <span class="form-control"><strong>{{ $salle->nom }}</strong></span>
+              </div>
+               </div>
+            </div>
+          @else
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service:</strong></label>
+            <div class="col-sm-9">
+               <select class="col-xs-10 col-sm-5" id="service" name="service" required>
+                <option value="">Selectionnez....</option>
+                @foreach($services as $service)
+                <option value="{{ $service->id }}">{{ $service->nom }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="chambre"><strong>Chambre :</strong></label>
+            <div class="col-sm-9">
+              <select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
+                 <option value="" selected disabled>Selectionnez....</option>
+              </select>
+            </div>
+          </div>
+          @endif
+        <!-- ///end     -->
+        <div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong>Numéro lit: </strong>
 					</label>
 					<div class="col-sm-9">
@@ -53,41 +93,6 @@
 					</label>
 					<div class="col-sm-9">
 					<input type="text" id="nom" name="nom" placeholder="nom complet du lit" class="col-xs-10 col-sm-5" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service:</strong></label>
-					<div class="col-sm-9">
-					@if(!isset($id_salle)  && empty($id_salle)) 
-					<select class="col-xs-10 col-sm-5" id="service" name="service" required>
-						<option value="">Selectionnez....</option>
-						@foreach($services as $service)
-						<option value="{{ $service->id }}">{{ $service->nom }}</option>
-						@endforeach
-					</select>
-					@else
-					<select class="col-xs-10 col-sm-5" id="service" name="service" required>
-						<option value="{{ App\modeles\service::FindOrFail(  App\modeles\Salle::FindOrFail($id_salle)->service_id)->id }}">
-							{{ App\modeles\service::FindOrFail(  App\modeles\Salle::FindOrFail($id_salle)->service_id)->nom }}
-						</option>	
-					</select>
-					@endif
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="chambre"><strong>Chambre :</strong></label>
-					<div class="col-sm-9">
-					@if(!isset($id_salle)  && empty($id_salle)) 
-						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
-						<option value="" selected disabled>Selectionnez....</option>
-						</select>
-					@else
-						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
-						<option value=" {{ $id_salle }}" >
-							{{ App\modeles\Salle::FindOrFail($id_salle)->nom }}
-							</option>
-						</select>
-					@endif	
 					</div>
 				</div>
 				<div class="form-group">

@@ -27,18 +27,28 @@ class SalleController extends Controller
       $salles = salle::all();
       return view('Salles.index', compact('salles'));
     }
-
+    public function getRooms(Request $request)
+    {
+      
+      $service = service::with('salles')->where('id',$request->search)->get();
+      $view = view("services.ajax_servicerooms",compact('service'))->render();
+      return response()->json(['html'=>$view]);
+/*
+      $service = service::with('salles')->FindOrFail($request->search)->get();
+      $view = view("services.ajax_servicerooms",compact('service'))->render();
+      return response()->json(['html'=>$view]);
+      */
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function createsalle(){$services = service::all();return view('Salles.create2', compact('services'));}*/
-    public function create($id = null)
+    public function create(Request $request)
     {
-      if(isset($id))
+      if(isset($request->id))
       {
-        $service = service::FindOrFail($id);
+        $service = service::FindOrFail($request->id);
         return view('Salles.add', compact('service'));
       }else
       {
@@ -157,11 +167,5 @@ class SalleController extends Controller
           }
       }
       return($salles);
-    }
-    public function getRooms(Request $request)
-    { 
-      $lits = lit::where('salle_id',$request->search)->get();
-      $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-      return response()->json(['html'=>$view]);
     }
 }

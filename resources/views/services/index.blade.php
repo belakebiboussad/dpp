@@ -3,14 +3,20 @@
 <script type="text/javascript">
 function getServiceRoom(id)
 {
+  var formData = {
+    search :  id
+  };
 	$.ajax({
-	        type : 'get',
-	        url : '{{URL::to('serviceRooms')}}',
-	        data:{'search':$id},
-	        success:function(data,status, xhr){
-	        	 $('#serviceRooms').html(data.html);
-	        }
-      });
+        type : 'get',
+        url : '{{URL::to('serviceRooms')}}',
+        data:formData,//{'search':id},
+        success:function(data,status, xhr){
+        	// $.each(data[0],function(key,value){
+         //    alert(key + ":" + value);
+         //  })
+          $('#serviceRooms').html(data.html);
+        }
+    });
 }	
 </script>
 @endsection
@@ -64,7 +70,7 @@ function getServiceRoom(id)
 								<i class="ace-icon fa fa-pencil fa-xs"></i>
 							</a>
 							@if($service->hebergement)
-							<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter une chambre">
+             	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey smalltext" title="Ajouter une chambre">
 								<i class="ace-icon fa fa-plus fa-xs"></i>
 							</a>
 							@endif

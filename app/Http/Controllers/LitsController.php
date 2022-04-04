@@ -30,21 +30,29 @@ class LitsController extends Controller
       $lits=lit::with('salle','salle.service')->get();
       return view('lits.index', compact('lits'));
     }
+    public function getBeds(Request $request)
+    { 
+      $lits = lit::where('salle_id',$request->search)->get();
+      $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
+      return response()->json(['html'=>$view]);
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createlit()
+    //public function createlit()  $services = service::all();{ return view('lits.create_lit_2', compact('services'));}
+    public function create(Request $request)
     {
-      $services = service::all();
-      return view('lits.create_lit_2', compact('services'));
-    }
-
-    public function create($id_salle = null)
-    {
-      $services = service::where('hebergement',1)->get();//$services = service::all();
-      return view('lits.create', compact('services','id_salle'));
+      if(isset($request->id))
+      {
+         $salle = salle::FindOrFail($request->id);
+         return view('lits.create', compact('services','salle'));
+      }else
+      {
+        $services = service::where('hebergement',1)->get();
+        return view('lits.create', compact('services'));
+      }
     }
     /**
      * Store a newly created resource in storage.
@@ -55,14 +63,14 @@ class LitsController extends Controller
     public function store(Request $request)
     {
        $etat = 1;
-       if(isset($_POST['etat']) )
-             $etat = 0;  
-       $l=  lit::create([
-                "num"=>$request->numlit,
-                "nom"=>$request->nom,
-                "etat"=>$etat,
-                "affectation"=>0,
-                "salle_id"=>$request->chambre,
+        if(isset($_POST['etat']) )
+        $etat = 0;  
+        lit::create([
+          "num"=>$request->numlit,
+          "nom"=>$request->nom,
+          "etat"=>$etat,
+          "affectation"=>0,
+          "salle_id"=>$request->salle_id,
        ]);
        return redirect()->action('LitsController@index');
     }

@@ -118,10 +118,11 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-Route::get('/salle/create/{id}','SalleController@create');
-Route::get('/salleRooms', 'SalleController@getRooms');
-Route::post('/exmbio/store/{id}','ExamenbioController@store');//route::get('/examBioDel/{id}', 'ExamenbioController@examDestroy')->name('examBio.destroy');
-route::get('/createlit','LitsController@createlit');
+Route::get('/roomBeds', 'LitsController@getBeds');
+
+Route::get('/serviceRooms', 'SalleController@getRooms');
+
+Route::post('/exmbio/store/{id}','ExamenbioController@store');//route::get('/createlit','LitsController@createlit');
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
@@ -136,7 +137,7 @@ Route::any('/profile/{userId}', [
     ]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
-Route::post('AddANTCD','AntecedantsController@createATCDAjax');//Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
+Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsArray');
@@ -150,7 +151,6 @@ Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getlits','LitsController@getlits');
-Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');

@@ -10,15 +10,17 @@
 				<th>Numéro</th>
 				<th>Nom </th>
 				<th>Nombre de lits</th>
+        <th>Service</th>
 				<th>Etat</th>
 			</tr>
 		</thead>
 		<tbody >
 			@foreach ($service->salles as $key=>$salle)
 				<tr>
-					<th>{{$salle->num}}</th>
-					<th>{{$salle->nom}}</th>
-					<th>{{count($salle->lits)}}</th>
+					<td>{{$salle->num}}</td>
+					<td>{{$salle->nom}}</td>
+					<td>{{count($salle->lits)}}</td>
+          <td>{{ $service->nom }}</td>
 					<th>{{$salle->etat}}</th>
 				</tr>
 			@endforeach

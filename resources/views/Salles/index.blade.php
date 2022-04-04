@@ -1,12 +1,12 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-function getServiceRoom($id)
+function getRoomBeds(id)
 {  
 	$.ajax({
       type : 'get',
-      url : '{{URL::to('salleRooms')}}',
-      data:{'search':$id},
+      url : '{{URL::to('roomBeds')}}',
+      data:{'search':id},
       success:function(data,status, xhr){
       	 $('#salleRooms').html(data.html);
       }
@@ -51,7 +51,7 @@ function getServiceRoom($id)
 					<tbody>             
 					@foreach($salles as $salle)
 					<tr>
-						<td><a href="#" id ={{  $salle->id }} onclick="getServiceRoom({{ $salle->id }});">{{ $salle->nom }}</a></td>
+						<td><a href="#" id ={{  $salle->id }} onclick="getRoomBeds({{ $salle->id }});">{{ $salle->nom }}</a></td>
 						<td >{{ $salle->max_lit }}</td>
 						<td >{{ $salle->lits->count() }}</td>
 						<td>{{ $salle->bloc }}</td>
@@ -80,7 +80,8 @@ function getServiceRoom($id)
 							<a href="{{ route('salle.edit', $salle->id) }}" class="btn btn-xs btn-info smalltext">
 								<i class="ace-icon fa fa-pencil fa-xs"></i>
 							</a>
-							<a href="/lit/create/{{ $salle->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter un lit"><i class="ace-icon fa fa-plus fa-xs"></i>	
+              <!-- /lit/create/{{-- $salle->id --}} -->
+							<a href="{{ route('lit.create', array('id' => $salle->id) ) }}" class="btn btn-xs btn-grey smalltext" title="Ajouter un lit"><i class="ace-icon fa fa-plus fa-xs"></i>	
 							</a>
 							<a href="{{ route('salle.destroy', $salle->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?"class="btn btn-xs btn-danger smalltext" >
 								<i class="ace-icon fa fa-trash-o fa-xs"></i>

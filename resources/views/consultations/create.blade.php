@@ -132,26 +132,18 @@
 		$("#"+id).remove();
   }
   function formatConsuConsts()
-{
-      
-        if( '{!! count($constsArrray ) >0 !!}' )
-        {
-            alert("1");
-            const conts = new Array('{!! $constsArrray !!}');
-       }
-          else
-          {
-                alert("2");
-             
-          /*
-            var conts = {!! $specialite->consConst !!};
-            $.each(conts,function(key,id){
-              $.get('/const/'+id+'/edit', function (data) {
-                 $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
-              });
-            
-            });  */
-         }
+  {
+    try {// $constsArrray
+      var conts = '{!! $specialite->consConst !!}';
+      $.each(conts,function(key,id){
+          $.get('/const/'+id+'/edit', function (data) {
+             $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
+           });      
+      });
+    }
+    catch(err) {
+      windows.log("error");
+    }  
  }
 $('document').ready(function(){
       var date = new Date('{{ $patient->Dat_Naissance }}');
@@ -449,7 +441,7 @@ $('document').ready(function(){
 					}).then((result) => {
            		if(result.value)
            		{
-           			 confirmed = true;
+           			confirmed = true;
            			addExamsImg(this);
            			$("#consultForm").submit();
            		}else
@@ -550,10 +542,10 @@ $('document').ready(function(){
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 		});
 		$(".apgar").ionRangeSlider({ min:0,max:10,step:1, values:5, grid:true, grid_num:10, postfix:"", skin:"big" });
-              $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
-              $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
-               formatConsuConsts();
-	        $("#drugsPrint").click(function(){
+    $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
+    $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
+    formatConsuConsts();
+	  $("#drugsPrint").click(function(){
           	  	var pid = '{{ $patient->id }}';
           	  	var mid = '{{  Auth::User()->employ->id }}';
           	  	var keys=[], meds=[];

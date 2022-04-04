@@ -53,6 +53,7 @@ class ServiceController extends Controller
     public function show($id)
     {
       $service = service::FindOrFail($id);
+      dd($service->salles);
       return view('services.show', compact('service'));
     }
 
@@ -95,14 +96,8 @@ class ServiceController extends Controller
         $service = service::destroy($id);
         return redirect()->route('service.index');    
       }
-      public function getRooms(Request $request)
-      {
-        $service = service::with('salles')->FindOrFail($request->search);
-        $view = view("services.ajax_servicerooms",compact('service'))->render();
-        return response()->json(['html'=>$view]);
-      }
       public function getsalles($id)
-      { // $service = service::FindOrFail($id);
+      { 
         $salles = salle::where('service_id',$id)->where('etat',null)->get();
         return $salles;
       }
