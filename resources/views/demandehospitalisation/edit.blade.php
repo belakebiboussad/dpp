@@ -2,11 +2,10 @@
 @section('title',"Modifier Demande d'hospitalisation")
 @section('main-content')
 <div >
-  <?php $patient = $demande->consultation->patient; ?>
-  @include('patient._patientInfo',$patient)
+  @include('patient._patientInfo',['patient'=>$demande->consultation->patient])
 </div>
 <div class="page-header">
-  <h1 style="display: inline;">Modification de la demande d'hospitalisation</h1>
+  <h1 >Modification de la demande d'hospitalisation</h1>
   <div class="pull-right">
     <a href="{{route('demandehosp.index')}}" class="btn btn-white btn-info btn-bold">
       <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des demandes d'hospitalisation'

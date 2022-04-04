@@ -418,7 +418,7 @@
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-		      <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+		      <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" class="btn btn-sm btn-danger">
               <i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
       </div>
 		</div>	

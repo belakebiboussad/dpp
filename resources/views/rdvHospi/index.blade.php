@@ -39,8 +39,8 @@ $('document').ready(function(){
 	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations</strong></h5>
 </div>
 <div class="row">
-	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-		<div class="widget-box widget-color-blue" id="widget-box-2">
+	<div class="col-xs-12 widget-container-col">
+		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes de la semaine</h5>
 			</div>
@@ -62,7 +62,7 @@ $('document').ready(function(){
 						<tbody>
 						<?php $d=Date::Now().' monday next week' ?>
 						@foreach($demandes as $demande)
-	           {{-- @if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) --}}
+	           @if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) 
 							<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
 								<td>{{ $demande->modeAdmission }}</td>

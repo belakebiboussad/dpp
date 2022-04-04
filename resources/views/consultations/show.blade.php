@@ -1,11 +1,10 @@
 @extends('app')
 @section('main-content')
-<div class="row" width="100%">
-      <div class="col-sm-12" style="margin-top: -1%;"><?php $patient = $consultation->patient; ?> @include('patient._patientInfo', $patient)</div>
-</div>
+ <div class="container-fluid">
+<div class="row"><div class="col-sm-12"> @include('patient._patientInfo',['patient'=>$consultation->patient])</div></div>
  <div class="pull-right">
       <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
-</div>
+</div><div class="space-12"></div>
 <div class="row"><h4>Détails de la Consultation du {{ $consultation->date}} :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
@@ -220,9 +219,8 @@
                             <table class="table table-striped table-bordered table-hover">
                               <thead class="thin-border-bottom">
                                <tr>
-                                  <th class="center"><strong>#</strong></th>
-                                  <th class="center"><strong>Date</strong></th>
-                                  <th class="center"><em class="fa fa-cog"></em></th>
+                                     <th class="center"><strong>#</strong></th> <th class="center"><strong>Date</strong></th>
+                                     <th class="center"><em class="fa fa-cog"></em></th>
                                </tr>
                                </thead>
                                <tbody>
@@ -246,4 +244,5 @@
           @endif
      </div> {{-- tab-content  --}}
 </div>{{-- tabbable --}}
+</div>
 @endsection

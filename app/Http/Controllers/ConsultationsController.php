@@ -87,7 +87,8 @@ class ConsultationsController extends Controller
         $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
         $specialite = Specialite::findOrFail($employe->specialite);//,'specialitesExamBiolo'
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
+       $constsArrray = ($specialite->consConst)?json_decode($specialite->consConst):[];
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','constsArrray'));
       }
     /**
      * Store a newly created resource in storage.
@@ -107,14 +108,14 @@ class ConsultationsController extends Controller
          if($validator->fails())
                 return redirect()->back()->withErrors($validator)->withInput();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        foreach(json_decode($specialite->consConst) as $const)
-        {
-          $c = Constante::FindOrFail($const);
-          if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
-     
-            $constvalue->put($c->nom, $request->input($c->nom));
-            
-        }
+       if($specialite->consConst) {
+               foreach(json_decode($specialite->consConst) as $const)
+               {
+                    $c = Constante::FindOrFail($const);
+                    if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
+                      $constvalue->put($c->nom, $request->input($c->nom));
+               }
+       }
         $consult = consultation::create([
           "motif"=>$request->motif,
           "histoire_maladie"=>$request->histoirem,
@@ -142,25 +143,27 @@ class ConsultationsController extends Controller
           $const =Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
         } 
-        foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-         $appareil = appareil::FindOrFail($appareil);
-          if( null !== $request->input($appareil->nom))
-         {
-            if(!isset( $exam->id))
-            {
-              $input = $request->all();
-              $input['id_consultation'] = $consult->id ;
-              $exam = examen_cliniqu::create($input);
-            }  
-            $examAppareil = new examAppareil;
-            $examAppareil->appareil_id = $appareil->id;
-            $examAppareil->description = $request->input($appareil->nom); 
-            $examAppareil->examen_clinique_id =  $exam->id;
-            $exam->examsAppareil()->save($examAppareil);
-          }
-        }  
+        if($specialite->appareils) {
+                foreach (json_decode ($specialite->appareils ) as  $appareil) {   
+                 $appareil = appareil::FindOrFail($appareil);
+                  if( null !== $request->input($appareil->nom))
+                 {
+                    if(!isset( $exam->id))
+                    {
+                      $input = $request->all();
+                      $input['id_consultation'] = $consult->id ;
+                      $exam = examen_cliniqu::create($input);
+                    }  
+                    $examAppareil = new examAppareil;
+                    $examAppareil->appareil_id = $appareil->id;
+                    $examAppareil->description = $request->input($appareil->nom); 
+                    $examAppareil->examen_clinique_id =  $exam->id;
+                    $exam->examsAppareil()->save($examAppareil);
+                  }
+                }  
+         }
         if(($request->motifOr != "") ||(isset($request->specOr))){
-          $this->LettreOrientationCTRL->store($request,$consult->id);
+                $this->LettreOrientationCTRL->store($request,$consult->id);
         }
         if($request->liste != null)//save Ordonnance
         {

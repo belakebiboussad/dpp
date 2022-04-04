@@ -90,18 +90,8 @@
             },
             { data: "admission.demande_hospitalisation.modeAdmission", 
               render: function ( data, type, row ) {
-                switch(row.admission.demande_hospitalisation.modeAdmission)
-                {
-                  case 0:
-                    return '<span class="badge badge-pill badge-primary">Programme</span>';
-                    break;
-                  case 1:
-                    return '<span class="badge badge-pill badge-primary">Ambulatoire</span>';
-                    break;
-                  case 2:
-                    return '<span class="badge badge-pill badge-primary">Urgence</span>';
-                    break;
-                }
+                   var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
+                     return '<span class="badge badge-pill badge-'+color+'">Urgence</span>';
                },
               title:"Mode Admission","orderable": false 
             },//2

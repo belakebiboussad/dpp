@@ -67,17 +67,17 @@
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label class="control-label col-sm-3 col-xs-3" for="mobile"><strong>Tél Mob.:</strong></label>
-							<input type="tel" name="mobile" class ="mobile col-sm-9 col-xs-9" required/>
+							<label class="control-label col-sm-4 col-xs-4 for="mobile"><strong>Tél Mob.:</strong></label>
+							<input type="tel" name="mobile" class ="mobile col-sm-8 col-xs-8" required/>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('fixe') ? "has-error" : "" }}">
-						<label class="control-label col-sm-3 col-xs-3" for="fixe"><strong>Tél Fixe :</strong></label>
-						<input type="tel" class="telfixe col-sm-9 col-xs-9" name="fixe"></div>
+						<label class="control-label col-sm-4 col-xs-4" for="fixe"><strong>Tél Fixe :</strong></label>
+						<input type="tel" class="telfixe col-sm-8 col-xs-8" name="fixe"></div>
 					</div>
 				</div>
-				<h4 class="header blue bolder smaller">Fonction</h4>	<div class="space-12 hidden-xs"></div>
+				<h4 class="header blue bolder smaller">Fonction</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mat') ? "has-error" : "" }}">
