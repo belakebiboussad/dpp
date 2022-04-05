@@ -133,17 +133,25 @@
   }
   function formatConsuConsts()
   {
-    try {// $constsArrray
-      var conts = '{!! $specialite->consConst !!}';
-      $.each(conts,function(key,id){
-          $.get('/const/'+id+'/edit', function (data) {
-             $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
-           });      
-      });
-    }
+
+    /*  try {// $constsArrray
+      }
     catch(err) {
-      windows.log("error");
-    }  
+      console.log("error");
+    }*/  
+    var conts = '{!! $specialite->consConst !!}';
+    const obj = JSON.parse(conts);
+     $.each(conts,function(key,id){
+        alert(key + ":" + value);
+     });
+    /*
+    $.each(conts,function(key,id){
+        $.get('/const/'+id+'/edit', function (data) {
+           alert(data.nom);
+           $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
+         });      
+    });
+    */
  }
 $('document').ready(function(){
       var date = new Date('{{ $patient->Dat_Naissance }}');
@@ -288,7 +296,7 @@ $('document').ready(function(){
 			jQuery('#antecedantPhysioModal').modal('show');
 		});
 	});
-	$("#EnregistrerAntecedant").click(function (e) {//save
+	$("#EnregistrerAntecedant").click(function (e) {
 		e.preventDefault();
 		if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
 		{
@@ -657,7 +665,8 @@ $('document').ready(function(){
 	</div>	
 </div>
 <div class="row">@include('consultations.ModalFoms.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
-<div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
+<div class="row">@include('antecedents.AntecedantModal')</div>
+<div class="row">@include('antecedents.AntecedantModalPhysio')</div>
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
 <div class="row">@include('rdv.rendezVous')</div>

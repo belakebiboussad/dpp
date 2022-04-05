@@ -5,8 +5,7 @@ namespace App\modeles;
 use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
-      //head
-	public $timestamps = false;
+  public $timestamps = false;
 	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils'];
         public function setConsConstAttribute($value)
         {
@@ -28,11 +27,7 @@ class Specialite extends Model
        public function setAntecTypesAttribute($value)
        {
                $this->attributes['antecTypes'] = json_encode($value);
-       }
-       /*public function getAppareilsAttribute($value)
-        {
-               return $this->attributes['appareils'] = json_decode($value,true);
-       }*/
+       }/*public function getAppareilsAttribute($value){return $this->attributes['appareils'] = json_decode($value,true);}*/
        public function setAppareilsAttribute($value)
        {
             $this->attributes['appareils'] = json_encode($value);

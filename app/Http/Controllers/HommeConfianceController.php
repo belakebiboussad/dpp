@@ -28,7 +28,7 @@ class HommeConfianceController extends Controller
   {
     if($request->ajax())  
     {
-      $homme = homme_conf::find($id);  // $homme = homme_conf::FindOrFail($id);
+      $homme = homme_conf::find($id);
       return Response::json($homme);
     }
   }

@@ -22,22 +22,18 @@ class SalleController extends Controller
       {
           $this->middleware('auth');
       }
-    public function index()
+    public function index(Request $request)
     {
-      $salles = salle::all();
-      return view('Salles.index', compact('salles'));
-    }
-    public function getRooms(Request $request)
-    {
-      
-      $service = service::with('salles')->where('id',$request->search)->get();
-      $view = view("services.ajax_servicerooms",compact('service'))->render();
-      return response()->json(['html'=>$view]);
-/*
-      $service = service::with('salles')->FindOrFail($request->search)->get();
-      $view = view("services.ajax_servicerooms",compact('service'))->render();
-      return response()->json(['html'=>$view]);
-      */
+      if($request->ajax())  
+      {
+        $salles = salle::whereserviceId($request->id)->get();
+        $view = view("services.ajax_servicerooms",compact('salles'))->render();
+        return Response::json(['html'=>$view]);
+      }else
+      {
+        $salles = salle::all();
+        return view('Salles.index', compact('salles'));
+      } 
     }
     /**
      * Show the form for creating a new resource.

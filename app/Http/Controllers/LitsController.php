@@ -25,16 +25,18 @@ class LitsController extends Controller
       {
           $this->middleware('auth');
       }
-    public function index()
+    public function index(Request $request)
     {
-      $lits=lit::with('salle','salle.service')->get();
-      return view('lits.index', compact('lits'));
-    }
-    public function getBeds(Request $request)
-    { 
-      $lits = lit::where('salle_id',$request->search)->get();
-      $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-      return response()->json(['html'=>$view]);
+      if($request->ajax())  
+      {
+        $lits = lit::where('salle_id',$request->id)->get();
+        $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
+        return response()->json(['html'=>$view]);
+      }else
+      {
+        $lits=lit::with('salle','salle.service')->get();
+        return view('lits.index', compact('lits'));
+      }
     }
     /**
      * Show the form for creating a new resource.

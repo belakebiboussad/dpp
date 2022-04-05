@@ -19,11 +19,6 @@ class AntecedantsController extends Controller
       {
           $this->middleware('auth');
       }
-    public function storeatcd()
-    {
-        $message ='exemple';
-        return response()->json(['response' => $message]); 
-    }
     public function index($id)
     {   
             $patient = patient::FindOrFail($id);

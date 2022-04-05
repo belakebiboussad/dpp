@@ -192,7 +192,7 @@
 		<div class="center col-xs-12">
 					<div class="center bottom" style="bottom:0px;">
 						<button type="submit" class="btn btn-xs btn-primary btn-space" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-					  <a type="reset" href="/home_dele" class="btn btn-xs btn-danger btn-space" onclick="javascript:document.getElementById('detail_coll').reset();"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+					  <a type="reset" href="{{ route('home')}}" class="btn btn-xs btn-danger btn-space" onclick="javascript:document.getElementById('detail_coll').reset();"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
 					</div>
 				<!-- </div> -->
 		</div>

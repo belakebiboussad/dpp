@@ -16,13 +16,14 @@
   </div><!-- /.sidebar-shortcuts -->
   <li class="">
         <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>    <span class="menu-text">Gestion des colloques</span> 
+            <i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion des colloques</span> 
         </a>
         <b class="arrow"></b>
   </li>
   <ul class="nav nav-list">
     <li class="">
-        <a href="/home_dele"><i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a>
+    <!-- /home_dele -->
+        <a href="{{ route('home')}}"><i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
     </li>
     <li class="">

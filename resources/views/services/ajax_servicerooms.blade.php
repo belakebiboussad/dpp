@@ -15,12 +15,12 @@
 			</tr>
 		</thead>
 		<tbody >
-			@foreach ($service->salles as $key=>$salle)
+			@foreach ($salles as $key=>$salle)
 				<tr>
 					<td>{{$salle->num}}</td>
 					<td>{{$salle->nom}}</td>
 					<td>{{count($salle->lits)}}</td>
-          <td>{{ $service->nom }}</td>
+          <td>{{ $salle->service->nom }}</td>
 					<th>{{$salle->etat}}</th>
 				</tr>
 			@endforeach

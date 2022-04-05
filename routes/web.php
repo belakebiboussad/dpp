@@ -11,8 +11,8 @@
 */
 Route::group(['middleware' => 'revalidate'], function()
 {          
-    Auth::routes(); 
-    Route::get('/', 'Auth\LoginController@showLoginForm');
+  Auth::routes(); 
+  Route::get('/', 'Auth\LoginController@showLoginForm');
 });//ressources
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
@@ -50,11 +50,7 @@ Route::resource('stat','StatistiqusController');
 Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
 route::resource('/const','ConstanteController');
-route::get('/home_admin',function (){
-    $users = App\User::all();
-    return view('home.home_admin',compact('users'));
-})->name('home_admin');
-route::get('/home_dele','HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
@@ -65,8 +61,7 @@ route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter
 route::get('/products/list','demandeprodController@getProducts')->name('productsList');
 route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
-Route::post('user/updatepro','UsersController@updatepro');
-Route::get('/atcd/store','AntecedantsController@storeatcd');
+Route::post('user/updatepro','UsersController@updatepro');//Route::get('/atcd/store','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
@@ -109,7 +104,6 @@ Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.c
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
 Route::get('/choixpatient','RDVController@choixpatient');
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reportprint','HomeController@print');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
 route::get('/getrdv','RDVController@getRDV');
@@ -118,11 +112,7 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-Route::get('/roomBeds', 'LitsController@getBeds');
-
-Route::get('/serviceRooms', 'SalleController@getRooms');
-
-Route::post('/exmbio/store/{id}','ExamenbioController@store');//route::get('/createlit','LitsController@createlit');
+Route::post('/exmbio/store/{id}','ExamenbioController@store');
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');

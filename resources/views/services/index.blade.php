@@ -3,18 +3,13 @@
 <script type="text/javascript">
 function getServiceRoom(id)
 {
-  var formData = {
-    search :  id
-  };
-	$.ajax({
+  var url = '{{ route("salle.index") }}';
+  $.ajax({
         type : 'get',
-        url : '{{URL::to('serviceRooms')}}',
-        data:formData,//{'search':id},
+        url :url,
+        data:{   id :  id  },
         success:function(data,status, xhr){
-        	// $.each(data[0],function(key,value){
-         //    alert(key + ":" + value);
-         //  })
-          $('#serviceRooms').html(data.html);
+          	$('#serviceRooms').html(data.html);
         }
     });
 }	

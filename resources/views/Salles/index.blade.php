@@ -2,11 +2,12 @@
 @section('page-script')
 <script type="text/javascript">
 function getRoomBeds(id)
-{  
+{ 
+  var url = '{{ route("lit.index") }}';
 	$.ajax({
       type : 'get',
-      url : '{{URL::to('roomBeds')}}',
-      data:{'search':id},
+      url :url,
+      data:{   id :  id  },
       success:function(data,status, xhr){
       	 $('#salleRooms').html(data.html);
       }

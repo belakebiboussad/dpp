@@ -53,7 +53,6 @@ class ServiceController extends Controller
     public function show($id)
     {
       $service = service::FindOrFail($id);
-      dd($service->salles);
       return view('services.show', compact('service'));
     }
 

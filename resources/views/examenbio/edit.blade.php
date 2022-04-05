@@ -26,7 +26,7 @@
   </script>
 @endsection
 @section('main-content')
-<div class="row" width="100%"><?php $patient = $demande->consultation->patient; ?>@include('patient._patientInfo')</div>
+<div class="row" width="100%">@include('patient._patientInfo',['patient'=>$demande->consultation->patient])</div>
 <div class="content">
 <div class="row"><h3>Modifier la demande d'examen biologique :</h3> </div>
   <div class="row">

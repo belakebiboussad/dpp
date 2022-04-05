@@ -68,7 +68,9 @@ class HomeController extends Controller
                   return redirect()->action('HospitalisationController@index');
                   break;
             case 4: 
-                  return redirect()->action('UsersController@index');
+                  //return redirect()->action('UsersController@index');
+                  return view('home.dashboard');
+                  
                   break;
             case 5:
                   return redirect()->action('RdvHospiController@index');
