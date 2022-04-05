@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="row">
  <div class="col-sm-12" style="margin-top: -1%;">
-    <?php $patient = $ordonnance->consultation->patient; ?> @include('patient._patientInfo', $patient)
+     @include('patient._patientInfo', ['patient'=>$ordonnance->consultation->patient])
     </div>
 </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 <div class="row">

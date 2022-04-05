@@ -371,6 +371,7 @@
       }
       function storeord()
       {
+        alert("sfsdf");
           var arrayLignes = document.getElementById("ordonnance").rows;
           var longueur = arrayLignes.length; 
           var ordonnance = [];

@@ -21,8 +21,8 @@
 <div class="row">
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
-	 		<div class="tab-pane active examsBio" id="biologique">
-	 			@if( $specialite->exmsbio)
+	 		<div class="tab-pane active examsBio" id="biologique"> <!-- != 'NULL' -->
+	 			@if($specialite->exmsbio != "null")
           @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
 	 	  	  	<div class="checkbox col-xs-4">
 	 	   			 <label>
@@ -34,7 +34,7 @@
 	 			@endif
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> 
-        @if($specialite->exmsImg)
+        @if($specialite->exmsImg != "null")
           @include('ExamenCompl.ExamenRadio')
         @endif
       </div>

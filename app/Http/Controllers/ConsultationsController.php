@@ -87,8 +87,6 @@ class ConsultationsController extends Controller
         $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
         $specialite = Specialite::findOrFail($employe->specialite);//,'specialitesExamBiolo'
-        //dd($specialite->consConst);//"["1","2"]"
-        //dd($specialite->exmsbio);
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**

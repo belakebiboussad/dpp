@@ -131,28 +131,6 @@
   {
 		$("#"+id).remove();
   }
-  function formatConsuConsts()
-  {
-
-    /*  try {// $constsArrray
-      }
-    catch(err) {
-      console.log("error");
-    }*/  
-    var conts = '{!! $specialite->consConst !!}';
-    const obj = JSON.parse(conts);
-     $.each(conts,function(key,id){
-        alert(key + ":" + value);
-     });
-    /*
-    $.each(conts,function(key,id){
-        $.get('/const/'+id+'/edit', function (data) {
-           alert(data.nom);
-           $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
-         });      
-    });
-    */
- }
 $('document').ready(function(){
       var date = new Date('{{ $patient->Dat_Naissance }}');
       $( ".gdob" ).datepicker( "option", "minDate", date ); //great to date of bearth 
@@ -552,7 +530,6 @@ $('document').ready(function(){
 		$(".apgar").ionRangeSlider({ min:0,max:10,step:1, values:5, grid:true, grid_num:10, postfix:"", skin:"big" });
     $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
-    formatConsuConsts();
 	  $("#drugsPrint").click(function(){
           	  	var pid = '{{ $patient->id }}';
           	  	var mid = '{{  Auth::User()->employ->id }}';
