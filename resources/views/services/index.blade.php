@@ -18,8 +18,8 @@ function getServiceRoom(id)
 @section('main-content')
 <div class="row"><h4><strong>Services de l'hôpital</strong></h4></div>
 <div class="row">
-	<div class="col-sm-7 col-xs-12 widget-container-col" id="widget-container-col-2">
-		<div class="widget-box widget-color-blue" id="widget-box-2">
+	<div class="col-sm-7 col-xs-12 widget-container-col">
+		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Détails des services</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">

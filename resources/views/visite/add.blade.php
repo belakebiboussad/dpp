@@ -81,7 +81,7 @@
 					{
 						$('.dataTables_empty').remove();
 					}
-					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.visite.date+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
+					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
 										+'</td><td>'+data.acte.code_ngap+'</td><td>'+data.acte.description+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td>';
 							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
 							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
@@ -169,9 +169,8 @@
 				if($('.dataTables_empty').length > 0)
 				{
 					$('.dataTables_empty').remove();
-				}
-/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
-				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.visite.date+'</td><td>'+data.medicament.nom+'</td><td>'
+				}/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
+				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
 									+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
 				trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 				trait += '<button type="button" class="btn btn-xs btn-danger delete-Trait" value="' + data.trait.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
@@ -218,8 +217,7 @@
 		  console.log('Error:', data);
 		}
 	});
-  });
-	//////////Traitement
+  });	//////////Traitement
 		$('body').on('change', '#specialiteProd', function () {
 		  if($(this).val() != "0" )
 			{
@@ -288,7 +286,7 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								  <th class ="hidden"></th>
-								  	<th class ="center"><strong>Date visite</strong></th>
+								  	
 									  <th class ="center sorting_disabled"><strong>Acte</strong></th>
 										<th class ="center sorting_disabled"><strong>Type</strong></th>
 										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th><!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
@@ -304,8 +302,7 @@
 									@if(!$acte->retire)
 									<tr id="{{ 'acte'.$acte->id }}">
 										<td hidden> {{ $acte->id_visite }}</td>
-									  <td>{{ $acte->visite->date }}</td>
-										<td> {{ $acte->nom }}</td>
+									 	<td> {{ $acte->nom }}</td>
 										<td> {{ $acte->type}}</td>
 										<td> {{ $acte->code_ngap}}</td>{{-- <td>@foreach($acte->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $acte->duree }}</td> --}}
 										<td> {{ $acte->description }}</td>
@@ -343,7 +340,6 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 									<th class ="hidden"></th>
-									<th class ="center"><strong>Date visite</strong></th>												
 									<th class ="center sorting_disabled"><strong>Nom médicament</strong></th>
 									<th class ="center sorting_disabled"><strong>Posologie</strong></th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
 									<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
@@ -355,8 +351,7 @@
 									@foreach($visite->traitements as $trait)
 									<tr id="{{ 'trait'.$trait->id }}">
 									  <td hidden> {{ $trait->visite_id }}</td>
-										<td> {{ $trait->visite->date }}</td>
-									  <td>{{ $trait->medicament['nom'] }}</td> 
+										<td>{{ $trait->medicament['nom'] }}</td> 
 									  <td> {{ $trait->posologie}}</td>{{--<td>@foreach($trait->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $trait->duree }}</td>--}}
 										<td> {{ $trait->visite->medecin->full_name}}</td>
 								 		<td class="center nosort">
@@ -388,8 +383,8 @@
 								<div class="col-xs-3">
 								  <div class="checkbox">
                     <label>
-                      @if( null !== $lastViste)
-                      <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastViste->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
+                      @if( null !== $lastVisite->prescreptionconstantes)
+                      <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
 											@else
                       <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
                       @endif
@@ -401,12 +396,8 @@
                 @endif
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>
-										<textarea class="form-control" id="observation" name="observation" placeholder="Observation">
-                    @if( null !== $lastViste)
-                      {{ $lastViste->prescreptionconstantes->observation }}
-                    @endif
-                  </textarea>
-									</div>
+										<textarea class="form-control" id="observation" name="observation" rows=5> @isset($lastVisite->prescreptionconstantes){{ $lastVisite->prescreptionconstantes->observation }}@endisset</textarea>
+                  </div>
 								</div>                           
 							</div>
 						</div>

@@ -50,6 +50,25 @@ $('document').ready(function(){
           }
       });
   });
+    jQuery('body').on('click', '.delete-ordonnance', function (e) {
+      event.preventDefault();
+      var ord_id = $(this).val();
+      $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+      });
+      $.ajax({
+          type: "DELETE",
+          url: '/ordonnace/' + ord_id,
+          success: function (data) {
+            $("#ordonnace" + ord_id).remove();
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+      });
+  });
 });
 </script>
 <div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
@@ -185,7 +204,7 @@ $('document').ready(function(){
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 @endif 
-         <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
+                  <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
                 <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
             </td>
             </tr>
@@ -214,9 +233,10 @@ $('document').ready(function(){
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr id="{{ 'ordonnace'.$consultation->ordonnances->id }}">
                 <td>{{ $consultation->ordonnances->date }}</td>
                 <td class="center">
+                  <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                   <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye"></i></a>
                   <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                 </td>

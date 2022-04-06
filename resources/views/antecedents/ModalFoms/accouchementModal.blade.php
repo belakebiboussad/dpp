@@ -140,20 +140,20 @@
 		$('body').on('click', '.open-modalacc', function (event) {
 			event.preventDefault();
 			var acc_id = $(this).val();
-        	  	$.get('/accouch/' + acc_id, function (data) { 
-                          $('#acc_id').val(data.id);
-      				$('#lieu').val(data.etablisement);
-      				$('#terme').val(data.terme);
-      				$('#presentation').val(data.presentation);
-      				$('#eggopenduration').val(data.eggopenduration);
-      				$('#workduration').val(data.workduration);
-      				$('#expulsduration').val(data.expulsduration);
-      				$('#incident').val(data.incident);
-      			      $('#type').val(data.typeId).change();
-      				$('#motiftype').val(data.motif);
-      				$('#accouchSave').val("update");
-      				$('#accouchementModal').modal('show');
-        			});	
+  	  $.get('/accouch/' + acc_id, function (data) { 
+                    $('#acc_id').val(data.id);
+				$('#lieu').val(data.etablisement);
+				$('#terme').val(data.terme);
+				$('#presentation').val(data.presentation);
+				$('#eggopenduration').val(data.eggopenduration);
+				$('#workduration').val(data.workduration);
+				$('#expulsduration').val(data.expulsduration);
+				$('#incident').val(data.incident);
+			  $('#type').val(data.typeId).change();
+				$('#motiftype').val(data.motif);
+				$('#accouchSave').val("update");
+				$('#accouchementModal').modal('show');
+      });	
 		});
 	})
 </script>

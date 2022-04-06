@@ -27,8 +27,8 @@
 					 			</div>
 					 			<div class="col-sm-7">
 									<select type="text" id="type" data-placeholder="selectionnez le type de l'acte" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" required />
-									 <option value="medicale">médicale</option>
-									 <option value="paramedicale">paramédicale</option>
+									  <option value="paramedicale">paramédicale</option>
+                    <option value="medicale">médicale</option>
 									</select>
 								</div>	
 					 		</div>

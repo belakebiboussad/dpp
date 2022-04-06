@@ -243,7 +243,7 @@
                 $.ajax({
                     type : 'POST',
                     url :url,
-                    data:formData,//dataType: 'json',
+                    data:formData,
                     success:function(data){         
                       var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
                       $('.calendar').fullCalendar( 'renderEvent',  {

@@ -169,8 +169,8 @@
                       </div>
                 </div>
                 <div class="row">
-                     <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
-                     <div class="widget-box widget-color-pink" id="widget-box-2">
+                     <div class="col-xs-11 widget-container-col">
+                     <div class="widget-box widget-color-pink">
                           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
@@ -211,21 +211,20 @@
                      <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"> <strong><span style="font-size:18px;">Ordonnance</span></strong></div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
-                    <div class="widget-box widget-color-blue" id="widget-box-2">
+                  <div class="col-xs-11 widget-container-col">
+                    <div class="widget-box widget-color-blue">
                       <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5> </div>
                         <div class="widget-body">
                           <div class="widget-main no-padding">
                             <table class="table table-striped table-bordered table-hover">
                               <thead class="thin-border-bottom">
-                               <tr>
-                                     <th class="center"><strong>#</strong></th> <th class="center"><strong>Date</strong></th>
-                                     <th class="center"><em class="fa fa-cog"></em></th>
+                                <tr>
+                                   <th class="center"><strong>Date</strong></th>
+                                  <th class="center"><em class="fa fa-cog"></em></th>
                                </tr>
                                </thead>
                                <tbody>
                                 <tr>
-                                  <td></td>
                                   <td>{{ $consultation->ordonnances->date }}</td>
                                   <td class="center">
                                     <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>

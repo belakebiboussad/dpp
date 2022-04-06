@@ -32,17 +32,11 @@
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success">
-							<i class="ace-icon fa fa-sign-in bigger-120"></i>
-							Afficher
-						</a>
+							<i class="ace-icon fa fa-sign-in bigger-120"></i>Afficher</a>
 						<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info">
-							<i class="ace-icon fa fa-pencil bigger-120"></i>
-							Modifier
-						</a>
+							<i class="ace-icon fa fa-pencil bigger-120"></i>Modifier</a>
 						<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-							<i class="ace-icon fa fa-trash-o bigger-120"></i>
-							Supprimer
-						</a>
+							<i class="ace-icon fa fa-trash-o bigger-120"></i>Supprimer</a>
 					</div>
 					<div class="hidden-md hidden-lg">
 						<div class="inline pos-rel">

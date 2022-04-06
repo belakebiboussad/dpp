@@ -97,8 +97,7 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
-        $constvalue =  collect();
-        $exam;
+        $constvalue =  collect();$exam;
         $etablissement = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
                 'motif' => 'required',
@@ -139,27 +138,27 @@ class ConsultationsController extends Controller
           $input['id_consultation'] = $consult->id ;
           $exam = examen_cliniqu::create($input);
           $constvalue['examCl_id'] = $exam->id ;
-          $const =Constantes::create($constvalue->toArray());
+          Constantes::create($constvalue->toArray());//$const =
           $consult->examensCliniques()->save($exam);
         } 
         if($specialite->appareils) {
-                foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-                 $appareil = appareil::FindOrFail($appareil);
-                  if( null !== $request->input($appareil->nom))
-                 {
-                    if(!isset( $exam->id))
-                    {
-                      $input = $request->all();
-                      $input['id_consultation'] = $consult->id ;
-                      $exam = examen_cliniqu::create($input);
-                    }  
-                    $examAppareil = new examAppareil;
-                    $examAppareil->appareil_id = $appareil->id;
-                    $examAppareil->description = $request->input($appareil->nom); 
-                    $examAppareil->examen_clinique_id =  $exam->id;
-                    $exam->examsAppareil()->save($examAppareil);
-                  }
+            foreach (json_decode ($specialite->appareils ) as  $appareil) {   
+             $appareil = appareil::FindOrFail($appareil);
+              if( null !== $request->input($appareil->nom))
+             {
+                if(!isset( $exam->id))
+                {
+                  $input = $request->all();
+                  $input['id_consultation'] = $consult->id ;
+                  $exam = examen_cliniqu::create($input);
                 }  
+                $examAppareil = new examAppareil;
+                $examAppareil->appareil_id = $appareil->id;
+                $examAppareil->description = $request->input($appareil->nom); 
+                $examAppareil->examen_clinique_id =  $exam->id;
+                $exam->examsAppareil()->save($examAppareil);
+              }
+            }  
          }
         if(($request->motifOr != "") ||(isset($request->specOr))){
                 $this->LettreOrientationCTRL->store($request,$consult->id);

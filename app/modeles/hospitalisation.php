@@ -34,10 +34,7 @@ class hospitalisation extends Model
     }
     public function getlastVisite()
     {
-      foreach($this->visites as $v)
-      {
-        if(isset($v->prescreptionconstantes))
-          return $v;
-      }
+/*foreach($this->visites as $v) {     if(isset($v->prescreptionconstantes))        return $v;    }*/
+      return $this->visites->first();
     } 
 }

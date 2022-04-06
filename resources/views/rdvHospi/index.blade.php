@@ -95,8 +95,8 @@ $('document').ready(function(){
 <div class="space-12"></div><div class="space-12"></div>
 <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations urgentes</strong></h5></div>
 <div class="row">
-	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-		<div class="widget-box widget-color-red" id="widget-box-2">
+	<div class="col-xs-12 widget-container-col">
+		<div class="widget-box widget-color-red">
 			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5></div>
 		</div>
 		<div class="widget-body">

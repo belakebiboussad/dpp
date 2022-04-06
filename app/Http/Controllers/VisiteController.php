@@ -55,7 +55,7 @@ class VisiteController extends Controller
         $date = Carbon\Carbon::now();
         $etablissement = Etablissement::first(); 
         $hosp = hospitalisation::FindOrFail($id_hosp);
-        $lastViste = $hosp->getlastVisite();
+        $lastVisite = $hosp->getlastVisite();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
         $employe = Auth::user()->employ;
         $visite =new visite;
@@ -72,7 +72,7 @@ class VisiteController extends Controller
         $specialite = Specialite::findOrFail($employe->specialite);
         $visite->save();
         $consts = consts::all();
-        return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite','lastViste'))->with('id',$visite->id);
+        return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -107,15 +107,18 @@ class VisiteController extends Controller
            $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
         }
       }// si(observ change et constante change) on crée une prescription
-      if(ArrayClass::diffRecursive($visite->hospitalisation->getlastVisite()->prescreptionconstantes->ConstIds->toArray(),$request->consts) ||( $visite->hospitalisation->getlastVisite()->prescreptionconstantes->observation != $request->observation))
+      if(isset($request->consts))
       {
         $prescription_constantes = prescription_constantes::FirstOrCreate([
-          "visite_id" => $visite->id,
+            "visite_id" => $visite->id,
           "observation" => $request->observation
         ]);
-        if($request->consts != null)
-          $prescription_constantes->constantes()->attach($request->consts);
+         $prescription_constantes->constantes()->attach($request->consts);
       }
+      // else
+      // {
+      //   //suprime 
+      // }
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

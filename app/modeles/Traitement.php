@@ -8,9 +8,7 @@ class Traitement extends Model
 {
    	public $timestamps = false;
       protected $fillable  = ['id','med_id','posologie','periodes','duree','visite_id'];
-      protected $casts = [
-         'periodes' => 'array',
-     ];
+      protected $casts = ['periodes' => 'array'];
      public function medicament()
      {
            return $this->belongsTo('App\modeles\medcamte','med_id');

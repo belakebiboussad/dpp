@@ -50,6 +50,7 @@ Route::resource('stat','StatistiqusController');
 Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
 route::resource('/const','ConstanteController');
+route::resource('acteExec','ActeExecController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');

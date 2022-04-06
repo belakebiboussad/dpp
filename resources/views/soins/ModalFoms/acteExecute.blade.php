@@ -15,37 +15,17 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="priorite"><strong>Observation :</strong></label>
-            <textarea id="obs" colspan="12" class="form-control hidden"></textarea>
+            <label class="col-sm-3 control-label no-padding-right" for="priorite"><strong>Observations :</strong></label>
+            <textarea id="obs" colspan="12" class="form-control"></textarea>
           </div>
         </div>  
       </div>
+
     </div><!-- modalbody -->
     <div class="modal-footer">
-      <button  type="button" class="btn btn-success send" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
+      <button  type="button" class="btn btn-success send" value="" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
       <button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
     </div> 
   </div>
   </div>
 </div>
-<script type="text/javascript">
-  $(function(){
-    $("#fait").change(function() {
-        if ($(this).is(':checked')) 
-          $("#obs").addClass("hidden");
-        else
-          $("#obs").removeClass("hidden");
-    })
-    $(".send").click(function(){
-      //runActe
-      e.preventDefault();
-      var formData = {
-        pid       : '{{ $patient->id }}',
-        month       : $('#month').val(),
-      };
-      var state = $(this).val();
-      var type = "POST";
-      var ajaxurl = '/acte';
-    })
-  });
- </script> 

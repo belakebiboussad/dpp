@@ -27,16 +27,16 @@ class ActeController extends Controller
         return Response::json($acte);
     }
 
-     public function show($id)
+    public function show($id)
     {
       $consigne = consigne::FindOrFail($id);
       return view('consigne.show_consigne',compact('consigne'));
     }
     public function update(Request $request,$id)
     {
-        $acte = Acte::FindOrFail($id);
-        $acte->update($request->all()); // $acte->remember_token;// $acte->save();
-        return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
+      $acte = Acte::FindOrFail($id);
+      $acte->update($request->all()); //// $acte->save();
+      return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function store(Request $request)
     { 
@@ -50,9 +50,7 @@ class ActeController extends Controller
     public function destroy($id)
     {
       $acte = Acte::FindOrFail($id);
-      $acte -> update([
-          "retire"=>1,
-      ]);
+      $acte -> update([ "retire"=>1]);
       $acte->save();
       return Response::json($acte);
     }

@@ -115,8 +115,8 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-	<div class="widget-box transparent" id="widget-box-2">
+	<div class="col-xs-12 widget-container-col">
+	<div class="widget-box transparent">
 		<div class="widget-header"><h5 class="widget-title bigger lighter">
       <i class="ace-icon fa fa-table"></i>Consultations</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
     </div>

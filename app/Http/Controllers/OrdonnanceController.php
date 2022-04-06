@@ -27,14 +27,14 @@ class OrdonnanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-      {
-          $this->middleware('auth');
-      }
+    {
+      $this->middleware('auth');
+    }
     public function create($id_consultation)
     {
-        $consultation = consultation::where("id",$id_consultation)->get()->first();
-        $patient = patient::where("id",$consultation->pid)->get()->first();
-        return view("ordennance.create_ordennance",compact('consultation','patient'));
+      $consultation = consultation::where("id",$id_consultation)->get()->first();
+      $patient = patient::where("id",$consultation->pid)->get()->first();
+      return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
     /**
      * Store a newly created resource in storage.
@@ -74,10 +74,7 @@ class OrdonnanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function update(Request $request, $id){ }
     /**
      * Remove the specified resource from storage.
      *
@@ -107,6 +104,11 @@ class OrdonnanceController extends Controller
         Storage::deleteDirectory('/public/pdf/');
         return $response;
       } 
+    }
+    public function destroy($id)
+    {
+      $ord = ordonnance::destroy($id);
+      return Response::json($ord);
     }
     public function print(Request $request)
     {   
