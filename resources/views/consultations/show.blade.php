@@ -169,21 +169,21 @@
                       </div>
                 </div>
                 <div class="row">
-                     <div class="col-xs-11 widget-container-col">
-                     <div class="widget-box widget-color-pink">
+                  <div class="col-xs-11 widget-container-col">
+                    <div class="widget-box widget-color-pink">
                           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                 <table class="table table-striped table-bordered table-hover">
                                 <thead class="thin-border-bottom">
                                       <tr>
-                                            <th class="center"><strong>Date</strong></th>
-                                            <th class="center"><strong>Etat</strong></th>
+                                        <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+                                            
                                             <th class="center"><em class="fa fa-cog"></em></th>
                                       </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
                                 <td>{{ $consultation->date }}</td>
                                 <td>
                                   <span class="badge badge-{{( $consultation->examensradiologiques->getEtatID($consultation->examensradiologiques->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->examensradiologiques->etat }}</span>
@@ -192,7 +192,9 @@
                                     <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                                     @if(!$consultation->examensradiologiques->hasResult())
                                     <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                    <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
+                                    <!-- <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a> -->
+                                    <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
+                                    
                                     @endif
                                      <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;
                                       </a>
@@ -244,4 +246,7 @@
      </div> {{-- tab-content  --}}
 </div>{{-- tabbable --}}
 </div>
+@endsection
+@section('page-script')
+@include('examenradio.scripts.imgRequestdJS')
 @endsection

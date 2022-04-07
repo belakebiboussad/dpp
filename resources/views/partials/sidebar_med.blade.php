@@ -298,19 +298,18 @@
     }
     function addExamsImg(form)
     {
-      var ExamsImg = [];
-      var rowCount = $('#ExamsImg tr').length;
-      if(rowCount > 0)
+      var arrayLignes = document.getElementById("ExamsImg").rows;var ExamsImg = [];
+      if(arrayLignes.length > 0)
       {
-        var arrayLignes = document.getElementById("ExamsImg").rows;
-        for(var i=0; i< arrayLignes.length; i++)
+        for(var i=0; i< arrayLignes.length ; i++)
         {
           ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }
+          
         }
+        alert(JSON.stringify(ExamsImg));
         var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
         champ.appendTo(form);
       }
-      
     }
     function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
             $('#OrientLetterPdf').removeAttr('hidden');
@@ -526,6 +525,7 @@
                console.log('Error:', data);
             }
         });
+        
     }); 
 }) 
 </script>

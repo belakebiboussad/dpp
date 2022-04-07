@@ -2,7 +2,6 @@
   @foreach(json_decode($specialite->consConst ,true) as $const)
   <?php $nom = App\modeles\Constante::FindOrFail($const)->nom ?><?php $desc = App\modeles\Constante::FindOrFail($const)->description ?>
   <?php $min = App\modeles\Constante::FindOrFail($const)->min ?>
-    {{ $nom }}
     <div class="form-group m-b-30">
       <label ><strong>{{ $desc }}</strong> :</label>
       <input type="text" name="{{ trim($nom) }}" class="irs-hidden-input col-sm-12 {{ $nom }}" tabindex="-1" value="{{ $min }}">

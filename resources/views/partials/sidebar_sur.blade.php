@@ -63,7 +63,7 @@
         </ul>
       </li>
       <li class="">
-        <a href="#" class="dropdown-toggle"> {{--  <i class="menu-icon fa fa-calendar"></i> --}}
+        <a href="#" class="dropdown-toggle">
              <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
               <span class="menu-text">Gestion des lits</span>
              <b class="arrow fa fa-angle-down"></b>

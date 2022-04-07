@@ -1,28 +1,34 @@
 @extends('app')
 @section('page-script')
 <script>
-       $(function(){
-              $('body').on('click', '.exam-Delete', function (e) {  
-                      event.preventDefault();
-                      var exam_id = $(this).val(); 
-                       $.ajaxSetup({
-                              headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
-                       });
-                      url='{{ route("examRad.destroy",":slug") }}';
-                      url = url.replace(':slug',exam_id);
-                     $.ajax({
-                          type: "GET",
-                           url : url,
-                             dataType: 'json',
-                              success: function (data) {
-                                     $("#exm-" + data.id).remove(); 
-                              },
-                              error: function (data) {
-                                     console.log('Error:', data); 
-                               } 
-                      });
-               });
-         })
+ $(function(){
+    $('body').on('click', '.exam-Delete', function (e) {  
+            event.preventDefault();
+            var exam_id = $(this).val(); 
+             $.ajaxSetup({
+                    headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
+             });
+            url='{{ route("examRad.destroy",":slug") }}';
+            url = url.replace(':slug',exam_id);
+           $.ajax({
+                type: "GET",
+                 url : url,
+                   dataType: 'json',
+                    success: function (data) {
+                           $("#exm-" + data.id).remove(); 
+                    },
+                    error: function (data) {
+                           console.log('Error:', data); 
+                     } 
+            });
+    });
+    $("#requestImgEdit").submit(function(e){
+      event.preventDefault();
+      var arrayLignes = document.getElementById("ExamsImg").rows;
+      addExamsImg(this);
+      //$("#requestImgEdit").submit();
+    });
+ })
   </script>
 @endsection
 @section('main-content')
@@ -43,7 +49,7 @@
 			<div class="widget-header"><h5 class="widget-title"><b><strong>Demande d'examen radiologique :</strong></b></h5> </div>
 	        </div><!-- widget-box -->
 		<div class="widget-body">
-                 <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" > 
+    <form class="form-horizontal" id="requestImgEdit" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" > 
                       {{ csrf_field() }}
                       {{ method_field('PUT') }}
                       <input type="hidden" name="demande_id" value="{{ $demande->id }}" >
@@ -80,7 +86,9 @@
 			 <div class="widget-header" >
 				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens Imagerie</b></font></h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
-				 	<a href="#"  name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-target="#ExamIgtModal" data-original-title="Ajouter un Examen d'imagerie"><div class="fa fa-plus-circle"></div><h4><strong></strong></h4></a>
+          <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
+            <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>
+          </a>
 				</div>
 			</div>
 			<div class="widget-body">
@@ -88,7 +96,7 @@
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ExamsImgtab">
 				 	  <thead class="thin-border-bottom">
 						 <tr>
-                <th class="center" width="5%">N°</th>
+                
 						    <th class ="center" class="nsort"><strong>Nom </strong></th>
 							  <th class ="center"><strong>Type</strong></th>
 							  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
@@ -97,12 +105,11 @@
 						  <tbody id="ExamsImg">
                 @foreach ($demande->examensradios as $index => $ex)
                   <tr id="{{ 'exm-'.$ex->id }}">
-                        <td class="center" width="5%">{{ $index }}</td>  
-                        <td>{{ $ex->Examen->nom }}</td>
-                        <td>{{ $ex->Type->nom }}</td>
-                        <td class="center">
-                         <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
-                       </td>
+                    <td>{{ $ex->Examen->nom }}</td>
+                    <td>{{ $ex->Type->nom }}</td>
+                    <td class="center">
+                     <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
+                   </td>
                 </tr>
                 @endforeach   
               </tbody>

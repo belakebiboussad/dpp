@@ -37,11 +37,10 @@ class ColloqueController extends Controller
       }
       public function index($type = 0)
        {
-              $colloques=colloque::with('employs')->where('etat','<>','cloturé')->where('type','=',$type)->get();
-             /* $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
-                              $q->where('type',$type);
+          $colloques=colloque::with('employs')->where('etat','<>','cloturé')->where('type','=',$type)->get();
+/* $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {$q->where('type',$type);
                 })->where('etat','en attente')->where('modeAdmission','<>','Urgence')->get();*/
-               return view('colloques.index', compact('colloques','type','demandes'));
+          return view('colloques.index', compact('colloques','type'));//,'demandes'
        }
     /**
      * Show the form for creating a new resource.
@@ -86,8 +85,8 @@ class ColloqueController extends Controller
      */
     public function edit($id)
     {  
-      $colloque=colloque::find($id);
       $rols =  array(1,2,2,5,6,13,14);
+      $colloque=colloque::find($id);
       $listeMeds = employ::whereHas('User', function ($q) use ($rols) {
                                             $q->whereIn('role_id',$rols);                           
                                         })->get();

@@ -23,10 +23,8 @@ use Redirect;
 use MessageBag;
 use Carbon\Carbon;
 use Session;
-use View;
-use Response;
-use Flashy;
-// use \COM;
+use View;//use Response;
+use Flashy;// use \COM;
 class PatientController extends Controller
 {
   /**
@@ -283,8 +281,8 @@ class PatientController extends Controller
       public function edit($id,$asure_id =null)
       {  
         $assure=null;
-        $patient = patient::FindOrFail($id);//if(!(isset($asure_id))) {}else//ce chemin est introuvable{return view('patient.editP',compact('patient'));}
         $grades = grade::all(); 
+        $patient = patient::FindOrFail($id);
         if(!in_array($patient->Type,[5,6]))
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','grades')); 
@@ -298,10 +296,7 @@ class PatientController extends Controller
      */
       public function update(Request $request,$id)
       {
-        $assure = new assur;
-        $ayants = array("1", "2", "3","4");
-        $ayantsAssure = array("0","1", "2", "3","4");
-        $derogAutre = array("5","6");
+        $assure = new assur;$ayants = array("1", "2", "3","4");$ayantsAssure = array("0","1", "2", "3","4");$derogAutre = array("5","6");
         $date = Date::Now();
         $patient = patient::FindOrFail($id);
         if(!in_array($request->type,$derogAutre ))
@@ -410,10 +405,10 @@ class PatientController extends Controller
         if($request->ajax())  
         {
           $patient = patient::destroy($id);
-          return Response::json($patient);   
+          return $patient;  //Response::json( 
         }else{
           patient::destroy($id);
-          return redirect() -> route('patient.index');
+          return redirect()->route('patient.index');
         }
       } 
     public function getpatientconsult()
@@ -435,9 +430,7 @@ class PatientController extends Controller
 //public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
   public function getPatientsArray(Request $request)
   {
-    $output="";
-    $today = Carbon::now();
-    $sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
+    $output="";$today = Carbon::now();$sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
         if($request->ajax())  
         {
           switch($request->specialite){
@@ -461,67 +454,62 @@ class PatientController extends Controller
               foreach ($patients as $key => $pat) {         
                 $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';     
               }
-          return Response::json($output);
+          return $output;
     }
   }
   public function search(Request $request)
   {
-    $today = Carbon::now();
-    $sub17 = ($today->subYears(17))->format('Y-m-d'); $sub65 = ($today->subYears(65))->format('Y-m-d');
+    $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d'); $sub65 = ($today->subYears(65))->format('Y-m-d');
     if($request->ajax())  
     {
       switch(Auth::user()->employ->specialite)
       {       
         case 3 :
-               $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '>', $sub17)->get();
+               $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '>', $sub17)->get();
                break;
         case 5 :
               $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
               break;
         case 8 :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->where('Dat_Naissance', '<=', $sub65)->get();
+              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '<=', $sub65)->get();
                break;
         default :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->get();
+              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->get();
               break;    
        }
-      return Response::json($patients);
+      return $patients;
     }
   }
   public function getPatientDetails($id)
   { 
     $patient = patient::FindOrFail($id);
     $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-    return response()->json(['html'=>$view]);
+    return(['html'=>$view]);
   }
   public function AutoCompletePatientField(Request $request)
   {
-    $today = Carbon::now();
+    $today = Carbon::now();$response = array();
     $sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
     $field = trim($request->field);
     switch(Auth::user()->employ->specialite)
     {       
       case 3 ://ped
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active','=',1)->where('Dat_Naissance', '>',$sub17)->limit(15)->get();  
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Dat_Naissance', '>',$sub17)->limit(15)->get();  
         break;
       case 5 ://geneco
         $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Sexe','F')->limit(15)->get();
         break;
       case 8 ://Geriatrie
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active','=',1)->where('Dat_Naissance', '<=', sub65)->limit(15)->get();
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Dat_Naissance', '<=', $sub65)->limit(15)->get();
         break;
       default :
         $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get();
         break;
     }
-
-
-    
-    $response = array();
     foreach($patients as $patient){
       $response[] = array("label"=>$patient->$field);
     }
-    return response()->json($response);     
+    return $response;
   } 
   public function patientsToMerege(Request $request)
   {
@@ -554,7 +542,7 @@ class PatientController extends Controller
              $counts[$status]++;
        }  
         $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
-      return response()->json(['html'=>$view]);
+      return(['html'=>$view]);
   }
   public function merge(Request $request)
   {

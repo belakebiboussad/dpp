@@ -87,15 +87,13 @@
 		  	</div>
 		  	<div class="row">
 				<div class="col-sm-12">
-			      	<label for="diagSortie"><strong>Code Cim-10 :</strong></label>
-			      	<div class="input-group">
-					    <input type="text" class="form-control" id="ccimdiagSortie"/>
-					     <span class="input-group-addon" style=" padding: 0px 6px;"> 
-					      <button class="btn btn-xs CimCode" type="button" value="ccimdiagSortie">
-            			<i class="fa fa-search"></i>
-        				</button>
-					    </span>
-			    	</div>
+	      	<label for="diagSortie"><strong>Code Cim-10 :</strong></label>
+	      	<div class="input-group">
+			      <input type="text" class="form-control" id="ccimdiagSortie"/>
+			      <span class="input-group-addon" style=" padding: 0px 6px;"> 
+			       <button class="btn btn-xs CimCode" type="button" value="ccimdiagSortie"><i class="fa fa-search"></i></button>
+        		</span>
+	    	  </div>
 			     </div>
 		  	</div><div class="space-12"></div>
 		 	<div class="modal-footer">

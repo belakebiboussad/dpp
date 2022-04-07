@@ -31,7 +31,7 @@ class LitsController extends Controller
       {
         $lits = lit::where('salle_id',$request->id)->get();
         $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-        return response()->json(['html'=>$view]);
+        return Response::json(['html'=>$view]);
       }else
       {
         $lits=lit::with('salle','salle.service')->get();
@@ -88,7 +88,7 @@ class LitsController extends Controller
       if($request->ajax())  
       {
         $view = view("lits.ajax_show",compact('lit'))->render();
-        return response()->json(['html'=>$view]);
+        return Response::json(['html'=>$view]);
       }else{
         return view('lits.show', compact('lit'));
       }
@@ -168,7 +168,7 @@ class LitsController extends Controller
                                                                ->whereHas('demandeHospitalisation',function ($q){
                                                                      $q->where('service',Auth::user()->employ->service)
                                                                        ->where('etat',1);    
-                                                              })->where('date','>=',$now)->get();
+                                                              }) ->where('etat',null)->where('date','>=',$now)->get();
           $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                       ->whereHas('consultation',function($q) use($now){
                                            $q->where('date', $now);

@@ -7,7 +7,6 @@ use App\modeles\patient;
 use App\modeles\antecedant;
 use Date;
 use App\Http\Controllers\Session;
-use Response;
 class AntecedantsController extends Controller
 {
     /**
@@ -44,7 +43,7 @@ class AntecedantsController extends Controller
     public function store(Request $request)
     {
       $atcd =antecedant::create($request->all());
-      return Response::json($atcd);
+      return $atcd;
     }
 
     /**
@@ -55,8 +54,8 @@ class AntecedantsController extends Controller
      */
     public function show($id)
     {
-        $atcd = antecedant::find($id);
-        return Response::json($atcd);
+      $atcd = antecedant::find($id);
+      return $atcd;
     }
 
     /**
@@ -83,8 +82,7 @@ class AntecedantsController extends Controller
     {
         $atcd = antecedant::find($id);
         $atcd->update($request->all()); 
-        $atcd->save();
-        return Response::json($atcd);  
+        return $atcd; 
     }
     /**
      * Remove the specified resource from storage.
@@ -95,7 +93,7 @@ class AntecedantsController extends Controller
     public function destroy($id)
     {
         $atcd = antecedant::destroy($id);
-        return Response::json($atcd);   
+        return $atcd;
     }
 
 }

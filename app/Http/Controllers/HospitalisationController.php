@@ -146,7 +146,7 @@ class HospitalisationController extends Controller
                 $transfert = Transfert::create($request->all());
                  $transfert->hospitalisation()->attach($id);
           }
-        return Response::json($hosp ); 
+        return $hosp;
       }else
         return redirect()->action('HospitalisationController@index');
   }

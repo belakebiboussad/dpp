@@ -18,8 +18,7 @@ use App\modeles\rol;
 use App\modeles\Specialite;
 use App\modeles\patient;
 use Hash;
-use View;
-use Response;
+use View;//use Response;
 class UsersController extends Controller
 {
    
@@ -144,10 +143,8 @@ class UsersController extends Controller
       ];
 
       $validator = Validator::make($request->all(),$rule,$messages);  
-      if ($validator->fails()) {
-        dd($validator->errors());
+      if ($validator->fails()) 
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
-      }
       $user = User::FindOrFail($id);
       $activer = $user->active;
       if($user->active)
@@ -277,11 +274,7 @@ class UsersController extends Controller
     {
       $user = User::FindOrFail($id_user);
       return view('user.settings', compact('user'));
-    }
-    public function updatepro(Request $request)
-    {
-      dd($request); 
-    }
+    }//public function updatepro(Request $request) { dd($request); }
     public function search(Request $request)
     {
       $value = trim($request->value);
@@ -302,19 +295,13 @@ class UsersController extends Controller
         default:    
               break;          
       }
-    /*
-      if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
-        $users = User::with('role')->where($request->field,$value)->get(); 
-      else 
-        $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
-    */
-       return Response::json($users);
+/*if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
+$users = User::with('role')->where($request->field,$value)->get();else $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();*/
+      return $users;
     }    
     public function AutoCompleteField(Request $request)
     { 
-      $response = array();
-      $field = trim($request->field);
-      $value = trim($request->q);
+      $response = array();$field = trim($request->field);$value = trim($request->q);
       if($field == "role_id")
         $users = User::whereHas('role', function ($q) use ($value){
                    $q->where('role','LIKE','%'.$value.'%');
@@ -332,14 +319,14 @@ class UsersController extends Controller
           $response[] = array("label"=>$user->$field);
         }
       }
-      return response()->json($response);  
+      return $response;
     }
     public function getUserDetails(Request $request)
     {
      $user = User::FindOrFail($request->search);
      $employe = employ::FindOrFail($user->employee_id);
      $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
-     return response()->json(['html'=>$view]);
+     return (['html'=>$view]);
     }
     public function passwordReset(Request $request)
     {

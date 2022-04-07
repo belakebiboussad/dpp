@@ -79,7 +79,7 @@
               startTime: '08:00',
               showMeridian: false
       });
-          $( ".autoCommune" ).autocomplete({
+      $( ".autoCommune" ).autocomplete({
               source: function( request, response ) {
                     $.ajax({
                             url:"{{route('commune.getCommunes')}}",

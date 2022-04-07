@@ -120,12 +120,8 @@
 	  </li>
 	</ul>
 	<div class="tab-content">
-  	<div id="Assure" class="tab-pane active">
-			@include('assurs.editAssure')	
-  	</div>
-		<div id="Patient" class="tab-pane">
-			@include('patient.editPatient')
-		</div>
+  	<div id="Assure" class="tab-pane active">@include('assurs.editAssure')</div>
+		<div id="Patient" class="tab-pane">@include('patient.editPatient')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">
 		<div class="center"><br>

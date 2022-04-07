@@ -166,8 +166,9 @@ $('document').ready(function(){
 	  $(".two-decimals").change(function(){
 					this.value = parseFloat(this.value).toFixed(2);
 	  });
-		$("button").click(function (event) {
-			which = '';
+		/* pas sup pas verif
+    $("button").click(function (event) {
+		  which = '';
 			str ='send';
 			which = $(this).attr("id");
 			var which = $.trim(which);
@@ -175,10 +176,8 @@ $('document').ready(function(){
 			if(which==str){
 					return true;
 			}
-		});
-	  $("#btnCalc").click(function(event){
-			event.preventDefault();
-	  });
+		});*/
+    /*$("#btnCalc").click(function(event){event.preventDefault(); });*/
 	  $('#medc_table').DataTable({
 				processing: true,
 				serverSide: true,
@@ -436,8 +435,7 @@ $('document').ready(function(){
 				}
 			}	    
 		});//calendrier  	
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-		var today = (new Date()).setHours(0, 0, 0, 0);
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar').fullCalendar({//plugins: [ 'dayGrid', 'timeGrid' ],
         header: {
           left: 'prev,next today',

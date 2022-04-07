@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\modeles\Constante;
-use Response;
+use App\modeles\Constante;  
 class ConstanteController extends Controller
 {
   public function __construct()
@@ -16,7 +15,7 @@ class ConstanteController extends Controller
     if($request->ajax())  
     {
       $const = Constante::find($id);
-      return Response::json($const);
+      return $const;
     }
   }
 

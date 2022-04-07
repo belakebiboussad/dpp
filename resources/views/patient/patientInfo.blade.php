@@ -72,8 +72,7 @@
 				</div>
 				@endif
 				@if(isset($patient->situation_familiale))
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Civilité </div>
+				<div class="profile-info-row"><div class="profile-info-name"> Civilité </div>
 					<div class="profile-info-value"><span>
 						@switch($patient->situation_familiale)
 					           @case("C")
@@ -143,7 +142,7 @@
 					<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
 				</div>
 			</div><div class="hr hr-8 dotted"></div>
-			@if(in_array( $patient->Type , [1,2,3,4]))
+			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))
 			<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 				<div class="widget-box transparent" id="widget-box-12">
 					<div class="widget-header"><h5 class="widget-title lighter"><strong>Informations du fonctionnaire</strong></h5></div>

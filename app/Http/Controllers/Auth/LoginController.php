@@ -72,10 +72,10 @@ class LoginController extends Controller
         return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
                 ->withErrors($errors);
-      }//fabm
+      }//fabm logout user 
       public function logout() {
-        Auth::logout(); // logout user  
-        Session::flush(); // Redirect::back();
+        Auth::logout();  
+        Session::flush();
         Cache::flush(); 
         return Redirect::to('/login'); //redirect back to login
       }//abm

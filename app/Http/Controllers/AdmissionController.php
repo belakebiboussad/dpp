@@ -13,8 +13,7 @@ use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\hospitalisation;
 use App\modeles\ModeHospitalisation;
-use App\modeles\Etatsortie;
-use Response;
+use App\modeles\Etatsortie;//use Response;
 class AdmissionController extends Controller
 {
     /**
@@ -114,10 +113,10 @@ class AdmissionController extends Controller
    */
    public function destroy(Request $request, $id) {
       $adm = admission::findOrFail($id);
-        if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) != 2)
+      if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) != 2)
         {
-              $adm->rdvHosp->update(['etat'=>0]);//redonner un rendez-vous
-              $adm->demandeHospitalisation->setEtatAttribute(5);
+            $adm->rdvHosp->update(['etat'=>0]);//redonner un rendez-vous
+            $adm->demandeHospitalisation->setEtatAttribute(5);
        }else
                $adm->demandeHospitalisation->setEtatAttribute(null);
         $adm->demandeHospitalisation->save();
@@ -125,7 +124,7 @@ class AdmissionController extends Controller
         $adm->demandeHospitalisation->bedAffectation()->delete();// liberer le lit
         $adm->delete();
         if($request->ajax())   
-          return Response::json($adm);   
+          return $adm;   
         else   
           return redirect()->action('HospitalisationController@create');
    } 
@@ -134,21 +133,20 @@ class AdmissionController extends Controller
       $hospitalistions = hospitalisation::with('admission.demandeHospitalisation')->whereHas('admission', function ($q) {
                                             $q->where('etat',null);
                                         })->where('etat','1')->where('Date_Sortie' , date('Y-m-d'))->get();
-      //dd($hospitalistions);
       $etatsortie = Etatsortie::where('type','2')->get();//etets de sortie por hospital
       return view('admission.sorties', compact('hospitalistions','etatsortie')); 
     }
     public function updateAdm(Request $request, $id)
     {
-           if($request->ajax())  
-          {
-                $adm =  admission::find($id);
-                $adm->update([ 'etat'=>1 ]);
-                return Response::json($adm ); 
-          }
-     }
-     public function getSortiesAdmissions(Request $request)
-     {
+      if($request->ajax())  
+      {
+        $adm =  admission::find($id);
+        $adm->update([ 'etat'=>1 ]);
+        return $adm;
+      }
+    }
+    public function getSortiesAdmissions(Request $request)
+    {
         if($request->ajax())  
         { 
           if($request->field != 'Date_Sortie')
@@ -167,25 +165,25 @@ class AdmissionController extends Controller
                                 $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
             })->get();
           }
-          return Response::json($adms);
+          return $adms;
         }
     }
     public function getDetails($id)
     { 
+      $nbr=0;
       $adm =  admission::find($id);
       $medecins = employ::where('service',Auth::user()->employ->service)->orderBy('nom')->get();
       $modesHosp = ModeHospitalisation::all();  
       $to = $from =  \Carbon\Carbon::now()->format('Y-m-d');
-      $nbr=0;
       if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) !=2)
       {
-                $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
-                $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
-                $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
-                $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
-                $nbr = $toDate->diffInDays($fromDate);
+        $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
+        $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
+        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
+        $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
+        $nbr = $toDate->diffInDays($fromDate);
       }
       $view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','from','nbr','to'))->render();
-      return response()->json(['html'=>$view]);
+      return (['html'=>$view]);
     }
 }

@@ -9,7 +9,6 @@ class SoinsController extends Controller
   function index(Request $request)
   {
     $hosp = hospitalisation::FindOrFail($request->id);
-    dd($hosp->getlastVisite());
     return view('soins.index', compact('hosp')); 
   }
   public function show(Request $request)

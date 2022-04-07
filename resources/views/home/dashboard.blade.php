@@ -60,7 +60,9 @@
       </div>
     </div>
      <div class="infobox infobox-red">
-      <div class="infobox-icon"><i class="ace-icon fa fa-tachometer"></i></div>
+      <div class="infobox-icon">
+      <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
+      </div>
       <div class="infobox-data">
         <span class="infobox-data-number">{{ App\modeles\lit::all()->count() }}</span>
         <div class="infobox-content"><b>Lits</b></div>

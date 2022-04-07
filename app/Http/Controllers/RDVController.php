@@ -227,22 +227,10 @@ class RDVController extends Controller
         $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
         return $dompdf->stream($name); 
       }
-      public function checkFullCalendar(Request $request)
-      {
-        $events = array(); 
-        $today = Carbon::now()->format('Y-m-d');
-        $rendezVous = rdv::all();
-        foreach ($rendezVous as $rdv) {
-          $patient = patient::FindOrFail($rdv->patient_id);
-          $rdv = array();
-          $e['id'] = $patient->id;
-          $e['title'] =$patient->Nom + $patient->Prenom  ;
-          $e['start'] = new DateTime($rdv->date);
-          $e['end'] = new DateTime($$rdv->date.' +1 day');
-          array_push($events, $e);
-        }
-        return response()->json($events); // return response()->json(['events' , $events]);
-      } // public function orderPdf($id){ $rdv = rdv::findOrFail($id);$pdf = PDF::loadView('rdv.rdv_pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-pour:".patient::where("id",$rdv->patient_id)->get()->first()->Nom."".patient::where("id",$rdv->patient_id)->get()->first()->Prenom.".pdf";return $pdf->download($name); }
+/* public function checkFullCalendar(Request $request){$events = array(); $today = Carbon::now()->format('Y-m-d');$rendezVous = rdv::all();
+foreach ($rendezVous as $rdv) {$patient = patient::FindOrFail($rdv->patient_id);$rdv = array();$e['id'] = $patient->id;
+$e['title'] =$patient->full_name;$e['start'] = new DateTime($rdv->date);$e['end'] = new DateTime($$rdv->date.' +1 day');array_push($events, $e);}return $events ;} */
+// public function orderPdf($id){ $rdv = rdv::findOrFail($id);$pdf = PDF::loadView('rdv.rdv_pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-pour:".patient::where("id",$rdv->patient_id)->get()->first()->Nom."".patient::where("id",$rdv->patient_id)->get()->first()->Prenom.".pdf";return $pdf->download($name); }
       public function listeRdvs(Request $request)
       {
         $rdvs = rdv::with('patient')->get();

@@ -11,6 +11,7 @@ use App\modeles\demandeexr;
 use App\modeles\Demandeexr_Examenradio;
 use App\modeles\Etablissement;
 use App\modeles\service;
+use App\modeles\Specialite;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use PDF;
@@ -63,7 +64,7 @@ class DemandeExamenRadio extends Controller
         $request->file('resultat')->storeAs('public/files',$filename);  
       }
       $ex->update([  "etat" =>1, "resultat"=>$filename]);/* $extension = request("resultat")->getClientOriginalExtension();if(in_array($extension, config('constants.imageExtensions')))   $isImg = 1;*/
-      return Response::json(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
+      return(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
     }
     public function examCancel(Request $request)
     {
@@ -71,31 +72,33 @@ class DemandeExamenRadio extends Controller
       if($ex->Crr)
         $ex->Crr()->delete();
       $ex->update(['observation'=>$request->observation,"etat"=>0]);
-      return Response()->json($ex->id);
+      return $ex->id;
     }
     public function update(Request $request, demandeexr $demande)
     {
+      dd($request->all());
       $demande = demandeexr::FindOrFail($request->demande_id);  
       if(Auth::user()->is(12))
         {
-              foreach ($demande->examensradios as $key => $exam)
-              {
-                      if($exam->getEtatID($exam->etat) ==="")
-                              return redirect()->action('DemandeExamenRadio@index');
-              } 
-              $demande->update([ "etat" => 1 ]);$demande->save();
-              return redirect()->action('DemandeExamenRadio@index');
+            foreach ($demande->examensradios as $key => $exam)
+            {
+              if($exam->getEtatID($exam->etat) ==="")
+                return redirect()->action('DemandeExamenRadio@index');
+            } 
+            $demande->update([ "etat" => 1 ]);$demande->save();
+            return redirect()->action('DemandeExamenRadio@index');
        }else
        {
-              if($demande->examensradios->count() == 0)
-                     $demande->delete();
-               else
-               {
-                      $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
-                      $demande->save();
-                       $demande->infossuppdemande()->sync($request->infos);
-              }
-              return redirect(Route('consultations.show',$demande->id_consultation));   
+          
+          if($demande->examensradios->count() == 0)
+                 $demande->delete();
+           else
+           {
+                  $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
+                  $demande->save();
+                   $demande->infossuppdemande()->sync($request->infos);
+          }
+          return redirect(Route('consultations.show',$demande->id_consultation));   
        }
     }
     /**
@@ -159,7 +162,8 @@ class DemandeExamenRadio extends Controller
         $infossupp = infosupppertinentes::all();
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
-        return view('examenradio.edit', compact('demande','infossupp','examensradio','examens')); 
+        $specialite = Specialite::findOrFail((Auth::user()->employ)->specialite);
+        return view('examenradio.edit', compact('demande','infossupp','examensradio','examens','specialite')); 
       }
     /**
      * Update the specified resource in storage.
@@ -175,17 +179,8 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request,$id){
-      
-      $demande = demandeexr::FindOrFail($id);
-      $demande = demandeexr::destroy($id);
-       if($request->ajax())  
-      { 
-        return Response::json($demande);
-      }else
-      {
-        $consult_id = $demande->consultation;
-        return redirect()->action('ConsultationsController@show',$consult_id);
-      }
+      $demande = demandeexr::destroy($id);    
+      return $demande;
     }
      public function search(Request $request)
     {
@@ -205,7 +200,7 @@ class DemandeExamenRadio extends Controller
                                 $q->where('id', $serviceID);
                             })->get();
       }
-      return Response::json($demandes);
+      return $demandes;
     }
     public function delResult(Request $request)
     {
@@ -213,14 +208,14 @@ class DemandeExamenRadio extends Controller
       if(isset($ex->resultat))
         Storage::delete('public/files/' . $ex->resultat);
       $ex ->update([   "etat" => null,  "resultat" => null ]);
-        return Response::json($ex->id);
+        return $ex->id;
     }
-     public function examDestroy($id)
-      {
-               $ex = Demandeexr_Examenradio::FindOrFail($id);
-               $ex->delete();
-               return Response::json($ex);   
-      }
+    public function examDestroy($id)
+    {
+      $ex = Demandeexr_Examenradio::FindOrFail($id);
+      $ex->delete();
+      return $ex;// Response::json($ex);   
+    }
     public function print($id)
     {
       $demande = demandeexr::FindOrFail($id); 

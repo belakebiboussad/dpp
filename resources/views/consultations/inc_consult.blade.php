@@ -31,26 +31,7 @@ $('document').ready(function(){
         }
       });
   });
-  jQuery('body').on('click', '.delete-demandeRad', function (e) {
-      event.preventDefault();
-      var demande_id = $(this).val();
-      $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-      });
-      $.ajax({
-          type: "DELETE",
-          url: '/demandeexr/' + demande_id,
-          success: function (data) {
-            $("#demandeRad" + demande_id).remove();
-          },
-          error: function (data) {
-            console.log('Error:', data);
-          }
-      });
-  });
-    jQuery('body').on('click', '.delete-ordonnance', function (e) {
+  jQuery('body').on('click', '.delete-ordonnance', function (e) {
       event.preventDefault();
       var ord_id = $(this).val();
       $.ajaxSetup({
@@ -199,8 +180,8 @@ $('document').ready(function(){
               </td>
               <td class="center">
                 @if(!$consultation->examensradiologiques->hasResult())
-                 <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id ) }}" class="btn btn-xs  btn-success">
-                         <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
+                  <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id ) }}" class="btn btn-xs  btn-success">
+                    <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 @endif 
@@ -354,4 +335,5 @@ $('document').ready(function(){
   </div>
 </div>
 @endif
+@include('examenradio.scripts.imgRequestdJS')
 <div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>

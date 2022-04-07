@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\ActeExec;
-use Response;
 use Auth;
 class ActeExecController extends Controller
 {
@@ -13,6 +12,6 @@ class ActeExecController extends Controller
     $input = $request->all();
     $input['employ_id'] = Auth::user()->employee_id ;
     $exec =ActeExec::create($input);    
-    return Response::json($exec);
+    return $exec;
   } 
 }

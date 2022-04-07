@@ -21,7 +21,7 @@ class CRRControler extends Controller
         $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
         $crr = CRR::create($request->all());
         $ex->update(['crr_id'=>$crr->id]);
-        return  Response::json($ex->id);
+        return Response::json($ex->id);
  	}
  	public function edit($id)
  	{
@@ -52,7 +52,7 @@ class CRRControler extends Controller
   }
   public function download($id)
   {
-    $crr = CRR::find($id);//$demande = $crr->demandeRadio;
+    $crr = CRR::find($id);
      $demande = $crr->examenRadio->Demande;
     if(isset($demande->id_consultation))
     {

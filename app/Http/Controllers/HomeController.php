@@ -30,6 +30,7 @@ use PDF;
 use Storage;
 use File;
 use Session;
+use Response;
 class HomeController extends Controller
 {
     /**
@@ -171,7 +172,7 @@ class HomeController extends Controller
                 $filename = "BS-". $patient->Nom."-".$patient->Prenom;
                 break;
             default:
-                return response()->json(['html'=>"unknown"]);
+                return Response::json(['html'=>"unknown"]);
                 break;
           }
           return $pdf->download($filename); 

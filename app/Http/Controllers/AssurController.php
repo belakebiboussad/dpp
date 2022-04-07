@@ -203,7 +203,7 @@ class AssurController extends Controller
     }
     public function search(Request $request)
     {
-       try {
+      try {
           //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
           $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
           //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
@@ -314,7 +314,7 @@ class AssurController extends Controller
               }
             }//1
             return Response([$output,$ayants])->withHeaders(['count' =>1]);  
-          }else//Nom == ""
+           }else//Nom == ""
           {
             return Response(null)->withHeaders(['count' =>0]);//pas de Fonctionnaire
           }

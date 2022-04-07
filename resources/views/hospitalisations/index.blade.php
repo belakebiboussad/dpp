@@ -186,7 +186,7 @@
                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: "POST",
-                        url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+                        url: '/hospitalisation/'+$("#hospID").val(),
                         data: formData,
                         dataType: 'json',
                         success: function (data) {

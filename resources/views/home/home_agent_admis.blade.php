@@ -147,46 +147,46 @@
               <th scope="col" class="center"><h6><strong>Lit</strong></h6></th>              
             </tr>
           </thead>
-                                     <tbody id="rdvs">
-                                     @foreach($rdvs as $rdv)
-                                        <tr>
-                                          <td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}
-                                          </td>
-                                          <td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
-                                          <td><span class ="text-danger"><strong>{{ $rdv->date }}</strong></span></td>
-                                          <td><span class="badge badge-primary">{{ $rdv->demandeHospitalisation->modeAdmission  }}</td>
-                                          @if($rdv->demandeHospitalisation->bedAffectation)
-                                            <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
-                                            <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
-                                            <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->nom}}</td>
-                                          @else
-                                            <td></td> <td></td> <td></td>
-                                             @endif
-                                          <td class="center">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i>&nbsp;Confirmer</button>
-                                            @include('admission.modalForm.confirmEntreeProg')
-                                            <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('rdv_hospitalisation',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>
-                                          </td>
-                                          </tr>
-                                          @endforeach
-                                          @foreach($demandesUrg as $demande)
-                                            <tr>
-                                                    <td>{{ $demande->consultation->patient->full_name }}</td>
-                                                    <td>{{ $demande->Service->nom }}</td>
-                                                    <td><span class ="text-danger"><strong>{{ $demande->consultation->date }}</strong></span></td>
-                                                    <td><span class="badge badge-danger">{{ $demande->modeAdmission}}</span></td>
-                                                    <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
-                                                    <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
-                                                    <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
-                                                    <td class="center">
-                                                      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif data-toggle="tooltip" title="valider l'admission" data-placement="bottom"> <i class="fa fa-check"></i>Confirmer</button>  
-                                                      @include('admission.modalForm.confirmEntreeUrg')
-                                                      <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($demande->bedAffectation))) disabled @endif ><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;Imprimer</i></a>
-                                                    </td>
-                                            </tr>
-                                            @endforeach
-                                     </tbody>
-                            </table>
+                   <tbody id="rdvs">
+                   @foreach($rdvs as $rdv)
+                      <tr>
+                        <td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}
+                        </td>
+                        <td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
+                        <td><span class ="text-danger"><strong>{{ $rdv->date }}</strong></span></td>
+                        <td><span class="badge badge-primary">{{ $rdv->demandeHospitalisation->modeAdmission  }}</td>
+                        @if($rdv->demandeHospitalisation->bedAffectation)
+                          <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
+                          <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
+                          <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->nom}}</td>
+                        @else
+                          <td></td> <td></td> <td></td>
+                           @endif
+                        <td class="center">
+                          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i>&nbsp;Confirmer</button>
+                          @include('admission.modalForm.confirmEntreeProg')
+                          <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('rdv_hospitalisation',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Imprimer</a>
+                        </td>
+                        </tr>
+                        @endforeach
+                            @foreach($demandesUrg as $demande)
+                              <tr>
+                                      <td>{{ $demande->consultation->patient->full_name }}</td>
+                                      <td>{{ $demande->Service->nom }}</td>
+                                      <td><span class ="text-danger"><strong>{{ $demande->consultation->date }}</strong></span></td>
+                                      <td><span class="badge badge-danger">{{ $demande->modeAdmission}}</span></td>
+                                      <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
+                                      <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
+                                      <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
+                                      <td class="center">
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif data-toggle="tooltip" title="valider l'admission" data-placement="bottom"> <i class="fa fa-check"></i>Confirmer</button>  
+                                        @include('admission.modalForm.confirmEntreeUrg')
+                                        <a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" @if(!(isset($demande->bedAffectation))) disabled @endif ><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;Imprimer</i></a>
+                                      </td>
+                              </tr>
+                              @endforeach
+                       </tbody>
+              </table>
                       </div>
               </div>
         </div>

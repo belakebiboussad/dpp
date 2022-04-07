@@ -37,7 +37,9 @@
 			 <div class="widget-header" >
 				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens d'imagerie</b></font></h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
-				 	<a href="#"  name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-target="#ExamIgtModal" data-original-title="Ajouter un Examen d'imagerie"><div class="fa fa-plus-circle"></div><h4><strong></strong></h4></a>
+           <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
+            <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>
+          </a>
 				</div>
 				</div><!-- widget-header -->
 				<div class="widget-body">
