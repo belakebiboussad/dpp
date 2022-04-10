@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 07 avr. 2022 à 16:38
+-- Généré le : dim. 10 avr. 2022 à 15:37
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.4.16
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   PRIMARY KEY (`id`),
   KEY `fk_code_ngap` (`code_ngap`),
   KEY `fk_acte_viste` (`id_visite`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -59,7 +59,7 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap
 (11, 'faire un pensement', 165, 'kyk', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
 (12, 'faire un pensement', 165, 'une chaque soir', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
 (13, 'faire un pensement', 165, 'une foie le soir', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(14, 'faire un pensement', 165, 'acte un ds', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
+(14, 'faire un pensement', 165, 'acte un ds', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
 (15, 'faire un pensement', 195, 'tou les jour a 10', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
 (16, 'laver le pied', 195, 'le soir', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
 (17, 'faire eguille', 199, 'calculer la temerateur', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
@@ -68,7 +68,10 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap
 (20, 'faire la toillette', 205, 'chaque matin', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
 (21, 'faire une toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
 (22, 'faire la toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(23, 'temperateut', 206, 'dqsdsq', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL);
+(23, 'temperateut', 206, 'dqsdsq', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
+(24, 'acte', 214, 'une foie le soir', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
+(25, 'puipo', 253, NULL, 'medicale', 'C', NULL, NULL, b'1', NULL, NULL),
+(26, 'faire une toilette', 260, 'apres dfdsfdsf', 'paramedicale', 'CRD', NULL, NULL, b'0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -101,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `acte_execs` (
   PRIMARY KEY (`id`),
   KEY `fk_exec_acte` (`acte_id`),
   KEY `fk_exec_employ` (`employ_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `acte_execs`
@@ -112,7 +115,8 @@ INSERT INTO `acte_execs` (`id`, `acte_id`, `employ_id`, `does`, `obs`, `created_
 (8, 15, 113, 1, 'dsqdq', '2022-04-06 16:09:07', '2022-04-06 16:09:07'),
 (9, 15, 113, 1, 'dsqdsq', '2022-04-06 16:10:25', '2022-04-06 16:10:25'),
 (10, 16, 113, 1, 'qsds', '2022-04-06 16:11:48', '2022-04-06 16:11:48'),
-(11, 18, 103, 1, 'avec succes', '2022-04-07 13:59:33', '2022-04-07 13:59:33');
+(11, 18, 103, 1, 'avec succes', '2022-04-07 13:59:33', '2022-04-07 13:59:33'),
+(12, 18, 103, 1, 'fait mais une fievre', '2022-04-10 13:35:02', '2022-04-10 13:35:02');
 
 -- --------------------------------------------------------
 
@@ -2458,7 +2462,7 @@ CREATE TABLE IF NOT EXISTS `constantesliste` (
 INSERT INTO `constantesliste` (`id`, `nom`, `description`, `min`, `max`, `normale`, `step`, `lwrang`, `hnrang`, `grid_num`, `unite`, `created_at`, `updated_at`) VALUES
 (1, 'poids', 'Poids', 0, 250.00, 0.00, 0.10, 0.00, 0.00, 20, 'KG', NULL, NULL),
 (2, 'taille', 'Taille', 15, 300.00, 0.00, 1.00, 100.00, 200.00, 20, 'cm', NULL, NULL),
-(3, ' T°', 'Températeur', 0, 40.00, 37.00, 0.10, 36.10, 37.40, 20, '°C', NULL, NULL),
+(3, ' Temp', 'Températeur', 0, 40.00, 37.00, 0.10, 36.10, 37.40, 20, '°C', NULL, NULL),
 (4, 'PAS ', 'pression artérielle systolique', 50, 139.00, 120.00, 0.10, 100.00, 129.00, 40, 'mmHg', NULL, NULL),
 (5, 'PAD', 'pression artérielle diastolique', 50, 90.00, 80.00, 0.10, 60.00, 90.00, 40, 'mmHg', NULL, NULL),
 (6, 'pouls', 'Pouls', 0, 9.99, 0.00, 0.10, 50.00, 100.00, 40, 'bpm', NULL, NULL),
@@ -2493,7 +2497,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=274 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2553,7 +2557,9 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (268, 'dsq', NULL, '2022-04-07', NULL, 'qs', 0, NULL, 102, 222, NULL, 21),
 (269, 'fsd', NULL, '2022-04-07', NULL, 'fdsf', 0, NULL, 102, 268, NULL, 21),
 (270, 'sqd', NULL, '2022-04-07', NULL, 'dqsd', 0, NULL, 102, 268, 'E15', 21),
-(271, 'sqd', NULL, '2022-04-07', NULL, 'dqsd', 0, NULL, 102, 268, 'E15', 21);
+(271, 'sqd', NULL, '2022-04-07', NULL, 'dqsd', 0, NULL, 102, 268, 'E15', 21),
+(272, 'avec examen rad', NULL, '2022-04-10', NULL, 'avec examen rad', 0, NULL, 102, 222, NULL, 21),
+(273, 'avec radio', NULL, '2022-04-10', NULL, 'avec radio', 0, NULL, 102, 238, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -3217,7 +3223,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr` (
   PRIMARY KEY (`id`),
   KEY `fk_consultation` (`id_consultation`),
   KEY `fk_demanderadio_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr`
@@ -3231,7 +3237,8 @@ INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `resul
 (29, 'd', 'dqs', NULL, NULL, NULL, 268, NULL),
 (30, 'rtgret', 'terttretr', NULL, NULL, NULL, 269, NULL),
 (31, 'sqds', 'dqsd', NULL, NULL, NULL, 270, NULL),
-(32, 'sqds', 'dqsd', NULL, NULL, NULL, 271, NULL);
+(32, 'sqds', 'dqsd', NULL, NULL, NULL, 271, NULL),
+(34, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', NULL, NULL, NULL, 273, NULL);
 
 -- --------------------------------------------------------
 
@@ -3290,7 +3297,9 @@ INSERT INTO `demandeexradio_infosupppertinentes` (`id_demandeexr`, `id_infosupp`
 (28, 1),
 (29, 1),
 (31, 1),
-(32, 1);
+(32, 1),
+(33, 1),
+(34, 2);
 
 -- --------------------------------------------------------
 
@@ -3303,7 +3312,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr_examenradio` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `demande_id` int(11) NOT NULL,
   `exm_id` int(11) NOT NULL,
-  `type_id` varchar(100) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
   `etat` bit(1) DEFAULT NULL COMMENT 'null:encours,1:validé,0:annulere',
   `resultat` varchar(1000) DEFAULT NULL,
   `observation` varchar(100) DEFAULT NULL,
@@ -3311,28 +3320,31 @@ CREATE TABLE IF NOT EXISTS `demandeexr_examenradio` (
   PRIMARY KEY (`id`),
   KEY `id_examenradio` (`exm_id`),
   KEY `id_demandeexr` (`demande_id`),
-  KEY `k-exam-crr` (`crr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+  KEY `k-exam-crr` (`crr_id`),
+  KEY `fk_exam-type` (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr_examenradio`
 --
 
 INSERT INTO `demandeexr_examenradio` (`id`, `demande_id`, `exm_id`, `type_id`, `etat`, `resultat`, `observation`, `crr_id`) VALUES
-(1, 15, 8, '1', b'1', 'b_1647948870.bmp', NULL, NULL),
-(2, 15, 19, '2', b'1', 'a_1647949463.png', NULL, NULL),
-(3, 16, 7, '1', b'1', 'a_1648033345.png', NULL, NULL),
-(4, 16, 8, '2', b'1', 'CT_small_1648033373.dcm', NULL, NULL),
-(5, 17, 10, '1', b'1', 'a_1648039819.png', NULL, NULL),
-(6, 17, 29, '2', b'1', 'IMG00009_1648039931', NULL, NULL),
-(11, 19, 8, '3', b'1', 'a_1648634474.png', NULL, NULL),
-(12, 19, 19, '1', b'1', 'CT_small_1648634476.dcm', NULL, NULL),
-(28, 30, 7, '1', NULL, NULL, NULL, NULL),
-(29, 30, 10, '3', NULL, NULL, NULL, NULL),
-(30, 31, 7, '1', NULL, NULL, NULL, NULL),
-(31, 31, 22, '10', NULL, NULL, NULL, NULL),
-(32, 32, 8, '10', NULL, NULL, NULL, NULL),
-(33, 32, 16, '1', NULL, NULL, NULL, NULL);
+(1, 15, 8, 1, b'1', 'b_1647948870.bmp', NULL, NULL),
+(2, 15, 19, 2, b'1', 'a_1647949463.png', NULL, NULL),
+(3, 16, 7, 1, b'1', 'a_1648033345.png', NULL, NULL),
+(4, 16, 8, 2, b'1', 'CT_small_1648033373.dcm', NULL, NULL),
+(5, 17, 10, 1, b'1', 'a_1648039819.png', NULL, NULL),
+(6, 17, 29, 2, b'1', 'IMG00009_1648039931', NULL, NULL),
+(11, 19, 8, 3, b'1', 'a_1648634474.png', NULL, NULL),
+(12, 19, 19, 1, b'1', 'CT_small_1648634476.dcm', NULL, NULL),
+(28, 30, 7, 1, NULL, NULL, NULL, NULL),
+(29, 30, 10, 3, NULL, NULL, NULL, NULL),
+(30, 31, 7, 1, NULL, NULL, NULL, NULL),
+(31, 31, 22, 10, NULL, NULL, NULL, NULL),
+(32, 32, 8, 10, NULL, NULL, NULL, NULL),
+(33, 32, 16, 1, NULL, NULL, NULL, NULL),
+(36, 31, 10, 1, NULL, NULL, NULL, NULL),
+(48, 34, 10, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12046,27 +12058,32 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   `med_id` int(11) NOT NULL,
   `posologie` varchar(200) NOT NULL,
   `periodes` json DEFAULT NULL,
+  `nbrPJ` tinyint(1) NOT NULL,
   `duree` int(11) DEFAULT NULL,
   `visite_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `traitements`
 --
 
-INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `duree`, `visite_id`) VALUES
-(68, 17, '2comprime par jour', NULL, NULL, 5),
-(67, 21, '2 comprime par jour', NULL, NULL, 2),
-(73, 110, '7 comprime par jour', NULL, NULL, 11),
-(71, 113, '2 comprime par jour', NULL, NULL, 8),
-(75, 17, '3 comprime par jour', NULL, NULL, 13),
-(76, 105, '1 comprime par jour', NULL, NULL, 13),
-(77, 17, '1 comprime par jour', NULL, NULL, 144),
-(78, 14, '1 comprime par jour', NULL, NULL, 151),
-(79, 14, '3 comprime par jour', NULL, NULL, 199),
-(80, 20, '2 comprime par jour', NULL, NULL, 199),
-(81, 329, '2 comprime par jour', NULL, NULL, 199);
+INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `nbrPJ`, `duree`, `visite_id`) VALUES
+(68, 17, '2comprime par jour', NULL, 0, NULL, 5),
+(67, 21, '2 comprime par jour', NULL, 0, NULL, 2),
+(73, 110, '7 comprime par jour', NULL, 0, NULL, 11),
+(71, 113, '2 comprime par jour', NULL, 0, NULL, 8),
+(75, 17, '3 comprime par jour', NULL, 0, NULL, 13),
+(76, 105, '1 comprime par jour', NULL, 0, NULL, 13),
+(77, 17, '1 comprime par jour', NULL, 0, NULL, 144),
+(78, 14, '1 comprime par jour', NULL, 0, NULL, 151),
+(79, 14, '3 comprime par jour', NULL, 0, NULL, 199),
+(80, 20, '2 comprime par jour', NULL, 0, NULL, 199),
+(84, 344, '2comprime par jour', NULL, 0, NULL, 215),
+(82, 19, '1 comprime par 2 jour', NULL, 0, NULL, 211),
+(83, 754, '2 comprime par jour', NULL, 0, NULL, 211),
+(89, 78, '3 comprime par jour', NULL, 0, 1, 260),
+(90, 975, '3 comprime par jour', NULL, 3, 2, 261);
 
 -- --------------------------------------------------------
 
@@ -12181,7 +12198,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '5Zq1qFaBDQIuU62Jr87eQ0aVyeAJ8q0SXFztxmsgFcgOUgPKEV9bhiYUqctf', 1),
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'xSem4M4Q6SrE58iO0fMreXAdvhQYbYbalvHd1voXVUxxsrCiRyvLcDp6wC5a', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'TbVUGYOv7norBCRAvcPBr8n4pGqUbt7w9hcBx5lTMPP5HfU4qvVAcBL3UIM4', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'fQjzn3bkXfHz5RFcNLb0rqpuwhEjWbTS3G4cPLjmiNqtF7Y8M7UMK4G401YK', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'YY30yWPS8kTOol7GUuLYoADs3dYrQov2Jd5lmhgSbsgkP11DacrExrDwu3M5', 1),
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'Ep9znvLXi4IMBxK7qBTFFCn6XQOa764y26JVCJuEdxlmwbS7rNpUwspMJl7q', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'NjzDMa7coGitqn8jPfcWgsD7UKIW4vxBDMuMUfjZ9f2oYnKiGcoAgRfbWYpm', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
@@ -12241,7 +12258,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12295,7 +12312,60 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (204, '2022-04-07', '13:05:00', 2, 103, NULL, NULL),
 (205, '2022-04-07', '13:06:00', 2, 103, NULL, NULL),
 (206, '2022-04-07', '13:07:00', 2, 103, NULL, NULL),
-(207, '2022-04-07', '13:10:00', 2, 103, NULL, NULL);
+(207, '2022-04-07', '13:10:00', 2, 103, NULL, NULL),
+(209, '2022-04-10', '13:58:00', 2, 103, NULL, NULL),
+(210, '2022-04-10', '13:58:00', 2, 103, NULL, NULL),
+(211, '2022-04-10', '13:58:00', 6, 103, NULL, NULL),
+(213, '2022-04-10', '14:23:00', 2, 103, NULL, NULL),
+(214, '2022-04-10', '14:28:00', 2, 103, NULL, NULL),
+(215, '2022-04-10', '14:33:00', 2, 103, NULL, NULL),
+(216, '2022-04-10', '14:49:00', 2, 103, NULL, NULL),
+(217, '2022-04-10', '14:57:00', 2, 103, NULL, NULL),
+(218, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(219, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(220, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(221, '2022-04-10', '15:04:00', 2, 103, NULL, NULL),
+(222, '2022-04-10', '15:05:00', 2, 103, NULL, NULL),
+(223, '2022-04-10', '15:07:00', 2, 103, NULL, NULL),
+(224, '2022-04-10', '15:09:00', 2, 103, NULL, NULL),
+(225, '2022-04-10', '15:09:00', 2, 103, NULL, NULL),
+(226, '2022-04-10', '15:10:00', 2, 103, NULL, NULL),
+(227, '2022-04-10', '15:10:00', 2, 103, NULL, NULL),
+(228, '2022-04-10', '15:11:00', 2, 103, NULL, NULL),
+(229, '2022-04-10', '15:13:00', 2, 103, NULL, NULL),
+(230, '2022-04-10', '15:14:00', 2, 103, NULL, NULL),
+(231, '2022-04-10', '15:16:00', 2, 103, NULL, NULL),
+(232, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(233, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(234, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(235, '2022-04-10', '15:20:00', 2, 103, NULL, NULL),
+(236, '2022-04-10', '15:22:00', 2, 103, NULL, NULL),
+(237, '2022-04-10', '15:22:00', 2, 103, NULL, NULL),
+(238, '2022-04-10', '15:23:00', 2, 103, NULL, NULL),
+(239, '2022-04-10', '15:24:00', 2, 103, NULL, NULL),
+(240, '2022-04-10', '15:25:00', 2, 103, NULL, NULL),
+(241, '2022-04-10', '15:25:00', 2, 103, NULL, NULL),
+(242, '2022-04-10', '15:26:00', 2, 103, NULL, NULL),
+(243, '2022-04-10', '15:33:00', 2, 103, NULL, NULL),
+(244, '2022-04-10', '15:36:00', 2, 103, NULL, NULL),
+(245, '2022-04-10', '15:37:00', 2, 103, NULL, NULL),
+(246, '2022-04-10', '15:38:00', 2, 103, NULL, NULL),
+(247, '2022-04-10', '15:40:00', 2, 103, NULL, NULL),
+(248, '2022-04-10', '15:40:00', 2, 103, NULL, NULL),
+(249, '2022-04-10', '15:44:00', 2, 103, NULL, NULL),
+(250, '2022-04-10', '15:44:00', 2, 103, NULL, NULL),
+(251, '2022-04-10', '15:49:00', 2, 103, NULL, NULL),
+(252, '2022-04-10', '15:50:00', 2, 103, NULL, NULL),
+(253, '2022-04-10', '15:51:00', 2, 103, NULL, NULL),
+(254, '2022-04-10', '15:56:00', 2, 103, NULL, NULL),
+(255, '2022-04-10', '15:58:00', 2, 103, NULL, NULL),
+(256, '2022-04-10', '16:00:00', 2, 103, NULL, NULL),
+(257, '2022-04-10', '16:06:00', 2, 103, NULL, NULL),
+(258, '2022-04-10', '16:07:00', 2, 103, NULL, NULL),
+(259, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
+(260, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
+(261, '2022-04-10', '16:14:00', 2, 103, NULL, NULL),
+(262, '2022-04-10', '16:17:00', 2, 103, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12471,7 +12541,8 @@ ALTER TABLE `demandeexr`
 ALTER TABLE `demandeexr_examenradio`
   ADD CONSTRAINT `fk-exam-crr` FOREIGN KEY (`crr_id`) REFERENCES `crrs` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk-exam-demande` FOREIGN KEY (`demande_id`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk-examRadio` FOREIGN KEY (`exm_id`) REFERENCES `examenradiologique` (`id`);
+  ADD CONSTRAINT `fk-examRadio` FOREIGN KEY (`exm_id`) REFERENCES `examenradiologique` (`id`),
+  ADD CONSTRAINT `fk_exam-type` FOREIGN KEY (`type_id`) REFERENCES `typesexam` (`id`);
 
 --
 -- Contraintes pour la table `demandehospitalisations`

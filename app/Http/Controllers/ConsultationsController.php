@@ -190,7 +190,6 @@ class ConsultationsController extends Controller
           $demandeExImg->Explecations = $request->explication;
           $demandeExImg->id_consultation = $consult->id;
           $demandeExImg->save();
-          
           if(isset($request->infos))
           {
             foreach ($request->infos as $id_info) {

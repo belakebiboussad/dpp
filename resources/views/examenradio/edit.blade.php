@@ -22,11 +22,10 @@
                      } 
             });
     });
-    $("#requestImgEdit").submit(function(e){
-      event.preventDefault();
+    $("#requestImgEdit").submit(function(e){//event.preventDefault();
       var arrayLignes = document.getElementById("ExamsImg").rows;
       addExamsImg(this);
-      //$("#requestImgEdit").submit();
+      $("#requestImgEdit").submit();
     });
  })
   </script>
@@ -84,7 +83,7 @@
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">
 			 <div class="widget-header" >
-				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens Imagerie</b></font></h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Imagerie</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
           <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
             <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>
@@ -96,16 +95,19 @@
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ExamsImgtab">
 				 	  <thead class="thin-border-bottom">
 						 <tr>
-                
-						    <th class ="center" class="nsort"><strong>Nom </strong></th>
-							  <th class ="center"><strong>Type</strong></th>
+                <th class ="hidden"></th>
+						    <th class ="center" class="nsort"><strong>Examen du</strong></th>
+							  <th class ="hidden"></th>
+                <th class ="center"><strong>Type d'examen</strong></th>
 							  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
 					    </tr>
 						</thead>
 						  <tbody id="ExamsImg">
                 @foreach ($demande->examensradios as $index => $ex)
                   <tr id="{{ 'exm-'.$ex->id }}">
+                    <td id="idExamen" hidden>{{ $ex->Examen->id }}</td>
                     <td>{{ $ex->Examen->nom }}</td>
+                    <td hidden id="types">{{ $ex->Type->id }}</td>  
                     <td>{{ $ex->Type->nom }}</td>
                     <td class="center">
                      <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 

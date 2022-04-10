@@ -1,0 +1,73 @@
+<div id="acteModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div  id="" class="modal-content custom-height-modal">
+			<div class="modal-header">
+	  			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	  			<h4 class="modal-title" id="acteCrudModal">Prescrire un Acte Médicale</h4>
+	  		</div>
+			<div class="modal-body">
+		      <form id="addActe" method="POST" action ="{{ route('acte.store')}}" name="form1" id="form1">
+		 		{{ csrf_field() }}
+		 		<input type="hidden" value="" name="idhosp">
+		 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
+		 		<input type="hidden" value=""  id ="acte_id">
+		 		<div class="space-12"></div>
+	 			<div class="row">
+	 				<div class="form-group">
+						<label for=""class="col-sm-3 control-label no-padding-right"><b>Acte:</b></label>
+						<div class="col-sm-7">
+							<input type="text" id="acte" class="form-control" placeholder="Nom de l'Acte" />
+						</div>
+					</div>
+		 		</div>
+			 		<div class="space-12"></div>
+			 		<div class="row">
+			 			<div class="col-sm-3">
+			 		    <label for="" class="control-label no-padding-right"><b>Type :</b></label>
+			 			</div>
+			 			<div class="col-sm-7">
+							<select type="text" id="type" data-placeholder="selectionnez le type de l'acte" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" required />
+							  <option value="paramedicale">paramédicale</option>
+                <option value="medicale">médicale</option>
+							</select>
+						</div>	
+			 		</div>
+			 		<div class="space-12"></div>
+			 			<div class="row">
+			 			<div class="col-sm-3">
+			 		    <label for="" class="control-label no-padding-right"><b>Code NGAP :</b></label>
+			 			</div>
+			 			<div class="col-sm-7">
+							<select type="text" id="code_ngap" class="selectpicker show-menu-arrow place_holde form-control col-sm-6"/>
+							<option value="">selectionnez le Code NGAP</option>
+							@foreach($codesNgap as $code)
+							 	<option value="{{ $code->code }}">{{ $code->libelle }}</option>}
+							@endforeach
+							</select>
+						</div>	
+			 		</div>
+			 		<div class="space-12"></div>
+			 		<div class="row">
+			 			<div class="col-sm-3">
+			 		    <label for="" class="control-label no-padding-right"><b>Application :</b></label>
+			 			</div>
+			 			<div class="col-sm-7">
+							<input type="text" id="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
+						</div>
+			 		</div>
+
+			 		<div class="space-12"></div>
+			 		<hr>
+			 		<div class="row" align="right">
+			 			<button type="submit" id="EnregistrerActe" class="btn btn-primary btn-xs" value ="add">
+         							<i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
+         						</button>
+         		<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">
+    					<i class="ace-icon fa fa-close bigger-110"></i>Fermer
+    				</button>
+			 		</div>
+			  </form>
+			</div>
+		</div>
+	</div>
+</div>

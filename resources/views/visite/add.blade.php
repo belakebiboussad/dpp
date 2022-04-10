@@ -139,9 +139,9 @@
   });  
 	$("#EnregistrerTrait").click(function (e) {
 		e.preventDefault();
-	var periodes = [];
-	if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
-		$('#traitModal').modal('toggle');
+	  var periodes = [];
+	 if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
+	   	$('#traitModal').modal('toggle');
 	  $.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -150,7 +150,9 @@
 		var formData = {
 				visite_id: $('#id_visiteT').val(),
 				med_id:$("#produit").val(),
-				posologie:$("#posologie").val(),/*periodes :periodes,duree : $('#dureeT').val()*/
+				posologie:$("#posologie").val(),/*periodes :periodes,*/
+        nbrPJ : $('#nbrPJ').val(),
+        duree : $('#dureeT').val()
 		};
 		var state = jQuery('#EnregistrerTrait').val();
 		var trait_id = jQuery('#trait_id').val();
@@ -167,9 +169,8 @@
 			dataType:'json',
 			success: function (data) {	
 				if($('.dataTables_empty').length > 0)
-				{
-					$('.dataTables_empty').remove();
-				}/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
+				  $('.dataTables_empty').remove();
+				/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
 				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
 									+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
 				trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
@@ -195,7 +196,9 @@
 						$('#TraitCrudModal').html("Editer un Traitement Médical");		
 						$('#specialiteProd').val(data.medicament.id_specialite);
 						$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
-						jQuery('#EnregistrerTrait').val("update");		
+						$('#nbrPJ').val(data.nbrPJ);
+            $('#dureeT').val(data.duree);
+            jQuery('#EnregistrerTrait').val("update");		
 						jQuery('#traitModal').modal('show');
 		  	});
 	});////----- DELETE a Traitement and remove from the tabele -----////

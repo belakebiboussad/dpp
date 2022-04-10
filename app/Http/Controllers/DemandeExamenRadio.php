@@ -75,31 +75,42 @@ class DemandeExamenRadio extends Controller
       return $ex->id;
     }
     public function update(Request $request, demandeexr $demande)
-    {
-      dd($request->all());
+    { 
       $demande = demandeexr::FindOrFail($request->demande_id);  
       if(Auth::user()->is(12))
+      {
+        foreach ($demande->examensradios as $key => $exam)
         {
-            foreach ($demande->examensradios as $key => $exam)
-            {
-              if($exam->getEtatID($exam->etat) ==="")
-                return redirect()->action('DemandeExamenRadio@index');
-            } 
-            $demande->update([ "etat" => 1 ]);$demande->save();
+          if($exam->getEtatID($exam->etat) ==="")
             return redirect()->action('DemandeExamenRadio@index');
-       }else
-       {
-          
-          if($demande->examensradios->count() == 0)
-                 $demande->delete();
-           else
-           {
-                  $demande->InfosCliniques = $request->infosc;  $demande->Explecations = $request->explication;
-                  $demande->save();
-                   $demande->infossuppdemande()->sync($request->infos);
+        } 
+        $demande->update([ "etat" => 1 ]);$demande->save();
+        return redirect()->action('DemandeExamenRadio@index');
+      }else
+      {
+        if (!empty($request->ExamsImg))
+        {
+          foreach(json_decode($request->ExamsImg) as $exam){
+            $examsInp[]=$exam->acteId;
+            $typeExamsInp[]=$exam->type;
           }
-          return redirect(Route('consultations.show',$demande->id_consultation));   
-       }
+          Demandeexr_Examenradio::where('demande_id', $demande->id)->whereNotIn('exm_id', $examsInp)->delete();
+          $demExam = $demande->examensradios()->pluck('exm_id')->toArray();//dd($demExam);//[16,7,8]
+          $examsIds = array_diff($examsInp, $demExam); /*dd($examsIds);//diif 28*/
+          if (!empty($examsIds))
+          {
+            foreach ($examsIds as $index => $id)
+            {
+              $exam = new Demandeexr_Examenradio;
+              $exam->demande_id = $demande->id; $exam->exm_id = $id;
+              $exam->type_id = $typeExamsInp[$index];$exam->save();
+            }
+            $demande->infossuppdemande()->sync($request->infos);
+          }
+        }else
+          $demande->delete();
+        return redirect(Route('consultations.show',$demande->id_consultation));   
+      }  
     }
     /**
      * Show the form for creating a new resource.
@@ -112,25 +123,11 @@ class DemandeExamenRadio extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-      public function store(Request $request, $consultID)
-      {
-         $demande = demandeexr::FirstOrCreate([
-                 "Date" => Date::now(),
-                 "InfosCliniques" => $request->infosc,
-                 "Explecations" => $request->explication,
-                 "id_consultation" => $consultID,
-         ]);
-             $examsImagerie = json_decode ($request->ExamsImg);
-              foreach ($examsImagerie as $key => $value) {       
-                $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-              }
-             if(isset($request->infos))
-             {
-                    foreach ($request->infos as $id_info) {
-                         $demande->infossuppdemande()->attach($id_info);
-                    }
-             }
-    }
+/*public function store(Request $request, $consultID){
+$demande = demandeexr::FirstOrCreate(["Date" => Date::now(),"InfosCliniques" => $request->infosc,
+"Explecations" => $request->explication,"id_consultation" => $consultID,]);$examsImagerie = json_decode ($request->ExamsImg);foreach ($examsImagerie as $key => $value) {       
+          $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+        }if(isset($request->infos)){foreach ($request->infos as $id_info){$demande->infossuppdemande()->attach($id_info);}}}*/
     /**
      * Display the specified resource.
      *
@@ -159,6 +156,7 @@ class DemandeExamenRadio extends Controller
      */
       public function edit($id) {
         $demande = demandeexr::FindOrFail($id);
+        //dd($demande->examensradios);
         $infossupp = infosupppertinentes::all();
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet

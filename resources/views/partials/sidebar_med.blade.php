@@ -306,7 +306,6 @@
           ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }
           
         }
-        alert(JSON.stringify(ExamsImg));
         var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
         champ.appendTo(form);
       }
@@ -411,7 +410,7 @@
               $('#ExamIgtModal').modal('toggle');
               $.each($("input[name='exmns']:checked"), function(){
                 selected.push($(this).next('label').text());
-                array.push($(this).val());  //$(this). prop("checked", false);
+                array.push($(this).val());
               });   
               var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
                  exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     

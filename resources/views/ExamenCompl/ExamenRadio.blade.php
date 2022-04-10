@@ -33,9 +33,11 @@
       		</div>
        	<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div><div class="space-12"></div>
 	      <div class="row">
-			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">
+			 <div class= "widget-box widget-color-blue">
 			 <div class="widget-header" >
-				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens d'imagerie</b></font></h5>
+				<h5 class="widget-title bigger"><!-- <font color="black"> -->
+          <i class="ace-icon fa fa-table"></i>&nbsp;Examens d'imagerie<!-- </font> -->
+        </h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
            <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
             <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>
@@ -48,8 +50,9 @@
 					 	<thead class="thin-border-bottom">
 						  <tr style ="background-color: #eee;">
                   <th class ="hidden"></th>
-							    <th class ="center" class="nsort" style="color; white;"><strong>Examen du </strong></th>
-								  <th class ="center"><strong>Type d'examen</strong></th>
+							    <th class ="center" class="nsort" style="color; white;"><strong>Examen du</strong></th>
+                   <th class ="hidden"></th>
+                  <th class ="center"><strong>Type d'examen</strong></th>
 								  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
 						  </tr>
 						</thead>
