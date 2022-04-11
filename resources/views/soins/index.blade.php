@@ -1,6 +1,4 @@
 @extends('app')
-@section('style')
-@endsection
 @section('main-content')
 <div class="container-fluid">
   <div class="row"><div class="col-sm-12"><?php $patient = $hosp->patient; ?>@include('patient._patientInfo')</div></div>
@@ -68,7 +66,7 @@
               <td>{{ $trait->visite->medecin->full_name }}</td> 
               <td>{{ $trait->visite->date}} à {{$trait->visite->heure}}</td> 
               <td class="center">
-                <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="" data-acte-id="{{ $trait->id }}" data-dismiss="modal"><em class="fa fa-cog"></em></button>
+                <button onclick ="getTraitdetail({{$trait->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a>
               </td> 
             </tr>
           @endforeach
@@ -76,16 +74,31 @@
         </tbody>
       </table>
     </div>
+    <div class="col-md-5 col-sm-5 widget-box transparent"  id="traitDetail"></div>    
   </div>
 </div>
-<div class="row">@include('soins.ModalFoms.acteExecute')</div>
+@include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')
 <script type="text/javascript">
+  function getTraitdetail(id){
+    var url= '{{ route ("traits.details", ":slug") }}';
+    url = url.replace(':slug',id);
+    $.ajax({
+        url : url,
+        type : 'GET',
+        success:function(data,status, xhr){
+          $('#traitDetail').html(data);
+        },
+        error:function(data){
+          console.log("error patient details")
+        } 
+    });
+  }
   $(function(){/*$("#fait").change(function() {  if ($(this).is(':checked')) $("#obs").addClass("hidden");else $("#obs").removeClass("hidden");})*/
     $('#acteExecute').on('shown.bs.modal', function (event) {
       var acteId = $(event.relatedTarget).data('acte-id');
-      $(".send").val(acteId);
+      $(".execActe").val(acteId);
     });
-    $(".send").click(function(e){//runActe
+    $(".execActe").click(function(e){//runActe
       e.preventDefault();
       var formData = {
         acte_id : $(this).val(),
@@ -97,18 +110,42 @@
           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
       });
-      $.a
-      var url = "{{ route('acteExec.store') }}";
       $.ajax({
           type : 'POST',
-          url :url,
+          url :"{{ route('acteExec.store') }}",
           data:formData,
           success:function(data){   
            $('#acteExecute').modal('hide');
            $("#acte-" + data.acte_id).remove();
           }
       })
-    })
+    }); ///trait
+    $('#traitExecute').on('shown.bs.modal', function (event) {
+      var traitId = $(event.relatedTarget).data('trait-id');
+      $(".execTrait").val(traitId);
+    });
+    $(".execTrait").click(function(e){//runActe
+      e.preventDefault();
+      var formData = {
+        trait_id : $(this).val(),
+        does    : $("#fait").is(':checked')?1:0,
+        obs     : $('#obs').val()
+      };
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+          type : 'POST',
+          url :"{{ route('traitExec.store') }}",
+          data:formData,
+          success:function(data){   
+           $('#traitExecute').modal('hide');
+           //$("#admin-" + data.acte_id).remove();
+          }
+      })
+    });
   });
  </script> 
 @endsection

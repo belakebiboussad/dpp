@@ -71,7 +71,7 @@ function errorMsg(msg, error) {
 			url : '/patientdetail/'+id,
 		      type : 'GET',
 		      success:function(data,status, xhr){
-			      	$('#patientDetail').html(data.html);
+			      	$('#patientDetail').html(data);
         		},
           		error:function(data){
 	         		 console.log("error patient details")
@@ -271,10 +271,8 @@ function errorMsg(msg, error) {
 					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>
 				</div>	
 			</div>
-		</div>{{-- col-sm-7 --}}<!-- hidden-xs hidden-sm  -->
-		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail">
-		</div>		
-		  
+		</div>{{-- col-sm-7 --}}
+		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail"></div>		
 	</div>{{-- row --}}
 	<div class="row">
 	@include('patient.ModalFoms.mergeModal')

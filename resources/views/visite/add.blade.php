@@ -240,12 +240,12 @@
   </script>
 @endsection
 @section('main-content')
-<div class="page-header" width="100%">@include('patient._patientInfo')	</div>
+<div class="container-fluid">
+<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
 <div class="content">
 	<form  class="form-horizontal" id ="visiteForm" action="{{ route('visites.store') }}" method="POST" role="form">
 		{{ csrf_field() }}
-		<input type="hidden" name="id" value="{{$id}}">
-		<div id="prompt"></div>
+		<input type="hidden" name="id" value="{{$id}}"><div id="prompt"></div>
 		<div class="tabpanel mb-3">
 		  <div class="row">
 				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
@@ -422,4 +422,5 @@
 	<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
        <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>
  </div>
-  @endsection
+</div>
+@endsection

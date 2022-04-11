@@ -166,18 +166,8 @@ $('document').ready(function(){
 	  $(".two-decimals").change(function(){
 					this.value = parseFloat(this.value).toFixed(2);
 	  });
-		/* pas sup pas verif
-    $("button").click(function (event) {
-		  which = '';
-			str ='send';
-			which = $(this).attr("id");
-			var which = $.trim(which);
-			var str = $.trim(str);
-			if(which==str){
-					return true;
-			}
-		});*/
-    /*$("#btnCalc").click(function(event){event.preventDefault(); });*/
+		/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
+		/*$("#btnCalc").click(function(event){event.preventDefault(); });*/
 	  $('#medc_table').DataTable({
 				processing: true,
 				serverSide: true,

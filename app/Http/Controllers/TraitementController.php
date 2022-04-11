@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\Traitement;
 use Response;
+use Carbon\Carbon;
 class TraitementController extends Controller
 {
     public function edit($id)
@@ -31,6 +32,13 @@ class TraitementController extends Controller
   {
     $trait = Traitement::destroy($id);
     return Response::json($trait);
+  }
+  public function getTraitDetails($id)
+  {
+    $date= Carbon::now()->format('d/m/Y'); 
+    $trait = Traitement::FindOrFail($id);
+    $view = view("soins.ajax_trait_details",compact('trait','date'))->render();
+    return($view);
   }
 
 }

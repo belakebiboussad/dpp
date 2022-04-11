@@ -19,17 +19,17 @@
                          <img class="nav-user-photo" src="{{ asset('/avatars/user.jpg') }}" alt="admins's Photo" />
 			          <span class="user-info"><small>Bienvenue,</small> {{ Auth::user()->name }}</span> <i class="ace-icon fa fa-caret-down"></i>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li><a href="/setting/{{Auth::user()->id}}"><i class="ace-icon fa fa-cog"></i>Réglages</a></li>
-                        <li><a href="/profile/{{Auth::user()->id}}"><i class="ace-icon fa fa-user"></i> Profil</a> </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="ace-icon fa fa-power-off"></i> Déconnexion
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                </form>
-                            </a>
-                        </li>
+                      <li><a href=""><i class="ace-icon fa fa-cog"></i>Réglages</a></li>/setting/{{--Auth::user()->id--}}
+                      <li><a href="/profile/{{Auth::user()->id}}"><i class="ace-icon fa fa-user"></i> Profil</a> </li>
+                      <li class="divider"></li>
+                      <li>
+                          <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                              <i class="ace-icon fa fa-power-off"></i> Déconnexion
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      {{ csrf_field() }}
+                              </form>
+                          </a>
+                      </li>
                     </ul>
                     </a>
                 </li><!-- /section:basics/navbar.user_menu -->

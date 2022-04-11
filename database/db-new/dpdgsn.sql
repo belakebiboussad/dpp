@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 10 avr. 2022 à 15:37
+-- Généré le : lun. 11 avr. 2022 à 14:20
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.4.16
 
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `acte_execs` (
   PRIMARY KEY (`id`),
   KEY `fk_exec_acte` (`acte_id`),
   KEY `fk_exec_employ` (`employ_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `acte_execs`
@@ -116,7 +116,8 @@ INSERT INTO `acte_execs` (`id`, `acte_id`, `employ_id`, `does`, `obs`, `created_
 (9, 15, 113, 1, 'dsqdsq', '2022-04-06 16:10:25', '2022-04-06 16:10:25'),
 (10, 16, 113, 1, 'qsds', '2022-04-06 16:11:48', '2022-04-06 16:11:48'),
 (11, 18, 103, 1, 'avec succes', '2022-04-07 13:59:33', '2022-04-07 13:59:33'),
-(12, 18, 103, 1, 'fait mais une fievre', '2022-04-10 13:35:02', '2022-04-10 13:35:02');
+(12, 18, 103, 1, 'fait mais une fievre', '2022-04-10 13:35:02', '2022-04-10 13:35:02'),
+(13, 12, 103, 1, 'id egal 13', '2022-04-11 13:53:39', '2022-04-11 13:53:39');
 
 -- --------------------------------------------------------
 
@@ -10818,7 +10819,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `migrations`
@@ -10843,7 +10844,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2019_02_04_075952_homme_confs', 13),
 (28, '2020_01_07_075408_create_bed_reservation_table', 14),
 (30, '2020_01_19_151315_creta_table_viste', 15),
-(31, '2022_04_06_163440_create_table__acte_execs', 16);
+(31, '2022_04_06_163440_create_table__acte_execs', 16),
+(32, '2022_04_11_121424_create_trait_execs_table', 17);
 
 -- --------------------------------------------------------
 
@@ -12060,30 +12062,39 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   `periodes` json DEFAULT NULL,
   `nbrPJ` tinyint(1) NOT NULL,
   `duree` int(11) DEFAULT NULL,
-  `visite_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+  `visite_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_trait_medicament` (`med_id`),
+  KEY `fk_trait_visite` (`visite_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `traitements`
 --
 
 INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `nbrPJ`, `duree`, `visite_id`) VALUES
-(68, 17, '2comprime par jour', NULL, 0, NULL, 5),
-(67, 21, '2 comprime par jour', NULL, 0, NULL, 2),
-(73, 110, '7 comprime par jour', NULL, 0, NULL, 11),
-(71, 113, '2 comprime par jour', NULL, 0, NULL, 8),
-(75, 17, '3 comprime par jour', NULL, 0, NULL, 13),
-(76, 105, '1 comprime par jour', NULL, 0, NULL, 13),
-(77, 17, '1 comprime par jour', NULL, 0, NULL, 144),
-(78, 14, '1 comprime par jour', NULL, 0, NULL, 151),
-(79, 14, '3 comprime par jour', NULL, 0, NULL, 199),
-(80, 20, '2 comprime par jour', NULL, 0, NULL, 199),
-(84, 344, '2comprime par jour', NULL, 0, NULL, 215),
-(82, 19, '1 comprime par 2 jour', NULL, 0, NULL, 211),
-(83, 754, '2 comprime par jour', NULL, 0, NULL, 211),
-(89, 78, '3 comprime par jour', NULL, 0, 1, 260),
-(90, 975, '3 comprime par jour', NULL, 3, 2, 261);
+(91, 20, '3 comprime par jour', NULL, 3, 3, 271),
+(92, 107, '4 comprime par jour', NULL, 4, 1, 271);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `trait_execs`
+--
+
+DROP TABLE IF EXISTS `trait_execs`;
+CREATE TABLE IF NOT EXISTS `trait_execs` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `trait_id` int(11) NOT NULL,
+  `employ_id` int(11) NOT NULL,
+  `does` tinyint(1) NOT NULL DEFAULT '0',
+  `obs` text COLLATE utf8mb4_unicode_ci,
+  `state` tinyint(1) DEFAULT NULL COMMENT '0:annuler',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_treitExec_employ` (`employ_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -12200,7 +12211,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'TbVUGYOv7norBCRAvcPBr8n4pGqUbt7w9hcBx5lTMPP5HfU4qvVAcBL3UIM4', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'YY30yWPS8kTOol7GUuLYoADs3dYrQov2Jd5lmhgSbsgkP11DacrExrDwu3M5', 1),
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'Ep9znvLXi4IMBxK7qBTFFCn6XQOa764y26JVCJuEdxlmwbS7rNpUwspMJl7q', 1),
-(56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'NjzDMa7coGitqn8jPfcWgsD7UKIW4vxBDMuMUfjZ9f2oYnKiGcoAgRfbWYpm', 1),
+(56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'uNMIcbBiQhyTGLIPApiem3dCPvL50bYe5lS5MTLyiKnBWif31VeoidoCybdV', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'iVcx3gmRtbaa1pAVqnLvd9iWXx3Gawii95vuewEdK9mQJSShsCZ76xqnnmIL', 1),
 (59, 'chefint', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'chefint@hop.com', 114, 14, 'iJhn3DpHdJT1BPY66lojswWu1YybgoQUki9RdO0SRFQP761b14NonznnXBi2', 1),
@@ -12258,7 +12269,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12365,7 +12376,15 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (259, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
 (260, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
 (261, '2022-04-10', '16:14:00', 2, 103, NULL, NULL),
-(262, '2022-04-10', '16:17:00', 2, 103, NULL, NULL);
+(262, '2022-04-10', '16:17:00', 2, 103, NULL, NULL),
+(263, '2022-04-11', '11:28:00', 2, 103, NULL, NULL),
+(265, '2022-04-11', '12:05:00', 6, 103, NULL, NULL),
+(266, '2022-04-11', '12:43:00', 6, 103, NULL, NULL),
+(267, '2022-04-11', '12:44:00', 2, 103, NULL, NULL),
+(268, '2022-04-11', '12:47:00', 6, 103, NULL, NULL),
+(269, '2022-04-11', '12:48:00', 6, 103, NULL, NULL),
+(270, '2022-04-11', '12:49:00', 6, 103, NULL, NULL),
+(271, '2022-04-11', '12:50:00', 6, 103, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12618,6 +12637,19 @@ ALTER TABLE `pres_cons`
 ALTER TABLE `rdvs`
   ADD CONSTRAINT `fk_rdv_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_rdv_specualite` FOREIGN KEY (`specialite_id`) REFERENCES `specialites` (`id`);
+
+--
+-- Contraintes pour la table `traitements`
+--
+ALTER TABLE `traitements`
+  ADD CONSTRAINT `fk_trait_medicament` FOREIGN KEY (`med_id`) REFERENCES `medcamtes` (`id`),
+  ADD CONSTRAINT `fk_trait_visite` FOREIGN KEY (`visite_id`) REFERENCES `visites` (`id`);
+
+--
+-- Contraintes pour la table `trait_execs`
+--
+ALTER TABLE `trait_execs`
+  ADD CONSTRAINT `fk_treitExec_employ` FOREIGN KEY (`employ_id`) REFERENCES `employs` (`id`);
 
 --
 -- Contraintes pour la table `visites`

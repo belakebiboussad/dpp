@@ -4,16 +4,16 @@ namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ActeExec extends Model
+class TraitExec extends Model
 {
   public $timestamps = true;
-  protected $fillable  = ['id','acte_id','employ_id','does','obs'];
+  protected $fillable  = ['id','trait_id','employ_id','does','obs','state'];
   public function Employ()
   {
     return $this->belongsTo('App\modeles\employ','employ_id');
   }
-  public function Acte()
+  public function Trait()
   {
-    return $this->belongsTo('App\modeles\Acte','acte_id');
+    return $this->belongsTo('App\modeles\Traitement','trait_id');
   }
 }

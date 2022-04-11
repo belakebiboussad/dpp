@@ -3,7 +3,7 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Traitement extends Model
 {
    	public $timestamps = false;

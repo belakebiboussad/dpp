@@ -51,6 +51,7 @@ Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
 route::resource('/const','ConstanteController');
 route::resource('acteExec','ActeExecController');
+route::resource('traitExec','TraitExecsController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -118,8 +119,7 @@ route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
-route::get('/getmed/{id}','MedicamentsController@getmed');
-route::get('/setting/{id}', 'UsersController@setting');
+route::get('/getmed/{id}','MedicamentsController@getmed');//route::get('/setting/{id}', 'UsersController@setting');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
@@ -188,3 +188,4 @@ route::get('/getglycemie/{id}', 'HospitalisationController@get_glycemie');
 route::get('/getcholest/{id}','HospitalisationController@get_cholest');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');
+Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
