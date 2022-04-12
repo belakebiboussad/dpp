@@ -20,9 +20,9 @@ class AntecedantsController extends Controller
       }
     public function index($id)
     {   
-            $patient = patient::FindOrFail($id);
-            $atcds = antecedant::where("pid",$patient->id)->get()->all();
-            return view('antecedents.index',compact('patient','atcds'));
+        $patient = patient::FindOrFail($id);
+        $atcds = antecedant::where("pid",$patient->id)->get()->all();
+        return view('antecedents.index',compact('patient','atcds'));
     }
     /**
      * Show the form for creating a new resource.

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acte extends Model
 {
    	public $timestamps = false;
-  	protected $fillable  = ['nom','id_visite','description','type','code_ngap','periodes','duree','retire'];
+  	protected $fillable  = ['nom','id_visite','description','type','code_ngap','periodes','nbrFJ',,'duree','retire'];
  	  public  $casts = [
  	     'periodes' => 'array'
  	  ];

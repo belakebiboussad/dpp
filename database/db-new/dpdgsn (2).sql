@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 11 avr. 2022 à 14:20
+-- Généré le : mar. 12 avr. 2022 à 14:19
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.4.16
 
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   `type` enum('medicale','paramedicale') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'paramedicale',
   `code_ngap` varchar(10) DEFAULT NULL,
   `periodes` json DEFAULT NULL,
+  `nbrFJ` tinyint(1) DEFAULT NULL,
   `duree` int(11) DEFAULT NULL,
   `retire` bit(1) NOT NULL DEFAULT b'0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -49,29 +50,29 @@ CREATE TABLE IF NOT EXISTS `actes` (
 -- Déchargement des données de la table `actes`
 --
 
-INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap`, `periodes`, `duree`, `retire`, `created_at`, `updated_at`) VALUES
-(3, 'acte1', 6, 'une foie le soir', 'paramedicale', 'CA', NULL, NULL, b'1', NULL, NULL),
-(4, 'acteqs', 11, '2 fois par jour', 'paramedicale', 'CRM', NULL, NULL, b'0', NULL, NULL),
-(5, 'pensement', 11, 'trois fois par jour', 'paramedicale', 'CRD', NULL, NULL, b'0', NULL, NULL),
-(6, 'douche', 11, 'chaque jour', 'paramedicale', 'CRM', NULL, NULL, b'1', NULL, NULL),
-(7, 'pensement', 13, 'une foie le soir', 'paramedicale', 'CRN', NULL, NULL, b'0', NULL, NULL),
-(10, 'faire le pensement', 165, 'changer chaque soir', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(11, 'faire un pensement', 165, 'kyk', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(12, 'faire un pensement', 165, 'une chaque soir', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(13, 'faire un pensement', 165, 'une foie le soir', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(14, 'faire un pensement', 165, 'acte un ds', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(15, 'faire un pensement', 195, 'tou les jour a 10', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(16, 'laver le pied', 195, 'le soir', 'medicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(17, 'faire eguille', 199, 'calculer la temerateur', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(18, 'faire une eguille', 207, 'apre mange', 'paramedicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(19, 'faire un pensement', 205, 'a la cuisse chaque matin', 'medicale', NULL, NULL, NULL, b'0', NULL, NULL),
-(20, 'faire la toillette', 205, 'chaque matin', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(21, 'faire une toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(22, 'faire la toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(23, 'temperateut', 206, 'dqsdsq', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(24, 'acte', 214, 'une foie le soir', 'paramedicale', NULL, NULL, NULL, b'1', NULL, NULL),
-(25, 'puipo', 253, NULL, 'medicale', 'C', NULL, NULL, b'1', NULL, NULL),
-(26, 'faire une toilette', 260, 'apres dfdsfdsf', 'paramedicale', 'CRD', NULL, NULL, b'0', NULL, NULL);
+INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap`, `periodes`, `nbrFJ`, `duree`, `retire`, `created_at`, `updated_at`) VALUES
+(3, 'acte1', 6, 'une foie le soir', 'paramedicale', 'CA', NULL, 1, NULL, b'1', NULL, NULL),
+(4, 'acteqs', 11, '2 fois par jour', 'paramedicale', 'CRM', NULL, 1, NULL, b'0', NULL, NULL),
+(5, 'pensement', 11, 'trois fois par jour', 'paramedicale', 'CRD', NULL, 1, NULL, b'0', NULL, NULL),
+(6, 'douche', 11, 'chaque jour', 'paramedicale', 'CRM', NULL, 1, NULL, b'1', NULL, NULL),
+(7, 'pensement', 13, 'une foie le soir', 'paramedicale', 'CRN', NULL, 0, NULL, b'0', NULL, NULL),
+(10, 'faire le pensement', 165, 'changer chaque soir', 'medicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(11, 'faire un pensement', 165, 'kyk', 'medicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(12, 'faire un pensement', 165, 'une chaque soir', 'medicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(13, 'faire un pensement', 165, 'une foie le soir', 'medicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(14, 'faire un pensement', 165, 'acte un ds', 'medicale', NULL, NULL, 0, NULL, b'1', NULL, NULL),
+(15, 'faire un pensement', 195, 'tou les jour a 10', 'medicale', NULL, NULL, 0, NULL, b'1', NULL, NULL),
+(16, 'laver le pied', 195, 'le soir', 'medicale', NULL, NULL, 0, NULL, b'1', NULL, NULL),
+(17, 'faire eguille', 199, 'calculer la temerateur', 'paramedicale', NULL, NULL, 0, NULL, b'1', NULL, NULL),
+(18, 'faire une eguille', 207, 'apre mange', 'paramedicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(19, 'faire un pensement', 205, 'a la cuisse chaque matin', 'medicale', NULL, NULL, 0, NULL, b'0', NULL, NULL),
+(20, 'faire la toillette', 205, 'chaque matin', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(21, 'faire une toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(22, 'faire la toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(23, 'temperateut', 206, 'dqsdsq', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(24, 'acte', 214, 'une foie le soir', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(25, 'puipo', 253, NULL, 'medicale', 'C', NULL, 1, NULL, b'1', NULL, NULL),
+(26, 'faire une toilette', 260, 'apres dfdsfdsf', 'paramedicale', 'CRD', NULL, 1, NULL, b'0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12066,7 +12067,7 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   PRIMARY KEY (`id`),
   KEY `fk_trait_medicament` (`med_id`),
   KEY `fk_trait_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `traitements`
@@ -12074,7 +12075,8 @@ CREATE TABLE IF NOT EXISTS `traitements` (
 
 INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `nbrPJ`, `duree`, `visite_id`) VALUES
 (91, 20, '3 comprime par jour', NULL, 3, 3, 271),
-(92, 107, '4 comprime par jour', NULL, 4, 1, 271);
+(92, 107, '4 comprime par jour', NULL, 4, 1, 271),
+(93, 105, '1 comprime par jour', NULL, 1, 1, 272);
 
 -- --------------------------------------------------------
 
@@ -12089,12 +12091,25 @@ CREATE TABLE IF NOT EXISTS `trait_execs` (
   `employ_id` int(11) NOT NULL,
   `does` tinyint(1) NOT NULL DEFAULT '0',
   `obs` text COLLATE utf8mb4_unicode_ci,
+  `ordre` tinyint(1) DEFAULT NULL,
   `state` tinyint(1) DEFAULT NULL COMMENT '0:annuler',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_treitExec_employ` (`employ_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `trait_execs`
+--
+
+INSERT INTO `trait_execs` (`id`, `trait_id`, `employ_id`, `does`, `obs`, `ordre`, `state`, `created_at`, `updated_at`) VALUES
+(13, 92, 103, 1, NULL, 1, NULL, '2022-04-12 10:43:01', '2022-04-12 10:43:01'),
+(14, 91, 103, 1, NULL, 1, NULL, '2022-04-12 11:04:18', '2022-04-12 11:04:18'),
+(15, 92, 103, 1, NULL, 2, NULL, '2022-04-12 11:29:59', '2022-04-12 11:29:59'),
+(21, 92, 103, 0, 'dsqdsq', 3, NULL, '2022-04-12 11:53:48', '2022-04-12 11:53:48'),
+(24, 93, 103, 0, 'un seule examen', 1, NULL, '2022-04-12 13:21:05', '2022-04-12 13:21:05'),
+(26, 93, 103, 1, 'moimoi', 1, NULL, '2022-04-12 13:28:35', '2022-04-12 13:28:35');
 
 -- --------------------------------------------------------
 
@@ -12193,7 +12208,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', 'infcar@hop.dz', 1, 3, 'NVTu9aW6lsr6osCB5c6G5LsxLlsYGfaJeRzSBvTt8eamYf8iUJok0ra3O51Y', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'kY9sFaIb5uGvqfp7CY8r2GfECavvTn4uX9OqqUPwNFZBRmZcQuKxC1wZ0G5f', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, '7a1m9KBOGlyqM1lUaoUau1ZcUEvb3urZRAzEsZDMSTOQBYDO78LcbBSjfcdH', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'cBQwQhRbHWbtos2gqZfzNHHTbcSHfJBOi4csTzD8h375WS4rNZNXVBC3Vt4X', 1),
 (29, 'surint', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'surint@hop.dz', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, 'kZPxObfJADMWSg7OATuW0GGkdXsCuEHQQxk7RWTVpYtCUIIjJMrgm8Nw0bAM', 1),
@@ -12210,7 +12225,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'xSem4M4Q6SrE58iO0fMreXAdvhQYbYbalvHd1voXVUxxsrCiRyvLcDp6wC5a', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'TbVUGYOv7norBCRAvcPBr8n4pGqUbt7w9hcBx5lTMPP5HfU4qvVAcBL3UIM4', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'YY30yWPS8kTOol7GUuLYoADs3dYrQov2Jd5lmhgSbsgkP11DacrExrDwu3M5', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'Ep9znvLXi4IMBxK7qBTFFCn6XQOa764y26JVCJuEdxlmwbS7rNpUwspMJl7q', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'zeFEeDqfXaWU6EYeGTz8bYvwoI8akOzXoaseTzyqdxDa5QVX8DyjkYnLulPG', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'uNMIcbBiQhyTGLIPApiem3dCPvL50bYe5lS5MTLyiKnBWif31VeoidoCybdV', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'iVcx3gmRtbaa1pAVqnLvd9iWXx3Gawii95vuewEdK9mQJSShsCZ76xqnnmIL', 1),
@@ -12269,7 +12284,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12384,7 +12399,19 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (268, '2022-04-11', '12:47:00', 6, 103, NULL, NULL),
 (269, '2022-04-11', '12:48:00', 6, 103, NULL, NULL),
 (270, '2022-04-11', '12:49:00', 6, 103, NULL, NULL),
-(271, '2022-04-11', '12:50:00', 6, 103, NULL, NULL);
+(271, '2022-04-11', '12:50:00', 6, 103, NULL, NULL),
+(272, '2022-04-12', '14:18:00', 2, 103, NULL, NULL),
+(273, '2022-04-12', '14:45:00', 2, 103, NULL, NULL),
+(274, '2022-04-12', '14:46:00', 2, 103, NULL, NULL),
+(275, '2022-04-12', '14:46:00', 2, 103, NULL, NULL),
+(276, '2022-04-12', '14:47:00', 2, 103, NULL, NULL),
+(277, '2022-04-12', '14:48:00', 2, 103, NULL, NULL),
+(279, '2022-04-12', '15:09:00', 2, 103, NULL, NULL),
+(280, '2022-04-12', '15:13:00', 2, 103, NULL, NULL),
+(281, '2022-04-12', '15:14:00', 2, 103, NULL, NULL),
+(282, '2022-04-12', '15:15:00', 2, 103, NULL, NULL),
+(283, '2022-04-12', '15:16:00', 2, 103, NULL, NULL),
+(284, '2022-04-12', '15:16:00', 2, 103, NULL, NULL);
 
 -- --------------------------------------------------------
 

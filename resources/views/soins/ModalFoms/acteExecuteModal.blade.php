@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
-            <label class="inline"><input type="checkbox" class="ace" id="fait" checked/><span class="lbl">Fait</span></label>
+            <label class="inline"><input type="checkbox" class="ace" id="fait"/><span class="lbl">Fait</span></label>
           </div>
         </div>
       </div>

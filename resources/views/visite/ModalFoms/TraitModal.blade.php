@@ -32,16 +32,14 @@
             <label for="posologie"><strong>Posologie :</strong></label>
             <input type="text" id="posologie" class="form-control" placeholder = "posologie de Traitement"/>
           </div>
-        </div><div class="space-12"></div>
+        </div><div class="space-12"></div><br/>
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-12">
             <label for="dureeT"><strong>Nombre de prise/jour:</strong></label>
             <input type="number" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
           </div>
-          <div class="col-xs-6">
-            <label for="dureeT"><strong>Durée(jour):</strong></label>
-            <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/>
-          </div>
+        <!--  <div class="col-xs-6"><label for="dureeT"><strong>Durée(jour):</strong></label>
+        <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/></div> -->
         </div><hr>
         <div class="row" align="right">
           <button type="submit" id="EnregistrerTrait" class="btn btn-success btn-sm" value ="add">

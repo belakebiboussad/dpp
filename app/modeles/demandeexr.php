@@ -34,10 +34,10 @@ class demandeexr extends Model
   {
       return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
   }
-      public function getInfosAttribute()
-    {
-        return $this->infossuppdemande->pluck('id')->toArray();
-    }
+  public function getInfosAttribute()
+  {
+    return $this->infossuppdemande->pluck('id')->toArray();
+  }
   public function consultation()
   {
      return $this->belongsTo('App\modeles\consultation','id_consultation');

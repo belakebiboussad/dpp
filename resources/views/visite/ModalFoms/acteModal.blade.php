@@ -43,15 +43,23 @@
             <label for="specialiteProd"><strong>Application:</strong></label>
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
           </div>    
+        </div>
+         <div class="row">
+          <div class="col-xs-12">
+            <label for="dureeT"><strong>Nombre d'application/jour:</strong></label>
+            <input type="number" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
+          </div> <!-- <div class="col-xs-6">  <label for="dureeT"><strong>Durée(jour):</strong></label>
+          <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/></div> -->
+          
         </div><hr>
-          <div class="row" align="right">
-            <button type="submit" id="EnregistrerActe" class="btn btn-primary btn-sm" value ="add">
-              <i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
-            </button>
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-              <i class="ace-icon fa fa-close bigger-110"></i>Fermer
-            </button>
-          </div>
+        <div class="row" align="right">
+          <button type="submit" id="EnregistrerActe" class="btn btn-primary btn-sm" value ="add">
+            <i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
+          </button>
+          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+            <i class="ace-icon fa fa-close bigger-110"></i>Fermer
+          </button>
+        </div>
       </form>
       </div>  
     </div>

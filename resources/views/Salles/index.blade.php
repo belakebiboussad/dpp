@@ -5,7 +5,7 @@ function getRoomBeds(id)
 { 
   var url = '{{ route("lit.index") }}';
 	$.ajax({
-      type : 'get',
+      type : 'GET',
       url :url,
       data:{   id :  id  },
       success:function(data,status, xhr){
@@ -20,11 +20,10 @@ function getRoomBeds(id)
 </div>
 <div class="row">
 	<div class="col-xs-7">
-		<div class="widget-box widget-color-blue" id="widget-box-2">
+		<div class="widget-box widget-color-blue" >
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i>
-				<span><b>Détails des chambres</b></span>
+				<i class="ace-icon fa fa-table"></i><span><b>Détails des chambres</b></span>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-primary no-border">
 					<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">

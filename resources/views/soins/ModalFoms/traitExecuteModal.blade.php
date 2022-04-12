@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
-            <label class="inline"><input type="checkbox" class="ace" id="fait" checked/><span class="lbl">Fait</span></label>
+            <label class="inline"><input type="checkbox" class="ace" id="faitT"/><span class="lbl">Fait</span></label>
           </div>
         </div>
       </div>
@@ -16,7 +16,7 @@
         <div class="col-sm-12">
           <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="obs"><strong>Observations :</strong></label>
-            <textarea id="obs" colspan="12" class="form-control"></textarea>
+            <textarea id="observ" colspan="12" class="form-control"></textarea>
           </div>
         </div>  
       </div>

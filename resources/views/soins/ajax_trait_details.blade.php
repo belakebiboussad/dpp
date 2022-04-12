@@ -6,18 +6,19 @@
     </tr>
   </thead>
   <tbody>
-   @for ($i = 1; $i <= $trait->nbrPJ; $i++)
-    <tr id="admin-{{ $i }}">
+    @if(count($trait->execs) < $trait->nbrPJ)
+    @for ($i = 1; $i <= $trait->nbrPJ; $i++)
+    <tr>
       @if($i == 1)
       <td rowspan="{{ $trait->nbrPJ }}" class="align-middle">{{ $date }}</td>
       @endif
-      <td class="center">
-        <button type="button" data-toggle="modal" data-target="#traitExecute" class="btn btn-primary btn-sm" data-trait-id="{{ $trait->id }}" data-dismiss="modal">
+      <td class="center" id="admin-{{ $i }}">
+        <button type="button" data-toggle="modal" data-target="#traitExecute" class="btn btn-primary btn-sm" data-trait-id="{{ $trait->id }}" data-trait-ordre="{{ $i }}" data-dismiss="modal" {{ in_array($i,$trait->execs)? 'disabled' : '' }}>
           <em class="fa fa-cog"></em>
         </button>
       </td>
     </tr>
     @endfor
+    @endif
   </tbody>
-
 </table>

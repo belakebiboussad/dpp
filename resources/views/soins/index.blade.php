@@ -10,7 +10,7 @@
   </div>
   <div class="row">
     <div class="col-sm-7">
-      <table id="" class="table  table-bordered table-hover">
+      <table class="table  table-bordered table-hover">
         <thead>
           <tr>
             <th class="center"><strong>Nom acte</strong></th>
@@ -29,8 +29,8 @@
                 <td>{{ $acte->description }}</td>
                 <td>{{ $acte->visite->medecin->full_name }}</td> 
                 <td>{{ $acte->visite->date}} à {{ $acte->visite->heure }}</td>
-                <td class="center">
-                  <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute" data-acte-id="{{ $acte->id }}" data-dismiss="modal"><em class="fa fa-cog"></em></button>
+                <td class="center"><!-- <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute" data-acte-id="{{ $acte->id }}" data-dismiss="modal"><i class="fa fa-eye fa-xs"></i></button> -->
+                  <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
                 </td> 
               </tr>
               @endif
@@ -66,7 +66,7 @@
               <td>{{ $trait->visite->medecin->full_name }}</td> 
               <td>{{ $trait->visite->date}} à {{$trait->visite->heure}}</td> 
               <td class="center">
-                <button onclick ="getTraitdetail({{$trait->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a>
+                <button onclick ="getTraitdetail({{$trait->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
               </td> 
             </tr>
           @endforeach
@@ -74,22 +74,38 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-5 col-sm-5 widget-box transparent"  id="traitDetail"></div>    
+    <div class="col-md-5 col-sm-5 widget-box transparent"  id="details"></div>    
   </div>
 </div>
 @include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')
 <script type="text/javascript">
+  function getActdetail(id){
+    // var url= '{{ route ("acteExec.index", ":slug") }}'; // url = url.replace(':slug',id);
+   var url = '{{ route("acteExec.index") }}';
+    $.ajax({
+        url : url,
+        type : 'GET',
+        data:{   id :  id  },
+        success:function(data,status, xhr){
+          $('#details').html(data);
+        },
+        error:function(data){
+          alert("Error");
+          console.log("error acte details")
+        } 
+    });
+  }
   function getTraitdetail(id){
-    var url= '{{ route ("traits.details", ":slug") }}';
+    var url= '{{ route ("traitement.show", ":slug") }}';
     url = url.replace(':slug',id);
     $.ajax({
         url : url,
         type : 'GET',
         success:function(data,status, xhr){
-          $('#traitDetail').html(data);
+          $('#details').html(data);
         },
         error:function(data){
-          console.log("error patient details")
+          console.log("error traitement details")
         } 
     });
   }
@@ -103,7 +119,7 @@
       var formData = {
         acte_id : $(this).val(),
         does    : $("#fait").is(':checked')?1:0,
-        obs     : $('#obs').val()
+        obs     : $('#obs').text()
       };
       $.ajaxSetup({
         headers: {
@@ -121,15 +137,16 @@
       })
     }); ///trait
     $('#traitExecute').on('shown.bs.modal', function (event) {
-      var traitId = $(event.relatedTarget).data('trait-id');
-      $(".execTrait").val(traitId);
+      $(".execTrait").val($(event.relatedTarget).data('trait-id'));
+      $(".execTrait").attr('data-trait-ordre',$(event.relatedTarget).data('trait-ordre'));
     });
     $(".execTrait").click(function(e){//runActe
       e.preventDefault();
       var formData = {
         trait_id : $(this).val(),
-        does    : $("#fait").is(':checked')?1:0,
-        obs     : $('#obs').val()
+        does     : $("#faitT").is(':checked')?1:0,
+        obs      : $('#observ').val(),
+        ordre    : $(this).data('trait-ordre')  
       };
       $.ajaxSetup({
         headers: {
@@ -142,7 +159,8 @@
           data:formData,
           success:function(data){   
            $('#traitExecute').modal('hide');
-           //$("#admin-" + data.acte_id).remove();
+           if(data.does == 1)
+             $("#admin-" + data.ordre).remove();
           }
       })
     });

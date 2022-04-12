@@ -21,9 +21,7 @@ class ExamenbioController extends Controller
       {
           $this->middleware('auth');
       }
-    public function index($id)
-    {
-    }
+    public function index($id){}
     /**
      * Show the form for creating a new resource.
      *

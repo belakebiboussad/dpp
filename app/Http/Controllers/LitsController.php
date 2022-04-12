@@ -31,7 +31,7 @@ class LitsController extends Controller
       {
         $lits = lit::where('salle_id',$request->id)->get();
         $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-        return Response::json(['html'=>$view]);
+        return ['html'=>$view];
       }else
       {
         $lits=lit::with('salle','salle.service')->get();
