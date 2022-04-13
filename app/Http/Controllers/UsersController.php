@@ -141,7 +141,6 @@ class UsersController extends Controller
           "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
            "date"         => "Le champ :attribute n'est pas une date valide.",
       ];
-
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
@@ -183,7 +182,7 @@ class UsersController extends Controller
     }
     protected function guard()
     {
-        return Auth::guard();
+      return Auth::guard();
     }
     protected function registered(Request $request, $user)
     {

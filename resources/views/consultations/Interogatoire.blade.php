@@ -2,7 +2,7 @@
 	<ul class = "nav nav-pills nav-justified navbar-custom list-group" role="tablist" id ="intero">
 			 <li role= "presentation" name="motif" class="active">
 			    <a href="#Motif" aria-controls="Motif" role="tab" data-toggle="tab" class="jumbotron">
-			      <i class="fa fa-comment fa-2x pull-left"></i> <span class="bigger-130"> Motif de consultation</span>
+			       <i class="fa fa-comment fa-2x pull-left"></i><span class="bigger-130"> Motif de consultation</span>
 				  </a>
 			</li>
 			<li role= "presentation">

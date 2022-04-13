@@ -284,7 +284,7 @@
                       @endif
                       @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
                         <a href="{{ route('soins.index', ["id"=>$hosp->id]) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins" data-placement="bottom">
-                          <img src="{{ asset('/img/medicine.png') }}" alt="" width="10px" height="15px">
+                          <img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px">
                         </a>
                       @endif
                     </td>
