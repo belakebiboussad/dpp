@@ -17,8 +17,8 @@
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
 <!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<!-- <script type="text/javascript" src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script  src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+<!-- <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 @include('rdv.scripts.print')
 <script>
 function resetPation()
@@ -46,14 +46,14 @@ function getPatient()
   $.ajax({
         url : ajaxurl,
         data: {    
-              "field":field,
-              "value":$("#pat-search").val(),
-              "specialite":spec,
-        },
-        dataType: "json",
+            "field":field,
+            "value":$("#pat-search").val(),
+            "specialite":spec,
+        },//dataType: "json",
         success: function(html) {
+          
           $("#livesearch").html(html).show();
-           document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+          document.getElementById("livesearch").style.border="1px solid #A5ACB2";
         },
         error: function() {
           console.log("can't connect to db");

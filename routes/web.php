@@ -131,7 +131,7 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
-Route::get('/getPatients','PatientController@getPatientsArray');
+Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
 Route::get('/searchUser','UsersController@search');
 Route::get('/userdetail', 'UsersController@getUserDetails');

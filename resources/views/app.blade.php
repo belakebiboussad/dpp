@@ -60,6 +60,9 @@
                 "language": {
                             "url": '/localisation/fr_FR.json'
                 },
+                // "columnDefs": [
+                //   {"targets": 9 ,  className: "dt-head-center dt-body-center"},
+                // ],
            });
             $('#btn-addCores').click(function () { 
                 if( $('#EnregistrerGardeMalade').is(":hidden"))
@@ -117,7 +120,8 @@
                 url: ajaxurl,
                 data: formData,
                 dataType: 'json',
-                success: function (data) { //$('#gardeMalade').hide();   //jQuery('#gardeMalade').modal('hide');
+                success: function (data) {
+                      var lien =  "";
                       if($('.dataTables_empty').length > 0)
                       {
                         $('.dataTables_empty').remove();

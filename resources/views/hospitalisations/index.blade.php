@@ -47,7 +47,6 @@
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-    
       if( data.etat != 1)                    
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
@@ -58,9 +57,10 @@
         if( '{{  Auth::user()->role_id }}' == 5 )
            actions += '<a class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('+data.id+')"><i class="fa fa-barcode"></i></a>';
         if($.inArray({{  Auth::user()->role_id }}, rols) > -1)
-          actions +='<a href="/soins/index/'+data.id+'" class ="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins"><img src="{{ asset('/img/medicine.png') }}" alt="" width="10px" height="15px"></a>';
+          actions +='<a href="/soins/index/'+data.id+'" class ="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins"><img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px"></a>';
         
-      }
+      }else
+        actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
       return actions;
      }
      function getState(data, type, dataToSet) {

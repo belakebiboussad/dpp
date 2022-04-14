@@ -1,9 +1,11 @@
 <div class="col-xs-12 col-sm-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Gardes malade/Homme de confiance</h5>
+			<h5 class="widget-title bigger lighter">
+        <i class="ace-icon fa fa-table"></i>Gardes malade/Homme de confiance
+      </h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<div class="fa fa-plus-circle"></div><a href="#" id="btn-addCores" class="btn-xs tooltip-link"><strong>Correspondant</strong></a>
+			  <div class="fa fa-plus-circle"></div><a href="#" id="btn-addCores" class="btn-xs tooltip-link"><strong>Correspondant</strong></a>
 			</div>
 		</div>
 		<div class="widget-body">
@@ -21,7 +23,7 @@
             <th class ="center"><strong>Type Pièce</strong></th>
             <th class ="center"><strong>N°</strong></th>
             <th class ="center"><strong>Date de délivrance</strong></th>
-            <th class="nsort"><em class="fa fa-cog"></em></th>
+            <th class="nsort center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +35,7 @@
             <td>{{ $hom->date_naiss }}</td>
             <td>{{ $hom->adresse }}</td>
             <td>{{ $hom->mob }}</td>
-            <td>
+            <td class ="center">
               @switch($hom->lien_par)
                 @case ("0")
                   <span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>

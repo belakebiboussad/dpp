@@ -61,7 +61,8 @@
 					nom:$("#acte").val(),
 					type:$('#type').val(),
 					code_ngap:$('#code_ngap').val(),//periodes :periodes,
-					description:$('#description').val(),//duree : $('#duree').val()
+					description:$('#description').val(),
+          nbrFJ : $('#nbrFJ').val()
 			};
 			var state = jQuery('#EnregistrerActe').val();
 			var acte_id = jQuery('#acte_id').val();
@@ -100,15 +101,11 @@
 		$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 				$.get('/acte/'+acteID+'/edit', function (data) {
-				$('#EnregistrerActe').val("update");
-			  $('#acteCrudModal').html("Editer un Acte Médical");
-				$('#id_hosp').val(data.id_hosp);
-				$('#acte_id').val(data.id);		
-				$('#acte').val(data.nom);
-				$('#type').val(data.type).change();
-				$('#code_ngap').val(data.code_ngap).change();
-				$('#duree').val(data.duree).change();
-				$('#description').val(data.description);
+				$('#EnregistrerActe').val("update");$('#acteCrudModal').html("Editer un Acte Médical");
+				$('#id_hosp').val(data.id_hosp);$('#acte_id').val(data.id);$('#acte').val(data.nom);
+				$('#type').val(data.type).change();$('#code_ngap').val(data.code_ngap).change();
+				$('#nbrFJ').val(data.nbrFJ).change();
+				$('#description').val(data.description);//alert(data.nbrFJ);
 				jQuery('#EnregistrerActe').val("update");		
 					jQuery('#acteModal').modal('show');
 			  });
@@ -147,14 +144,14 @@
 				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		var formData = {
+   	var formData = {
 				visite_id: $('#id_visiteT').val(),
 				med_id:$("#produit").val(),
 				posologie:$("#posologie").val(),/*periodes :periodes,*/
         nbrPJ : $('#nbrPJ').val(),
         duree : $('#dureeT').val()
 		};
-		var state = jQuery('#EnregistrerTrait').val();
+    var state = jQuery('#EnregistrerTrait').val();
 		var trait_id = jQuery('#trait_id').val();
 		var type = "POST";
 		var ajaxurl = $('#addTrait').attr('action');
@@ -386,8 +383,11 @@
 								<div class="col-xs-3">
 								  <div class="checkbox">
                     <label>
-                      @if( null !== $lastVisite->prescreptionconstantes)
-                      <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
+
+                      @if( null !== $lastVisite)
+                        @if($lastVisite->prescreptionconstantes)
+                        <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
+                        @endif
 											@else
                       <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
                       @endif

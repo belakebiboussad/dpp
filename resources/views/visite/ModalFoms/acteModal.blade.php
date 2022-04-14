@@ -47,7 +47,7 @@
          <div class="row">
           <div class="col-xs-12">
             <label for="dureeT"><strong>Nombre d'application/jour:</strong></label>
-            <input type="number" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
+            <input type="number" id="nbrFJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
           </div> <!-- <div class="col-xs-6">  <label for="dureeT"><strong>Durée(jour):</strong></label>
           <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/></div> -->
           

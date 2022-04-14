@@ -426,35 +426,34 @@ class PatientController extends Controller
             })
             ->rawColumns(['action2','action'])
             ->make(true);
-    }
-//public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
-  public function getPatientsArray(Request $request)
+    }//public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
+  public function getPatientsList(Request $request)
   {
     $output="";$today = Carbon::now();$sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
-        if($request->ajax())  
-        {
-          switch($request->specialite){
-            case 3 ://ped
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '!=', null)
-                                   ->where('Dat_Naissance', '>', $sub17)->get();
-                break;
-            case 5 ://geneco
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
-                                    ->where('Dat_Naissance', '!=', null)->where('Sexe','F')->get();
-                break;
-            case 8  ://geriatrie
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
-                                    ->where('Dat_Naissance', '!=', null)->where('Dat_Naissance', '<=', $sub65)->get();
-                break;
-            default :
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
-                                    ->where('Dat_Naissance', '!=', null)->get();
-                 break;
-               }
-              foreach ($patients as $key => $pat) {         
-                $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';     
-              }
-          return $output;
+    if($request->ajax())  
+    {
+        switch($request->specialite){
+          case 3 ://ped
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('Dat_Naissance', '!=', null)
+                                 ->where('Dat_Naissance', '>', $sub17)->get();
+              break;
+          case 5 ://geneco
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+                                  ->where('Dat_Naissance', '!=', null)->where('Sexe','F')->get();
+              break;
+          case 8  ://geriatrie
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+                                  ->where('Dat_Naissance', '!=', null)->where('Dat_Naissance', '<=', $sub65)->get();
+              break;
+          default :
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+                                  ->where('Dat_Naissance', '!=', null)->get();
+               break;
+             }
+            foreach ($patients as $key => $pat) {         
+              $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';     
+            }
+        return $output;
     }
   }
   public function search(Request $request)

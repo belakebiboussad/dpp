@@ -74,7 +74,7 @@
     </div>
     <div class="col-sm-4 profile-info-row">
       <div class="profile-info-name col-sm-6">Priorité :</div><div class="profile-info-value col-sm-6">
-        <span class="label label-sm label-primary">{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
+        <span class="label label-sm label-primary">{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
       </div>
     </div>
     <div class="col-sm-4 profile-info-row">
