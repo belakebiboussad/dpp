@@ -15,7 +15,7 @@
 <div class="tabbable"  class="user-profile">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>
-    @if(in_array(Auth::user()->role_id,[1,13,14]))
+    @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
     <li><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
     @endif
     @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
@@ -86,10 +86,8 @@
       </div>
       @endif   
     </div> 
-    @if(in_array(Auth::user()->role_id,[1,13,14]))
-    <div id="visites" class="tab-pane">
-      @include('visite.liste')
-     </div>
+    @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
+    <div id="visites" class="tab-pane">@include('visite.liste')</div>
     @endif
     @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
     <div id="constantes" class="tab-pane">

@@ -285,15 +285,14 @@
 							<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listActes">
 							<thead class="thin-border-bottom">
 								<tr class ="center">
-								  <th class ="hidden"></th>
-								  	
+								        <th class ="hidden"></th>
 									  <th class ="center sorting_disabled"><strong>Acte</strong></th>
 										<th class ="center sorting_disabled"><strong>Type</strong></th>
-										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th><!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
-										<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th> -->
+										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th>
+<!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>	<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th> -->
 										<th class ="center sorting_disabled"><strong>Application</strong></th>
-										<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>																								
-										<th class=" center nosort"><em class="fa fa-cog"></em></th>
+										<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
+                                                                       <th class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -380,22 +379,15 @@
 								@if(null !== $specialite->hospConst )
                 @foreach( json_decode($specialite->hospConst ,true) as $const)
                 <?php $const = App\modeles\Constante::FindOrFail($const) ?>
-								<div class="col-xs-3">
-								  <div class="checkbox">
-                    <label>
-
-                      @if( null !== $lastVisite)
-                        @if($lastVisite->prescreptionconstantes)
+		<div class="col-xs-3"><div class="checkbox">  <label>
+                      @if( (null !== $lastVisite) &&(null !== $lastVisite->prescreptionconstantes ))
                         <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
-                        @endif
-											@else
+		      @else
                       <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
                       @endif
                       <span class="lbl">{{ $const->nom }} </span>
-									  </label>
-									</div>
-                </div>
-								@endforeach
+			</label></div> </div>
+               @endforeach
                 @endif
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>

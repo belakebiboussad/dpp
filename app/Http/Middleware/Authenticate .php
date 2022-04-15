@@ -18,10 +18,9 @@ class Authenticate extends Middleware
         
       	public function handle($request, Closure $next, $guard = null)
     	{
-        		if (!Auth::check()) {
-			
+        	if (!Auth::check()) {
 			Session::flash('message', trans('errors.session_label'));
-          			 Session::flash('type', 'warning');
+          		 Session::flash('type', 'warning');
 			 return redirect()->route('/');
 		}
    	 }
