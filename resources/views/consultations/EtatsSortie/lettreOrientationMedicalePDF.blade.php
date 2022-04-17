@@ -40,7 +40,7 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tr class="noBorder">
             <td rowspan="1" colspan="1" width="206" height="30" >
-              <span style="text-align: left;">MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span>
+              <span>MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span><!-- style="text-align: left;" -->
             </td>
             <td rowspan="1" colspan="1" width="230" height="30"></td>
             <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >

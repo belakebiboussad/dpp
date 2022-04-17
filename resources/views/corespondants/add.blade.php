@@ -55,7 +55,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group ">
-							<label class="col-sm-3 control-label no-padding-right" for="lien_par"><b>Relation :<span style="color: red">*</span></b></label>
+							<label class="col-sm-3 control-label no-padding-right" for="lien_par"><b>Qualité :<span style="color: red">*</span></b></label>
 							<div class="col-sm-9">
 								<select class="form-control col-xs-12 col-sm-12" id="lien_par" placeholder="date de délivrance ..."  required>
 									<option value="">Sélectionner...</option>

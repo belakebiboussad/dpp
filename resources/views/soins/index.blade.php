@@ -1,56 +1,61 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-  <div class="row"><div class="col-sm-12"><?php $patient = $hosp->patient; ?>@include('patient._patientInfo')</div></div>
-  <div class="space-12"></div>
+  <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$hosp->patient])</div></div><div class="space-12"></div>
   <div class="row">
-    <div class="col-xs-7 label label-lg label-primary arrowed-in arrowed-right">
-      <span class="f-16"><strong>Actes</strong></span>
+    <div class="col-sm-7 widget-container-col">
+      <div class="widget-box widget-color-blue">
+        <div class="widget-header">
+          <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Actes</h5>
+        </div>
+        <div class="widget-body"> 
+          <div class="widget-main">
+            <table class="table  table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th class="center"><strong>Nom</strong></th>
+                  <th class="center"><strong>Posologie</strong></th>
+                  <th class="center"><strong>Médecin prescripteur</strong></th>
+                  <th class="center"><strong>Date prescription</strong></th>
+                  <th class="center"><em class="fa fa-cog"></em></th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($hosp->visites as $visite)
+                  @foreach($visite->actes as $acte )      
+                    @if(!$acte->retire)
+                    <tr id="acte-{{ $acte->id }}">
+                      <td>{{ $acte->nom }}</td> 
+                      <td>{{ $acte->description }}</td>
+                      <td>{{ $acte->visite->medecin->full_name }}</td> 
+                      <td>{{ $acte->visite->date}} à {{ $acte->visite->heure }}</td>
+                      <td class="center">
+                        <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
+                      </td> 
+                    </tr>
+                    @endif
+                  @endforeach
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="col-md-5 col-sm-5 widget-box transparent"  id="details"></div>       
   </div>
   <div class="row">
-    <div class="col-sm-7">
-      <table class="table  table-bordered table-hover">
+    <div class="col-sm-7 widget-container-col">
+      <div class="widget-box widget-color-blue">
+        <div class="widget-header">
+          <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Traitements</h5>
+        </div>
+        <div class="widget-body"> 
+          <div class="widget-main">  
+            <table  class="table  table-bordered table-hover">
         <thead>
           <tr>
-            <th class="center"><strong>Nom acte</strong></th>
-            <th class="center"><strong>Posologie</strong></th>
-            <th class="center"><strong>Médecin prescripteur</strong></th>
-            <th class="center"><strong>Date prescription</strong></th>
-            <th class="center"><em class="fa fa-cog"></em></th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($hosp->visites as $visite)
-            @foreach($visite->actes as $acte )      
-              @if(!$acte->retire)
-              <tr id="acte-{{ $acte->id }}">
-                <td>{{ $acte->nom }}</td> 
-                <td>{{ $acte->description }}</td>
-                <td>{{ $acte->visite->medecin->full_name }}</td> 
-                <td>{{ $acte->visite->date}} à {{ $acte->visite->heure }}</td>
-                <td class="center"><!-- <button data-toggle="modal" class="btn btn-xs btn-primary" data-target="#acteExecute" data-acte-id="{{ $acte->id }}" data-dismiss="modal"><i class="fa fa-eye fa-xs"></i></button> -->
-                  <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
-                </td> 
-              </tr>
-              @endif
-            @endforeach
-          @endforeach
-        </tbody>
-      </table>
-    </div>    
-  </div>
-  <div class="row">
-    <div class="col-xs-7 label label-lg label-primary arrowed-in arrowed-right">
-      <span class="f-16"><strong>traitements</strong></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-7">
-      <table  class="table  table-bordered table-hover">
-        <thead>
-          <tr>
-            <th class="center"><strong>Nom médicament</strong></th>
+            <th class="center"><strong>Denomination</strong></th>
             <th class="center"><strong>Posologie</strong></th>
             <th class="center"><strong>Médecin prescripteur</strong></th>
             <th class="center"><strong>Date prescription</strong></th>
@@ -72,15 +77,16 @@
           @endforeach
         @endforeach
         </tbody>
-      </table>
+      </table>  
+          </div>
+        </div>
+      </div>      
     </div>
-    <div class="col-md-5 col-sm-5 widget-box transparent"  id="details"></div>    
   </div>
 </div>
 @include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')
 <script type="text/javascript">
-  function getActdetail(id){
-    // var url= '{{ route ("acteExec.index", ":slug") }}'; // url = url.replace(':slug',id);
+  function getActdetail(id){ // var url= '{{ route ("acteExec.index", ":slug") }}'; // url = url.replace(':slug',id);
    var url = '{{ route("acteExec.index") }}';
     $.ajax({
         url : url,
@@ -111,15 +117,17 @@
   }
   $(function(){/*$("#fait").change(function() {  if ($(this).is(':checked')) $("#obs").addClass("hidden");else $("#obs").removeClass("hidden");})*/
     $('#acteExecute').on('shown.bs.modal', function (event) {
-      var acteId = $(event.relatedTarget).data('acte-id');
-      $(".execActe").val(acteId);
+    
+      $(".execActe").val($(event.relatedTarget).data('acte-id'));
+      $(".execActe").attr('data-acte-ordre',$(event.relatedTarget).data('acte-ordre'));
     });
     $(".execActe").click(function(e){//runActe
       e.preventDefault();
       var formData = {
         acte_id : $(this).val(),
         does    : $("#fait").is(':checked')?1:0,
-        obs     : $('#obs').text()
+        obs     : $('#obs').val(),
+        ordre    : $(this).data('acte-ordre')
       };
       $.ajaxSetup({
         headers: {
@@ -131,8 +139,8 @@
           url :"{{ route('acteExec.store') }}",
           data:formData,
           success:function(data){   
-           $('#acteExecute').modal('hide');
-           $("#acte-" + data.acte_id).remove();
+            $('#acteExecute').modal('hide');//if(data.does == 1)$(".acte-" + data.ordre).remove();
+              $('button[data-acte-ordre=' + data.ordre + ']'+'[data-acte-id='+data.acte_id+']').prop("disabled",true);    
           }
       })
     }); ///trait
@@ -158,9 +166,9 @@
           url :"{{ route('traitExec.store') }}",
           data:formData,
           success:function(data){   
-           $('#traitExecute').modal('hide');
-           if(data.does == 1)
-             $("#admin-" + data.ordre).remove();
+            $('#traitExecute').modal('hide'); //if(data.does == 1) $(".admin-" + data.ordre).remove();
+            $('button[data-trait-ordre=' + data.ordre + ']'+'[data-trait-id='+data.trait_id+']').prop("disabled",true);
+
           }
       })
     });

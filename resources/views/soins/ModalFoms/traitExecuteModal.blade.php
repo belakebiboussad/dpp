@@ -23,7 +23,7 @@
 
     </div><!-- modalbody -->
     <div class="modal-footer">
-      <button  type="button" class="btn btn-success execTrait" value="" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
+      <button  type="button" class="btn btn-success execTrait"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
       <button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
     </div> 
   </div>

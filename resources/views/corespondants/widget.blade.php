@@ -16,7 +16,7 @@
             <th hidden></th>
             <th class ="center"><strong>Nom</strong> </th>    <th class ="center"><strong>Prénom</strong></th>
             <th class ="center"><strong>né(e) le</strong></th><th class ="center"><strong>Adresse</strong></th>
-            <th class ="center"><strong>Tél</strong></th><th class ="center"><strong>Relation</strong></th>
+            <th class ="center"><strong>Tél</strong></th><th class ="center"><strong>Qualité</strong></th>
             <th class ="center"><strong>Type Pièce</strong></th><th class ="center"><strong>N°</strong></th>
             <th class ="center"><strong>Date de délivrance</strong></th><th class="sorting_disabled center"><em class="fa fa-cog"></em></th>
           </tr>
