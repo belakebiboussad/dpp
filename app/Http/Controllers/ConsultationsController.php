@@ -113,7 +113,7 @@ class ConsultationsController extends Controller
                     if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
                       $constvalue->put($c->nom, $request->input($c->nom));
                }
-       }
+        }
         $consult = consultation::create([
           "motif"=>$request->motif,
           "histoire_maladie"=>$request->histoirem,
@@ -129,8 +129,8 @@ class ConsultationsController extends Controller
         ]);    
         foreach($consult->patient->rdvs as $rdv)
         {
-         if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
-                $rdv->update(['Etat_RDV'=>1]);
+          if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
+            $rdv->update(['Etat_RDV'=>1]);
         }
         if($constvalue->count()>0)
         {
@@ -138,7 +138,7 @@ class ConsultationsController extends Controller
           $input['id_consultation'] = $consult->id ;
           $exam = examen_cliniqu::create($input);
           $constvalue['examCl_id'] = $exam->id ;
-          Constantes::create($constvalue->toArray());//$const =
+          Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
         } 
         if($specialite->appareils) {

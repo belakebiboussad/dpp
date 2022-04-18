@@ -12,27 +12,37 @@
 				<span class="blue">{{ $patient->Prenom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
-				<span class="lbl"><i class = "fa fa-transgender" aria-hidden="true"></i>&nbsp;Sexe: </span>
-				<span class="blue"><strong>{{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</strong></span>
+				<span class="lbl">&nbsp;Sexe: </span>
+				<span class="blue"><strong>
+          @if($patient->Sexe == "M")
+          <i class="fa fa-mars" aria-hidden="true"></i>
+          @else
+          <i class="fa fa-venus" aria-hidden="true"></i>
+          @endif
+        </strong></span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
 				<span class="lbl">Âge:</span>
 				<span>
-				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>
+				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>(Ans)
 			</label>&nbsp;&nbsp;&nbsp;
-			<label class="inline"> 	
+			@isset( $patient->tele_mobile1)
+      <label class="inline"> 	
 				<span class="lbl"><i class="fa fa-phone"></i>&nbsp;Mobile :</span>
 				<span class="blue">{{ $patient->tele_mobile1 }}</span>
 		  </label>&nbsp;&nbsp;&nbsp;
-			@if(isset( $patient->commune_res))
+			@endisset
+      @isset( $patient->commune_res)
 			<label class="inline hidden-xs"> 	
 			<span class="lbl"><span class="glyphicon glyphicon-home"></span>&nbsp;Adresse :</span>
 			<span class="blue">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
-			@endif
-			<label class="inline hidden-xs"> <span class="lbl">&nbsp;NSS :</span>
+			@endisset
+			@isset( $patient->NSS)
+      <label class="inline hidden-xs"> <span class="lbl">&nbsp;Numéro SS :</span>
 			<span class="blue">{{ $patient->NSS }}</span></label>	&nbsp;&nbsp;&nbsp;
-			<label class="inline hidden-xs"> 	
+			@endisset
+      <label class="inline hidden-xs"> 	
 			<span class="lbl">&nbsp;<strong>Type :</strong></span>
 				<span class="badge badge-info">
 					@switch($patient->Type)

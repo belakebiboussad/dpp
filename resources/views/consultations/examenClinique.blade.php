@@ -39,8 +39,8 @@
         });
       });
     } catch(err) {
-        console.log("error");
-    }/*     var conts = '{!! $specialite->consConst !!}';    */
+      console.log("error");
+    }
  }
  $('document').ready(function(){
     formatConsuConsts()

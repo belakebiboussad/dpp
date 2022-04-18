@@ -175,16 +175,7 @@ Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
 Route::get('/404', function () {
     return view('errors.404');
-});
-route::post('/storeconstantes','HospitalisationController@storeconstantes');
-route::get('/getpoids/{id}', 'HospitalisationController@get_poids');
-route::get('/getdayspoids/{id}', 'HospitalisationController@get_days_poids');
-route::get('/gettaille/{id}', 'HospitalisationController@get_taille');
-route::get('/getpas/{id}', 'HospitalisationController@get_pas');
-route::get('/getpad/{id}', 'HospitalisationController@get_pad');
-route::get('/getpouls/{id}', 'HospitalisationController@get_pouls');
-route::get('/gettemp/{id}', 'HospitalisationController@get_temp');
-route::get('/getglycemie/{id}', 'HospitalisationController@get_glycemie');
-route::get('/getcholest/{id}','HospitalisationController@get_cholest');
+});//route::post('/storeconstantes','HospitalisationController@storeconstantes');
+route::get('/getconst','HospitalisationController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');

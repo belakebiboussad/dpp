@@ -11,7 +11,6 @@ class Specialite extends Model
         {
               $this->attributes['consConst'] = json_encode($value);
         }
-
         public function setHospConstAttribute($value)
         {
               $this->attributes['hospConst'] = json_encode($value);

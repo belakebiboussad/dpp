@@ -166,9 +166,8 @@
           url :"{{ route('traitExec.store') }}",
           data:formData,
           success:function(data){   
-            $('#traitExecute').modal('hide'); //if(data.does == 1) $(".admin-" + data.ordre).remove();
+            $('#traitExecute').modal('hide');//if(data.does == 1) $(".admin-" + data.ordre).remove();
             $('button[data-trait-ordre=' + data.ordre + ']'+'[data-trait-id='+data.trait_id+']').prop("disabled",true);
-
           }
       })
     });

@@ -15,9 +15,10 @@ use App\modeles\Transfert;
 use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
+use App\modeles\Specialite;
 use App\modeles\etablissement;
 use App\modeles\prescription_constantes;
-use App\modeles\Constantes;
+use App\modeles\Constantes; 
 use App\modeles\consts;
 use Carbon\Carbon;
 use PDF;//use Dompdf\Dompdf;
@@ -36,21 +37,21 @@ class HospitalisationController extends Controller
       {
               $this->middleware('auth');
       }
-        public function index()
-        {
-          $etatsortie = Etatsortie::where('type','0')->get();
-          $chapitres = chapitre::all();
-          $etablissement = Etablissement::first();
-          $medecins = employ::where('service',Auth::user()->employ->service)->get();
-         
-          if(Auth::user()->role_id != 9 )//9:admission
-            $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
-                                                  $q->where('id',Auth::user()->employ->service);
-                                                 })->where('etat','=',null)->get();
-            else
-            $hospitalisations = hospitalisation::where('etat','=',null)->get();             
-            return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
-       }
+      public function index()
+      {
+        $etatsortie = Etatsortie::where('type','0')->get();
+        $chapitres = chapitre::all();
+        $etablissement = Etablissement::first();
+        $medecins = employ::where('service',Auth::user()->employ->service)->get();
+       
+        if(Auth::user()->role_id != 9 )//9:admission
+          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
+                                                $q->where('id',Auth::user()->employ->service);
+                                               })->where('etat','=',null)->get();
+          else
+          $hospitalisations = hospitalisation::where('etat','=',null)->get();             
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
+     }
   /**
    * Show the form for creating a new resource.
    *
@@ -110,7 +111,8 @@ class HospitalisationController extends Controller
   {
     $hosp = hospitalisation::find($id);
     $consts = consts::all();
-    return View::make('hospitalisations.teste', compact('hosp','consts'));
+    $specialite = Specialite::findOrFail($employe = Auth::user()->employ->specialite);
+    return View::make('hospitalisations.show', compact('hosp','consts','specialite'));
   }
   /**
    * Show the form for editing the specified resource.
@@ -221,90 +223,9 @@ class HospitalisationController extends Controller
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
      return $pdf->download($filename);   
    }
-  public function storeconstantes(Request $request)
+  public function getConstData(Request $request)
   {
-
-    $constantes = Constantes::FirstOrCreate([
-      "poids" => $request->poids,
-      "taille" => $request->taille,
-      "PAS" => $request->pas,
-      "PAD" => $request->pad,
-      "pouls" => $request->pouls,
-      "temp" => $request->temp,
-      "glycemie" => $request->glycemie,
-      "LDL" => $request->cholest,
-      "date" => Carbon::now(),//"patient_id" => $request->patient_id,
-      "hospitalisation_id" => $request->hosp_id,
-    ]);
-    return redirect()->back()->with('succes', 'constantes inserer avec success');
-  }
-  public function store_prescription_constantes(Request $request)
-  {
-      $prescription_constantes = prescription_constantes::FirstOrCreate([
-        "hospitalisation_id" => $request->id_hosp,
-        "date_prescription" => Carbon::now(),
-        "observation" => $request->observation
-      ]);
-
-      if($request->consts != null)
-      {
-        $prescription_constantes->constantes()->attach($request->consts);
-      }
-
-      return redirect()->back()->with('succes', 'prescription inserer avec success');
-      
-  }
-
-  public function get_poids($id_hosp)
-  {
-    $poids = constantes::select('poids')->where('hospitalisation_id', $id_hosp)->get();
-    return $poids->toArray();
-  }
-
-  public function get_days_poids($id_hosp)
-  {
-    $poids = Constantes::select('date')->where('hospitalisation_id', $id_hosp)->get();
-    return $poids->toArray();
-  }
-
-  public function get_taille($id_hosp)
-  {
-    $tailles = Constantes::select('taille')->where('hospitalisation_id', $id_hosp)->get();
-    return $tailles->toArray();
-  }
-  public function get_pas($id_hosp)
-  {
-    $pas = Constantes::select('pas')->where('hospitalisation_id', $id_hosp)->get();
-    return $pas->toArray();
-  }
-
-  public function get_pad($id_hosp)
-  {
-    $pad = Constantes::select('pad')->where('hospitalisation_id', $id_hosp)->get();
-    return $pad->toArray();
-  }
-
-  public function get_pouls($id_hosp)
-  {
-    $pouls = Constantes::select('pouls')->where('hospitalisation_id', $id_hosp)->get();
-    return $pouls->toArray();
-  }
-
-  public function get_temp($id_hosp)
-  {
-    $temp = Constantes::select('temp')->where('hospitalisation_id', $id_hosp)->get();
-    return $temp->toArray();
-  }
-
-  public function get_glycemie($id_hosp)
-  {
-    $glycemie = Constantes::select('glycemie')->where('hospitalisation_id', $id_hosp)->get();
-    return $glycemie->toArray();
-  }
-
-  public function get_cholest($id_hosp)
-  {
-    $cholest = Constantes::select('LDL')->where('hospitalisation_id', $id_hosp)->get();//cholest
-    return $cholest->toArray();
+    $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
+    return $data ;
   }
 }

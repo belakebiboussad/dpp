@@ -77,7 +77,7 @@
 				url:ajaxurl,
 				data: formData,
 				dataType:'json',
-				success: function (data) {	/*JSON.parse()*/
+				success: function (data) {
 					if($('.dataTables_empty').length > 0)
 					{
 						$('.dataTables_empty').remove();
@@ -367,9 +367,7 @@
 					</div><!-- widget-box -->
 				</div>
 				</div><!-- tab-pane Trait-->
-				<div role="tabpanel" class ="tab-pane" id="ExamComp">
-					@include('ExamenCompl.index')
-				</div>
+				<div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
 				<div role="tabpanel" class ="tab-pane" id="constantes"> 
 					<div class= "col-md-12 col-xs-12">
 						<div class="widget-main padding-6 no-padding-left no-padding-right">
