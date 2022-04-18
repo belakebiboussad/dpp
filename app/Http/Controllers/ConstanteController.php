@@ -24,8 +24,8 @@ class ConstanteController extends Controller
   public function store(Request $request)
   {
     $input = $request->all();
-    $input['date'] = Carbon::now() ;
-      Constantes::create($input);
+    $input['date'] = Carbon::now()->format('Y-m-d H:i') ;
+    Constantes::create($input);
       return redirect()->back()->with('succes', 'prescription inserer avec success');  
   }
 
