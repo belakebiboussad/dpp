@@ -216,16 +216,10 @@ class HospitalisationController extends Controller
   }
   public function  codebarrePrint(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id);
-    //$etablissement = Etablissement::first();// ,'img'=>$img// ,'etablissement'=>$etablissement
+    $hosp = hospitalisation::FindOrFail($request->id); //$etablissement = Etablissement::first();// ,'img'=>$img// ,'etablissement'=>$etablissement
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);//plusieure en foramt A4
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
      return $pdf->download($filename);   
    }
-  public function getConstData(Request $request)
-  {
-    $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
-    return $data ;
-  }
 }

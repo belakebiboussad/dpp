@@ -13,6 +13,13 @@ class ConstanteController extends Controller
   {
       $this->middleware('auth');
   }
+  public function index(Request $request)
+  {
+    $hosp_id = $request->hosp_id;
+    $const = Constante::FindOrFail($request->id);
+    $view = view("soins.ajax_const_details",compact('const','hosp_id'))->render();
+    return($view);
+  }
   public function edit(Request $request,$id)
   {
     if($request->ajax())  
@@ -26,7 +33,11 @@ class ConstanteController extends Controller
     $input = $request->all();
     $input['date'] = Carbon::now()->format('Y-m-d H:i') ;
     Constantes::create($input);
-      return redirect()->back()->with('succes', 'prescription inserer avec success');  
+    return redirect()->back()->with('succes', 'prescription inserer avec success');  
   }
-
+  public function getConstData(Request $request)
+  {
+    $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
+    return $data ;
+  }
 }

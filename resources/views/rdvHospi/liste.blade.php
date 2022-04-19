@@ -16,9 +16,6 @@
                                      <th class="center" colspan="2"><h5><strong>Sortie prévue</strong></h5></th>
                                       <th class="font-weight-bold center" rowspan="2"><h5><strong>Médecin traitant</strong></h5></th>
                                     <th class="center" colspan="3"><h5><strong>Lit réservé</strong></h5></th>
-                                    {{-- <th class="font-weight-bold center" rowspan="2"><strong>Lit</strong></th>
-                                    <th class="font-weight-bold center" rowspan="2"><strong>Salle</strong></th>
-                                    <th class="font-weight-bold center" rowspan="2"><strong>Service</strong></th> --}}
                                     <th class="detail-col center" rowspan="2"><em class="fa fa-cog"></em></th>
                           </tr>
                           <tr>
@@ -50,14 +47,14 @@
                             </td>
                             <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</strong></td>
                             <td class="center">
-                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @else <strong>/</strong>  @endif    
+                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @endif    
                             </td>
                             <td>
-                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->nom }} @else <strong>/</strong> @endif    
+                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->nom }} @endif    
                               {{ $rdv->nomsalle }}
                             </td>
                             <td>
-                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }}  @else <strong>/</strong> @endif  
+                              @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }} @endif  
                             </td>
                             <td class="center">
                               <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >

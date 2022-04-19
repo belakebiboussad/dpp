@@ -6,10 +6,7 @@
           <div class="widget-main">
             @if("" != $specialite->hospConst)
               @foreach(json_decode($specialite->hospConst ,true) as $const)
-                <?php $nom = App\modeles\Constante::FindOrFail($const)->nom ?>
-                <?php $desc = App\modeles\Constante::FindOrFail($const)->description ?>
-                <?php $min = App\modeles\Constante::FindOrFail($const)->min ?>
-                <canvas id="{{ $nom }}" width="400" height="100"></canvas>
+                <canvas id="{{ App\modeles\Constante::FindOrFail($const)->nom }}" width="400" height="100"></canvas>
               @endforeach
             @endif
           </div>

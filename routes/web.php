@@ -63,7 +63,7 @@ route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter
 route::get('/products/list','demandeprodController@getProducts')->name('productsList');
 route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
-Route::post('user/updatepro','UsersController@updatepro');//Route::get('/atcd/store','AntecedantsController@storeatcd');
+Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
@@ -175,7 +175,7 @@ Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
 Route::get('/404', function () {
     return view('errors.404');
-});//route::post('/storeconstantes','HospitalisationController@storeconstantes');
-route::get('/getconst','HospitalisationController@getConstData')->name('getConstData');
+});
+route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');

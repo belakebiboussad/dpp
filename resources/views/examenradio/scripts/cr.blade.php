@@ -68,9 +68,7 @@ function getRequests(url,field,value)
             { data: 'etat', title:'Etat',
                   render: function ( data, type, row ) {
                     return '<span class="badge badge-info">' + row.etat +'</span>';
-  /*switch(row.etat){ case "null":return '<span class="badge badge-success">En Cours</span>'; break;case "1": return '<span class="badge badge-info">Validée</span>';
-  break; case "0":return '<span class="badge badge-warning">Rejetée</span>';break; default:return "UNKNOWN"; break; }*/
-                    }
+                  }
               },
               { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
           ],

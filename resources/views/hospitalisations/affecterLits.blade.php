@@ -6,7 +6,7 @@
 		row = $(".bodyClass").find('tr').eq(line);
 		$.ajax({
 			url: '/annullerRDV/'+id,
-      type: 'GET', //dataType: 'JSON',
+      type: 'GET',
 		  success: function (data) { 
 		    row.remove();
 		  }	
@@ -19,9 +19,7 @@
 <form id="form-rdvsHosp" class="form-horizontal" role="form" method="POST" action="#">
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}
-	<div class="row">
-		<div class="col-xs-12 page-header">	<h1>Affectation des lits </h1></div>
-	</div>
+	<div class="row"><div class="col-xs-12 page-header"><h1>Affectation des lits</h1></div></div>
 	<div class="row">
      	<div class="col-xs-12 widget-container-col" id="widget-container-col-12">
      		<div class="widget-box widget-color-blue" id="widget-box-12">

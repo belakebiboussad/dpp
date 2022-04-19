@@ -42,8 +42,7 @@
 						@endswitch
 						</td>
 						<td>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</td>
-						<td>{{ $rdv->date }} &nbsp;{{ $rdv->heure }}</td>
-						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
+						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
 						<td>
 							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>{{-- addAffect({{$rdv->id}}) --}}

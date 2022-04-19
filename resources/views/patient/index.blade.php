@@ -20,12 +20,11 @@
 	};
 	var errorElement = document.querySelector('#errorMsg');
 	$(function(){
-		navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-			 App.init();
-			  Quagga.onProcessed(function(result) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+			App.init();
+			Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
-            drawingCanvas = Quagga.canvas.dom.overlay;
-
+        drawingCanvas = Quagga.canvas.dom.overlay;
         if (result) {
             if (result.boxes) {
                 drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
@@ -35,14 +34,10 @@
                     Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
                 });
             }
-
-            if (result.box) {
+            if (result.box)
                 Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-            }
-
-            if (result.codeResult && result.codeResult.code) {
+            if (result.codeResult && result.codeResult.code)
                 Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-            }
         }
     });
     Quagga.onDetected(function(result) {
@@ -52,10 +47,9 @@
             App.init();  
             setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
         }
-    });
-			
+    });	
 	}).catch(function(error) {
-		console.log("gdf");
+		$("#scanButton").addClass('hidden')
 	});
 	
 });
@@ -241,12 +235,14 @@ function errorMsg(msg, error) {
 						<div class="form-group"><label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 						 <div class="input-group col-sm-12 col-xs-12">
 							<input id="IPP" name="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
-							<span class="input-group-btn"> 
-								<button class="btn btn-default" type="button" data-toggle="modal" data-target="#livestream_scanner">
+							
+              <span class="input-group-btn"> 
+								<button class="btn btn-default" id="scanButton" type="button" data-toggle="modal" data-target="#livestream_scanner">
 									<i class="fa fa-barcode"></i>
 								</button> 
 							</span>
-						</div>
+						
+            </div>
 						</div>		
 					</div>
 				</div>

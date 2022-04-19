@@ -83,7 +83,6 @@ $(function() {
         },
         initCameraSelection: function(){
             var streamLabel = Quagga.CameraAccess.getActiveStreamLabel();
-
             return Quagga.CameraAccess.enumerateVideoDevices()
             .then(function(devices) {
                 function pruneText(text) {

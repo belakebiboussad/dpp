@@ -1,7 +1,6 @@
 @extends('app')
 @section('main-content')
-<?php $patient = $hosp->patient; ?>
-<div class="row">@include('patient._patientInfo', $patient)</div>
+<div class="row">@include('patient._patientInfo',['patient'=>$hosp->patient])</div>
 <div class="pull-right">
    <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
@@ -85,41 +84,21 @@
     <div id="visites" class="tab-pane">@include('visite.liste')</div>
     @endif
     @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
-    <div id="constantes" class="tab-pane">@include("hospitalisations.constante")</div>
+    <div id="constantes" class="tab-pane">@include("constantes.index",['patient'=>$hosp->patient])</div>
     @endif
   </div>
 </div>
+@include('constantes.scripts.functions')
 @endsection
 @section('page-script')
 <script type="text/javascript">
-function getConstDatas(hospId,constName)
-{
-  var constValues1 = [];
-  url = "{{ route('getConstData') }}";
-  $.ajax({
-      url: url,
-      data: {    
-          "hosp_id":hospId,
-          "const_name":constName,
-      },
-      async: false,
-      success: function(result) {
-        var finalArray = result.map(function (obj) {
-          return obj[constName];
-        });
-        Array.prototype.push.apply(constValues1, finalArray); //return constValues1;
-      },
-  });
-  return constValues1;
-}
 $( function() {
     if('{{$specialite->hospConst}}' != "");
     {
-      var days = [];
+      var days = []; var constValues= [];
       days = getConstDatas('{{ $hosp->id }}','date')
       $.each({!! $specialite->hospConst !!},function(key,id){
         $.get('/const/'+id+'/edit', function (data) {
-          var constValues= [];
           constValues = getConstDatas('{{ $hosp->id }}',data.nom)
           if(constValues.length > 0 )
           {
@@ -132,20 +111,12 @@ $( function() {
                       label: data.nom+"(" + data.unite + ")",
                       data: constValues,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
+/*'rgba(255, 99, 132, 0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)','rgba(75, 192, 192, 0.2)','rgba(153, 102, 255, 0.2)',*/
+                        'rgba(255, 159, 64, 0.2)'
                       ],
                       borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)'
+/*'rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)',*/
+                        'rgba(255, 159, 64, 1)'
                       ],
                       borderWidth: 2
                   }]
