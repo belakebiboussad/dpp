@@ -31,9 +31,15 @@ class ConstanteController extends Controller
   public function store(Request $request)
   {
     $input = $request->all();
-    $input['date'] = Carbon::now()->format('Y-m-d H:i') ;
-    Constantes::create($input);
-    return redirect()->back()->with('succes', 'prescription inserer avec success');  
+    $input['date'] = Carbon::now()->format('Y-m-d H:i:s') ;
+    $const =  Constantes::create($input);
+    if($request->ajax()) 
+      return $const;
+    else
+      return redirect()->back()->with('succes', 'prescription inserer avec success');  
+  }
+  public function destroy(Request $request)
+  {
   }
   public function getConstData(Request $request)
   {

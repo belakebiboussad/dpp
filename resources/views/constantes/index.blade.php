@@ -34,12 +34,10 @@
               {{ csrf_field() }}
               <input type="text" name="hospitalisation_id" value="{{ $hosp->id }}" hidden>
               @foreach(json_decode($specialite->hospConst ,true) as $const)
-              <?php $nom = App\modeles\Constante::FindOrFail($const)->nom ?><?php $desc = App\modeles\Constante::FindOrFail($const)->description ?>
-              <?php $min = App\modeles\Constante::FindOrFail($const)->min ?><?php $max = App\modeles\Constante::FindOrFail($const)->max ?>
-              <?php $unite = App\modeles\Constante::FindOrFail($const)->unite ?>
+              <?php $const = App\modeles\Constante::FindOrFail($const) ?>
               <div>
-                <label for="poids">{{ $desc }}</label>
-                <input type="number" step="0.01" name="{{$nom}}" class="form-control" min="{{ $min }}" max={{ $max}} placeholder="Entre {{ $min }} et {{ $max}} ({{ $unite }})">     
+                <label for="{{ $const->nom}}">{{ $const->description }}</label>
+                <input type="number" step="{{ $const->step}}" name="{{ $const->nom}}" class="form-control" min="{{ $const->nmin }}" max="{{ $const->max }}" placeholder="Entre {{ $const->min }} et {{ $const->max }} ({{ $const->unite }})">     
               </div>
               @endforeach
               <div class="form-actions center">

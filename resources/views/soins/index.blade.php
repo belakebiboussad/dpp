@@ -3,7 +3,7 @@
 <div class="container-fluid">
   <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$hosp->patient])</div></div><div class="space-12"></div>
   <div class="row">
-    <div class="col-sm-7 widget-container-col">
+    <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
         <div class="widget-header">
           <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Actes</h5>
@@ -38,10 +38,10 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5 col-sm-5 widget-box transparent"  id="details"></div>       
+    <div class="col-md-6 col-sm-6 widget-box transparent"  id="details"></div>       
   </div>
   <div class="row">
-    <div class="col-sm-7 widget-container-col">
+    <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
         <div class="widget-header">
           <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Traitements</h5>
@@ -80,7 +80,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-7 widget-container-col">
+    <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
         <div class="widget-header">
           <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Constantes</h5>
