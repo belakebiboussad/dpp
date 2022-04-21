@@ -10,10 +10,6 @@ class Constante extends Model
   {
     return str_replace(',', '.', $value);
   }
-  // public function getMinAttribute($value)
-  // {
-  //   return str_replace(',', '.', $value);
-  // }
   protected $table = 'constantesListe';
   public $timestamps = false;
   protected $fillable = ['nom','description','normale','step','min','max','lwrang','hnrang','color','unite'];

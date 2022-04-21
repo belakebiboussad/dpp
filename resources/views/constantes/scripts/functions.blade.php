@@ -1,20 +1,25 @@
 <script  type="text/javascript" charset="utf-8" async defer>
-function getConstDatas(hospId,constName)
+function getConstDatas(hospId, constName, isDate = 0)
 {
   var constValues1 = [];
   url = "{{ route('getConstData') }}";
+  var formData ={    
+          "hosp_id": hospId,
+          "const_name": constName,
+          "isDate" : isDate
+  };
+
   $.ajax({
       url: url,
-      data: {    
-          "hosp_id":hospId,
-          "const_name":constName,
-      },
+      data: formData, 
       async: false,
       success: function(result) {
-        var finalArray = result.map(function (obj) {
-          return obj[constName];
-        });
-        Array.prototype.push.apply(constValues1, finalArray); //return constValues1;
+        if(isDate)
+          constName ='date';
+          var finalArray = result.map(function (obj) {
+             return obj[constName];
+          });
+        Array.prototype.push.apply(constValues1, finalArray);
       },
   });
   return constValues1;

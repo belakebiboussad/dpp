@@ -7,6 +7,7 @@ use App\modeles\Constante;
 use App\modeles\Constantes;
 use App\modeles\prescription_constantes;  
 use Carbon\Carbon;
+use DB;
 class ConstanteController extends Controller
 {
   public function __construct()
@@ -40,10 +41,16 @@ class ConstanteController extends Controller
   }
   public function destroy(Request $request)
   {
+    $const = Constantes::where('hospitalisation_id',$request->hosp_id)->where($request['constename'],'<>',null)->orderBy('date','desc')->first();
+    $const->delete();
+    return $const;
   }
   public function getConstData(Request $request)
   {
-    $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
+    if($request->isDate == 1)
+      $data = Constantes::select('date')->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
+    else
+      $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
     return $data ;
   }
 }

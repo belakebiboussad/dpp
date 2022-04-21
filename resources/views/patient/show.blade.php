@@ -137,6 +137,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				@if (!is_null($correspondants))
 					<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Homme de confiance</strong></a></li>
 				@endif
+        <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i><strong>Documents</strong></a></li>
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
@@ -149,9 +150,11 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				@endif
 				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
 				<div id="homme_conf" class="tab-pane">
-				<div class="row">@include('corespondants.widget')</div>
-				<div class="row">@include('corespondants.add')</div>
-			</div>
+				  <div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
+				</div>
+        <div id="doc" class="tab-pane">
+              @include('documents.index')
+        </div>
 			</div>
 		</div>
 	</div>
