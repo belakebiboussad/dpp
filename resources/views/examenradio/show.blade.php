@@ -49,7 +49,7 @@ $(function(){
               <div class="col-xs-12 widget-container-col">
                 <div class="widget-box widget-color-blue">
                   <div class="widget-header">
-                    <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Examens radiologique demandés</h5>
+                    <h5 class="widget-title lighter pull-left"><i class="ace-icon fa fa-table"></i>Examens radiologique demandés</h5>
                   </div>
                   <div class="widget-body"> 
                     <div class="widget-main">

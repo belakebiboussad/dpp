@@ -18,6 +18,8 @@ use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
 use App\modeles\etablissement;
+use App\modeles\demandeexb;
+use App\modeles\demandeexr;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -38,7 +40,7 @@ class PatientController extends Controller
     }
     public function index()
     {
-           return view('patient.index');
+      return view('patient.index');
     }
   /**
    * Show the form for creating a new resource.
@@ -270,7 +272,15 @@ class PatientController extends Controller
           $employe=Auth::user()->employ;
           $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-          return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades'));
+          $demandesExB = demandeexb::with('consultation')
+                                    ->whereHas('consultation',function($q) use($id){
+                                         $q->where('pid', $id);
+                                    })->where('etat',1)->get();
+          $demandesExR = demandeexr::with('consultation','examensradios')
+                                    ->whereHas('consultation',function($q) use($id){
+                                         $q->where('pid', $id);
+                                    })->where('etat',1)->get();
+          return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR'));
         }
     /**
      * Show the form for editing the specified resource.

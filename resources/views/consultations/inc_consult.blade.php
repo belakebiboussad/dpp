@@ -179,13 +179,14 @@ $('document').ready(function(){
               </span>
               </td>
               <td class="center">
+                <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-success btn-xs">
+                <i class="fa fa-hand-o-up fa-xs"></i></a>
                 @if(!$consultation->examensradiologiques->hasResult())
-                  <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id ) }}" class="btn btn-xs  btn-success">
+                  <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id ) }}" class="btn btn-xs  btn-primary">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 @endif 
-                  <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
                 <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
             </td>
             </tr>
@@ -217,9 +218,9 @@ $('document').ready(function(){
               <tr id="{{ 'ordonnace'.$consultation->ordonnances->id }}">
                 <td>{{ $consultation->ordonnances->date }}</td>
                 <td class="center">
-                  <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                   <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye"></i></a>
                   <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
+                  <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 </td>
               </tr>
             </tbody>

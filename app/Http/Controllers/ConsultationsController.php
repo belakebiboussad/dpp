@@ -198,10 +198,8 @@ class ConsultationsController extends Controller
           }
           foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
             $exam = new Demandeexr_Examenradio;
-            $exam->demande_id = $demandeExImg->id;
-            $exam->exm_id = $acte->acteId;
-            $exam->type_id = $acte->type;
-            $exam->save();
+            $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
+            $exam->type_id = $acte->type;$exam->save();  
           }
         } 
         if($request->modeAdmission != null)

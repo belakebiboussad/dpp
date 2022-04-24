@@ -15,6 +15,7 @@ use App\modeles\examenradiologique;
 use App\modeles\TypeExam;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
+use App\modeles\Demandeexr_Examenradio;
 use App\modeles\Etablissement;
 use App\modeles\prescription_constantes;
 use App\modeles\Constontes;
@@ -103,8 +104,12 @@ class VisiteController extends Controller
             $demandeExImg->infossuppdemande()->attach($id_info);
           }
         }
-        foreach (json_decode ($request->ExamsImg) as $key => $value) {       
-           $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+
+        foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
+          //$demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+          $exam = new Demandeexr_Examenradio;
+          $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
+          $exam->type_id = $acte->type; $exam->save();   
         }
       }// si(observ change et constante change) on crée une prescription
       if(isset($request->consts))

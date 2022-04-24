@@ -8,7 +8,7 @@ class demandeexr extends Model
 {
   public $timestamps = false;
   protected $table = "demandeexr";
-  protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation','visite_id'];
+  protected $fillable = ['InfosCliniques', 'Explecations', 'etat','id_consultation','visite_id'];//'resultat', 
   protected $appends = ['infos'];
   public const ETATS = [
       ''=> 'En Cours',
@@ -24,7 +24,7 @@ class demandeexr extends Model
   }
   public function examensradios()
   { 
-    return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');       
+    return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');    
   }
   public function typeExam()
   {
@@ -57,15 +57,15 @@ class demandeexr extends Model
       }  
       return false;
   }
-     public function hasResult()
+  public function hasResult()
+  {
+    foreach($this->examensradios as $examen)
     {
-      foreach($this->examensradios as $examen)
+      if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
       {
-        if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
-        {
-          return true;       
-        }
-      }  
-      return false;
-    }
+        return true;       
+      }
+    }  
+    return false;
+  }
 }
