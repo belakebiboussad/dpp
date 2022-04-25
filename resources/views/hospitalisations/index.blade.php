@@ -91,8 +91,7 @@
               title:'Patient',"orderable": true
             },
             { data: "admission.demande_hospitalisation.modeAdmission", 
-              render: function ( data, type, row ) {
-                var mode;
+              render: function ( data, type, row ) {    // var mode;
                 switch(row.admission.demande_hospitalisation.modeAdmission)
                 {
                   case 0: 
@@ -107,8 +106,7 @@
                 }
                 var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
                 return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
-               },
-              title:"Mode Admission","orderable": false 
+               }, title:"Mode Admission","orderable": false 
             },//2
             { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
             { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4

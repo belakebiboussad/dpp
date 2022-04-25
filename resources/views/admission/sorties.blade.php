@@ -65,13 +65,48 @@
 	                            	},
 	                  		      title:'Patient',"orderable": true
 	                    		},
-		                    { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
-		                    { data : "hospitalisation.Date_entree" ,title:'Date Entrée',"orderable": true},
-		                    { data : "demande_hospitalisation.modeAdmission" ,title:'Mode Entrée',"orderable": false},
-		                    { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
+		                     { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
+		                     { data : "hospitalisation.Date_entree" ,title:'Date Entrée',"orderable": true},
+		                      { data: "admission.demande_hospitalisation.modeAdmission", 
+                                              render: function ( data, type, row ) {    // var mode;
+                                                switch(row.demande_hospitalisation.modeAdmission)
+                                                {
+                                                  case 0: 
+                                                    mode ="Programme";
+                                                    break;
+                                                  case 1: 
+                                                   mode ="Ambulatoire";
+                                                    break;
+                                                  case 2:
+                                                   mode ="Urgence";
+                                                    break; 
+                                                }
+                                                var color = (row.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
+                                                return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
+                                            },  title:"Mode Admission","orderable": false 
+                                    },
+		                      { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
 		                    { data : "hospitalisation.modeSortie" ,
-		                    		 render: function ( data, type, row ) {
-                                		    return '<span class="badge badge-info">' + row.hospitalisation.modeSortie +'</span>';
+		                    		render: function ( data, type, row ) {  //var mode;
+                                                   switch(row.hospitalisation.modeSortie)
+                                                    {
+                                                           case 0: 
+                                                                  mode ="Transfert";
+                                                                  break;
+                                                          case 1: 
+                                                                 mode ="Contre avis médical";
+                                                                 break;
+                                                          case 2:
+                                                                 mode ="Décès";
+                                                                  break;
+                                                           case 2:
+                                                                   mode ="Reporter";
+                                                                    break;
+                                                           default :
+                                                                   mode ="Domicile";
+                                                                  break;
+                                                    }
+                                		         return '<span class="badge badge-info">' + mode  +'</span>';
                               		 },
 		                    		title:'Mode Sortie',"orderable": false
 		                    	},
@@ -100,7 +135,7 @@
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher les sorties</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
+			<strong>Rechercher une sortie</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -123,6 +158,9 @@
         </div>	
   		</div>
 		</div>
+     <div class="panel-footer">
+        <button type="submit" class="btn btn-sm btn-primary findOutAdm"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+      </div>
 	</div><!-- panel -->
 	<div class="row">
 		<div class="widget-box widget-color-blue">
