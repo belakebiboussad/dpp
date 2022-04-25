@@ -35,23 +35,70 @@ class HospitalisationController extends Controller
    */
       public function __construct()
       {
-              $this->middleware('auth');
+        $this->middleware('auth');
       }
-      public function index()
+      public function index(Request $request)
       {
-        $etatsortie = Etatsortie::where('type','0')->get();
-        $chapitres = chapitre::all();
-        $etablissement = Etablissement::first();
-        $medecins = employ::where('service',Auth::user()->employ->service)->get();
-       
-        if(Auth::user()->role_id != 9 )//9:admission
-          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
+        if($request->ajax())  
+        { 
+          // if(isset($request->value))
+          //   return $request->value;
+          // else
+          //   return "df";
+          if(Auth::user()->role_id != 9){
+            if($request->field != 'Nom' && ($request->field != 'IPP'))
+            {
+              if($request->value != "0")   
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                                        ->whereHas('admission.demandeHospitalisation.Service',function($q){
                                                 $q->where('id',Auth::user()->employ->service);
-                                               })->where('etat','=',null)->get();
+                                               })->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+              else
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                                        ->whereHas('admission.demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service);
+                                                })->where('etat',null)->get();                                   
+            }
+            else
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                        ->whereHas('patient',function($q) use ($request){
+                               $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                        })->whereHas('admission.demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service);
+                        })->get();
+          }else
+          {
+            if($request->field != 'Nom' && ($request->field != 'IPP'))
+            {
+              if($request->value != "0")   
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                                        ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+              else
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                                                        ->where('etat',null)->get();                                   
+            }
+            else
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
+                        ->whereHas('patient',function($q) use ($request){
+                               $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                        })->get();
+          }    
+          return $hosps; 
+        }else
+        {
+          $etatsortie = Etatsortie::where('type','0')->get();
+          $chapitres = chapitre::all();
+          $etablissement = Etablissement::first();
+          $medecins = employ::where('service',Auth::user()->employ->service)->get();
+          if(Auth::user()->role_id != 9 )//9:admission
+            $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
+                                                  $q->where('id',Auth::user()->employ->service);
+                                                 })->where('etat','=',null)->get();
           else
-          $hospitalisations = hospitalisation::where('etat','=',null)->get();             
+            $hospitalisations = hospitalisation::where('etat','=',null)->get();             
           return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
-     }
+        }
+      }
   /**
    * Show the form for creating a new resource.
    *
@@ -162,51 +209,6 @@ class HospitalisationController extends Controller
   {
     $ServiceID = Auth::user()->employ->service;
     return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
-  }
-  public function getHospitalisations(Request $request)
-  { 
-    if($request->ajax())  
-    {  
-      if(Auth::user()->role_id != 9){
-        if($request->field != 'Nom' && ($request->field != 'IPP'))
-        {
-          if($request->value != "0")   
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                                    ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                            $q->where('id',Auth::user()->employ->service);
-                                           })->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-          else
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                                    ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                              $q->where('id',Auth::user()->employ->service);
-                                            })->where('etat','=',null)->get();                                   
-        }
-        else
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                    ->whereHas('patient',function($q) use ($request){
-                           $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                    })->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                              $q->where('id',Auth::user()->employ->service);
-                                })->get();
-      }else
-      {
-        if($request->field != 'Nom' && ($request->field != 'IPP'))
-        {
-          if($request->value != "0")   
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                                    ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-          else
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                                                    ->where('etat','=',null)->get();                                   
-        }
-        else
-            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi','medecin')
-                    ->whereHas('patient',function($q) use ($request){
-                           $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                    })->get();
-      }    
-      return Response::json($hosps);
-    }
   }
   public function detailHospXHR(Request $request)
   {

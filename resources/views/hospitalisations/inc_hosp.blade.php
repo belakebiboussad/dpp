@@ -1,80 +1,119 @@
-<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de l'hospitalisation :</strong></h5></div>
+<div class="page-header" style="margin-top:-5px;"><h5><strong>Détails de l'hospitalisation :</strong></h5></div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hospitalisation</span></strong></div>
 </div>
 <div class="row">
-	<ul class="list-unstyled spaced">
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission :</strong> {{ $hosp->admission->demandeHospitalisation->modeAdmission }}</li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Specialité :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'hospitalisation:</strong> {{ $hosp->modeHospi->nom }}</li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
-		 	@if($hosp->etat == "1" )
-		 		<span class="badge badge-pill badge-succes">Cloturé</span>
-		 	@else
-		 		<span class="badge badge-pill badge-warning">En Cours</span>
-		 	@endif
-		 </li>
-		@if($hosp->etat == "1" )
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé de sortie :</strong> {{ $hosp->resumeSortie }}</li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat a la sortie :</strong> {{ $hosp->etatSortie }}</li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de sortie :</strong>
-			@if(!(isset($hosp->modeSortie)))
-				Domicile
-			@else
-				@switch($hosp->modeSortie)
-				 	@case(0)
-				 		Transfet
-				 		@break
-				 	@case(1)
-				 		Contre avis médicale
-				 		@break
-				 	@case(2)
-				 		Décés
-				 		@break
-				 	@case(3)
-				 		reporter
-				 		@break
-				 	@default
-				 		Domicile
-				 		@break
-				@endswitch
-			@endif
-			 </li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic de sortie :</strong> {{ $hosp->diagSortie }}</li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>CIM-10 :</strong> {{ $hosp->ccimdiagSortie }}</li>	
-		@endif
-	</ul>
+  <div class="col-sm-12">
+  <ul class="nav navbar-nav list-inline">
+{{-- <li class="list-inline-item" style="width:200px;"><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}</li> --}}
+    <li class="list-inline-item" style="width:200px;">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+    </li>
+    <li class="list-inline-item" style="width:300px;">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;
+      <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
+    </li>
+    <li class="list-inline-item" style="width:300px;">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
+    {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
+    </li>
+    <li class="list-inline-item" style="width:270px;">
+     <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}
+    </li>
+    @if($hosp->etat == 1 )
+    <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
+      </i><strong>Date sortie:</strong>&nbsp;&nbsp;{{ $hosp->Date_Sortie }}
+    </li>
+    @else
+      <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
+        </i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}
+      </li>
+    @endif
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
+      <span class="badge badge-{{( $hosp->getEtatID($hosp->etat)) === 1 ? 'primary':'success' }}">{{ $hosp->etat }}</span>
+    {{ $hosp->getEtatID($hosp->etat) }}
+    </li>
+  </ul>
+  </div>
 </div>
+@if($hosp->getEtatID($hosp->etat) == 1)
+<div class="space-12"></div>
+<div class="row">
+  <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Sortie d'hospitalisation</span></strong></div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+  <ul class="nav navbar-nav list-inline">
+    <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé de sortie :</strong>&nbsp;&nbsp;
+    {{ $hosp->resumeSortie }}</li>
+    <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Etat à la sortie :</strong>&nbsp;&nbsp;
+    {{ $hosp->etatSortie }}</li> 
+    <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de sortie :</strong>&nbsp;&nbsp;
+      @if(!(isset($hosp->modeSortie)))
+          Domicile
+        @else
+          @switch($hosp->modeSortie)
+            @case(0)
+              Transfet
+              @break
+            @case(1)
+              Contre avis médicale
+              @break
+            @case(2)
+              Décés
+              @break
+            @case(3)
+              reporter
+              @break
+            @default
+              Domicile
+              @break
+          @endswitch
+        @endif
+    </li>  
+
+@endif
+<div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div>
 </div>
 <div class="row">
-	<ul class="list-unstyled spaced">
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Service :</strong><span class="badge badge-pill badge-success">
-			{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}</span>
-		</li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Salle :</strong><span>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</span></li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>lit :</strong><span>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}
-		</span></li>
-	</ul>
+  <div class="col-sm-12">
+   <ul class="nav navbar-nav list-inline">
+        <li class="list-inline-item" style="width: 300px;" >
+            <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
+        {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}
+        </li>
+        <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
+        <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
+    </ul>
+  </div>
 </div>
+
 @if(isset($hosp->garde_id))
+<div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Garde Malade</span></strong>
 	</div>
 </div>
 <div class="row">
-	<ul class="list-unstyled spaced">
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Nom :</strong>{{ $hosp->garde->nom }}</li>
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Prénom :</strong>{{ $hosp->garde->prenom }}</li>
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Né(e) le :</strong>{{ $hosp->garde->date_naiss }}</li>
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Adresse :</strong>{{ $hosp->garde->adresse }}</li>
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Mobile :</strong>{{ $hosp->garde->mob }}</li>
-</ul>
+    <ul class="nav navbar-nav list-inline">
+      <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Nom & Prénom :</strong> {{ $hosp->garde->full_name}}</li>
+      <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Né(e) le :</strong> {{ $hosp->garde->date_naiss }}</li>          
+      <li>
+         <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Âge :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
+          </li>
+      <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Qualité :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
+            <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Téléphone :</strong> <span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
+    </ul>
 </div>
 @endif
 @if($hosp->visites->count() > 0)
-<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites & Contrôles</span></strong></div>
+<div class="space-12"></div>
+<div class="row"><div class="col-xs-11 label label-lg label-purple arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites & Contrôles</span></strong></div>
 </div>
 <div class="row">
 	<div class="col-xs-11 widget-container-col">

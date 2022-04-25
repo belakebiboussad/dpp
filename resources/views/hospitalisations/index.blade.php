@@ -72,26 +72,41 @@
      function loadDataTable(data){
           $('#liste_hosptalisations').dataTable({// "processing": true,
           "paging":   true,
-           "destroy": true,
+          "destroy": true,
            "ordering": true,
            "searching":false,
            "info" : false,
            "language":{"url": '/localisation/fr_FR.json'},
-           "data" : data,// "scrollX": true,
+           "data" : data,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                  $(nRow).attr('id',"hospi"+aData.id);
           },
           "columns": [
             { data: "patient.Nom",
               render: function ( data, type, row ) {
-                return row.patient.Nom + ' ' + row.patient.Prenom;
+                var url = '{{ route("patient.show", ":slug") }}'; 
+                url = url.replace(':slug',row.patient.id);
+                return '<a href="'+ url +'" title="voir patient">'+ row.patient.full_name + '</a>';
               },
               title:'Patient',"orderable": true
             },
             { data: "admission.demande_hospitalisation.modeAdmission", 
               render: function ( data, type, row ) {
-                   var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
-                     return '<span class="badge badge-pill badge-'+color+'">Urgence</span>';
+                var mode;
+                switch(row.admission.demande_hospitalisation.modeAdmission)
+                {
+                  case 0: 
+                    mode ="Programme";
+                    break;
+                  case 1: 
+                   mode ="Ambulatoire";
+                    break;
+                  case 2:
+                   mode ="Urgence";
+                    break; 
+                }
+                var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
+                return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
                },
               title:"Mode Admission","orderable": false 
             },//2
@@ -122,14 +137,17 @@
     }
       function getHospitalisations(field,value)
       {
-        $.ajax({
-          url : '{{URL::to('getHospitalisations')}}',
+        $.ajax({ //url : '{{URL::to('getHospitalisations')}}',
+          url :'{{ route("hospitalisation.index")}}',
           data: {  "field":field, "value":value, },
           dataType: "json",
               success: function(data) {
+                //alert(data);
+                
                 $(".numberResult").html(data.length);
                 loadDataTable(data);
                 $('#'+field).val(''); 
+                
               }
           });
       }
@@ -165,7 +183,7 @@
                 etatSortie            : $('#etatSortie').val(),
                 diagSortie           : $("#diagSortie").val(),
                 ccimdiagSortie    : $("#ccimdiagSortie").val(),
-                etat            :'1',
+                etat            :1,
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();
@@ -212,7 +230,8 @@
           <div class="col-sm-3">
             <label><strong>Etat :</strong></label>
             <select id='etat' class="form-control filter">
-              <option value="0">En cours</option>
+              <option value=""></option>
+              <option value="0" selected active>En cours</option>
               <option value="1">Cloturée</option>
             </select>
           </div>
@@ -260,7 +279,7 @@
            <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                      <td>{{ $hosp->patient->full_name }}</td>
+                      <td><a href="{{route('patient.show',$hosp->patient->id)}}" title="voir patient">{{ $hosp->patient->full_name }}</a></td>
                       <td class="priority-4">
                       <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
                     </td>

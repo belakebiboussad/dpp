@@ -74,7 +74,7 @@
           <li>
              <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Âge :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
               </li>
-          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Relation :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
+          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Qualité :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
                 <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Téléphone :</strong> <span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
         </ul>
       </div>

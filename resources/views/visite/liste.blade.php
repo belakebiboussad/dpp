@@ -29,9 +29,9 @@
 					 		@if(isset($visite->demandeexmbio))
 								@if($visite->demandeexmbio->etat == null)
 									<span class="badge badge-success">En Cours
-								@elseif($demande->etat == 1)
+								@elseif($visite->demandeexmbio->etat == 1)
 									<span class="badge badge-primary">Validé	
-								@elseif($demande->etat == 0)
+								@elseif($visite->demandeexmbio->etat == 0)
 									<span class="badge badge-warning">Rejeté
 								@endif
 								</span>
@@ -41,9 +41,9 @@
 					   	@if(isset($visite->demandExmImg))
 						   	@if($visite->demandExmImg->etat == null)
 									<span class="badge badge-success">En Cours
-								@elseif($demande->etat == 1)
+								@elseif($visite->demandExmImg->etat == 1)
 									<span class="badge badge-primary">Validé	
-								@elseif($demande->etat == 0)
+								@elseif($visite->demandExmImg->etat == 0)
 									<span class="badge badge-warning">Rejeté
 								@endif
 								</span>

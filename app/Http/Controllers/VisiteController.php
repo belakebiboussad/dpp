@@ -14,6 +14,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
 use App\modeles\TypeExam;
 use App\modeles\demandeexb;
+use App\modeles\demandeexb_examenbio;
 use App\modeles\demandeexr;
 use App\modeles\Demandeexr_Examenradio;
 use App\modeles\Etablissement;
@@ -84,12 +85,16 @@ class VisiteController extends Controller
     public function store(Request $request)
     { //Enregistrer Examen Complentaire
       $visite = visite::find($request->id); 
-      if($request->exm  != null)  //save ExamBiolo
+      //dd($request->all());
+      if($request->exmsbio  != null)  //save ExamBiolo
       {
         $demandeExamBio = new demandeexb;
         $visite->demandeexmbio()->save($demandeExamBio);
-        foreach($request->exm as $id_exb) {
-          $demandeExamBio->examensbios()->attach($id_exb);
+        foreach($request->exmsbio as $id_exb) {//$demandeExamBio->examensbios()->attach($id_exb);
+           $exam = new demandeexb_examenbio;
+            $exam->id_demandeexb = $demandeExamBio->id;
+            $exam->id_examenbio = $id_exb;
+            $exam->save();
         }
       }
       if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
@@ -120,10 +125,6 @@ class VisiteController extends Controller
         ]);
          $prescription_constantes->constantes()->attach($request->consts);
       }
-      // else
-      // {
-      //   //suprime 
-      // }
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

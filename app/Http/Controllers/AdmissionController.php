@@ -156,8 +156,8 @@ class AdmissionController extends Controller
             else
               $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                 ->whereHas('hospitalisation',function($q){
-                                   $q->where('etat','=',"1");
-                                })->where('etat','=',null)->get();
+                                   $q->where('etat',"1");
+                                })->where('etat',null)->get();
           else
           {
             $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')

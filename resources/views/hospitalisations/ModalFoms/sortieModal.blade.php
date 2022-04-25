@@ -95,7 +95,7 @@
         		</span>
 	    	  </div>
 			     </div>
-		  	</div><div class="space-12"></div>
+		  	</div>
 		 	<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 	  			<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
