@@ -8,6 +8,7 @@ class hospitalisation extends Model
 {
     public $timestamps = false;
     protected $fillable  = ['id','Date_entree','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
+    protected $appends = ['etat_id'];
     public const STATES = [
       ''=> 'en Cours',
       1 => 'Cloturée',
@@ -23,8 +24,8 @@ class hospitalisation extends Model
       else
         $this->attributes['etat'] = (int) $value;
     }
-    public static function getEtatID($state) {
-      return array_search($state, self::STATES); 
+    public  function getEtatIdAttribute($state) {//getEtatID
+         return array_search($this->etat, self::STATES); 
     }
     public function admission()
     {

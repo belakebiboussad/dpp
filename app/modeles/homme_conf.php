@@ -8,6 +8,7 @@ use Carbon\Carbon;
 class homme_conf extends Model
 {
   public const LIENS = [
+    ''=> 'Autre',
     0 => 'Conjoint(e)',
     1 => 'Père',
     2 => 'Mère',
@@ -38,6 +39,6 @@ class homme_conf extends Model
   }
   public function getLienPAttribute()
   {
-    return self::LIENS[ $this->attributes['lien_par'] ];
+         return self::LIENS[ $this->attributes['lien_par'] ];
   }	
  }

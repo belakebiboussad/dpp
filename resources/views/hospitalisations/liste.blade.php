@@ -23,7 +23,7 @@
 							<td>{{ $hosp->Date_Prevu_Sortie }}</td>
 							<td>{{ $hosp->Date_Sortie == null ? '' : $hosp->Date_Sortie }}</td>
 							<td>
-               <span class="badge badge-{{( $hosp->getEtatID($hosp->etat)) === 1 ? 'primary':'success' }}">{{ $hosp->etat }}</span>
+               <span class="badge badge-{{ ( $hosp->etat_id == 1) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
               </td>
 							<td><button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});"><i class="fa fa-hand-o-up"></i></button></td>
 						</tr>

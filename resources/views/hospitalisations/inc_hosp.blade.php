@@ -30,13 +30,12 @@
       </li>
     @endif
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
-      <span class="badge badge-{{( $hosp->getEtatID($hosp->etat)) === 1 ? 'primary':'success' }}">{{ $hosp->etat }}</span>
-    {{ $hosp->getEtatID($hosp->etat) }}
+      <span class="badge badge-{{( $hosp->etat_id == 1 ) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
     </li>
   </ul>
   </div>
 </div>
-@if($hosp->getEtatID($hosp->etat) == 1)
+@if($hosp->etat_id == 1)
 <div class="space-12"></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Sortie d'hospitalisation</span></strong></div>
@@ -111,23 +110,24 @@
     </ul>
 </div>
 @endif
-@if($hosp->visites->count() > 0)
+{{--				  <th class="center"><strong>Traitement</strong></th>	
+				@if($hosp->visites->count() > 0)
 <div class="space-12"></div>
 <div class="row"><div class="col-xs-11 label label-lg label-purple arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites & Contrôles</span></strong></div>
 </div>
+
 <div class="row">
-	<div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Visites & Contrôles</h5></div>
-			<div class="widget-body">
-				<div class="widget-main no-padding">
-					<table class="table table-striped table-bordered table-hover">
-						<thead class="thin-border-bottom">
-							<tr>
-							  <th class="center"><strong>Date</strong></th><th class="center"><strong>Médecin</strong></th>
-							  <th class="center"><strong>Actes</strong></th>
-							  <th class="center"><strong>Traitement</strong></th>	
-							  <th class="center"><em class="fa fa-cog"></em></th>
+  <div class="col-xs-11 widget-container-col">
+    <div class="widget-box widget-color-blue">
+      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Visites & Contrôles</h5></div>
+      <div class="widget-body">
+        <div class="widget-main no-padding">
+          <table class="table table-striped table-bordered table-hover">
+            <thead class="thin-border-bottom">
+              <tr>
+                <th class="center"><strong>Date</strong></th><th class="center"><strong>Médecin</strong></th>
+                <th class="center"><strong>Actes</strong></th>
+      			  <th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -155,4 +155,4 @@
 		</div>
 	</div>
 </div>
-@endif
+@endif--}}

@@ -3,13 +3,14 @@
 <script type="text/javascript">
 	function effectuerSortieAdm(adm_id){
 		Swal.fire({
-              title: 'Confimer vous  la Sortie du Patient ?',
-              html: '',
+              title: 'Sortie du Patient ?',
+              html: '<br/><h4>Confimer vous  la Sortie du Patient ?</h4>',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
               confirmButtonText: 'Oui',
               cancelButtonText: "Non",
+              showCloseButton: true
            	}).then((result) => {
             	if(!isEmpty(result.value))
               {
@@ -23,15 +24,10 @@
 		var actions='';
 		if(data.etat !=1) {
 			var dateSortie = new Date(data.hospitalisation.Date_Sortie);
-		     var dt = new Date();
-			if(areSameDate(dt, dateSortie))
-				actions +='	<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie"><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
-			else
-				actions +='	<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie" disabled><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
+		        var dt = new Date();
+			actions +='	<button type="button" class="btn btn-info btn-xs '+(areSameDate(dt, dateSortie) ? '' : 'disabled') +'" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie"><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
 		}else
-		{
 			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'admission\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
-		}
 		return actions;
 	}
 	function getSorties(field,value)
@@ -86,7 +82,7 @@
                                             },  title:"Mode Admission","orderable": false 
                                     },
 		                      { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
-		                    { data : "hospitalisation.modeSortie" ,
+		                      { data : "hospitalisation.modeSortie" ,
 		                    		render: function ( data, type, row ) {  //var mode;
                                                    switch(row.hospitalisation.modeSortie)
                                                     {
@@ -110,10 +106,10 @@
                               		 },
 		                    		title:'Mode Sortie',"orderable": false
 		                    	},
-		                    { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},
-		                    { data : "demande_hospitalisation.bed_affectation.lit.salle.nom" ,title:'Salle',"orderable": false},
-		                    { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
-		                    { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
+      		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},
+      		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.nom" ,title:'Salle',"orderable": false},
+      		                     { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
+      		                      { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
 			         	],
 			         	"columnDefs": [
 			   						{"targets": 9 ,  className: "dt-head-center dt-body-center" },
@@ -122,26 +118,25 @@
         }
     });
 	}	
-	   $(function(){
-              $('.filter1').change(function() {
-                      if (this.value.trim()) { 
-                          	getSorties($(this).attr('id'),$(this).val());
-                      }
-              });
-       })/*$("document").ready(function(){	});*/
+  	var field ="etat";  
+       $(function(){
+             $(document).on('click','.outAdmsFind',function(event){
+                    getSorties(field,$('#'+field).val().trim());
+            });
+       })
 </script>
 @endsection
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
-		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
+		<div class="panel-heading left">{{-- style="height: 40px; font-size: 2.3vh;" --}}
 			<strong>Rechercher une sortie</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
      				<div class="form-group"><label><strong>Etat :</strong></label>
-         			 <select id='etat' class="form-control filter1" style="width: 200px">
+         			 <select id='etat' class="form-control filter" style="width: 200px">
              				 <option value="0">En cours</option>
 		                <option value="1">Validée</option>
 		            </select>
@@ -151,7 +146,7 @@
         	<div class="form-group">
          		<label class="control-label" for="" ><strong>Date sortie:</strong></label>
          		<div class="input-group">
-  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter1"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     			</div>
 		</div>
@@ -159,7 +154,7 @@
   		</div>
 		</div>
      <div class="panel-footer">
-        <button type="submit" class="btn btn-sm btn-primary findOutAdm"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+        <button type="submit" class="btn btn-sm btn-primary outAdmsFind"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
       </div>
 	</div><!-- panel -->
 	<div class="row">

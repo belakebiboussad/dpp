@@ -99,8 +99,9 @@
 @endsection
 @section('main-content')
 <div class="row">
-	<div class="col-sm-12 col-md-12"> <h4><strong>Rechercher une admission</strong></h4>
-  	<div class="panel panel-default"><div class="panel-heading">Recherchers</div>
+	<div class="col-sm-12 col-md-12">
+   {{-- <h4><strong>Rechercher une admission</strong></h4> --}}
+  	<div class="panel panel-default"><div class="panel-heading">Rechercher une admission</div>
     	<div class="panel-body">
                 <div class="row">
                    <div class="col-sm-4">

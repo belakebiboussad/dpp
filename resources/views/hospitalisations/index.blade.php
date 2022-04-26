@@ -27,9 +27,7 @@
         $('#sortieHosp').modal('show');
         $('#Heure_sortie').timepicker({ template: 'modal' });
      }
-     function getMedecin (data, type, dataToSet) {
-         return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
-     }
+     /*function getMedecin (data, type, dataToSet) {       return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom'];  }*/
      function codeBPrint(id)
      {
         event.preventDefault();
@@ -40,14 +38,13 @@
              type : 'get',
              url : "{{ URL::to('barreCodeprint') }}",
              data:formData,
-             success(data){
-             },
+             success(data){  },
         });
      }
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-      if( data.etat != 1)                    
+       if( data.etat_id != 1)                    
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
          actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
@@ -58,16 +55,9 @@
            actions += '<a class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('+data.id+')"><i class="fa fa-barcode"></i></a>';
         if($.inArray({{  Auth::user()->role_id }}, rols) > -1)
           actions +='<a href="/soins/index/'+data.id+'" class ="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins"><img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px"></a>';
-        
       }else
         actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
       return actions;
-     }
-     function getState(data, type, dataToSet) {
-       if(data.etat == 1)
-          return '<span class="badge badge-pill badge-primary">Cloturé</span>';
-        else
-          return '<span class="badge badge-pill badge-primary">En Cours</span>'
      }
      function loadDataTable(data){
           $('#liste_hosptalisations').dataTable({// "processing": true,
@@ -75,6 +65,7 @@
           "destroy": true,
            "ordering": true,
            "searching":false,
+            'bLengthChange': false,
            "info" : false,
            "language":{"url": '/localisation/fr_FR.json'},
            "data" : data,
@@ -107,19 +98,23 @@
                 var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
                 return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
                }, title:"Mode Admission","orderable": false 
-            },//2
-            { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
-            { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
-            { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
-            { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-            { data: "medecin.nom" ,
-                render: function ( data, type, row ) {
-                  return row.medecin.nom + ' ' + row.medecin.prenom ;
-                },
-              title:'Medecin',"orderable": false   
-            },//7
-            { data: getState , title:'Etat', "orderable":false },//8
-            { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+              },//2
+              { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
+              { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
+              { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
+              { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
+              { data: "admission.demande_hospitalisation.service.nom" ,
+                      render: function ( data, type, row ) {
+                             return row.admission.demande_hospitalisation.service.nom;
+                      } ,  title:'Service',"orderable": false  
+               },//7
+              { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
+             { data: "etat" ,
+                      render: function(data, type, row){
+                               return '<span class="badge badge-pill badge-'+(row.etat_id == 1 ? 'success':'primary')+'">'+row.etat+'</span>';
+                      },title:'Etat', "orderable":false 
+              },//8
+             { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
           ],
           "columnDefs": [
             {"targets": 1 ,  className: "dt-head-center priority-4" },
@@ -128,7 +123,7 @@
             {"targets": 5 ,  className: "dt-head-center priority-5" },
             {"targets": 6 ,  className: "dt-head-center priority-6" },
             {"targets": 7 ,  className: "dt-head-center priority-6" },
-            {"targets": 8,  className: "dt-head-center dt-body-center"}
+            {"targets": 9,  className: "dt-head-center dt-body-center"}
           ]
           
       });
@@ -140,12 +135,9 @@
           data: {  "field":field, "value":value, },
           dataType: "json",
               success: function(data) {
-                //alert(data);
-                
-                $(".numberResult").html(data.length);
-                loadDataTable(data);
-                $('#'+field).val(''); 
-                
+                      $(".numberResult").html(data.length);
+                      loadDataTable(data);
+                      $('#'+field).val('');      
               }
           });
       }
@@ -269,7 +261,11 @@
               <th class ="center"><strong>Patient</strong></th>
               <th class ="center priority-4"><strong>Mode d'admission</strong></th><th class ="center"><strong>Date d'entrée</strong></th>
               <th class ="center  priority-6"><strong>Date sortie prévue</strong></th><th class ="center priority-4"><strong>Date sortie</strong></th>
-              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Médecin</strong></th>
+              <th  class ="center  priority-5"><strong>Mode</strong></th>
+              @if(!in_array(Auth::user()->role->id,[1,3,5,14]))
+                   <th  class ="center  priority-6"><strong>Service</strong></th>
+              @endif
+              <th  class ="center  priority-6"><strong>Médecin</strong></th>
               <th class ="center  priority-6"><strong>Etat</strong></th>
               <th class ="center" width="12%"><strong><em class="fa fa-cog"></em></strong></th>
             </tr>
@@ -285,6 +281,9 @@
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
                     <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
+                     @if(!in_array(Auth::user()->role->id,[1,3,5,14]))
+                        <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>
+                     @endif
                     <td class="priority-6">{{  $hosp->medecin->full_name }}</td>
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat)  ?  $hosp->etat : 'En Cours'}}</span>

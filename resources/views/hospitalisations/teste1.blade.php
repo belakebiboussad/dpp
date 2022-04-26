@@ -15,7 +15,7 @@
     <li><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
     @endif
   </ul>
-  <div class="tab-content no-border padding-24">
+   <div class="tab-content no-border padding-24">
     <div id="hospi" class="tab-pane in active">
       <div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="f-16"><strong>Hospitalisation</strong></span></div></div>
       <div class="row">
@@ -73,66 +73,13 @@
           <li>
              <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Âge :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
               </li>
-          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Qualité :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}
-          </span></li>
+          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Qualité :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}</span></li>
                 <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Téléphone :</strong> <span class="badge badge-danger">{{ $hosp->garde->mob }}</span></li>   
         </ul>
       </div>
       @endif   
-    </div> {{-- hospi  --}}
-    @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
-    <div id="visites" class="tab-pane">@include('visite.liste')</div>
-    @endif
-    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
-    <div id="constantes" class="tab-pane">@include("constantes.index",['patient'=>$hosp->patient])</div>
-    @endif
+    </div> {{-- hospi --}}
+
   </div>
 </div>
-@include('constantes.scripts.functions')
-@endsection
-@section('page-script')
-<script type="text/javascript">
-$( function() {
-      if('{{ Auth::user()->employ->specialite }}' ) {
-             if('{{$specialite->hospConst}}' != "");
-            {
-                     var days = []; var constValues= [];
-                        days = getConstDatas('{{ $hosp->id }}','date')
-                        $.each({!! $specialite->hospConst !!},function(key,id){
-                          $.get('/const/'+id+'/edit', function (data) {
-                            constValues = getConstDatas('{{ $hosp->id }}',data.nom)
-                            if(constValues.length > 0 )
-                            {
-                              var ctx = document.getElementById(data.nom).getContext('2d');
-                              new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: days,
-                                    datasets: [{
-                                        label: data.nom+"(" + data.unite + ")",
-                                        data: constValues,
-                                        backgroundColor: [/*'rgba(255, 99, 132, 0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)','rgba(75, 192, 192, 0.2)','rgba(153, 102, 255, 0.2)',*/
-                                          'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [/*'rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)',*/
-                                          'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 2
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        },
-                                    }//scales
-                                }
-                              });
-                            }
-                          })
-                        });
-              }
-        }
-});
-</script>
 @endsection
