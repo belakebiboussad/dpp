@@ -9,7 +9,7 @@
 		</div><!-- widget-header -->
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-			<table class="display table-responsive" id="consultList">
+			<table class="display table-responsive tablist" id=""> <!-- consultList -->
 					<thead >
 						<tr>
 							<th class="center">Date</th>	
@@ -23,9 +23,9 @@
 					      <td>{{ $consult->date }}</td>
 						<td>{{ $consult->medecin->full_name }}</td>{{-- <td><small>{{ $consult->motif }}</small></td> --}}
 						<td class="center">
-                                                    <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-eye"></i></button>
-                                                    <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                            </td>	
+              <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="ace-icon fa fa-eye-slash"></i></button>
+                <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir consultation"><i class="fa fa-hand-o-up fa-xs"></i></a>
+            </td>	
 					</tr>
 					@endforeach
 					</tbody>

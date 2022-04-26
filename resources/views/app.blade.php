@@ -60,9 +60,7 @@
                 "language": {
                             "url": '/localisation/fr_FR.json'
                 },
-                // "columnDefs": [
-                //   {"targets": 9 ,  className: "dt-head-center dt-body-center"},
-                // ],
+/* "columnDefs": [   {"targets": 9 ,  className: "dt-head-center dt-body-center"},],*/
            });
             $('#btn-addCores').click(function () { 
                 if( $('#EnregistrerGardeMalade').is(":hidden"))

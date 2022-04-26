@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 25 avr. 2022 à 15:15
+-- Généré le : mar. 26 avr. 2022 à 15:20
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -2454,7 +2454,7 @@ CREATE TABLE IF NOT EXISTS `constantes` (
   PRIMARY KEY (`id`),
   KEY `fk_hospitalisation` (`hospitalisation_id`),
   KEY `fk_const_examclin` (`examCl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `constantes`
@@ -2484,7 +2484,9 @@ INSERT INTO `constantes` (`id`, `poids`, `taille`, `PAS`, `PAD`, `pouls`, `temp`
 (128, NULL, NULL, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-21 12:13:12', NULL, 14),
 (129, NULL, NULL, 121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-21 12:13:16', NULL, 14),
 (130, NULL, NULL, 122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-21 12:13:21', NULL, 14),
-(131, 45, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-25 14:27:30', NULL, 14);
+(131, 45, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-25 14:27:30', NULL, 14),
+(132, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-26 09:25:49', NULL, 9),
+(133, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-26 09:26:06', NULL, 9);
 
 -- --------------------------------------------------------
 
@@ -4590,7 +4592,7 @@ INSERT INTO `grades` (`id`, `nom`) VALUES
 DROP TABLE IF EXISTS `homme_confs`;
 CREATE TABLE IF NOT EXISTS `homme_confs` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_patient` int(11) NOT NULL,
+  `id_patient` int(11) UNSIGNED NOT NULL,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_naiss` date DEFAULT NULL,
@@ -4608,7 +4610,8 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hommconf_user` (`created_by`),
-  KEY `fk_hommconf_user1` (`updated_by`)
+  KEY `fk_hommconf_user1` (`updated_by`),
+  KEY `fk_garde_patient` (`id_patient`)
 ) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -12467,18 +12470,18 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, '3cje24czswYsF93sqrtbB9SbUui3XqaHwsJGn8VNslY0ja5UwfkqkFpoa2vu', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'rec@gmail.com', 82, 2, 'MB9viADYAt3KvkRpf1oAd8matxcYeSN3LR93HFhEbHhbc7fqPNx6gtdiLDru', 1),
 (33, 'medorl', '$2y$10$MkXa.6SlrtM.V/6WY.LsFeiWb7qNiUAS.ZEQIn9on2Py7IVSOUYim', 'medOrl@gmail.cpm', 79, 1, 'vi7jdwX1xkuQN9uDXLrwZpygZeXf2cQFy6Nhz26EOLEYulAcw1OGXZ78vpCc', 1),
-(34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, 'ntbyhduMhSpE0ELVY07gn0OsM8fp4hHlwVqmT40LyXLT1uGjAb9zwHnaGhhk', 1),
+(34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, 'N75qglkcz0mOEWOs4CCbdU9Nr5qSS7PuXOUXMOcz3FqI3iZpgxVj9xcZsBh4', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '5YDBxPs7kU1u88AgVf4lEgHVIBwQ879VlxSujItK0RaskjLuQ1DvbG1btzl6', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'rZ7tFjNH3XidoWkBpVRs2PGQk7F85us8ACEZlpNXIZl7VYj8gMctmmsskQUR', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'DEVBpbrEQ61SUQx30aRJTGUrafDbifggMot455Hip8BEW6ACN565C7SHPpGU', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'VCiSWiGkDM1o2aBGOTY1y6eNAqzuo90k0b883baNVoHOJX6XOCQPZ5bq0LcF', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'Hpg8brIg6rgvvWSijewUHXryyGD60N5M1t3PZOaMvj50bwDaCOTPU7J3ONHc', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '5Zq1qFaBDQIuU62Jr87eQ0aVyeAJ8q0SXFztxmsgFcgOUgPKEV9bhiYUqctf', 1),
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'xSem4M4Q6SrE58iO0fMreXAdvhQYbYbalvHd1voXVUxxsrCiRyvLcDp6wC5a', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'YUjWLtYVI2TIyvAz2I6vDNrnsP9gCRC1Lu9lqpDVS2mMrFC15jZqbxDTbBHL', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'HsruTDxD4anJuE6CJKhNzFlCXCZCRdFLh67K1SyoAZpso9PSYlET0RhoV4P6', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'ZxiKfRvDv4WBm01gczkOq2F2w0bdwyJLspPH8it3rvwwB54F8L0oGb31XRUY', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'gnc9HNLrqbpCMtDHNeliqIPA1ReOwRetD0BQtYYhp0cEPKQrf22YXCSg7rtn', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'I3gmHlimwGaGSxonfJE40bhuNPzcaVR8V17S0zMwC2ogd5FKdjRUMgvOieY2', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'hZYxzMcja9cKA8yg2AhZJOIIQieEU13UNt17CWIl58nTEtl2EMJbfYIZbdq1', 1),
@@ -12926,6 +12929,12 @@ ALTER TABLE `examen_appareil`
 --
 ALTER TABLE `examen_clinique`
   ADD CONSTRAINT `fk_examen_consult` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`);
+
+--
+-- Contraintes pour la table `homme_confs`
+--
+ALTER TABLE `homme_confs`
+  ADD CONSTRAINT `fk_garde_patient` FOREIGN KEY (`id_patient`) REFERENCES `patients` (`id`);
 
 --
 -- Contraintes pour la table `hospitalisations`

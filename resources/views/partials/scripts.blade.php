@@ -477,7 +477,7 @@
       $('.date-picker').datepicker({
               autoclose: true,
               todayHighlight: true,
-              dateFormat: 'yy-mm-dd',
+              dateFormat: 'MM/DD/YYYY',//dateFormat: 'yy-mm-dd',
               flat: true,
               calendars: 1,//language: 'fr',
               changeYear: true,

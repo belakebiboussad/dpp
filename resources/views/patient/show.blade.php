@@ -37,22 +37,25 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 		        ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
       		}
   });
-	var table = $('#consultList').DataTable({
+	$('.tablist').DataTable({
 			"searching":false,
-			"pageLength" : 10,
+      "pageLength" : 10,
+      bLengthChange: false,
+      "info" : false,
 			"language": {
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-    $('#consultList tbody').on( 'click', 'tr', function () {
-      	if ( $(this).hasClass('selected') ) {
-        		$(this).removeClass('selected');
-      	}else {
-         	table.$('tr.selected').removeClass('selected');
-          	$(this).addClass('selected');
-      	}
-    });
-    $('#specialiteTick').change(function(){
+  // $('#hosptList').DataTable({
+  //     "searching":false,
+  //     "pageLength" : 10,
+  //     bLengthChange: false,
+  //     "info" : false,
+  //     "language": {
+  //               "url": '/localisation/fr_FR.json'
+  //           }, 
+  // });
+  $('#specialiteTick').change(function(){
         if($(this).val() =="")        	
          	$('#print').prop('disabled', 'disabled');
         else
