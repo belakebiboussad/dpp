@@ -413,6 +413,7 @@ $('document').ready(function(){
 						  confirmButtonText: 'Oui',
 						  cancelButtonText: "Non",
 						  closeOnConfirm: true, //timer: 2000,
+              showCloseButton: true
 					}).then((result) => {
            		if(result.value)
            		{

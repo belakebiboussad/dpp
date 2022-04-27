@@ -1,6 +1,7 @@
 <ul class="nav nav-pills justify-content-center" role="tablist">
   <li class="nav-item active"><a href="#patient" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<strong>Patient</strong></a></li>
- @if($patient->Type != 5)
+ 
+ @if(!(in_array($patient->Type,[5,6])))
   <li class="nav-item"><a href="#assure" data-toggle="tab"><img src = "img/policeman.png" class ="img1" style="width:18%;height:18%">&nbsp;<strong>Assure</strong></a></li>
   @endif
 </ul>
@@ -82,7 +83,7 @@
       </tbody>
     </table>
   </div> {{-- tabpane --}}
-  @if($patient->Type != 5)
+  @if(!(in_array($patient->Type,[5,6])))
   <div class="tab-pane" id="assure">
     <table class="table table-bordered table-condensed col-sm-12 w-auto">
       <tbody>

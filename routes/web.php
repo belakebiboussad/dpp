@@ -105,8 +105,7 @@ Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');//Route
 Route::get('/reportprint','HomeController@print');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
 route::get('/getrdv','RDVController@getRDV');
-route::get('/getpatient','PatientController@getpatient');
-route::get('/getpatientcons','PatientController@getpatientconsult');
+route::get('/getpatient','PatientController@getpatient');//route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');

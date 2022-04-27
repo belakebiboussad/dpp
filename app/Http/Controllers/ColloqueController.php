@@ -67,13 +67,12 @@ class ColloqueController extends Controller
         $colloque=colloque::create([
                               "date"=>$request->date_colloque,
                               "etat"=>"en cours",
-                              "date_creation"=>Date::Now(),
                               "type"=>$request->type_colloque,              
         ]); 
          $type = $colloque->type;
         foreach ($request->membres as $medecin) {
                $colloque->employs()->attach($medecin);
-        }// return redirect()->action('ColloqueController@show',$colloque->id);//
+        }
         return redirect()->action('ColloqueController@index', 'type');//
     }
 //  public function show($id_colloque){ }
@@ -121,7 +120,6 @@ class ColloqueController extends Controller
       $colloque->update([
                           "date"=>$request->date_colloque,
                           "etat"=>"en cours",
-                          "date_creation"=>Date::Now(),
                           "type"=>$request->type_colloque,              
                       ]);  
       return redirect()->action('ColloqueController@index');

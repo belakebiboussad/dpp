@@ -15,6 +15,7 @@ $(function(){
 		        confirmButtonText: 'Oui, Rejeter!',
 		        cancelButtonText: 'Non',
 		        allowOutsideClick: false,
+            showCloseButton: true
 		 }).then((result) => {
 		        if (result.value) {
 		               window.location.href="/demandeproduit/rejeter/"+id+"/"+result.value;

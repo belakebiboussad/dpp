@@ -139,7 +139,8 @@
 				@endif
 				<div class="profile-info-row">
 					<div class="profile-info-name">Date Création</div>
-					<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
+					<div class="profile-info-value">
+          <span>{{ (\Carbon\Carbon::parse($patient->created_at))->format('Y-m-d') }}</span></div>
 				</div>
 			</div><div class="hr hr-8 dotted"></div>
 			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))

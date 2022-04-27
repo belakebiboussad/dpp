@@ -141,12 +141,12 @@
 		           <td><input  type="radio" name="choixdescription" onclick="setField('description', '{{ $patient1->description }}');" checked>{{ $patient1->description }}</td>
 		           <td><input type="radio" name="choixdescription" onclick="setField('description','{{ $patient2->description }}');">{{ $patient2->description }}</td>
 		</tr>
-		<tr class="{{ $statuses['Date_creation'] }}">
+	{{-- 	<tr class="{{ $statuses['created_at'] }}">
 			<td align="center"><strong>Date Création</strong></td>
-			<td><input type="text" id ="Date_creation" name="date" value=" {{ $patientResult->Date_creation }}"/>	</td>
-		           <td><input  type="radio" name="choixDate_creation" onclick="setField('Date_creation', '{{ $patient1->Date_creation }}');" checked>{{ $patient1->Date_creation }}</td>
-		           <td><input type="radio" name="choixDate_creation" onclick="setField('Date_creation','{{ $patient2->Date_creation }}');">{{ $patient2->Date_creation }}</td>
-		</tr>
+			<td><input type="text" id ="created_at" name="date" value=" {{ $patientResult->created_at }}"/>	</td>
+		           <td><input  type="radio" name="choixDate_creation" onclick="setField('created_at', '{{ $patient1->created_at }}');" checked>{{ $patient1->created_at }}</td>
+		           <td><input type="radio" name="choixDate_creation" onclick="setField('created_at','{{ $patient2->created_at }}');">{{ $patient2->created_at }}</td>
+		</tr> --}}
 		
 	</tbody>
 </table>

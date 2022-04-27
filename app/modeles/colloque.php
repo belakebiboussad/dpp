@@ -5,8 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class colloque extends Model
 {
-    public $timestamps = false;
-    protected $fillable  = ['id','date','etat','type','date_creation'];
+    public $timestamps = true;
+    protected $fillable  = ['id','date','etat','type'];
     public function membres()
     {
         return $this->belongsToMany ('App\modeles\employ','membres','id_colloque','id_employ');

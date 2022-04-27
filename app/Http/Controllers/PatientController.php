@@ -185,8 +185,6 @@ class PatientController extends Controller
         "Type"=>$request->type,
         "description"=> $request->description,
         "NSS"=>$request->nsspatient,
-        "Date_creation"=>Date::Now(),
-        "updated_at"=>Date::Now(),
     ]);
     $sexe = ($request->sexe == "M") ? 1:0;
     $ipp =$sexe.$date->year.$patient->id;
@@ -232,8 +230,6 @@ class PatientController extends Controller
         "Assurs_ID_Assure"=>$request->assure_id ,
         "Type"=>$request->typePatient, "description"=> $request->description,
         "NSS"=>$request->nsspatient,
-        "Date_creation"=>$date,
-        "updated_at"=>$date,
     ]); 
     $sexe = ($request->sexe == "H") ? 1:0;
     $ipp =$sexe.Date::Now()->year.$patient->id;
@@ -374,7 +370,6 @@ class PatientController extends Controller
                "Type"=>$request->type,
                "description"=>isset($request->description)? $request->description: null,
                "NSS"=>(!in_array($patient->Type,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
-               "Date_creation"=>$date,  
         ]);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
@@ -399,8 +394,7 @@ class PatientController extends Controller
                "Assurs_ID_Assure"=>$request->assure_id,
                "Type"=>$request->type,
                "description"=>isset($request->description)? $request->description: null,
-               "NSS"=>($request->type != "Autre" )? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
-               "Date_creation"=>Date::Now(),  
+               "NSS"=>($request->type != "Autre" )? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,  
       ]);
       return redirect(Route('patient.show',$id)); 
     } 
@@ -421,22 +415,7 @@ class PatientController extends Controller
           return redirect()->route('patient.index');
         }
       } 
-    public function getpatientconsult()
-    {
-        $patientes = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
-        return Datatables::of($patientes)
-            ->addColumn('action', function ($patient) {
-                return '<div class="hidden-sm hidden-xs btn-group">
-                            <a class="btn btn-xs btn-success" href="/consultations/create/'.$patient->id.'">
-                                <i class="ace-icon fa fa-hand-o-up bigger-120"> Ajouter Consultation</i>
-                            </a>
-                        </div>';})
-            ->addColumn('action2', function ($patient) {
-                return '<label>'.Date::parse($patient->Dat_Naissance)->age.'</label>';
-            })
-            ->rawColumns(['action2','action'])
-            ->make(true);
-    }//public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
+    //public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
   public function getPatientsList(Request $request)
   {
     $output="";$today = Carbon::now();$sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
@@ -590,8 +569,7 @@ class PatientController extends Controller
                 "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
                 "Type"=>$request->type,
                 "description"=>$request->description,
-                "NSS"=> $request->nss,    
-                "Date_creation"=>$request->date,  
+                "NSS"=> $request->nss,
           ]);   
           $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
           Return View::make('patient.index');

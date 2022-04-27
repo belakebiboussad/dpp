@@ -4,7 +4,7 @@
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{Input::old('nom')}}" alpha/>
+				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-12 col-sm-12" value="{{Input::old('prenom')}}" autocomplete="off"/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-12 col-sm-12" value="{{ old('prenom') }}" autocomplete="off"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -106,7 +106,7 @@
 	<div class="col-sm-6" id="Div-nomjeuneFille" hidden>
 		<label class="col-sm-3 control-label" for="nom_jeune_fille"><strong class="text-nowrap">Nom  jeune fille:</strong></label>
 		<div class="col-sm-9">
-			<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" />
+			<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." autocomplete = "off" class="col-xs-12 col-sm-12" value="{{ old('nom_jeune_fille') }}" />
 			 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>

@@ -71,7 +71,7 @@ $(function(){
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label no-padding-right" for="datenaissance"><b class="text-nowrap">Né(e) le :</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete="off"/>
+								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete="off" required/>
 								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 							</div>	
 						</div>
@@ -126,7 +126,7 @@ $(function(){
 						<div class="form-group {{ $errors->has('mobile') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="mobile"><b>Tél mob :</b></label>
 							<div class="col-sm-7">
-							<input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  placeholder="Tél mobile..."  max =10 min =10 >
+							<input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  placeholder="Tél mobile..." max =10 min =10 required />
 							</div>	
 						</div>
 					</div>

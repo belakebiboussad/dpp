@@ -80,8 +80,10 @@ class EmployeController extends Controller
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
         if ($validator->fails()) {
-            return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+          dd($validator->errors());
+          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
         }
+         dd($request->all());
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,
