@@ -20,7 +20,6 @@
           </div>
         </div>  
       </div>
-
     </div><!-- modalbody -->
     <div class="modal-footer">
       <button  type="button" class="btn btn-success execTrait"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>

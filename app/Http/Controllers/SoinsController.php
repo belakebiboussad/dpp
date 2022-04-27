@@ -8,8 +8,8 @@ class SoinsController extends Controller
 {
   function index(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id); //dd($hosp->getlastVisite()->actes);
-    $lastVisite = $hosp->getlastVisite();
+    $hosp = hospitalisation::FindOrFail($request->id);
+    $lastVisite = $hosp->getlastVisite(); //dd($lastVisite->prescreptionconstantes);
     return view('soins.index', compact('hosp','lastVisite')); 
   }
   public function show(Request $request)

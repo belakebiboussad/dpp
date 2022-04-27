@@ -18,11 +18,14 @@
   <div class="row">
     <div class= "col-md-9 col-sm-9"> 
       <div  class="tab-content" style ="border-style: none;">
-      @if("" != $specialite->consConst)
+      @if (!empty(json_decode($specialite->consConst, true))) 
       <div  role="tabpanel" class ="tab-pane active" id="ExamGen">@include("consultations.examenConst")</div>
       @endif
+      @if (!empty(json_decode($specialite->appareils, true))) 
       <div role="tabpanel" class = "tab-pane" id="Appareils"> @include("consultations.ExamenAppareils") </div>
+      @endif
       </div>
+      
     </div>
     <div class= "col-md-3 col-sm-9"><div>@include('consultations.actions')</div></div>
   </div>

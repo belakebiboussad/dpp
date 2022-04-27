@@ -28,8 +28,8 @@
 					<div class="form-group">
 			    			<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim-10 :</strong></label>
 						<div class="col-sm-10 input-group">
-							<input type="text" class="form-control" id="cim_code"/><span class="input-group-addon" style=" padding: 0px 6px;"> 
-							<button class="btn btn-xs CimCode" type="button" value="cim_code">{{-- data-toggle="modal" data-target="#cim10Modal": --}}
+							<input type="text" class="form-control" id="cim_code" disabled/><span class="input-group-addon" style=" padding: 0px 6px;"> 
+							<button class="btn btn-xs CimCode" type="button" value="cim_code">
 		            					<i class="fa fa-search"></i>
 		        				</button>
 							    </span>
@@ -38,11 +38,9 @@
 					<div class="form-group">
 						<label for="description" class="col-sm-2 control-label">Description :</label>
 						<div class="col-sm-10"><textarea class="form-control" id="description" required=""></textarea></div>
-					</div><div class="space-12"></div>
+					</div>
 				</form>
 			</div><!-- modal-body -->
-			<br>
-			<br>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerAntecedant" value="add" data-atcd="Perso">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer

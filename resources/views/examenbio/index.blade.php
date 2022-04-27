@@ -76,35 +76,20 @@
 						<tbody>
 						@foreach($demandesexb as $index => $demande)
 							<tr>
-								<td class="center">{{ $index + 1 }}</td>
-								<td>
-								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->date }}
-								@else		
-									{{ $demande->visite->date }}
-								@endif
-								</td>
-							              <td>
-								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->medecin->Service->nom }} 
-								@else
-									{{ $demande->visite->hospitalisation->medecin->Service->nom }}
-								@endif	
-								</td>
-								<td>
-								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->medecin->full_name }}
-								@else
-									{{ $demande->visite->hospitalisation->medecin->full_name }}
-								@endif	
-								</td>
-								<td>
-								@if(isset($demande->id_consultation))
-									{{ $demande->consultation->patient->full_name }}<small class="text-primary">(Consultation)</small>
-								@else
-									{{ $demande->visite->hospitalisation->patient->full_name}}<small class="text-warning">(Hospitalisation)</small>
-								@endif
-								</td>
+								<td class="center">
+                  <input type="checkbox" class="editor-active check"  value="{{ $demande->id }}" /><span class="lbl"></span>            
+                </td>
+								@if(isset($demande->consultation))
+                <td>{{ $demande->consultation->date }}</td>
+                <td>{{ $demande->consultation->medecin->Service->nom }} </td>
+                <td>{{ $demande->consultation->medecin->full_name }}</td>
+                <td>{{ $demande->consultation->patient->full_name }}<small class="text-primary">(Consultation externe)</small></td>
+                @else
+                <td>{{ $demande->visite->date }}</td>
+                <td>{{ $demande->visite->hospitalisation->medecin->Service->nom }}</td>
+                <td>{{ $demande->visite->hospitalisation->medecin->full_name }}</td>
+                <td>{{ $demande->visite->hospitalisation->patient->full_name}}<small class="text-warning">(Hospitalisation)</small></td>
+                @endif
 								<td>
 								  <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span></span>
 								</td>

@@ -65,7 +65,7 @@
           </div>{{-- widget-container-col --}}
       </div><!-- /.row -->
     </div>
-    <div class="modal-footer"><!-- data-dismiss="modal" -->
+    <div class="modal-footer">
          <button type="button" class="btn btn-info btn-sm" onclick="storeord()" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
         <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
           <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>

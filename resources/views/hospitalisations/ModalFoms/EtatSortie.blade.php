@@ -5,8 +5,7 @@
 	    		<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Générer un document patient</h4>
 	  	</div>
 	  	<div class="modal-body">
-	  		<input type="hidden" id="className" value=""><input type="hidden" id="objID" value="">
-				{{-- 	ici		--}}
+	  		<input type="hidden" id="className" value=""><input type="hidden" id="objID" value="">{{--   ici   --}}
 			<section class="list--wrapper">
 			  <h2 class="list-title blue bolder">Sélectionner un document</h2>
 			  <div class="hr hr-dotted"></div>

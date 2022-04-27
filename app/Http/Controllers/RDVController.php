@@ -52,10 +52,7 @@ class RDVController extends Controller
         ]);
         return redirect()->route("rdv.show",$rdv->id);
       }
-      public function choixpatient()
-      {
-           return view('patient.index');
-      }
+     /* public function choixpatient() {     return view('patient.index'); }*/
       public function index($patientID = null)
       { 
         if(in_array(Auth::user()->role_id,[1,13,14])) 

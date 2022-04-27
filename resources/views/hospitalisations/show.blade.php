@@ -11,7 +11,7 @@
     @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
     <li><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
     @endif
-    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
+    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]) && (!empty(json_decode($specialite->hospConst, true))))
     <li><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
     @endif
   </ul>
@@ -20,7 +20,7 @@
     @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
     <div id="visites" class="tab-pane">@include('visite.liste')</div>
     @endif
-    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
+    @if(in_array(Auth::user()->role_id,[1,3,5,13,14]) && (!empty(json_decode($specialite->hospConst, true))))
     <div id="constantes" class="tab-pane">@include("constantes.index",['patient'=>$hosp->patient])</div>
     @endif
   </div>

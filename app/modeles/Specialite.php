@@ -7,14 +7,14 @@ class Specialite extends Model
 {
   public $timestamps = false;
 	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils'];
-        public function setConsConstAttribute($value)
-        {
-              $this->attributes['consConst'] = json_encode($value);
-        }
-        public function setHospConstAttribute($value)
-        {
-              $this->attributes['hospConst'] = json_encode($value);
-        }
+  public function setConsConstAttribute($value)
+  {
+        $this->attributes['consConst'] = json_encode($value);
+  }
+  public function setHospConstAttribute($value)
+  {
+        $this->attributes['hospConst'] = json_encode($value);
+  }
         public function setExmsbioAttribute($value)
         {
                $this->attributes['exmsbio'] = json_encode($value);

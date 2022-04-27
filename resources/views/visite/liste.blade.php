@@ -26,28 +26,16 @@
 						<td>{{ $visite->date }}</td>
 						<td class ="center sorting_disabled">{{ $visite->medecin->full_name }}</td>
 						<td class="center">
-					 		@if(isset($visite->demandeexmbio))
-								@if($visite->demandeexmbio->etat == null)
-									<span class="badge badge-success">En Cours
-								@elseif($visite->demandeexmbio->etat == 1)
-									<span class="badge badge-primary">Validé	
-								@elseif($visite->demandeexmbio->etat == 0)
-									<span class="badge badge-warning">Rejeté
-								@endif
-								</span>
-						  @endif  
+					 		@isset($visite->demandeexmbio)
+							<span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
+                {{ $visite->demandeexmbio->etat }}</span>
+						  @endisset  
 						</td>
 						<td class="center">
-					   	@if(isset($visite->demandExmImg))
-						   	@if($visite->demandExmImg->etat == null)
-									<span class="badge badge-success">En Cours
-								@elseif($visite->demandExmImg->etat == 1)
-									<span class="badge badge-primary">Validé	
-								@elseif($visite->demandExmImg->etat == 0)
-									<span class="badge badge-warning">Rejeté
-								@endif
-								</span>
-					 	  @endif 
+					   	@isset($visite->demandExmImg)
+  <span class="badge badge-{{( $visite->demandExmImg->getEtatID($visite->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
+                {{ $visite->demandExmImg->etat }}</span>
+					 	  @endisset 
 						</td>
 						<td class="center sorting_disabled"><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
 					</tr>

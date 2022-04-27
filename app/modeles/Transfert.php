@@ -10,6 +10,6 @@ class Transfert extends Model
  	protected $fillable = ['structure','motif','hosp_id'];
  	public function hospitalisation()
 	{
-	   	return $this->belongsTo('App\modeles\hospitalisation','hosp_id');
+	  return $this->belongsTo('App\modeles\hospitalisation','hosp_id');
 	}
 }

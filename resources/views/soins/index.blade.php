@@ -2,6 +2,9 @@
 @section('main-content')
 <div class="container-fluid">
   <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$hosp->patient])</div></div><div class="space-12"></div>
+  <div class="pull-right">
+   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
+  </div>
   <div class="row">
     <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
@@ -24,7 +27,7 @@
                     @if(!$acte->retire)
                     <tr id="acte-{{ $acte->id }}">
                       <td>{{ $acte->nom }}</td><td>{{ $acte->description }}</td>
-                      <td>{{ $acte->visite->medecin->full_name }}</td><td>{{ $acte->visite->date_presc}}</td> 
+                      <td>{{ $acte->visite->medecin->full_name }}</td><td>{{ $acte->visite->date}}</td> 
                       <td class="center">
                         <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
                       </td> 
@@ -65,7 +68,7 @@
               <td>{{ $trait->medicament->nom }}</td> 
               <td>{{ $trait->posologie }}</td>
               <td>{{ $trait->visite->medecin->full_name }}</td> 
-              <td>{{ $trait->visite->date_presc}}</td> 
+              <td>{{ $trait->visite->date}}</td> 
               <td class="center">
                 <button onclick ="getTraitdetail({{$trait->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
               </td> 
@@ -79,6 +82,8 @@
       </div>      
     </div>
   </div>
+  @if( (null != $lastVisite) && (null != $lastVisite->prescreptionconstantes)) 
+  @if($lastVisite->prescreptionconstantes->constantes->count() > 0)
   <div class="row">
     <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
@@ -115,7 +120,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div><!-- ROW -->
+  @endif
+  @endif
 </div>
 @include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')@include('constantes.scripts.functions')
 <script type="text/javascript">

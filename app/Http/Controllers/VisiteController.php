@@ -56,10 +56,11 @@ class VisiteController extends Controller
         $prescredconst =array();
         $date = Carbon\Carbon::now();
         $etablissement = Etablissement::first(); 
+        $employe = Auth::user()->employ;
+        $specialite = Specialite::findOrFail($employe->specialite);
         $hosp = hospitalisation::FindOrFail($id_hosp);
         $lastVisite = $hosp->getlastVisite();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-        $employe = Auth::user()->employ;
         $visite =new visite;
         $visite->date=$date;
         $visite->heure=$date->format("H:i");
@@ -71,7 +72,6 @@ class VisiteController extends Controller
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();
         $codesNgap = NGAP::all();
-        $specialite = Specialite::findOrFail($employe->specialite);
         $visite->save();
         $consts = consts::all();
         return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite','lastVisite'))->with('id',$visite->id);

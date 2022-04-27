@@ -4,12 +4,12 @@
 		<div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Sortie du patient</h4>
 		</div>
-		  <div class="modal-body">
-		  	<input type="hidden" id="hospID" value="">
+		<div class="modal-body">
+		 	<input type="hidden" id="hospID" value="">
 	 		<div class="row">
 				<div class="col-sm-12">
     					<label for="Date_Sortie"><strong>Date de sortie :</strong></label>
-   					<input type="text" id="Date_SortieH" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" autocomplete= "off" required/>
+   					<input type="text" id="Date_SortieH" class="form-control date-picker"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" data-provide="datepicker" autocomplete= "off" required/>
 		 		</div>
 			</div>
 			<div class="row">
@@ -82,25 +82,26 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-			      	<label for="diagSortie"><strong>Diagnostic de sortie :</strong></label><textarea class="form-control"  id="diagSortie"></textarea>
-			     </div>
-		  	</div>
-		  	<div class="row">
+			    <label for="diagSortie"><strong>Diagnostic de sortie :</strong></label>
+           <textarea class="form-control"  id="diagSortie"></textarea>
+			  </div>
+		  </div>
+		  <div class="row">
 				<div class="col-sm-12">
 	      	<label for="diagSortie"><strong>Code Cim-10 :</strong></label>
 	      	<div class="input-group">
-			      <input type="text" class="form-control" id="ccimdiagSortie"/>
+			      <input type="text" class="form-control" id="ccimdiagSortie" disabled/>
 			      <span class="input-group-addon" style=" padding: 0px 6px;"> 
 			       <button class="btn btn-xs CimCode" type="button" value="ccimdiagSortie"><i class="fa fa-search"></i></button>
         		</span>
 	    	  </div>
-			     </div>
-		  	</div>
-		 	<div class="modal-footer">
-				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-	  			<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
-			</div>
+			  </div>
+		  </div>
+    </div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-info btn-sm btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+	  	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
 		</div>
-		</div>
+	</div>
 	</div>
 </div>

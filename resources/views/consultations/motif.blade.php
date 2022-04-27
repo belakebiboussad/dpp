@@ -32,7 +32,7 @@
  	<div class="form-group">
 		<label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code CIM-10 :</strong></label>
 		<div class="col-sm-8 input-group" style="padding-left:15px;">
-		  <input type="text" class="form-control" id="codesim" name="codesim"/>
+		  <input type="text" class="form-control" id="codesim" name="codesim" disabled/>
 		  <span class="input-group-addon" style=" padding: 0px 6px;"> 
 		    <button class="btn btn-xs CimCode" type="button" value="codesim"><i class="fa fa-search"></i></button>
 		  </span>

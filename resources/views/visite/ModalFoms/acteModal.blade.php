@@ -16,7 +16,7 @@
             <label for="specialiteProd"><strong>Acte:</strong></label>
             <input type="text" id="acte" class="form-control" placeholder = "Nom de l'Acte"/> 
           </div>    
-        </div>
+        </div><div class="space-12"></div>
         <div class="row">
           <div class="col-xs-12">
             <label for="type"><strong>Type :</strong></label>
@@ -43,14 +43,13 @@
             <label for="specialiteProd"><strong>Application:</strong></label>
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
           </div>    
-        </div>
+        </div><br/>
          <div class="row">
           <div class="col-xs-12">
             <label for="dureeT"><strong>Nombre d'application/jour:</strong></label>
             <input type="number" id="nbrFJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
           </div> <!-- <div class="col-xs-6">  <label for="dureeT"><strong>Durée(jour):</strong></label>
           <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/></div> -->
-          
         </div><hr>
         <div class="row" align="right">
           <button type="submit" id="EnregistrerActe" class="btn btn-primary btn-sm" value ="add">

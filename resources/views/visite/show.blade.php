@@ -177,7 +177,7 @@
 							<td>
 								 @if($demande->etat == null)
 											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($demande->etat == "1")
+								 @elseif($demande->etat == 1)
 											Validé
 								@else
 										 <span class="badge badge-danger">Rejeté</span>

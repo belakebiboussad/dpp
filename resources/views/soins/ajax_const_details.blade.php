@@ -3,9 +3,7 @@
     <label for="cnst"><b>{{ $const->nom}} :</b></label>
     <input type="number" step="{{ $const->step }}" id="cnst" class="input input-sm " value="{{ $const->normale }}" min="{{ $const->min}}" max="{{ $const->max}}">     
     <button type="buton" class ="btn btn-sm btn-primary" id="addCste"><i class="fa fa-plus-circle bigger-120" style="color:black"></i></button>
-    
       <button class="btn btn-sm btn-danger" id="btnRemovePoints"><i class="fa fa-trash-o fa-lg"></i></button> 
-  
   </div><div class="col-sm-1"></div>
   <div class="col-sm-5">
   <label id="min">Min:{{ $const->min }}</label>&nbsp;<label id="mxn">Max:{{ $const->max }}</label>
@@ -35,9 +33,7 @@
           options: {
               onClick: (e) => {
                 const canvasPosition = Chart.helpers.getRelativePosition(e, chart);
-         // Substitute the appropriate scale IDs               // const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-                // const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-                },
+              },
               interaction: {
                 mode: 'nearest'
               },

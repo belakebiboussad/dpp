@@ -79,6 +79,7 @@ class ConsultationsController extends Controller
       {
         $etablissement = Etablissement::first(); 
         $employe = Auth::user()->employ;
+        $specialite = Specialite::findOrFail($employe->specialite);
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
@@ -86,7 +87,6 @@ class ConsultationsController extends Controller
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
-        $specialite = Specialite::findOrFail($employe->specialite);//,'specialitesExamBiolo'
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
@@ -245,12 +245,8 @@ class ConsultationsController extends Controller
      *
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
-     */
-    public function choix()
-    {
-       return view('consultations.add');
-    }
-      public function getConsultations(Request $request)
+     *//* public function choix() { return view('consultations.add'); }*/
+          public function getConsultations(Request $request)
       {
         if($request->ajax())  
         {         

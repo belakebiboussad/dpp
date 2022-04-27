@@ -19,7 +19,6 @@
 					</div>
 				</div><div class="space-12"></div>
 	   	</div>{{-- modal-body --}}
-			<div class="space-12"></div><div class="space-12"></div>
 		  <div class="modal-footer">
           <div class="col-sm-12">
 			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="passwordResetbtn"	><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>{{-- <button data-toggle="modal" data-target="#lettreorien"  onclick=""></button> --}}

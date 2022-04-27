@@ -139,13 +139,13 @@ class HospitalisationController extends Controller
           "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
           "modeHosp_id"=>$request->mode,//"etat"=>"en cours",
         ]);
-    if(isset($dmission->rdvHosp))
-    { 
-      $admission->rdvHosp->update([ "etat" =>1 ]);
-      $admission->rdvHosp->demandeHospitalisation->update(["etat" =>3]);
-    }else
+        if(isset($dmission->rdvHosp))
+        { 
+          $admission->rdvHosp->update([ "etat" =>1 ]);
+          $admission->rdvHosp->demandeHospitalisation->update(["etat" =>3]);
+        }else
       $admission->demandeHospitalisation->update(["etat" =>3]);
-    return redirect()->action('HospitalisationController@index');
+      return redirect()->action('HospitalisationController@index');
   }
   /**
    * Display the specified resource.
@@ -189,15 +189,10 @@ class HospitalisationController extends Controller
       $hosp -> update($request->all());
       if($request->ajax())  
       {    
-         $lit =  $hosp->admission->demandeHospitalisation->bedAffectation->lit; //lliberer  le lit
-         $lit->update([
-              "affectation"=> 0,
-          ]);
-          if($request->modeSortie == "0")
-          {
-                $transfert = Transfert::create($request->all());
-                 $transfert->hospitalisation()->attach($id);
-          }
+        $lit =  $hosp->admission->demandeHospitalisation->bedAffectation->lit; //lliberer  le lit
+        $lit->update([ "affectation"=> 0, ]);
+        if($request->modeSortie == "0")
+          $transfert = Transfert::create($request->all());
         return $hosp;
       }else
         return redirect()->action('HospitalisationController@index');

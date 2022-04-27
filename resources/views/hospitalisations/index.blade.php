@@ -110,7 +110,7 @@
               //         } ,  title:'Service',"orderable": false  
               //  },//7
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
-               },//7 
+              },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
               { data: "etat" ,
                       render: function(data, type, row){
@@ -168,15 +168,15 @@
      });
      jQuery('#saveCloturerHop').click(function () {
           var formData = {
-                id                      : $("#hospID").val(),
-                Date_Sortie        : jQuery('#Date_SortieH').val(),
-                Heure_sortie       : jQuery('#Heure_sortie').val(),
-                modeSortie         :jQuery('#modeSortie').val(),
-                resumeSortie     : $('#resumeSortie').val(),
-                etatSortie            : $('#etatSortie').val(),
-                diagSortie           : $("#diagSortie").val(),
-                ccimdiagSortie    : $("#ccimdiagSortie").val(),
-                etat            :1,
+            id                      : $("#hospID").val(),
+            Date_Sortie        : jQuery('#Date_SortieH').val(),
+            Heure_sortie       : jQuery('#Heure_sortie').val(),
+            modeSortie         :jQuery('#modeSortie').val(),
+            resumeSortie     : $('#resumeSortie').val(),
+            etatSortie            : $('#etatSortie').val(),
+            diagSortie           : $("#diagSortie").val(),
+            ccimdiagSortie    : $("#ccimdiagSortie").val(),
+            etat            :1,
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();
