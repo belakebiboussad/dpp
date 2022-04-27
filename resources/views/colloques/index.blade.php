@@ -34,7 +34,7 @@
 							<p class="text-primary">{{ $employe->full_name }}</p> 
 						@endforeach
 					</td>
-					<td>{{ $col->date_creation }}</td>
+					<td>{{ $col->created_at }}</td>
 					<td>{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</td>
 					<td>{{ $col->etat }}</td>
 					<td class="center">

@@ -28,7 +28,12 @@
                                   <td class ="noborders"><strong>Mob:</strong></td> <td>{{ $employe->tele_mobile }}</td>
                           </tr>
                           <tr>
-                                  <td  class ="noborders"><strong>Service :</strong></td><td>{{ $employe->Service->nom }}</td>
+                                  <td  class ="noborders"><strong>Service :</strong></td>
+                                     <td>
+                                            @isset($employe->Service)
+                                               {{ $employe->Service->nom }}
+                                               @endisset
+                                      </td>
                                    <td  class ="noborders"><strong>Compte :</strong></td><td>@if( $user->active == '1' )<span class="label label-md label-primary"> Active @else <span class="label label-md label-warning">Désactiver @endif </span></td>
                             </tr>            
                 </tbody>

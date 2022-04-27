@@ -23,20 +23,14 @@ class EmployeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request) {}
     /**
      * Display the specified resource.
      *
@@ -80,10 +74,8 @@ class EmployeController extends Controller
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
         if ($validator->fails()) {
-          dd($validator->errors());
-          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+              return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
         }
-         dd($request->all());
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,

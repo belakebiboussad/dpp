@@ -222,7 +222,7 @@
                e.preventDefault();
                var formData = {
                       demande_id : jQuery('.demande_id').val(),
-                      lit_id     : $('#lit_id').val()
+                      lit_id     : $('.lit_id').val()
               };
                $.ajax({
                       headers: {

@@ -6,7 +6,6 @@
 			  <div class="row">
 			    <div class="col-xs-12">
 						<input type="hidden" value="" id="user_id"/>	
-
 				 		<label for="specialiteOrient"><b>Mot de passe:</b></label>
 				 		<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Entrer un nouveau mot de passe" required/>
             <small class="help-block"></small>
@@ -17,7 +16,7 @@
 						<label for="motif"><b>Confirmer le mot de passe :</b></label>     
 			 			<input type="password" class="form-control" id="password_again" name="password_again" placeholder="Entrer à nouveau le mot de passe" required/>
 					</div>
-				</div><div class="space-12"></div>
+				</div>
 	   	</div>{{-- modal-body --}}
 		  <div class="modal-footer">
           <div class="col-sm-12">

@@ -154,7 +154,7 @@ $(function(){
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="service"><b>Service :</b></label>
 							<div class="col-sm-7">
 								<select class="form-control" name="service">
-									<option value="">Aucun</option>		
+									<option value="">Selectionner</option>		
 									@foreach($services as $key=>$value)
 									<option value="{{ $key }}" {{ ($user->employ->service == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 									@endforeach
@@ -167,7 +167,7 @@ $(function(){
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="specialite"><b>Spécialité :</b></label>
 							<div class="col-sm-7">
 							<select class="form-control" name="specialite">
-								<option value="">Aucun</option>
+								<option value="">Selectionner</option>
 								@foreach($specialites as $key=>$value)
 								<option value="{{ $key }}" {{ ($user->employ->specialite == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
 								@endforeach
