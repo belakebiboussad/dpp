@@ -153,7 +153,7 @@ $('document').ready(function(){
   </div>
 </div>
 @endif
-@if(isset($consultation->examensradiologiques)) 
+@if(isset($consultation->demandExmImg)) 
 <div class="row">
   <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'examen d'imagerie</strong></span>
   </div>
@@ -171,23 +171,23 @@ $('document').ready(function(){
             </tr>
           </thead>
           <tbody>
-            <tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
+            <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
               <td>{{ $consultation->date }}</td>
               <td>
-              <span class="badge badge-{{( $consultation->examensradiologiques->getEtatID($consultation->examensradiologiques->etat)) === 0 ? 'warning':'primary' }}">
-              {{ $consultation->examensradiologiques->etat }}
+              <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
+              {{ $consultation->demandExmImg->etat }}
               </span>
               </td>
               <td class="center">
-                <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-success btn-xs">
+                <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs">
                 <i class="fa fa-hand-o-up fa-xs"></i></a>
-                @if(!$consultation->examensradiologiques->hasResult())
-                  <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id ) }}" class="btn btn-xs  btn-primary">
+                @if(!$consultation->demandExmImg->hasResult())
+                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs  btn-primary">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
-                  <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
+                  <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 @endif 
-                <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
+                <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
             </td>
             </tr>
           </tbody>

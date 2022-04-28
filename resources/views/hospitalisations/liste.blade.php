@@ -28,8 +28,8 @@
               </td>
 							<td>
                 <button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});">
-                 <i class="ace-icon fa fa-eye-slash fa-xs"></i></button>
-                <a href = "{{ route('hospitalisation.show',$hosp->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir hospitalisation"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                 <i class="ace-icon fa fa-eye-slash fa-2xs"></i></button>
+                <a href = "{{ route('hospitalisation.show',$hosp->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir hospitalisation"><i class="ace-icon fa fa-hand-o-up fa-2xs"></i></a>
               </td>
 						</tr>
 						@endforeach

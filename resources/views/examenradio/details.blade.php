@@ -136,6 +136,7 @@ $(function(){
                     confirmButtonText: 'Oui',
                     cancelButtonText: "Non",
                     allowOutsideClick: false,
+                    showCloseButton: true
              }).then((result) => {
                           $.ajaxSetup({
                                 headers: {

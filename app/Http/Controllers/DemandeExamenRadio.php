@@ -191,10 +191,10 @@ $demande = demandeexr::FirstOrCreate(["Date" => Date::now(),"InfosCliniques" => 
       }else
       {
         $serviceID = $request->value;
-        $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
-                           ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
+$demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
+                        ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);
-                            })->orWhereHas('visite.hospitalisation.medecin.Service', function($q) use ($serviceID) {
+                        })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {//hospitalisation.
                                 $q->where('id', $serviceID);
                             })->get();
       }

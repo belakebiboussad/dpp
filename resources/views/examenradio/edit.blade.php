@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col-sm-6"><h3><strong>Modifier la demande d'examen Radiologique :</strong></h3></div>
     <div class="col-sm-6 pull-right">
-      <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+      <a href="/drToPDF/{{ $demande->consultation->demandExmImg->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>

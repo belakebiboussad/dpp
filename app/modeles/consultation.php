@@ -29,7 +29,7 @@ class consultation extends Model
         {
                return $this->hasMany('App\modeles\examAppareil','cons_id');
         }
-       public function examensradiologiques()//used
+       public function demandExmImg()//examensradiologiques()//used
        {
             return $this->hasOne('App\modeles\demandeexr','id_consultation');
       }

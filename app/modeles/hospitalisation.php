@@ -49,10 +49,10 @@ class hospitalisation extends Model
        }
     public function medecin()//medecin traitant
     {
-            return $this->belongsTo('App\modeles\employ','medecin_id');
+      return $this->belongsTo('App\modeles\employ','medecin_id');
     }
     public function getlastVisite()
-    {/*foreach($this->visites as $v) {     if(isset($v->prescreptionconstantes))        return $v;    }*/
+    {/*foreach($this->visites as $v) { if(isset($v->prescreptionconstantes)) return $v;    }*/
       return $this->visites->first();
     } 
 }

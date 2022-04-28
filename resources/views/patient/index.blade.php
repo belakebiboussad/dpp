@@ -20,7 +20,7 @@
 	};
 	var errorElement = document.querySelector('#errorMsg');
 	$(function(){
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+      navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 			App.init();
 			Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,

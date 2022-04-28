@@ -86,8 +86,8 @@
                 <td>{{ $demande->consultation->patient->full_name }}<small class="text-primary">(Consultation externe)</small></td>
                 @else
                 <td>{{ $demande->visite->date }}</td>
-                <td>{{ $demande->visite->hospitalisation->medecin->Service->nom }}</td>
-                <td>{{ $demande->visite->hospitalisation->medecin->full_name }}</td>
+                <td>{{ $demande->visite->medecin->Service->nom }}</td>
+                <td>{{ $demande->visite->medecin->full_name }}</td>
                 <td>{{ $demande->visite->hospitalisation->patient->full_name}}<small class="text-warning">(Hospitalisation)</small></td>
                 @endif
 								<td>

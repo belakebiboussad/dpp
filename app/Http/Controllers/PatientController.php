@@ -271,10 +271,15 @@ class PatientController extends Controller
           $demandesExB = demandeexb::with('consultation')
                                     ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);
+                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                      $q->where('patient_id', $id);   
                                     })->where('etat',1)->get();
-          $demandesExR = demandeexr::with('consultation','examensradios')
+          //dd($demandesExB);                          
+          $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')
                                     ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);
+                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                      $q->where('patient_id', $id);   
                                     })->where('etat',1)->get();
           return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR'));
         }

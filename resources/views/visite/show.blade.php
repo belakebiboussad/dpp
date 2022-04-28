@@ -1,8 +1,11 @@
 @extends('app')
 @section('main-content')
-<?php 	$patient = $visite->hospitalisation->patient; $demande = $visite->demandExmImg;  ?> 
 <div class="container-fluid">
-	<div class="row"><div class="col-sm-12  mt-2p">@include('patient._patientInfo')</div></div>
+	<div class="row">
+    <div class="col-sm-12  mt-2p">
+      @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])
+    </div>
+  </div>
 	<div class="panel-heading left">
 	  	<h4><strong>Détails de la visite :</strong></h4>
 	  	<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
@@ -130,18 +133,13 @@
 							{{ $visite->date }}
 							</td>
 						@endif	
-						 <td>{{ $exm->nom }}</td>
+						 <td>{{ $exm->Examen->nom }}</td>
 						@if($loop->first)
             	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-	            	@if($visite->demandeexmbio->etat == null)
-	                    <span class="badge badge-success"> En Cours</span>
-	                  @elseif($visite->demandeexmbio->etat == 1)
-	                    <span class="badge badge-primary">Validée</span>       
-	                  @else
-	                    <span class="badge badge-warning">Rejetée</span>   
-	                  @endif
-            		</td>
-            	@endif 
+                <span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
+                {{ $visite->demandeexmbio->etat }}</span>
+            	</td>
+            @endif 
 						@if($loop->first)
 			            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
 			            	<a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
@@ -175,17 +173,20 @@
 						<tr>
 							<td>{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</td>
 							<td>
-								 @if($demande->etat == null)
+								{{-- @if($visite->demandExmImg->etat == null)
 											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($demande->etat == 1)
+								 @elseif($visite->demandExmImg->etat == 1)
 											Validé
 								@else
 										 <span class="badge badge-danger">Rejeté</span>
-								 @endif
+								 @endif --}}
+                <span class="badge badge-{{( $visite->demandExmImg->getEtatID($visite->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
+              {{ $visite->demandExmImg->etat }}
+              </span>
 							</td>
 							<td class="center">
-								<a href="{{ route('demandeexr.show', $demande->id) }}"><i class="fa fa-eye"></i></a>
-								<a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
+								<a href="{{ route('demandeexr.show', $visite->demandExmImg->id) }}"><i class="fa fa-eye"></i></a>
+								<a href="/drToPDF/{{ $visite->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
 							</td>
 						</tr>
 					</tbody>

@@ -15,7 +15,7 @@
           @if(isset($consultation->examensCliniques) )
         <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
           @endif
-          @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
+          @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
           @endif
      </ul>
@@ -117,7 +117,7 @@
              @endif 
           </div>
           @endif
-          @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) ||(isset($consultation->ordonnances)))
+          @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) ||(isset($consultation->ordonnances)))
            <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
                 @if(isset($consultation->demandeexmbio))
                 <div class="row">
@@ -162,7 +162,7 @@
                      </div>
                 </div><div class="space-12"></div>{{-- biologique --}}  
                 @endif
-                @if(isset($consultation->examensradiologiques))
+                @if(isset($consultation->demandExmImg))
                 <div class="row">
                       <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
                           <strong><span style="font-size:18px;">Demande d'examen d'imagerie</span></strong>
@@ -183,20 +183,20 @@
                                       </tr>
                                 </thead>
                                 <tbody>
-                                <tr id="{{ 'demandeRad'.$consultation->examensradiologiques->id }}">
+                                <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
                                 <td>{{ $consultation->date }}</td>
                                 <td>
-                                  <span class="badge badge-{{( $consultation->examensradiologiques->getEtatID($consultation->examensradiologiques->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->examensradiologiques->etat }}</span>
+                                  <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->demandExmImg->etat }}</span>
                                 </td>
                                 <td class="center">
-                                    <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                    @if(!$consultation->examensradiologiques->hasResult())
-                                    <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                    <!-- <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a> -->
-                                    <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->examensradiologiques->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
+                                    <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                                    @if(!$consultation->demandExmImg->hasResult())
+                                    <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
+                                    <!-- <a href="{{ route('demandeexr.destroy', $consultation->demandExmImg->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a> -->
+                                    <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                                     
                                     @endif
-                                     <a href="/drToPDF/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;
+                                     <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;
                                       </a>
                                 </td>
                                </tr>

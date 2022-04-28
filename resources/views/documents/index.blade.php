@@ -15,7 +15,11 @@
             @isset($res->crb)    
             <a href="{{ route('crbs.download',$demande->id )}}" title=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
             @endisset
-            <span class="smaller-80">({{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span>
+            @if(isset($demande->consultation)) <!-- {{ ($demande->visite_id != null ? 'Visite': 'Consultation') }} -->
+            <span class="smaller-80">( Consultation du {{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span>
+            @else
+            <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
+            @endif
           </li>
           @endforeach
         </ul><!-- / -->
@@ -42,7 +46,12 @@
               @isset($ex->crr_id) 
                 <a href="{{ route('crrs.download',$ex->crr_id )}}" title="télécharger le compte rendu"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
               @endisset   
-              <span class="smaller-80">({{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span>
+              {{-- <span class="smaller-80">({{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span> --}}
+              @if(isset($demande->consultation)) <!-- {{ ($demande->visite_id != null ? 'Visite': 'Consultation') }} -->
+              <span class="smaller-80">( Consultation du {{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span>
+              @else
+              <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
+              @endif
             </li>
             @endforeach
           @endforeach

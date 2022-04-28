@@ -43,25 +43,25 @@ function getRequests(url,field,value)
                           if(data.id_consultation != null)
                              return row.consultation.medecin.service.nom ;
                           else
-                            return  row.visite.hospitalisation.medecin.service.nom;
+                            return  row.visite.medecin.service.nom;
                           return data;  
                         },title:'Service',"orderable": true,
             },
             { data: null,
                           render: function ( data, type, row ) {
                             if(data.id_consultation != null)
-                               return row.consultation.medecin.nom + ' ' + row.consultation.medecin.prenom ;
+                               return row.consultation.medecin.full_name ;
                             else
-                              return row.visite.hospitalisation.medecin.nom + ' ' + row.visite.hospitalisation.medecin.prenom;
+                              return row.visite.medecin.full_name;
                             return data;  
                           },title:'Médecin demandeur',"orderable": false,
             },
             { data: null,
                           render: function ( data, type, row ) {
                               if(data.id_consultation != null)
-                                return  row.consultation.patient.Nom + ' ' + row.consultation.patient.Prenom+' <small class="text-primary">(Consultation)</small>';
+                                return  row.consultation.patient.full_name +' <small class="text-primary">(Consultation)</small>';
                               else
-                                return row.visite.hospitalisation.patient.Nom + ' ' + row.visite.hospitalisation.patient.Prenom+' <small class="text-warning">(Hospitalisation)</small>';
+                                return row.visite.hospitalisation.patient.full_name +' <small class="text-warning">(Hospitalisation)</small>';
                               return data;  
                           },title:'Patient',"orderable": true,
             },

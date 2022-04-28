@@ -58,7 +58,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-3">
-				<select class="form-control groupeSanguin" id="gsf" name="gsf" class="col-sm-12 col-xs-12">
+				<select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf" class="col-sm-12 col-xs-12">
 					<option value="">------</option>
 					<option value="A">A</option>
 					<option value="B">B</option>
@@ -68,7 +68,7 @@
 			</div>
 			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-3">
-				<select id="rhf" name="rhf" class="col-sm-12 col-xs-12 rhesus" disabled>
+				<select id="rhf" name="rhf" class="col-sm-12 col-xs-12 rhesus asdemogData" disabled>
 					<option value="">------</option>
 					<option value="+">+</option>
 					<option value="-">-</option>

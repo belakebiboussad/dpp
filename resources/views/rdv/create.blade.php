@@ -151,6 +151,7 @@ $(function() {
                         confirmButtonText: 'Oui',
                         cancelButtonText: "Non",
                         allowOutsideClick: false,
+                        showCloseButton: true
                     }).then((result) => {
                       if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                       {

@@ -60,7 +60,8 @@
         width: 550
   };
   $(document).ready(function(){
-     $('.timepicker').timepicker({
+      $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
+      $('.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 60,
               minTime: '08',
