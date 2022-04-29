@@ -23,7 +23,6 @@
    var App = {
         init: function() {
             var self = this;
-          
             Quagga.init(this.state, function(err) {
                 if (err) {
                     return self.handleError(err);
@@ -82,7 +81,6 @@
         },
         initCameraSelection: function(){
             var streamLabel = Quagga.CameraAccess.getActiveStreamLabel();
-
             return Quagga.CameraAccess.enumerateVideoDevices()
             .then(function(devices) {
                 function pruneText(text) {
@@ -116,9 +114,7 @@
                     value = $target.attr("type") === "checkbox" ? $target.prop("checked") : $target.val(),
                     name = $target.attr("name"),
                     state = self._convertNameToState(name);
-
                 console.log("Value of "+ state + " changed to " + value);
-                alert("Value of "+ state + " changed to " + value);
                 self.setState(state, value);
             });
         },
@@ -347,9 +343,7 @@
                     value = $target.attr("type") === "checkbox" ? $target.prop("checked") : $target.val(),
                     name = $target.attr("name"),
                     state = self._convertNameToState(name);
-
                 console.log("Value of "+ state + " changed to " + value);
-                alert("Value of "+ state + " changed to " + value);
                 self.setState(state, value);
             });
         },
