@@ -168,9 +168,7 @@ Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crb
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
-Route::get('/404', function () {
-    return view('errors.404');
-});
+/*Route::get('/404', function () {   return view('errors.404'); });*/
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
