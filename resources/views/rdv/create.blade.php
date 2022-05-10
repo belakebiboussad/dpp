@@ -6,9 +6,7 @@
     max-height: 100px;
     margin-left:-0.7%;
   }
-  .es-list option{
-         padding:5px 0;
-   }
+  .es-list option{ padding:5px 0; }
   .es-list li{
         padding:5px 0;
   }
