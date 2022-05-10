@@ -11,6 +11,7 @@
         </div>
       </div>
   </div>
+  {{--
   @if($hosp->etat_id != 1)
   <div class="col-sm-4">
     <div class="widget-box">
@@ -43,6 +44,7 @@
   </div>
 </div>
 @endif
+--}}
 @include('constantes.scripts.functions')
 <script type="text/javascript" charset="utf-8" async defer>
   $( function() { 

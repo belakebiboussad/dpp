@@ -10,6 +10,7 @@
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
       
           @foreach($demandesExB as $demande)
+          @if($demande->getEtatID($demande->etat) ===1)
           <li>
             <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $demande->resultat }}</a>
             @isset($res->crb)    
@@ -21,6 +22,7 @@
             <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
             @endif
           </li>
+          @endif
           @endforeach
         </ul><!-- / -->
       </div>
@@ -41,6 +43,7 @@
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
          @foreach($demandesExR as $demande)
             @foreach($demande->examensradios as $ex)
+            @if($ex->getEtatID($ex->etat) ===1) 
             <li>
               <a href="/storage/files/{{ $ex->resultat }}" title="téléchager le résultat {{ $ex->Type->nom }}" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $ex->resultat }}</a>
               @isset($ex->crr_id) 
@@ -53,6 +56,7 @@
               <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
               @endif
             </li>
+             @endif
             @endforeach
           @endforeach
         </ul><!-- / -->

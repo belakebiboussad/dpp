@@ -43,7 +43,7 @@ function getRequests(url,field,value)
                           if(data.id_consultation != null)
                              return row.consultation.medecin.service.nom ;
                           else
-                            return  row.visite.medecin.service.nom;
+                            return  row.visite.medecin.Service.nom;
                           return data;  
                         },title:'Service',"orderable": true,
             },
