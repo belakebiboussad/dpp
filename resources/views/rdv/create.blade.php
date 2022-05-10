@@ -142,6 +142,7 @@ $(function() {
                         title: 'Confimer vous  le Rendez-Vous ?',
                         html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
                         input: 'checkbox',
+                        inputValue: 1,
                         inputPlaceholder: 'Redez-Vous Fixe',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
