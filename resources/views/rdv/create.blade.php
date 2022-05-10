@@ -188,11 +188,9 @@ $(function() {
               (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
               $('#civiliteCode').val(calEvent.civ);
               $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
+              $('#printRdv').attr("data-id",calEvent.id);
               if($('#printRdv').hasClass( "hidden" ))
-              {
-                $('#printRdv').attr("data-id",calEvent.id);
                 $('#printRdv').removeClass('hidden');
-              }         
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
               {
                 if(loaded)
