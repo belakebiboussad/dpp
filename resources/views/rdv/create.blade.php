@@ -18,7 +18,7 @@
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
 <!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 <!-- <script  src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<!-- <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
+<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 @include('rdv.scripts.print')
 <script>
 function resetPation()
