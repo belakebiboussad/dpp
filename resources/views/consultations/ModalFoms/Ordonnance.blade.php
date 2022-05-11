@@ -35,8 +35,8 @@
               </div>
             </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
              <div class="row">
-              <div class="col-xs-12">
-                <button type="button" id="addliste" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
+              <div class="col-xs-12"><!-- id="addliste" -->
+                <button type="button" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
                   Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
                 </button>
               </div>
