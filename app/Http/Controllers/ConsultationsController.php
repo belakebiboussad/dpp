@@ -67,8 +67,13 @@ class ConsultationsController extends Controller
     }
     public function listecons($id)
     {
-      $patient = patient::with('Consultations.patient','Consultations.medecin','Consultations.medecin.service')->FindOrFail($id);
+      $patient = patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
+      $consults= consultation::with('patient','medecin.Specialite')
+                              ->whereHas('patient', function($q) use ($id) {
+                                $q->where('pid', $id);
+                              })->get();        
       return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
+      
     }
     /**
      * Show the form for creating a new resource.
@@ -251,9 +256,9 @@ class ConsultationsController extends Controller
         if($request->ajax())  
         {         
           if($request->field == 'date')
-            $consults =consultation::with('patient','medecin')->where(trim($request->field),'=',trim($request->value))->get();
+            $consults =consultation::with('patient','medecin.Specialite')->where(trim($request->field),'=',trim($request->value))->get();
           else
-            $consults =consultation::with('patient','medecin')->whereHas('patient',function($q) use ($request){
+            $consults =consultation::with('patient','medecin.Specialite')->whereHas('patient',function($q) use ($request){
                                         $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                     })->get();
           return $consults;

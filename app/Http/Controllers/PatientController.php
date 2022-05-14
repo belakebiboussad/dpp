@@ -274,7 +274,6 @@ class PatientController extends Controller
                                     })->orWhereHas('visite.hospitalisation',function($q) use($id){
                                       $q->where('patient_id', $id);   
                                     })->where('etat',1)->get();
-          //dd($demandesExB);                          
           $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')
                                     ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);

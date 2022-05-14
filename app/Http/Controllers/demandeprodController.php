@@ -171,26 +171,7 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-      /*
       $demande = demand_produits::FindOrFail($id);
-      $demande->medicaments()->detach();
-      $demande->dispositifs()->detach();
-      $demande->reactifs()->detach();
-      $listes = json_decode($request->liste);
-      for ($i=0; $i < count($listes); $i++) { 
-              $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
-              if($gamme->id == "1")
-              {   
-                  $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
-              }elseif($gamme->id == "2") {
-                   $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
-                }elseif($gamme->id == "3") {
-                  $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
-                }
-        }
-       return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);
-       */
-       $demande = demand_produits::FindOrFail($id);
       $demande->medicaments()->detach();
       $demande->dispositifs()->detach();
       $demande->reactifs()->detach();

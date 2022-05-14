@@ -7,23 +7,24 @@
 </div><div class="space-12"></div>
 <div class="row"><h4>Détails de la Consultation du {{ $consultation->date}} :</h4></div> 
   <div class="tabbable"  class="user-profile">
-        <ul class="nav nav-tabs padding-24">
-              <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
-                @isset($consultation->demandeHospitalisation) 
-                      <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
-               @endisset
-               @isset($consultation->examensCliniques) 
-                      <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
-               @endisset
-               @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
-                <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
-               @endif
-        </ul>
+    <ul class="nav nav-tabs padding-24">
+      <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
+        @isset($consultation->demandeHospitalisation) 
+        <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
+        @endisset
+        @isset($consultation->examensCliniques) 
+          <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
+        @endisset
+        @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
+          <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
+        @endif
+    </ul>
            <div class="tab-content no-border padding-24">
           <div id="Intero" class="tab-pane in active">
           <div class="row">
           <ul class="list-unstyled spaced">
             <li><i class="ace-icon fa fa-caret-right blue"></i><span class="f-16">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="f-16">Spécialite de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->medecin->Specialite->nom }}</span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>

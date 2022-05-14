@@ -11,8 +11,12 @@
       },
       dataType: "json",// recommended response type
     	success: function(data) {
-            $(".numberResult").html(data.length);
-            $("#liste_conultations").DataTable ({
+          $(".numberResult").html(data.length);
+          /*$.each(data[0]['medecin']['specialite'],function(key,value){
+            alert(key+ ":" + value);
+          });
+          */
+          $("#liste_conultations").DataTable ({
            "processing": true,
            "paging":   true,
            "destroy": true,
@@ -26,26 +30,25 @@
                  $(nRow).attr('id',"consult"+aData.id);
             },
             "columns": [
-                { data:null,title:'#', "orderable": false,searchable: false,
-                       render: function ( data, type, row ) {
-                            if ( type === 'display' ) {
-                                  return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';
-                            }
-                            return data;
-                       },
-                       className: "dt-body-center",
-                },
+/*{ data:null,title:'#', "orderable": false,searchable: false,render: function ( data, type, row ) { if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';}return data;}, className: "dt-body-center", },*/
                 { data: "date" , title:'Date' },
                 { data: "patient.Nom",
                   render: function ( data, type, row ) {
                     return row.patient.full_name;
                   },
-                  title:'Patient',"orderable": true
+                  title:'Patient',"orderable": false
                 },
                 { data: null , title:'Motif', "orderable":false,  
                     "render": function(data,type,full,meta){
                        return '<small>'+data.motif+'</small>';
                     }
+                },
+                {
+                   data: "medecin.specialite.nom" ,
+                     render: function ( data, type, row ) {
+                              return row.medecin.specialite.nom;
+                     },
+                     title:'Specialite', "orderable":false, 
                 },
                 {   data: "medecin.nom" ,
                      render: function ( data, type, row ) {
@@ -65,7 +68,7 @@
               {"targets": 5 ,  className: "dt-head-center dt-body-center" },
             ]
 
-              });
+        });
       }
 		});
   }
