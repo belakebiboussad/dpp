@@ -73,7 +73,7 @@
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;">
 					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
-					<a href="{{ route('assur.destroy',12122) }}" title="" data-method="DELETE">suprimer</a>
+					{{--<a href="{{ route('assur.destroy',12122) }}" data-method="DELETE">suprimer</a>--}}
 				</div>
 			</div><!-- panel -->
 		</div>

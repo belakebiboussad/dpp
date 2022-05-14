@@ -46,6 +46,7 @@ class LitsController extends Controller
     //public function createlit()  $services = service::all();{ return view('lits.create_lit_2', compact('services'));}
     public function create(Request $request)
     {
+      /*
       if(isset($request->id))
       {
          $salle = salle::FindOrFail($request->id);
@@ -55,6 +56,14 @@ class LitsController extends Controller
         $services = service::where('hebergement',1)->get();
         return view('lits.create', compact('services'));
       }
+      */
+       $services = service::where('hebergement',1)->get();
+      if(isset($request->id))
+      {
+              $salle = salle::FindOrFail($request->id);
+             return view('lits.create', compact('services','salle'));
+      }else
+        return view('lits.create', compact('services'));
     }
     /**
      * Store a newly created resource in storage.

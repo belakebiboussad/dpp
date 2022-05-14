@@ -205,8 +205,8 @@ class AssurController extends Controller
     {
       try {
           //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
+          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+          $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
           $output=""; $ayants="";
           $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));
           if($assure->Nom != null)
