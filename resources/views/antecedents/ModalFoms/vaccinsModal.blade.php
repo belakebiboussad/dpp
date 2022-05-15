@@ -118,7 +118,6 @@ $(function(){
           },
           error: function (data) {
              console.log('Error:', data);
-            alert("error"); 
           }
     	});
   });

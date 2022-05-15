@@ -380,7 +380,8 @@
       }//save input modal to input form
       function lettreorientation() {
         $('#specialite').val($('#specialiteOrient').val());// $('#medecin').val($('#medecinOrient').val());
-        $('#motifOr').val($('#motifOrient').val()); }
+        $('#motifOr').val($('#motifOrient').val()); 
+      }
       function demandehosp()
       {
         $('#modeAdmission').val($('#modeAdmissionHospi').val());

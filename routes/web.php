@@ -72,7 +72,7 @@ Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('getConsultations/{id}','ConsultationsController@listecons');//Route::get('/createConsultation','ConsultationsController@choix');//Route::get('/choixpat','ConsultationsController@choix');
+//Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');

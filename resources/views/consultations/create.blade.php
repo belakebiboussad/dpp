@@ -104,19 +104,17 @@
 	}
 	function editMedicm(med)
   {
-	$.ajax({
-		  type: 'GET',
-		  url: '/getmed/'+med,
-		  dataType: "json",
-		  success: function (result)
-		  {
-			  $("#nommedic").val(result['Nom_com']);
-			  $("#forme").val(result['Forme']);
-			  $("#dosage").val(result.Dosage);
-			  $("#id_medicament").val(result['id']);
-			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-		  }
-	  });
+  	$.ajax({
+  		  type: 'GET',
+  		  url: '/getmed/'+med,
+  		  dataType: "json",
+  		  success: function (result)
+  		  {
+  			  $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
+  			  $("#dosage").val(result.Dosage);$("#id_medicament").val(result['id']);
+  			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+  		  }
+  	  });
   }
   function addmidifun()
   {
@@ -166,7 +164,7 @@ $('document').ready(function(){
 	  $(".two-decimals").change(function(){
 					this.value = parseFloat(this.value).toFixed(2);
 	  });
-		/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
+/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
 		/*$("#btnCalc").click(function(event){event.preventDefault(); });*/
 	  $('#medc_table').DataTable({
 				processing: true,
@@ -566,7 +564,7 @@ $('document').ready(function(){
       $(".calendar").fullCalendar( 'refetchEvents' );
       $('#RDV').modal("show");
     });
- });// ready
+});// ready
 </script>
 @endsection
 @section('main-content')
@@ -591,11 +589,11 @@ $('document').ready(function(){
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist">
 				<li role= "presentation" class="col-md-4 in active">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
+				  <span class="bigger-160" style="font-size:10vw">Interrogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-					<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+					<a href="#ExamClinique"  aria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
 						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
