@@ -50,7 +50,7 @@ td
       </div>{{-- modal-body --}}
 		  <div class="modal-footer">
           <div class="col-sm-12">
-			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="lettreorientation()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="OrientationSave()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 				  <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>

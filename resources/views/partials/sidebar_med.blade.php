@@ -378,9 +378,15 @@
         var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
         champ.appendTo('#consultForm');
       }//save input modal to input form
-      function lettreorientation() {
-        $('#specialite').val($('#specialiteOrient').val());// $('#medecin').val($('#medecinOrient').val());
-        $('#motifOr').val($('#motifOrient').val()); 
+      function OrientationSave() {//$('#specialite').val($('#specialiteOrient').val());$('#motifOr').val($('#motifOrient').val()); // $('#medecin').val($('#medecinOrient').val());
+        var orientations = document.getElementById("orientationsList").rows;
+        var longueur = orientations.length; var orientationliste = []; 
+        for(var i=1; i<longueur; i++)
+        {
+          orientationliste[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+        }
+        var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+        champ.appendTo('#consultForm');
       }
       function demandehosp()
       {
