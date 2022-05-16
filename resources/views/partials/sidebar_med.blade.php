@@ -383,7 +383,7 @@
         var longueur = orientations.length; var orientationliste = []; 
         for(var i=1; i<longueur; i++)
         {
-          orientationliste[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+          orientationliste[i-1] = { spec: orientations[i].cells[0].innerHTML, posologie: orientations[i].cells[4].innerHTML }
         }
         var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
         champ.appendTo('#consultForm');
