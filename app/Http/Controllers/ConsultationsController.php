@@ -169,7 +169,9 @@ class ConsultationsController extends Controller
         */
         if(json_decode($request->orients) !== null) {
           foreach (json_decode($request->orients) as $key => $orient) {
-            dd($orient);
+            $post = new Post();
+$post->forceFill($innerPost);
+$post->save();
           }
         }
         dd("null");
