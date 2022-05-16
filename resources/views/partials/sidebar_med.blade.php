@@ -383,9 +383,9 @@
         var longueur = orientations.length; var orientationliste = []; 
         for(var i=1; i<longueur; i++)
         {
-          orientationliste[i-1] = { spec: orientations[i].cells[0].innerHTML, posologie: orientations[i].cells[4].innerHTML }
+          orientationliste[i-1] = { spec: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
         }
-        var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+        var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
         champ.appendTo('#consultForm');
       }
       function demandehosp()

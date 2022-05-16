@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LettreOrientation extends Model
 {
   public $timestamps = false;
-	protected $fillable  = ['motif','specialite','consultation_id'];
+	protected $fillable  = ['specialite','motif','examen','consultation_id',];
 	protected $table="lettre_oriantations";
 	public function consultation()
   {

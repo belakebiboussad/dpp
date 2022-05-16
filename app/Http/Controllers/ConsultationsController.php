@@ -102,7 +102,8 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
-        $constvalue =  collect();$exam;
+       
+        /* $constvalue =  collect();$exam;
         $etablissement = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
                 'motif' => 'required',
@@ -111,14 +112,6 @@ class ConsultationsController extends Controller
          if($validator->fails())
                 return redirect()->back()->withErrors($validator)->withInput();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        if($specialite->consConst) {
-               foreach(json_decode($specialite->consConst) as $const)
-               {
-                    $c = Constante::FindOrFail($const);
-                    if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
-                      $constvalue->put($c->nom, $request->input($c->nom));
-               }
-        }
         $consult = consultation::create([
           "motif"=>$request->motif,
           "histoire_maladie"=>$request->histoirem,
@@ -131,11 +124,19 @@ class ConsultationsController extends Controller
           "pid"=>$request->patient_id,
           "id_code_sim"=>$request->codesim,
           "id_lieu"=>$etablissement->id
-        ]);    
+        ]);
         foreach($consult->patient->rdvs as $rdv)
         {
           if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
             $rdv->update(['Etat_RDV'=>1]);
+        }
+        if($specialite->consConst) {
+          foreach(json_decode($specialite->consConst) as $const)
+          {
+            $c = Constante::FindOrFail($const);
+            if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
+              $constvalue->put($c->nom, $request->input($c->nom));
+          }
         }
         if($constvalue->count()>0)
         {
@@ -147,35 +148,45 @@ class ConsultationsController extends Controller
           $consult->examensCliniques()->save($exam);
         } 
         if($specialite->appareils) {
-            foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-             $appareil = appareil::FindOrFail($appareil);
-              if( null !== $request->input($appareil->nom))
-             {
-                if(!isset( $exam->id))
-                {
-                  $input = $request->all();
-                  $input['id_consultation'] = $consult->id ;
-                  $exam = examen_cliniqu::create($input);
-                }  
-                $examAppareil = new examAppareil;
-                $examAppareil->appareil_id = $appareil->id;
-                $examAppareil->description = $request->input($appareil->nom); 
-                $examAppareil->examen_clinique_id =  $exam->id;
-                $exam->examsAppareil()->save($examAppareil);
-              }
-            }  
-         }
+          foreach (json_decode ($specialite->appareils ) as  $appareil) {   
+            $appareil = appareil::FindOrFail($appareil);
+            if( null !== $request->input($appareil->nom))
+            {
+              if(!isset( $exam->id))
+              {
+                $input = $request->all();
+                $input['id_consultation'] = $consult->id ;
+                $exam = examen_cliniqu::create($input);
+              }  
+              $examAppareil = new examAppareil;
+              $examAppareil->appareil_id = $appareil->id;
+              $examAppareil->description = $request->input($appareil->nom); 
+              $examAppareil->examen_clinique_id =  $exam->id;
+              $exam->examsAppareil()->save($examAppareil);
+            }
+          }  
+        }
+        */
+        if(json_decode($request->orients) !== null) {
+          foreach (json_decode($request->orients) as $key => $orient) {
+            dd($orient);
+          }
+        }
+        dd("null");
+       
+        /*
         if(($request->motifOr != "") ||(isset($request->specOr))){
                 $this->LettreOrientationCTRL->store($request,$consult->id);
         }
+        */
         if($request->liste != null)//save Ordonnance
         {
-            $ord = new ordonnance;
-            $ord->date = Date::Now();
-            $consult->ordonnances()->save($ord);
-            foreach (json_decode($request->liste) as $key => $trait) {
-              $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
-            }
+          $ord = new ordonnance;
+          $ord->date = Date::Now();
+          $consult->ordonnances()->save($ord);
+          foreach (json_decode($request->liste) as $key => $trait) {
+            $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+          }
         }
         if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
         {
