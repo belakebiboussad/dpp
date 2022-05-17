@@ -55,7 +55,7 @@ class consultation extends Model
     }
     public function lettreOrintation()
     {
-      return $this->hasOne('App\modeles\LettreOrientation','consultation_id');
+      return $this->hasMany('App\modeles\LettreOrientation','consultation_id');
     }
 }
   

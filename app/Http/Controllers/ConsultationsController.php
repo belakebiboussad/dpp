@@ -45,7 +45,7 @@ class ConsultationsController extends Controller
     public function __construct(LettreOrientationController $LettreOrientationCtrl)
     {
       $this->middleware('auth');
-      $this->LettreOrientationCTRL = $LettreOrientationCtrl;
+      //$this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
     public function index()
     {
@@ -102,8 +102,7 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
-       
-        /* $constvalue =  collect();$exam;
+        $constvalue =  collect();$exam;
         $etablissement = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
                 'motif' => 'required',
@@ -166,21 +165,15 @@ class ConsultationsController extends Controller
             }
           }  
         }
-        */
+        
         if(json_decode($request->orients) !== null) {
-          foreach (json_decode($request->orients) as $key => $orient) {
-            $post = new Post();
-$post->forceFill($innerPost);
-$post->save();
+          foreach (json_decode($request->orients, true) as $key => $orient) {
+            $orient['consultation_id'] = $consult->id ;
+            LettreOrientation::create($orient);
           }
         }
-        dd("null");
-       
-        /*
-        if(($request->motifOr != "") ||(isset($request->specOr))){
-                $this->LettreOrientationCTRL->store($request,$consult->id);
-        }
-        */
+        
+        /*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
         if($request->liste != null)//save Ordonnance
         {
           $ord = new ordonnance;
