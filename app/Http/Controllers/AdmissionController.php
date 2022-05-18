@@ -56,7 +56,6 @@ class AdmissionController extends Controller
      */
       public function store(Request $request)
       { 
-       
         $now = \Carbon\Carbon::now();
         $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
         $adm=admission::create([     

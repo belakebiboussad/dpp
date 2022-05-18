@@ -156,9 +156,14 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
   public function edit($id)
   {
     $hosp = hospitalisation::find($id);
-    dd($hosp->admission->demandeHospitalisation->Service->employs->where('role_id',1)); 
+    $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
+      $q->whereIn('role_id', [1, 13, 14]);
+    })->get();
     $services =service::where('hebergement',1)->get();
-    return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+    //return View::make('hospitalisations.edit',compact('hosp','services','employes'));//->with('hosp', $hosp)->with('services',$services);
+    
+    return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);//->with('employes',$employes);
+    //return view('hospitalisations.edit',compact('hosp','services'));
   }
   /**
    * Update the specified resource in storage.
