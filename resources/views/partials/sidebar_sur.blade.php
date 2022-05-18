@@ -219,24 +219,24 @@
                 });
         });
         jQuery('body').on('click', '#AffectSave', function (e) {
-               e.preventDefault();
-               var formData = {
-                      demande_id : jQuery('.demande_id').val(),
-                      lit_id     : $('.lit_id').val()
-              };
-               $.ajax({
-                      headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
-                      url : '{{ route ("lit.affecter") }}',
-                      type:'POST',
-                      data:formData,//dataType: 'json',
-                      success: function (data) {
-                             $("#demande" + formData['demande_id']).remove();
-                              jQuery('#bedAffectModal').trigger("reset");
-                             jQuery('#bedAffectModal').modal('hide');
-                      }
-             });
+           e.preventDefault();
+           var formData = {
+                  demande_id : jQuery('.demande_id').val(),
+                  lit_id     : $('.lit_id').val()
+          };
+           $.ajax({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  url : '{{ route ("lit.affecter") }}',
+                  type:'POST',
+                  data:formData,//dataType: 'json',
+                  success: function (data) {
+                    $("#demande" + formData['demande_id']).remove();
+                    $('#bedAffectModal').trigger("reset");
+                    $('#bedAffectModal').modal('hide');
+                  }
+         });
         });
       })
     </script>

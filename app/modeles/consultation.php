@@ -48,11 +48,7 @@ class consultation extends Model
     public function demandeHospitalisation()
     {
       return $this->hasOne('App\modeles\DemandeHospitalisation','id_consultation');
-    }
-    public function ordonnaces()
-    {
-        return $this->hasMany('App\modeles\ordonnance','id_consultation');
-    }
+    }/*public function ordonnaces(){return $this->hasMany('App\modeles\ordonnance','id_consultation');}*/
     public function lettreOrintation()
     {
       return $this->hasMany('App\modeles\LettreOrientation','consultation_id');

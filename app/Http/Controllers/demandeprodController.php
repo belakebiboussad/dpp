@@ -234,7 +234,7 @@ class demandeprodController extends Controller
       {
         if(Auth::user()->role_id != 10) 
         {
-          $ServiceId = Auth()->user()->employ->service;    
+          $ServiceId = Auth()->user()->employ->service_id;    
           if(isset($request->value))
               $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId){
                                        $q->where('id', $ServiceId);

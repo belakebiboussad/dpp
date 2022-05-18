@@ -139,24 +139,24 @@ class LitsController extends Controller
     //affeter lit pour demande d'urgence
       public function affecterLit(Request $request )
       {
-          $demande= DemandeHospitalisation::find($request->demande_id); 
-           $lit = lit::FindOrFail( $request->lit_id);
-           if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-           {
-                  $rdv = $demande->RDVs->where('etat', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
-                  $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
-           }else {
-                          $now = $today = Carbon::now()->toDateString();
-                          $newDateTime = Carbon::now()->addDay(3)->toDateString();
-                          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
-                          $demande->update([ 'etat' => 1 ]);   
-          }
-           if(!$free)
-                   $lit->bedReservation()->delete(); 
-           $affect = bedAffectation::create($request->all());
-           $lit->update([ "affectation" =>1 ]);
-           if($request->ajax())  
-                return Response::json($affect);
+        $demande= DemandeHospitalisation::find($request->demande_id); 
+        $lit = lit::FindOrFail( $request->lit_id);
+        if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
+        {
+          $rdv = $demande->RDVs->where('etat', NULL)->first(); //if($rdv->has('bedReservation')) $rdv->bedReservation()->delete();
+          $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
+        }else {
+            $now = $today = Carbon::now()->toDateString();
+            $newDateTime = Carbon::now()->addDay(3)->toDateString();
+            $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+            $demande->update([ 'etat' => 1 ]);   
+        }
+        if(!$free)
+          $lit->bedReservation()->delete(); 
+        $affect = bedAffectation::create($request->all());
+        $lit->update([ "affectation" =>1 ]);
+        if($request->ajax()) //return Response::json($affect);
+          return $affect;
        }
         public function affecter()
         {
@@ -164,9 +164,9 @@ class LitsController extends Controller
           $services = service::where('type','<>',2)->where('hebergement','1')->get();
           $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
                                                                ->whereHas('demandeHospitalisation',function ($q){
-                                                                     $q->where('service',Auth::user()->employ->service)
+                                                                     $q->where('service',Auth::user()->employ->service_id)
                                                                        ->where('etat',1);    
-                                                              }) ->where('etat',null)->where('date','>=',$now)->get();
+                                                              })->where('etat','==',null)->where('date','>=',$now)->get();//->whereNull('etat')
           $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                       ->whereHas('consultation',function($q) use($now){
                                            $q->where('date', $now);

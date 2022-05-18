@@ -35,7 +35,7 @@ class StatistiqusController extends Controller
     {  
         
       $nbcons[] = consultation::join('employs', 'consultations.employ_id','employs.id')
-             									->join('services', 'employs.service','=','services.id')->where('services.nom','=',$sevV->nom) 
+             									->join('services', 'employs.service_id','=','services.id')->where('services.nom','=',$sevV->nom) 
                     					->where('date','=',$value)-> groupBy ( 'services.nom' )-> count ();
     }
     foreach  ($servs as $srv)

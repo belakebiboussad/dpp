@@ -80,7 +80,7 @@ class LoginController extends Controller
         return Redirect::to('/login'); //redirect back to login
       }//abm
 /*protected function authenticated(Request $request, $user){$IPs = config('settings.IPs');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
-  if(isset($user->employ->service))session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);}*/
+  if(isset($user->employ->service_id))session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);}*/
 	    public function username()
       {
   		  return 'name';

@@ -26,13 +26,12 @@ class RdvHospiController extends Controller
   {
     $now = date("Y-m-d", strtotime('now'));    
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
-    /*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
-                                                                $q->where('id', Auth::user()->employ->service);    })->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/   
-    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service)->get();
+/*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {$q->where('id', Auth::user()->employ->service_id);})->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/  
+    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service_id)->get();
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                         ->whereHas('consultation',function($q) use($now){
                                              $q->where('date', $now);
-                                        })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service)->get(); //'en attente'
+                                        })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service_id)->get(); //'en attente'
      return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
   public function create($id)
@@ -66,7 +65,7 @@ class RdvHospiController extends Controller
         $rdvHospis = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                                            $q->where('etat', 1);
                                                  })->whereHas('demandeHospitalisation.Service',function($q){
-                                                      $q->where('id',Auth::user()->employ->service);       
+                                                      $q->where('id',Auth::user()->employ->service_id);       
                                                  })->where('etat','=',null)->get();
         return view('rdvHospi.liste',compact('rdvHospis'));
   }

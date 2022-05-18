@@ -288,7 +288,7 @@ class UsersController extends Controller
               break;
         case "service_id"  :
               $users = User::with('role')->whereHas('employ', function ($q) use ($value){
-                                             $q->where('service',$value);
+                                             $q->where('service_id',$value);
                                          })->get();
               break; 
         default:    

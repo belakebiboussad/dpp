@@ -48,36 +48,37 @@
 <div class="pull-right">
   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row"><h4><strong>Actualiser les données de l'hospitalisation</strong></h4></div><div class="space-12"></div>  
+<div class="row"><h4><strong>Modifier l'hospitalisation</strong></h4></div>  
 <div class="row">
   <div class="col-sm-12"><h4 class="header smaller lighter blue">Hospitalisation</h4></div>
 </div>
 <div class="profile-user-info">
   <div class="row">
-    <div class="col-sm-4 profile-info-row">
+    <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Service:</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</span></div>
     </div>
-    <div class="col-sm-4 profile-info-row">
+    <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Spécialité :</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</span></div>
     </div>
-     <div class="col-sm-4 profile-info-row">
+     <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Mode admission:</div><div class="profile-info-value col-sm-6">
              <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
       </div>
     </div>  
   </div>
-  @if($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) != 2)
+  {{-- @if($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) != 2) --}}
+  @if($hosp->admission->demandeHospitalisation->consultation->medecin->Service->type == 1)
   <div class="row">
-    <div class="col-sm-4 profile-info-row">
+    <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Médecin Traitant :</div>
       <div class="profile-info-value col-sm-6"><span>{{ $hosp->medecin->full_name }}</span></div>
     </div>
-    <div class="col-sm-4 profile-info-row">
+    <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Priorité :</div><div class="profile-info-value col-sm-6">
         <span class="label label-sm label-primary">{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
       </div>
     </div>
-    <div class="col-sm-4 profile-info-row">
+    <div class="col-sm-3 profile-info-row">
       <div class="profile-info-name col-sm-6">Observation :</div><div class="profile-info-value col-sm-6"><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span></div>
     </div>
   </div>
@@ -92,25 +93,25 @@
       <div class="row">
         <div class="col-sm-12"><h4 class="header smaller lighter blue">Entrée</h4></div>
       </div>
-      <div class="row form-group">
-      	<div class="col-xs-4">
-          	<label class="col-sm-4 control-label no-padding-right" for="Date_entree"><strong> Date:</strong> </label>
+      <div class="row">
+      	<div class="form-group col-xs-3">
+          	<label class="col-sm-4 control-label no-padding-right" for="Date_entree"><strong> Date :</strong> </label>
            	<div class="col-sm-8">
               <input class="col-xs-9 col-sm-9 date-picker" id="dateEntree" name="Date_entree" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
               <button class="btn btn-md filelink" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar"></i></button>
             </div> 
         	</div>
-					<div class="col-xs-4">
+					<div class="form-group col-xs-3">
 	          <label class="col-sm-4 control-label no-padding-right" for="heure_entrée">
-	              <strong> Heure:</strong>
+	              <strong> Heure :</strong>
 	          </label>
 	          <div class="col-sm-8">   
 	            <input id="heurEnt" name="heure_entrée" class="col-xs-8 col-sm-8 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/ >
 		      	  <button class="btn btn-md filelink" onclick="$('#dateEntree').focus()"> <i class="fa fa-clock-o bigger-110"></i></button>	
 		       </div>
         	</div>
-        	<div id = "numberofDays" class="col-xs-4">
-          	<label class="col-sm-4 control-label no-padding-right" for=""><strong> Durée:</strong></label>
+        	<div id = "numberofDays" class="form-group col-xs-3">
+          	<label class="col-sm-4 control-label no-padding-right" for=""><strong> Durée :</strong></label>
            	<div class="col-sm-8">
 		          <input class="col-xs-7 col-sm-7" id="numberDays" name="" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 		           <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
@@ -120,36 +121,45 @@
         <div class="row">
           <div class="col-sm-12"><h4 class="header smaller lighter blue">Sortie prévue</h4></div>
         </div>
-     	  <div class="row form-group">
-	        <div class="col-xs-4">
-	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date:</strong></label>
+     	  <div class="row">
+          <div class="form-group col-xs-3">
+	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date :</strong></label>
 	          <div class="col-sm-8">
 	            <input class="col-xs-9 col-sm-9 date-picker" id="dateSortiePre" name="Date_Prevu_Sortie" type="text" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
 	            <button class="btn btn-md filelink"  onclick="$('#dateSortiePre').focus();"><i class="fa fa-calendar"></i></button>            
 	          </div>
 	        </div>
-		      <div class="col-xs-4">
-		        <label class="col-sm-4 control-label no-padding-right" for="Heure_Prevu_Sortie"><strong> Heure:</strong></label>
+		      <div class="form-group col-xs-3">
+		        <label class="col-sm-4 control-label no-padding-right" for="Heure_Prevu_Sortie"><strong> Heure :</strong></label>
 		        <div class="col-sm-8">   
 		          <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-8 col-sm-8 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 			      	<button class="btn btn-md filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>	
 			       </div>
         	</div>
-        	<div class="col-xs-4">
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right no-wrap" for="garde_id" style="padding: 0.9%;"><strong>Garde Malade :</strong></label>
-							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
-							<select name="garde_id" id="garde_id" @if(in_array(Auth::user()->role->id,[5])) disabled @endif>
+          <div class="form-group col-xs-3">
+              <label class="col-sm-4 control-label no-padding-right no-wrap" for="medecin_id"><strong>Médecin Traitant :</strong></label>
+              <div class="input-group col-sm-8"><!-- style ="width:35.8%;padding: 0.8%;"   -->
+              <select name="medecin_id" id="medecin_id">{{-- @if(in_array(Auth::user()->role->id,[5])) disabled @endif --}}
+                  <option value="0" selected>Selectionnez le médecin traitant</option>
+                  @foreach( $hosp->admission->demandeHospitalisation->Service->employs)
+                  <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
+                  @endforeach
+              </select><!-- </div> -->
+            </div>
+          </div>
+        	<div class="form-group col-xs-3">
+							<label class="col-sm-4 control-label no-padding-right no-wrap" for="garde_id"><strong>Garde malade :</strong></label>
+							<div class="input-group col-sm-8">
+							<select name="garde_id" id="garde_id">{{-- @if(in_array(Auth::user()->role->id,[5])) disabled @endif --}}
 							 		<option value="0" selected>Selectionnez le garde malade</option>
 							 		@foreach( $hosp->patient->hommesConf as $homme)
 							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
 								  @endforeach
-							</select>
-							</div>
+							</select><!-- </div> -->
 						</div>
 					</div>
         </div>
-        @if(isset($hosp->admission->id_lit))    
+        @if((Auth::user()->role_id == 5) &&(isset($hosp->admission->id_lit)))    
         <div class="row">
           <div class="col-sm-12"><h4 class="header smaller lighter blue">Hébergement</h4></div>
         </div>

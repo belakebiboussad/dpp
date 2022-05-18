@@ -165,19 +165,15 @@ class ConsultationsController extends Controller
             }
           }  
         }
-        
         if(json_decode($request->orients) !== null) {
           foreach (json_decode($request->orients, true) as $key => $orient) {
             $orient['consultation_id'] = $consult->id ;
             LettreOrientation::create($orient);
           }
-        }
-        
-        /*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
+        }/*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
         if($request->liste != null)//save Ordonnance
         {
-          $ord = new ordonnance;
-          $ord->date = Date::Now();
+          $ord = new ordonnance;$ord->date = Date::Now();
           $consult->ordonnances()->save($ord);
           foreach (json_decode($request->liste) as $key => $trait) {
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     

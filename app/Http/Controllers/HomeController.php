@@ -50,7 +50,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $ServiceID = Auth::user()->employ->service;
+      $ServiceID = Auth::user()->employ->service_id;
       $etablissement = Etablissement::first(); 
       Session::put('etabname', $etablissement->nom);
       Session::put('etabTut', $etablissement->tutelle);

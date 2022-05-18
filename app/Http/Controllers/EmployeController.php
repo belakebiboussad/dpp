@@ -39,7 +39,7 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-        $employe = employ::FindOrFail($id);//$employe = employ::with('service')->FindOrFail($id);
+        $employe = employ::FindOrFail($id);
         return view('employe.show',compact('employe'));
     }
 

@@ -60,9 +60,7 @@
             <b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-            <li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une hospitalisation
-              </a><b class="arrow"></b>
-            </li>
+{{--<li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i></a><b class="arrow"></b></li>--}}
             <li>
               <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
                 <i class="menu-icon fa fa-eye pink"></i>Liste des hospitalisations
