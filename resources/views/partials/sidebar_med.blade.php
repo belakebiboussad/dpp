@@ -308,26 +308,7 @@
         champ.appendTo(form);
       }
     }
-    function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-            $('#OrientLetterPdf').removeAttr('hidden');
-            $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-            $("#motifCons").text($( "#motifC" ).val());
-            $("#motifO").text($( "#motifOrient" ).val());
-            var element = document.getElementById('OrientLetterPdf');
-            var options = {
-                   filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-            };
-            var exporter = new html2pdf(element, options);
-            $("#OrientLetterPdf").attr("hidden",true);
-             exporter.getPdf(true).then((pdf) => {
-                    console.log('pdf file downloaded');
-            });
-             exporter.getPdf(false).then((pdf) => {
-                    console.log('doing something before downloading pdf file');
-                   pdf.save();
-            });
-      }
-      function IMC1(){
+    function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();
         if(poids==""){
@@ -381,7 +362,7 @@
         var longueur = orientations.length; var orientationliste = []; 
         for(var i=1; i<longueur; i++)
         {
-          orientationliste[i-1] = { spec: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
+          orientationliste[i-1] = { specialite: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
         }
         var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
         champ.appendTo('#consultForm');
@@ -519,7 +500,7 @@
              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
             }
           });
-        $.ajax({
+         $.ajax({
           type: "DELETE",
             url: '/atcd/' + atcd_id,
           success: function (data) {
@@ -529,8 +510,29 @@
                console.log('Error:', data);
             }
         });
-        
-    }); 
-}) 
+    });
+    function orLetterPrint(nomP,prenomP,ageP,ipp) {
+      alert("ett");
+    }
+    function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+      $('#OrientLetterPdf').removeAttr('hidden');
+      $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+      $("#motifCons").text($( "#motifC" ).val());
+      $("#motifO").text($( "#motifOrient" ).val());
+      var element = document.getElementById('OrientLetterPdf');
+      var options = {
+             filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+      };
+      var exporter = new html2pdf(element, options);
+      $("#OrientLetterPdf").attr("hidden",true);
+       exporter.getPdf(true).then((pdf) => {
+              console.log('pdf file downloaded');
+      });
+       exporter.getPdf(false).then((pdf) => {
+              console.log('doing something before downloading pdf file');
+             pdf.save();
+      });
+    }
+  }) 
 </script>
 </div>

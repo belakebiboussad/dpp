@@ -518,10 +518,10 @@ $('document').ready(function(){
     $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
 	  $("#drugsPrint").click(function(){
-          	  	var pid = '{{ $patient->id }}';
-          	  	var mid = '{{  Auth::User()->employ->id }}';
-          	  	var keys=[], meds=[];
-          		$("#ordonnance thead tr th").each(function(){
+  	  var pid = '{{ $patient->id }}';
+  	  var mid = '{{  Auth::User()->employ->id }}';
+  	  var keys=[], meds=[];
+  		$("#ordonnance thead tr th").each(function(){
 				if(($(this).html() == "id") || ($(this).html() == "Posologie"))
 					keys.push($(this).html());  
 			});
@@ -549,7 +549,7 @@ $('document').ready(function(){
 			$.ajax({
 				type: "POST",
 				url: "/ordonnaces/print",
-				data:formData,//contentType: "application/j-son;charset=UTF-8",
+				data:formData,
 				dataType: "json",
 				success: function (data,status, xhr) {	  	
 					$('#iframe-pdf').contents().find('html').html(data.html);

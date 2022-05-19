@@ -51,12 +51,12 @@ Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
 route::resource('/const','ConstanteController');
 route::resource('acteExec','ActeExecController');
+route::resource('orientLetter','LettreOrientationController');
 route::resource('traitExec','TraitExecController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
-Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
-Route::get('/admdetail/{id}', 'AdmissionController@getDetails');
+Route::get('sortiePatient/{id}','AdmissionController@updateAdm');//Route::get('/admdetail/{id}', 'AdmissionController@getDetails');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
@@ -71,8 +71,7 @@ Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
-Route::get('/consultations/create/{id}','ConsultationsController@create');
-//Route::get('getConsultations/{id}','ConsultationsController@listecons');
+Route::get('/consultations/create/{id}','ConsultationsController@create');//Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');
@@ -167,8 +166,7 @@ Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download'
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
-Route::get('/soins/index/{id}','SoinsController@index');
-/*Route::get('/404', function () {   return view('errors.404'); });*/
+Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', function () {   return view('errors.404'); });*/
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');

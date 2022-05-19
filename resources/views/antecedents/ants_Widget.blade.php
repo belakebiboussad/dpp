@@ -30,7 +30,7 @@
 							  	</td>
 							 	 <td class="center">
 							  	@if($atcd->Antecedant == "Personnels")
-							  	<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse" id="{{$i}}" data-target=".{{$i}}collapsed">
+							  	<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse" data-target=".{{$i}}collapsed">
 										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
 									</a>
 									@endif

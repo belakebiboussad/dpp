@@ -66,9 +66,9 @@ class AntecedantsController extends Controller
      */
     public function edit($id)
     {
-        $atcd = antecedant::FindOrFail($id);
-        $patient = patient::FindOrFail($atcd->pid);
-        return view('antecedents.edit',compact('atcd','patient'));
+      $atcd = antecedant::FindOrFail($id);
+      $patient = patient::FindOrFail($atcd->pid);
+      return view('antecedents.edit',compact('atcd','patient'));
     }
 
     /**
@@ -92,8 +92,8 @@ class AntecedantsController extends Controller
      */
     public function destroy($id)
     {
-        $atcd = antecedant::destroy($id);
-        return $atcd;
+      $atcd = antecedant::destroy($id);
+      return $atcd;
     }
 
 }

@@ -539,43 +539,43 @@ class PatientController extends Controller
   }
   public function merge(Request $request)
   {
-          $patient1=patient::FindOrFail($request->patient1_id);
-          $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
-          $consuls = consultation::where('pid',$request->patient2_id)->get();
-          $antecedants=antecedant::where('pid',$request->patient2_id)->get();
-          foreach ($antecedants as $key => $antecedant) {
-             $antecedant->update(["pid"=>$patient1->id]);  
-          }
-          foreach ($consuls as $key => $consult) {
-                $consult->update(["pid"=>$patient1->id]);  
-          }
-          $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
-          foreach ($tickets as $key => $ticket) {
-            $ticket->update(["id_patient"=>$patient1->id]);  
-          }
-          $rdvs = rdv::where('patient_id',$request->patient2_id)->get();
-          foreach ($rdvs as $key => $rdv) {
-            $rdv->update(["patient_id"=>$patient1->id]);  
-          }
-          $patient1 -> update([
-                "Nom"=>$request->nom,
-                "Prenom"=>$request->prenom,
-                "IPP"=>$request->code,
-                "Dat_Naissance"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->idlieunaissance,
-                "Sexe"=>$request->sexe,
-                "Adresse"=>$request->adresse,
-                "situation_familiale"=>$request->sf,
-                "tele_mobile1"=>$request->mobile1,
-                "tele_mobile2"=>$request->mobile2,
-                "group_sang"=>$request->gs,
-                "rhesus"=>$request->rh, 
-                "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
-                "Type"=>$request->type,
-                "description"=>$request->description,
-                "NSS"=> $request->nss,
-          ]);   
-          $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
-          Return View::make('patient.index');
+    $patient1=patient::FindOrFail($request->patient1_id);
+    $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
+    $consuls = consultation::where('pid',$request->patient2_id)->get();
+    $antecedants=antecedant::where('pid',$request->patient2_id)->get();
+    foreach ($antecedants as $key => $antecedant) {
+       $antecedant->update(["pid"=>$patient1->id]);  
+    }
+    foreach ($consuls as $key => $consult) {
+          $consult->update(["pid"=>$patient1->id]);  
+    }
+    $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
+    foreach ($tickets as $key => $ticket) {
+      $ticket->update(["id_patient"=>$patient1->id]);  
+    }
+    $rdvs = rdv::where('patient_id',$request->patient2_id)->get();
+    foreach ($rdvs as $key => $rdv) {
+      $rdv->update(["patient_id"=>$patient1->id]);  
+    }
+    $patient1 -> update([
+          "Nom"=>$request->nom,
+          "Prenom"=>$request->prenom,
+          "IPP"=>$request->code,
+          "Dat_Naissance"=>$request->datenaissance,
+          "Lieu_Naissance"=>$request->idlieunaissance,
+          "Sexe"=>$request->sexe,
+          "Adresse"=>$request->adresse,
+          "situation_familiale"=>$request->sf,
+          "tele_mobile1"=>$request->mobile1,
+          "tele_mobile2"=>$request->mobile2,
+          "group_sang"=>$request->gs,
+          "rhesus"=>$request->rh, 
+          "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+          "Type"=>$request->type,
+          "description"=>$request->description,
+          "NSS"=> $request->nss,
+    ]);   
+    $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
+    return view('patient.index');
   }
 }

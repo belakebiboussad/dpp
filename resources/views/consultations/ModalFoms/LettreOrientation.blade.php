@@ -59,7 +59,6 @@ td
 </div>{{-- modal --}}
 <div class="row">@include('consultations.ModalFoms.LettreOrientationAdd')</div>
 <script>
-  
   $(function(){
     $('#LettreOrientationAdd').on('hidden.bs.modal', function (e) {  
       $(this).find("input:not([type=button]),textarea,select,text")
@@ -71,14 +70,12 @@ td
     $('#orientation-add').click(function () {//ADD Orientation
       $('#orientationSave').val("add");
       jQuery('#modalFormDataOroient').trigger("reset");
-      $('#AntecCrudModal').html("Ajouter une  lettre d'orientation");
+      $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
       jQuery('#LettreOrientationAdd').modal('show');
     });
     $('#orientationSave').click(function () {//ADD Orientation
       if($(this).val() == "update")
-      {
         supcolonne($("#specialiteOrient").val());
-      } 
       var orientation ='<tr id="'+$("#specialiteOrient").val()+'"><td hidden>'+$("#specialiteOrient").val()+'</td><td>'+$('#specialiteOrient option:selected').html() +'</td><td>'+$("#motifC").val()+'</td><td>'+$("#motifOrient").val()+'</td><td class="center">';
       orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + $("#specialiteOrient").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
       orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + $("#specialiteOrient").val()+ '" onclick ="supcolonne('+$("#specialiteOrient").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -91,7 +88,8 @@ td
       $("#motifC").val(tr.cells[2].innerHTML);  
       $("#motifOrient").val(tr.cells[3].innerHTML);
       $('#orientationSave').val("update");
-      $('#orientationSave').attr('data-id',$(this).val());  
+      $('#orientationSave').attr('data-id',$(this).val());
+      $('#orientCrudModal').html("Modifier la  lettre d'orientation");  
       jQuery('#LettreOrientationAdd').modal('show');
     })
   }) 

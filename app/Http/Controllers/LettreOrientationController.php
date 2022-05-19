@@ -18,4 +18,14 @@ class LettreOrientationController extends Controller
         "consultation_id"=>$consultID,
         ]);
     }
+    public function edit($id)
+    {
+      $orient = LettreOrientation::FindOrFail($id);
+      return $orient;
+    }
+    public function destroy($id)
+    {
+      $orient = LettreOrientation::destroy($id);
+      return $orient;
+    }
 }

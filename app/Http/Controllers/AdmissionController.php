@@ -11,8 +11,7 @@ use App\modeles\employ;
 use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
-use App\modeles\hospitalisation;
-use App\modeles\ModeHospitalisation;
+use App\modeles\hospitalisation;//use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;//use Response;
 class AdmissionController extends Controller
 {
@@ -172,22 +171,10 @@ class AdmissionController extends Controller
           return $adms;
         }
     }
-    public function getDetails($id)
-    { 
-      $nbr=0;
-      $adm =  admission::find($id);
-      $medecins = employ::where('service_id',Auth::user()->employ->service_id)->orderBy('nom')->get();
-      $modesHosp = ModeHospitalisation::all();  
-      $to = $from =  \Carbon\Carbon::now()->format('Y-m-d');
-      if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) !=2)
-      {
-        $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
-        $to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
-        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);
-        $from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
-        $nbr = $toDate->diffInDays($fromDate);
-      }
-      $view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','from','nbr','to'))->render();
-      return (['html'=>$view]);
-    }
+/*public function getDetails($id){ $nbr=0; $adm =  admission::find($id);$medecins = employ::where('service_id',Auth::user()->employ->service_id)->orderBy('nom')->get();
+$modesHosp = ModeHospitalisation::all(); $to = $from =  \Carbon\Carbon::now()->format('Y-m-d');if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) !=2)
+{$toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);$to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
+$fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);$from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
+$nbr = $toDate->diffInDays($fromDate);}$view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','from','nbr','to'))->render();
+return (['html'=>$view]);}*/
 }

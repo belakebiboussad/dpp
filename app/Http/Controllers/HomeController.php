@@ -59,49 +59,49 @@ class HomeController extends Controller
       Session::put('etabTel2', $etablissement->tel2);
       Session::put('etabLogo', $etablissement->logo);
       switch (Auth::user()->role_id) {
-            case 1://medecin & meecinChef
-                  return view('patient.index');
-                  break;
-            case 2://rec
-                   return view('patient.index'); //return view('home.home_recep');
-                  break;
-            case 3://inf                    
-                  return redirect()->action('HospitalisationController@index');
-                  break;
-            case 4: 
-                  //return redirect()->action('UsersController@index');
-                  return view('home.dashboard');
-                  
-                  break;
-            case 5:
-                  return redirect()->action('RdvHospiController@index');
-                  break;
-            case 6:
-                  return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
-                  break;
-            case 8:
-                  return redirect()->action('StatistiqusController@index');
-                  break;      
-            case 9: //agent Admission
-                    return redirect()->action('AdmissionController@index');
-                    break;       
-            case 10://phar
-                    return redirect()->action('demandeprodController@index');
-                    break;   
-            case 11://Laborantin
-                    return redirect()->action('DemandeExbController@index');
-                    break;   
-            case 12://radiologue
-                     return redirect()->action('DemandeExamenRadio@index');
+          case 1://medecin & meecinChef
+                return view('patient.index');
                 break;
-            case 13://med chef
-                return view('patient.index');
+          case 2://rec
+                 return view('patient.index'); //return view('home.home_recep');
+                break;
+          case 3://inf                    
+                return redirect()->action('HospitalisationController@index');
+                break;
+          case 4: 
+                //return redirect()->action('UsersController@index');
+                return view('home.dashboard');
+                
+                break;
+          case 5:
+                return redirect()->action('RdvHospiController@index');
+                break;
+          case 6:
+                return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
+                break;
+          case 8:
+                return redirect()->action('StatistiqusController@index');
+                break;      
+          case 9: //agent Admission
+                  return redirect()->action('AdmissionController@index');
+                  break;       
+          case 10://phar
+                  return redirect()->action('demandeprodController@index');
+                  break;   
+          case 11://Laborantin
+                  return redirect()->action('DemandeExbController@index');
+                  break;   
+          case 12://radiologue
+                   return redirect()->action('DemandeExamenRadio@index');
+              break;
+          case 13://med chef
+              return view('patient.index');
 
-            case 14://chef de service
-                return view('patient.index');
-            default:
-               return view('errors.500');
-               break;
+          case 14://chef de service
+              return view('patient.index');
+          default:
+             return view('errors.500');
+             break;
        }
     }
     public function flash()

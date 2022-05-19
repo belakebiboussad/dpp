@@ -286,34 +286,35 @@ $('document').ready(function(){
 @endisset
 @if(isset($consultation->lettreOrintation))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Lettre d'Orientation</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Lettres d'Orientation</strong></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
     <div class="widget-box widget-color-blue">
-      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettre</h5></div>
+      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettres d'orientation</h5></div>
       <div class="widget-body">
         <div class="widget-main no-padding">
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th>
                 <th class="center"><strong>Spécilalité</strong></th>
                 <th class="center"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ $consultation->date }}</td>
-                <td>{{ $consultation->lettreOrintation->Specialite->nom }}</td>
+                @foreach($consultation->lettreOrintation as $orient)
+                <td>{{ $orient->Specialite->nom }}</td>
                 <td class="center">
-                  <a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
+                  <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".{{ $orient->id }}collapsed">
                     <i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
                   </a>
-                  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
+                  <button type="button" class="btn btn-xs" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')">
+                    <i class="ace-icon fa fa-print fa-xs"></i>
+                  </button>
                 </td>
               </tr>
-              <tr class="collapse out budgets collapsed">
+              <tr class="collapse out budgets {{ $orient->id }}collapsed">
                 <td colspan="12">
                   <div class="table-detail">
                     <div class="row">
@@ -321,7 +322,17 @@ $('document').ready(function(){
                         <div class="profile-user-info profile-user-info-striped">
                           <div class="profile-info-row">
                             <div class="profile-info-name text-center"><strong>Motif:</strong></div>
-                            <div class="profile-info-value">{{ $consultation->lettreOrintation->motif }}</div>
+                            <div class="profile-info-value">{{ $orient->motif }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
+                        <div class="profile-user-info profile-user-info-striped">
+                          <div class="profile-info-row">
+                            <div class="profile-info-name text-center"><strong>Examen:</strong></div>
+                            <div class="profile-info-value">{{ $orient->examen }}</div>
                           </div>
                         </div>
                       </div>
@@ -329,6 +340,7 @@ $('document').ready(function(){
                   </div>
                 </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

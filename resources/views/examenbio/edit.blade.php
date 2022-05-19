@@ -5,7 +5,6 @@
     $('body').on('click', '.examBio-Delete', function (e) {  
       event.preventDefault();
       var exam_id = $(this).val(); 
-     
       $.ajaxSetup({
               headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
       });
@@ -35,7 +34,7 @@
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
         <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp; &nbsp;
-      <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"> <i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+      <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
   </div><div class="space-12"></div>
   <div class="row">

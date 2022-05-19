@@ -91,7 +91,7 @@ class ConsultationsController extends Controller
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
-        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
     /**
@@ -230,8 +230,10 @@ class ConsultationsController extends Controller
       public function show($id)
       {
         $consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        return view('consultations.show', compact('consultation','specialite'));
+        dd(session()->all());
+        return view('consultations.show', compact('consultation','specialite','specialites'));
       }
      
     /**
@@ -253,7 +255,7 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      *//* public function choix() { return view('consultations.add'); }*/
-          public function getConsultations(Request $request)
+      public function getConsultations(Request $request)
       {
         if($request->ajax())  
         {         
