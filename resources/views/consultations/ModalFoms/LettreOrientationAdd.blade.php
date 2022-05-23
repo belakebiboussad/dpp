@@ -34,9 +34,7 @@
 		  <div class="modal-footer">
           <div class="col-sm-12"><!-- onclick="lettreorientation()" -->
 			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="orientationSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          {{-- ,'{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}' --}}
-				  <button type="button" class="btn btn-sm btn-success" onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}','{{$patient->age }}','{{$patient->IPP }}')" data-dismiss="modal"><i class="ace-icon fa fa-print"></i>Imprimer</button>
-				  <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+          <button type="button" class="btn btn-sm btn-warning"  data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>
 		</div>{{-- modal-content --}}

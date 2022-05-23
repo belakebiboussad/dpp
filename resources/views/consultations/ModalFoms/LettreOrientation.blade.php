@@ -59,7 +59,34 @@ td
 </div>{{-- modal --}}
 <div class="row">@include('consultations.ModalFoms.LettreOrientationAdd')</div>
 <script>
+    function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+      $('#OrientLetterPdf').removeAttr('hidden');
+      $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+      $("#motifCons").text($( "#motifC" ).val());
+      $("#motifO").text($( "#motifOrient" ).val());
+      var element = document.getElementById('OrientLetterPdf');
+      var options = {
+           filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+      };
+      var exporter = new html2pdf(element, options);
+      $("#OrientLetterPdf").attr("hidden",true);
+      exporter.getPdf(true).then((pdf) => {
+        console.log('pdf file downloaded');
+      });
+      exporter.getPdf(false).then((pdf) => {
+          console.log('doing something before downloading pdf file');
+          pdf.save();
+      });
+    }
   $(function(){
+    
+    imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+      base64Img = base64; 
+    });
+    imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+            footer64Img = base64; 
+   });   
+
     $('#LettreOrientationAdd').on('hidden.bs.modal', function (e) {  
       $(this).find("input:not([type=button]),textarea,select,text")
         .val('')
@@ -78,11 +105,12 @@ td
         supcolonne($("#specialiteOrient").val());
       var orientation ='<tr id="'+$("#specialiteOrient").val()+'"><td hidden>'+$("#specialiteOrient").val()+'</td><td>'+$('#specialiteOrient option:selected').html() +'</td><td>'+$("#motifC").val()+'</td><td>'+$("#motifOrient").val()+'</td><td class="center">';
       orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + $("#specialiteOrient").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+      orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + $("#specialiteOrient").val()+ '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
       orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + $("#specialiteOrient").val()+ '" onclick ="supcolonne('+$("#specialiteOrient").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
       $("#orientationsList").append(orientation);
       $('#LettreOrientationAdd').trigger("reset");
     });
-    jQuery('body').on('click', '.open-Orient', function (event) {
+    $('body').on('click', '.open-Orient', function (event) {
       var tr = document.getElementById($(this).val());
       $("#specialiteOrient").val(tr.cells[0].innerHTML).change();
       $("#motifC").val(tr.cells[2].innerHTML);  
@@ -91,6 +119,42 @@ td
       $('#orientationSave').attr('data-id',$(this).val());
       $('#orientCrudModal').html("Modifier la  lettre d'orientation");  
       jQuery('#LettreOrientationAdd').modal('show');
-    })
-  }) 
+    });
+   /* $('body').on('click', '#orientationPrint', function (event) {
+      $('#OrientLetterPdf').removeClass('hidden');
+      var tr = document.getElementById($(this).val()); $("#orSpecialite").text(tr.cells[1].innerHTML);
+      $("#motifCons").text(tr.cells[2].innerHTML); $("#motifO").text(tr.cells[3].innerHTML);
+   *//*$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());$("#motifCons").text($( "#motifC" ).val()); $("#motifO").text($( "#motifOrient" ).val());*/
+     /*
+      var element = document.getElementById('OrientLetterPdf');
+      var options = {
+        filename:'lettreOrient-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom }}'+'.pdf'
+      };
+      var exporter = new html2pdf(element, options);
+      $("#OrientLetterPdf").attr("hidden",true);
+      exporter.getPdf(true).then((pdf) => {
+        console.log('pdf file downloaded');
+      });
+      exporter.getPdf(false).then((pdf) => {
+          console.log('doing something before downloading pdf file');
+          pdf.save();
+      });
+    });*/
+
+  $('body').on('click', '#orientationPrint', function (event) {
+    var tr = document.getElementById($(this).val());
+    //$("#orSpecialite").text(tr.cells[1].innerHTML);
+    var ipp = '{{ $patient->IPP }}';
+    JsBarcode("#barcodeor",ipp,{
+      format: "CODE128",
+      width: 2,
+      height: 30,
+      textAlign: "left",
+      text: "IPP: " + ipp 
+    });
+    var pdf = new jsPDF('p', 'pt', 'a4');
+    generate(pdf,'OrientLetterPdf'); 
+  });
+  
+}) 
 </script>

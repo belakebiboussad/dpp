@@ -1,7 +1,9 @@
 @extends('app')
 @section('title','Nouvelle Consultation')
 @section('style')
- <link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
+ <link rel="stylesheet" href="{{ asset('css/print.css') }}" />	
+ <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />  
+ <!-- <link rel="stylesheet" href="css/styles.css"/> -->
 <style>
 	.modaldialog {
 	  width:92%;
@@ -633,9 +635,8 @@ $('document').ready(function(){
 <div class="row">@include('antecedents.AntecedantModalPhysio')</div>
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
-<div class="row">@include('rdv.rendezVous')</div>
-<div class="row">@include('cim10.cimModalForm')</div>
-<div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
+<div class="row">@include('rdv.rendezVous')</div><div class="row">@include('cim10.cimModalForm')</div>
+<div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterImgPDF')</div>
 <div class="row"><div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
 <div class="row"><div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
 <div class="row center">@include('examenradio.ModalFoms.crrPrint')</div>

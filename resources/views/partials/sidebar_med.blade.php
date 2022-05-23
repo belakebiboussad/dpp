@@ -242,43 +242,43 @@
           var canvas = document.getElementById('barcode');
           var jpegUrl = canvas.toDataURL("image/jpeg");
           pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-         pdf.setFontSize(12);
-         pdf.text(320,730, 'Docteur : ' + med);
-         generate(pdf,'bioExamsPdf');
+          pdf.setFontSize(12);
+          pdf.text(320,730, 'Docteur : ' + med);
+          generate(pdf,'bioExamsPdf');
     }
         function printExImg(ipp,med)
        {
-               $("#infoSupPertinante").text('');
-               ol = document.getElementById('listImgExam');
-               ol.innerHTML = '';
-               var len = $(".infosup :checkbox:checked").length;
-               if($('.infosup input[type="checkbox"]').is(':checked')){
-                       $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
-                      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-                               if(index != len-1)
-                                      $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
-                               else
-                                     $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
-                      });
-               }else
-                      $("#infoSupPertinante").text('');
-                $("#ExamsImgtab tbody tr").each(function(){
-                         $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-                });        
-                var pdf = new jsPDF('p', 'pt', 'a4');
-                JsBarcode("#barcode",ipp,{
-                        format: "CODE128",
-                        width: 2,
-                        height: 30,
-                        textAlign: "left",
-                        text: "IPP: " + ipp 
-                });
-                var canvas = document.getElementById('barcode');
-                var jpegUrl = canvas.toDataURL("image/jpeg");
-                pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-                pdf.setFontSize(12);
-                pdf.text(320,730, 'Docteur : ' + med);
-                generate(pdf,'imagExamsPdf');
+       $("#infoSupPertinante").text('');
+       ol = document.getElementById('listImgExam');
+       ol.innerHTML = '';
+       var len = $(".infosup :checkbox:checked").length;
+       if($('.infosup input[type="checkbox"]').is(':checked')){
+               $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
+              $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+                       if(index != len-1)
+                              $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
+                       else
+                             $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
+              });
+       }else
+              $("#infoSupPertinante").text('');
+        $("#ExamsImgtab tbody tr").each(function(){
+                 $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
+        });        
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        JsBarcode("#barcode",ipp,{
+                format: "CODE128",
+                width: 2,
+                height: 30,
+                textAlign: "left",
+                text: "IPP: " + ipp 
+        });
+        var canvas = document.getElementById('barcode');
+        var jpegUrl = canvas.toDataURL("image/jpeg");
+        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        pdf.setFontSize(12);
+        pdf.text(320,730, 'Docteur : ' + med);
+        generate(pdf,'imagExamsPdf');
     }
     function printExamCom(ipp, med)
     {
@@ -383,10 +383,10 @@
              $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           });
           $('input[type=radio][name=exmns]').change(function() {
-             if(! isEmpty($('#examensradio').val()))
+            if(! isEmpty($('#examensradio').val()))
                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-           else
-               $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            else
+            $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           });
           $('#btnclose').click(function(){
            $("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
@@ -428,66 +428,66 @@
               $('#inputID').val($(this).val());
               $('#cim10Modal').modal('show');
           });
-         $('#chapitre').click(function(){
-              if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+          $('#chapitre').click(function(){
+                if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+                {
+                      $.ajax({
+                           type : 'get',
+                           url : '{{URL::to('schapitres')}}',
+                          data:{'search':$("#chapitre").val()},
+                          success:function(data,status, xhr){
+                                $( "#schapitre" ).prop( "disabled", false );
+                                var select = $('#schapitre').empty();
+                                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                                $.each(data,function(){
+                                      select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                                });
+                          }
+                      });
+                }else
+                      $( "#schapitre" ).prop( "disabled", true );
+          });
+          $('#schapitre').click(function(){
+              var fieldname = $('#inputID').val();
+              $('#liste_codesCIM tbody').empty();
+              if($("#schapitre").val() != 0)
               {
-                    $.ajax({
-                         type : 'get',
-                         url : '{{URL::to('schapitres')}}',
-                        data:{'search':$("#chapitre").val()},
-                        success:function(data,status, xhr){
-                              $( "#schapitre" ).prop( "disabled", false );
-                              var select = $('#schapitre').empty();
-                              select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-                              $.each(data,function(){
-                                    select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-                              });
-                        }
-                    });
-              }else
-                    $( "#schapitre" ).prop( "disabled", true );
-         });
-         $('#schapitre').click(function(){
-            var fieldname = $('#inputID').val();
-            $('#liste_codesCIM tbody').empty();
-            if($("#schapitre").val() != 0)
-            {
-              $.ajax({
-                  type : 'get',
-                  url : '{{URL::to('maladies')}}',
-                  data:{'search':$("#schapitre").val()},
-                  success:function(data,status, xhr){
-                        $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
-                        $('#liste_codesCIM' ).DataTable( {
-                             processing: true,
-                            bInfo : false,
-                            pageLength: 5,
-                            destroy: true,
-                            "language": { "url": '/localisation/fr_FR.json' },
-                            "data" : data,
-                            columns: [ 
-                                 {  data: 'CODE_DIAG'},
-                                 {  data: 'NOM_MALADIE'},
-                                 {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
-                                      "render": function(data,type,full,meta){
-                                            if( type === 'display' ) {
-                                              return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
-                                            }
-                                            return data;
-                                     }       
-                                 }
-                            ],
-                            "columnDefs": [
-                                  {"targets": 1 ,  className: "dt-head-center" },
-                                  {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
-                            ]
-                      });    
-                  },
-                  error:function(){
-                        console.log("error");
-                  },
-              });
-          }
+                $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('maladies')}}',
+                    data:{'search':$("#schapitre").val()},
+                    success:function(data,status, xhr){
+                          $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+                          $('#liste_codesCIM' ).DataTable( {
+                               processing: true,
+                              bInfo : false,
+                              pageLength: 5,
+                              destroy: true,
+                              "language": { "url": '/localisation/fr_FR.json' },
+                              "data" : data,
+                              columns: [ 
+                                   {  data: 'CODE_DIAG'},
+                                   {  data: 'NOM_MALADIE'},
+                                   {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+                                        "render": function(data,type,full,meta){
+                                              if( type === 'display' ) {
+                                                return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+                                              }
+                                              return data;
+                                       }       
+                                   }
+                              ],
+                              "columnDefs": [
+                                    {"targets": 1 ,  className: "dt-head-center" },
+                                    {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+                              ]
+                        });    
+                    },
+                    error:function(){
+                          console.log("error");
+                    },
+                });
+            }
         });
         $("#deletepod").click(function(){
              $("tr:has(input:checked)").remove();
@@ -511,28 +511,6 @@
             }
         });
     });
-    function orLetterPrint(nomP,prenomP,ageP,ipp) {
-      alert("ett");
-    }
-    function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-      $('#OrientLetterPdf').removeAttr('hidden');
-      $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-      $("#motifCons").text($( "#motifC" ).val());
-      $("#motifO").text($( "#motifOrient" ).val());
-      var element = document.getElementById('OrientLetterPdf');
-      var options = {
-             filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-      };
-      var exporter = new html2pdf(element, options);
-      $("#OrientLetterPdf").attr("hidden",true);
-       exporter.getPdf(true).then((pdf) => {
-              console.log('pdf file downloaded');
-      });
-       exporter.getPdf(false).then((pdf) => {
-              console.log('doing something before downloading pdf file');
-             pdf.save();
-      });
-    }
   }) 
 </script>
 </div>

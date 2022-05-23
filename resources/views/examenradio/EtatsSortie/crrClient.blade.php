@@ -9,4 +9,4 @@
 <div style="text-align: center;font-size: 1.5em;" class="mtP45">
 	<span>Compte rendu d'exploration radiologique</span>
 </div>
-<p  id ="conclusionPDF" class="ml-06 mtP50"> </p>
+<p id ="conclusionPDF" class="ml-06 mtP50"></p>
