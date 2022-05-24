@@ -6,7 +6,8 @@
 	<strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span>
 	<strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span>
 </div>
-<div style="text-align: center;font-size: 1.5em;" class="mtP45">
-	<span>Compte rendu d'exploration radiologique</span>
+<div class="textCenter mtP40 ft16" >
+	<strong>Compte rendu d'exploration radiologique</strong>
 </div>
-<p id ="conclusionPDF" class="ml-06 mtP50"></p>
+<!-- ml-06  -->
+<p id ="conclusionPDF" class="mtP50"></p>

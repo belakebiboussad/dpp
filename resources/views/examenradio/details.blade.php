@@ -25,9 +25,10 @@
 <script>
 function CRRPrint()
 { 
+  var fileName ='compteRendRadio-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
   $("#conclusionPDF").text($("#conclusion").val());
   var pdf = new jsPDF('p', 'pt', 'a4');
-  generate(pdf,'pdfContent');
+  generate(fileName,pdf,'pdfContent');
 }
 function CRRSave()
 {
@@ -163,17 +164,17 @@ $(function(){
               })
        });
       $(".open-AddCRRDialog").click(function () { 
-             $('#examId').val($(this).val());
-             jQuery('#CRRForm').trigger("reset");
-             jQuery('#crrSave').val("add");
-              $('#addCRRDialog').modal('show');
+        $('#examId').val($(this).val());
+        $('#CRRForm').trigger("reset");
+        $('#crrSave').val("add");
+        $('#addCRRDialog').modal('show');
       });
       $(".open-editCRRDialog").click(function () { 
-         jQuery('#CRRForm').trigger("reset");
+         $('#CRRForm').trigger("reset");
          crrId =  $(this).val();
          $.get('/crrs/' +crrId+'/edit', function (data) { 
             jQuery('#conclusion').val(data.conclusion);
-            $('#crrModalTitle').html('Editer un compte rendue radiologique');
+            $('#crrModalTitle').html('Editer le compte rendue radiologique');
             $('#crrId').val(data.id);
             jQuery('#crrSave').val("update");
             $('#addCRRDialog').modal('show');
@@ -309,6 +310,5 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="row text-center">@include('examenradio.ModalFoms.CRRModal')</div>
-<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  
+@include('examenradio.ModalFoms.CRRModal'){{-- @include('examenradio.ModalFoms.crrPrint') --}}
 @endsection

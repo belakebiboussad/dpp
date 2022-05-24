@@ -232,7 +232,6 @@ class ConsultationsController extends Controller
         $consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        dd(session()->all());
         return view('consultations.show', compact('consultation','specialite','specialites'));
       }
      

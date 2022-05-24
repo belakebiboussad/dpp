@@ -15,7 +15,7 @@ td
 			<div class="modal-body">
 			  <div class="row">
 			    <div class="col-xs-12">
-				    <div class= "widget-box widget-color-blue">
+				    <div class= "widget-box widget-color-green">
             <div class="widget-header">
                <h5 class="widget-title bigger lighter"><font color="black">
                   <i class="ace-icon fa fa-table"></i>&nbsp;<b>Lettres d'orientation</b></font></h5>
@@ -120,40 +120,38 @@ td
       $('#orientCrudModal').html("Modifier la  lettre d'orientation");  
       jQuery('#LettreOrientationAdd').modal('show');
     });
-   /* $('body').on('click', '#orientationPrint', function (event) {
-      $('#OrientLetterPdf').removeClass('hidden');
-      var tr = document.getElementById($(this).val()); $("#orSpecialite").text(tr.cells[1].innerHTML);
+   /* $('body').on('click', '#orientationPrint', function (event) { $('#OrientLetterPdf').removeClass('hidden');
+     var tr = document.getElementById($(this).val()); $("#orSpecialite").text(tr.cells[1].innerHTML);
       $("#motifCons").text(tr.cells[2].innerHTML); $("#motifO").text(tr.cells[3].innerHTML);
    *//*$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());$("#motifCons").text($( "#motifC" ).val()); $("#motifO").text($( "#motifOrient" ).val());*/
      /*
       var element = document.getElementById('OrientLetterPdf');
-      var options = {
-        filename:'lettreOrient-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom }}'+'.pdf'
-      };
-      var exporter = new html2pdf(element, options);
-      $("#OrientLetterPdf").attr("hidden",true);
-      exporter.getPdf(true).then((pdf) => {
-        console.log('pdf file downloaded');
-      });
-      exporter.getPdf(false).then((pdf) => {
-          console.log('doing something before downloading pdf file');
-          pdf.save();
-      });
-    });*/
-
-  $('body').on('click', '#orientationPrint', function (event) {
-    var tr = document.getElementById($(this).val());
-    //$("#orSpecialite").text(tr.cells[1].innerHTML);
-    var ipp = '{{ $patient->IPP }}';
-    JsBarcode("#barcodeor",ipp,{
-      format: "CODE128",
-      width: 2,
-      height: 30,
-      textAlign: "left",
-      text: "IPP: " + ipp 
-    });
-    var pdf = new jsPDF('p', 'pt', 'a4');
-    generate(pdf,'OrientLetterPdf'); 
+      var options = {filename:'lettreOrient-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom }}'+'.pdf'};
+     var exporter = new html2pdf(element, options);
+      $("#OrientLetterPdf").attr("hidden",true);exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
+      exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file');pdf.save(); });});*/
+      $('body').on('click', '#orientationPrint', function (event) {
+        var fileName ='orientLetter'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+        var tr = document.getElementById($(this).val()); //$("#orSpecialite").text(tr.cells[1].innerHTML);
+        $("#motifCons").text(tr.cells[2].innerHTML);$("#motifO").text(tr.cells[3].innerHTML);
+        var ipp = '{{ $patient->IPP }}';
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        JsBarcode("#barcode",ipp,{
+          format: "CODE128",
+          width: 2,
+          height: 30,
+          textAlign: "left",
+          fontSize: 12, 
+          font: "OCR-B",
+          text: "IPP: " + ipp 
+        });
+        var canvas = document.getElementById('barcode');
+        var jpegUrl = canvas.toDataURL("image/jpeg");
+        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        pdf.setFontSize(12);
+        //pdf.text(120,30, 'Cher confrére');
+        pdf.text(320,730, 'Respectueusement');
+        generate(fileName,pdf,'OrientLetterPdf'); 
   });
   
 }) 

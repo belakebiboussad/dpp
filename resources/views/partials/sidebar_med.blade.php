@@ -225,70 +225,75 @@
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }  
-       function printExBio(ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
-          ol = document.getElementById('listBioExam');
-          ol.innerHTML = '';
-          $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-                 $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
-          });
-          var pdf = new jsPDF('p', 'pt', 'a4');
-          JsBarcode("#barcode",ipp,{
-                format: "CODE128",
-                width: 2,
-                height: 30,
-                textAlign: "left",
-                 text: "IPP: " + ipp 
-          });
-          var canvas = document.getElementById('barcode');
-          var jpegUrl = canvas.toDataURL("image/jpeg");
-          pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-          pdf.setFontSize(12);
-          pdf.text(320,730, 'Docteur : ' + med);
-          generate(pdf,'bioExamsPdf');
-    }
-        function printExImg(ipp,med)
-       {
-       $("#infoSupPertinante").text('');
-       ol = document.getElementById('listImgExam');
-       ol.innerHTML = '';
-       var len = $(".infosup :checkbox:checked").length;
-       if($('.infosup input[type="checkbox"]').is(':checked')){
-               $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
-              $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-                       if(index != len-1)
-                              $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
-                       else
-                             $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
-              });
-       }else
-              $("#infoSupPertinante").text('');
-        $("#ExamsImgtab tbody tr").each(function(){
-                 $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-        });        
-        var pdf = new jsPDF('p', 'pt', 'a4');
-        JsBarcode("#barcode",ipp,{
-                format: "CODE128",
-                width: 2,
-                height: 30,
-                textAlign: "left",
-                text: "IPP: " + ipp 
+   function printExBio(patientName, ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
+      var fileName ='examsBio-' + patientName +'.pdf'; 
+      ol = document.getElementById('listBioExam');
+      ol.innerHTML = '';
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+             $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
+      });
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      JsBarcode("#barcode",ipp,{
+        format: "CODE128",
+        width: 2,
+        height: 30,
+        textAlign: "left",
+        fontSize: 12, 
+        text: "IPP: " + ipp
+      });
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+      pdf.setFontSize(12);
+      pdf.text(320,730, 'Docteur : ' + med);
+      generate(fileName,pdf,'bioExamsPdf');
+  }
+  function printExImg(patientName,ipp,med)
+  {
+    var fileName ='examsImg-' + patientName +'.pdf'; 
+    $("#infoSupPertinante").text('');
+    ol = document.getElementById('listImgExam');
+    ol.innerHTML = '';
+    var len = $(".infosup :checkbox:checked").length;
+    if($('.infosup input[type="checkbox"]').is(':checked')){
+        $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
+        $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+          if(index != len-1)
+            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
+          else
+            $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
         });
-        var canvas = document.getElementById('barcode');
-        var jpegUrl = canvas.toDataURL("image/jpeg");
-        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-        pdf.setFontSize(12);
-        pdf.text(320,730, 'Docteur : ' + med);
-        generate(pdf,'imagExamsPdf');
+     }else
+        $("#infoSupPertinante").text('');
+      $("#ExamsImgtab tbody tr").each(function(){
+               $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
+      });        
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      JsBarcode("#barcode",ipp,{
+              format: "CODE128",
+              width: 2,
+              height: 30,
+              textAlign: "left",
+              fontSize: 12, 
+              text: "IPP: " + ipp 
+      });
+
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+      pdf.setFontSize(12);
+      pdf.text(320,730, 'Docteur : ' + med);
+      generate(fileName,pdf,'imagExamsPdf');
     }
-    function printExamCom(ipp, med)
+    function printExamCom(patientName, ipp, med)
     {
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-                printExBio(ipp,med);
+                printExBio(patientName, ipp, med);
                 break;
         case 1:
-                printExImg(ipp,med);
+                printExImg(patientName, ipp, med);
                 break;
          default :
                 break;

@@ -198,7 +198,11 @@ ol { list-style: none; counter-reset: li }
 .brd-2 { border:3px solid black; }
 .solid {border-style: solid;}
 .rectangle {  width:100%;   height:25px; background:#ccc;}
-span.f-16 { font-size:16px; }
+.ft16 { font-size: 1.5em; }/*.ft20 { font-size: 1.5em; }*/
 .widget, 
 .widget-title, 
-.widget a { color: #000; }
+.widget a { color: #000; },
+p.pageCenter {
+  text-align : justify;
+  padding-right: 10%;
+}

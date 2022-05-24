@@ -49,7 +49,7 @@
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentessssss :</b> </label>
+                    <label for="infosc"><b>Informations cliniques pertinentes :</b> </label>
                     <p class="form-control">{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  

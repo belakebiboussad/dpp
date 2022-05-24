@@ -83,11 +83,11 @@ td
       <div id="Intero" class="tab-pane in active">
         <div class="row">
           <ul class="list-unstyled spaced">
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="f-16">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="f-16">Spécialite de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->medecin->Specialite->nom }}</span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Spécialite de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->medecin->Specialite->nom }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16 ">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
           </ul>
         </div>
@@ -172,7 +172,7 @@ td
                <h4 >Examens Appareils</h4>
                <ul class="list-unstyled spaced">
                 @foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
-                      <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="f-16">Appareil {{ $examAppareil->Appareil->nom }} : <blockquote>{{ $examAppareil->description}}</blockquote></span></li>
+                      <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Appareil {{ $examAppareil->Appareil->nom }} : <blockquote>{{ $examAppareil->description}}</blockquote></span></li>
                 @endforeach
                </ul>
                </div>

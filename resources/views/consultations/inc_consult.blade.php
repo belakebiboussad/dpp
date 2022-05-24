@@ -55,7 +55,7 @@ $('document').ready(function(){
 <div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-  <span class="f-16"><strong>Interrogatoire</strong></span></div>
+  <span class="ft16"><strong>Interrogatoire</strong></span></div>
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
@@ -70,7 +70,7 @@ $('document').ready(function(){
 </div>
 @if(isset($consultation->examensCliniques))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Examens clinique</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens clinique</strong></span></div>
 </div>
 <div class="row">
 <ul class="list-unstyled spaced">
@@ -92,7 +92,7 @@ $('document').ready(function(){
 </div>
 @if($consultation->examensCliniques->examsAppareil->count()>0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Examens Appareils</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens Appareils</strong></span></div>
 </div>
 <div class="row">
   <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
@@ -112,7 +112,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'examen biologique</strong></span>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen biologique</strong></span>
   </div>
 </div>
 <div class="row">
@@ -156,7 +156,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandExmImg)) 
 <div class="row">
-  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'examen d'imagerie</strong></span>
+  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen d'imagerie</strong></span>
   </div>
 </div>
 <div class="row">
@@ -201,7 +201,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->ordonnances))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Ordonnance</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Ordonnance</strong></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -234,7 +234,7 @@ $('document').ready(function(){
 @endif
 @isset($consultation->demandeHospitalisation)
 <div class="row dh">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'hospitalisation</span></strong>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'hospitalisation</span></strong>
   </div>
 </div>
 <div class="row dh">
@@ -286,7 +286,7 @@ $('document').ready(function(){
 @endisset
 @if(isset($consultation->lettreOrintation))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Lettres d'Orientation</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Lettres d'Orientation</strong></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">

@@ -676,7 +676,7 @@
         if (footer64Img)
           doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
       }
-      function generate(pdf,pdfContent)
+     function generate(fileName,pdf,pdfContent)
       {// var pdf = new jsPDF('p', 'pt', 'a4');
         pdf.setFontSize(18);
         pdf.fromHTML(document.getElementById(pdfContent), 
@@ -686,10 +686,8 @@
             width: margins.width,// max width of content on PDF
           },function(dispose) {
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+            pdf.save(fileName);
           }, 
-         margins);
-        iframe =document.getElementById('ipdf');
-        iframe.src = pdf.output('datauristring'); 
-        $("#crrModal").modal(); 
+         margins);/*iframe =document.getElementById('ipdf'); iframe.src = pdf.output('datauristring');$("#crrModal").modal();*/
       }
 </script>

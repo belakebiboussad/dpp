@@ -8,10 +8,10 @@
 			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
 			    <input type="hidden" name=""  id="examId" value="">
 			     <input type="hidden" name=""  id="crrId" value="">
-     		    	<div class="row">
+     		    <div class="row">
 			     	<div class="col-xs-12">
 			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span style="color: red">*</span></b></label>
-					<textarea class="form-control a" id="conclusion" rows="10" required></textarea>
+					       <textarea class="form-control a" id="conclusion" rows="10" required></textarea>
 			      </div>	
 			    </div>
 			  </form>

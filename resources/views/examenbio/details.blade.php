@@ -8,9 +8,10 @@
   function CRBPrint()
   {
     CRBave();
+    var fileName ='compteRendBiolog-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
     $("#crbPDF").text($("#crbm").val());
     var pdf = new jsPDF('p', 'pt', 'a4');
-    generate(pdf,'pdfContent'); 
+    generate(fileName,pdf,'pdfContent'); 
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {
@@ -150,6 +151,6 @@
   </div><!-- col-xs-12 -->
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div> </div>
 </div><!-- row -->
-<div class="row text-center">@include('examenbio.ModalFoms.CRBModal')</div> 
-<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  
+<div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
+{{-- <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> --}}
 @endsection
