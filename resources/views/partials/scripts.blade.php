@@ -59,8 +59,22 @@
         left: 30,
         width: 550
   };
+  function capturekey(e) {
+    e = e || window.event; //debugger
+    if (e.code == 'F5') {
+      if (confirm('Les modifications que vous avez apportées ne seront peut-être pas enregistrées.'))
+        location.reload();//allow to refresh
+        else {//avoid from refresh
+          e.preventDefault();e.stopPropagation();  
+        }
+    }
+  }
   $(document).ready(function(){
       $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
+      document.onkeydown = capturekey;document.onkeypress = capturekey;document.onkeyup = capturekey;
+      /*window.onbeforeunload = function(e) {
+        return 'Les modifications que vous avez apportées ne seront peut-être pas enregistrées.';
+      };*/
       $('.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 60,

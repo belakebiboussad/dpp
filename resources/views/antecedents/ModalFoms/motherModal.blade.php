@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
+				<label class="col-sm-3 control-label text-nowrap" for="gs">Groupe sanguin :</label>
 				<div class="col-sm-3">
 					<select class="form-control groupeSanguin" id="gs" name="gs">
 						<option value="">Selectionner...</option>
@@ -33,7 +33,7 @@
 						<option value="O">O</option><option value="AB">AB</option>
 					</select>
 				</div>
-				<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
+				<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus:</label>
 				<div class="col-sm-3">
 					<select id="rh" name="rh" class="rhesus col-sm-12 col-xs-12" disabled>
 						<option value="">------</option>

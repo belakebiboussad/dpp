@@ -11,7 +11,7 @@ td
   <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">	<!-- Modal content-->
 			<div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Lettre d'orientation</h4></div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Orientation du patient</h4></div>
 			<div class="modal-body">
 			  <div class="row">
 			    <div class="col-xs-12">
@@ -25,11 +25,11 @@ td
                 </a>
               </div>
             </div>
-            <div class="widget-body" id ="ATCDWidget">
+            <div class="widget-body">
               <div class="widget-main no-padding">
                 <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="orientationsList">
                   <thead class="thin-border-bottom">
-                    <tr class ="center">
+                    <tr>
                     <th class ="hidden"></th>
                     <th class="center"><strong><span style="font-size:14px;">Spécialité</span></strong></th>
                     <th class="center">
@@ -47,6 +47,34 @@ td
             </div>
 		      </div>
 				</div><!-- row -->
+        <div class="space-12"></div> 
+        <div class="row">
+          <div class="col-xs-12">
+            <div class= "widget-box widget-color-info">
+              <div class="widget-header">
+               <h5 class="widget-title bigger lighter"><font color="black">
+                <i class="ace-icon fa fa-table"></i>&nbsp;<b>Certificat Medical Descriptif</b></font></h5>
+                <div class="widget-toolbar widget-toolbar-light no-border">
+                  <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal">
+                    <i class="fa fa-plus-circle bigger-180" style="color:black"></i>
+                  </a>
+                </div>
+              </div><!-- widget-header -->
+              <div class="widget-main no-padding">
+                <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="orientationsList">
+                  <thead class="thin-border-bottom">
+                    <tr class ="center">
+                      <th class="center"></th>
+                      <th class="center" width="5%"><em class="fa fa-cog"></em></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div><!-- widget-box -->
+          </div><!-- col-sm-12 -->
+        </div><!-- row -->
       </div>{{-- modal-body --}}
 		  <div class="modal-footer">
           <div class="col-sm-12">
@@ -95,10 +123,10 @@ td
         .end();
     });
     $('#orientation-add').click(function () {//ADD Orientation
-      $('#orientationSave').val("add");
-      jQuery('#modalFormDataOroient').trigger("reset");
-      $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
-      jQuery('#LettreOrientationAdd').modal('show');
+        $('#orientationSave').val("add");
+        jQuery('#modalFormDataOroient').trigger("reset");
+        $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
+        jQuery('#LettreOrientationAdd').modal('show');
     });
     $('#orientationSave').click(function () {//ADD Orientation
       if($(this).val() == "update")
@@ -118,19 +146,9 @@ td
       $('#orientationSave').val("update");
       $('#orientationSave').attr('data-id',$(this).val());
       $('#orientCrudModal').html("Modifier la  lettre d'orientation");  
-      jQuery('#LettreOrientationAdd').modal('show');
+      $('#LettreOrientationAdd').modal('show');
     });
-   /* $('body').on('click', '#orientationPrint', function (event) { $('#OrientLetterPdf').removeClass('hidden');
-     var tr = document.getElementById($(this).val()); $("#orSpecialite").text(tr.cells[1].innerHTML);
-      $("#motifCons").text(tr.cells[2].innerHTML); $("#motifO").text(tr.cells[3].innerHTML);
-   *//*$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());$("#motifCons").text($( "#motifC" ).val()); $("#motifO").text($( "#motifOrient" ).val());*/
-     /*
-      var element = document.getElementById('OrientLetterPdf');
-      var options = {filename:'lettreOrient-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom }}'+'.pdf'};
-     var exporter = new html2pdf(element, options);
-      $("#OrientLetterPdf").attr("hidden",true);exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
-      exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file');pdf.save(); });});*/
-      $('body').on('click', '#orientationPrint', function (event) {
+    $('body').on('click', '#orientationPrint', function (event) {
         var fileName ='orientLetter'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
         var tr = document.getElementById($(this).val()); //$("#orSpecialite").text(tr.cells[1].innerHTML);
         $("#motifCons").text(tr.cells[2].innerHTML);$("#motifO").text(tr.cells[3].innerHTML);
@@ -152,7 +170,13 @@ td
         //pdf.text(120,30, 'Cher confrére');
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
-  });
+    });
+    $('#certifDescrip-add').click(function () {//ADD cetificat descriptif
+      // $('#orientationSave').val("add");
+      // $('#modalFormDataOroient').trigger("reset");
+      // $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
+      $('#CertifDescrAdd').modal('show');
+    });
   
 }) 
 </script>

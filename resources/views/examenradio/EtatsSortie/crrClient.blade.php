@@ -8,6 +8,5 @@
 </div>
 <div class="textCenter mtP40 ft16" >
 	<strong>Compte rendu d'exploration radiologique</strong>
-</div>
-<!-- ml-06  -->
+</div><!-- ml-06  -->
 <p id ="conclusionPDF" class="mtP50"></p>

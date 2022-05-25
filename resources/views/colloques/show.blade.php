@@ -42,7 +42,7 @@
       <div class="space-12"></div> <div class="space-12"></div><div class="space-12"></div><!-- ici date -->
       <div class="row">
         <div class="col-xs-7">
-          <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date:</strong></label></h4>
+          <label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque">Date:</label>
           <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" readonly/>
           <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
@@ -51,7 +51,7 @@
       <div class="space-12"></div> <div class="space-12"></div>
       <div class="row">
         <div class="col-xs-7">
-             <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type:</strong></label>
+             <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4">Type:</label>
              <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..."  readonly>
                    <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
                    <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>Chirurgical</option>
