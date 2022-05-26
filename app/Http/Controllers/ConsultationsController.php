@@ -90,9 +90,7 @@ class ConsultationsController extends Controller
         $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
-        $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
-        //$meds = User::whereIn('role_id', [1,13,14])->get();
-        dd($meds);
+        $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
       }
