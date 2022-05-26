@@ -46,19 +46,19 @@
 			</div><div class="space-12 hidden-xs"></div>
 			<div class="row">
 				<div class="col-sm-4 col-xs-12 form-group">
-				    <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="service"> <strong>Service:</strong></label>
+				    <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="service">Service:</label>
 	          <div class="col-sm-8 col-xs-7">
 				      <input type="text" id="service" class="col-sm-12 col-xs-12" name="service" value="{{ $demande->demandeHosp->Service->nom }}" disabled/>
 				    </div>
 				</div>
 				<div class="col-sm-4 col-xs-12 form-group">
-			  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="specialite"><strong>Specialite :</strong></label>
+			  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="specialite">Specialite :</label>
 			  	<div class="col-sm-8 col-xs-7">
 			       <input type="text" id="specialite" class="col-sm-12 col-xs-12" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" disabled/>
 			    </div>  
 			  </div>
 		   	<div class="col-sm-4 col-xs-12 form-group">
-			    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="mode"> <strong>Mode admis.:</strong></label>
+			    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="mode">Mode admis.:</label>
 			    <div class="col-sm-8 col-xs-7">
 			      <input  type="text" id="mode" class="col-sm-12 col-xs-12" name="mode" value="{{ $demande->demandeHosp->modeAdmission }}" disabled/>
 			    </div>
@@ -66,13 +66,13 @@
 	   		</div><div class="space-12"></div>
 			  <div class="row">
 				  <div class="col-sm-4 col-xs-12 form-group">
-				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Traitant:</strong></label>
+				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="medecin">Medecin Traitant:</label>
 				    <div class="col-sm-8 col-xs-7">
 				      <input type="text" id="medecin" class="col-sm-12 col-xs-12" name="medecin" value="{{$demande->medecin->full_name}}" disabled/>
 				    </div>  
 				  </div>
 			    <div class="col-sm-4 col-xs-12 form-group">
-				     <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="priorite"> <strong> Priorité : </strong></label>
+				     <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="priorite">Priorité :</label>
 				      <div class="col-sm-8 col-xs-7">
 			          <div class="control-group col-sm-12 col-xs-12">
 						      <label><input name="priorite1" class="ace col-sm-4 col-xs-4" type="radio" value="1" @if($demande->ordre_priorite ==1) checked @endif disabled ><span class="lbl">1</span>
@@ -86,7 +86,7 @@
               </div>
         	</div>
 				  <div class="col-sm-4 col-xs-12 form-group">
-            <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="motif"><strong>observation :</strong></label>		              
+            <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="motif">observation :</label>		              
               <div class="col-sm-8 col-xs-7">
                <input type="text" id="motif" class="col-sm-12 col-xs-12" name="motifhos" value="{{$demande->observation}}" disabled/>
               </div>
@@ -96,21 +96,21 @@
 			  <div class="space-12 hidden-xs"></div>
 			  <div class="row">
 			  	<div class="col-sm-4 col-xs-12 form-group">
-				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="dateEntree"><strong>Date entrée :</strong></label>
+				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="dateEntree">Date entrée :</label>
 				  	<div class="input-group col-sm-8 col-xs-7">
 				  		<input class="form-control date-picker" id="dateEntree" name="dateEntree" type="text" data-date-format="yyyy-mm-dd" required/>
 						  <span class="input-group-addon" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar bigger-110"></i></span> 	
 				  	</div>
 					</div>
 					<div class="col-sm-4 col-xs-12 form-group">
-				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="heure"><strong>Heure entrée :</strong></label>
+				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="heure">Heure entrée :</label>
 				  	<div class="input-group col-sm-8 col-xs-7">
 				  		<input class="form-control timepicker" id="heure" name="heure" type="text" required/>
 						  <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>	 	
 				  	</div>
 					</div>
 					<div id ="numberofDays" class="col-sm-4 col-xs-12 form-group">
-				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="numberDays"><strong>Durée :</strong></label>
+				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="numberDays">Durée :</label>
 				  	<div class="input-group col-sm-8 col-xs-7">
 				  		<input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
 						  <span class="input-group-addon">nuit(s)</span> 	
@@ -119,14 +119,14 @@
 			  </div><div class="space-12"></div>
 			  <div class="row">
 			  	<div class="col-sm-4 col-xs-12">
-				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="dateSortiePre"><strong>Date sortie :</strong></label>
+				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="dateSortiePre">Date sortie :</label>
 				  	<div class="input-group col-sm-8 col-xs-7">
 				  		<input class="form-control date-picker" id="dateSortiePre" name="dateSortiePre" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" required/>
 						  <span class="input-group-addon" onclick="$('#dateSortie').focus()"><i class="fa fa-calendar bigger-110"></i></span> 	
 				  	</div>
 					</div>
 					<div class="col-sm-4 col-xs-12">
-						<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong>Heure sortie :</strong></label>
+						<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="heureSortiePrevue">Heure sortie :</label>
 						<div class="input-group col-sm-8 col-xs-7">
 							<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" required>
 							<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>		
@@ -136,7 +136,7 @@
 		  	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div></div><div class="space-12 hidden-xs"></div>
 				<div class="row ">
 					<div class="col-sm-4 col-xs-12">
-				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie"><strong> Service :</strong></label>
+				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie">Service :</label>
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
 							  <option value="0" selected >Selectionnez un service</option>
@@ -147,7 +147,7 @@
 					  </div>
 				  </div>
 				  <div class="col-sm-4 col-xs-12">
-			   		<label class="col-sm-4 control-label no-padding-right" for="salle"><strong>Salle :</strong></label>
+			   		<label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
 					 	<div class="col-sm-8">
 							<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
 								<option value="0" selected>Selectionnez une salle</option>
@@ -155,7 +155,7 @@
 						</div>
 				  </div>
 				 	<div class="col-sm-4 col-xs-12">
-				 		<label class="col-sm-4 control-label" for="lit_id"><strong>Lit : </strong></label>
+				 		<label class="col-sm-4 control-label" for="lit_id"><strong>Lit :</label>
 				  	<div class="col-sm-8">
 							<select id="lit_id" name="lit_id"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
 									<option value="0" selected disabled>Selectionnez un lit</option>

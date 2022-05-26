@@ -39,7 +39,7 @@
                       {{ csrf_field() }}
                       <div class="space-12"></div> 
                        <div class="form-group">
-                              <label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service:</strong></label>
+                              <label class="col-sm-3 control-label no-padding-right" for="service">Service:</label>
                               <div class="col-sm-9">
                                  <select class="col-xs-10 col-sm-5" id="service" name="service" required>
                                     <option value="">Selectionnez....</option>
@@ -50,7 +50,7 @@
                               </div>
                       </div>
                        <div class="form-group">
-                              <label class="col-sm-3 control-label no-padding-right" for="salle_id"><strong>Chambre :</strong></label>
+                              <label class="col-sm-3 control-label no-padding-right" for="salle_id">Chambre :</label>
                               <div class="col-sm-9">
                                   <select class="col-xs-10 col-sm-5" id="salle_id" name="salle_id" required>
                                     <option value="" selected disabled>Selectionnez....</option>
@@ -63,19 +63,19 @@
                               </div>
                       </div>
                               <div class="form-group">
-    <label class="col-sm-3 control-label no-padding-right" for="numlit"><strong>Numéro lit: </strong></label>
+    <label class="col-sm-3 control-label no-padding-right" for="numlit">Numéro lit:</label>
     <div class="col-sm-9">
     <input type="number"  name="numlit" placeholder="numéro du  lit" class="col-xs-10 col-sm-5"  min="1" required />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Nom lit: </strong></label>
+    <label class="col-sm-3 control-label no-padding-right" for="nom">Nom lit:</label>
     <div class="col-sm-9">
       <input type="text"  name="nom" placeholder="nom complet du lit" class="col-xs-10 col-sm-5" />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Bloquer un lit : </strong></label>
+    <label class="col-sm-3 control-label no-padding-right" for="etatlit">Bloquer un lit :</label>
     <div class="col-sm-9">
       <div class="checkbox"><label><input type="checkbox" name="etat" value ="1"></label></div>
     </div>

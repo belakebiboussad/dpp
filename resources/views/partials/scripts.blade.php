@@ -72,10 +72,8 @@
   $(document).ready(function(){
       $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
       document.onkeydown = capturekey;document.onkeypress = capturekey;document.onkeyup = capturekey;
-      /*window.onbeforeunload = function(e) {
-        return 'Les modifications que vous avez apportées ne seront peut-être pas enregistrées.';
-      };*/
-      $('.timepicker').timepicker({
+      /*window.onbeforeunload = function(e) {return 'pas enregistrées.'; };*/
+       $('.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 60,
               minTime: '08',

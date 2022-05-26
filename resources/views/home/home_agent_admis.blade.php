@@ -100,20 +100,19 @@
 @section('main-content')
 <div class="row">
 	<div class="col-sm-12 col-md-12">
-   {{-- <h4><strong>Rechercher une admission</strong></h4> --}}
   	<div class="panel panel-default"><div class="panel-heading">Rechercher une admission</div>
     	<div class="panel-body">
                 <div class="row">
                    <div class="col-sm-4">
-              			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
+              			<div class="form-group"><label class="control-label">Date :</label>
             			    <div class="input-group">
-            			      <input type="text" id ="date" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
+            			      <input type="text" id ="date" class="date-picker form-control filter" value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
             					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
               				</div>
           	        </div>
                 	</div>
             		 <div class="col-sm-4">
-                  <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>
+                  <div class="form-group"><label class="control-label">IPP:</label><input type="text" id="IPP" class="form-control filter"></div>
                 </div>	
             	</div>
     	</div>

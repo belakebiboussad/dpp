@@ -52,8 +52,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-4">
-			      <div class="form-group col-sm-12">
-			       	<label class="control-label" for="matricule" >Matricule:</label>
+			      <div class="form-group col-sm-12"><label>Matricule:</label>
 							<div class="input-group col-sm-8">
 								<input type="text" class="form-control input-sx" id="matricule" name="matricule" placeholder="Matricule de l'assuré(e)..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -61,8 +60,7 @@
 						</div>
 						</div>
 						<div class="col-sm-4">
-			      <div class="form-group col-sm-12">
-			       	<label class="control-label" for="nss">NSS:</label>
+			      <div class="form-group col-sm-12"><label>NSS:</label>
 							<div class="input-group col-sm-8">
 								<input type="text" class="form-control input-sx nssform" id="nss" name="nss" placeholder="Numéro du sécurité..."/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>

@@ -18,19 +18,19 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="numlit">Numéro :</label>
 					<div class="col-sm-9">
 						<input type="number" id="numlit" name="numlit" value="{{ $lit->num }}" placeholder="Numéro du lit" class="col-xs-10 col-sm-5" required/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="nom">Nom :</label>
 					<div class="col-sm-9">
 						<input type="text" id="nom" name="nom" value="{{ $lit->nom }}" placeholder="Nom du lit" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> Chambre : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="etage">Chambre :</label>
 					<div class="col-sm-9">
 						<select class="col-xs-10 col-sm-5" id="salle" name="salle" required>
 							<option value="{{ $lit->salle_id }}">
@@ -44,7 +44,7 @@
 				</div>
 				<div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Lit bloqué : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="etatlit">Lit bloqué :</label>
 					<div class="col-sm-9">
 						<div class="checkbox">
 					            <label>
@@ -55,13 +55,10 @@
 				</div>
 				<div class="center">
 					<button class="btn btn-info" type="submit">
-						<i class="ace-icon fa fa-save bigger-110"></i>
-						Enregistrer
-					</button>
-					&nbsp; &nbsp; &nbsp;
+						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+					</button>&nbsp; &nbsp; &nbsp;
 					<button class="btn" type="reset">
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-						Annuler
+					<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
 					</button>
 				</div>
 				</div>

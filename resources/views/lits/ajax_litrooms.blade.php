@@ -9,7 +9,7 @@
 		@foreach ($lits as $key=>$lit)			
 			<div class="form-group">
 				<div class="i-checks">
-					<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right blue" for="num">Numéro :</label>
 					<div><strong>{{ $lit->num }}</strong></div>
 				</div>	
 			</div>
@@ -24,48 +24,38 @@
 						</div>
 						<div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Nom : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="num">Nom :</label>
 							<div>
-								@foreach ($lits as $key=>$lit)	
-		                      
+								@foreach ($lits as $key=>$lit)	     
 								<strong>{{ $lit->nom }}</strong><br>
-								
-		                       @endforeach
+								@endforeach
 							</div>
 						</div>	
 						</div>
 
 	                 <div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label no-padding-right blue" for="etat"><strong> Etat : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="etat">Etat :</label>
 							<div>
 								<strong>{{ $lit->etat == 1 ? "Non Bloqué" : "Bloqué" }}</strong>
 							</div>
 						</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max">
-								<strong> Affectation : </strong>
-							</label>
-							<div>
-								<strong> {{ $lit->affectation == 0 ? "Non Affecté" : "Affecté" }}</strong>
-							</div>
+							<label class="col-sm-3 control-label no-padding-right blue">Affectation :</label>
+							<div><strong> {{ $lit->affectation == 0 ? "Non Affecté" : "Affecté" }}</strong></div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="salle">
-								<strong> Chambre : </strong>
-							</label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="salle">Chambre :</label>
 							<div>
 								<strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->nom }}</strong>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="salle">
-								<strong> Service : </strong>
-							</label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="salle">Service :</label>
 							<div>
-								<strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->service->nom }}</strong>
+                <strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->service->nom }}</strong>
 							</div>
 						</div>
     </div>

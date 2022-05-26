@@ -211,7 +211,7 @@ function errorMsg(msg, error) {
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-3">
-			      <div class="form-group"><label class="control-label" for="Nom" ><strong>Nom:</strong></label>
+			      <div class="form-group"><label class="control-label">Nom:</label>
 							<div class="input-group col-sm-12 col-xs-12">
 								<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="Nom du patient..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -219,7 +219,7 @@ function errorMsg(msg, error) {
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="form-group"><label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
+						<div class="form-group"><label class="control-label">Prénom:</label> 
 							<div class="input-group col-sm-12 col-xs-12">
 						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="Prénom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -227,7 +227,7 @@ function errorMsg(msg, error) {
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="form-group"><label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
+						<div class="form-group"><label class="control-label">Né(e):</label>
 							<div class="input-group col-sm-12 col-xs-12">
 								<input type="text" class="form-control date-picker ltnow" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -235,7 +235,7 @@ function errorMsg(msg, error) {
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="form-group"><label class="control-label" for="IPP" ><strong>IPP:</strong></label>
+						<div class="form-group"><label class="control-label" for="IPP">IPP:</label>
 						 <div class="input-group col-sm-12 col-xs-12">
 							<input id="IPP" name="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
 				                      <span class="input-group-btn"> 

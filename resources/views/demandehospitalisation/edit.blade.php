@@ -25,19 +25,19 @@
         <div class="widget-main">
           <div class="row">
             <div class="col-sm-4 col-xs-4 float-right ">
-              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right"><strong>Lieu:</strong></label>
+              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right">Lieu:</label>
               <div class="col-sm-10 col-xs-10">
                 <input type="text" value= "{{ $demande->consultation->lieu->nom }}" class="col-xs-12 col-sm-12" disabled/>
               </div>
             </div>
             <div class="col-sm-4 col-xs-4">
-              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right"><strong>Date:</strong></label>
+              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right">Date:</label>
               <div class="col-sm-10 col-xs-10">
                 <input type="text" value="{{ $demande->consultation->date }}" class="col-xs-12 col-sm-12" disabled/>
               </div>
             </div>
             <div class="col-sm-4 col-xs-4">
-              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right"><strong>Médecin:</strong></label>
+              <label class="col-sm-2 col-xs-2 control-label no-padding-right text-right">Médecin:</label>
               <div class="col-sm-10 col-xs-10">
                 <input type="text" value="{{ $demande->consultation->medecin->full_name }}" class="col-xs-12 col-sm-12" disabled/>
               </div>
@@ -45,7 +45,7 @@
           </div><div class="space-12"></div>
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <label class="col-sm-1 col-xs-1 control-label no-padding-right text-right" ><strong>Motif:</strong></label>
+              <label class="col-sm-1 col-xs-1 control-label no-padding-right text-right">Motif:</label>
               <div class="col-sm-11 col-xs-11">
                 <textarea class="col-xs-12 col-sm-12" disabled>{{ $demande->consultation->motif }}</textarea>
               </div>
@@ -54,7 +54,7 @@
           <div class="space-12"></div>
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <label class = "col-sm-1 col-xs-1 control-label no-padding-right text-right" for="resume"><strong>Résumé:</strong></label>
+              <label class = "col-sm-1 col-xs-1 control-label no-padding-right text-right" for="resume">Résumé:</label>
               <div class="col-sm-11 col-xs-11">
               <textarea class="col-xs-12 col-sm-12" disabled>{{ $demande->consultation->Resume_OBS }}</textarea>
              </div>
@@ -73,7 +73,7 @@
             <div class="row">
             <div class="col-sm-6 col-xs-6">
             <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="modeAdmission">
-              <strong>Mode d'admission :</strong>
+              Mode d'admission :
             </label>
              <div class="col-sm-8 col-xs-8">
                <select class="form-control" name="modeAdmission" class="col-xs-12 col-sm-12">
@@ -84,7 +84,7 @@
               </div>
               </div>
               <div class="col-sm-6 col-xs-6">
-                <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="specialiteDemande"><strong>Specialite :</strong></label>
+                <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="specialiteDemande">Specialite :</label>
                     <div class="col-sm-8 col-xs-8">    
                           <select class="form-control" name="specialite" class="col-xs-12 col-sm-12">
                             @foreach($specialites as $specialite)
@@ -98,7 +98,7 @@
                     <div class="row">
                       <div class="col-sm-6 col-xs-6">
                         <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="service">
-                          <strong>Service :</strong>
+                          Service :
                         </label>
                         <div class="col-sm-8 col-xs-8">
                           <select class="form-control" name="service" class="col-xs-12 col-sm-12">
@@ -110,7 +110,7 @@
                         </div>
                       </div>
                       <div class="col-sm-6 col-xs-6">
-                        <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="etat"><strong>Etat :</strong></label>
+                        <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="etat">Etat :</label>
                         <div class="col-sm-8 col-xs-8">
                           <input type="text" id="etat" name="etat" value="{{ $demande->etat }}" class="col-xs-12 col-sm-12" disabled />
                         </div>

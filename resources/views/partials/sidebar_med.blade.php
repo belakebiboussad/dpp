@@ -428,11 +428,18 @@
               else
                 $('#Div-nomjeuneFille').attr('hidden', true);
           }); 
-          jQuery('body').on('click', '.CimCode', function (event) {
+          $('#cim10Modal').on('shown.bs.modal', function (e) {
+            $(this).trigger("reset");
+            //alert($(this).val());
+          }); 
+          /*
+          $('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");
               $('#inputID').val($(this).val());
               $('#cim10Modal').modal('show');
           });
+          */
+
           $('#chapitre').click(function(){
                 if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
                 {
