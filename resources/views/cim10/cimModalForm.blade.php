@@ -1,4 +1,5 @@
-<div id="cim10Modal" class="modal fade" aria-labelledby="CIM" aria-hidden="true" tabindex="-1">
+<div id="cim10Modal" class="modal fade">
+ <!-- aria-labelledby="CIM" aria-hidden="true" -->
 	<div class="modal-dialog modal-lg">
   	<div class="modal-content custom-height-modal">
       <div class="modal-header">
