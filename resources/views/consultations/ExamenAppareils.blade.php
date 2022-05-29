@@ -51,5 +51,13 @@ function removeAppareilsContent(appareil)
   $("#"+appareil).each(function(i){
     $(this).find(".wysiwyg-editor").text("");
   });   
-}  
+} 
+$(function() {
+  $('.wysiwyg-editor').on('input',function(e){
+    var a = $(this).parent().nextAll("div.clearfix");
+    var i = a.find("button:button").each(function(){
+      $(this).removeAttr('disabled');
+    });
+  });
+}) 
 </script>

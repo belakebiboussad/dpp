@@ -2,8 +2,8 @@
 <html>
   <head>  
     <title>Ordonnance-{{ $patient->Nom }}-{{ $patient->Prenom }}</title>
-    <link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/print.css') }}"/>
+{{--     <link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/print.css') }}"/> --}}
     <style>
     .page-header, .page-header-space {
       height: 149px;

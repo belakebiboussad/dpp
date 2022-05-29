@@ -95,9 +95,6 @@ header {
 .sign { position: absolute; top: 85%; padding-left: 60%; }
 .hr-1{ border: 1px solid }
 .modal-backdrop { z-index:0; }
-#RDV {
- z-index: 1040 !important;
-}
 fieldset.scheduler-border {
   border: 1px groove #ddd !important;
   padding: 0 1.4em 1.4em 1.4em !important;
@@ -193,12 +190,14 @@ ol { list-style: none; counter-reset: li }
 .espace{ margin-left:6em }
 .tab-space { margin-left:3em;}
 .tab-space40{ margin-left:40em;}
+.tab-space42{ margin-left:42em;}
 .textCenter {  text-align: center;}
 .brd-0 { border:0px; }
 .brd-2 { border:3px solid black; }
 .solid {border-style: solid;}
 .rectangle {  width:100%;   height:25px; background:#ccc;}
-.ft16 { font-size: 1.5em; }/*.ft20 { font-size: 1.5em; }*/
+.ft16 { font-size: 1.5em; }
+.ft20 { font-size: 2em; }
 .widget, 
 .widget-title, 
 .widget a { color: #000; },

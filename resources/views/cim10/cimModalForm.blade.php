@@ -43,11 +43,11 @@
 					<div class="widget-main no-padding">
 						<table class="display table-responsive" width="100%" id="liste_codesCIM">
 						<thead>
-		    					<tr>
-						            <th>Code</th>
-						            <th>Nom</th>
-						            <th><em class="fa fa-cog"></em></th>
-				          		</tr>
+    					<tr>
+		            <th>Code</th>
+		            <th>Nom</th>
+		            <th><em class="fa fa-cog"></em></th>
+          		</tr>
 						</thead>
 						</table>    
 					</div>

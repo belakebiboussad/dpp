@@ -265,7 +265,7 @@
      }else
         $("#infoSupPertinante").text('');
       $("#ExamsImgtab tbody tr").each(function(){
-               $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
+        $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
       });        
       var pdf = new jsPDF('p', 'pt', 'a4');
       JsBarcode("#barcode",ipp,{
@@ -276,7 +276,6 @@
               fontSize: 12, 
               text: "IPP: " + ipp 
       });
-
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
       pdf.addImage(jpegUrl, 'JPEG', 25, 175);
@@ -432,28 +431,28 @@
           //   //alert($(this).val());
           // }); 
           $('body').on('click', '.CimCode', function (event) {
-              $('#cim10Modal').trigger("reset");
-              $('#inputID').val($(this).val());
-              $('#cim10Modal').modal('show');
+            $('#cim10Modal').trigger("reset");
+            $('#inputID').val($(this).val());
+            $('#cim10Modal').modal('show');
           });
           $('#chapitre').click(function(){
-                if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
-                {
-                      $.ajax({
-                           type : 'get',
-                           url : '{{URL::to('schapitres')}}',
-                          data:{'search':$("#chapitre").val()},
-                          success:function(data,status, xhr){
-                                $( "#schapitre" ).prop( "disabled", false );
-                                var select = $('#schapitre').empty();
-                                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-                                $.each(data,function(){
-                                      select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-                                });
-                          }
-                      });
-                }else
-                      $( "#schapitre" ).prop( "disabled", true );
+            if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+            {
+                  $.ajax({
+                       type : 'get',
+                       url : '{{URL::to('schapitres')}}',
+                      data:{'search':$("#chapitre").val()},
+                      success:function(data,status, xhr){
+                            $( "#schapitre" ).prop( "disabled", false );
+                            var select = $('#schapitre').empty();
+                            select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                            $.each(data,function(){
+                                  select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                            });
+                      }
+                  });
+            }else
+              $( "#schapitre" ).prop( "disabled", true );
           });
           $('#schapitre').click(function(){
               var fieldname = $('#inputID').val();

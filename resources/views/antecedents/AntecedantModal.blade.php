@@ -1,5 +1,4 @@
-<div id="antecedantModal" class="modal fade">
- <!-- aria-labelledby="AntecCrudModal"  aria-hidden="true" -->
+<div id="antecedantModal" class="modal fade"><!-- aria-labelledby="AntecCrudModal"  aria-hidden="true" -->
 <div class="modal-dialog modal-lg">
    	<div  id="" class="modal-content custom-height-modal">
 		<div class="modal-header">

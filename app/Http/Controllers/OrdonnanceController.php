@@ -116,7 +116,7 @@ class OrdonnanceController extends Controller
       $patient = patient::FindOrFail($request->id_patient);
       $employe = employ::FindOrFail($request->id_employe);
       $etablissement = Etablissement::first();
-      $meds = json_decode($request->meds);    
+      $meds = json_decode($request->meds);
       foreach ($meds as $key => $med) {
         foreach ($med as $key => $value) {
           if($key == "id")
@@ -127,8 +127,9 @@ class OrdonnanceController extends Controller
             array_push($posologies, $value);
         }
       }
-      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies','etablissement'))->render();
-      return(['html'=>$view]);//return Response::json(['html'=>$view]);
-   }
+      $view = view("consultations.ModalFoms.ordonnancePDFteste",compact('patient','employe','medicaments','posologies','etablissement'))->render();
+      //return(['html'=>$view]);
+      return Response::json(['html'=>$view]);
+    }
 
 }
