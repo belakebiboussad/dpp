@@ -432,7 +432,8 @@ var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-in
       ol.innerHTML = '';
       $("#ordonnance tbody tr").each(function(){
         //$("ol").append('<li>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-        $("ol").append('<li><h4>'+ $(this).find('td:eq(1)').text() + " du (la)"+ $(this).find('td:eq(2)').text()+'</h4></li>');
+        $("ol").append('<li><h4>'+ $(this).find('td:eq(1)').text() 
+                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()+'</h4></li>');
         
         //1 nom com
         //2 form
