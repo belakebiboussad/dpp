@@ -16,13 +16,11 @@
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <div class="row">
   <h6 class="center"><span style="font-size: xx-large;"><strong>ORDONNANCE</strong></span></h6>
-</div><br><br>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="row">
-  <div class="col-sm-12"><br>
-    <div class="row ml-06">
-      <ol id ="listMeds" class="c">
-      </ol>
-    </div>
+  <div class="col-sm-12">
+    <ol id ="listMeds" class="c"></ol>
   </div>
 </div>
 

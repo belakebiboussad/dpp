@@ -219,7 +219,7 @@ $('document').ready(function(){
               <tr id="{{ 'ordonnace'.$consultation->ordonnances->id }}">
                 <td>{{ $consultation->ordonnances->date }}</td>
                 <td class="center">
-                  <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye"></i></a>
+                  <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye-slash"></i></a>
                   <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                   <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 </td>
@@ -284,7 +284,7 @@ $('document').ready(function(){
   </div>
 </div>
 @endisset
-@if(isset($consultation->lettreOrintation))
+@if($consultation->lettreOrintation->count()>0)
 <div class="row">
   <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Lettres d'Orientation</strong></span></div>
 </div>

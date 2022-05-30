@@ -9,12 +9,12 @@
         margin: 95px 25px;
       }
       .col-2{
-  	  	font-size: 12px;
-  		  display: inline-block;
-  		  width: 100%;
-  		  text-align: left;
-  		  padding: 20px 20px 20px 20px; 
-  	  }
+        font-size: 12px;
+        display: inline-block;
+        width: 100%;
+        text-align: left;
+        padding: 20px 20px 20px 20px; 
+      }
       .marge {
         margin-left:5px;
       }
@@ -47,17 +47,17 @@
         <section class="borderv">
           <div class="marge">
             Je soussigné(e), <br>
-            Madame, Mademoiselle, Monsieur : <span>{{ $obj->admission->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</span><br/><span>
+            Madame, Mademoiselle, Monsieur : <span>{{ $obj->medecin->full_name }}</span><br/><span>
             Docteur en Médecine et exerçant en tant que .................................au sein  de {{ $etablissement->nom }} ,
             Certifie avoir été informé que {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et 
-            déclare vouloir quitter définitivement l'établissement le  {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}
+            déclare vouloir quitter définitivement l'établissement le  {{ $date}}
               à :............................heures </span><br>
-            Le :  {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }} <strong>J'ai personnellement informé de manière claire, précise et compréhensible le patient des risques médicaux qu'il encours et des alternatives thérapeutiques dégradées.</strong><br><br>
+            Le :  {{ $date }} <strong>J'ai personnellement informé de manière claire, précise et compréhensible le patient des risques médicaux qu'il encours et des alternatives thérapeutiques dégradées.</strong><br><br>
             <span>En conséquence, je déclare que ni mes responsabilités civiles et pénales et celles de l'établissement ne pourront être engagées si les risques exposés au patient se réalisaient.</span>
             <br><br>
             <table>
               <tr>
-                <td>Fait à EHSN, le {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</td>
+                <td>Fait à EHSN, le {{ $date }}</td>
                 <td></td>
                 <td>Signature</td>
               </tr>
@@ -73,7 +73,7 @@
         <div class="marge">
           Je soussigné(e), <br>
           {{ $obj->patient->getCivilite() }} {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et déclare vouloir 
-          quitter définitivement l'établissement le  {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}
+          quitter définitivement l'établissement le  {{ $date }}
           à :............................heures </span><br>
           <span>
             Je reconnais avoir été informé(e) de manière claire, précise et compréhensible par le Docteur exerçant
@@ -91,7 +91,7 @@
           <br><br>
           <table>
             <tr>
-              <td>Fait à EHSN, le {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</td>
+              <td>Fait à EHSN, le {{ $date }}</td>
               <td></td>
               <td>Signature</td>
             </tr>

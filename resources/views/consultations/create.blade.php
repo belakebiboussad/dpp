@@ -12,9 +12,7 @@
       position:relative;
       z-index:999;
   }
-  .b{
-    height:20px !important;
-  }
+  /*.b{ height:20px !important;  }*/
   #content {
     background: white;
     width: 98%;
@@ -38,14 +36,7 @@ function print()
 function drugRemove(id)
 {
   $("#"+id).remove();
-}/*function ajaxfunc(patientid){ var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-var antecedant = $('#Antecedant').val();var typeAntecedant = $('#typeAntecedant').val();
-var soustype = $('#sstypeatcdc').val();var dateATCD = $('#dateAntcd').val() var description = $("#description").val();      
-if(typeAntecedant =="Physiologiques"){habitudeAlim= $('#habitudeAlim').val();tabac = $("#tabac").is(":checked") ? 1:0;
-ethylisme = $("#ethylisme").is(":checked") ? 1:0;}if (description != ""){$.ajax({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},type:"POST",url:'/AddANTCD',
-data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
-},success:function(data){ $("#msg").html(data.msg); }});$('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
-resetField(); }}*/ 
+}
 function resetField()
 {
   $("#description").val('');$('#dateAntcd').val('');
@@ -81,17 +72,17 @@ $(function(){
      footer64Img = base64; 
   });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );
   /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
-/*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');
-var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
+  /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');
+  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
   var checkbox = $("#isOriented");
   var hidden = $("#hidden_fields");// Setup an event listener for when the state of the    // checkbox changes.
-       checkbox.change(function() {
-        if (checkbox.is(':checked')) {
-          hidden.show();
-        } else {
-            hidden.hide();
-            $("#lettreorientaioncontent").val("");
-         }
+  checkbox.change(function() {
+    if (checkbox.is(':checked')) 
+      hidden.show();
+    else {
+        hidden.hide();
+        $("#lettreorientaioncontent").val("");
+    }
   }); 
 /*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
 /* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
@@ -345,8 +336,7 @@ var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-in
         defaultView : 'agendaWeek',//'agendaWeek',basicWeek
         height: 650,//teste
         showAgendaButton: true,
-        timeFormat: 'H:mm',
-        axisFormat: 'H:mm',// teste
+        timeFormat: 'H:mm',//axisFormat: 'H:mm',// teste
         firstDay: 0,
         slotDuration: '00:15:00',
         minTime:'08:00:00',
@@ -363,17 +353,17 @@ var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-in
         allDaySlot: false,
         eventDurationEditable : false,//weekNumbers: true,views: {},
         events: [
-         @foreach($employe->rdvs as $rdv)
+        @foreach($employe->rdvs as $rdv)
          {  
-          title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
-          start : '{{ $rdv->date }}',
-          end:   '{{ $rdv->fin }}',
-          id :'{{ $rdv->id }}',
-          idPatient:{{$rdv->patient->id}},
-          tel:'{{$rdv->patient->tele_mobile1}}',
-          age:{{ $rdv->patient->age }},
-          specialite:{{ $rdv->specialite_id }}, 
-          fixe:  {{ $rdv->fixe }},
+            title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+            start : '{{ $rdv->date }}',
+            end:   '{{ $rdv->fin }}',
+            id :'{{ $rdv->id }}',
+            idPatient:{{$rdv->patient->id}},
+            tel:'{{$rdv->patient->tele_mobile1}}',
+            age:{{ $rdv->patient->age }},
+            specialite:{{ $rdv->specialite_id }}, 
+            fixe:  {{ $rdv->fixe }},
         },
         @endforeach 
       ],
@@ -427,19 +417,16 @@ var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-in
     $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
     $("#drugsPrint").click(function(){
+      storeord();
       var fileName ='Ordonnance-' + '{{ $patient->full_name }}' +'.pdf'; 
-      ol = document.getElementById('listImgExam');
+      ol = document.getElementById('listMeds');
       ol.innerHTML = '';
-      $("#ordonnance tbody tr").each(function(){
-        //$("ol").append('<li>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-        $("ol").append('<li><h4>'+ $(this).find('td:eq(1)').text() 
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()+'</h4></li>');
-        
-        //1 nom com
-        //2 form
-        // 3 dosage
-        alert($(this).find('td:eq(1)').text());
-      });  
+      $("#ordonnance tbody tr").each(function(key,value){
+        $("ol").append('<li><h4>'+(key+1)+'- '+ $(this).find('td:eq(1)').text() 
+                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()
+                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(3)').text()
+                +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
+      }); 
       var pdf = new jsPDF('p', 'pt', 'a4');
       JsBarcode("#barcode",'{{ $patient->IPP }}' ,{
           format: "CODE128",
@@ -454,16 +441,6 @@ var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-in
       pdf.addImage(jpegUrl, 'JPEG', 60, 175);
       generate(fileName,pdf,'ordPdf');
     });
-  /*$("#drugsPrint").click(function(){var pid = '{{ $patient->id }}', mid = '{{  Auth::User()->employ->id }}';
-var keys=[], meds=[];$("#ordonnance thead tr th").each(function(){ if(($(this).html() == "id") || ($(this).html() == "Posologie"))
- keys.push($(this).html()); });  
-$("#ordonnance tbody tr").each(function(){var obj={}, i=0;$(this).children("td").each(function(index){
-if((index == 0) || (index == 4) ){obj[keys[i]]=$(this).html(); i++;}})meds.push(obj);});var formData = {
-id_patient:pid,id_employe:mid,meds:JSON.stringify(meds),};
-$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')}
-});$.ajax({type: "POST",url: "/ordonnaces/print",data:formData, dataType: "json",
-        success: function (data,status, xhr) {$('#iframe-pdf').contents().find('html').html(data.html);      
-          $("#ordajax").modal('show');//$("#ordajax"). modal();},error: function (data) {console.log('Error:', data);}}) })//fin drug  print*/               
     $("#rdvadd").click(function(){
       $(".calendar").fullCalendar( 'refetchEvents' );$('#RDV').modal("show");
     });
