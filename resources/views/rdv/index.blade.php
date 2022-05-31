@@ -59,6 +59,7 @@ $(function(){
         disableDragging: false,
         eventDurationEditable : false,
         displayEventTime : false,
+        themeSystem : "Cosmo",
         views: {},
         events: [
                 @foreach($rdvs as $rdv)

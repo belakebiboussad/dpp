@@ -84,13 +84,9 @@
            });
            $("#EnregistrerGardeMalade").click(function (e) {
                 $('#gardeMalade').modal('toggle');
-                $.ajaxSetup({
-                 headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                });
                 e.preventDefault();
                   var formData = {
+                      _token: CSRF_TOKEN,
                       id_patient:$('#patientId').val(),
                       nom:$('#nom_h').val(),
                       prenom : $('#prenom_h').val(),
@@ -209,14 +205,14 @@
                       }
                 });
                 $.ajax({
-                      type: "DELETE",
-                      url: '/hommeConfiance/' + hom_id,
-                      success: function (data) {
-                          $("#garde" + hom_id).remove();
-                      },
-                      error: function (data) {
-                             console.log('Error:', data);
-                      }
+                    type: "DELETE",
+                    url: '/hommeConfiance/' + hom_id,
+                    success: function (data) {
+                        $("#garde" + hom_id).remove();
+                    },
+                    error: function (data) {
+                           console.log('Error:', data);
+                    }
                 });
           });
           $('#gardeMalade').on('hidden.bs.modal', function () {
@@ -235,12 +231,7 @@
             {
               if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
               {
-                var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                }); 
+                var formData = { _token: CSRF_TOKEN, id_patient:pid, date:debut, fin:fin, fixe:fixe  };
                 var url = "{{ route('rdv.store') }}"; 
                 $.ajax({
                     type : 'POST',

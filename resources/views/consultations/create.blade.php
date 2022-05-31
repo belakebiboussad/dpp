@@ -138,6 +138,7 @@ $(function(){
     {
       var tabName = "antsTab";
       var formData = {
+          _token: CSRF_TOKEN,
         pid      : '{{ $patient->id }}',
         Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
         typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
@@ -150,6 +151,7 @@ $(function(){
     {
       var tabName = "antsFamTab";
       var formData = {
+        _token: CSRF_TOKEN,
         pid   : '{{ $patient->id }}',
         Antecedant         : 'Familiaux',
         date               : $('#dateAntcd').val(),
@@ -161,11 +163,6 @@ $(function(){
     {  
       if($('.dataTables_empty').length > 0)
         $('.dataTables_empty').remove();
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
       var state = jQuery('#EnregistrerAntecedant').val();
       var type = "POST";
       var atcd_id = jQuery('#atcd_id').val();
@@ -227,6 +224,7 @@ $(function(){
       e.preventDefault();
       var habitudeAlim = null; var tabac=null ; var ethylisme = null;
       var formData = {
+        _token: CSRF_TOKEN,
         pid                  : '{{ $patient->id }}',
         Antecedant           : 'Personnels',//$('#Antecedant').val()
         typeAntecedant       : '1',//$('#typeAntecedant').val(),
@@ -239,11 +237,6 @@ $(function(){
       formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
       if($('.dataTables_empty').length > 0)
         $('.dataTables_empty').remove();
-      $.ajaxSetup({
-        headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
       var state = $(this).val();
       var type = "POST";
       var atcd_id = $('#atcdPhys_id').val();
@@ -325,14 +318,86 @@ $(function(){
           });
         }
       }     
-    });//calendrier  var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-    var today = (new Date()).setHours(0, 0, 0, 0);
-    $('.calendar').fullCalendar({//plugins: [ 'dayGrid', 'timeGrid' ],
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-         right: 'month,agendaWeek,agendaDay'
+    });//calendrier 
+    $(".apgar").ionRangeSlider({ min:0,max:10,step:1, values:5, grid:true, grid_num:10, postfix:"", skin:"big" });
+    $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
+    $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
+    $("#drugsPrint").click(function(){
+      storeord();
+      var fileName ='Ordonnance-' + '{{ $patient->full_name }}' +'.pdf'; 
+      ol = document.getElementById('listMeds');
+      ol.innerHTML = '';
+      $("#ordonnance tbody tr").each(function(key,value){
+        $("ol").append('<li><h4>'+(key+1)+'- '+ $(this).find('td:eq(1)').text() 
+                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()
+                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(3)').text()
+                +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
+      }); 
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      JsBarcode("#barcode",'{{ $patient->IPP }}' ,{
+          format: "CODE128",
+          width: 2,
+          height: 30,
+          textAlign: "left",
+          fontSize: 12, 
+          text: "IPP: " + '{{ $patient->IPP }}' 
+      });
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 60, 175);
+      generate(fileName,pdf,'ordPdf');
+    });
+    //teste
+    @foreach($employe->rdvs as $rdv)
+    {
+        alert('{{ $rdv->date }}');
+    }
+    @endforeach 
+    $('.calendar').fullCalendar({
+     header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
         },
+        defaultView:'agendaWeek',
+        allDayDefault: false,
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+    });
+    //AddEvent();
+    //endteste
+    var today = (new Date()).setHours(0, 0, 0, 0);
+    $('.calendar12').fullCalendar({
+        header: {
+                left: 'prev,next today',
+                center: 'title',
+
+                //right: 'month,agendaWeek,agendaDay'
+        },
+
+        /*
+        timeZone: 'local',
+        defaultView: 'basicWeek',//basicWeek  //weekends: false,
+        height:650,
+        firstDay: 0,
+        slotDuration: '00:15:00',
+        minTime:'08:00:00',
+        maxTime: '17:00:00',
+        timeFormat: 'H:mm',//axisFormat: 'H:mm',// teste
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
+        eventColor  : '#87CEFA',
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+        hiddenDays: [ 5, 6 ],
+        allDaySlot: false,
+        weekNumberCalculation: 'ISO',
+        aspectRatio: 2,
+        eventDurationEditable : false,
+        */
         defaultView : 'agendaWeek',//'agendaWeek',basicWeek
         height: 650,//teste
         showAgendaButton: true,
@@ -341,7 +406,7 @@ $(function(){
         slotDuration: '00:15:00',
         minTime:'08:00:00',
         maxTime: '17:00:00',
-        navLinks: true,
+        navLinks: false,
         selectable: true,
         selectHelper: true,
         eventColor  : '#87CEFA',
@@ -349,31 +414,48 @@ $(function(){
         hiddenDays: [ 5, 6 ],
         weekNumberCalculation: 'ISO',
         aspectRatio: 2,
-        eventLimit: true,
+        eventLimit: false,
         allDaySlot: false,
         eventDurationEditable : false,//weekNumbers: true,views: {},
+        views: {
+             basiconeWeek: {
+
+                      type: 'basic'
+
+                      , duration: { weeks: 1 }
+
+                      , columnHeaderFormat: "dddd"
+
+                      , buttonText: 'Two Week'
+
+                      , dayCount: 6
+
+
+                    }
+
+        },
         events: [
-        @foreach($employe->rdvs as $rdv)
-         {  
-            title : '{{ $rdv->patient->full_name  }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+          @foreach($employe->rdvs as $rdv)
+          {
+            title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
             start : '{{ $rdv->date }}',
             end:   '{{ $rdv->fin }}',
             id :'{{ $rdv->id }}',
-            idPatient:{{$rdv->patient->id}},
+            idPatient:'{{$rdv->patient->id}}', 
             tel:'{{$rdv->patient->tele_mobile1}}',
-            age:{{ $rdv->patient->age }},
-            specialite:{{ $rdv->specialite_id }}, 
-            fixe:  {{ $rdv->fixe }},
-        },
-        @endforeach 
-      ],
-      eventRender: function (event, element, webData) {
-        if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+            age:'{{ $rdv->patient->age }}',
+            specialite:'{{ $rdv->specialite_id }}', 
+            fixe:  '{{ $rdv->fixe }}',
+          },
+         @endforeach 
+        ],
+        eventRender: function (event, element, webData) {
+          if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
            element.css('background-color', '#D3D3D3');
-        else
-        { 
-               if(event.fixe>0)
-            element.css('background-color', '#87CEFA'); 
+          else
+          { 
+            if(event.fixe>0)
+              element.css('background-color', '#87CEFA'); 
           else
             element.css('background-color', '#378006');
           element.css("padding", "5px"); 
@@ -409,42 +491,50 @@ $(function(){
         }else
           $('.calendar').fullCalendar('unselect');//calendar1
       },
+      eventClick: function (calEvent, jsEvent, view) {
+
+                    //callEvent : JsonData(events)
+
+                    alert('Event: ' + calEvent.end);
+
+                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+                    alert('View: ' + view.name);
+
+
+                    // change the border color just for fun
+
+                    $(this).css('border-color', 'red');
+
+      },
       eventAllow: function(dropLocation, draggedEvent) {  return false; },
       eventDrop: function(event, delta, revertFunc) { revertFunc(); },
       eventDragStop: function (event, jsEvent, ui, view) {return false;} 
-    }); 
-    $(".apgar").ionRangeSlider({ min:0,max:10,step:1, values:5, grid:true, grid_num:10, postfix:"", skin:"big" });
-    $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
-    $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
-    $("#drugsPrint").click(function(){
-      storeord();
-      var fileName ='Ordonnance-' + '{{ $patient->full_name }}' +'.pdf'; 
-      ol = document.getElementById('listMeds');
-      ol.innerHTML = '';
-      $("#ordonnance tbody tr").each(function(key,value){
-        $("ol").append('<li><h4>'+(key+1)+'- '+ $(this).find('td:eq(1)').text() 
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(3)').text()
-                +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
-      }); 
-      var pdf = new jsPDF('p', 'pt', 'a4');
-      JsBarcode("#barcode",'{{ $patient->IPP }}' ,{
-          format: "CODE128",
-          width: 2,
-          height: 30,
-          textAlign: "left",
-          fontSize: 12, 
-          text: "IPP: " + '{{ $patient->IPP }}' 
       });
-      var canvas = document.getElementById('barcode');
-      var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 60, 175);
-      generate(fileName,pdf,'ordPdf');
-    });
     $("#rdvadd").click(function(){
       $(".calendar").fullCalendar( 'refetchEvents' );$('#RDV').modal("show");
     });
 });
+function AddEvent(){
+  /*
+  var startDate = moment();
+  var eventId = 123;
+  var newEvent = {
+                title : 'mytitle',
+                start : startDate,
+                allDay: false,
+                id: eventId,
+                description: 'my test event'
+            };
+  $('.calendar').fullCalendar('renderEvent', newEvent, true);
+  */
+  @foreach($employe->rdvs as $rdv)
+  {
+
+  }
+  @endforeach
+}
+
 </script>
 @endsection
 @section('main-content')
@@ -511,6 +601,7 @@ $(function(){
 @include('antecedents.AntecedantModal')
 @include('antecedents.AntecedantModalPhysio')
 @include('cim10.cimModalForm')
+@include('consultations.ModalFoms.DemadeHospitalisation')
 @include('rdv.rendezVous')
 @include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')
