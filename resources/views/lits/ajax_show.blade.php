@@ -7,24 +7,24 @@
 					<div class="widget-main">					
 						<div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="num">Numéro :</label>
 							<div><strong>{{ $lit->num }}</strong></div>
 						</div>	
 						</div>
 						<div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Nom :</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="num">Nom :</label>
 							<div><strong>{{ $lit->nom }}</strong><br></div>
 						</div>	
 						</div>
 						<div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label no-padding-right blue" for="etat"><strong> Etat : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="etat">Etat :</label>
 							<div><strong>{{ $lit->etat == 1 ? "Non Bloqué" : "Bloqué" }}</strong></div>
 						</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Affectation :</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="max">Affectation :</label>
 							<div><strong> {{ $lit->affectation == 0 ? "Non Affecté" : "Affecté" }}</strong></div>
 						</div>
 						<div class="form-group">
@@ -33,7 +33,7 @@
 							<div><strong>{{ $lit->salle->nom }}</strong></div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="bloc"><strong> Service : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="bloc">Service :</label>
 							<div><strong>{{ $lit->salle->nom }}</strong></div>
 						</div>
 					</div>

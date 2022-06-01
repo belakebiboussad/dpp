@@ -5,7 +5,7 @@
           		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Pathologiques</b></font></h5>
           		<div class="widget-toolbar widget-toolbar-light no-border">
           			<a  id="btn-add" class="btn-xs align-middle" data-toggle="modal">
-                  <i class="fa fa-plus-circle bigger-180" style="color:black"></i>
+                  <i class="fa fa-plus-circle bigger-180"></i>
                 </a>
           		</div>
           	</div>
@@ -51,7 +51,7 @@
               <div class="widget-header" >
           		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Physiologiques</b></font></h5>
           		<div class="widget-toolbar widget-toolbar-light no-border">
-          			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+          			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
           		</div>
 	       </div>
         	<div class="widget-body" id ="ATCDWidget">
@@ -101,7 +101,7 @@
 		<div class="widget-header" >
 		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antécédents familiaux</b></font></h5>
 		 <div class="widget-toolbar widget-toolbar-light no-border">
-			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 		</div>
 	 	 </div>
 	 	 <div class="widget-body" id ="ATCDWidget">

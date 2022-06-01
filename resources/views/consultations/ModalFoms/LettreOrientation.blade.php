@@ -21,7 +21,7 @@ td
                   <i class="ace-icon fa fa-table"></i>&nbsp;<b>Lettres d'orientation</b></font></h5>
               <div class="widget-toolbar widget-toolbar-light no-border">
                 <a id="orientation-add" class="btn-xs align-middle" data-toggle="modal">
-                  <i class="fa fa-plus-circle bigger-180" style="color:black"></i>
+                  <i class="fa fa-plus-circle bigger-180"></i>
                 </a>
               </div>
             </div>
@@ -55,8 +55,8 @@ td
                <h5 class="widget-title bigger lighter"><font color="black">
                 <i class="ace-icon fa fa-table"></i>&nbsp;<b>Certificat Medical Descriptif</b></font></h5>
                 <div class="widget-toolbar widget-toolbar-light no-border">
-                  <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal">
-                    <i class="fa fa-plus-circle bigger-180" style="color:black"></i>
+                  <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal" data-target="#CertifDescrAdd">
+                    <i class="fa fa-plus-circle bigger-180"></i>
                   </a>
                 </div>
               </div><!-- widget-header -->
@@ -166,17 +166,9 @@ td
         var canvas = document.getElementById('barcode');
         var jpegUrl = canvas.toDataURL("image/jpeg");
         pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-        pdf.setFontSize(12);
-        //pdf.text(120,30, 'Cher confrére');
+        pdf.setFontSize(12);//pdf.text(120,30, 'Cher confrére');
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
-    $('#certifDescrip-add').click(function () {//ADD cetificat descriptif
-      // $('#orientationSave').val("add");
-      // $('#modalFormDataOroient').trigger("reset");
-      // $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
-      $('#CertifDescrAdd').modal('show');
-    });
-  
 }) 
 </script>

@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content custom-height-modal"> <!-- Modal content-->
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">
-        &times;</button> <h4 class="modal-title" id="orientCrudModal">Ajouter une Lettre d'orientation</h4>
+        &times;</button> <h4 class="modal-title" id="orientCrudModal">Ajouter un Certificat descriptf</h4>
       </div>
       <div class="modal-body">
         <form id="modalFormDataOroient" method="POST" class="form-horizontal">

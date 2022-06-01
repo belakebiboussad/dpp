@@ -53,16 +53,17 @@ class RDVController extends Controller
         return redirect()->route("rdv.show",$rdv->id);
       }
      /* public function choixpatient() {     return view('patient.index'); }*/
-      public function index($patientID = null)
-      { 
+      public function index(Request $request,$patientID = null)
+      { /*if ($request->ajax()) {$rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get();return response()->json($rdvs);}else{}*/
         if(in_array(Auth::user()->role_id,[1,13,14])) 
         {
-               $specialite = Auth::user()->employ->specialite;
-               $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)
-                                       ->where('etat',null)->orwhere('etat',1)->get();  
+           $specialite = Auth::user()->employ->specialite;
+           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)
+                                   ->where('etat',null)->orwhere('etat',1)->get();  
         }else
-            $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get();
-            return view('rdv.index', compact('rdvs')); 
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get();
+          return view('rdv.index', compact('rdvs')); 
+        
       }
     /**
      * Show the form for creating a new resource.
@@ -100,21 +101,21 @@ class RDVController extends Controller
         ]); return redirect()->route("rdv.show",$rdv->id); */
         if($request->ajax())
         {
-                $specialite ="";
-                if(Auth::user()->role_id ==2)
-                        $specialite = $request->specialite ;
-                else
-                        $specialite = Auth::user()->employ->specialite;
-                $patient = patient::find($request->id_patient);
-                $rdv = rdv::firstOrCreate([
-                        "date"=>new DateTime($request->date),
-                        "fin" =>new DateTime($request->fin),
-                        "fixe"    => $request->fixe,
-                        "patient_id"=> $patient->id,
-                        "employ_id"=>Auth::user()->employee_id,
-                        "specialite_id"=> $specialite
-                ]);   
-                return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));
+          $specialite ="";
+          if(Auth::user()->role_id ==2)
+                  $specialite = $request->specialite ;
+          else
+                  $specialite = Auth::user()->employ->specialite;
+          $patient = patient::find($request->id_patient);
+          $rdv = rdv::firstOrCreate([
+                  "date"=>new DateTime($request->date),
+                  "fin" =>new DateTime($request->fin),
+                  "fixe"    => $request->fixe,
+                  "patient_id"=> $patient->id,
+                  "employ_id"=>Auth::user()->employee_id,
+                  "specialite_id"=> $specialite
+          ]);   
+          return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));
         }else
         {
 

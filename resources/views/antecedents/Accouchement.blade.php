@@ -5,7 +5,7 @@
 		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Accouchement</b></font></h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<a id ="accAdd" class="btn-xs align-middle @if(isset($patient->accouchement)) hidden @endif" data-toggle="modal" data-target="#accouchementModal">
-					<i class="fa fa-plus-circle bigger-180" style="color:black"></i>
+					<i class="fa fa-plus-circle bigger-180"></i>
 				</a>
 			</div>
 		</div>

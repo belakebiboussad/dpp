@@ -26,6 +26,7 @@ use App\modeles\employ;
 use App\modeles\demandeExamImag;
 use App\modeles\demandeexb;
 use App\User;
+use App\modeles\rdv;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
 use App\modeles\infosupppertinentes;
@@ -92,7 +93,8 @@ class ConsultationsController extends Controller
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
+        //$rdvs =  $rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get();
+        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
      * Store a newly created resource in storage.

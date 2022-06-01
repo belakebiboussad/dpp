@@ -103,9 +103,9 @@ onclick ="addReserv({{$rdv->id}})"-->
 		<input type="hidden" class="demande_id">		
 		<div class="row ">
 			<div class="col-sm-12 col-xs-12">
-				<label class="col-sm-4 control-label no-padding-right" for=""><strong> Service :</strong>	</label>
+				<label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
 				<div class="col-sm-8">
-					<select id="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" />
+					<select id="serviceh" class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" />
 					  <option value="" selected disabled>Selectionnez un service</option>
 					  @foreach($services as $service)
 							<option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -116,37 +116,33 @@ onclick ="addReserv({{$rdv->id}})"-->
 		</div><!-- row -->
 		<div class="space-12"></div>
 		<div class="row">
-			<div class="col-sm-12 col-xs-12">
+			<!-- <div class="col-sm-12 col-xs-12"> -->
 				<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
+				<label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
 				<div class="col-sm-8">
-					<select id="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
+					<select id="salle" class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
 						<option value="" selected disabled>Selectionnez une salle</option>
 				 	</select>
 				</div>
 				</div>
-			</div>
-		</div>
-		<div class="space-12"></div>
+			<!-- </div> -->
+		</div><div class="space-12"></div>
 		<div class="row">
-			<div class="col-sm-12 col-xs-12">
-				<div class="form-group">
-					<label class="col-sm-4 control-label" for="lit_id"><strong>Lit : </strong></label>
-					<div class="col-sm-8">
-						<select id="lit_id" name="lit_id"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled>
-							<option value="" selected disabled>Selectionnez un lit</option>
-						</select>
-					</div>	
-			  </div>
-			</div>
-		</div><!-- ROW -->
-		<div class="space-12"></div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="lit_id">Lit :</label>
+			<div class="col-sm-8">
+				<select id="lit_id" name="lit_id"  class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled>
+					<option value="" selected disabled>Selectionnez un lit</option>
+				</select>
+			</div>	
+	  </div>
+		</div><div class="space-12"></div><!-- ROW -->  
 		<div class="row">
 			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
 					<button class="btn btn-info btn-sm" type="submit" id="saveReservation">
 						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-					</button>&nbsp; &nbsp; &nbsp;
+					</button>&nbsp;&nbsp;
 					<button class="btn btn btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 				</div>
 			</div>
