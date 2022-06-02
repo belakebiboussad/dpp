@@ -6,14 +6,12 @@
 @section('page-script')
 <script>
   jQuery(function($) {
-      
         $('[data-rel=tooltip]').tooltip();
       
         $('.select2').css('width','200px').select2({allowClear:true})
         .on('change', function(){
           $(this).closest('form').validate().element($(this));
         }); 
-      
       
         var $validation = false;
         $('#fuelux-wizard-container')
@@ -67,12 +65,7 @@
             $('#sample-form').show();
           }
         })
-      
-      
-      
         //documentation : http://docs.jquery.com/Plugins/Validation/validate
-      
-      
         $.mask.definitions['~']='[+-]';
         $('#phone').mask('(999) 999-9999');
       
@@ -299,11 +292,11 @@
                           <ul class="steps" style="margin-left: -1px">
                             <li data-step="1" class="complete">
                               <span class="step">1</span>
-                              <span class="title">Validation states</span>
+                              <span class="title">Motif (Validation)</span>
                             </li>
                             <li data-step="2" class="active">
                               <span class="step">2</span>
-                              <span class="title">Alerts</span>
+                              <span class="title">Antécédants</span>
                             </li>
                             <li data-step="3" class="">
                               <span class="step">3</span>
@@ -686,80 +679,6 @@
                     </div><!-- /.widget-main -->
                   </div><!-- /.widget-body -->
                 </div>
-                <div id="modal-wizard" class="modal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div id="modal-wizard-container" class="no-steps-container">
-                        <div class="modal-header">
-                          <ul class="steps" style="margin-left: 0">
-                            <li data-step="1" class="active">
-                              <span class="step">1</span>
-                              <span class="title">Validation states</span>
-                            </li>
-
-                            <li data-step="2">
-                              <span class="step">2</span>
-                              <span class="title">Alerts</span>
-                            </li>
-
-                            <li data-step="3">
-                              <span class="step">3</span>
-                              <span class="title">Payment Info</span>
-                            </li>
-
-                            <li data-step="4">
-                              <span class="step">4</span>
-                              <span class="title">Other Info</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="modal-body step-content">
-                          <div class="step-pane active" data-step="1">
-                            <div class="center">
-                              <h4 class="blue">Step 1</h4>
-                            </div>
-                          </div>
-
-                          <div class="step-pane" data-step="2">
-                            <div class="center">
-                              <h4 class="blue">Step 2</h4>
-                            </div>
-                          </div>
-
-                          <div class="step-pane" data-step="3">
-                            <div class="center">
-                              <h4 class="blue">Step 3</h4>
-                            </div>
-                          </div>
-
-                          <div class="step-pane" data-step="4">
-                            <div class="center">
-                              <h4 class="blue">Step 4</h4>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="modal-footer wizard-actions">
-                        <button class="btn btn-sm btn-prev" disabled="disabled">
-                          <i class="ace-icon fa fa-arrow-left"></i>
-                          Prev
-                        </button>
-
-                        <button class="btn btn-success btn-sm btn-next" data-last="Finish">
-                          Next
-                          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-                        </button>
-
-                        <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
-                          <i class="ace-icon fa fa-times"></i>
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- PAGE CONTENT ENDS -->
               </div><!-- /.col -->
             </div><!-- /.row -->
           </div><!-- /.page-content -->

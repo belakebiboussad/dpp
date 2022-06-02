@@ -37,7 +37,7 @@ use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
-use Carbon\Carbon;//use PDF;
+use Carbon\Carbon;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -83,6 +83,7 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request,$id_patient)
       {
+        $date = Carbon::now();
         $etablissement = Etablissement::first(); 
         $employe = Auth::user()->employ;
         $specialite = Specialite::findOrFail($employe->specialite);
@@ -93,8 +94,10 @@ class ConsultationsController extends Controller
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-        //$rdvs =  $rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get();
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
+        /*$consult =new consultation;$consult->date=$date;
+        $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
+        $consult->id_lieu =$etablissement->id;$consult->save();*/
+        return view('consultations.create.a',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
      * Store a newly created resource in storage.

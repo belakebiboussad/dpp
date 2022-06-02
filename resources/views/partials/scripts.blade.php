@@ -45,7 +45,10 @@
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('/js/jQuery.print.js')}}"></script>
-<script src="{{asset('/js//chart.min.js')}}"></script>
+<script src="{{asset('/js/chart.min.js')}}"></script>
+<script src="{{asset('/js/jquery.mobile.custom.min.js')}}"></script>
+<script src="{{asset('/js/jquery-additional-methods.min.js')}}"></script>
+<script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
 <script type="text/javascript">
