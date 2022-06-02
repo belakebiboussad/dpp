@@ -37,7 +37,7 @@
       {{ method_field('PUT') }}
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
       <input type="hidden" class="demande_id" name="demande_id" value="{{ $demande->demandeHosp->id }}">
-     <input type="hidden" id="affect" value="0">
+      <!-- <input type="hidden" id="affect" value="0"> -->
       <div class="row">
         <div class="col-sm-12"><h4 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h4></div>
       </div>

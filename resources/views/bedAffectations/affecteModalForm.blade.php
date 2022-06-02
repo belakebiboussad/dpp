@@ -21,22 +21,22 @@
                </select>
                </div>  
               </div>
-                        <div class="form-group">
-                                <label class="control-label" for="salle">Salle :</label>
-                                <div >
-                                     <select  class="form-control selectpicker show-menu-arrow place_holder salle"/>
-                                           <option value="0" selected>Selectionnez une salle</option>
-                                     </select>
-                             </div>  
-                      </div>
-                         <div class="form-group">
-                                <label class="control-label" for="lit_id">Lit :</label>
-                                <div >
-                                     <select  name="lit_id" class="form-control selectpicker show-menu-arrow place_holder lit_id"/>
-                                           <option value="" selected disabled>Selectionnez un lit</option>
-                                     </select>
-                             </div>  
-                      </div>
+                <div class="form-group">
+                        <label class="control-label" for="salle">Salle :</label>
+                        <div >
+                             <select  class="form-control selectpicker show-menu-arrow place_holder salle"/>
+                                   <option value="0" selected>Selectionnez une salle</option>
+                             </select>
+                     </div>  
+              </div>
+                 <div class="form-group">
+                        <label class="control-label" for="lit_id">Lit :</label>
+                        <div >
+                             <select  name="lit_id" class="form-control selectpicker show-menu-arrow place_holder lit_id"/>
+                                   <option value="" selected disabled>Selectionnez un lit</option>
+                             </select>
+                     </div>  
+              </div>
         </div>
         <div class="modal-footer">
               <button class="btn btn-primary" id='AffectSave' disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>

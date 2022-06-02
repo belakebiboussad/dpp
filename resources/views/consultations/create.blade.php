@@ -64,6 +64,10 @@ function editMedicm(med)
       }
     });
 }
+function rowDelete(id)
+{
+  $("#"+id).remove();
+}
 $(function(){
   imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
       base64Img = base64; 
@@ -389,12 +393,6 @@ input: 'checkbox',inputPlaceholder: 'Redez-Vous Fixe',showCancelButton: true,
 confirmButtonColor: '#3085d6',cancelButtonColor: '#d33',confirmButtonText: 'Oui',cancelButtonText: "Non",allowOutsideClick: false,
 }).then((result) => {if(!isEmpty(result.value))createRDVModal(start,end,'{{ $patient->id }}',result.value);})}else
 $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, draggedEvent) {  return false; },eventDrop: function(event, delta, revertFunc) { revertFunc(); }, eventDragStop: function (event, jsEvent, ui, view) {return false;}});$("#rdvadd").click(function(){$(".calendar").fullCalendar( 'refetchEvents' ); $('#RDV').modal("show");});*/     
-/* $('#certifDescrip-add').click(function (e) {//ADD cetificat descriptif
-$('#orientationSave').val("add"); $('#modalFormDataOroient').trigger("reset");
-$('#orientCrudModal').html("Ajouter une  lettre d'orientation");
-      e.preventDefault();
-      $('#CertifDescrAdd').modal('show');
-  });*/
 });
 </script>
 @endsection
@@ -467,7 +465,6 @@ $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
 @include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')
 @include('consultations.ModalFoms.imprimerOrdonnanceAjax')
-@include('consultations.ModalFoms.certificatDescriptif')
 @include('examenradio.ModalFoms.crrPrint')
 @include('consultations.ModalFoms.certificatDescriptif')
 <div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterImgPDF')</div>

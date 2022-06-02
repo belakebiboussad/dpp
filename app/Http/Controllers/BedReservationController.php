@@ -9,14 +9,14 @@ use App\modeles\service;
 use App\modeles\BedReservation;
 class BedReservationController extends Controller
 {
-	 public function __construct()
-      {
-          $this->middleware('auth');
-      }
+	public function __construct()
+  {
+      $this->middleware('auth');
+  }
 	public function index()
 	{
 		$tomorrow = date("Y-m-d", strtotime('now'));
-		$services = service::all();
+		$services =service::where('type','!=',"2")->get();
 		$rdvs =	rdv_hospitalisation::doesntHave('bedReservation')->whereHas('demandeHospitalisation',function ($q){
 																			$q->doesntHave('bedAffectation')->where('service',Auth::user()->employ->service_id);    
 																		})->where('date','>=',$tomorrow)->where('etat','=',null)->get();

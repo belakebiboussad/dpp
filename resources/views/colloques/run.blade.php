@@ -9,44 +9,43 @@
 	});
 	function valideDemande(elm,line,id){
 		var  select = $("#" + line).find("select");
-		if (select.val() == null) {
-			if (!$(".red")[0]){
-	    	              select.after('<div class="red">Sélectionner un Medecin</div>'); 
-			}  
-	       } else {
-	  	        var formData = {
-              	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
-            	   	  	observation : $("#" + line).find('[name=observation]').val(),
-               		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-                             id_demande : $("#" + line).find('[name=demandeId]').val(),
-                              id_colloque :$("#colloqueId").val(),
-		         };
-  		       var ajaxurl = '/demandehosp/valider';
-            		if(!($(elm).hasClass("btn-success")))
-                      {	
-       	                      ajaxurl = '/demandehosp/invalider';
-                      }
-		 	$.ajax({
-			 	headers: {
-			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			      },
-	        		url : ajaxurl,
-		        	type:'POST',
-			       data:formData,
-			        dataType: 'json',
-		               success: function (data) {
-                                     if(data.etat == "Valide")
-			               {
-			     			  $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-			       		          $(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
-			 		 } else {
-				     	        $(elm).removeClass("btn-danger").addClass("btn-success");
-					        $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-				      }
-			      },
-			      error:function(data){
-			          console.log('Error:', data);
+    if (select.val() == null)
+		{
+    	if (!$(".red")[0])
+	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
+    }else {
+      var formData = {
+  	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
+	   	  	observation : $("#" + line).find('[name=observation]').val(),
+       		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+          id_demande : $("#" + line).find('[name=demandeId]').val(),
+          id_colloque :$("#colloqueId").val(),
+      };
+      var ajaxurl = '/demandehosp/valider';
+    	if(!($(elm).hasClass("btn-success")))
+        ajaxurl = '/demandehosp/invalider';
+       	$.ajax({
+		  	  headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		      },
+        	url : ajaxurl,
+	        type:'POST',
+		      data:formData,
+		      dataType: 'json',
+          success: function (data) {
+            alert(data.etat);
+            if(data.etat == "Valide")
+            {
+   	    		  $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+     		      $(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+		 		    } else {
+			     	  $(elm).removeClass("btn-danger").addClass("btn-success");
+				      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
 			      }
+		      },
+		      error:function(data){
+		          console.log('Error:', data);
+		      }
 			}); 
 		}
 	}

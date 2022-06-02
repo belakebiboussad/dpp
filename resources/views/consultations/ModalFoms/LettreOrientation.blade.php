@@ -17,12 +17,10 @@ td
 			    <div class="col-xs-12">
 				    <div class= "widget-box widget-color-green">
             <div class="widget-header">
-               <h5 class="widget-title bigger lighter"><font color="black">
-                  <i class="ace-icon fa fa-table"></i>&nbsp;<b>Lettres d'orientation</b></font></h5>
+               <h5 class="widget-title bigger lighter">
+                  <i class="ace-icon fa fa-table"></i>&nbsp;<b>Lettres d'orientation</b></h5>
               <div class="widget-toolbar widget-toolbar-light no-border">
-                <a id="orientation-add" class="btn-xs align-middle" data-toggle="modal">
-                  <i class="fa fa-plus-circle bigger-180"></i>
-                </a>
+                <a id="orientation-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
               </div>
             </div>
             <div class="widget-body">
@@ -52,19 +50,17 @@ td
           <div class="col-xs-12">
             <div class= "widget-box widget-color-info">
               <div class="widget-header">
-               <h5 class="widget-title bigger lighter"><font color="black">
-                <i class="ace-icon fa fa-table"></i>&nbsp;<b>Certificat Medical Descriptif</b></font></h5>
+               <h5 class="widget-title bigger lighter">
+                <i class="ace-icon fa fa-table"></i>&nbsp;<b>Certificat Medical Descriptif</b></h5>
                 <div class="widget-toolbar widget-toolbar-light no-border">
-                  <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal" data-target="#CertifDescrAdd">
-                    <i class="fa fa-plus-circle bigger-180"></i>
-                  </a>
+                  <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
                 </div>
               </div><!-- widget-header -->
               <div class="widget-main no-padding">
-                <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="orientationsList">
+                <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="certificatDescrList">
                   <thead class="thin-border-bottom">
                     <tr class ="center">
-                      <th class="center"></th>
+                      <th class="center">Examen Clinique</th>
                       <th class="center" width="5%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
@@ -85,9 +81,9 @@ td
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}
 </div>{{-- modal --}}
-<div class="row">@include('consultations.ModalFoms.LettreOrientationAdd')</div>
+@include('consultations.ModalFoms.LettreOrientationAdd')@include('consultations.ModalFoms.certificatDescriptif')
 <script>
-    function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+    /*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
       $('#OrientLetterPdf').removeAttr('hidden');
       $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
       $("#motifCons").text($( "#motifC" ).val());
@@ -105,17 +101,15 @@ td
           console.log('doing something before downloading pdf file');
           pdf.save();
       });
-    }
-  $(function(){
-    
-    imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
-      base64Img = base64; 
-    });
-    imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
-            footer64Img = base64; 
-   });   
-
-    $('#LettreOrientationAdd').on('hidden.bs.modal', function (e) {  
+    }*/
+    $(function(){
+      imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
+        base64Img = base64; 
+      });
+      imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+        footer64Img = base64; 
+      });   
+      $('#LettreOrientationAdd').on('hidden.bs.modal', function (e) {  
       $(this).find("input:not([type=button]),textarea,select,text")
         .val('')
         .end().find("input[type=checkbox], input[type=radio]")
@@ -124,17 +118,17 @@ td
     });
     $('#orientation-add').click(function () {//ADD Orientation
         $('#orientationSave').val("add");
-        jQuery('#modalFormDataOroient').trigger("reset");
+        $('#modalFormDataOroient').trigger("reset");
         $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
         jQuery('#LettreOrientationAdd').modal('show');
     });
     $('#orientationSave').click(function () {//ADD Orientation
       if($(this).val() == "update")
-        supcolonne($("#specialiteOrient").val());
+        rowDelete($("#specialiteOrient").val());
       var orientation ='<tr id="'+$("#specialiteOrient").val()+'"><td hidden>'+$("#specialiteOrient").val()+'</td><td>'+$('#specialiteOrient option:selected').html() +'</td><td>'+$("#motifC").val()+'</td><td>'+$("#motifOrient").val()+'</td><td class="center">';
       orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + $("#specialiteOrient").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
       orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + $("#specialiteOrient").val()+ '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-      orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + $("#specialiteOrient").val()+ '" onclick ="supcolonne('+$("#specialiteOrient").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+      orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + $("#specialiteOrient").val()+ '" onclick ="rowDelete('+$("#specialiteOrient").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
       $("#orientationsList").append(orientation);
       $('#LettreOrientationAdd').trigger("reset");
     });
@@ -170,5 +164,34 @@ td
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
+    $('#certifDescrip-add').click(function (e) {
+      $('#decriptifSave').val("add");
+      $('#modalFormDescript').trigger("reset");
+      $('#CertifDescrAdd').modal('show');
+    });
+      $('#decriptifSave').click(function () {//ADD Orientation
+          alert($(this).val());
+          if($(this).val() == "update")
+            rowDelete("decriptidID");
+          var certificat ='<tr id ="decriptidID"><td>'+ $("#examClin").val() +'</td><td>';
+          certificat += '<button type="button" class="btn btn-xs btn-info open-Desc"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
+          certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+          $("#certificatDescrList").append(certificat);
+          if(!$('#certifDescrip-add').hasClass('hidden'))
+            $('#certifDescrip-add').addClass('hidden');
+          $('#modalFormDescript').trigger("reset");
+    });
+    $('body').on('click', '.open-Desc', function (event) {
+      var tr = document.getElementById("decriptidID");
+      $("#examClin").val((document.getElementById("decriptidID")).cells[0].innerHTML);
+      $('#DescripCrudModal').html("Modifier le Certificat descriptf"); 
+      $('#decriptifSave').val("update"); 
+      $('#CertifDescrAdd').modal('show');
+    });
+    $('body').on('click', '.delete-Desc', function (event) {
+      rowDelete("decriptidID");
+      $('#certifDescrip-add').removeClass('hidden');
+    });
+
 }) 
 </script>

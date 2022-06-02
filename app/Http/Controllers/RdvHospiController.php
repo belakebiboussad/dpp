@@ -62,12 +62,12 @@ class RdvHospiController extends Controller
   }
   public function getlisteRDVs()
   {
-        $rdvHospis = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
-                                                           $q->where('etat', 1);
-                                                 })->whereHas('demandeHospitalisation.Service',function($q){
-                                                      $q->where('id',Auth::user()->employ->service_id);       
-                                                 })->where('etat','=',null)->get();
-        return view('rdvHospi.liste',compact('rdvHospis'));
+    $rdvHospis = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+                                                       $q->where('etat', 1);
+                                             })->whereHas('demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service_id);       
+                                             })->where('etat', null)->get();
+    return view('rdvHospi.liste',compact('rdvHospis'));
   }
   public function edit($id)
   {

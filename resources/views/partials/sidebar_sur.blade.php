@@ -122,25 +122,23 @@
         });
         $(".serviceHosp").change(function(){
           if($(this ).val() != 0)
-          {  
+          {
             var attr = $('.salle').attr('disabled');
-            if (typeof attr !== typeof undefined && attr !== false) {
+            if (typeof attr !== typeof undefined && attr !== false) 
               $('.salle').removeAttr("disabled");
-            }
             $('.lit_id option[value=0]').prop('selected', true);
             $('.lit_id').attr('disabled', 'disabled');
-            
             var formData = { 
                 ServiceID: $(this).val(), 
                 Affect :$('.affect').val(),
                 demande_id: $('.demande_id').val(),
             };
-           if($('.affect').val() == '0')
+            if($('.affect').val() == '0')
             {
-                  formData.StartDate =$('#dateEntree').val();
-                  formData.EndDate = $("#dateSortiePre").val();
+              formData.StartDate =$('#dateEntree').val();
+              formData.EndDate = $("#dateSortiePre").val();
             } 
-        $.ajax({
+            $.ajax({
               url : '/getsalles',
               type:'GET',
               data:formData,

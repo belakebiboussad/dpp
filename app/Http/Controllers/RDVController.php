@@ -116,10 +116,10 @@ class RDVController extends Controller
                   "specialite_id"=> $specialite
           ]);   
           return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));
-        }else
-        {
-
         }
+        /*else
+        {
+        }*/
 
     }
     /**

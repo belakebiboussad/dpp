@@ -2,10 +2,14 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content custom-height-modal"> <!-- Modal content-->
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">
-        &times;</button> <h4 class="modal-title" id="orientCrudModal">Ajouter un Certificat descriptf</h4>
+        &times;</button> <h4 class="modal-title" id="DescripCrudModal">Ajouter un Certificat descriptf</h4>
       </div>
       <div class="modal-body">
-        <form id="modalFormDataOroient" method="POST" class="form-horizontal">
+        <form id="modalFormDescript" method="POST" class="form-horizontal">
+          <div class="form-group">
+            <label for="description">Examen clinque:</label>
+            <textarea class="form-control" id="examClin" rows="8"></textarea>
+          </div>
         </form>
       </div>
        <div class="modal-footer">

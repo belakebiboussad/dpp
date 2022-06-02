@@ -81,8 +81,7 @@
 							{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }} </td>
 						<td>{{ $rdv->date }} &nbsp;{{ $rdv->heure }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
-						<td>
-<!--<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> 
+						<td><!--<a class="btn btn-xs btn-success" id ="addReserv"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> 
 onclick ="addReserv({{$rdv->id}})"-->
 							<button class="btn btn-xs btn-success" id ="addReserv" value ='{{ $rdv->id }}' data-demande-id = "{{ $rdv->demandeHospitalisation->id }}" title="Réserver un lit">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
@@ -96,48 +95,34 @@ onclick ="addReserv({{$rdv->id}})"-->
 		</div>
 	</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	<div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1">
 	<form id="addReservationForm" action="{{ route('reservation.store') }}" method="POST" accept-charset="utf-8" role="form" hidden>
 		{{ csrf_field() }}
 		<input type="hidden" id="rdv_id" name="rdv_id">
-		<input type="hidden" class="demande_id">		
-		<div class="row ">
-			<div class="col-sm-12 col-xs-12">
-				<label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
-				<div class="col-sm-8">
-					<select id="serviceh" class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" />
-					  <option value="" selected disabled>Selectionnez un service</option>
-					  @foreach($services as $service)
-							<option value="{{ $service->id }}">{{ $service->nom }}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-		</div><!-- row -->
-		<div class="space-12"></div>
-		<div class="row">
-			<!-- <div class="col-sm-12 col-xs-12"> -->
-				<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
-				<div class="col-sm-8">
-					<select id="salle" class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
-						<option value="" selected disabled>Selectionnez une salle</option>
-				 	</select>
-				</div>
-				</div>
-			<!-- </div> -->
-		</div><div class="space-12"></div>
-		<div class="row">
+    <input type="hidden" id="affect" value="0">
+    <input type="hidden" class="demande_id" name="demande_id" value="">	
 		<div class="form-group">
-			<label class="col-sm-4 control-label" for="lit_id">Lit :</label>
-			<div class="col-sm-8">
-				<select id="lit_id" name="lit_id"  class="form-control selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled>
-					<option value="" selected disabled>Selectionnez un lit</option>
-				</select>
-			</div>	
-	  </div>
-		</div><div class="space-12"></div><!-- ROW -->  
-		<div class="row">
+      <label for="serviceh">Service :</label>
+      <select id="serviceh" class="form-control selectpicker serviceHosp"/>
+        <option value="" selected disabled>Selectionnez un service</option>
+        @foreach($services as $service)
+        <option value="{{ $service->id }}">{{ $service->nom }}</option>
+        @endforeach
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="salle">Salle :</label>
+      <select id="salle" class="form-control selectpicker salle"/>
+        <option value="" selected disabled>Selectionnez  une salle</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="lit_id">Lit :</label>
+      <select id="lit_id" name="lit_id" class="form-control selectpicker lit_id"/>
+        <option value="" selected disabled>Selectionnez un lit</option>
+      </select>
+    </div>
+	 <div class="row">
 			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
 					<button class="btn btn-info btn-sm" type="submit" id="saveReservation">

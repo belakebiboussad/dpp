@@ -87,9 +87,9 @@ class LitsController extends Controller
       {
         $view = view("lits.ajax_show",compact('lit'))->render();
         return Response::json(['html'=>$view]);
-      }else{
+      }else
         return view('lits.show', compact('lit'));
-      }
+      
     }
     /**
      * Show the form for editing the specified resource.
@@ -163,10 +163,10 @@ class LitsController extends Controller
           $now = date("Y-m-d", strtotime('now'));
           $services = service::where('type','<>',2)->where('hebergement','1')->get();
           $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
-                                                               ->whereHas('demandeHospitalisation',function ($q){
-                                                                     $q->where('service',Auth::user()->employ->service_id)
-                                                                       ->where('etat',1);    
-                                                              })->where('etat','==',null)->where('date','>=',$now)->get();//->whereNull('etat')
+                                     ->whereHas('demandeHospitalisation',function ($q){
+                                           $q->where('service',Auth::user()->employ->service_id)
+                                             ->where('etat',1);//,'=='    
+                                    })->where('etat', null)->where('date','>=',$now)->get();//->whereNull('etat')
           $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                       ->whereHas('consultation',function($q) use($now){
                                            $q->where('date', $now);

@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>	<br/>
+			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
