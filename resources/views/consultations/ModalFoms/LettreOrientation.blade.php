@@ -83,25 +83,13 @@ td
 </div>{{-- modal --}}
 @include('consultations.ModalFoms.LettreOrientationAdd')@include('consultations.ModalFoms.certificatDescriptif')
 <script>
-    /*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-      $('#OrientLetterPdf').removeAttr('hidden');
-      $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-      $("#motifCons").text($( "#motifC" ).val());
-      $("#motifO").text($( "#motifOrient" ).val());
-      var element = document.getElementById('OrientLetterPdf');
-      var options = {
-           filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-      };
-      var exporter = new html2pdf(element, options);
-      $("#OrientLetterPdf").attr("hidden",true);
-      exporter.getPdf(true).then((pdf) => {
-        console.log('pdf file downloaded');
-      });
-      exporter.getPdf(false).then((pdf) => {
-          console.log('doing something before downloading pdf file');
-          pdf.save();
-      });
-    }*/
+/*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+      $('#OrientLetterPdf').removeAttr('hidden');$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+      $("#motifCons").text($( "#motifC" ).val());$("#motifO").text($( "#motifOrient" ).val());
+      var element = document.getElementById('OrientLetterPdf');var options = {filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+      };var exporter = new html2pdf(element, options);$("#OrientLetterPdf").attr("hidden",true);
+      exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
+      exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file'); pdf.save();});}*/
     $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
         base64Img = base64; 
@@ -170,7 +158,6 @@ td
       $('#CertifDescrAdd').modal('show');
     });
       $('#decriptifSave').click(function () {//ADD Orientation
-          alert($(this).val());
           if($(this).val() == "update")
             rowDelete("decriptidID");
           var certificat ='<tr id ="decriptidID"><td>'+ $("#examClin").val() +'</td><td>';

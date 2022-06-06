@@ -165,9 +165,6 @@ class AssurController extends Controller
         // }
         // begin
         $patientId = $this->patientSearchByfirstName($assure->Prenom,$assure->NSS);
-        dd($patientId);
-
-        // end
         $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
         $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
         $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();

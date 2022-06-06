@@ -1,9 +1,9 @@
 <div class="row">
-@foreach(json_decode($specialite->appareils ,true) as $appareil)
-  <?php $nom = App\modeles\appareil::FindOrFail($appareil)->nom ?>
+@foreach(json_decode($specialite->appareils,true) as $appareil)
+  <?php $app = App\modeles\appareil::FindOrFail($appareil)?>
   <div class="col-sm-6 col-xs-12">
-    <button type="button" class="btn btn-lg btn-success col-sm-12 col-xs-12" data-toggle="collapse" data-target="#{{ $nom }}">Appareil {{ $nom }}</button>
-    <div id="{{ $nom }}" class="collapse panel panel-primary col-sm-12 col-xs-12">
+    <button type="button" class="btn btn-lg btn-success col-sm-12 col-xs-12" data-toggle="collapse" data-target="#{{ $app->id }}">Appareil {{ $app->nom }}</button>
+    <div id="{{ $app->id }}" class="collapse panel panel-primary col-sm-12 col-xs-12">
       <div class="widget-box widget-color-green">
         <div class="widget-header widget-header-small"> 
           <div class="wysiwyg-toolbar btn-toolbar center inline">
@@ -18,34 +18,31 @@
         </div>
         <div class="widget-body">
           <div class="widget-main no-padding">
-            <input type="hidden" name="{{ $nom }}"/>
+            <input type="hidden" name="{{ $app->nom }}"/>
             <div class="wysiwyg-editor" contenteditable style="height:100px;"></div>
           </div>
-              <div class="widget-toolbox padding-4 clearfix">
-                <div class="btn-group pull-left">
-                  <button class="btn btn-sm btn-default btn-white btn-round" type="button" onclick = 'removeAppareilsContent("{{ $nom }}")' disabled><i class="ace-icon fa fa-times bigger-125"></i>Annuler
-                  </button>
-                </div>
-                <div class="btn-group pull-right">
-                  <button class="btn btn-sm btn-danger btn-white btn-round" type="button" onclick = 'addAppareils("{{ $nom }}")' disabled><i class="ace-icon fa fa-floppy-o bigger-125"></i>Enregistrer
-                  </button>
-                </div>
-              </div>
+          <div class="widget-toolbox padding-4 clearfix">
+            <div class="btn-group pull-left"><!-- onclick = 'removeAppareilsContent("{{-- $app->id --}}")' -->
+              <button class="btn btn-sm btn-default btn-white btn-round appar-delete" type="button" value="{{ $app->id }}" disabled>
+                <i class="ace-icon fa fa-times bigger-125"></i>Annuler
+              </button>
             </div>
-          </div>  {{--widget-box --}}
+            <div class="btn-group pull-right">
+              <button class="btn btn-sm btn-danger btn-white btn-round appareilSave"  type="button"  value = "add" data-id="{{ $app->id }}" disabled>
+                <i class="ace-icon fa fa-floppy-o bigger-125"></i>Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>{{--widget-box --}}
     </div>
   </div>
+  @if($loop->iteration %2 == 0 )
+    <div class="col-sm-12"></div><div class="col-sm-12"></div>
+  @endif 
 @endforeach
-</div><div class="space-12"></div><div class="space-12 hidden-xs"></div>
+</div>
 <script>
-function addAppareils(appareil)
-{
-  $("#"+appareil).each(function(i){
-    if(($(this).find(".wysiwyg-editor").text()) !=" ");
-      $('input:hidden[name="' + appareil + '"]').val($(this).find(".wysiwyg-editor").text());
-    $(this).collapse('hide');
-  });
-}
 function removeAppareilsContent(appareil)
 {
   $("#"+appareil).each(function(i){
@@ -54,10 +51,55 @@ function removeAppareilsContent(appareil)
 } 
 $(function() {
   $('.wysiwyg-editor').on('input',function(e){
-    var a = $(this).parent().nextAll("div.clearfix");
-    var i = a.find("button:button").each(function(){
-      $(this).removeAttr('disabled');
+    /*
+    var elem = $(this).parent().nextAll("div.clearfix");
+    elem.find("button:button").each(function(){
+       $(this).removeAttr('disabled');
     });
+    */
+    $("input.appareilSave:button").removeAttr('disabled');
   });
+  $(".appareilSave").click(function (e) {
+    e.preventDefault();
+    $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    });
+    if($("#"+ $(this).data('id')).find(".wysiwyg-editor").text() != "")
+    {
+      var formData = {//_token: CSRF_TOKEN,
+          cons_id:'{{ $consult->id }}',
+          appareil_id:$(this).data('id'),
+          description:$("#"+ $(this).data('id')).find(".wysiwyg-editor").text()
+      };
+      var type = "POST", url = '';
+      if ($(this).val() == "update") {
+        type = "PUT";
+        url = '{{ route("appreilExamClin.update", ":slug") }}'; 
+        url = url.replace(':slug',$(this).data('id'));
+      }else
+      {
+        url ="{{ route('appreilExamClin.store') }}";
+        $(this).val("update");
+      }
+      $.ajax({
+            type: type,
+            url: url,
+            data: formData,
+            success: function (data) {
+              $("#"+ data.appareil_id).collapse('hide');
+            },
+            error : function(data){
+              alert("data");
+            }
+      }); 
+    } 
+  });
+  $(".appar-delete").click(function (e) {
+    e.preventDefault();
+    alert($(this).val());
+  });
+
 }) 
 </script>

@@ -27,6 +27,7 @@ Route::resource('ordonnace','OrdonnanceController');
 Route::resource('lit','LitsController');
 Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
+Route::resource('appreilExamClin','AppareilExamenCliniqueController');
 Route::resource('users','UsersController');
 Route::resource('employs','EmployeController');
 Route::resource('rdv','RDVController');

@@ -29,12 +29,12 @@ class DemandeHospitalisationController extends Controller
       }
       public function index()
       {
-
-              $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           
-              $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
-                              $q->where('id',$employeID);
-                })->get();  
-              return view('demandehospitalisation.index',compact('demandehospitalisations'));
+        $employeID= employ::where("id",Auth::user()->employee_id)->first()->id ;           
+        $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
+                        $q->where('id',$employeID);
+          })->get();  
+        
+        return view('demandehospitalisation.index',compact('demandehospitalisations'));
       }
 
     /**

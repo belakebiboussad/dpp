@@ -33,7 +33,7 @@ class OrdonnanceController extends Controller
     public function create($id_consultation)
     {
       $consultation = consultation::where("id",$id_consultation)->get()->first();
-      $patient = patient::where("id",$consultation->pid)->get()->first();
+      $patient = patient::where("id",$consultation->pid)->first();
       return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
     /**

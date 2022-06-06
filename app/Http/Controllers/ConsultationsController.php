@@ -94,10 +94,11 @@ class ConsultationsController extends Controller
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-        /*$consult =new consultation;$consult->date=$date;
+        $consult =new consultation;$consult->date=$date;
         $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
-        $consult->id_lieu =$etablissement->id;$consult->save();*/
-        return view('consultations.create.a',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
+        $consult->id_lieu =$etablissement->id;$consult->save();
+        //dd($consult);
+        return view('consultations.createObj',compact('consult','patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
      * Store a newly created resource in storage.
@@ -151,7 +152,7 @@ class ConsultationsController extends Controller
           Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
         } 
-        if($specialite->appareils) {
+        /*if($specialite->appareils) {
           foreach (json_decode ($specialite->appareils ) as  $appareil) {   
             $appareil = appareil::FindOrFail($appareil);
             if( null !== $request->input($appareil->nom))
@@ -169,7 +170,7 @@ class ConsultationsController extends Controller
               $exam->examsAppareil()->save($examAppareil);
             }
           }  
-        }
+        }*/
         if(json_decode($request->orients) !== null) {
           foreach (json_decode($request->orients, true) as $key => $orient) {
             $orient['consultation_id'] = $consult->id ;
