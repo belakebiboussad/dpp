@@ -44,7 +44,14 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  /*public function store(Request $request,$consultId){$demande = demandeexb::FirstOrCreate([ "id_consultation" => $consultId,]); foreach($request->exm as $id_exb) {  $demande->examensbios()->attach($id_exb);}}*/
+  public function store(Request $request,$consultId)
+  {
+    $demande = demandeexb::FirstOrCreate([ "id_consultation" => $consultId,]);
+    foreach($request->exm as $id_exb) 
+    {
+      $demande->examensbios()->attach($id_exb);
+    }
+  }
   /**
      * Display the specified resource.
      *

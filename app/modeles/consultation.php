@@ -8,7 +8,7 @@ class consultation extends Model
 {
         public $timestamps = false;
         protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','date','Diagnostic',
-                              'id_code_sim','Resume_OBS','employ_id','pid','id_lieu'];//modeAdmission
+                              'id_code_sim','Resume_OBS','employ_id','pid','id_lieu'];
         public function medecin()
         {
             return $this->belongsTo('App\modeles\employ','employ_id');
@@ -25,14 +25,14 @@ class consultation extends Model
         {
             return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
         }
-       public function examsAppareil()
+        public function examsAppareil()
         {
-               return $this->hasMany('App\modeles\examAppareil','cons_id');
+          return $this->hasMany('App\modeles\examAppareil','cons_id');
         }
-       public function demandExmImg()//examensradiologiques()//used
-       {
+        public function demandExmImg()//examensradiologiques()//used
+        {
             return $this->hasOne('App\modeles\demandeexr','id_consultation');
-      }
+       }
         public function examenAnapath()
         {
             return $this->hasOne('App\modeles\examenanapath','id_consultation');

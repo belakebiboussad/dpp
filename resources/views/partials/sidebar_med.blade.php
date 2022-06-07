@@ -223,13 +223,38 @@
       $("#"+field).val(code);
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+    }
+    function examsBioSave(){
+      var formData = {
+        _token: CSRF_TOKEN,
+        id_consultation:'{{ $consult->id }}',
+      };
+      alert(formData.id_consultation);
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+          alert($(this).val());
+      });
+      /*
+      var type = "POST";
+      url ="{{ route('demandeexb.store') }}";
+      $.ajax({
+            type: type,
+            url: url,
+            data: formData,
+            success: function (data) {
+             
+            },
+            error : function(data){
+              alert("data");
+            }
+      });
+      */
     }  
-   function printExBio(patientName, ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
+    function examsBioprint(patientName, ipp, med){
       var fileName ='examsBio-' + patientName +'.pdf'; 
       ol = document.getElementById('listBioExam');
       ol.innerHTML = '';
       $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-             $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
+        $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
       });
       var pdf = new jsPDF('p', 'pt', 'a4');
       JsBarcode("#barcode",ipp,{
@@ -288,7 +313,8 @@
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-                printExBio(patientName, ipp, med);
+                examsBioSave();
+                //examsBioprint(patientName, ipp, med);
                 break;
         case 1:
                 printExImg(patientName, ipp, med);

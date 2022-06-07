@@ -10,12 +10,8 @@ class AppareilExamenCliniqueController extends Controller
       {
          	 $this->middleware('auth');
       }
-     	public function index(Request $request)
-      {
-        dd($request);
-      }
-      //public function store(Request $request, $ExamClinID, $appareilID, $Desccrip)
-     	public function store(Request $request)
+     	//public function index(Request $request){dd($request);}//public function store(Request $request, $ExamClinID, $appareilID, $Desccrip)
+      public function store(Request $request)
       {
         if($request->ajax())  
         { 
@@ -31,9 +27,15 @@ class AppareilExamenCliniqueController extends Controller
       public function update(Request $request, $id)
       {
         examAppareil::where('appareil_id', $id)->where('cons_id', $request->cons_id)
-                               ->update($request->all());
+                               ->update($request->all());//
         $examApp = examAppareil::where('appareil_id', $id)->where('cons_id', $request->cons_id)->first();
         return $examApp;
       } 
+      public function destroy(Request $request,$id)
+      {
+        $examApp = examAppareil::where('appareil_id',$id)->where('cons_id', $request->cons_id)->first();
+        $examApp->delete();
+        return $examApp;
+      }
 }
 

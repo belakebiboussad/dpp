@@ -21,7 +21,7 @@
 <div class="row">
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
-	 		<div class="tab-pane active examsBio" id="biologique"> <!-- != 'NULL' -->
+	 		<div class="tab-pane active examsBio" id="biologique"> 
 	 			@if($specialite->exmsbio != "null")
           @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
 	 	  	  	<div class="checkbox col-xs-4">

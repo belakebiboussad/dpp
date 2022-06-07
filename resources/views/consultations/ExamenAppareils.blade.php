@@ -8,7 +8,7 @@
         <div class="widget-header widget-header-small"> 
           <div class="wysiwyg-toolbar btn-toolbar center inline">
             <div class="btn-group"> 
-              <a class="btn btn-sm btn-default" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class=" ace-icon fa fa-bold"></i></a>
+              <a class="btn btn-sm btn-default" data-edit="bold" data-original-title="Bold (Ctrl/Cmd+B)"><i class=" ace-icon fa fa-bold"></i></a>
             </div>
              <div class="btn-group">
               <a class="btn btn-sm btn-default" data-edit="insertunorderedlist" data-original-title="Bullet list"><i class=" ace-icon fa fa-list-ul"></i></a>
@@ -19,10 +19,12 @@
         <div class="widget-body">
           <div class="widget-main no-padding">
             <input type="hidden" name="{{ $app->nom }}"/>
-            <div class="wysiwyg-editor" contenteditable style="height:100px;"></div>
+            <div class="wysiwyg-editor" contenteditable style="height:100px;">
+           
+            </div>
           </div>
           <div class="widget-toolbox padding-4 clearfix">
-            <div class="btn-group pull-left"><!-- onclick = 'removeAppareilsContent("{{-- $app->id --}}")' -->
+            <div class="btn-group pull-left">
               <button class="btn btn-sm btn-default btn-white btn-round appar-delete" type="button" value="{{ $app->id }}" disabled>
                 <i class="ace-icon fa fa-times bigger-125"></i>Annuler
               </button>
@@ -51,13 +53,8 @@ function removeAppareilsContent(appareil)
 } 
 $(function() {
   $('.wysiwyg-editor').on('input',function(e){
-    /*
     var elem = $(this).parent().nextAll("div.clearfix");
-    elem.find("button:button").each(function(){
-       $(this).removeAttr('disabled');
-    });
-    */
-    $("input.appareilSave:button").removeAttr('disabled');
+    elem.find('.appareilSave').removeAttr('disabled');
   });
   $(".appareilSave").click(function (e) {
     e.preventDefault();
@@ -89,6 +86,7 @@ $(function() {
             data: formData,
             success: function (data) {
               $("#"+ data.appareil_id).collapse('hide');
+              $("#"+ data.appareil_id).find('.appar-delete').removeAttr('disabled');
             },
             error : function(data){
               alert("data");
@@ -98,8 +96,35 @@ $(function() {
   });
   $(".appar-delete").click(function (e) {
     e.preventDefault();
-    alert($(this).val());
+    var formData = {
+        appareil_id  : $(this).val(),
+        cons_id : '{{ $consult->id }}',
+    };  
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    url='{{ route("appreilExamClin.destroy",":slug") }}';
+    url = url.replace(':slug',$(this).val());
+    $.ajax({
+      type: "DELETE",
+      url : url,
+      data: formData,
+      success: function (data) {
+          $("#"+ data.appareil_id).find(".wysiwyg-editor").text("");
+            $("#" + data.appareil_id).find(":button").each(function(i){
+              $(this).attr('disabled','disabled');
+              if($(this).val() == "update")
+                $(this).val("add");
+            });  
+          
+      },
+      error: function (data) {
+        console.log('Error:', data);
+      }
+    });
+  
   });
-
 }) 
 </script>

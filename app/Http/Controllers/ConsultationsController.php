@@ -97,7 +97,6 @@ class ConsultationsController extends Controller
         $consult =new consultation;$consult->date=$date;
         $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
         $consult->id_lieu =$etablissement->id;$consult->save();
-        //dd($consult);
         return view('consultations.createObj',compact('consult','patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
@@ -151,26 +150,7 @@ class ConsultationsController extends Controller
           $constvalue['examCl_id'] = $exam->id ;
           Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
-        } 
-        /*if($specialite->appareils) {
-          foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-            $appareil = appareil::FindOrFail($appareil);
-            if( null !== $request->input($appareil->nom))
-            {
-              if(!isset( $exam->id))
-              {
-                $input = $request->all();
-                $input['id_consultation'] = $consult->id ;
-                $exam = examen_cliniqu::create($input);
-              }  
-              $examAppareil = new examAppareil;
-              $examAppareil->appareil_id = $appareil->id;
-              $examAppareil->description = $request->input($appareil->nom); 
-              $examAppareil->examen_clinique_id =  $exam->id;
-              $exam->examsAppareil()->save($examAppareil);
-            }
-          }  
-        }*/
+        }
         if(json_decode($request->orients) !== null) {
           foreach (json_decode($request->orients, true) as $key => $orient) {
             $orient['consultation_id'] = $consult->id ;
@@ -185,7 +165,7 @@ class ConsultationsController extends Controller
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-        if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
+        if($request->exmsbio  != null && (count($request->exmsbio) >0 ))
         {
           $demandeExamBio = new demandeexb;
           $consult->demandeexmbio()->save($demandeExamBio);
