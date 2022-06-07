@@ -224,16 +224,16 @@
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
     }
-    function examsBioSave(){
+    function examsBioSave(consultId){
+      var exams=[];
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+        exams.push($(this).val());
+      });
       var formData = {
         _token: CSRF_TOKEN,
-        id_consultation:'{{ $consult->id }}',
+        id_consultation:consultId,
+        exams:JSON.stringify(exams),
       };
-      alert(formData.id_consultation);
-      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-          alert($(this).val());
-      });
-      /*
       var type = "POST";
       url ="{{ route('demandeexb.store') }}";
       $.ajax({
@@ -247,7 +247,6 @@
               alert("data");
             }
       });
-      */
     }  
     function examsBioprint(patientName, ipp, med){
       var fileName ='examsBio-' + patientName +'.pdf'; 
@@ -308,12 +307,12 @@
       pdf.text(320,730, 'Docteur : ' + med);
       generate(fileName,pdf,'imagExamsPdf');
     }
-    function printExamCom(patientName, ipp, med)
+    function printExamCom(consultId, patientName, ipp, med)
     {
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-                examsBioSave();
+                examsBioSave(consultId);
                 //examsBioprint(patientName, ipp, med);
                 break;
         case 1:

@@ -43,7 +43,7 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{ $patient->full_name }}','{{ $patient->IPP}}','{{ $employe->full_name }}')">
+			  <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12" onclick="printExamCom('{{ $consult->id }}','{{ $patient->full_name }}','{{ $patient->IPP}}','{{ $employe->full_name }}')">
 					<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
 				</button>
 			</div>
