@@ -74,10 +74,8 @@ $(function(){
   });
   imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
      footer64Img = base64; 
-  });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );
-  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
-  /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');
-  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
+  });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
+  /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
   var checkbox = $("#isOriented");
   var hidden = $("#hidden_fields");// Setup an event listener for when the state of the    // checkbox changes.
   checkbox.change(function() {
@@ -87,10 +85,8 @@ $(function(){
         hidden.hide();
         $("#lettreorientaioncontent").val("");
     }
-  }); 
-/*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
-/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
-    /*$("#btnCalc").click(function(event){event.preventDefault(); });*/
+  });/*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
+/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*//*$("#btnCalc").click(function(event){event.preventDefault(); });*/
   $('#medc_table').DataTable({
       processing: true,
       serverSide: true,
@@ -316,7 +312,7 @@ $(function(){
               {
                 confirmed = true;
                 addExamsImg(this);
-                $("#consultForm").submit();
+                //$("#consultForm").submit();
               }else
                 return false;
           });
@@ -384,12 +380,10 @@ start : '{{ $rdv->date }}',end:   '{{ $rdv->fin }}',id :'{{ $rdv->id }}',idPatie
 tel:'{{$rdv->patient->tele_mobile1}}',age:'{{ $rdv->patient->age }}',specialite:'{{ $rdv->specialite_id }}', fixe:  '{{ $rdv->fixe }}',},@endforeach],
 eventRender: function (event, element, webData) {if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 element.css('background-color', '#D3D3D3');else {if(event.fixe>0)element.css('background-color', '#87CEFA');else
-            element.css('background-color', '#378006'); element.css("padding", "5px");}element.popover({delay: { "show": 500, "hide": 100 },  // title: event.title,
-          content: event.tel,trigger: 'hover',animation:true,placement: 'bottom',container: 'body',
-template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',});},
+element.css('background-color', '#378006'); element.css("padding", "5px");}element.popover({delay: { "show": 500, "hide": 100 },  // title: event.title,
+content: event.tel,trigger: 'hover',animation:true,placement: 'bottom',container: 'body',template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',});},
 select: function(start, end,jsEvent, view) {var minutes = end.diff(start,"minutes");if((minutes == 15) && (start > today)) { Swal.fire({title: 'Confimer vous  le Rendez-Vous ?', 
-html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-input: 'checkbox',inputPlaceholder: 'Redez-Vous Fixe',showCancelButton: true,
+html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',input: 'checkbox',inputPlaceholder: 'Redez-Vous Fixe',showCancelButton: true,
 confirmButtonColor: '#3085d6',cancelButtonColor: '#d33',confirmButtonText: 'Oui',cancelButtonText: "Non",allowOutsideClick: false,
 }).then((result) => {if(!isEmpty(result.value))createRDVModal(start,end,'{{ $patient->id }}',result.value);})}else
 $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, draggedEvent) {  return false; },eventDrop: function(event, delta, revertFunc) { revertFunc(); }, eventDragStop: function (event, jsEvent, ui, view) {return false;}});$("#rdvadd").click(function(){$(".calendar").fullCalendar( 'refetchEvents' ); $('#RDV').modal("show");});*/     
@@ -403,6 +397,7 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
     <form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
     {{ csrf_field() }}
     <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
+     <input type="hidden" name= "id" id= "id" value="{{ $consult->id }}">
     <div class="form-group" id="error" aria-live="polite">
     @if (count($errors) > 0)
       <div class="alert alert-danger">

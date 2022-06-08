@@ -56,7 +56,7 @@
       <label><b> Liste des examens :</b></label><br>
       <ol>
         @foreach($demande->examensbios as $exb)
-        <li>{{ $exb->Examen->nom }}</li>
+        <li>{{ $exb->nom }}</li>
         @endforeach
       </ol>
     </div>

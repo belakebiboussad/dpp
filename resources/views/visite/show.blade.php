@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="container-fluid">
 	<div class="row">
-    <div class="col-sm-12  mt-2p">
+    <div class="col-sm-12">
       @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])
     </div>
   </div>
@@ -29,20 +29,20 @@
 		 	 <li role= "presentation"><a href="#actes" role="tab" data-toggle="tab" class="btn-succes">Actes</a></li>
 		@endif
 		@if($visite->traitements->count() > 0)
-		  	<li role= "presentation"><a href="#traitement" role="tab" data-toggle="tab" class="btn-success">Traitements</a></li>
+		  	<li role= "presentation"><a href="#traitement" role="tab" data-toggle="tab" class="btn-primary">Traitements</a></li>
 		 @endif
 		@if(isset($visite->demandeexmbio))
-			  <li role= "presentation"><a href="#examsBio" role="tab" data-toggle="tab" class="btn-pink">Demande examens biologiques</a></li>
+      <li role= "presentation"><a href="#examsBio" role="tab" data-toggle="tab" class="btn-danger">Demande examens biologiques</a></li>
 		@endif
 		@if(isset($visite->demandExmImg))
-    			<li role= "presentation"><a href="#examImg" role="tab" data-toggle="tab" class="btn-purple">Demande examens d'imagerie</a></li>
-     		 @endif
+    <li role= "presentation"><a href="#examImg" role="tab" data-toggle="tab" class="btn-danger">Demande examens d'imagerie</a></li>
+		@endif
 		</ul>
 		<div class ="tab-content no-border">
 			@if($visite->actes->count() > 0)
 			<div id="actes" class="tab-pane row">
       				<div class="col-xs-12 widget-container-col row">
-				<div class="widget-box widget-color-blue">
+				<div class="widget-box widget-color-green">
 				<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Actes</h5></div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
@@ -75,7 +75,7 @@
 			@if($visite->traitements->count() > 0)
     			  <div id="traitement" class="tab-pane row">
        				<div class="col-xs-12 widget-container-col row">
-				<div class="widget-box widget-color-green">
+				<div class="widget-box widget-color-blue">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
 				<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -110,7 +110,7 @@
      @if(isset($visite->demandeexmbio))
       <div id="examsBio" class="tab-pane row">
       <div class="col-xs-12 widget-container-col row">
-			<div class="widget-box widget-color-pink">
+			<div class="widget-box widget-color-red">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande examens biologiques</h5></div>
 				<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -133,7 +133,7 @@
 							{{ $visite->date }}
 							</td>
 						@endif	
-						 <td>{{ $exm->Examen->nom }}</td>
+						 <td>{{ $exm->nom }}</td>
 						@if($loop->first)
             	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
                 <span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
@@ -158,7 +158,7 @@
 	@if(isset($visite->demandExmImg))
 	<div id="examImg" class="tab-pane row">
 		<div class="col-xs-12 widget-container-col row">
-			<div class="widget-box widget-color-purple">
+			<div class="widget-box widget-color-red">
 			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">

@@ -115,8 +115,8 @@
                   @foreach($demande->examensbios as $index => $exm)
                   <tr>
                     <td class="center">{{ $index + 1 }}</td>
-                    <td>{{ $exm->Examen->nom }}</td>
-                    <td>{{ $exm->Examen->specialite->nom }}</td>
+                    <td>{{ $exm->nom }}</td>
+                    <td>{{ $exm->Specialite->nom }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                       <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 

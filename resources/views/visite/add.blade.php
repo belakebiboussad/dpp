@@ -192,7 +192,7 @@
 						 $("#produit").removeAttr("disabled");
 						$('#TraitCrudModal').html("Editer un Traitement Médical");		
 						$('#specialiteProd').val(data.medicament.id_specialite);
-						$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
+						$('#posologie').val(data.posologie);
 						$('#nbrPJ').val(data.nbrPJ);
             $('#dureeT').val(data.duree);
             jQuery('#EnregistrerTrait').val("update");		

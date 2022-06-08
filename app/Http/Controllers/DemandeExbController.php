@@ -44,12 +44,18 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request,$consultId)
+  public function store(Request $request)//,$consultId
   {
-    $demande = demandeexb::FirstOrCreate([ "id_consultation" => $consultId,]);
-    foreach($request->exm as $id_exb) 
-    {
-      $demande->examensbios()->attach($id_exb);
+
+    if($request->ajax())    
+    { 
+      if(isset($request->id_consultation))
+        $demande = demandeexb::FirstOrCreate([ "id_consultation" => $request->id_consultation]);
+      else
+         $demande = demandeexb::FirstOrCreate([ "visite_id" => $request->visite_id]);
+      $exams = json_decode($request->exams);
+      $demande->examensbios()->attach($exams);
+      return $demande;
     }
   }
   /**
@@ -108,15 +114,13 @@ class DemandeExbController extends Controller
     public function destroy(Request $request ,$id)
     { 
       $demande = demandeexb::FindOrFail($id);
+      $const_id = $demande->id_consultation;
       $demande = demandeexb::destroy($id);
       if($request->ajax())  
-        return Response::json($demande);
+        return $demande;
       else
-      {
-        $consult_id = $demande->consultation;
-        return redirect()->action('ConsultationsController@show',$consult_id);
-      }     
-    }
+        return redirect()->action('ConsultationsController@show', $const_id);
+     }
     public function detailsdemandeexb($id)
     {
       $demande = demandeexb::FindOrFail($id);

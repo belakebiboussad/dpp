@@ -106,7 +106,8 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+      { 
+        //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
         $constvalue =  collect();$exam;
         $etablissement = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
@@ -114,25 +115,25 @@ class ConsultationsController extends Controller
                 'resume' => 'required',
          ]);
          if($validator->fails())
-                return redirect()->back()->withErrors($validator)->withInput();
+           return redirect()->back()->withErrors($validator)->withInput();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        $consult = consultation::create([
-          "motif"=>$request->motif,
-          "histoire_maladie"=>$request->histoirem,
-          "date"=>Date::Now(),
-          "Diagnostic"=>$request->diagnostic,
-          "Resume_OBS"=>$request->resume,
-          "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-          "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-          "employ_id"=>Auth::User()->employee_id,
-          "pid"=>$request->patient_id,
-          "id_code_sim"=>$request->codesim,
-          "id_lieu"=>$etablissement->id
+        $consult = consultation::FindOrFail($request->id);
+        $consult -> update([
+              "motif"=>$request->motif,
+              "histoire_maladie"=>$request->histoirem,
+              "Diagnostic"=>$request->diagnostic,
+              "Resume_OBS"=>$request->resume,
+              "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+              "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+              "id_code_sim"=>$request->codesim,
+              "id_lieu"=>$etablissement->id
         ]);
         foreach($consult->patient->rdvs as $rdv)
         {
-          if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
-            $rdv->update(['Etat_RDV'=>1]);
+          if( $rdv->date->format('Y-m-d')  == $consult->date)
+          {
+            $rdv->update(['etat'=>1]);
+          }
         }
         if($specialite->consConst) {
           foreach(json_decode($specialite->consConst) as $const)
@@ -165,7 +166,7 @@ class ConsultationsController extends Controller
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-        if($request->exmsbio  != null && (count($request->exmsbio) >0 ))
+        if((!isset($consult->demandeexmbio)) && ( $request->exmsbio  != null) && (count($request->exmsbio) >0 ))
         {
           $demandeExamBio = new demandeexb;
           $consult->demandeexmbio()->save($demandeExamBio);
@@ -196,7 +197,7 @@ class ConsultationsController extends Controller
           }
         } 
         if($request->modeAdmission != null)
-        {  // $input = $request->all();// $input['etat'] = "en attente" ; $input['id_consultation'] = $consult->id ;
+        {  
             DemandeHospitalisation::create([
                 "modeAdmission"=>$request->modeAdmission,
                 "specialite"=>$request->specialiteDemande,

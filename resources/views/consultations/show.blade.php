@@ -181,12 +181,12 @@ td
           @endisset
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
-           @if(isset($consultation->demandeexmbio))
-                <div class="row">
-                    <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                      <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
-                    </div>
-                </div>
+            @if(isset($consultation->demandeexmbio))
+            <div class="row">
+              <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
+                <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
+              </div>
+            </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" >
                           <div class="widget-box widget-color-blue">

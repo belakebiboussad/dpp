@@ -27,9 +27,7 @@ class ExamenbioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    //public function create(){}
     /**
      * Store a newly created resource in storage.
      *
@@ -79,28 +77,19 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id){
-      dd($id);
-    }
-     /**
+    //public function update(Request $request,$id){ dd($id);}
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($examid, $demandeid)  {   dd($examid);     // dd($id);  }*/
-    public function destroy($id)
-    { 
-      $ex = demandeexb_examenbio::FindOrFail($id);
-      $ex->delete();
-      return Response::json($ex);   
-      /*$ids = explode("|", $id); $demande = demandeexb::FindOrFail($ids[1]);//$examen = examenbiologique::FindOrFail($ids[0]);
-      $demande->examensbios()->detach($ids[0]);   return redirect()->action('DemandeExbController@edit',$ids[1]);*/
-    }
-   /* public function examDestroy($id)
+    /*public function destroy($examid, $demandeid){dd($examid);// dd($id); }*/
+    public function destroy(Request $request, $id)
     {
-      $ex = demandeexb_examenbio::FindOrFail($id);
+      $ex = demandeexb_examenbio::where('id_examenbio',$id)->where('id_demandeexb', $request->demande_id)->first();
       $ex->delete();
-      return Response::json($ex);   
-    }*/
+      return $ex;
+    }
+   /* public function examDestroy($id){ $ex = demandeexb_examenbio::FindOrFail($id);$ex->delete();return Response::json($ex); }*/
 }
