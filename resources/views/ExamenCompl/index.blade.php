@@ -137,6 +137,7 @@
         $(".requestPrint").attr('disabled','disabled');
   }
   $(function(){
+    var imagerieRequest = false;
     $('ul#compl li').click(function(e) 
     { 
       switch($(this).data('interest')){
