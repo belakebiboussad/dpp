@@ -123,11 +123,34 @@ class DemandeExamenRadio extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-/*public function store(Request $request, $consultID){
-$demande = demandeexr::FirstOrCreate(["Date" => Date::now(),"InfosCliniques" => $request->infosc,
-"Explecations" => $request->explication,"id_consultation" => $consultID,]);$examsImagerie = json_decode ($request->ExamsImg);foreach ($examsImagerie as $key => $value) {       
-          $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-        }if(isset($request->infos)){foreach ($request->infos as $id_info){$demande->infossuppdemande()->attach($id_info);}}}*/
+      public function store(Request $request){
+        if($request->ajax())    
+        {
+          $demande = demandeexr::FirstOrCreate([
+            "InfosCliniques" => $request->infosc,
+            "Explecations" => $request->explication
+          ]);
+          if(isset($request->id_consultation))
+            $demande->update([ "id_consultation" => $request->id_consultation]);
+          else
+            $demande->update([ "visite_id" => $request->visite_id]);
+          if(isset($request->infos)){
+            $infos = json_decode($request->infos);
+            $demande->infossuppdemande()->attach($infos);
+          }
+         
+          $examsImagerie = json_decode ($request->ExamsImg);
+          foreach ($examsImagerie as $key => $value) { 
+            //$demande->examensradios()->attach($value['acteId'], ['examsRelatif' => $value['type']]);
+            $demande->examensradios()->attach($value->acteId, ['type_id' => $value->type]);
+          }
+          /* 
+           $demande->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+          
+          */
+          return $demande;
+        } 
+      }
     /**
      * Display the specified resource.
      *

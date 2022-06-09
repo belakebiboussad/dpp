@@ -248,33 +248,6 @@
             }
       });
     }
-    function examsImgSave(patientName, ipp, med,fieldName, fieldValue){ 
-      var infos = [] , exams = [];
-      var len = $(".infosup :checkbox:checked").length;
-      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-        infos.push($(this).val());
-      });
-      /*
-      $("#ExamsImgtab tbody tr").each(function(){
-      });
-      */
-      var formData = {
-        _token         : CSRF_TOKEN,
-        InfosCliniques : $("#infosc").val(),
-        Explecations : $("#explication").val(),
-        exams          : JSON.stringify(infos),
-      };  
-      $.each(formData, function(key,value){
-        alert(key + ":" + value);
-      })
-      /*
-     
-     
-      $request->infosc;
-      $request->explication;
-      $demandeExImg->id_consultation = $consult->id;
-      */
-    }
     function examsBioprint(patientName, ipp, med){
       var fileName ='examsBio-' + patientName +'.pdf'; 
       ol = document.getElementById('listBioExam');
@@ -298,6 +271,7 @@
       pdf.text(320,730, 'Docteur : ' + med);
       generate(fileName,pdf,'bioExamsPdf');
   }
+  /* 
   function printExImg(patientName,ipp,med)
   {
     var fileName ='examsImg-' + patientName +'.pdf'; 
@@ -334,21 +308,7 @@
       pdf.text(320,730, 'Docteur : ' + med);
       generate(fileName,pdf,'imagExamsPdf');
     }
-    function printExamCom(fieldName,fieldValue, patientName, ipp, med)
-    {
-     var interest = $('ul#compl').find('li.active').data('interest');
-      switch(interest){
-        case 0:
-                examsBioSave(patientName, ipp, med,fieldName,fieldValue);
-                break;
-        case 1:
-                examsImgSave(patientName, ipp, med,fieldName,fieldValue);
-                //printExImg(patientName, ipp, med);
-                break;
-         default :
-                break;
-      }
-    }
+    */
     function addExamsImg(form)
     {
       var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
@@ -362,7 +322,6 @@
         champ.appendTo(form);
       }
     }
-
     function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();
@@ -446,22 +405,6 @@
           $('#btnclose').click(function(){
            $("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           })
-          $('#btn-addImgExam').click(function(){
-              var selected = []; var array = [];
-              $('#ExamIgtModal').modal('toggle');
-              $.each($("input[name='exmns']:checked"), function(){
-                selected.push($(this).next('label').text());
-                array.push($(this).val());
-              });   
-              var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-                 exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
-              $('#ExamsImg').append(exam);
-              $('#examensradio').val(' ').trigger('change');
-              $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-          });
-          jQuery('body').on('click', '.delete-ExamImg', function () {
-             $("#acte-" + $(this).val()).remove();
-          });
           $('input[type=radio][name=sexe]').change(function(){
             if(this.value == "M")
             {
@@ -478,10 +421,7 @@
               else
                 $('#Div-nomjeuneFille').attr('hidden', true);
           }); 
-          // $('#cim10Modal').on('shown.bs.modal', function (e) {
-          //   $(this).trigger("reset");
-          //   //alert($(this).val());
-          // }); 
+/*$('#cim10Modal').on('shown.bs.modal', function (e) {$(this).trigger("reset"); });*/ 
           $('body').on('click', '.CimCode', function (event) {
             $('#cim10Modal').trigger("reset");
             $('#inputID').val($(this).val());

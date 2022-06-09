@@ -24,7 +24,9 @@ class demandeexr extends Model
   }
   public function examensradios()
   { 
-    return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');    
+    //return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');    
+    return $this->belongsToMany('App\modeles\examenradiologique','demandeexr_examenradio','demande_id','exm_id');    
+
   }
   public function typeExam()
   {
@@ -32,7 +34,8 @@ class demandeexr extends Model
   }
   public function infossuppdemande()
   {
-      return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
+    return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
+
   }
   public function getInfosAttribute()
   {

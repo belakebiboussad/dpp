@@ -107,7 +107,7 @@ $(function(){
              {
                     $('#'+res).removeAttr('disabled'); //$('#'+crr).removeAttr('disabled');   
             }else
-                  $('#'+res).attr('disabled', 'disabled'); //$('#'+crr).attr('disabled', 'disabled'); 
+                  $('#'+res).attr('disabled', 'disabled'); 
       }) ; 
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
           base64Img = base64; 

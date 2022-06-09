@@ -284,7 +284,7 @@ $(function(){
         $('#antecedantPhysioModal').modal('show');
       });
     });
-     var confirmed = false;
+    var confirmed = false;
     $("#consultForm").submit(function(e){
       event.preventDefault();
       if(!checkConsult())
@@ -311,8 +311,13 @@ $(function(){
               if(result.value)
               {
                 confirmed = true;
-                addExamsImg(this);
-                //$("#consultForm").submit();
+                if(!imagerieRequest)
+                {
+                  alert(imagerieRequest);
+                  addExamsImg(this);
+                }else
+                  alert(imagerieRequest);
+                $("#consultForm").submit();
               }else
                 return false;
           });

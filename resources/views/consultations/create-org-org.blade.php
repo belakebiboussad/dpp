@@ -113,7 +113,7 @@
   		  {
   			  $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
   			  $("#dosage").val(result.Dosage);$("#id_medicament").val(result['id']);
-  			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+  			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
   		  }
    });
   }

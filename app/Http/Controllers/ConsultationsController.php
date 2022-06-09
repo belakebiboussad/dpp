@@ -106,8 +106,7 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      { 
-        //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+      { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
         $constvalue =  collect();$exam;
         $etablissement = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
@@ -177,7 +176,8 @@ class ConsultationsController extends Controller
             $exam->save();
           }
         }
-        if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+
+        if((!isset($consult->demandExmImg)) && (!empty($request->ExamsImg)))
         { 
           $demandeExImg = new demandeexr;
           $demandeExImg->InfosCliniques = $request->infosc;
@@ -195,7 +195,8 @@ class ConsultationsController extends Controller
             $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
             $exam->type_id = $acte->type;$exam->save();  
           }
-        } 
+        }
+
         if($request->modeAdmission != null)
         {  
             DemandeHospitalisation::create([

@@ -13,18 +13,10 @@
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
 				<span class="lbl">&nbsp;Sexe: </span>
-				<span class="blue"><strong>
-          @if($patient->Sexe == "M")
-          <i class="fa fa-mars" aria-hidden="true"></i>
-          @else
-          <i class="fa fa-venus" aria-hidden="true"></i>
-          @endif
-        </strong></span>
+				<span class="blue"><i class="fa fa-{{($patient->Sexe == "M" ) ? 'mars':'venus'}}" aria-hidden="true"></i></span>
 			</label>&nbsp;&nbsp;&nbsp;
-			<label class="inline">
-				<span class="lbl">Âge:</span>
-				<span>
-				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>(Ans)
+			<label class="inline"><span class="lbl">Âge:</span>
+				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>&nbsp;(Ans)
 			</label>&nbsp;&nbsp;&nbsp;
 			@isset( $patient->tele_mobile1)
       <label class="inline"> 	
@@ -43,7 +35,7 @@
 			<span class="blue">{{ $patient->NSS }}</span></label>	&nbsp;&nbsp;&nbsp;
 			@endisset
       <label class="inline hidden-xs"> 	
-			<span class="lbl">&nbsp;<strong>Type :</strong></span>
+			<span class="lbl">&nbsp;Type :</span>
 				<span class="badge badge-info">
 					@switch($patient->Type)
 	             @case(0)
