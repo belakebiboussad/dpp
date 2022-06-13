@@ -50,11 +50,11 @@
                 <div class="col-xs-12"><br>
                   <div>
                     <label for="infosc"><b>Informations cliniques pertinentes :</b> </label>
-                    <p class="form-control">{{ $demande->InfosCliniques }}</p>
+                    <p>{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Explication de la demande de diagnostic</b></label>
+                    <label for="infos"><b>Explication de la demande de diagnostic :</b></label>
                     <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>

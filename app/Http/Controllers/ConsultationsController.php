@@ -196,18 +196,7 @@ class ConsultationsController extends Controller
             $exam->type_id = $acte->type;$exam->save();  
           }
         }
-
-        if($request->modeAdmission != null)
-        {  
-            DemandeHospitalisation::create([
-                "modeAdmission"=>$request->modeAdmission,
-                "specialite"=>$request->specialiteDemande,
-                "service"=>$request->service,
-                "etat" => NULL,
-                "id_consultation"=>$consult->id
-            ]);
-        }
-         return redirect(Route('patient.show',$request->patient_id));
+        return redirect(Route('patient.show',$request->patient_id));
        }
     /**
      * Display the specified resource.
@@ -221,6 +210,13 @@ class ConsultationsController extends Controller
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
         return view('consultations.show', compact('consultation','specialite','specialites'));
+      }
+      public function destroy($id)
+      {
+        $consult = consultation::find($id);
+        $pid = $consult->pid;
+        $consult->delete();
+        return redirect()->action('PatientController@show',$pid);
       }
      
     /**

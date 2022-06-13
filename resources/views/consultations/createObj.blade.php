@@ -11,8 +11,7 @@
       border: 0;
       position:relative;
       z-index:999;
-  }
-  /*.b{ height:20px !important;  }*/
+  }/*.b{ height:20px !important;  }*/
   #content {
     background: white;
     width: 98%;
@@ -27,6 +26,7 @@
 </style>
 @endsection
 @section('page-script')
+@include('examenradio.scripts.imgRequestdJS')
 <script>
 function print()
 {
@@ -68,6 +68,14 @@ function rowDelete(id)
 {
   $("#"+id).remove();
 }
+/*
+function demandehosp()
+{
+  $('#modeAdmission').val($('#modeAdmissionHospi').val());
+  $('#specialiteDemande').val($('#specialiteHospi').val()); 
+  $('#service').val($('#serviceHospi').val());
+}
+*/
 $(function(){
   imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
       base64Img = base64; 
@@ -138,7 +146,7 @@ $(function(){
     {
       var tabName = "antsTab";
       var formData = {
-          _token: CSRF_TOKEN,
+         _token: CSRF_TOKEN,
         pid      : '{{ $patient->id }}',
         Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
         typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
@@ -285,7 +293,7 @@ $(function(){
       });
     });
     var confirmed = false;
-    $("#consultForm").submit(function(e){
+    $("#consultForm").submit(function(event){
       event.preventDefault();
       if(!checkConsult())
       {
@@ -310,14 +318,14 @@ $(function(){
           }).then((result) => {
               if(result.value)
               {
-                confirmed = true;
+                confirmed = true; 
                 if(!imagerieRequest)
                 {
-                  alert(imagerieRequest);
                   addExamsImg(this);
                 }else
-                  alert(imagerieRequest);
-                $("#consultForm").submit();
+                {
+                  $("#consultForm").submit();
+                }   
               }else
                 return false;
           });
@@ -352,6 +360,36 @@ $(function(){
       pdf.addImage(jpegUrl, 'JPEG', 60, 175);
       generate(fileName,pdf,'ordPdf');
     });//teste
+    $("#DHospadd").click(function(e){
+      e.preventDefault();
+      var formData = {
+         _token             : CSRF_TOKEN,
+        id_consultation     : '{{ $consult->id }}',
+        modeAdmission       : $('#modeAdmissionHospi').val(), 
+        specialite          : $('#specialiteHospi').val(),
+        service             : $('#serviceHospi').val()
+      };
+      var type = "POST" , url = '';
+      var state = $(this).val(); 
+      if ( state == "update") {
+        type = "PUT";
+        url = '{{ route("demandehosp.update", ":slug") }}'; 
+        url = url.replace(':slug',$("#dh_id").val());
+      }else
+        url ="{{ route('demandehosp.store') }}";
+      $.ajax({
+          type: type,
+          url: url,
+          data: formData,
+          success: function (data) {
+            if(state == "add")
+            {
+              $("#DHospadd").val("update");
+              $("#dh_id").val(data.id);
+            }
+          }
+      });
+    })
 /* $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});var today = (new Date()).setHours(0, 0, 0, 0);
  $('.calendar').fullCalendar({header:{left: 'agendaWeek, basicWeek',center: 'title',right: 'month,agendaWeek,agendaDay'
 },defaultView: 'basicWeek',default: 'bootstrap',aspectRatio: 2,navLinks: true,eventLimit: true,editable: true,allDaySlot: false,
@@ -439,9 +477,9 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
     </div><!-- tabpanel -->
     <div class="row">
       <div class="col-sm12"><!-- les inputs de modal form(Demande Hospitalisation)  -->
-        <input type="hidden" name="service" id="service">
-        <input type="hidden" name="specialiteDemande" id="specialiteDemande">
-        <input type="hidden" name="modeAdmission" id="modeAdmission">
+        <!--<input type="hidden" name="service" id="service">
+         <input type="hidden" name="specialiteDemande" id="specialiteDemande">
+        <input type="hidden" name="modeAdmission" id="modeAdmission"> -->
         <input type="hidden" name="specialite" id="specialite">
         <input type="hidden" name="motifOr" id="motifOr">
         </div>
@@ -450,7 +488,7 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
           <button class="btn btn-info btn-sm" type="submit" id="send"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-          <a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
+          <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
         </div>
       </div>
     </div>

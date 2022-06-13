@@ -1,5 +1,6 @@
 @extends('app')
 @section('page-script')
+@include('examenradio.scripts.imgRequestdJS')
 <script>
  $(function(){
     $('body').on('click', '.exam-Delete', function (e) {  

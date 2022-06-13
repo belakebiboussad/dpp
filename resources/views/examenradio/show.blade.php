@@ -56,8 +56,7 @@ $(function(){
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
-                            <th class="center" width="5%">N°</th>
-                            <th class="center" width="30%">Nom</th>
+                            <th class="center" width="5%">N°</th> <th class="center" width="30%">Nom</th>
                             <th class="center" width="7%"><strong>Type</strong></th>
                             <th class="center" width="7%"><strong>Etat</strong></th>
                             <th class="center" width="20%"><strong><em class="fa fa-cog"></em></strong></th>

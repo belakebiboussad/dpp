@@ -49,8 +49,14 @@ class DemandeHospitalisationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request ,$consultID)
-    // { DemandeHospitalisation::create([  "modeAdmission"=>$request->modeAdmission,  "service"=>$request->service, "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,"id_consultation"=>$consultID,"etat " =>"en attente",]); }
+    public function store(Request $request)
+    {
+      if($request->ajax())  
+      {
+        $dh =DemandeHospitalisation::create($request->all());
+        return $dh;
+      }      
+    }
     /**
      * Display the specified resource.
      *
@@ -84,14 +90,17 @@ class DemandeHospitalisationController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $demande = DemandeHospitalisation::FindOrFail($id);
-      $demande->update($request->all());        
-      return redirect()->action('DemandeHospitalisationController@index');
-      // $demande = DemandeHospitalisation::FindOrFail($id);
-      
-      // // $demande->update([     // //         "service"      =>$request->service,
-      // //         "specialite"  =>$request->specialite,//"modeAdmission" =>$request->mode,
-      // // ]);  //  return redirect()->action('DemandeHospitalisationController@index');
+      if($request->ajax())  
+      {
+        $dh = DemandeHospitalisation::find($id);
+        $dh -> update($request->all());
+        return $dh;
+      }else
+      {
+        $demande = DemandeHospitalisation::FindOrFail($id);
+        $demande->update($request->all());        
+        return redirect()->action('DemandeHospitalisationController@index');
+      }
     }
 
     /**
@@ -102,16 +111,16 @@ class DemandeHospitalisationController extends Controller
      */
       public function destroy(Request $request,$id)
       {
-              if($request->ajax())
-              {
-                $demande = DemandeHospitalisation::destroy($id);
-                return Response::json("d");
-              }
-              else
-              {
-                 $demande = DemandeHospitalisation::destroy($id);
-                return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
-              } 
+        if($request->ajax())
+        {
+          $demande = DemandeHospitalisation::destroy($id);
+          return Response::json("d");
+        }
+        else
+        {
+           $demande = DemandeHospitalisation::destroy($id);
+          return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
+        } 
       }
       public function listedemandes($type)
       {
@@ -139,10 +148,10 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-              $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
-                                                                                                                      ->whereHas('consultation',function($q) use($date){
-                                                                                                                              $q->where('date', $date);
-                                                                                                                      }) ->where('modeAdmission','2')->where('etat','programme')->get();
-               return json_encode($demandehospitalisations);        
+      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
+                                                      ->whereHas('consultation',function($q) use($date){
+                                                              $q->where('date', $date);
+                                                      }) ->where('modeAdmission','2')->where('etat','programme')->get();
+       return json_encode($demandehospitalisations);        
     }
 }

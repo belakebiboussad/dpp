@@ -77,7 +77,7 @@ class DemandeExamenRadio extends Controller
     public function update(Request $request, demandeexr $demande)
     { 
       $demande = demandeexr::FindOrFail($request->demande_id);  
-      if(Auth::user()->is(12))
+      if(Auth::user()->is(12))//radiologe
       {
         foreach ($demande->examensradios as $key => $exam)
         {
@@ -90,6 +90,11 @@ class DemandeExamenRadio extends Controller
       {
         if (!empty($request->ExamsImg))
         {
+          $demande->infossuppdemande()->sync($request->infos); 
+          $demande->update([
+            'InfosCliniques' =>$request->infosc,
+            'Explecations' =>$request->explication
+          ]);
           foreach(json_decode($request->ExamsImg) as $exam){
             $examsInp[]=$exam->acteId;
             $typeExamsInp[]=$exam->type;
@@ -105,10 +110,9 @@ class DemandeExamenRadio extends Controller
               $exam->demande_id = $demande->id; $exam->exm_id = $id;
               $exam->type_id = $typeExamsInp[$index];$exam->save();
             }
-            $demande->infossuppdemande()->sync($request->infos);
           }
         }else
-          $demande->delete();
+        $demande->delete();
         return redirect(Route('consultations.show',$demande->id_consultation));   
       }  
     }
@@ -138,16 +142,20 @@ class DemandeExamenRadio extends Controller
             $infos = json_decode($request->infos);
             $demande->infossuppdemande()->attach($infos);
           }
-         
           $examsImagerie = json_decode ($request->ExamsImg);
+          foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
+            $exam = new Demandeexr_Examenradio;
+            $exam->demande_id = $demande->id;
+            $exam->exm_id = $acte->acteId;
+            $exam->type_id = $acte->type;$exam->save();  
+          }
+          /*
           foreach ($examsImagerie as $key => $value) { 
             //$demande->examensradios()->attach($value['acteId'], ['examsRelatif' => $value['type']]);
             $demande->examensradios()->attach($value->acteId, ['type_id' => $value->type]);
           }
-          /* 
-           $demande->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-          
           */
+          /*$demande->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);*/
           return $demande;
         } 
       }
