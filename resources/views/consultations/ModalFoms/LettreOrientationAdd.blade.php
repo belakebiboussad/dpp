@@ -6,33 +6,28 @@
       </div>
 			<div class="modal-body">
 			  <form id="modalFormDataOroient" method="POST" class="form-horizontal">
-        <div class="row">
-			    <div class="col-xs-12">
-				 		<label for="specialiteOrient"><b>Spécialité:</b></label>
-				  	<select class="form-control" id="specialiteOrient" name="specialiteOrient">
+          <input type="hidden" id="orient_id">
+				 	<div class="form-group">	
+            <label for="specialiteOrient"><b>Spécialité:</b></label>
+				  	<select class="form-control" id="specialiteOrient">
 					  	<option value="">Sélectionner...</option>
 					  	@foreach($specialites as $specialite)
 					  	<option value="{{ $specialite->id}}">{{$specialite->nom}}</option>
 					  	@endforeach 
 				  	</select>
-				  </div>
-			  	</div><div class="space-12"></div>
-			  	<div class="row">
-	   				<div class="col-xs-12">
-							<label for="motif"><b>Motif de consultation :</b></label>     
-							<textarea class="form-control" id="motifC" cols="10" rows="3"></textarea>
-						</div>
-					</div><div class="space-12"></div>
- 	   			<div class="row">
-	   				<div class="col-xs-12">
-							<label for="motif"><b>Examen général :</b></label>     
-							<textarea class="form-control" id="motifOrient" cols="20" rows="3"></textarea>
-						</div>
-					</div>
-        </form>
+          </div>
+		      <div class="form-group">  
+			  		<label for="motif"><b>Motif de consultation :</b></label>     
+						<textarea class="form-control" id="motifC" cols="10" rows="3"></textarea>
+          </div>
+          <div class="form-group">  
+						<label for="motif"><b>Examen général :</b></label>     
+						<textarea class="form-control" id="motifOrient" cols="20" rows="3"></textarea>
+          </div>
+				</form>
 			</div>{{-- modal-body --}}
 		  <div class="modal-footer">
-          <div class="col-sm-12"><!-- onclick="lettreorientation()" -->
+          <div class="col-sm-12">
 			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="orientationSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
           <button type="button" class="btn btn-sm btn-warning"  data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>

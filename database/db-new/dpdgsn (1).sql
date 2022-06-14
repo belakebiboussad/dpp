@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 08 juin 2022 à 16:15
+-- Généré le : mar. 14 juin 2022 à 16:13
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   PRIMARY KEY (`id`,`pid`),
   KEY `fk_Antecedant_Patient` (`pid`),
   KEY `fk_Antecedant_cim10` (`cim_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `antecedants`
@@ -711,6 +711,28 @@ INSERT INTO `categorie_socioprofessionnelle` (`CODE`, `LIBELLE`) VALUES
 (84, 'ElÃ¨ves, Ã©tudiants'),
 (85, 'Personnes diverses sans activitÃ©  professionnelle de moins de 60 ans (sauf retraitÃ©s)'),
 (86, 'Personnes diverses sans activitÃ© professionnelle de 60 ans et plus (sauf retraitÃ©s)');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cetificats_discriptif`
+--
+
+DROP TABLE IF EXISTS `cetificats_discriptif`;
+CREATE TABLE IF NOT EXISTS `cetificats_discriptif` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `examen` text NOT NULL,
+  `consultation_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_consult` (`consultation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `cetificats_discriptif`
+--
+
+INSERT INTO `cetificats_discriptif` (`id`, `examen`, `consultation_id`) VALUES
+(2, 'fdfd eztrezr', 883);
 
 -- --------------------------------------------------------
 
@@ -2638,7 +2660,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=590 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=884 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2770,87 +2792,7 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (351, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
 (352, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
 (353, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
-(452, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(453, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(454, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(455, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(456, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(457, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(458, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(459, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(460, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(461, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(462, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(463, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(464, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(465, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(466, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(467, NULL, NULL, '2022-06-06', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(468, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(469, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(470, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(471, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(522, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(523, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(524, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(525, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(526, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(527, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(528, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(529, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(530, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(531, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(532, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(533, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(534, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(535, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(536, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 222, NULL, 21),
-(537, NULL, NULL, '2022-06-07', NULL, NULL, 0, NULL, 113, 193, NULL, 21),
-(545, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 113, 226, NULL, 21),
-(546, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 113, 226, NULL, 21),
-(547, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 188, NULL, 21),
-(548, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(549, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(550, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(551, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(552, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(553, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(554, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(555, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(556, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(557, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(558, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(559, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(560, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(561, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(562, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(563, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(564, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(565, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 193, NULL, 21),
-(566, 'tert', 'hidtoire', '2022-06-08', NULL, 'terter', 0, NULL, 103, 193, NULL, 21),
-(567, 'dsq', NULL, '2022-06-08', 'dsqd', 'dsqd', 0, NULL, 103, 306, NULL, 21),
-(568, 'vbcb', NULL, '2022-06-08', NULL, 'cvc', 0, NULL, 103, 226, NULL, 21),
-(569, 'avec bio', NULL, '2022-06-08', NULL, 'avec bio', 0, NULL, 103, 226, NULL, 21),
-(570, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(571, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(572, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(573, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(574, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(575, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(576, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(577, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(578, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(579, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(580, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(581, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(582, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(583, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(584, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(585, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 299, NULL, 21),
-(586, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 277, NULL, 21),
-(587, 'dzd', NULL, '2022-06-08', NULL, 'dzd', 0, NULL, 103, 277, NULL, 21),
-(588, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 277, NULL, 21),
-(589, NULL, NULL, '2022-06-08', NULL, NULL, 0, NULL, 103, 277, NULL, 21);
+(883, NULL, NULL, '2022-06-14', NULL, NULL, 0, NULL, 103, 268, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -2868,7 +2810,7 @@ CREATE TABLE IF NOT EXISTS `crrs` (
   `exam_id` int(11) UNSIGNED NOT NULL COMMENT 'examen adiologique',
   PRIMARY KEY (`id`),
   KEY `fk_exam_rad` (`exam_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='compte Rendue Radiologique';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='compte Rendue Radiologique';
 
 --
 -- Déchargement des données de la table `crrs`
@@ -2880,8 +2822,6 @@ INSERT INTO `crrs` (`id`, `indication`, `techRea`, `result`, `conclusion`, `exam
 (3, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 58),
 (4, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 51),
 (5, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 52),
-(6, NULL, NULL, NULL, 'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 64),
-(7, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 48),
 (8, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 62),
 (9, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 63),
 (10, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 69),
@@ -3475,7 +3415,7 @@ CREATE TABLE IF NOT EXISTS `demandeexb` (
   PRIMARY KEY (`id`),
   KEY `id_consultation` (`id_consultation`),
   KEY `fk_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexb`
@@ -3502,13 +3442,9 @@ INSERT INTO `demandeexb` (`id`, `etat`, `resultat`, `crb`, `id_consultation`, `v
 (34, NULL, NULL, NULL, 287, NULL),
 (35, NULL, NULL, NULL, 288, NULL),
 (36, NULL, NULL, NULL, 290, NULL),
-(45, NULL, NULL, NULL, 564, NULL),
 (46, NULL, NULL, NULL, NULL, 361),
-(47, NULL, NULL, NULL, 565, NULL),
-(48, NULL, NULL, NULL, 566, NULL),
-(49, NULL, NULL, NULL, 569, NULL),
 (50, NULL, NULL, NULL, NULL, 362),
-(51, NULL, NULL, NULL, 589, NULL);
+(53, NULL, NULL, NULL, NULL, 365);
 
 -- --------------------------------------------------------
 
@@ -3524,7 +3460,7 @@ CREATE TABLE IF NOT EXISTS `demandeexb_examenbio` (
   PRIMARY KEY (`id`),
   KEY `id_demandeexb` (`id_demandeexb`),
   KEY `id_examenbio` (`id_examenbio`)
-) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexb_examenbio`
@@ -3595,32 +3531,16 @@ INSERT INTO `demandeexb_examenbio` (`id`, `id_demandeexb`, `id_examenbio`) VALUE
 (169, 7, 14),
 (170, 7, 15),
 (171, 7, 19),
-(172, 45, 12),
-(173, 45, 15),
 (174, 46, 3),
 (175, 46, 12),
-(176, 47, 14),
-(177, 47, 15),
-(178, 47, 25),
-(179, 47, 14),
-(180, 47, 15),
-(181, 47, 25),
-(182, 48, 3),
-(183, 48, 12),
-(184, 48, 15),
-(185, 49, 3),
-(186, 49, 12),
-(187, 49, 19),
 (188, 50, 3),
 (189, 50, 8),
 (190, 50, 12),
 (191, 50, 14),
 (192, 50, 19),
-(193, 51, 2),
-(194, 51, 14),
-(195, 51, 20),
-(196, 51, 22),
-(197, 51, 32);
+(200, 53, 2),
+(201, 53, 8),
+(202, 53, 12);
 
 -- --------------------------------------------------------
 
@@ -3639,7 +3559,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr` (
   PRIMARY KEY (`id`),
   KEY `fk_consultation` (`id_consultation`),
   KEY `fk_demanderadio_visite` (`visite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr`
@@ -3649,7 +3569,6 @@ INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `id_co
 (30, 'rtgret', 'terttretr', 1, 269, NULL),
 (31, 'sqds', 'dqsd', NULL, 270, NULL),
 (32, 'sqds', 'dqsd', NULL, 271, NULL),
-(34, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', 1, 273, NULL),
 (35, 'info', 'expliaxtion', NULL, 275, NULL),
 (36, 'info', 'explication', 1, 277, NULL),
 (37, 'info', 'explication', 1, 278, NULL),
@@ -3663,7 +3582,6 @@ INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `id_co
 (45, 'Demande d\'fdsdsexamen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
 (46, 'Demande d\'fdsdsexamen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
 (48, 'yrty', 'yrt', 1, NULL, 332),
-(49, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', 1, 285, NULL),
 (50, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', 1, 286, NULL),
 (51, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', NULL, 287, NULL),
 (52, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', NULL, 288, NULL),
@@ -3683,77 +3601,6 @@ CREATE TABLE IF NOT EXISTS `demandeexradio_infosupppertinentes` (
   KEY `id_demandeexr` (`id_demandeexr`),
   KEY `id_infosupp` (`id_infosupp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `demandeexradio_infosupppertinentes`
---
-
-INSERT INTO `demandeexradio_infosupppertinentes` (`id_demandeexr`, `id_infosupp`) VALUES
-(7, 1),
-(8, 1),
-(8, 4),
-(9, 1),
-(9, 5),
-(10, 2),
-(11, 3),
-(12, 2),
-(12, 3),
-(12, 5),
-(14, 1),
-(11, 1),
-(12, 1),
-(12, 3),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 2),
-(18, 4),
-(18, 5),
-(19, 1),
-(19, 4),
-(20, 1),
-(20, 5),
-(21, 2),
-(21, 5),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 2),
-(27, 1),
-(28, 1),
-(29, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 2),
-(35, 1),
-(35, 4),
-(36, 1),
-(36, 3),
-(37, 2),
-(38, 1),
-(39, 1),
-(40, 1),
-(40, 5),
-(41, 1),
-(42, 1),
-(43, 1),
-(44, 1),
-(45, 1),
-(46, 1),
-(47, 1),
-(48, 1),
-(49, 1),
-(50, 1),
-(51, 1),
-(51, 4),
-(51, 5),
-(52, 1),
-(53, 1);
 
 -- --------------------------------------------------------
 
@@ -3776,7 +3623,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr_examenradio` (
   KEY `id_demandeexr` (`demande_id`),
   KEY `k-exam-crr` (`crr_id`),
   KEY `fk_exam-type` (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr_examenradio`
@@ -3790,14 +3637,13 @@ INSERT INTO `demandeexr_examenradio` (`id`, `demande_id`, `exm_id`, `type_id`, `
 (32, 32, 8, 10, NULL, NULL, NULL, NULL),
 (33, 32, 16, 1, NULL, NULL, NULL, NULL),
 (36, 31, 10, 1, NULL, NULL, NULL, NULL),
-(48, 34, 10, 1, b'1', 'IMG00012_1652284956', NULL, 7),
 (49, 35, 10, 1, NULL, NULL, NULL, NULL),
 (50, 35, 13, 2, NULL, NULL, NULL, NULL),
 (51, 36, 10, 1, b'1', 'resultat1_1650806726.jpg', NULL, 4),
 (52, 36, 10, 2, b'1', 'IMG00008_1650806750', NULL, 5),
-(53, 37, 10, 1, b'1', 'resultat2_1650807421.jpg', NULL, NULL),
+(53, 37, 10, 13, b'1', 'resultat2_1650807421.jpg', NULL, NULL),
 (54, 37, 10, 3, b'1', 'resultat3_1650807456.jpg', NULL, NULL),
-(55, 38, 10, 1, NULL, NULL, NULL, NULL),
+(55, 38, 10, 13, NULL, NULL, NULL, NULL),
 (56, 38, 14, 2, NULL, NULL, NULL, NULL),
 (57, 39, 10, 1, b'1', 'MR_small_1652184522.dcm', NULL, NULL),
 (58, 40, 7, 1, b'1', 'resultat1_1650806215.jpg', NULL, 3),
@@ -3805,15 +3651,12 @@ INSERT INTO `demandeexr_examenradio` (`id`, `demande_id`, `exm_id`, `type_id`, `
 (60, 46, 14, 2, NULL, NULL, NULL, NULL),
 (62, 48, 9, 1, b'1', 'JPEG2000_1652286573.dcm', NULL, 8),
 (63, 48, 10, 2, b'1', 'IMG00016_1652286673', NULL, 9),
-(64, 49, 7, 1, b'1', 'IMG00007_1652184580', NULL, 6),
-(65, 49, 9, 10, b'1', 'herniediscale_1652184609.jpg', NULL, NULL),
 (66, 50, 8, 1, b'1', 'IMG00007_1652196800', NULL, NULL),
 (67, 50, 25, 3, b'1', 'IMG00009_1652196808', NULL, NULL),
 (68, 51, 8, 1, NULL, NULL, NULL, NULL),
 (69, 51, 9, 10, b'1', 'torax_1652344917.jpg', NULL, 10),
 (70, 52, 12, 1, NULL, NULL, NULL, NULL),
-(71, 53, 7, 1, b'1', 'IMG00015_1652361304', NULL, 11),
-(72, 54, 8, 1, NULL, NULL, NULL, NULL);
+(71, 53, 7, 1, b'1', 'IMG00015_1652361304', NULL, 11);
 
 -- --------------------------------------------------------
 
@@ -3834,7 +3677,7 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
   KEY `fk_DemandeHospitalisation_Consultation1_idx` (`id_consultation`),
   KEY `service` (`service`),
   KEY `fk_dh_specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandehospitalisations`
@@ -4698,14 +4541,6 @@ CREATE TABLE IF NOT EXISTS `examen_appareil` (
   KEY `fk_examen_appareil` (`appareil_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `examen_appareil`
---
-
-INSERT INTO `examen_appareil` (`id`, `appareil_id`, `cons_id`, `description`) VALUES
-(10, 2, 531, 'dzd'),
-(11, 4, 531, 'dsq');
-
 -- --------------------------------------------------------
 
 --
@@ -4929,7 +4764,7 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   KEY `fk_hommconf_user` (`created_by`),
   KEY `fk_hommconf_user1` (`updated_by`),
   KEY `fk_garde_patient` (`id_patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `homme_confs`
@@ -4956,7 +4791,8 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `t
 (134, 285, 'oncle', 'oncle', NULL, '0', 5, '0', '04562', NULL, NULL, '0058965656', 'actuel', '2022-04-14 16:29:04', '2022-04-14 16:29:04', 113, NULL),
 (135, 191, 'gfdg', 'gfdg', '2022-05-09', '0', 1, '0', '2365656', '2022-05-03', 'alger', '0565323265', 'actuel', '2022-05-19 10:11:03', '2022-05-19 10:11:03', 82, NULL),
 (137, 226, 'dsqdsq', 'dsqdsq', '2022-05-02', '0', 1, '0', 'dsq65465', '2018-05-21', 'algercscqsc', '0563235656', 'actuel', '2022-05-31 10:59:18', '2022-05-31 10:59:18', 113, NULL),
-(138, 188, 'ait ouali', 'ali', '1993-06-22', '0', 3, '0', '413vdvdv', '2022-06-07', 'alger', '0656565656', 'actuel', '2022-06-06 14:32:27', '2022-06-06 14:36:21', 113, NULL);
+(138, 188, 'ait ouali', 'ali', '1993-06-22', '0', 3, '0', '413vdvdv', '2022-06-07', 'alger', '0656565656', 'actuel', '2022-06-06 14:32:27', '2022-06-06 14:36:21', 113, NULL),
+(140, 268, 'hgfhgf', 'gfhgfh', '2022-06-05', '0', 2, '0', 'gh485848', NULL, NULL, '0444564646', 'actuel', '2022-06-14 13:59:12', '2022-06-14 13:59:12', 103, NULL);
 
 -- --------------------------------------------------------
 
@@ -5059,7 +4895,7 @@ CREATE TABLE IF NOT EXISTS `lettre_oriantations` (
   PRIMARY KEY (`id`),
   KEY `fk_orientation_consultation` (`consultation_id`),
   KEY `fk_orientation_specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `lettre_oriantations`
@@ -12965,9 +12801,9 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'pfGPZlZxvwzAytBh0ycsQF8BxBXE0osothDhouz8etohdMfI6yQG5ncP7TvE', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'c6GlJdsdboLDpqMtXbMwPOqgja7siXBTqJWMR9p0WNDM5l4TC1ick71MHP3h', 1),
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'cmnPDhHDk25UAyLE5Ls0t8NXEFbuIgeGASOuQsfkm71A66j2ztgLdNBv4Tjf', 1),
-(46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, '9hB0kocAOGOdiyUOnf9bJDgxdVrzQPaIIyYnKe9n8N9HARZ5RXvIU7rMIls1', 1),
+(46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'YeqUHL7fy2WjMAKdsv6eAkhfVauEoJx7IyekXuyiWLG8zc8pPDawA8NmTMb2', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'auiPuBtzigjUr46iuWX8cy5rh2sBB7GF4VSiRbwbnkdQ7aX9nlz4AN3lP0Js', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'hErZhEjUuFxp1p9tXKg1mZiu9FjttmXr10tJlzjyEHf989Pq9X1kxsCLUK7h', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'vTBKvjaVNI8ZUbvpn9Ecbjuq34IssM67mYj5TSgXtVmCEBg0Xmpu0eZ5xOCb', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'I3gmHlimwGaGSxonfJE40bhuNPzcaVR8V17S0zMwC2ogd5FKdjRUMgvOieY2', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'Zbrk8t5ySQHWoGBMY0arq79kxWtnUpLGIzBiQfvyA45zDORvBLJPfVyVdHxe', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'RxjA6ceWrJRFjWiveFpsFB8t9USQOdUjQSNRUT5gDY6ySE8Fh1Vqlr1kMEHE', 1),
@@ -13026,7 +12862,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=363 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=367 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -13225,7 +13061,11 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (359, '2022-06-08', '12:07:00', 14, 103, NULL, NULL),
 (360, '2022-06-08', '12:43:00', 14, 103, NULL, NULL),
 (361, '2022-06-08', '13:40:00', 14, 103, NULL, NULL),
-(362, '2022-06-08', '15:10:00', 14, 103, NULL, NULL);
+(362, '2022-06-08', '15:10:00', 14, 103, NULL, NULL),
+(363, '2022-06-09', '09:40:00', 14, 103, NULL, NULL),
+(364, '2022-06-09', '11:19:00', 14, 103, NULL, NULL),
+(365, '2022-06-09', '11:25:00', 14, 103, NULL, NULL),
+(366, '2022-06-09', '13:35:00', 14, 103, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13349,6 +13189,12 @@ ALTER TABLE `admissions`
   ADD CONSTRAINT `fk_adm_dem` FOREIGN KEY (`demande_id`) REFERENCES `demandehospitalisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `cetificats_discriptif`
+--
+ALTER TABLE `cetificats_discriptif`
+  ADD CONSTRAINT `fk_consult` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`) ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `constantes`
 --
 ALTER TABLE `constantes`
@@ -13394,6 +13240,13 @@ ALTER TABLE `demandeexb_examenbio`
 ALTER TABLE `demandeexr`
   ADD CONSTRAINT `fk_consultation` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_demanderadio_viste` FOREIGN KEY (`visite_id`) REFERENCES `visites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `demandeexradio_infosupppertinentes`
+--
+ALTER TABLE `demandeexradio_infosupppertinentes`
+  ADD CONSTRAINT `fk_demandeinfo_info` FOREIGN KEY (`id_infosupp`) REFERENCES `infosupppertinentes` (`id`),
+  ADD CONSTRAINT `fk_info_demande` FOREIGN KEY (`id_demandeexr`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `demandeexr_examenradio`

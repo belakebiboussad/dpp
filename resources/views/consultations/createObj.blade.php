@@ -68,15 +68,28 @@ function rowDelete(id)
 {
   $("#"+id).remove();
 }
-/*
-function demandehosp()
+function warning()
 {
-  $('#modeAdmission').val($('#modeAdmissionHospi').val());
-  $('#specialiteDemande').val($('#specialiteHospi').val()); 
-  $('#service').val($('#serviceHospi').val());
-}
-*/
-$(function(){
+  return "dzd"; //U can write any custom message here.
+ }
+$(function(){  
+  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { //ajax delete consult
+    var consult_id = '{{ $consult->id }}'-1;
+    var formData = {_token: CSRF_TOKEN };
+    $.ajax({
+          type: "DELETE",
+          url: '/consultations/' + consult_id,
+          data: formData,
+          success: function (data) {}
+    });
+  }
+  $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
+  document.onkeydown = capturekey;document.onkeypress = capturekey;document.onkeyup = capturekey;
+  /*
+  document.addEventListener('contextmenu', event => {
+    event.preventDefault(); 
+  });
+  */ 
   imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
       base64Img = base64; 
   });

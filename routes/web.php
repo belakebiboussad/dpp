@@ -53,6 +53,7 @@ Route::resource('soins','SoinsController');
 route::resource('/const','ConstanteController');
 route::resource('acteExec','ActeExecController');
 route::resource('orientLetter','LettreOrientationController');
+route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');

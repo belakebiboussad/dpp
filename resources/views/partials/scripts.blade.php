@@ -61,34 +61,24 @@
         left: 30,
         width: 550
   };
-
   function capturekey(e) {
-    e = e || window.event; //debugger
-    if (e.code == 'F5') {
-      if (confirm('Les modifications que vous avez apportées ne seront peut-être pas enregistrées.'))
-        location.reload();//allow to refresh
-        else {//avoid from refresh
-          e.preventDefault();e.stopPropagation();  
-        }
+    e = e || window.event;
+    if (e.code == 'F5' || e.which == 17) {//ControlRight/ControlLeft
+      e.preventDefault();e.stopPropagation();   
     }
   }
-  
   $(document).ready(function(){
-
-     $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
-      document.onkeydown = capturekey;document.onkeypress = capturekey;document.onkeyup = capturekey;
-      /*window.onbeforeunload = function(e) {return 'pas enregistrées.'; };*/
-       $('.timepicker').timepicker({
-              timeFormat: 'HH:mm',
-              interval: 60,
-              minTime: '08',
-              maxTime: '17:00pm',
-              defaultTime: '08:00',   
-              startTime: '08:00',
-              dynamic: true,
-              dropdown: true,
-              scrollbar: true
-      });
+    $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 60,
+            minTime: '08',
+            maxTime: '17:00pm',
+            defaultTime: '08:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+    });
       $('.timepicker1').timepicker({
               minuteStep:30,
                minTime: '08',
@@ -707,5 +697,4 @@
           }, 
          margins);/*iframe =document.getElementById('ipdf'); iframe.src = pdf.output('datauristring');$("#crrModal").modal();*/
       }
-
 </script>

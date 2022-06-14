@@ -9,7 +9,7 @@ td
 </style>
 <div id="lettreorient" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-   	<div class="modal-content custom-height-modal">	<!-- Modal content-->
+   	<div class="modal-content custom-height-modal">
 			<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Orientation du patient</h4></div>
 			<div class="modal-body">
@@ -110,30 +110,59 @@ td
         $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
         jQuery('#LettreOrientationAdd').modal('show');
     });
-    $('#orientationSave').click(function () {//ADD Orientation
-      if($(this).val() == "update")
-        rowDelete($("#specialiteOrient").val());
-      var orientation ='<tr id="'+$("#specialiteOrient").val()+'"><td hidden>'+$("#specialiteOrient").val()+'</td><td>'+$('#specialiteOrient option:selected').html() +'</td><td>'+$("#motifC").val()+'</td><td>'+$("#motifOrient").val()+'</td><td class="center">';
-      orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + $("#specialiteOrient").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-      orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + $("#specialiteOrient").val()+ '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-      orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + $("#specialiteOrient").val()+ '" onclick ="rowDelete('+$("#specialiteOrient").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-      $("#orientationsList").append(orientation);
-      $('#LettreOrientationAdd').trigger("reset");
+    $('#orientationSave').click(function (e) {//save Orientation
+       e.preventDefault();
+      var formData = {
+         _token          : CSRF_TOKEN,
+        consultation_id  : '{{ $consult->id }}',
+        specialite       : $("#specialiteOrient").val(),
+        motif            : $("#motifC").val(), 
+        examen           : $("#motifOrient").val(),
+      };
+      var type = "POST" , url = '';
+      var state = $(this).val(); 
+      if ( state == "update") {
+        type = "PUT";
+        url = '{{ route("orientLetter.update", ":slug") }}'; 
+        url = url.replace(':slug',$("#orient_id").val());
+      }else
+        url ="{{ route('orientLetter.store') }}";
+      $.ajax({
+          type: type,
+          url: url,
+          data: formData,
+          success: function (data) {
+            var orientation ='<tr id="'+ data.id + '"><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
+            orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+            orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
+            orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+            if(state == "update")
+              $("#" + data.id).replaceWith(orientation);
+            else
+              $("#orientationsList").append(orientation);
+            $('#LettreOrientationAdd').trigger("reset");
+          }
+      });
     });
     $('body').on('click', '.open-Orient', function (event) {
-      var tr = document.getElementById($(this).val());
-      $("#specialiteOrient").val(tr.cells[0].innerHTML).change();
-      $("#motifC").val(tr.cells[2].innerHTML);  
-      $("#motifOrient").val(tr.cells[3].innerHTML);
-      $('#orientationSave').val("update");
-      $('#orientationSave').attr('data-id',$(this).val());
-      $('#orientCrudModal').html("Modifier la  lettre d'orientation");  
-      $('#LettreOrientationAdd').modal('show');
+      event.preventDefault();
+      var id = $(this).val();
+      $.get('/orientLetter/'+id+'/edit', function (data) {
+         $('#orient_id').val(data.id);
+        $("#specialiteOrient").val(data.specialite.id).change();
+        $("#motifC").val(data.motif);
+        $("#motifOrient").val(data.examen);
+        $('#orientationSave').val("update");
+        $('#orientationSave').attr('data-id',data.id);
+        $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
+        $('#LettreOrientationAdd').modal('show');
+      }); 
     });
     $('body').on('click', '#orientationPrint', function (event) {
         var fileName ='orientLetter'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
-        var tr = document.getElementById($(this).val()); //$("#orSpecialite").text(tr.cells[1].innerHTML);
-        $("#motifCons").text(tr.cells[2].innerHTML);$("#motifO").text(tr.cells[3].innerHTML);
+        var tr = document.getElementById($(this).val());
+        $("#motifCons").text(tr.cells[1].innerHTML);
+        $("#motifO").text(tr.cells[2].innerHTML);
         var ipp = '{{ $patient->IPP }}';
         var pdf = new jsPDF('p', 'pt', 'a4');
         JsBarcode("#barcode",ipp,{
@@ -152,13 +181,64 @@ td
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
+     $('body').on('click', '.delete-orient', function (event) {
+      event.preventDefault();
+      var formData = {_token: CSRF_TOKEN };
+      var id =$(this).val();
+      $.ajax({
+          type: "DELETE",
+          url: '/orientLetter/' + id,
+          data: formData,
+          success: function (data) {
+            alert(data);
+            $("#"+id).remove();
+          }
+      });
+    });
     $('#certifDescrip-add').click(function (e) {
       $('#decriptifSave').val("add");
       $('#modalFormDescript').trigger("reset");
       $('#CertifDescrAdd').modal('show');
     });
-      $('#decriptifSave').click(function () {//ADD Orientation
-          if($(this).val() == "update")
+    $('#decriptifSave').click(function (e) {//ADD Orientation
+      e.preventDefault();
+      var formData = {
+        _token          : CSRF_TOKEN,
+        consultation_id  : '{{ $consult->id }}',
+        examen           : $("#examClin").val(),
+      };
+      var type = "POST" , url = '';
+      var state = $(this).val(); 
+      
+      if ( state == "update") {
+        type = "PUT";
+        url = '{{ route("certifDescrip.update", ":slug") }}'; 
+        url = url.replace(':slug',$("#decript_id").val());
+      }else
+        url ="{{ route('certifDescrip.store') }}";
+
+     $.ajax({
+          type: type,
+          url: url,
+          data: formData,
+          success: function (data) {
+            var certificat ='<tr id =descript-"'+ data.id +'"><td>'+ data.examen +'</td><td>';
+            certificat += '<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
+            certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" value="' + data.id + '" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+           /*
+            orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
+            orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+            */
+            if(state == "update")
+              $("#descript-" + data.id).replaceWith(certificat);
+            else
+              $("#certificatDescrList").append(certificat);
+            $('#modalFormDescript').trigger("reset");
+            
+          }
+      });
+          /* 
+        if($(this).val() == "update")
             rowDelete("decriptidID");
           var certificat ='<tr id ="decriptidID"><td>'+ $("#examClin").val() +'</td><td>';
           certificat += '<button type="button" class="btn btn-xs btn-info open-Desc"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
@@ -167,6 +247,8 @@ td
           if(!$('#certifDescrip-add').hasClass('hidden'))
             $('#certifDescrip-add').addClass('hidden');
           $('#modalFormDescript').trigger("reset");
+          */
+    
     });
     $('body').on('click', '.open-Desc', function (event) {
       var tr = document.getElementById("decriptidID");

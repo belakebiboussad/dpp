@@ -156,7 +156,8 @@ class ConsultationsController extends Controller
             $orient['consultation_id'] = $consult->id ;
             LettreOrientation::create($orient);
           }
-        }/*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
+        }
+        /*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
         if($request->liste != null)//save Ordonnance
         {
           $ord = new ordonnance;$ord->date = Date::Now();
@@ -176,7 +177,6 @@ class ConsultationsController extends Controller
             $exam->save();
           }
         }
-
         if((!isset($consult->demandExmImg)) && (!empty($request->ExamsImg)))
         { 
           $demandeExImg = new demandeexr;
@@ -211,12 +211,15 @@ class ConsultationsController extends Controller
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
         return view('consultations.show', compact('consultation','specialite','specialites'));
       }
-      public function destroy($id)
+      public function destroy(Request $request, $id)
       {
         $consult = consultation::find($id);
         $pid = $consult->pid;
         $consult->delete();
-        return redirect()->action('PatientController@show',$pid);
+        if($request->ajax())  
+          return $consult;
+        else
+          return redirect()->action('PatientController@show',$pid);
       }
      
     /**

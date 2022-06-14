@@ -197,7 +197,7 @@
                 }
             }); 
            }) 
-           jQuery('body').on('click', '.delete-garde', function () {////----- DELETE a Garde and remove from the page -----////
+           jQuery('body').on('click', '.delete-garde', function () {
                 var hom_id = $(this).val();
                 $.ajaxSetup({
                   headers: {

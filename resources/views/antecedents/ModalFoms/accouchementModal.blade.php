@@ -141,7 +141,7 @@
 			event.preventDefault();
 			var acc_id = $(this).val();
   	  $.get('/accouch/' + acc_id, function (data) { 
-                    $('#acc_id').val(data.id);
+        $('#acc_id').val(data.id);
 				$('#lieu').val(data.etablisement);
 				$('#terme').val(data.terme);
 				$('#presentation').val(data.presentation);

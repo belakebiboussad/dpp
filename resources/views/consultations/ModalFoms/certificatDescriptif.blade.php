@@ -6,6 +6,7 @@
       </div>
       <div class="modal-body">
         <form id="modalFormDescript" method="POST" class="form-horizontal">
+          <input type="hidden" id="decript_id">
           <div class="form-group">
             <label for="description">Examen clinque:</label>
             <textarea class="form-control" id="examClin" rows="8"></textarea>
@@ -13,7 +14,7 @@
         </form>
       </div>
        <div class="modal-footer">
-          <div class="col-sm-12"><!-- onclick="lettreorientation()" -->
+          <div class="col-sm-12">
             <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="decriptifSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
             <button type="button" class="btn btn-sm btn-warning"  data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
           </div>

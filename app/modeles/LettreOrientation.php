@@ -13,7 +13,7 @@ class LettreOrientation extends Model
   {
    	return $this->belongsTo('App\modeles\consultation','consultation_id');
   }
-  public function Specialite()//comment
+  public function Specialite()
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
   }
