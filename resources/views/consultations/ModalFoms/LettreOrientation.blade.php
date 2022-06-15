@@ -61,6 +61,7 @@ td
                   <thead class="thin-border-bottom">
                     <tr class ="center">
                       <th class="center">Examen Clinique</th>
+                      <th class="center" width="5%">Chronique ?</th>
                       <th class="center" width="5%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
@@ -159,7 +160,7 @@ td
       }); 
     });
     $('body').on('click', '#orientationPrint', function (event) {
-        var fileName ='orientLetter'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+        var fileName ='orientLetter-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
         var tr = document.getElementById($(this).val());
         $("#motifCons").text(tr.cells[1].innerHTML);
         $("#motifO").text(tr.cells[2].innerHTML);
@@ -190,7 +191,6 @@ td
           url: '/orientLetter/' + id,
           data: formData,
           success: function (data) {
-            alert(data);
             $("#"+id).remove();
           }
       });
@@ -206,61 +206,90 @@ td
         _token          : CSRF_TOKEN,
         consultation_id  : '{{ $consult->id }}',
         examen           : $("#examClin").val(),
+        isChronic : $("#isChronic").is(":checked") ? 1:0,
       };
       var type = "POST" , url = '';
       var state = $(this).val(); 
-      
       if ( state == "update") {
         type = "PUT";
         url = '{{ route("certifDescrip.update", ":slug") }}'; 
         url = url.replace(':slug',$("#decript_id").val());
       }else
         url ="{{ route('certifDescrip.store') }}";
-
-     $.ajax({
+       $.ajax({
           type: type,
           url: url,
           data: formData,
           success: function (data) {
-            var certificat ='<tr id =descript-"'+ data.id +'"><td>'+ data.examen +'</td><td>';
+            var isChronic = data.isChronic != 0 ? 'Oui' : 'Non';
+            var certificat ='<tr id ="descript-'+ data.id +'"><td>'+ data.examen +'</td><td>' + isChronic + '</td><td>';
             certificat += '<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
+            certificat += '<button type="button" class="btn btn-xs btn-success" id ="descriptPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
             certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" value="' + data.id + '" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-           /*
-            orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-            orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-            */
             if(state == "update")
               $("#descript-" + data.id).replaceWith(certificat);
             else
               $("#certificatDescrList").append(certificat);
+            if(!$('#certifDescrip-add').hasClass('hidden'))
+              $('#certifDescrip-add').addClass('hidden');
             $('#modalFormDescript').trigger("reset");
-            
           }
       });
-          /* 
-        if($(this).val() == "update")
-            rowDelete("decriptidID");
-          var certificat ='<tr id ="decriptidID"><td>'+ $("#examClin").val() +'</td><td>';
-          certificat += '<button type="button" class="btn btn-xs btn-info open-Desc"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
-          certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-          $("#certificatDescrList").append(certificat);
-          if(!$('#certifDescrip-add').hasClass('hidden'))
-            $('#certifDescrip-add').addClass('hidden');
-          $('#modalFormDescript').trigger("reset");
-          */
-    
     });
     $('body').on('click', '.open-Desc', function (event) {
-      var tr = document.getElementById("decriptidID");
-      $("#examClin").val((document.getElementById("decriptidID")).cells[0].innerHTML);
-      $('#DescripCrudModal').html("Modifier le Certificat descriptf"); 
-      $('#decriptifSave').val("update"); 
-      $('#CertifDescrAdd').modal('show');
+      event.preventDefault();
+      var id = $(this).val();
+      $.get('/certifDescrip/'+id+'/edit', function (data) {
+        $('#decript_id').val(data.id);
+        $("#examClin").val(data.examen);
+        if(data.isChronic)
+          $('#isChronic').prop('checked', true);
+        $('#DescripCrudModal').html("Modifier le Certificat descriptf"); 
+        $('#decriptifSave').val("update"); 
+        $('#CertifDescrAdd').modal('show');
+      });
+    });
+      $('body').on('click', '#descriptPrint', function (event) {
+        var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+        var tr = document.getElementById("descript-" + $(this).val());
+        alert(tr.cells[0].innerHTML);
+        alert(tr.cells[1].innerHTML);
+
+        /*
+        $("#examen").text(tr.cells[0].innerHTML);
+        $("#motifO").text(tr.cells[2].innerHTML);
+        var ipp = '{{ $patient->IPP }}';
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        JsBarcode("#barcode",ipp,{
+          format: "CODE128",
+          width: 2,
+          height: 30,
+          textAlign: "left",
+          fontSize: 12, 
+          font: "OCR-B",
+          text: "IPP: " + ipp 
+        });
+        var canvas = document.getElementById('barcode');
+        var jpegUrl = canvas.toDataURL("image/jpeg");
+        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        pdf.setFontSize(12);
+        pdf.text(320,730, 'Respectueusement');
+        generate(fileName,pdf,'OrientLetterPdf');
+         */
     });
     $('body').on('click', '.delete-Desc', function (event) {
-      rowDelete("decriptidID");
-      $('#certifDescrip-add').removeClass('hidden');
+      event.preventDefault();
+      var formData = {_token: CSRF_TOKEN };
+      var id =$(this).val();
+      $.ajax({
+          type: "DELETE",
+          url: '/certifDescrip/' + id,
+          data: formData,
+          success: function (data) {
+            $("#descript-"+id).remove();
+            $('#certifDescrip-add').removeClass('hidden');
+          }
+      });
     });
-
 }) 
 </script>

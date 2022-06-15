@@ -17,4 +17,20 @@ class CertificatDescriptifController extends Controller
       return $descript;
     }
   }
+  public function edit($id)
+  {
+    $descript = CertificatDescriptif::FindOrFail($id);
+    return $descript;
+  }
+  public function update(Request $request, $id)
+  {
+    $descript = CertificatDescriptif::find($id);
+    $descript->update($request->all());
+    return $descript;
+  }
+  public function destroy($id)
+  {
+    $descript = CertificatDescriptif::destroy($id);
+    return $descript;
+  }
 }

@@ -52,15 +52,13 @@
 					<div class="col-sm-9">
 						<input type="text" name="bloc" placeholder="Bloc" class="col-xs-10 col-sm-5" />
 					</div>
-				</div>
-				<div class="space-12 hidden-xs"></div>
+				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> N° d'étage : </strong></label>
 					<div class="col-sm-9">
 						<input type="number" name="etage" placeholder="N° d'etage" class="col-xs-10 col-sm-5" min="0" />
 					</div>
-				</div>
-				<div class="space-12 hidden-xs"></div>
+				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="genre"><strong> Unité: </strong></label>
 					<div class="col-sm-9">

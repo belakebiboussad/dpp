@@ -63,11 +63,7 @@ function editMedicm(med)
         $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
       }
     });
-}
-function rowDelete(id)
-{
-  $("#"+id).remove();
-}
+}/*function rowDelete(id){  $("#"+id).remove();}*/
 function warning()
 {
   return "dzd"; //U can write any custom message here.
@@ -518,8 +514,9 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
 @include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 @include('examenradio.ModalFoms.crrPrint')
 @include('consultations.ModalFoms.certificatDescriptif')
-<div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterImgPDF')</div>
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
+<div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterPDF')</div>
+<div id="certificatDescrPdf" class="hidden">@include('consultations.EtatsSortie.certifDescripPDF')</div>
 @endsection

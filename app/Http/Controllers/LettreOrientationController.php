@@ -20,8 +20,8 @@ class LettreOrientationController extends Controller
   }
   public function edit($id)
   {
-      $orient = LettreOrientation::with('Specialite')->FindOrFail($id);
-      return $orient;
+    $orient = LettreOrientation::with('Specialite')->FindOrFail($id);
+    return $orient;
   }
   public function update(Request $request, $id)
   {

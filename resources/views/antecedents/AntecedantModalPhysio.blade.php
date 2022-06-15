@@ -12,8 +12,8 @@
 					<label for="habitudeAlim" class="col-sm-2 control-label">Habitudes Alimentaires:</label>
 					<div class="col-sm-10">
 						<input type="text" id="habitudeAlim" class="form-control"/><br>
-						<label><input type="checkbox" class="ace" id="tabac"/>	<span class="lbl" >&nbsp; &nbsp;tabac</span></label>&nbsp; &nbsp; &nbsp;
-				          <label><input type="checkbox" class="ace" id="ethylisme"/><span class="lbl"> &nbsp; &nbsp;ethylisme</span></label>
+						<label><input type="checkbox" class="ace" id="tabac"/><span class="lbl" >&nbsp; &nbsp;tabac</span></label>&nbsp; &nbsp; &nbsp;
+				          <label><input type="checkbox" class="ace" id="ethylisme"/><span class="lbl"> &nbsp;&nbsp;ethylisme</span></label>
 				     </div>
 				</div>
 				<div class="form-group">

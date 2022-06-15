@@ -28,7 +28,7 @@
 </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="row ml-4">
   <div class="col-sm-11">
-    <p class="espace"><!-- style="text-align : justify; letter-spacing: 20 em;" -->
+    <p class="espace">
       Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }}
          âgé(e) de {{ $patient->age }} ans,
     </p>

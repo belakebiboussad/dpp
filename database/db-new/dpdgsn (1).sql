@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 14 juin 2022 à 16:13
+-- Généré le : mer. 15 juin 2022 à 16:14
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -722,17 +722,19 @@ DROP TABLE IF EXISTS `cetificats_discriptif`;
 CREATE TABLE IF NOT EXISTS `cetificats_discriptif` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `examen` text NOT NULL,
+  `isChronic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:non 1:oui',
   `consultation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_consult` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `cetificats_discriptif`
 --
 
-INSERT INTO `cetificats_discriptif` (`id`, `examen`, `consultation_id`) VALUES
-(2, 'fdfd eztrezr', 883);
+INSERT INTO `cetificats_discriptif` (`id`, `examen`, `isChronic`, `consultation_id`) VALUES
+(22, 'dsqsqdsqbelakebi', 0, 910),
+(24, 'sdr h trh', 1, 914);
 
 -- --------------------------------------------------------
 
@@ -2660,7 +2662,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=884 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=915 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2792,7 +2794,10 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (351, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
 (352, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
 (353, NULL, NULL, '2022-06-02', NULL, NULL, 0, NULL, 100, 191, NULL, 21),
-(883, NULL, NULL, '2022-06-14', NULL, NULL, 0, NULL, 103, 268, NULL, 21);
+(902, NULL, NULL, '2022-06-15', NULL, NULL, 0, NULL, 103, 226, NULL, 21),
+(910, NULL, NULL, '2022-06-15', NULL, NULL, 0, NULL, 103, 302, NULL, 21),
+(911, NULL, NULL, '2022-06-15', NULL, NULL, 0, NULL, 103, 302, NULL, 21),
+(914, NULL, NULL, '2022-06-15', NULL, NULL, 0, NULL, 103, 222, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -4895,7 +4900,7 @@ CREATE TABLE IF NOT EXISTS `lettre_oriantations` (
   PRIMARY KEY (`id`),
   KEY `fk_orientation_consultation` (`consultation_id`),
   KEY `fk_orientation_specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `lettre_oriantations`
@@ -12786,7 +12791,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'infcar@hop.dz', 1, 3, 'KrhnMY6VzvVtigUQrx1cr0BTUwyG6mah1NMKZ10iXFJh5UV2FQCvWGnscYBt', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'N2zw4pRWMIR3glB4hAYVAlXDIpCYiQ3y9RMWmlZfDMXfvRK8OarRf7lBrQee', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'CdI6G4RBlfjFu4qO93ETX45wpM9WLQusWpJgiMt1jYgvZRMLv1V4A9sUKtPI', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'cBQwQhRbHWbtos2gqZfzNHHTbcSHfJBOi4csTzD8h375WS4rNZNXVBC3Vt4X', 1),
 (29, 'surint', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'surint@hop.dz', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, '3cje24czswYsF93sqrtbB9SbUui3XqaHwsJGn8VNslY0ja5UwfkqkFpoa2vu', 1),
@@ -12803,7 +12808,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'cmnPDhHDk25UAyLE5Ls0t8NXEFbuIgeGASOuQsfkm71A66j2ztgLdNBv4Tjf', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'YeqUHL7fy2WjMAKdsv6eAkhfVauEoJx7IyekXuyiWLG8zc8pPDawA8NmTMb2', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'auiPuBtzigjUr46iuWX8cy5rh2sBB7GF4VSiRbwbnkdQ7aX9nlz4AN3lP0Js', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'vTBKvjaVNI8ZUbvpn9Ecbjuq34IssM67mYj5TSgXtVmCEBg0Xmpu0eZ5xOCb', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, '8iXRlEYNJhnhi5w5kSUN5sZb7YfpD5M61jGUM6NcWon2ukn49qwbWNaBO4Uq', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'I3gmHlimwGaGSxonfJE40bhuNPzcaVR8V17S0zMwC2ogd5FKdjRUMgvOieY2', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'Zbrk8t5ySQHWoGBMY0arq79kxWtnUpLGIzBiQfvyA45zDORvBLJPfVyVdHxe', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'RxjA6ceWrJRFjWiveFpsFB8t9USQOdUjQSNRUT5gDY6ySE8Fh1Vqlr1kMEHE', 1),
@@ -13192,7 +13197,7 @@ ALTER TABLE `admissions`
 -- Contraintes pour la table `cetificats_discriptif`
 --
 ALTER TABLE `cetificats_discriptif`
-  ADD CONSTRAINT `fk_consult` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_consult` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `constantes`
