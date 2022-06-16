@@ -252,30 +252,15 @@ td
       $('body').on('click', '#descriptPrint', function (event) {
         var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
         var tr = document.getElementById("descript-" + $(this).val());
+        /*
         alert(tr.cells[0].innerHTML);
         alert(tr.cells[1].innerHTML);
-
-        /*
         $("#examen").text(tr.cells[0].innerHTML);
         $("#motifO").text(tr.cells[2].innerHTML);
-        var ipp = '{{ $patient->IPP }}';
-        var pdf = new jsPDF('p', 'pt', 'a4');
-        JsBarcode("#barcode",ipp,{
-          format: "CODE128",
-          width: 2,
-          height: 30,
-          textAlign: "left",
-          fontSize: 12, 
-          font: "OCR-B",
-          text: "IPP: " + ipp 
-        });
-        var canvas = document.getElementById('barcode');
-        var jpegUrl = canvas.toDataURL("image/jpeg");
-        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        */  
         pdf.setFontSize(12);
         pdf.text(320,730, 'Respectueusement');
-        generate(fileName,pdf,'OrientLetterPdf');
-         */
+        generate(fileName,pdf,'certificatDescrPdf'); 
     });
     $('body').on('click', '.delete-Desc', function (event) {
       event.preventDefault();
