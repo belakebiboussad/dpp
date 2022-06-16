@@ -136,8 +136,8 @@ Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
-Route::get('/getlits','LitsController@getlits');//Route::post('/get-all-events','RDVController@checkFullCalendar');
-route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
+Route::get('/getlits','LitsController@getlits');
+route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
@@ -171,3 +171,4 @@ Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', fun
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
+route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');

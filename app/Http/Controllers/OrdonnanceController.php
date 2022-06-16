@@ -88,7 +88,7 @@ class OrdonnanceController extends Controller
        $ordonnance = ordonnance::FindOrFail($id);
        return view('ordennance.show', compact('ordonnance'));
     }
-    public function show_ordonnance($id)
+    public function print($id)
     {  
       $ordonnance = ordonnance::FindOrFail($id);
       $etablissement = Etablissement::first();

@@ -5,8 +5,7 @@
     <title>Lettre d'orientation médicale</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-      @page {
-        /*  margin: 5px 100px 25px 100px;*/
+      @page {/*  margin: 5px 100px 25px 100px;*/
         margin: 20px 100px 80px;
       }
       table {
@@ -16,9 +15,6 @@
       table > tbody > tr > td > div {
           margin: 0 auto;
           border: 0px red solid;
-      }
-      .pagination-centered {
-            text-align: center;
       }
       .rectangle {
         width:90%;

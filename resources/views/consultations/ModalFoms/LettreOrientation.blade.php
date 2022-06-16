@@ -61,7 +61,7 @@ td
                   <thead class="thin-border-bottom">
                     <tr class ="center">
                       <th class="center">Examen Clinique</th>
-                      <th class="center" width="5%">Chronique ?</th>
+                      <th class="center" width="6%">Chronique ?</th>
                       <th class="center" width="5%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
@@ -223,8 +223,9 @@ td
           success: function (data) {
             var isChronic = data.isChronic != 0 ? 'Oui' : 'Non';
             var certificat ='<tr id ="descript-'+ data.id +'"><td>'+ data.examen +'</td><td>' + isChronic + '</td><td>';
-            certificat += '<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>';
-            certificat += '<button type="button" class="btn btn-xs btn-success" id ="descriptPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
+            certificat += '<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+            //certificat += '<button type="button" class="btn btn-xs btn-success" id ="descriptPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
+            certificat += '<a href="/printCertifDescrip/' + data.id +'" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i>&nbsp;</a>';
             certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" value="' + data.id + '" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
             if(state == "update")
               $("#descript-" + data.id).replaceWith(certificat);
@@ -249,19 +250,12 @@ td
         $('#CertifDescrAdd').modal('show');
       });
     });
-      $('body').on('click', '#descriptPrint', function (event) {
+    /*$('body').on('click', '#descriptPrint', function (event) {
         var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
         var tr = document.getElementById("descript-" + $(this).val());
-        /*
-        alert(tr.cells[0].innerHTML);
-        alert(tr.cells[1].innerHTML);
-        $("#examen").text(tr.cells[0].innerHTML);
-        $("#motifO").text(tr.cells[2].innerHTML);
-        */  
-        pdf.setFontSize(12);
-        pdf.text(320,730, 'Respectueusement');
-        generate(fileName,pdf,'certificatDescrPdf'); 
-    });
+        $("#examen").text(tr.cells[0].innerHTML);$("#motifO").text(tr.cells[2].innerHTML);
+        
+        pdf.setFontSize(12); pdf.text(320,730, 'Respectueusement');generate(fileName,pdf,'certificatDescrPdf');});*/     
     $('body').on('click', '.delete-Desc', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };
