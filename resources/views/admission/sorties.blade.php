@@ -129,7 +129,7 @@
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
-		<div class="panel-heading left">{{-- style="height: 40px; font-size: 2.3vh;" --}}
+		<div class="panel-heading left">
 			<strong>Rechercher une sortie</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
