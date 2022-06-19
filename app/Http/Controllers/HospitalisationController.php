@@ -84,7 +84,7 @@ class HospitalisationController extends Controller
         {
           $etatsortie = Etatsortie::where('type','0')->get();
           $chapitres = chapitre::all();
-          $etablissement = Etablissement::first();
+          $etab = Etablissement::first();
           $medecins = employ::where('service_id',Auth::user()->employ->service_id)->get();
           if(Auth::user()->role_id != 9 )//9:admission
             $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
@@ -92,7 +92,7 @@ class HospitalisationController extends Controller
                                                  })->where('etat','=',null)->get();
           else
             $hospitalisations = hospitalisation::where('etat','=',null)->get();             
-          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etab'));
         }
       }
   /**
@@ -194,7 +194,7 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
   }
   public function  codebarrePrint(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id); //$etablissement = Etablissement::first();// ,'img'=>$img// ,'etablissement'=>$etablissement
+    $hosp = hospitalisation::FindOrFail($request->id); //$etab = Etablissement::first();// ,'img'=>$img// ,'etab'=>$etab
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);//plusieure en foramt A4
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();

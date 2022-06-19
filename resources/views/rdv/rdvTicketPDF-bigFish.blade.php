@@ -38,7 +38,7 @@
 	  </div>
 	  <div class="row mt-5">
 		  <div class="col-sm-12 content text-center"><div class="col-sm-4"></div>
-			 <div class="col-sm-4"><img class = "imgCenter" src="img/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>
+			 <div class="col-sm-4"><img class = "imgCenter" src="img/{{ $etab->logo }}"/></div><div class="col-sm-4"></div>
 			</div>
     </div>
 		<div class="row"><hr class ="mt-5"></div>

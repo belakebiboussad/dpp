@@ -18,7 +18,7 @@
       <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
     </footer>
     <main>
-      <div class="sec-droite mtP10p"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::parse($ordonnance->date)->format('d/m/Y') }}</span></div>
+      <div class="right mtP10p"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::parse($ordonnance->date)->format('d/m/Y') }}</span></div>
       <br><br><br><br><br><br>
       <div class="col-sm-6">
         <strong>Médecin prescripteur :</strong>{{ $ordonnance->consultation->medecin->full_name}}
@@ -46,7 +46,7 @@
       </div>
       <div class="row foo">
         <div class="col-sm-12">
-          <div class="sec-droite"><span><strong>Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div>
+          <div class="right"><span><strong>Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div>
         </div>
       </div>
     </main>   

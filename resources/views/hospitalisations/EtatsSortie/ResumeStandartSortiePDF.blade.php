@@ -45,7 +45,7 @@
           <table>
             <tr>
               <td>
-              <strong>Etablissement :</strong>&nbsp;<span>{{ $etablissement->nom }}</span><br>
+              <strong>Etablissement :</strong>&nbsp;<span>{{ $etab->nom }}</span><br>
               <strong>Service de :</strong>&nbsp;<span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span><br>
               <strong>Chef de Service :</strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span><br>
               </td>
@@ -152,11 +152,7 @@
             </tr>
           </table>
         </div> <!--     </section> -->
-        <div class="sec-gauche">Le Chef de Service</div>
-        <div class="sec-droite">
-          Le Médecin traitant
-        </div>
-
+        <div class="sec-gauche">Le Chef de Service</div><div class="righte">Le Médecin traitant</div>
       </main>
     </div>
   </body>

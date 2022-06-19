@@ -15,7 +15,7 @@
   <div class="space-12"></div>
   <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examen radiologique</strong></span></h5> 
   <br>
-  <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>
+  <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
         {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
   </div>
   <div class="row">
@@ -101,7 +101,7 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
+      <div class="section"><div class="right"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
     </div>
   </div>
 </div><!-- container-fluid -->

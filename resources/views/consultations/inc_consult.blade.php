@@ -309,7 +309,7 @@ $('document').ready(function(){
                   <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".{{ $orient->id }}collapsed">
                     <i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
                   </a>
-                  <button type="button" class="btn btn-xs" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')">
+                  <button type="button" class="btn btn-xs" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}', '{{$consultation->patient->IPP }}','{{$etab->tutelle }}','{{$etab->nom }}','{{$etab->adresse }}','{{$etab->tel }}','{{$etab->logo }}')">
                     <i class="ace-icon fa fa-print fa-xs"></i>
                   </button>
                 </td>

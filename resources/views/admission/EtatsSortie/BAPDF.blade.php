@@ -140,7 +140,7 @@
       </table>
     </section><br>
     <div class="row">
-      <div class="sec-droite">
+      <div class="right">
         <div>Alger le:  {{ $date }}</div>
         <div>{{  Auth::user()->employ->Service->nom }}</div>
     </div>

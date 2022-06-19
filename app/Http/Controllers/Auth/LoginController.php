@@ -87,7 +87,7 @@ class LoginController extends Controller
       }
       public function showLoginForm()
       {
-        $etablissement = Etablissement::first();
-        return view('auth/login',compact('etablissement'));
+        $etab = Etablissement::first();
+        return view('auth/login',compact('etab'));
       }    //fabm
 }

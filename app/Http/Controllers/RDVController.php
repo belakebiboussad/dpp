@@ -205,7 +205,7 @@ class RDVController extends Controller
       public function print(Request $request,$id)
       { 
         $rdv = rdv::findOrFail($id);
-        $etablissement = Etablissement::first();
+        $etab = Etablissement::first();
         $civilite = $civilite = $rdv->patient->civ;
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
@@ -217,7 +217,7 @@ class RDVController extends Controller
             'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
-        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
+        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etab))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($viewhtml);
         $dompdf->setPaper('a6', 'landscape');

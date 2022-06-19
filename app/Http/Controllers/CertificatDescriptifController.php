@@ -41,8 +41,8 @@ class CertificatDescriptifController extends Controller
   public function print($id)
   {
     $certif = CertificatDescriptif::FindOrFail($id);
-    $etablissement = Etablissement::first();
-    $pdf = PDF::loadView('consultations\EtatsSortie.certifDescPDF', compact('certif','etablissement'));
+    $etab = Etablissement::first();
+    $pdf = PDF::loadView('consultations\EtatsSortie.certifDescPDF', compact('certif','etab'));
     //$filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
     $filename ="a.pdf";
     Storage::put('public/pdf/'.$filename,$pdf->output());

@@ -196,9 +196,7 @@ td
       });
     });
     $('#certifDescrip-add').click(function (e) {
-      $('#decriptifSave').val("add");
-      $('#modalFormDescript').trigger("reset");
-      $('#CertifDescrAdd').modal('show');
+      $('#decriptifSave').val("add");   $('#modalFormDescript').trigger("reset");$('#CertifDescrAdd').modal('show');
     });
     $('#decriptifSave').click(function (e) {//ADD Orientation
       e.preventDefault();
@@ -249,13 +247,9 @@ td
         $('#decriptifSave').val("update"); 
         $('#CertifDescrAdd').modal('show');
       });
-    });
-    /*$('body').on('click', '#descriptPrint', function (event) {
-        var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
-        var tr = document.getElementById("descript-" + $(this).val());
-        $("#examen").text(tr.cells[0].innerHTML);$("#motifO").text(tr.cells[2].innerHTML);
-        
-        pdf.setFontSize(12); pdf.text(320,730, 'Respectueusement');generate(fileName,pdf,'certificatDescrPdf');});*/     
+    });/*$('body').on('click', '#descriptPrint', function (event) { var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+var tr = document.getElementById("descript-" + $(this).val());$("#examen").text(tr.cells[0].innerHTML);$("#motifO").text(tr.cells[2].innerHTML);
+pdf.setFontSize(12); pdf.text(320,730, 'Respectueusement');generate(fileName,pdf,'certificatDescrPdf');});*/     
     $('body').on('click', '.delete-Desc', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };

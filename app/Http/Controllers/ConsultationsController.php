@@ -60,10 +60,10 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
       $consultation = consultation::FindOrFail($request->id);
-      $view =  view("consultations.inc_consult",compact('consultation','etablissement','specialite'))->render();
+      $view =  view("consultations.inc_consult",compact('consultation','etab','specialite'))->render();
       return (['html'=>$view]);
     }
     public function listecons($id)
@@ -84,7 +84,7 @@ class ConsultationsController extends Controller
       public function create(Request $request,$id_patient)
       {
         $date = Carbon::now();
-        $etablissement = Etablissement::first(); 
+        $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
         $specialite = Specialite::findOrFail($employe->specialite);
         $modesAdmission = config('settings.ModeAdmissions') ;
@@ -96,8 +96,8 @@ class ConsultationsController extends Controller
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $consult =new consultation;$consult->date=$date;
         $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
-        $consult->id_lieu =$etablissement->id;$consult->save();
-        return view('consultations.createObj',compact('consult','patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
+        $consult->id_lieu =$etab->id;$consult->save();
+        return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
      * Store a newly created resource in storage.
@@ -108,7 +108,7 @@ class ConsultationsController extends Controller
       public function store(Request $request)
       { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
         $constvalue =  collect();$exam;
-        $etablissement = Etablissement::first(); 
+        $etab = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
                 'motif' => 'required',
                 'resume' => 'required',
@@ -125,7 +125,7 @@ class ConsultationsController extends Controller
               "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
               "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
               "id_code_sim"=>$request->codesim,
-              "id_lieu"=>$etablissement->id
+              "id_lieu"=>$etab->id
         ]);
         foreach($consult->patient->rdvs as $rdv)
         {

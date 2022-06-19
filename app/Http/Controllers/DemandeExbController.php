@@ -124,7 +124,7 @@ class DemandeExbController extends Controller
     public function detailsdemandeexb($id)
     {
       $demande = demandeexb::FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->consultation))
       {
         $medecin =  $patient = $demande->consultation->medecin;     
@@ -135,7 +135,7 @@ class DemandeExbController extends Controller
         $medecin =  $patient = $demande->visite->medecin ;   
         $patient = $demande->visite->hospitalisation->patient;   
       }
-      return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
+      return view('examenbio.details', compact('demande','patient','medecin','etab'));
     }
     public function uploadresultat(Request $request)
     {
@@ -176,7 +176,7 @@ class DemandeExbController extends Controller
     public function print($id)
     {
       $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->id_consultation))
       {
         $patient = $demande->consultation->patient ;
@@ -190,7 +190,7 @@ class DemandeExbController extends Controller
         $medecin = $demande->visite->medecin;
       }
       $filename = "demandeExamensBio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etablissement','medecin'));
+      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etab','medecin'));
       return $pdf->stream($filename);
     }
     public function downloadcrb($id)

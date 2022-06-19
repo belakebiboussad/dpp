@@ -38,7 +38,7 @@ class DemandeExamenRadio extends Controller
     public function details($id)
     {
       $demande = demandeexr::FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->id_consultation))
       {
           $obj = $demande->consultation;
@@ -48,7 +48,7 @@ class DemandeExamenRadio extends Controller
         $obj = $demande->visite;
          $patient = $demande->visite->hospitalisation->patient;
       }
-      return view('examenradio.details', compact('demande','obj','patient','etablissement'));   
+      return view('examenradio.details', compact('demande','obj','patient','etab'));   
     }
     public function upload(Request $request)
     {
@@ -248,7 +248,7 @@ class DemandeExamenRadio extends Controller
     public function print($id)
     {
       $demande = demandeexr::FindOrFail($id); 
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->consultation))
       {
         $patient = $demande->consultation->patient;
@@ -260,7 +260,7 @@ class DemandeExamenRadio extends Controller
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etablissement'));
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etabt'));
       return $pdf->stream($filename);
     }
 }

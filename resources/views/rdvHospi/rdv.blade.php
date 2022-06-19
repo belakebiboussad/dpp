@@ -12,7 +12,7 @@
 <body>	
 	<div class="row"><img src="img/entete.png" class="mt-12" alt="entete" width="100%"></div>	
 	<hr/>
-	<div class="sec-droite"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</span></div>	
+	<div class="right"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</span></div>	
 	<div class="row"><strong>Patient(e) :</strong></div>
 	<div class="tab-space"><strong>Nom & Prenom :&nbsp;</strong><span>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }} </span></div>
 		<div  class="tab-space">
@@ -34,6 +34,6 @@
 			</p>
 			<p class="espace">En vous remerciant, nous vous prions de croire,Monsieur, à l'expression de nous salutations distinguées.</p>
 		</div>
-		<div class="sec-droite"><strong> Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</strong></div>
+		<div class="right"><strong> Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</strong></div>
 	</body>
 </html>

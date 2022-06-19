@@ -48,7 +48,7 @@
           <div class="marge">
             Je soussigné(e), <br>
             Madame, Mademoiselle, Monsieur : <span>{{ $obj->medecin->full_name }}</span><br/><span>
-            Docteur en Médecine et exerçant en tant que .................................au sein  de {{ $etablissement->nom }} ,
+            Docteur en Médecine et exerçant en tant que .................................au sein  de {{ $etab->nom }} ,
             Certifie avoir été informé que {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et 
             déclare vouloir quitter définitivement l'établissement le  {{ $date}}
               à :............................heures </span><br>

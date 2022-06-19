@@ -1,13 +1,13 @@
-<h3 class="mt-12 center" id="tutelle">{{ $etablissement->tutelle }}</h3>
-<h4 class="center" id="etabname">{{ $etablissement->nom }}</h4>
-<h5 class="center" id="etabAdr">{{ $etablissement->adresse }}</h5>  
-<h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}</h5>
-<h5 class="mt-10 center" ><img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
+<h3 class="mt-12 center" id="tutelle">{{ $etab->tutelle }}</h3>
+<h4 class="center" id="etabname">{{ $etab->nom }}</h4>
+<h5 class="center" id="etabAdr">{{ $etab->adresse }}</h5>  
+<h5 class="center" id="etabTel">Tél : {{ $etab->tel }}</h5>
+<h5 class="mt-10 center" ><img src='{{ asset("img/$etab->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
 <hr class="mt-1"/>
 <div class="row mt-20"><div class="col-sm-12 center"><h4>LETTRE D'ORIENTATION MEDICALE</h4></div></div>
 <div class="space-12"></div><div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-11"><div class="sec-droite">
+	<div class="col-sm-11"><div class="right">
 			<h4><strong><u>Fait le:</u></strong>&nbsp;&nbsp;&nbsp;{{ Carbon\Carbon::today()->format('d/m/Y') }}.</h4>
 	</div></div>
 </div>
@@ -19,7 +19,7 @@
 		  <span id="orSpecialite"></span>
 		</div>
 	</div>
-	<div class="col-sm-4"><div class="sec-droite"></div></div>
+	<div class="col-sm-4"><div class="right"></div></div>
 </div>
 <div class="row ml-4">
 	<div class="col-sm-11">

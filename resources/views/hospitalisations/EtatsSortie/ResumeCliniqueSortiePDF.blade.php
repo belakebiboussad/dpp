@@ -24,11 +24,8 @@
       <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
       <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
       <main><br><br><br>
-        <hr class="h-1"/>
-        <br>
-        <div>
-          <strong>Etablisement : </strong><span>{{ $etablissement->nom}}</span>
-        </div>
+        <hr class="h-1"/><br>
+        <div><strong>Etablisement : </strong><span>{{ $etab->nom}}</span></div>
         <div>
           <strong>Service : </strong>
           <span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span>

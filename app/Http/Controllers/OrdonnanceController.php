@@ -91,8 +91,8 @@ class OrdonnanceController extends Controller
     public function print($id)
     {  
       $ordonnance = ordonnance::FindOrFail($id);
-      $etablissement = Etablissement::first();
-      $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('ordonnance','etablissement'));
+      $etab = Etablissement::first();
+      $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('ordonnance','etab'));
       $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
       Storage::put('public/pdf/'.$filename,$pdf->output());
       $file = storage_path() . "/app/public/pdf/" . $filename;

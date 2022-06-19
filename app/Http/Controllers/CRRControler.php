@@ -42,13 +42,13 @@ class CRRControler extends Controller
     $techRea = $request->techRea;
     $result = $request->result;
     $conclusion = $request->conclusion;
-    $etablissement = Etablissement::first();
-    $img_path = 'img/' . $etablissement->logo;
+    $etab = Etablissement::first();
+    $img_path = 'img/' . $etab->logo;
     $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
     $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
      $img_base_64 = base64_encode($data);
      $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
-     return view('examenradio.EtatsSortie.crr',compact('indication','techRea','result','conclusion','etablissement','path_img'))->render();
+     return view('examenradio.EtatsSortie.crr',compact('indication','techRea','result','conclusion','etab','path_img'))->render();
   }
   public function download($id)
   {

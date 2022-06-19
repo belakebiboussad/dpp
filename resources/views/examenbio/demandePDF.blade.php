@@ -26,7 +26,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="section">
-          <div class="sec-droite"><b><u>Fait le:</u></b> {{ $date  }}.</div>
+          <div class="right"><b><u>Fait le:</u></b> {{ $date  }}.</div>
         </div>
       </div>
     </div><br><br>
@@ -63,9 +63,7 @@
   </div>
     <div class="row foo">
     <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-droite"><span><strong> Docteur :</strong> {{ $medecin->full_name }}</span></div>
-      </div>
+      <div class="section"><div class="right"><span><strong> Docteur :</strong> {{ $medecin->full_name }}</span></div></div>
     </div>
   </div>
 </div>

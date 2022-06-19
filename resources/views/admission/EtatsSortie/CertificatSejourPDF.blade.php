@@ -19,7 +19,7 @@
     <div class="container-fluid">
       @include('partials.etatHeader')
       <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
-      <div class="row"><div class="sec-droite">Le : {{ $date }}</div> </div>
+      <div class="row"><div class="right">Le : {{ $date }}</div> </div>
       <div class="row">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr class="noBorder">
@@ -41,7 +41,7 @@
         &nbsp;&nbsp;je soussigné, Docteur  <span>{{$obj->demandeHospitalisation->DemeandeColloque->medecin->full_name}}</span>,certifie que  {{ $obj->hospitalisation->patient->getCivilite() }}&nbsp;<strong> {{ $obj->hospitalisation->patient->full_name }}</strong>  à été hospitalisée du  {{ $obj->hospitalisation->Date_entree }} au {{ $obj->hospitalisation->Date_Sortie }} en {{ $obj->demandeHospitalisation->Service->nom}} pour  {{ $obj->demandeHospitalisation->consultation->motif }}
       </div><br><br><br>
       <div class="row foo">
-        <div class="col-sm-12"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $obj->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->full_name}}</span></div>
+        <div class="col-sm-12"><div class="right"><span><strong> Docteur :</strong> {{ $obj->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->full_name}}</span></div>
         </div>
       </div>
     </div>
