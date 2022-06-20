@@ -124,13 +124,14 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th><th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+                <th class="center" width="10%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
                 <td>{{ $consultation->date }}</td>
-                <td>
+                <td class="center">
                 <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
                 {{ $consultation->demandeexmbio->etat }}</span>
                 </td>
@@ -168,13 +169,14 @@ $('document').ready(function(){
         <table class="table table-striped table-bordered table-hover">
           <thead class="thin-border-bottom">
             <tr>
-              <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th><th class="center"><em class="fa fa-cog"></em></th>
+              <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+              <th class="center" width="10%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
               <td>{{ $consultation->date }}</td>
-              <td>
+              <td class="center">
               <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
               {{ $consultation->demandExmImg->etat }}
               </span>
@@ -183,7 +185,7 @@ $('document').ready(function(){
                 <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs">
                 <i class="fa fa-hand-o-up fa-xs"></i></a>
                 @if(!$consultation->demandExmImg->hasResult())
-                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs  btn-primary">
+                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs btn-primary">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
@@ -263,7 +265,7 @@ $('document').ready(function(){
               </td>
               <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
               <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
-              <td>
+              <td class="center">
                 <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
               </td>
               @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
@@ -298,7 +300,7 @@ $('document').ready(function(){
             <thead class="thin-border-bottom">
               <tr>
                 <th class="center"><strong>Spécilalité</strong></th>
-                <th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center" width="12%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
@@ -307,11 +309,9 @@ $('document').ready(function(){
                 <td>{{ $orient->Specialite->nom }}</td>
                 <td class="center">
                   <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".{{ $orient->id }}collapsed">
-                    <i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
+                    <i class="ace-icon fa fa-eye-slash fa-xs"></i><span class="sr-only">Details</span>
                   </a>
-                  <button type="button" class="btn btn-xs" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}', '{{$consultation->patient->IPP }}','{{$etab->tutelle }}','{{$etab->nom }}','{{$etab->adresse }}','{{$etab->tel }}','{{$etab->logo }}')">
-                    <i class="ace-icon fa fa-print fa-xs"></i>
-                  </button>
+                  <a href="{{route("orientLetToPDF",$orient->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                 </td>
               </tr>
               <tr class="collapse out budgets {{ $orient->id }}collapsed">

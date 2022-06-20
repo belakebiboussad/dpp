@@ -29,12 +29,12 @@ td
                   <thead class="thin-border-bottom">
                     <tr>
                     <th class ="hidden"></th>
-                    <th class="center"><strong><span style="font-size:14px;">Spécialité</span></strong></th>
+                    <th class="center"><strong>Spécialité</strong></th>
                     <th class="center">
-                      <strong><span style="font-size:14px;">Motif de consultation</span></strong>
+                      <strong>Motif de consultation</strong>
                     </th>
-                    <th class="center hidden-480"><span style="font-size:14px;"><strong>Examen général</strong></span></th>
-                    <th class="center"><em class="fa fa-cog"></em></th>
+                    <th class="center hidden-480"><strong>Examen général</strong></th>
+                    <th class="center" width="12%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -84,12 +84,9 @@ td
 </div>{{-- modal --}}
 @include('consultations.ModalFoms.LettreOrientationAdd')@include('consultations.ModalFoms.certificatDescriptif')
 <script>
-/*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-      $('#OrientLetterPdf').removeAttr('hidden');$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-      $("#motifCons").text($( "#motifC" ).val());$("#motifO").text($( "#motifOrient" ).val());
-      var element = document.getElementById('OrientLetterPdf');var options = {filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-      };var exporter = new html2pdf(element, options);$("#OrientLetterPdf").attr("hidden",true);
-      exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
+/*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) { $('#OrientLetterPdf').removeAttr('hidden');$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+      $("#motifCons").text($( "#motifC" ).val());$("#motifO").text($( "#motifOrient" ).val()); var element = document.getElementById('OrientLetterPdf');var options = {filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+      };var exporter = new html2pdf(element, options);$("#OrientLetterPdf").attr("hidden",true); exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
       exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file'); pdf.save();});}*/
     $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
@@ -182,6 +179,7 @@ td
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
+    
      $('body').on('click', '.delete-orient', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };

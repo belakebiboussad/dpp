@@ -171,4 +171,5 @@ Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', fun
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
-route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
+Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
+route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');

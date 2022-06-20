@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="footer">
-        <div class="textCenter">Certificat fait pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre
+        <div class="textCenter">Certificat établit pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre
         </div>
       </div>
    	</main>

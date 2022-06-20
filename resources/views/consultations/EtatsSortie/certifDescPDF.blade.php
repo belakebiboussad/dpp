@@ -8,28 +8,6 @@
       @page {/*margin: 20px 50px 80px;*/
           margin: 20px 100px 80px 40px;
       }
-      table {
-          border-spacing: 0;
-          width: 600px;
-      }
-      table > tbody > tr > td > div {
-          margin: 0 auto;
-          border: 0px red solid;
-      }
-      /*  
-      .rectangle {
-        width:70%;
-        height:60px;
-        background:#fff;
-        border:3px solid black;
-        position: relative;
-        line-height: 20px;
-        padding-top: 5px;
-        text-align: center;
-        margin: 0;
-
-      }
-      */
       .container {
         justify-content: center;
       }
@@ -42,6 +20,14 @@
         background: #fff;
         font-weight: bold;
         margin: 0 auto;
+      }
+      input.larger {
+        transform: scale(2);
+        margin: 30px;
+      }
+      [type="checkbox"]
+      {
+          vertical-align:middle;
       }
     </style>
   </head>
@@ -58,14 +44,23 @@
         </p> 
       </div><br>
       <div class="right"><strong>Alger le :</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br><br>
-      <div class="rectangle">
-          <h3 >
-            <u>CETIFICAT MEDICAL DESCRIPTIF</u>
-          </h3>
-        </div>
+      <div class="rectangle"><h3><u>CETIFICAT MEDICAL DESCRIPTIF</u></h3></div><br>
+    <div class="espace">
+      <h5><strong>Nom :</strong> {{ $certif->consultation->patient->Nom }}</h5>
+      <h5><strong>PRENOM :</strong> {{ $certif->consultation->patient->Prenom }}</h5>
+      <h5><strong>Date DE NAISSANCE :</strong> {{ \Carbon\Carbon::parse($certif->consultation->patient->Dat_Naissance)->format('d/m/Y') }}</h5>
     </div><br>
-    <div>
-      <strong>NOM :</strong>
+    <div class="tab">
+    je soussigné(e), Docteur {{ $certif->consultation->medecin->full_name }}, avoir examiné le sus nommé qui présente :
+    </div><br>
+    <div>{{$certif->examen}}</div><br>
+    <div> 
+        <label>
+          <input type="checkbox" id="isOriented" class="larger"/>Il s'agit d'une maladie chronique.
+        </label>
     </div>
-    </body>
+    <div class="footer"><div class="textCenter">Certificat établit pour servir et valoir ce que de droit.</div>
+    </div>
+  </div>
+  </body>
 </html>

@@ -180,7 +180,7 @@ ol { list-style: none; counter-reset: li }
   height:13%;
 }
 .espace{ margin-left:6em }
-.tab-space { margin-left:3em;}
+.tab{ margin-left:3em;}
 .tab-space40{ margin-left:40em;}
 .tab-space42{ margin-left:42em;}
 .textCenter {  text-align: center;}

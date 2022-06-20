@@ -9,7 +9,7 @@
       <div class="widget-main padding-8">
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
           @foreach($demandesExB as $demande)
-          @if($demande->getEtatID($demande->etat) ===1)
+            @if($demande->getEtatID($demande->etat) ===1)
           <li>
             <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $demande->resultat }}</a>
             @isset($res->crb)    
@@ -62,6 +62,30 @@
       </div>
     </div>
   </div>
+  </div>
+</div>
+@endif
+@if (!(empty($ordonnances)))
+<div class="row">
+  <div class="col-sm-7">
+  <div class="widget-box widget-color-pink">
+    <div class="widget-header">
+      <h4 class="widget-title lighter smaller">Ordonnances</h4>
+    </div>
+    <div class="widget-body">
+      <div class="widget-main padding-8">
+        <ul  class="tree tree-unselectable tree-folder-select" role="tree">
+         @foreach($ordonnances as $ord)
+         <li>
+            <a href="{{ route('ordonnancePdf',$ord->id ) }}" title="télécharger l'Ordonnance" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Ordonnance</a>
+            <span class="smaller-80">
+            ( Consultation du {{ \Carbon\Carbon::parse($ord->consultation->date)->format('d/m/Y') }})
+            </span>
+         </li>
+         @endforeach
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 @endif

@@ -14,7 +14,7 @@
 <div class="row ml-4">
 	<div class="col-sm-8">
 		<div class="sec-gauche">
-			<strong>Docteur</strong> :&nbsp;{{ $employe->full_name}}&nbsp;&nbsp;&nbsp;&nbsp;
+			<strong>Docteur</strong> :&nbsp;{{ $orient->consultation->medecin->full_name }}&nbsp;&nbsp;&nbsp;&nbsp;
 			<strong>Specialité</strong>:&nbsp;
 		  <span id="orSpecialite"></span>
 		</div>
@@ -24,25 +24,28 @@
 <div class="row ml-4">
 	<div class="col-sm-11">
 		<div class="sec-gauche">
-			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</strong>{{ $patient->age }}ans</h4>
+			<h4><u>Patient(e):</u></strong>&nbsp;{{ $orient->consultation->patient->getCivilite() }}
+        {{ $orient->consultation->patient->full_name }},&nbsp;</strong>{{ $orient->consultation->patient->age }}ans
+      </h4>
 		</div>
 	</div>
 </div>
 <div class="row ml-4">
 	<div class="col-sm-11">
 		<div class="sec-gauche">
-			<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128') }}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6>
+			<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($orient->consultation->patient->IPP, 'C128') }}" alt="barcode"/>
+       <br><span>IPP:{{ $orient->consultation->patient->IPP }}</span>
 		</div>   
 	</div>
 </div><br>
 <div class="row ml-4">
 	<div class="col-sm-11">
 	<p class="espace" style="text-align : justify; letter-spacing: 20 em;">
-		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }} âgé(e) de {{ $patient->age }} ans,
+		Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $orient->consultation->patient->full_name }} âgé(e) de {{ $orient->consultation->patient->age }} ans,
 	</p> 
-	@if($patient->antecedants != null)
+	@if($orient->consultation->patient->antecedants != null)
 	       <p style="text-align : justify; letter-spacing: 20 em;">aux Antcd de 
-        	@foreach($patient->antecedants as $atcd)
+        	@foreach($orient->consultation->patient->antecedants as $atcd)
         		{{ $atcd->description }},
         	@endforeach
 	@endif

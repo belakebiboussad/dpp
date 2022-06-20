@@ -30,11 +30,13 @@
                  $(nRow).attr('id',"consult"+aData.id);
             },
             "columns": [
-/*{ data:null,title:'#', "orderable": false,searchable: false,render: function ( data, type, row ) { if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';}return data;}, className: "dt-body-center", },*/
+/*{ data:null,title:'#', "orderable": false,searchable: false,render: function ( data, type, row ) { if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" /><span class="lbl"></span>';}return data;}, className: "dt-body-center", },*/
                 { data: "date" , title:'Date' },
                 { data: "patient.Nom",
                   render: function ( data, type, row ) {
-                    return row.patient.full_name;
+                    var url = '{{ route("patient.show", ":slug") }}'; 
+                    url = url.replace(':slug',row.patient.id);
+                    return '<a href="'+ url +'" title="voir patient">'+ row.patient.full_name + '</a>';
                   },
                   title:'Patient',"orderable": false
                 },

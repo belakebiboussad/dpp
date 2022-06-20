@@ -11,10 +11,10 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th  class="center" width="8%">Type </th>
-							<th class="center" width="6%">Date</th>
-							 <th class="center">Code CIM-10</th>
-							<th class="detail-col"class="">Description</th>
-							<th class="center"><em class="fa fa-cog"></em></th>
+							<th class="center" width="10%">Date</th>
+							 <th class="center" width="8%">Code CIM-10</th>
+							<th class="detail-col">Description</th>
+							<th class="center" width="8%"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -106,10 +106,10 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class ="hidden"></th>
-							<th class="center" width="6%"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i><strong>&nbsp;<span style="font-size:14px;">Date</span></strong></th>
-							<th class="center">Code CIM</th>
-							<th class="center" class="detail-col"class="">Description</th>
-							<th class="center"><em class="fa fa-cog"></em></th>
+							<th class="center" width="10%"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i><strong>&nbsp;<span style="font-size:14px;">Date</span></strong></th>
+							<th class="center" width="8%">Code CIM</th>
+							<th class="center">Description</th>
+							<th class="center" width="8%"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -119,7 +119,7 @@
 							  <tr id="{{ 'atcd'.$antcd->id }}">
 									<td>{{ $atcd->date }}</td>
 									<td>{{ $atcd->cim_code }}</td>
-									<td class="center"><textarea class="width-100" resize="none"disabled="">{{$atcd->description}}</textarea></td>
+									<td><textarea class="width-100" resize="none" disabled="">{{$atcd->description}}</textarea></td>
 							 	  <td class="center">
 							  		<div class="action-buttons hidden-sm hidden-xs btn-group">
 											<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{ $atcd->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 

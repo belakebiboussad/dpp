@@ -46,8 +46,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  /*$('#hosptList').DataTable({  "searching":false,
-  "pageLength" : 10, bLengthChange: false,"info" : false,
+  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,
 "language": { "url": '/localisation/fr_FR.json'},});*/
   $('#specialiteTick').change(function(){
         if($(this).val() =="")        	

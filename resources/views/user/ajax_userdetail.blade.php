@@ -24,7 +24,7 @@
                                   <td class ="noborders"><strong>Rôle :</strong></td> <td> {{ $user->role->role }}</td>
                           </tr>
                           <tr>
-                                  <td colspan="1" class ="noborders"><strong>Tél Fixe :</strong></td>   <td>{{ $employe->Tele_fixe }}</td>
+                                  <td class ="noborders"><strong>Tél Fixe :</strong></td>   <td>{{ $employe->Tele_fixe }}</td>
                                   <td class ="noborders"><strong>Mob:</strong></td> <td>{{ $employe->tele_mobile }}</td>
                           </tr>
                           <tr>

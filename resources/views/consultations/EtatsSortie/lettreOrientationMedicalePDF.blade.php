@@ -34,36 +34,36 @@
         <div>
         <table border="0" cellspacing="0" cellpadding="0">
           <tr class="noBorder">
-            <td rowspan="1" colspan="1" width="206" height="30" >
+            <td  width="206" height="30" >
               <span>MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span><!-- style="text-align: left;" -->
             </td>
-            <td rowspan="1" colspan="1" width="230" height="30"></td>
-            <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >
+            <td  width="230" height="30"></td>
+            <td id ="imagewrapper " rowspan="4" width="120" height="120" >
               <img src="img/{{ $etab->logo }}" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/>
             </td>
           </tr>
           <tr class="noBorder" >
-            <td rowspan="1" colspan="1" width="206" height="30" >{{ $etab->tutelle }}</td>
-            <td rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
+            <td  width="206" height="30">{{ $etab->tutelle }}</td>
+            <td  width="230" height="30"></td><td  width="120" height="30" ></td>
           </tr>
           <tr class="noBorder">
-            <td rowspan="1" colspan="1" width="206" height="30" >SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS</td>
-            <td rowspan="1" colspan="1" width="230" height="30" ></td>  <td  rowspan="1" colspan="1" width="120" height="30" ></td>
+            <td  width="206" height="30">SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS</td>
+            <td  width="230" height="30"></td><td width="120" height="30" ></td>
           </tr>
           <tr class="noBorder">
-            <td  rowspan="1" colspan="1" width="206" height="30" >{{ $etab->nom }}</td>
-            <td  rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
+            <td width="206" height="30" >{{ $etab->nom }}</td>
+            <td width="230" height="30" ></td><td width="120" height="30" ></td>
         </tr>
         <tr class="noBorder">
-          <td rowspan="1" colspan="1" width="206" height="30" ></td>
-          <td rowspan="2" colspan="1" width="230" height="60" >
+          <td width="206" height="30" ></td>
+          <td rowspan="2" width="230" height="60" >
             <div class="rectangle">
-            <h4><strong>{{ $etat->nom}}</strong></h4><!-- DEMANDE D'ORIENATATION MEDICALE -->
+            <h4><strong>{{ $etat->nom}}</strong></h4>
           </div>
-          </td> <td rowspan="1" colspan="1" width="120" height="30" ></td>
+          </td><td width="120" height="30" ></td>
         </tr>
         <tr class="noBorder">
-          <td rowspan="1" colspan="1" width="206" height="30" ></td> <td rowspan="1" colspan="1" width="230" height="30" ></td> <td rowspan="1" colspan="1" width="120" height="30" ></td>
+          <td width="206" height="30" ></td> <td width="230" height="30" ></td> <td width="120" height="30" ></td>
         </tr>
         </table>
         </div>
@@ -79,15 +79,15 @@
             <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="center">Type</th>
-                  <th class="center">Date</th>
+                  <th class="center" width="10%">Type</th>
+                  <th class="center" width="15%">Date</th>
                   <th class="center">Description</th>
                 </tr>
               </thead>
               <tbody>
               @foreach ($obj->patient->antecedants as $ant)
                 <tr>
-                <td>{{ $ant->stypeatcd}}</td>
+                <td>{{ $ant->Antecedant}}</td>
                 <td>{{  $ant->date }}</td> 
                 <td>{{ $ant->description}}</td>
                 </tr>

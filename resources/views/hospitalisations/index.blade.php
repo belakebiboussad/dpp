@@ -104,11 +104,9 @@
               { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
               { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
               { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-              // { data: "admission.demande_hospitalisation.service.nom" ,
-              //         render: function ( data, type, row ) {
-              //                return row.admission.demande_hospitalisation.service.nom;
-              //         } ,  title:'Service',"orderable": false  
-              //  },//7
+/*{ data: "admission.demande_hospitalisation.service.nom" ,render: function ( data, type, row ) {
+return row.admission.demande_hospitalisation.service.nom; } ,  title:'Service',"orderable": false  },*/
+
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
               },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8

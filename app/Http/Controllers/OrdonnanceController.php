@@ -12,7 +12,7 @@ use Jenssegers\Date\Date;
 use PDF;
 use Response;
 use Storage;
-use File;// use Dompdf\Dompdf;
+use File;
 use View;
 class OrdonnanceController extends Controller
 {

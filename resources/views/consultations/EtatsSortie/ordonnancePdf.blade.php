@@ -6,7 +6,7 @@
 </div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <div class="row"><div class="col-sm-12"><span><strong>Patient(e) :</strong></span></div></div>
 <div class="row">
-  <div class="col-sm-12 tab-space ml-06">
+  <div class="col-sm-12 tab ml-06">
     <strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span>
     <strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span>
     <strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d/m/Y') }}</span>
