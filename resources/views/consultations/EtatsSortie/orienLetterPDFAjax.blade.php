@@ -8,8 +8,6 @@
       @page {
         margin: 100px 25px;
       }
-      header { position: fixed; top: -60px; left: 0px; right: 0px; background-color: lightblue; height: 50px; }
-      footer { position: fixed; bottom: -60px; left: 0px; right: 0px; background-color: lightblue; height: 50px; }
     </style>
   </head>
   <body>
