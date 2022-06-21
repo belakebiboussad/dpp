@@ -260,7 +260,7 @@ class DemandeExamenRadio extends Controller
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etabt'));
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab'));
       return $pdf->stream($filename);
     }
 }

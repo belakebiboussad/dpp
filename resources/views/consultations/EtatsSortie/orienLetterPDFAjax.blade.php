@@ -3,17 +3,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
     <link rel="stylesheet" href="css/styles.css">
-    <title></title>
+    <title>LETTRE D'ORIENTATION MEDICALE</title>
     <style>
-      @page {
-        margin: 100px 25px;
-      }
+      @page { margin: 100px 25px;    }
     </style>
   </head>
   <body>
   <div class="container-fluid">
     <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
-    <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
+    <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" /></footer>
     <main> 
       <hr class="h-1 mtp33"/>
       <div class="textCenter mtP40 ft16"><strong>LETTRE D'ORIENTATION MEDICALE</strong></div>

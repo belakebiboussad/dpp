@@ -135,17 +135,18 @@ $('document').ready(function(){
                 <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
                 {{ $consultation->demandeexmbio->etat }}</span>
                 </td>
-                <td class="center">
-                  @if($consultation->medecin->id == Auth::user()->employ->id)
+                <td class="center">{{-- @if($consultation->medecin->id == Auth::user()->employ->id)@endif --}}
                     <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs">
                       <i class="fa fa-hand-o-up fa-xs"></i>
                     </a>
+                    @if($consultation->medecin->id == Auth::user()->employ->id)
                     @if($consultation->demandeexmbio->etat == "En Cours")
                     <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
                      <button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                     @endif
+                    @endif
                      <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a> 
-                  @endif
+                  
                 </td>
             </tbody>
           </table>
@@ -184,12 +185,14 @@ $('document').ready(function(){
               <td class="center">
                 <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs">
                 <i class="fa fa-hand-o-up fa-xs"></i></a>
+                @if($consultation->medecin->id == Auth::user()->employ->id)
                 @if(!$consultation->demandExmImg->hasResult())
                   <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs btn-primary">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
-                @endif 
+                @endif
+                @endif
                 <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
             </td>
             </tr>
