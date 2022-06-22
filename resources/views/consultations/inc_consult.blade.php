@@ -59,10 +59,11 @@ $('document').ready(function(){
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>{{ $consultation->medecin->Specialite->nom }}</li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>{{ $consultation->motif }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
+    li><i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin de la consultation  :</strong>&nbsp;{{ $consultation->medecin->full_name }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>&nbsp;{{ $consultation->medecin->Specialite->nom }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>&nbsp;{{ $consultation->motif }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>&nbsp;{{ $consultation->histoire_maladie }}
     </span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic :</strong><span>{{ $consultation->Diagnostic }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
@@ -124,7 +125,8 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+                <th class="center"><strong>Date</strong></th>
+                <th class="center"><strong>Etat</strong></th>
                 <th class="center" width="19%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
@@ -170,7 +172,9 @@ $('document').ready(function(){
         <table class="table table-striped table-bordered table-hover">
           <thead class="thin-border-bottom">
             <tr>
-              <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+              <th class="center"><strong>Date</strong></th>
+              <th class="center">
+              <strong>Etat</strong></th>
               <th class="center" width="19%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>

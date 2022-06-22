@@ -5,6 +5,13 @@
     <div class="row">
         <div class="col-sm-5"><h4><strong>Détails de la demande d'examen biologique</strong></h4></div>
         <div class="col-sm-7">
+          @if( Auth::user()->role_id == 11)
+            @if( $demande->etat =="En Cours" )
+            <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info pull-right">
+               <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>Attacher
+            </a>
+            @endif
+          @endif           
           @if($medecin->id == Auth::user()->employ->id)
             <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
               <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
@@ -13,7 +20,7 @@
             <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right">
               <i class="ace-icon fa fa-pencil"></i>Modifier
             </a>
-           @endif
+            @endif
           @endif
           <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp;precedant</a>
         </div>

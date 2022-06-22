@@ -1,13 +1,13 @@
 @extends('app')
 @section('page-script')
 <script>
-  function CRBave()
+  function CRBSave()
    { 
       $("#crb").val($("#crbm").val());
    }
   function CRBPrint()
   {
-    CRBave();
+    CRBSave();
     var fileName ='compteRendBiolog-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
     $("#crbPDF").text($("#crbm").val());
     var pdf = new jsPDF('p', 'pt', 'a4');

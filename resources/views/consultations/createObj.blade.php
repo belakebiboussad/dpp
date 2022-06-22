@@ -81,11 +81,9 @@ $(function(){
   }
   $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
   document.onkeydown = capturekey;document.onkeypress = capturekey;document.onkeyup = capturekey;
-  /*
   document.addEventListener('contextmenu', event => {
     event.preventDefault(); 
   });
-  */ 
   imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
       base64Img = base64; 
   });
@@ -328,7 +326,7 @@ $(function(){
               if(result.value)
               {
                 confirmed = true; 
-                //addExamsImg(this);
+                addExamsImg(this);
                 $("#consultForm").submit();   
               }else
                 return false;

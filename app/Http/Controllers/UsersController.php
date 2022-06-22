@@ -63,7 +63,7 @@ class UsersController extends Controller
         "nom"=> "required",
         "prenom"=> "required",
         "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",//"nss"=> "required",
+        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", ////"nss"=> "required",
         "username"=> "required",
         "password"=> "required",// "mail"=> "required",
         "role"=> "required",

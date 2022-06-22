@@ -13,16 +13,16 @@ use HTML;
 class CRRControler extends Controller
 {
 	public function __construct()
-      {
-            $this->middleware('auth');
-      }
-      public function store(Request $request)
-      {
-        $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
-        $crr = CRR::create($request->all());
-        $ex->update(['crr_id'=>$crr->id]);
-        return Response::json($ex->id);
- 	}
+  {
+        $this->middleware('auth');
+  }
+  public function store(Request $request)
+  {
+    $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
+    $crr = CRR::create($request->all());
+    $ex->update(["etat" =>1,'crr_id'=>$crr->id]);
+    return ['exId'=>$ex->id,'crrId'=>$crr->id];
+  }
  	public function edit($id)
  	{
  		$crr= CRR::find($id);

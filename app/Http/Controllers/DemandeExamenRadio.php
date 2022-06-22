@@ -236,8 +236,10 @@ class DemandeExamenRadio extends Controller
       $ex = Demandeexr_Examenradio::FindOrFail($request->examId);
       if(isset($ex->resultat))
         Storage::delete('public/files/' . $ex->resultat);
-      $ex ->update([   "etat" => null,  "resultat" => null ]);
-        return $ex->id;
+      if(isset($ex->Crr))
+        $ex->Crr->delete();
+      $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
+      return $ex;
     }
     public function examDestroy($id)
     {

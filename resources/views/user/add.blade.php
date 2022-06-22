@@ -2,7 +2,7 @@
 @section('title','Ajouter un Utilisateure')
 @section('main-content')
 	<div class="container-fluid">
-	<div class="row"><h4><strong>Ajouter un nouveau utilisateur </strong></h4></div>
+	<div class="row"><h4>Ajouter un nouveau utilisateur</h4></div>
 	<form  id="userAdd" class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
@@ -87,7 +87,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
-							<label for="service" class="control-label col-sm-3 col-xs-43"><strong>Service :</strong></label>
+							<label for="service" class="control-label col-sm-3 col-xs-3"><strong>Service :</strong></label>
 							<select class="col-sm-9 col-xs-9" name="service">
 								<option value="" selected disabled>Sélectionner...</option>
 								@foreach($services as $service)
