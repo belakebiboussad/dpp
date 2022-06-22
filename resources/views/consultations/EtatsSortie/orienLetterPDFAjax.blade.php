@@ -33,23 +33,20 @@
       <div class="sec-gauche">Cher confrére,</div><br><br>
       <div>
         <p class="espace">
-         Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $orient->consultation->patient->full_name }} âgé(e) de {{ $orient->consultation->patient->age }} ans,
-        </p> 
-        @if($orient->consultation->patient->antecedants != null)
-        <p>aux Antcd suivants:
-          <ul>
-            @foreach($orient->consultation->patient->antecedants as $atcd)
-            <li>
-              {{ \Carbon\Carbon::parse($atcd->date)->format('d/m/Y') }} -{{ $atcd->Antecedant }} - {{ $atcd->description }},
-            </li>
-            @endforeach
-          </ul>
-        </p>
-        <p>
-          ,qui s'est présenté ce jour pour {{ $orient->motif }}, et dont l'éxamen général du patient retrouve {{ $orient->examen }}.Je vous le confie pour une méilleure prise en charge.
-        </p>
+         Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $orient->consultation->patient->full_name }} âgé(e) de {{ $orient->consultation->patient->age }} ans, 
+        @if($orient->consultation->patient->antecedants ->count()>0)
+        aux Antcd suivants:
+          @foreach($orient->consultation->patient->antecedants as $atcd)
+            {{ $atcd->description }},
+        @endforeach 
         @endif
+          qui s'est présenté ce jour pour {{ $orient->motif }}, et dont l'éxamen général du patient retrouve {{ $orient->examen }}.
+        </p>
+        <p class="espace">
+          Je vous le confie pour une méilleure prise en charge.
+        </p>
       </div>
+      <div class="col-sm-12"><p class="espace"> <strong>Respectueusement</strong></p></div>
     </main>
   </div>
   </body>

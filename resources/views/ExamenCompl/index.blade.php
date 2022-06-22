@@ -85,7 +85,6 @@
             url: url,
             data: formData,
             success: function (data) {
-              imagerieRequest = true;
               examsImgprint(patientName, ipp, med);
             },
             error : function(data){
@@ -138,7 +137,6 @@
         $(".requestPrint").attr('disabled','disabled');
   }
   $(function(){
-    var imagerieRequest = false;
     $('ul#compl li').click(function(e) 
     { 
       switch($(this).data('interest')){

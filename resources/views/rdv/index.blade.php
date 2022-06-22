@@ -24,8 +24,8 @@
  </style>
 @endsection
 @section('page-script')
- @include('rdv.scripts.calendar')
- @include('rdv.scripts.print'){{-- print rdv --}}
+@include('rdv.scripts.calendar')
+@include('rdv.scripts.print'){{-- print rdv --}}
 <script>
 function reset_in()
 {
@@ -47,7 +47,7 @@ $(function(){
         slotDuration: '00:15:00',
         minTime:'08:00:00',
         maxTime: '17:00:00',
-        navLinks: true, // can click day/week names to navigate views
+        navLinks: true,
         selectable: true,
         selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
         editable: true,
@@ -58,8 +58,7 @@ $(function(){
         aspectRatio: 1.5,
         disableDragging: false,
         eventDurationEditable : false,
-        displayEventTime : false,
-        themeSystem : "Cosmo",
+        displayEventTime : false, //themeSystem : "Cosmo",
         views: {},
         events: [
                 @foreach($rdvs as $rdv)

@@ -480,9 +480,8 @@ class PatientController extends Controller
   public function getPatientDetails($id)
   { 
     $patient = patient::FindOrFail($id);
-    $view = view("patient.ajax_patient_detail",compact('patient'))->render();//return(['html'=>$view]);
+    $view = view("patient.ajax_patient_detail",compact('patient'))->render();
     return $view;
-
   }
   public function AutoCompletePatientField(Request $request)
   {

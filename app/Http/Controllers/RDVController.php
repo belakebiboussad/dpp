@@ -54,7 +54,9 @@ class RDVController extends Controller
       }
      /* public function choixpatient() {     return view('patient.index'); }*/
       public function index(Request $request,$patientID = null)
-      { /*if ($request->ajax()) {$rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get();return response()->json($rdvs);}else{}*/
+      { /*if ($request->ajax()) 
+        {
+          $rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get(); return response()->json($rdvs);}else{}*/        
         if(in_array(Auth::user()->role_id,[1,13,14])) 
         {
            $specialite = Auth::user()->employ->specialite;
@@ -145,10 +147,10 @@ class RDVController extends Controller
         if($request->ajax())
         { //$medecins = ($Rdv->specialite)->employes;// $medecins = ($Rdv->employe->Specialite)->employes;
               $specialites =Specialite::where('type','<>',null)->get();
-               if(isset($Rdv->specialite_id))
-                       return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
+              if(isset($Rdv->specialite_id))
+                 return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
               else 
-                      return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+                return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
         }else{
                $specialite =$Rdv->specialite_id;
                if(in_array(Auth::user()->role_id,[1,13,14])) 

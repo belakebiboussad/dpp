@@ -32,7 +32,7 @@
       Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }}
          âgé(e) de {{ $patient->age }} ans,
     </p>
-    @if($patient->antecedants != null)
+    @if($patient->antecedants->count() > 0 )
     <p class="pageCenter">
     aux Antcd de 
       @foreach($patient->antecedants as $atcd)

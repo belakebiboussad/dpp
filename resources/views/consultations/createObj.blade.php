@@ -67,8 +67,8 @@ function editMedicm(med)
 function warning()
 {
   return "dzd"; //U can write any custom message here.
- }
-$(function(){  
+}
+$(function(){ 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { //ajax delete consult
     var consult_id = '{{ $consult->id }}'-1;
     var formData = {_token: CSRF_TOKEN };
@@ -328,13 +328,8 @@ $(function(){
               if(result.value)
               {
                 confirmed = true; 
-                if(!imagerieRequest)
-                {
-                  addExamsImg(this);
-                }else
-                {
-                  $("#consultForm").submit();
-                }   
+                addExamsImg(this);
+                $("#consultForm").submit();   
               }else
                 return false;
           });
@@ -484,16 +479,7 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
           <div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>  
       </div>
     </div><!-- tabpanel -->
-    <div class="row">
-      <div class="col-sm12"><!-- les inputs de modal form(Demande Hospitalisation)  -->
-        <!--<input type="hidden" name="service" id="service">
-         <input type="hidden" name="specialiteDemande" id="specialiteDemande">
-        <input type="hidden" name="modeAdmission" id="modeAdmission"> -->
-        <input type="hidden" name="specialite" id="specialite">
-        <input type="hidden" name="motifOr" id="motifOr">
-        </div>
-    </div>
-    <div class="row">
+     <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
           <button class="btn btn-info btn-sm" type="submit" id="send"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
@@ -504,16 +490,11 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
   </form>
   </div>
 </div>
-@include('antecedents.AntecedantModal')
-@include('antecedents.AntecedantModalPhysio')
-@include('cim10.cimModalForm')
-@include('consultations.ModalFoms.DemadeHospitalisation')
-@include('rdv.rendezVous')
-@include('consultations.ModalFoms.LettreOrientation')
-@include('consultations.ModalFoms.Ordonnance')
-@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
-@include('examenradio.ModalFoms.crrPrint')
-@include('consultations.ModalFoms.certificatDescriptif')
+@include('antecedents.AntecedantModal')@include('antecedents.AntecedantModalPhysio')
+@include('cim10.cimModalForm')@include('consultations.ModalFoms.DemadeHospitalisation')
+@include('rdv.rendezVous')@include('consultations.ModalFoms.LettreOrientation')
+@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
+@include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
