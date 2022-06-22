@@ -125,7 +125,7 @@ $('document').ready(function(){
             <thead class="thin-border-bottom">
               <tr>
                 <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
-                <th class="center" width="10%"><em class="fa fa-cog"></em></th>
+                <th class="center" width="19%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
@@ -171,7 +171,7 @@ $('document').ready(function(){
           <thead class="thin-border-bottom">
             <tr>
               <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
-              <th class="center" width="10%"><em class="fa fa-cog"></em></th>
+              <th class="center" width="19%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>

@@ -303,7 +303,7 @@ $(function(){
     });
     var confirmed = false;
     $("#consultForm").submit(function(event){
-      event.preventDefault();
+      //event.preventDefault();
       if(!checkConsult())
       {
         activaTab("Interogatoire");
@@ -328,7 +328,7 @@ $(function(){
               if(result.value)
               {
                 confirmed = true; 
-                addExamsImg(this);
+                //addExamsImg(this);
                 $("#consultForm").submit();   
               }else
                 return false;
