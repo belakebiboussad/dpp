@@ -26,17 +26,17 @@
 								</select>		
 							</div>
 						</div>
-						<div class="form-group">
+				{{-- 		<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="responsable_id"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
-						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
+						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12">
 									<option value="" selected disabled>Selectionner le chef de service</option>
 									@foreach ($users as $user)
 									<option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
 									@endforeach
 								</select>	
 							</div>
-						</div>
+						</div> --}}
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="hebergement"><strong> Hébergement: </strong></label>

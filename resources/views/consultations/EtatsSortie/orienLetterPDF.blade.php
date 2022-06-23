@@ -6,7 +6,7 @@
   <div class="col-sm-11">
     <div class="sec-gauche">
       <strong><u>Docteur:</u></strong>&nbsp;{{ $employe->full_name}}
-      <strong class="espace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specialité</strong>:&nbsp;{{ $employe->Specialite->nom}}
+      <strong class="espace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specialité</strong>:&nbsp;{{ $specialite->nom}}
     </div>
   </div>
 </div>

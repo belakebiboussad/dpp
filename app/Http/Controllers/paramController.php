@@ -20,16 +20,18 @@ class paramController extends Controller
 	{
     switch (Auth::user()->role_id) {
       case 14:
+      case 13:
         $consts = Constante::all();
         $specialites = specialite_exb::all();
       	$examensImg = TypeExam::all();
         $vaccins = Vaccin::all();
         $antecTypes = antecType::orderBy('id')->get();
         $appareils = appareil::orderBy('id')->get();
-        $consConsts = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->consConst, true);
-        $hospConsts = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->hospConst, true);
-        $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
-        $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
+        $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
+        $consConsts = json_decode((specialite::FindOrFail($specialite))->consConst, true);
+        $hospConsts = json_decode((specialite::FindOrFail($specialite))->hospConst, true);
+        $specExamsBio = json_decode((specialite::FindOrFail($specialite))->exmsbio, true);
+        $specExamsImg = json_decode((specialite::FindOrFail($specialite))->exmsImg, true);
         $specAntecTypes = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->antecTypes, true);
         $specvaccins = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->vaccins, true);
         $specappreils = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->appareils, true);
@@ -56,8 +58,10 @@ class paramController extends Controller
           }
         }
         break;
+      case 13://med chef
       case 14://chef de service
-        $specialite = specialite::FindOrFail(Auth::user()->employ->specialite);
+        $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
+        $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
         $input['consConst'] = $request->consConsts;
         $input['hospConst'] = $request->hospConsts;

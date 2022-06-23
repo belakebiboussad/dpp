@@ -87,7 +87,7 @@ class EmployeController extends Controller
                 "Tele_fixe"=>$request->fixe,
                 "tele_mobile"=>$request->mobile,
                 "specialite"=>$request->specialite,
-                "service"=>$request->service,
+                "service_id"=>$request->service,
                 "Matricule_dgsn"=>$request->mat,
                 "NSS"=>$request->nss,
         ]);

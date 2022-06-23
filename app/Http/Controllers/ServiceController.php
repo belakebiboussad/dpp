@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\service;
-use App\user;
+// use App\User;
 use  App\modeles\salle;
+use  App\modeles\employ;
 class ServiceController extends Controller
 {
     /**
@@ -25,10 +26,7 @@ class ServiceController extends Controller
     public function create()
     {
       $services = service::all();
-      $users = User::whereHas(
-        'role', function($q){//$q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
-          $q->whereIn('id',[1,5,6,10,11,12,13,14]);
-        })->get();
+      $users = User::whereHas( 'role', function($q){ $q->whereIn('id',[1,5,6,10,11,12,13,14]);  })->get();
       return view('services.add',compact('users','services','types'));
     }
 
@@ -40,7 +38,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-      service::create($request->all());
+      $serv = service::create($request->all()); 
       return redirect()->action('ServiceController@index');
     }
 
@@ -65,11 +63,11 @@ class ServiceController extends Controller
       public function edit($id)
       {
         $service = service::FindOrFail($id);
-          $users = User::whereHas(
-        'role', function($q){
-                $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
-          })->get();
-        return view('services.edit', compact('service','users'));
+        
+        $employs = employ::whereHas('User', function($q){
+                           $q->where('role_id', 1)->orWhere('role_id', 14);    
+                        })->where('service_id',$service->id)->get();
+        return view('services.edit', compact('service','employs'));
       }
     /**
      * Update the specified resource in storage.
@@ -81,6 +79,14 @@ class ServiceController extends Controller
       public function update(Request $request, $id)
       {
         $service = service::FindOrFail($id);
+        if($request->responsable_id != $service->responsable_id)
+        {
+          $service->responsable->User->update(['role_id'=>1]);
+          $service->responsable->User->save();
+          $employ = employ::FindOrFail($request->responsable_id);
+          $employ->User->update(['role_id'=>14]);
+          $employ->User->save();
+        } 
         $service->update($request->all());
         return redirect()->action('ServiceController@show', ['id'=>$id]);
       }

@@ -78,7 +78,7 @@ class UsersController extends Controller
             "Tele_fixe"=>$request->fixe,
             "tele_mobile"=>$request->mobile,
             "specialite"=>$request->specialite,
-            "service"=>$request->service,
+            "service_id"=>$request->service,
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
       ]);
@@ -157,8 +157,8 @@ class UsersController extends Controller
       }
      $user->update([
               'name'=>$request->username,
-               "password"=>$user->password,
-               "email"=>$request->email,
+              "password"=>$user->password,
+              "email"=>$request->email,
               "employee_id"=>$user->employee_id,
               "role_id"=>$request->role,
               "active"=>$activer,   

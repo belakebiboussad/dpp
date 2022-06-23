@@ -67,7 +67,8 @@
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label class="control-label col-sm-4 col-xs-4 for="mobile"><strong>Tél Mob.:</strong></label>
+							<label class="control-label col-sm-4 col-xs-4" for="mobile">
+              <strong>Tél Mob.:</strong></label>
 							<input type="tel" name="mobile" class ="mobile col-sm-8 col-xs-8" required/>
 						</div>
 					</div>

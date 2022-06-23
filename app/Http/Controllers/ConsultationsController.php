@@ -86,7 +86,10 @@ class ConsultationsController extends Controller
         $date = Carbon::now();
         $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
-        $specialite = Specialite::findOrFail($employe->specialite);
+        if(isset($employe->specialite))
+          $specialite = Specialite::findOrFail($employe->specialite);
+        else
+          $specialite = Specialite::findOrFail($employe->Service->specialite_id);
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet

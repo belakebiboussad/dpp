@@ -96,7 +96,6 @@ class HomeController extends Controller
               break;
           case 13://med chef
               return view('patient.index');
-
           case 14://chef de service
               return view('patient.index');
           default:

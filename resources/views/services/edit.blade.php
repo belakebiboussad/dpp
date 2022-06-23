@@ -31,8 +31,8 @@
 								<div class="col-sm-9">
 									<select id="responsable_id" name="responsable_id"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
 										<option value="" selected disabled>Selectionner le chef</option>
-										@foreach ($users as $user)
-											<option value="{{ $user->employ->id}}" @if($service->responsable_id == $user->employ->id) selected @endif> {{ $user->employ->full_name }}</option>
+										@foreach ($employs as $employ)
+											<option value="{{ $employ->id}}" @if((isset($service->responsable_id)) && ($service->responsable_id == $employ->id)) selected @endif> {{ $employ->full_name }}</option>
 										@endforeach
 									</select>	
 								</div>

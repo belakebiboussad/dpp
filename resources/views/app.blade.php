@@ -59,8 +59,7 @@
                 }],
                 "language": {
                             "url": '/localisation/fr_FR.json'
-                },
-/* "columnDefs": [   {"targets": 9 ,  className: "dt-head-center dt-body-center"},],*/
+                },/* "columnDefs": [   {"targets": 9 ,  className: "dt-head-center dt-body-center"},],*/
            });
             $('#btn-addCores').click(function () { 
                 if( $('#EnregistrerGardeMalade').is(":hidden"))
@@ -514,7 +513,7 @@
         @elseif(Auth::user()->role_id == 10)
             @include('partials.sidebar_pharm')
         @elseif(Auth::user()->role_id == 13)
-            @include('partials.sidebar_chef_ser') 
+            @include('partials.sidebar_med')<!-- sidebar_chef_ser -->
         @elseif(Auth::user()->role_id == 3)
             @include('partials.sidebar_inf')
          @elseif(Auth::user()->role_id == 11)

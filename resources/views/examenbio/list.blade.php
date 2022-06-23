@@ -6,7 +6,7 @@
 			<ul class="nav nav-tabs" id="myTab2">
 			@foreach($specialites as $specialite)
 			<li  @if ($loop->first) class="active" @endif>
-				<a data-toggle="tab" href="#{{ $specialite->specialite }}"><strong>{{ $specialite->nom }}</strong></a>
+      	<a data-toggle="tab" href="#{{ $specialite->id }}"><strong>{{ $specialite->nom }}</strong></a>
 			</li>
 			@endforeach
 			</ul>
@@ -16,7 +16,7 @@
 		<div class="widget-main padding-12 no-padding-left no-padding-right">
 		<div class="tab-content examsBio">
 			@foreach($specialites as $specialite)
-				<div id="{{ $specialite->specialite }}" class="tab-pane @if ($loop->first) in active @endif">
+				<div id="{{ $specialite->id }}" class="tab-pane @if ($loop->first) in active @endif">
 					<div class="row">
 		   		@foreach($specialite->examensbio as $exbio)
 		        <div class="col-xs-2">
