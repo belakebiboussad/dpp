@@ -14,18 +14,27 @@
 			url: '/demandehosp/' + id,
 	        	 success: function (data) {
 					$(".dh").remove();//$("#dh" + id).remove();
-			},
-			error: function (data) {
-				 console.log('Error:', data);
 			}
 	});
+  }
+  function showConsult(consultId) //a voir ce lui den haut
+  { 
+    url= '{{ route ("consultdetailsXHR", ":slug") }}',
+    url = url.replace(':slug',consultId);
+    $.ajax({
+      type : 'GET',
+      url:url,
+      success:function(data,status, xhr){
+        $('#consultDetail').html(data);
+      }
+    });             
   }
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
-}).fail(function () {console.log("Could not connect to Hub.");});});*/
- $('document').ready(function(){
-      $("#accordion" ).accordion({
+}).fail(function () {console.log("Could not connect to Hub.");});});*/// $('document').ready(function(){
+$(function(){
+    $("#accordion" ).accordion({
 	      collapsible: true ,
 	      heightStyle: "content",
 	      animate: 250,
@@ -46,8 +55,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,
-"language": { "url": '/localisation/fr_FR.json'},});*/
+  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,"language": { "url": '/localisation/fr_FR.json'},});*/
   $('#specialiteTick').change(function(){
         if($(this).val() =="")        	
          	$('#print').prop('disabled', 'disabled');
@@ -78,7 +86,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
                   console.log('Error:', data);
             }
         });
-	})
+	 })
   });
  /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
       e.preventDefault();//Clear out old row's color 	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row

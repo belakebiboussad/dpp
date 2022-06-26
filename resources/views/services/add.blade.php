@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Renseigner les rubriques suivantes ... </strong></h5></div>
+				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong></strong></h5></div>
 				<div class="widget-body">
 				<div class="widget-main">
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">

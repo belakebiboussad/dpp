@@ -64,7 +64,7 @@ class ConsultationsController extends Controller
       $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
       $consultation = consultation::FindOrFail($request->id);
       $view =  view("consultations.inc_consult",compact('consultation','etab','specialite'))->render();
-      return (['html'=>$view]);
+      return $view;
     }
     public function listecons($id)
     {

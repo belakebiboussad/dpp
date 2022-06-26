@@ -7,7 +7,7 @@
 			{{ csrf_field() }}
 			{{ method_field('PUT') }}
 		<div class="col-sm-9 col-xs-12">
-			<div class="widget-box widget-primary" id="widget-box-1">
+			<div class="widget-box widget-primary" >
 				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Etablissement hospitalier</strong></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">

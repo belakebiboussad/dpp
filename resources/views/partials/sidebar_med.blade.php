@@ -189,22 +189,6 @@
           }
         });
       }
-      function showConsult(consultId) //a voir ce lui den haut
-      { 
-        url= '{{ route ("consultdetailsXHR", ":slug") }}',
-        url = url.replace(':slug',consultId);
-        $.ajax({
-            type : 'GET',
-            url:url,
-            success:function(data,status, xhr){
-
-              $('#consultDetail').html(data.html);
-            },
-            error:function (data){
-              console.log('Error:', data);
-            }
-        });             
-      }
       function showHosp(hospId) //a voir ce lui den haut
       {
         url= '{{ route ("hospdetailsXHR", ":slug") }}',

@@ -29,8 +29,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef:</strong></label>
 								<div class="col-sm-9">
-									<select id="responsable_id" name="responsable_id"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
-										<option value="" selected disabled>Selectionner le chef</option>
+									<select id="responsable_id" name="responsable_id"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5">										<option value="" selected disabled>Selectionner le chef</option>
 										@foreach ($employs as $employ)
 											<option value="{{ $employ->id}}" @if((isset($service->responsable_id)) && ($service->responsable_id == $employ->id)) selected @endif> {{ $employ->full_name }}</option>
 										@endforeach
