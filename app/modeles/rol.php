@@ -10,4 +10,7 @@ class rol extends Model
     public function users(){
     	return $this->hasMany('App\User');
     }
+    public function Parameters(){
+      return $this->hasMany('App\modeles\Parametre','role_id');
+    }
 }

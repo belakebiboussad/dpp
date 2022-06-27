@@ -25,10 +25,10 @@ class SalleController extends Controller
     public function index(Request $request)
     {
       if($request->ajax())  
-      {
-        $salles = salle::whereserviceId($request->id)->get();
-        $view = view("services.ajax_servicerooms",compact('salles'))->render();
-        return Response::json(['html'=>$view]);
+      { 
+        $service = service::FindOrFail($request->id);
+        $view = view("services.ajax_servicerooms",compact('service'))->render();
+        return $view;
       }else
       {
         $salles = salle::all();

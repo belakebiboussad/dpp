@@ -97,8 +97,7 @@ class ServiceController extends Controller
         {
           $view = view("services.ajax_edit",compact('service','employs'))->render();      
           return $view;
-        }
-// $employs = employ::whereHas('User', function($q){//$q->where('role_id', 1)->orWhere('role_id', 14); //})->where('service_id',$service->id)->get();
+        }// $employs = employ::whereHas('User', function($q){//$q->where('role_id', 1)->orWhere('role_id', 14); //})->where('service_id',$service->id)->get();
         return view('services.edit', compact('service','employs'));
       }
     /**

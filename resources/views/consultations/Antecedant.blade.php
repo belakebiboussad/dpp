@@ -144,11 +144,11 @@
 <div class="row">
  	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
-	         	<input type="hidden" name="exercice" value="0">
-	                <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
-	 		      <span class="lbl text-nowrap">Exercice physique</span>
-	 	       </label>
-               </div>   
+       	<input type="hidden" name="exercice" value="0">
+              <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
+		      <span class="lbl text-nowrap">Exercice physique</span>
+	       </label>
+           </div>   
         </div>
       <div class="col-sm-3 col-xs-6">
 		<div class="checkbox">

@@ -94,7 +94,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modifier le  rendez-vous du patient :</strong>
+	<h1 style="display: inline;"><strong>Modifier le  rendez-vous du patient</strong>
   	<i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
  		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->full_name }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>

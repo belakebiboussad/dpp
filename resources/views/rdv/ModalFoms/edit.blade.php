@@ -1,4 +1,4 @@
-  <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
+  <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
@@ -9,7 +9,6 @@
       <form id ="updateRdv" role="form" action="" method="POST"> 
       <input type="hidden" id="idRDV"><input  id="daterdv" type="hidden" />
       <input  id="datefinrdv" type="hidden" />
-   
       <div class="row">
         <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i>
           <strong>&nbsp;Téléphone :</strong><span id="patient_tel" ></span>
@@ -19,16 +18,12 @@
         </div>
       </div><div class="space-12"></div>
       @if(Auth::user()->role->id == 2)
-      <div class="row">
-              <div class="col-sm-12">
-                      <div class="form-group">
-                        <label for="specialite"><strong>Spécialité:</strong></label>
-                       <div class="input-group col-sm-12">
-                              <select  class="form-control" id="specialite"></select>
-                      </div> 
-                     </div>
-               </div>
-      </div><div class="space-12"></div>
+      <div class="form-group">
+        <label for="specialite"><strong>Spécialité:</strong></label>
+        <div class="input-group col-sm-12">
+          <select  class="form-control" id="specialite"></select>
+        </div> 
+     </div><div class="space-12"></div>
       @endif
       <div class="row">
         <div class="col-sm-6">
@@ -40,20 +35,19 @@
                 <span class="glyphicon glyphicon-time fa-lg"></span> 
               </div>
             </div>
-            </fieldset>
-          </div>
-          <div class="col-sm-6">
-            <fieldset class="scheduler-border">
-              <legend class="scheduler-border">Type rendez-vous</legend>
-              <div class="control-group">
-                <div class="controls form-check">
-                  <label class="block"><input type="checkbox" class="ace" id="fixe" {{ (Auth::user()->role_id == 2) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
-                </div>
-             </div>
-            </fieldset>
-           </div> 
+          </fieldset>
         </div>
-     <!--  </div>   -->
+        <div class="col-sm-6">
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Type rendez-vous</legend>
+            <div class="control-group">
+              <div class="controls form-check">
+                <label class="block"><input type="checkbox" class="ace" id="fixe" {{ (Auth::user()->role_id == 2) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
+              </div>
+           </div>
+          </fieldset>
+        </div> 
+      </div>
     </div> {{-- modal-body --}} 
     <div class="modal-footer">
        @if(in_array(Auth::user()->role_id,[1,13,14]))
@@ -62,10 +56,9 @@
         <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
         </button>      
         <button  type="button" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</button>
-                          <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
+        <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
        <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
            <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
-        
     </div>
   </form>  
   </div>{{-- modal-content --}}

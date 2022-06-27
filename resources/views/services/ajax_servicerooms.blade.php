@@ -1,6 +1,6 @@
 <div class="servive-block servive-block-grey" id="widget-box-2">
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des chambres</b></span></h5>
+	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>les chambres du service &quot;{{ $service->nom }}&quot;</b></span></h5>
 </div>
 <div class="widget-body">
 	<div class="widget-main no-padding">
@@ -10,18 +10,24 @@
 				<th>Numéro</th>
 				<th>Nom </th>
 				<th>Nombre de lits</th>
-        <th>Service</th>
-				<th>Etat</th>
+        <th>Etat</th>
 			</tr>
 		</thead>
 		<tbody >
-			@foreach ($salles as $key=>$salle)
+			@foreach ($service->salles as $key=>$salle)
 				<tr>
 					<td>{{$salle->num}}</td>
 					<td>{{$salle->nom}}</td>
 					<td>{{count($salle->lits)}}</td>
-          <td>{{ $salle->service->nom }}</td>
-					<th>{{$salle->etat}}</th>
+          <th>
+              @if(isset( $salle->etat ))
+                <span class="label label-sm label-warning">
+              @else
+              <span class="label label-sm label-success">
+                Non 
+              @endif
+              Bloquée</span>
+          </th>
 				</tr>
 			@endforeach
 		

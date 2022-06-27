@@ -39,25 +39,26 @@ class paramController extends Controller
         break;
       case 4:
       case 8:
-        $parametres =  Parametre::all();
-        return view('parametres.administratif.index',compact('parametres'));
+        $parametres = Auth::user()->role->Parameters;
+        return view('parametres.administratif.index');//,compact('parametres')
         break;
     }
   }   
   public function store(Request $request)
   {
+    foreach (Auth::user()->role->Parameters as $key => $param) {
+      if(in_array($param->nom, $request->keys()))
+      {
+        $nomv = $param->nom;
+        $param->update(['value'=>$request->$nomv ]);
+      }else
+      {
+         $param->update(['value'=>null ]);
+      }
+    }
     switch (Auth::user()->role_id) {
-      case 4://admin
-      case 8://direc
-        $parametres =  Parametre::all();
-        foreach ($parametres as $key => $param) {
-          if(in_array($param->nom, $request->keys()))
-          {
-            $nomv = $param->nom;
-            $param->update(['value'=>$request->$nomv]);
-          }
-        }
-        break;
+/*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
+if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update(['value'=>$request->$nomv ]); }}break; */
       case 13://med chef
       case 14://chef de service
         $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;

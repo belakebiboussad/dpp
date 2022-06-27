@@ -14,14 +14,12 @@
 @endsection
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
-<!-- <script type="text/javascript" src="http://192.168.1.194:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<!-- <script  src="http://192.168.1.244:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
-<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+{{-- <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> --}}
 @include('rdv.scripts.print')
 <script>
 function resetPation()
 {
-  $("#livesearch").html("");//$("#btnSave").attr("disabled", true);
+  $("#livesearch").html("");
   $("#pat-search").val("");
 }
 var loaded;
@@ -47,7 +45,7 @@ function getPatient()
             "field":field,
             "value":$("#pat-search").val(),
             "specialite":spec,
-        },//dataType: "json",
+        },
         success: function(html) {
           
           $("#livesearch").html(html).show();
@@ -58,7 +56,7 @@ function getPatient()
         }
   });
 }
-$(function () {//alert('{{ $borneIp }}');
+$(function () {
   if(loaded)
   {
     $.connection.hub.url = '{{ $borneIp}}/myhubs';
@@ -70,7 +68,6 @@ $(function () {//alert('{{ $borneIp }}');
             $("#printTck").click(function(){
               var spec = $('#specialite').find(":selected").val();
               var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialiteId").val()+"|"+$("#daterdvHidden").val();
-              //alert(barcode);
               chatHubProxy.server.send(barcode);       
             });
       }).fail(function () {
@@ -108,9 +105,9 @@ $(function() {
         eventLimit: true,     
         hiddenDays: [ 5, 6 ],
         allDaySlot: false,
-        weekNumberCalculation: 'ISO',//aspectRatio: 1.5, // disableDragging: true,
+        weekNumberCalculation: 'ISO',
         eventStartEditable : false,
-        eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
+        eventDurationEditable : false,
         weekNumbers: true,
         aspectRatio: 2,
         displayEventTime : false,
@@ -176,22 +173,24 @@ $(function() {
         eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today)
             {
-              $("#lien").attr("href", '/patient/'+calEvent.idPatient);
-              $('#lien').text(calEvent.title); 
-              $('#specialiteId').val(calEvent.specialite).change();
-              $('#patient_tel').html(calEvent.tel);
-              $('#agePatient').html(calEvent.age); 
-              $('#idRDV').val(calEvent.id);
-              $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-              $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));//$('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", "selected").change();   
-              $('#specialite option').removeAttr('selected');
-              $('#specialite option[value="' + calEvent.specialite + '"]').attr("selected", true).change();   
-              (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-              $('#civiliteCode').val(calEvent.civ);
-              $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
-              $('#printRdv').attr("data-id",calEvent.id);
-              if($('#printRdv').hasClass( "hidden" ))
-                $('#printRdv').removeClass('hidden');
+              $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
+                $("#lien").attr("href", '/patient/'+calEvent.idPatient);
+                $('#lien').text(calEvent.title); 
+                $('#specialiteId').val(calEvent.specialite);
+                $('#nomPatient').html(data.patient.full_name);
+                $('#patient_tel').html(calEvent.tel);
+                $('#agePatient').html(calEvent.age); 
+                $('#idRDV').val(calEvent.id);
+                $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+                $('#specialiteName').html(data.specialite.nom);
+                (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                $('#civiliteCode').val(calEvent.civ);
+                $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
+                $('#printRdv').attr("data-id",calEvent.id);
+                if($('#printRdv').hasClass( "hidden" ))
+                  $('#printRdv').removeClass('hidden');
+              });
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
               {
                 if(loaded)

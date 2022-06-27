@@ -17,7 +17,13 @@ class EmployeController extends Controller
     {
         $this->middleware('auth');
     }
-    // public function index()  { }
+    public function index(Request $request) {
+      if($request->ajax())
+      {
+        $doctors =  (specialite::FindOrFail($request->specialite))->employes;
+        return $doctors;
+      }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -93,11 +99,14 @@ class EmployeController extends Controller
         ]);
         return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
     }
-      /**
-       * Remove the specified resource from storage.
-       *
-       * @param  \App\modeles\employ  $employ
-       * @return \Illuminate\Http\Response
-       */
-/*public function searchBySpececialite(Request $request){$doctors =  (specialite::FindOrFail($request->specialiteId))->employes;return Response::json($doctors);}*/
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\modeles\employ  $employ
+     * @return \Illuminate\Http\Response
+     */
+    public function searchBySpececialite(Request $request){
+      $doctors =  (specialite::FindOrFail($request->specialite))->employes;
+      return Response::json($doctors);
+    }
 }
