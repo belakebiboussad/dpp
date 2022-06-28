@@ -61,21 +61,21 @@ $(function(){
         displayEventTime : false, //themeSystem : "Cosmo",
         views: {},
         events: [
-                @foreach($rdvs as $rdv)
-                {
-                      title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
-                      start : '{{ $rdv->date }}',
-                      end:   '{{ $rdv->fin }}',
-                      id :'{{ $rdv->id }}',
-                      idPatient:'{{$rdv->patient->id}}',
-                      tel:'{{$rdv->patient->tele_mobile1}}',
-                      age:{{ $rdv->patient->age }},
-                      specialite: {{ $rdv->specialite_id }},
-                      medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
-                      fixe:  {{ $rdv->fixe }},
-                      etat : '{{ $rdv->etat }}',
-                },
-             @endforeach 
+              @foreach($rdvs as $rdv)
+              {
+                  title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
+                  start : '{{ $rdv->date }}',
+                  end:   '{{ $rdv->fin }}',
+                  id :'{{ $rdv->id }}',
+                  idPatient:'{{$rdv->patient->id}}',
+                  tel:'{{$rdv->patient->tele_mobile1}}',
+                  age:{{ $rdv->patient->age }},
+                  specialite: {{ $rdv->specialite_id }},
+                  medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
+                  fixe:  {{ $rdv->fixe }},
+                  etat : '{{ $rdv->etat }}',
+              },
+           @endforeach 
           ],
           select: function(start, end) {
                     $('.calendar1').fullCalendar('unselect');
@@ -83,16 +83,16 @@ $(function(){
           eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-                     reset_in();
-                      if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
-                      {
-                              $('#printRdv').attr("data-id",calEvent.id);
-                             $('#printRdv').removeClass('hidden'); 
-                       }
-                      if($('#fixe').length &&(calEvent.fixe))
-                          $("#fixe"). prop("checked", true);
-                      $('#idRDV').val(calEvent.id);
-                       ajaxEditEvent(calEvent,false);
+             reset_in();
+              if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
+              {
+                $('#printRdv').attr("data-id",calEvent.id);
+                $('#printRdv').removeClass('hidden'); 
+               }
+              if($('#fixe').length &&(calEvent.fixe))
+                  $("#fixe"). prop("checked", true);
+              $('#idRDV').val(calEvent.id);
+               ajaxEditEvent(calEvent,false);
             }
           },
            eventRender: function (event, element, webData) {

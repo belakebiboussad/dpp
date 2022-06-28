@@ -21,6 +21,10 @@ function resetPation()
 {
   $("#livesearch").html("");
   $("#pat-search").val("");
+  if('{{ $appointDoc }}' != null)
+  {
+    $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
+  }
 }
 var loaded;
 function reset_in(){
@@ -47,7 +51,6 @@ function getPatient()
             "specialite":spec,
         },
         success: function(html) {
-          
           $("#livesearch").html(html).show();
           document.getElementById("livesearch").style.border="1px solid #A5ACB2";
         },
@@ -64,12 +67,11 @@ $(function () {
     // Connect Hubs without the generated proxy
     var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
-           console.log("Hub connected.");
-            $("#printTck").click(function(){
-              var spec = $('#specialite').find(":selected").val();
-              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialiteId").val()+"|"+$("#daterdvHidden").val();
+          console.log("Hub connected.");
+          $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
+              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
               chatHubProxy.server.send(barcode);       
-            });
+          });
       }).fail(function () {
         console.log("Could not connect to Hub.");
       });
@@ -109,7 +111,7 @@ $(function() {
         eventStartEditable : false,
         eventDurationEditable : false,
         weekNumbers: true,
-        aspectRatio: 2,
+        aspectRatio: 1.5,
         displayEventTime : false,
         views: {},
         events :[
@@ -124,8 +126,7 @@ $(function() {
                     tel:'{{$rdv->patient->tele_mobile1}}',
                     age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
                     specialite: {{ $rdv->specialite_id }},
-                    civ : {{ $rdv->patient->civ }},
-                    // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
+                    civ : {{ $rdv->patient->civ }},  // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
                 },
                @endforeach   
         ], 
@@ -161,7 +162,6 @@ $(function() {
                   {
                     if('{{ $patient->id}}' != '') 
                       createRDVModal(start,end,'{{ $patient->id }}',1);
-                    
                     else
                       createRDVModal(start,end,0,1);
                     
@@ -174,36 +174,35 @@ $(function() {
             if(Date.parse(calEvent.start) > today)
             {
               $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
-                $("#lien").attr("href", '/patient/'+calEvent.idPatient);
+                $("#lien").attr("href", '/patient/' + data.patient.id);//calEvent.idPatient
                 $('#lien').text(calEvent.title); 
-                $('#specialiteId').val(calEvent.specialite);
-                $('#nomPatient').html(data.patient.full_name);
-                $('#patient_tel').html(calEvent.tel);
-                $('#agePatient').html(calEvent.age); 
+                $('#specialiteId').val(data.specialite.id);
+                $('#nomPatient').val(data.patient.full_name);//$('#nomPatient').html(data.patient.full_name);
+                $('#patient_tel').val(data.patient.tele_mobile1);//$('#patient_tel').html(calEvent.tel);
+                $('#agePatient').val(data.patient.age); // $('#agePatient').html(calEvent.age); 
                 $('#idRDV').val(calEvent.id);
                 $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                 $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-                $('#specialiteName').html(data.specialite.nom);
+                $('#specialiteName').val(data.specialite.nom);
+                $('#medecinName').val(data.employe.full_name);
                 (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                 $('#civiliteCode').val(calEvent.civ);
-                $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient));
-                $('#printRdv').attr("data-id",calEvent.id);
-                if($('#printRdv').hasClass( "hidden" ))
-                  $('#printRdv').removeClass('hidden');
+                $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
+                $('#printRdv').attr("data-id",calEvent.id);      
               });
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
               {
                 if(loaded)
-                {
                   if($('#printTck').hasClass( "hidden" ))
                     $('#printTck').removeClass('hidden');
-                }
                 if(!$('#printRdv').hasClass( "hidden" ))
                   $('#printRdv').addClass('hidden');
               }else
               {
                 if(!$('#printTck').hasClass( "hidden" ))
                   $('#printTck').addClass('hidden');
+                if($('#printRdv').hasClass( "hidden" ))
+                  $('#printRdv').removeClass('hidden');
               }  
               $('#showfullCalModal').modal({ show: 'true' });
           }
@@ -238,12 +237,14 @@ $(function() {
           var formData = {
               date:$('#date').val(),
               fin:$('#fin').val(),
-              id_patient:$('#pat_id').val(),
+              pid:$('#pat_id').val(),
               fixe :$('#fixe').val()
           }
           if('{{ Auth::user()->role_id }}' == 2)
           {
             formData.specialite = $('#specialite').val();
+            if('{{ $appointDoc }}' != null)
+              formData.employ_id = $('#employ_id').val();
           }
           $.ajax({
             headers: {
@@ -253,9 +254,9 @@ $(function() {
             url:url,
             data:formData,
             success:function(data){      
-                    var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
-                   $('.calendar').fullCalendar( 'renderEvent', {
-                      title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                  var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                  $('.calendar').fullCalendar( 'renderEvent', {
+                      title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
                       start: formData.date,
                       end: formData.fin,
                       id : data['rdv']['id'],
@@ -264,12 +265,11 @@ $(function() {
                       tel:data['patient']['tele_mobile1'] ,
                       age:data['age'],
                       specialite: data['rdv']['specialite_id'],
-                      civ:data['patient']['civ'],         
-                      //allDay: false,
+                      civ:data['patient']['civ'],    
                       color:color,
                   });
-              resetPation();
-            },//success
+                  resetPation();
+            },
       })
     });
   });

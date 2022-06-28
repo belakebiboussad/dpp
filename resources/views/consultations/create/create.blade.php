@@ -430,13 +430,11 @@
 
                               <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
-
                                 <div class="col-xs-12 col-sm-9">
                                   <div class="input-group">
                                     <span class="input-group-addon">
                                       <i class="ace-icon fa fa-phone"></i>
                                     </span>
-
                                     <input type="tel" id="phone" name="phone">
                                   </div>
                                 </div>

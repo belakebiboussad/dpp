@@ -25,21 +25,20 @@
           </div>
         </div>
         @isset($appointDoc)
-            <div class="panel panel-default">
+        <div class="panel panel-default">
           <div class="panel-heading">
           <i class="ace-icon fa  fa-user-md bigger-110"></i>&nbsp;<span>Selectionner une médecin</span></div>
           <div class="panel-body">
             <div class="form-group">
               <label class="col-form-label"><strong>Médecin :</strong></label>  
-                <select class="form-control" id="employ_id" required disabled>
-                  <option value="" selected disabled> Selectionner...</option>
+                <select class="form-control" id="employ_id" disabled>
+                  <option value="" selected="selected">Selectionner...</option>
                 </select>
             </div>
           </div>
         </div>
         @endisset
 	      @endif
-      
         <div class="panel panel-default" id="patientPanel">
       		<div class="panel-heading"><i class="ace-icon fa fa-user"></i>&nbsp;<span>Selectionner un patient</span></div>
         	<div class="panel-body">	
@@ -109,19 +108,37 @@
     getPatient(); 
   });
   $("#specialite" ).change(function() {
+    $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
     if($("#specialite").val() != '')
     {
+      if('{{ $appointDoc }}' != null)
+      { 
+        var formData = { //get medecins 
+          _token: CSRF_TOKEN,
+          id: $(this).val(),
+        }
+        var url = '{{ route("employs.index") }}';
+        $.ajax({
+          type : 'GET',
+          url :url,
+          data:{   id :  $(this).val()  },
+          success:function(data,status, xhr){
+            $.each(data, function(i, empl) {
+              $('#employ_id').append($('<option>', {
+                value: empl.id,
+                text: empl.full_name
+              }));
+            })
+          }
+        });
+        $("#employ_id").prop('disabled',false);  
+      }
       if('{{ $patient->id }}' == '')
       {
         if($("#filtre").prop('disabled') == true)
           $("#filtre").prop('disabled',false);
-        if('{{ $appointDoc }}' != null)
-          $("#employ_id").prop('disabled',false);
-
       }else
-      {
         $("#btnSave").removeAttr("disabled");  
-      }
     }
   });
   $( "#filtre" ).change(function() {

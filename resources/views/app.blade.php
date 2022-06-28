@@ -258,13 +258,9 @@
                     }
                 });
               }else
-              {
                 showRdvModal(debut,fin,pid,fixe); 
-              }
             }else
-            {
               showRdvModal(debut,fin,0,fixe); 
-            }
         }
         function copyPatient(){ 
           $("#nomf").val($("#nom").val());

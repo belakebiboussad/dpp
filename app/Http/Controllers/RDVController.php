@@ -54,14 +54,16 @@ class RDVController extends Controller
       }/* public function choixpatient() {     return view('patient.index'); }*/
       public function index(Request $request,$patientID = null)
       {/*if ($request->ajax()){$rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get(); return response()->json($rdvs);}else{}*/        
+        $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
+        $specialites = Specialite::where('type','!=',null)->get();
         if(in_array(Auth::user()->role_id,[1,13,14])) 
         {
-           $specialite = Auth::user()->employ->specialite;
-           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)
+          $specialite = Auth::user()->employ->specialite;
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)
                                    ->where('etat',null)->orwhere('etat',1)->get();  
         }else
           $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get();
-        return view('rdv.index', compact('rdvs'));   
+        return view('rdv.index', compact('rdvs','specialites','appointDoc'));   
       }
     /**
      * Show the form for creating a new resource.
@@ -94,27 +96,24 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {
-/* $request->validate([   "daterdv"=> 'required', ]);  $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-    $rdv = rdv::firstOrCreate([ "date"=>$request->daterdv,  "employ_id"=>Auth::user()->employee_id,"patient_id"=>$request->id_patient//"etat"=> "en attente", 
-        ]); return redirect()->route("rdv.show",$rdv->id); */
+      {/* $request->validate(["daterdv"=> 'required',]);$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+    $rdv = rdv::firstOrCreate([ "date"=>$request->daterdv, "employ_id"=>Auth::user()->employee_id,"patient_id"=>$request->id_patient//"etat"=> "en attente", ]); return redirect()->route("rdv.show",$rdv->id); */
         if($request->ajax())
-        {
-          $specialite ="";
+        { 
+          $patient = patient::find($request->pid);
           if(Auth::user()->role_id ==2)
-                  $specialite = $request->specialite ;
+            $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
           else
-                  $specialite = Auth::user()->employ->specialite;
-          $patient = patient::find($request->id_patient);
+            $employ_id = Auth::user()->employee_id;
           $rdv = rdv::firstOrCreate([
                   "date"=>new DateTime($request->date),
                   "fin" =>new DateTime($request->fin),
                   "fixe"    => $request->fixe,
                   "patient_id"=> $patient->id,
-                  "employ_id"=>Auth::user()->employee_id,
-                  "specialite_id"=> $specialite
-          ]);   
-          return Response::json(array('patient'=>$patient, 'age'=>$patient->age,'rdv'=>$rdv));
+                  "employ_id"=> $employ_id,
+                  "specialite_id"=>(isset($request->specialite)) ? $request->specialite : Auth::user()->employ->specialite
+          ]);
+          return array('patient'=>$patient,'rdv'=>$rdv);//, 'age'=>$patient->age
         }
         /*else
         {
@@ -131,7 +130,7 @@ class RDVController extends Controller
       {
         $rdv = rdv::FindOrFail($id);
         if($request->ajax())
-          return $rdv->load('specialite','patient');
+          return $rdv->load('specialite','patient','employe');
         else
           return view('rdv.show',compact('rdv'));
       }
@@ -145,18 +144,20 @@ class RDVController extends Controller
       {       
         $Rdv = rdv::with('patient','employe')->FindOrFail($id);
         if($request->ajax())
-        { //$medecins = ($Rdv->specialite)->employes;// $medecins = ($Rdv->employe->Specialite)->employes;
-              $specialites =Specialite::where('type','<>',null)->get();
-              if(isset($Rdv->specialite_id))
-                 return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
-              else 
-                return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+        { 
+          //$appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
+          $medecins = ($Rdv->specialite)->employes;
+          //$medecins = ($Rdv->employe->Specialite)->employes;//$specialites =Specialite::where('type','<>',null)->get();
+          if(isset($Rdv->specialite_id))
+             return Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]);//,'specialites'=>$specialites
+          else 
+            return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
         }else{
                $specialite =$Rdv->specialite_id;
                if(in_array(Auth::user()->role_id,[1,13,14])) 
-                      $rdvs = rdv::with('patient','employe')
+                  $rdvs = rdv::with('patient','employe')
                               ->whereHas('specialite',function($q) use ($specialite){
-                                    $q->where('id',$specialite);
+                                $q->where('id',$specialite);
                               })->where('etat',null)->orwhere('etat',1)->get(); 
               else
                       $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get(); 
@@ -174,7 +175,7 @@ class RDVController extends Controller
       { 
         $rdv = rdv::FindOrFail($id);//$medecinId = (Auth::user()->role_id == 1 )? $rdv->employ_id: $request->medecin;
         $specId = (in_array(Auth::user()->role_id,[1,13,14]) )? Auth::user()->employ->specialite : $request->specialite;
-        // if(in_array(Auth::user()->role_id,[1,13,14])) //   $fixe =  (isset($request->fixe)) ? 1: 0;
+        // if(in_array(Auth::user()->role_id,[1,13,14])) // $fixe =  (isset($request->fixe)) ? 1: 0;
         $date = new DateTime($request->date);
         $fin = new DateTime($request->fin);
         $rdv->update([
@@ -182,8 +183,7 @@ class RDVController extends Controller
           "fin"=>$fin,//"employ_id"=>(Auth::user()->role_id == 1)?$rdv->employ_id:$request->medecin,
           "specialite_id" => $specId,
           "fixe"=>$request->fixe,
-        ]);
-        return Response::json($rdv); 
+        ]);//return Response::json($rdv); 
         if($request->ajax())// return $rdv;
           return Response::json($rdv); 
         else

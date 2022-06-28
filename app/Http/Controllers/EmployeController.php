@@ -19,10 +19,7 @@ class EmployeController extends Controller
     }
     public function index(Request $request) {
       if($request->ajax())
-      {
-        $doctors =  (specialite::FindOrFail($request->specialite))->employes;
-        return $doctors;
-      }
+        return (specialite::FindOrFail($request->id))->employes;
     }
     /**
      * Show the form for creating a new resource.

@@ -36,7 +36,7 @@ class Specialite extends Model
             $this->attributes['vaccins'] = json_encode($value);
        }
        public function employes ()
-	{
-		return $this->hasMany('App\modeles\employ','specialite')->orderBy('nom');
-	}
+      	{
+      		return $this->hasMany('App\modeles\employ','specialite')->orderBy('nom');
+      	}
 }

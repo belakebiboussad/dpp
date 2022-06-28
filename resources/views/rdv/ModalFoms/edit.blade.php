@@ -7,23 +7,49 @@
     </div>
       <div class="modal-body">
       <form id ="updateRdv" role="form" action="" method="POST"> 
-      <input type="hidden" id="idRDV"><input  id="daterdv" type="hidden" />
-      <input  id="datefinrdv" type="hidden" />
+      <input type="hidden" id="idRDV"><input  id="daterdv" type="hidden" /><input id="datefinrdv" type="hidden" />
+      
       <div class="row">
         <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i>
           <strong>&nbsp;Téléphone :</strong><span id="patient_tel" ></span>
         </div>
-        <div class="col-sm-6"><strong>&nbsp;Âge :</strong>
-         <span id="agePatient"></span><small>Ans</small>
-        </div>
+        <div class="col-sm-6"><strong>&nbsp;Âge :</strong><span id="agePatient"></span><small>Ans</small></div>
       </div><div class="space-12"></div>
       @if(Auth::user()->role->id == 2)
-      <div class="form-group">
-        <label for="specialite"><strong>Spécialité:</strong></label>
-        <div class="input-group col-sm-12">
-          <select  class="form-control" id="specialite"></select>
+        <div class="panel panel-default">
+        <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+            <select class="form-control" id="specialite">
+              <option value="" selected disabled> Selectionner...</option>
+              @foreach($specialites as $specialite)
+              <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
+               @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+      @isset($appointDoc)
+      <div class="panel panel-default">
+        <div class="panel-heading">
+        <i class="ace-icon fa  fa-user-md bigger-110"></i>&nbsp;<span>Selectionner une médecin</span></div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-form-label"><strong>Médecin :</strong></label>  
+              <select class="form-control" id="employ_id" disabled>
+                <option value="" selected="selected">Selectionner...</option>
+              </select>
+          </div>
+        </div>
+      </div>
+     <!--  <div class="form-group">
+        <label for="specialite"><strong>Médecin:</strong></label>
+        <div class="input-group col-sm-12" disabled>
+          <select  class="form-control" id="employ_id"></select>
         </div> 
-     </div><div class="space-12"></div>
+     </div><div class="space-12"></div> -->
+      @endisset
       @endif
       <div class="row">
         <div class="col-sm-6">

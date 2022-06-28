@@ -83,7 +83,7 @@
                       });
                       if($('#fixe').length &&(event.fixe))
                               $("#fixe"). prop("checked", true);
-                      ajaxEditEvent(event,true);// if( event.id == {{-- $Rdv->id--}} )
+                      ajaxEditEvent(event,true);
                 },
                select: function(start, end) {
                    $('.calendar1').fullCalendar('unselect');
