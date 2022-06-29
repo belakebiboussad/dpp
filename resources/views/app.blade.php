@@ -230,7 +230,7 @@
             {
               if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
               {
-                var formData = { _token: CSRF_TOKEN, id_patient:pid, date:debut, fin:fin, fixe:fixe  };
+                var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
                 var url = "{{ route('rdv.store') }}"; 
                 $.ajax({
                     type : 'POST',
@@ -251,7 +251,7 @@
                               civ : data['patient']['civ'],
                               allDay: false,
                               color:color
-                      } );//calendar1
+                      });//calendar1
                     },
                     error: function (data) {
                       console.log('Error:', data);

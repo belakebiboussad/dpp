@@ -42,4 +42,4 @@
 		</div>
 	</div>
 </div>
-@include('rdv.scripts.print')
+@include('rdv.scripts.js')

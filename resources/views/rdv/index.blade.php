@@ -25,7 +25,7 @@
 @endsection
 @section('page-script')
 @include('rdv.scripts.calendar')
-@include('rdv.scripts.print'){{-- print rdv --}}
+@include('rdv.scripts.js')
 <script>
 function reset_in()
 {
@@ -83,7 +83,7 @@ $(function(){
           eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-             reset_in();
+              reset_in();
               if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
               {
                 $('#printRdv').attr("data-id",calEvent.id);
@@ -91,8 +91,8 @@ $(function(){
                }
               if($('#fixe').length &&(calEvent.fixe))
                   $("#fixe"). prop("checked", true);
-              $('#idRDV').val(calEvent.id);
-               ajaxEditEvent(calEvent,false);
+              $('#idRDV').val(calEvent.id); 
+              ajaxEditEvent(calEvent,'{{ $appointDoc }}',false);
             }
           },
            eventRender: function (event, element, webData) {
@@ -127,23 +127,26 @@ $(function(){
             });
             if($('#fixe').length &&(event.fixe))
               $("#fixe"). prop("checked", true);
-            ajaxEditEvent(event,true);          
+            ajaxEditEvent(event,'{{ $appointDoc }}',true);          
           },      
         }); // calendar
-           $('#patient').editableSelect({
+        $("#specialite" ).change(function() {
+          getDoctors($(this).val());
+        });
+        $('#patient').editableSelect({
               effects: 'default', 
               editable: false, 
-           }).on('select.editable-select', function (e, li) {
+        }).on('select.editable-select', function (e, li) {
                $('#last-selected').html(
                        li.val() + '. ' + li.text()
                 );
                $("#btnSave").removeAttr("disabled");
-           });
-           $("#patient").on("keyup", function() {
+        });
+        $("#patient").on("keyup", function() {
                  var field = $("select#filtre option").filter(":selected").val();
                  if(field != "Dat_Naissance")
                         remoteSearch(field,$("#patient").val()); //to call ajax
-           });
+        });
 })
 </script>
 @endsection

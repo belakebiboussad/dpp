@@ -21,7 +21,7 @@
         <div class="panel-body">
           <div class="form-group">
             <label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
-            <select class="form-control" id="specialite">
+            <select class="form-control specialite" id="specialite">
               <option value="" selected disabled> Selectionner...</option>
               @foreach($specialites as $specialite)
               <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
@@ -43,14 +43,17 @@
           </div>
         </div>
       </div>
-     <!--  <div class="form-group">
-        <label for="specialite"><strong>Médecin:</strong></label>
-        <div class="input-group col-sm-12" disabled>
-          <select  class="form-control" id="employ_id"></select>
-        </div> 
-     </div><div class="space-12"></div> -->
       @endisset
       @endif
+      <div class="panel panel-default">
+        <div class="panel-heading">&nbsp;<span>Patient</span></div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-form-label" for=""><strong>patient :</strong></label> 
+            <input id="nomPatient" class="form-control" value="" readonly /> 
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-6">
           <fieldset class="scheduler-border">
@@ -77,10 +80,9 @@
     </div> {{-- modal-body --}} 
     <div class="modal-footer">
        @if(in_array(Auth::user()->role_id,[1,13,14]))
-              <a  id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+              <a  id="btnConsulter" class="btn btn btn-xs btn-primary" href="#" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
-        <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-        </button>      
+        <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>      
         <button  type="button" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</button>
         <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
        <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">

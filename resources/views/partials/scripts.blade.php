@@ -547,49 +547,58 @@
     });
       function edit(event)
       {       
-            $('#patient_tel').text(event.tel);
-            $('#agePatient').text(event.age);
-            $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-            $('#lien').text(event.title);
-            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-             $('#btnDelete').attr('href','/rdv/'.concat(event.id));
-            $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-            var url = '{{ route("rdv.update", ":slug") }}'; 
-            url = url.replace(':slug',event.id);
-            $('#updateRdv').attr('action',url);
-           $('#fullCalModal').modal({ show: 'true' }); 
+          $('#patient_tel').text(event.tel);
+          $('#agePatient').text(event.age);
+          $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+          $('#lien').text(event.title);
+          $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+          $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+          $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+           $('#btnDelete').attr('href','/rdv/'.concat(event.id));
+          $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+          var url = '{{ route("rdv.update", ":slug") }}'; 
+          url = url.replace(':slug',event.id);
+          $('#updateRdv').attr('action',url);
+         $('#fullCalModal').modal({ show: 'true' }); 
        }
-        function ajaxEditEvent(event,bool)//bool true fixe else not fixe
+        function ajaxEditEvent(event, appointdoc = null , bool)//bool true fixe else not fixe
         {
           $.get('/rdv/'+event.id +'/edit', function (data) {
-/*var html ='';$('#specialite').empty();jQuery(data.specialites).each(function(i, spec){html += '<option value="'+spec.id+'" >'+spec.nom +'</option>';
-});$('#specialite').removeAttr("disabled"); $('#specialite').append(html); */ 
-                if('{{ $appointDoc }}' != null)
-                {
-                   $('#employ_id').empty();
-                }
-                $("#specialite").val(data.rdv.specialite_id);                  
-                $('#patient_tel').text(data.rdv.patient.tele_mobile1);
-                $('#agePatient').text(event.age);
-                $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
-                $('#lien').text(event.title);
-                if(bool)
-                {
-                  $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                  $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
-                  $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                }else{
-                  var date = new Date(data.rdv.date);
-                  $("#daterdv").val(data.rdv.date);
-                  $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-                  $("#datefinrdv").val(data.rdv.fin); 
-                }
-                $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
-                $('#btnDelete').attr('value',data.rdv.id);
-                $('#updateRDV').attr('value',data.rdv.id);
-                $('#fullCalModal').modal({ show: 'true' });
+            if(appointdoc)
+            {
+              if($("#employ_id").prop('disabled') == true)
+                $("#employ_id" ).attr("disabled", false);
+              $('#employ_id').empty().append('<option value="">Selectionner...</option>');
+              $.each(data.medecins, function(i, empl) {
+                $('#employ_id').append($('<option>', {
+                  value: empl.id,
+                  text: empl.full_name
+                }));
+              })
+            }
+            $("#specialite").val(data.rdv.specialite_id);                  
+            $("#employ_id").val(data.rdv.employ_id);
+            $('#patient_tel').text(data.rdv.patient.tele_mobile1);
+            $('#agePatient').text(data.rdv.patient.age);
+            $('#nomPatient').val(data.rdv.patient.full_name);
+
+            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+            $('#lien').text(event.title);
+            if(bool)
+            {
+              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+              $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+            }else{
+              var date = new Date(data.rdv.date);
+              $("#daterdv").val(data.rdv.date);
+              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+              $("#datefinrdv").val(data.rdv.fin); 
+            }
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+            $('#btnDelete').attr('value',data.rdv.id);
+            $('#updateRDV').attr('value',data.rdv.id);
+            $('#fullCalModal').modal({ show: 'true' });
           });
         } 
         function isEmpty(value) {
@@ -637,25 +646,24 @@
       }
       $(function(){  
         SelectTab(0); 
-      })
-      //pdf report
-       function imgToBase64(url, callback, imgVariable) {
-            if (!window.FileReader) {
-                  callback(null);
-                  return;
-            }
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function() {
-                   var reader = new FileReader();
-                    reader.onloadend = function() {
-                          imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-                          callback(imgVariable);
-                    };
-                    reader.readAsDataURL(xhr.response);
-            };
-            xhr.open('GET', url);
-            xhr.send();
+      })//pdf report
+      function imgToBase64(url, callback, imgVariable) {
+        if (!window.FileReader) {
+          callback(null);
+          return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+                imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                callback(imgVariable);
+          };
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
       }
       function header(doc)
       {      

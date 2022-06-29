@@ -15,7 +15,7 @@
          	<div class="panel-body">
        	   	<div class="form-group">
 		         	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
-		          	<select class="form-control" id="specialite" required>
+		          	<select class="form-control specialite" id="specialite" required>
                  	<option value="" selected disabled> Selectionner...</option>
                  	@foreach($specialites as $specialite)
                		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
@@ -108,31 +108,9 @@
     getPatient(); 
   });
   $("#specialite" ).change(function() {
-    $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
-    if($("#specialite").val() != '')
+    getDoctors($(this).val());
+    if($(this).val() != '')
     {
-      if('{{ $appointDoc }}' != null)
-      { 
-        var formData = { //get medecins 
-          _token: CSRF_TOKEN,
-          id: $(this).val(),
-        }
-        var url = '{{ route("employs.index") }}';
-        $.ajax({
-          type : 'GET',
-          url :url,
-          data:{   id :  $(this).val()  },
-          success:function(data,status, xhr){
-            $.each(data, function(i, empl) {
-              $('#employ_id').append($('<option>', {
-                value: empl.id,
-                text: empl.full_name
-              }));
-            })
-          }
-        });
-        $("#employ_id").prop('disabled',false);  
-      }
       if('{{ $patient->id }}' == '')
       {
         if($("#filtre").prop('disabled') == true)

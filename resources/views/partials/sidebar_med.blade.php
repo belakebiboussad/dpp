@@ -428,29 +428,29 @@
                     },
                 });
             }
-        });
-        $("#deletepod").click(function(){
+          });
+          $("#deletepod").click(function(){
              $("tr:has(input:checked)").remove();
-        }); 
-        $('body').on('click', '.delete-atcd', function (e) {
-          event.preventDefault();
-          var atcd_id = $(this).val();
-          $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-          });
-          $.ajax({
-            type: "DELETE",
-              url: '/atcd/' + atcd_id,
-            success: function (data) {
-                  $("#atcd" + atcd_id).remove();
-               },
-              error: function (data) {
-                 console.log('Error:', data);
+          }); 
+          $('body').on('click', '.delete-atcd', function (e) {
+            event.preventDefault();
+            var atcd_id = $(this).val();
+            $.ajaxSetup({
+              headers: {
+               'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
               }
+            });
+            $.ajax({
+              type: "DELETE",
+                url: '/atcd/' + atcd_id,
+              success: function (data) {
+                    $("#atcd" + atcd_id).remove();
+                 },
+                error: function (data) {
+                   console.log('Error:', data);
+                }
+            });
           });
-        });
   }) 
 </script>
 </div>

@@ -15,7 +15,7 @@
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
 {{-- <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> --}}
-@include('rdv.scripts.print')
+@include('rdv.scripts.js')
 <script>
 function resetPation()
 {
@@ -235,11 +235,13 @@ $(function() {
     $('#btnSave').on('click keyup', function(e) {
           url ="{{ route('rdv.store') }}";
           var formData = {
+             _token: CSRF_TOKEN,
               date:$('#date').val(),
               fin:$('#fin').val(),
               pid:$('#pat_id').val(),
               fixe :$('#fixe').val()
           }
+          alert(formData.pid)
           if('{{ Auth::user()->role_id }}' == 2)
           {
             formData.specialite = $('#specialite').val();
@@ -247,28 +249,26 @@ $(function() {
               formData.employ_id = $('#employ_id').val();
           }
           $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+/*headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},*/
             type:"POST",
             url:url,
             data:formData,
             success:function(data){      
-                  var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
-                  $('.calendar').fullCalendar( 'renderEvent', {
-                      title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
-                      start: formData.date,
-                      end: formData.fin,
-                      id : data['rdv']['id'],
-                      idPatient:data['patient']['id'],
-                      fixe: data['rdv']['fixe'],
-                      tel:data['patient']['tele_mobile1'] ,
-                      age:data['age'],
-                      specialite: data['rdv']['specialite_id'],
-                      civ:data['patient']['civ'],    
-                      color:color,
-                  });
-                  resetPation();
+                var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                $('.calendar').fullCalendar( 'renderEvent', {
+                    title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
+                    start: formData.date,
+                    end: formData.fin,
+                    id : data['rdv']['id'],
+                    idPatient:data['patient']['id'],
+                    fixe: data['rdv']['fixe'],
+                    tel:data['patient']['tele_mobile1'] ,
+                    age:data['age'],
+                    specialite: data['rdv']['specialite_id'],
+                    civ:data['patient']['civ'],    
+                    color:color,
+                });
+                resetPation();
             },
       })
     });
