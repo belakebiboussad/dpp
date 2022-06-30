@@ -1,0 +1,25 @@
+@media print {
+   	.center {  text-align: center;    }
+}
+@media print { 
+	.mt-3 {  margin-top: -0.3em;    }
+}
+@media print { 
+	.mt-2 {  margin-top: -0.2em;    }
+}
+@media print { 
+	.mt-3 {  margin-top: -0.3em;    }
+}
+@media print { 
+	.mt-18 { margin-top: -18px !important; }
+}
+@media print {
+	div.solid { 	border: solid;	}
+}
+@media print {
+	.print {display:block}
+	 .btn-print {display:none;}
+ }
+@media print {
+ 	 ol.list { list-style-type: decimal; 	font-size:14px;}
+}
