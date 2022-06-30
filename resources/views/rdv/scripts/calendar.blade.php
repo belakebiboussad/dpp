@@ -42,6 +42,7 @@ $(function(){//edit,index
                   success: function (data) {
                     $(".calendar1").fullCalendar('removeEvents', data.id);  
                   }
+                });      
               }
         });
 });

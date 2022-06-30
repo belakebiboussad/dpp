@@ -241,7 +241,6 @@ $(function() {
               pid:$('#pat_id').val(),
               fixe :$('#fixe').val()
           }
-          alert(formData.pid)
           if('{{ Auth::user()->role_id }}' == 2)
           {
             formData.specialite = $('#specialite').val();
