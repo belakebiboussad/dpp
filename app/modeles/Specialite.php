@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
   public $timestamps = false;
-	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils'];
+	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils','nbMax','dhValid'];
   public function setConsConstAttribute($value)
   {
         $this->attributes['consConst'] = json_encode($value);

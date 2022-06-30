@@ -131,7 +131,7 @@ $(function(){
           },      
         }); // calendar
         $("#specialite" ).change(function() {
-          getDoctors($(this).val());
+          getDoctors($(this).val(),'{{ $appointDoc }}');
         });
         $('#patient').editableSelect({
               effects: 'default', 

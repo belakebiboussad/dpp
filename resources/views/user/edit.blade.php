@@ -151,9 +151,10 @@ $(function(){
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('service') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-padding-right no-wrap" for="service"><b>Service :</b></label>
+							<label class="col-sm-5 control-label no-padding-right no-wrap" for="service">
+                <b>Service :</b></label>
 							<div class="col-sm-7">
-								<select class="form-control" name="service">
+								<select class="form-control" name="service" required>
 									<option value="">Selectionner</option>		
 									@foreach($services as $key=>$value)
 									<option value="{{ $key }}" {{ ($user->employ->service_id == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>

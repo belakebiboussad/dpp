@@ -26,8 +26,7 @@ class RdvHospiController extends Controller
   {
     $now = date("Y-m-d", strtotime('now'));    
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
-/*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {$q->where('id', Auth::user()->employ->service_id);})->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/  
-    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service_id)->get();
+    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5)->where('service',Auth::user()->employ->service_id)->get();
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                         ->whereHas('consultation',function($q) use($now){
                                              $q->where('date', $now);
