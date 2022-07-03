@@ -128,12 +128,11 @@
 		<input type="hidden" name="idwilaya" id="idwilaya">
 		<input type="text" value="" id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
 	</div>
-</div>
-<div class="space-12"></div>
+</div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-3 col-xs-3">
 		<div class="form-group">
-			<label class="control-label col-sm-4 col-xs-4" for="operateur1">Mob1:</label>
+			<label class="control-label col-sm-4 col-xs-4" for="mobile1">Mob1:</label>
       <input type="tel" name="mobile1" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
 		</div>
 	</div>

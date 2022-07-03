@@ -23,9 +23,7 @@
                 <div class="tab-pane active" id="generale">@include('parametres.medicale.generale')</div>
                 <div class="tab-pane" id="cons">@include('consultations.config')</div>
                 <div class="tab-pane" id="hosp">
-                <h3 class="section-heading">
-                 @include('hospitalisations.config')
-                </h3>
+                <h3 class="section-heading">@include('hospitalisations.config')</h3>
                 </div>
                 <div class="tab-pane" id="rdvs">
                   @foreach(Auth::user()->role->Parameters  as $param)

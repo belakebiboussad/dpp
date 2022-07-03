@@ -40,7 +40,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       $this->middleware('auth');
     }
 
     /**
@@ -70,13 +70,12 @@ class HomeController extends Controller
                 break;
           case 4: 
                 return view('home.dashboard'); //return redirect()->action('UsersController@index');
-                
                 break;
           case 5:
                 return redirect()->action('RdvHospiController@index');//surv
                 break;
-          case 6:
-                return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
+          case 6://colloque
+                return redirect()->action('ColloqueController@index');
                 break;
           case 8:
                 return redirect()->action('StatistiqusController@index');

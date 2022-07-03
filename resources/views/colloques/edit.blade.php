@@ -5,16 +5,16 @@
     var nowDate = new Date();
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
       $(document).ready(function() {
-        window.prettyPrint && prettyPrint();      //$("#date_colloque").datepicker("setDate", now);  
-          $('#liste_membre').multiselect();
+        window.prettyPrint && prettyPrint();
+        $('#liste_membre').multiselect();
         $('#reset').click(function(){
-            $('#liste_membre_to').empty();       
+          $('#liste_membre_to').empty();       
         });
     });
     function myFunction()
     {
-          if( $('#liste_membre_to').has('option').length > 0 ) {
-            return true
+      if( $('#liste_membre_to').has('option').length > 0 ) {
+        return true
       }
       return false;
     }
@@ -22,8 +22,8 @@
 @endsection
 @section('main-content')
 <div class="space-12"></div>
-<div class="row"> <h4><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h4></div><!-- /.page-header -->
-<br><div class="space-12"></div>
+<div class="row"> <h4><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h4></div>
+<div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
     <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return myFunction()">
@@ -59,20 +59,10 @@
       <div class="row">
         <div class="col-xs-7">
           <label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque">Date:</label>
-          <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" required/>
-          <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
+          <input class="col-xs-4 col-sm-4 date-picker" id="date" name="date" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" required/>
+          <button class="btn btn-sm filelink" onclick="$('#date').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
         <div class="col-xs-5"></div>
-      </div>
-      <div class="space-12"></div> <div class="space-12"></div>
-      <div class="row">
-        <div class="col-xs-7">
-           <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4">Type:</label>
-           <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-              <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
-              <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>Chirurgical</option>
-            </select>
-       </div>
       </div>
       <div class="space-12"></div><div class="space-12"></div>
       <div class="row">

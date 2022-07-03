@@ -78,8 +78,8 @@ Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
-Route::get('/listecolloques/{type}','ColloqueController@index');
-Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
+Route::get('/listecolloques','ColloqueController@index');
+Route::get('/listecolloquesCloture','ColloqueController@getClosedColoques');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');

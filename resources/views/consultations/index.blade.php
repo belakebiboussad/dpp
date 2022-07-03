@@ -12,10 +12,6 @@
       dataType: "json",// recommended response type
     	success: function(data) {
           $(".numberResult").html(data.length);
-          /*$.each(data[0]['medecin']['specialite'],function(key,value){
-            alert(key+ ":" + value);
-          });
-          */
           $("#liste_conultations").DataTable ({
            "processing": true,
            "paging":   true,
