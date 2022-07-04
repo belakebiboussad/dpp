@@ -21,41 +21,28 @@
            "info" : false,
            "responsive": true,
            "language":{"url": '/localisation/fr_FR.json'},
-           "data" : data,  // "scrollX": true,
+           "data" : data,// "scrollX": true,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                  $(nRow).attr('id',"consult"+aData.id);
             },
             "columns": [
 /*{ data:null,title:'#', "orderable": false,searchable: false,render: function ( data, type, row ) { if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" /><span class="lbl"></span>';}return data;}, className: "dt-body-center", },*/
                 { data: "date" , title:'Date' },
-                { data: "patient.Nom",
+                { data: null,
                   render: function ( data, type, row ) {
                     var url = '{{ route("patient.show", ":slug") }}'; 
                     url = url.replace(':slug',row.patient.id);
                     return '<a href="'+ url +'" title="voir patient">'+ row.patient.full_name + '</a>';
-                  },
-                  title:'Patient',"orderable": false
+                  }, title:'Patient',"orderable": false
                 },
                 { data: null , title:'Motif', "orderable":false,  
                     "render": function(data,type,full,meta){
                        return '<small>'+data.motif+'</small>';
                     }
                 },
-                {
-                   data: "medecin.specialite.nom" ,
-                     render: function ( data, type, row ) {
-                              return row.medecin.specialite.nom;
-                     },
-                     title:'Specialite', "orderable":false, 
-                },
-                {   data: "medecin.nom" ,
-                     render: function ( data, type, row ) {
-                              return row.medecin.full_name;
-                     },
-                     title:'Medecin', "orderable":false, 
-                },
+                { data: "medecin.specialite.nom", title:'Specialite', "orderable":false },
+                { data: "medecin.full_name", title:'Medecin', "orderable":false },
                 { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
-
             ],
             "columnDefs": [
               {"targets": 0 ,  className: "dt-head-center" },
@@ -119,7 +106,7 @@
 	<div class="col-xs-12 widget-container-col">
 	<div class="widget-box transparent">
 		<div class="widget-header"><h5 class="widget-title bigger lighter">
-      <i class="ace-icon fa fa-table"></i>Consultations</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
+      <i class="ace-icon fa fa-table"></i>Consultations</h5>&nbsp;<span class="badge badge-info numberResult"></span>
     </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">

@@ -45,8 +45,7 @@ class ConsultationsController extends Controller
     protected $DemandeHospCTRL;
     public function __construct(LettreOrientationController $LettreOrientationCtrl)
     {
-      $this->middleware('auth');
-      //$this->LettreOrientationCTRL = $LettreOrientationCtrl;
+      $this->middleware('auth'); //$this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
     public function index()
     {
@@ -249,7 +248,8 @@ class ConsultationsController extends Controller
         if($request->ajax())  
         {         
           if($request->field == 'date')
-            $consults =consultation::with('patient','medecin.Specialite')->where(trim($request->field),'=',trim($request->value))->get();
+            $consults =consultation::with('patient','medecin.Specialite')
+                                   ->where(trim($request->field), trim($request->value))->get();
           else
             $consults =consultation::with('patient','medecin.Specialite')->whereHas('patient',function($q) use ($request){
                                         $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  

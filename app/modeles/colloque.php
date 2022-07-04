@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class colloque extends Model
 {
   public $timestamps = true;
-  protected $fillable  = ['id','date','etat','service_id'];//'type',
+  protected $fillable  = ['id','date','etat','service_id'];
   public const ETATS = [
     ''=> 'En Cours',
-    0 => 'Cloturé',  
-    1 => 'Validé'
+    0 => 'Annulé',  
+    1 => 'Cloturé'
   ];
   public function getEtatAttribute()
   {

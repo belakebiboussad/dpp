@@ -61,7 +61,7 @@
       return actions;
      }
      function loadDataTable(data){
-          $('#liste_hosptalisations').dataTable({// "processing": true,
+          $('#liste_hosptalisations').dataTable({
           "paging":   true,
           "destroy": true,
            "ordering": true,
@@ -104,9 +104,6 @@
               { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
               { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
               { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-/*{ data: "admission.demande_hospitalisation.service.nom" ,render: function ( data, type, row ) {
-return row.admission.demande_hospitalisation.service.nom; } ,  title:'Service',"orderable": false  },*/
-
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
               },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
@@ -248,7 +245,7 @@ return row.admission.demande_hospitalisation.service.nom; } ,  title:'Service',"
   <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent">
     <div class="widget-header"><h5 class="widget-title bigger lighter">
-      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<label><span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span></label>
+      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span>
     </div>
     <div class="widget-body">
       <div class="widget-main no-padding">

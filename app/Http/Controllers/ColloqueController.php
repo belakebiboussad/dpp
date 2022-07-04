@@ -15,6 +15,7 @@ use App\modeles\medecin_traitant;
 use App\User;
 use Auth;
 use Jenssegers\Date\Date;
+use Response;
 class ColloqueController extends Controller
 {    
 	/**
@@ -37,13 +38,23 @@ class ColloqueController extends Controller
       {
         $this->middleware('auth');
       }
-      public function index()
-       {
-          $colloques=colloque::with('employs','Service')->where('etat',null)
-                                              ->where('service_id',Auth::user()->employ->service_id)->get();
-          $service = service::findOrFail(Auth::user()->employ->service_id);
-          return view('colloques.index', compact('colloques','service'));//,'demandes'
-       }
+      public function index(Request $request)
+      {
+        $service = service::findOrFail(Auth::user()->employ->service_id);
+        if($request->ajax())  
+        { 
+          if($request->value == '')
+          
+            $colloques = colloque::with('employs','Service')->where(trim($request->field), null)
+                                ->where('service_id', $service->id)->get();
+          else
+            $colloques = colloque::with('employs','Service')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+                                ->where('service_id', $service->id)->get();
+          return Response::json($colloques);
+        }else
+          //$colloques=colloque::with('employs','Service')->where('etat',null)->where('service_id', $service->id)->get();                                   
+          return view('colloques.index', compact('colloques','service'));
+      }
     /**
      * Show the form for creating a new resource.
      *
@@ -82,9 +93,6 @@ class ColloqueController extends Controller
     {
       $service = service::findOrFail(Auth::user()->employ->service_id); 
       $colloque=colloque::find($id);
-     /* $rols =  array(1,2,3,5,6,13,14);$listeMeds = employ::whereHas('User', function ($q) use ($rols) {
-                                            $q->whereIn('role_id',$rols);})->get();
-       */
       $listeMeds = $service->employs->diff($colloque->employs);
       return view('colloques.edit',compact('colloque','listeMeds'));
     }
