@@ -41,6 +41,7 @@ class ColloqueController extends Controller
       public function index(Request $request)
       {
         $service = service::findOrFail(Auth::user()->employ->service_id);
+        dd(Auth::user()->employ->specialite);
         if($request->ajax())  
         { 
           if($request->value == '')
@@ -99,8 +100,7 @@ class ColloqueController extends Controller
     public function show($id)
     {
       $colloque=colloque::find($id);
-      $listeMeds = $listeMeds->diff($colloque->employs); 
-      return view('colloques.show',compact('colloque','listeMeds'));
+      return view('colloques.show',compact('colloque'));
     }
     /**
      * Update the specified resource in storage.
@@ -123,11 +123,6 @@ class ColloqueController extends Controller
         }   
         $colloque->update(["date"=>$request->date]);  
         return redirect()->action('ColloqueController@index');
-    }
-    public function getClosedColoques()
-    {
-      $colloques =  colloque::with('employs','demandes')->where('etat',1)->where('service_id',Auth::user()->employ->service_id)->get();                      
-      return view('colloques.closedcolloque', compact('colloques'));                      
     }
     public function run($id)
     {  
@@ -163,7 +158,7 @@ class ColloqueController extends Controller
     {
       $col = colloque::find($id);
       $col->employs()->detach();
-      $col->delete(); //$colloque = colloque::destroy($id);
-      return redirect()->action('ColloqueController@index');
+      $col->delete();
+      return $col; 
     }
 }

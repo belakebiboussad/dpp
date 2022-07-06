@@ -261,7 +261,7 @@ function errorMsg(msg, error) {
 	</div>
  	<div class="row">
 		<div class="col-md-7 col-sm-7">
-			<div class="widget-box transparent">
+			<div class="widget-box">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i><strong> Résultats</strong>:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
@@ -269,11 +269,8 @@ function errorMsg(msg, error) {
 					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>
 				</div>	
 			</div>
-		</div>{{-- col-sm-7 --}}
-		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail"></div>		
+		</div>
+		<div class="col-md-5 col-sm-5"  id="patientDetail"></div>		
 	</div>{{-- row --}}
-	<div class="row">
-	@include('patient.ModalFoms.mergeModal')
-	@include('patient.ModalFoms.scanbarCodeModal')
-	</div>{{-- row --}}
+	<div class="row">@include('patient.ModalFoms.mergeModal')@include('patient.ModalFoms.scanbarCodeModal')</div>
 @endsection

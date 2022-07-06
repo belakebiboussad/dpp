@@ -30,7 +30,7 @@
         <li>
           <a href="{{ route('colloque.index')}}"><i class="menu-icon fa fa-eye pink"></i>Colloques </a>
           <b class="arrow"></b>
-        </li>{{--<li><a href="/listecolloques">  <i class="menu-icon fa fa-eye pink"></i>Colloques chirurgicaux</a></li>--}}
+        </li>
         <li>
           <a href="{{ route('colloque.create')}}"> <i class="menu-icon fa fa-plus purple"></i> Ajouter un colloque </a>
           <b class="arrow"></b>
@@ -38,27 +38,9 @@
       </ul>
     </li><!-- colloques en cours -->
     <li>
-        <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-user-md"></i>
-            <span class="menu-text">Colloques cloturé</span><b class="arrow fa fa-angle-down"></b>
-        </a>
-        <b class="arrow"></b>
-        <ul class="submenu">
-          <li>
-            <a href="/listecolloquesCloture">
-            <i class="menu-icon fa fa-eye pink"></i>Colloques</a><b class="arrow"></b>
-          </li>
-        {{--   <li>
-            <a href="/listecolloquesCloture"> <i class="menu-icon fa fa-eye pink"></i> Colloques chirurgicaux  </a>
-            <b class="arrow"></b>
-          </li> --}}
-        </ul>
-    </li>
-    <li>
-        <a href="#" class="dropdown-toggle">  <!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
-             <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demandes hosp</span>
-        </a>
-           <b class="arrow"></b>
+      <a href="#" class="dropdown-toggle">  <!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
+        <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demandes hosp</span>
+      </a><b class="arrow"></b>
         <ul class="submenu">
           <li >             
               <a href="/demandehosp/listedemandes/0">
