@@ -26,6 +26,9 @@ class RdvHospiController extends Controller
   {
     $now = date("Y-m-d", strtotime('now'));    
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
+    //tester si il y'à validation demandes etat 5 sinon etat 0
+    $specialite = Auth::user()->employ->Service->Specialite; 
+    dd($specialite);
     $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5)->where('service',Auth::user()->employ->service_id)->get();
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                         ->whereHas('consultation',function($q) use($now){

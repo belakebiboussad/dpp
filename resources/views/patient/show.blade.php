@@ -110,7 +110,7 @@ $(function(){
 				<li class="active">
 					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Informations administratives</strong></a>
 				</li>
-				@if(in_array(Auth::user()->role_id,[1,14]))
+				@if(in_array(Auth::user()->role_id,[1,13,14]))
 					@if( $patient->antecedants->count() >0)
 					<li>
 						 <a data-toggle="tab" href="#Ants">

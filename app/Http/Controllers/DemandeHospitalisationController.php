@@ -29,12 +29,19 @@ class DemandeHospitalisationController extends Controller
       }
       public function index()
       {
-        $employeID= employ::where("id",Auth::user()->employee_id)->first()->id ;           
-        $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
+        if(Auth::user()->role_id == 6)
+        {
+          $specialiteID = (employ::findOrFail(Auth::user()->employee_id))->Service->specialite_id;
+          $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->where('etat',null)->get();  
+        }
+        else
+        {
+          $employeID= employ::where("id",Auth::user()->employee_id)->first()->id ;           
+          $demandes = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
                         $q->where('id',$employeID);
           })->get();  
-        
-        return view('demandehospitalisation.index',compact('demandehospitalisations'));
+        }
+        return view('demandehospitalisation.index',compact('demandes'));
       }
 
     /**
@@ -122,29 +129,20 @@ class DemandeHospitalisationController extends Controller
           return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
         } 
       }
-      public function listedemandes($type)
-      {
-              $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
-                                             $q->where('type',$type);                           
-                                      })->where('etat',null)->get();                      
-              return view('demandehospitalisation.index',compact('demandehospitalisations'));
-      }
       public function valider(Request $request)
       {
         $dem = dem_colloque::firstOrCreate($request->all());
         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-        $demande->etat =5;    //$demande->etat ="valide";
-        $demande->save();
-        return Response::json($demande);
+        $demande->update(["etat" => 5]);
+        return $demande;
       }
     public function invalider(Request $request)
     {
-              $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
-              $colloque = colloque::find($request->id_colloque);
-              $colloque->demandes()->detach($request->id_demande);
-              $demande->etat =null;
-              $demande->save();
-              return Response::json($demande);   
+      $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
+      $colloque = colloque::find($request->id_colloque);
+      $colloque->demandes()->detach($request->id_demande);
+      $demande->update(["etat" => null]);
+      return $demande;
     }
     public function getUrgDemanades($date)
     {

@@ -284,7 +284,6 @@ class PatientController extends Controller
           $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);
                                     })->get();
-        //  dd($ordonnances);
           return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
         }
     /**

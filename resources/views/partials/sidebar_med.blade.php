@@ -46,7 +46,7 @@
         </li>
         <li>
           <a href="#" class="dropdown-toggle">
-             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span><b class="arrow fa fa-angle-down"></b>
+             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
             </li>
@@ -118,7 +118,7 @@
               <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
             </li>
             <li>
-              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
+              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
               <b class="arrow"></b>
           </li>              
         </ul>

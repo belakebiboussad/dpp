@@ -132,11 +132,9 @@ class ConsultationsController extends Controller
         foreach($consult->patient->rdvs as $rdv)
         {
           if( $rdv->date->format('Y-m-d')  == $consult->date)
-          {
             $rdv->update(['etat'=>1]);
-          }
         }
-        if($specialite->consConst) {
+        if($specialite->consConst != "null" ) {
           foreach(json_decode($specialite->consConst) as $const)
           {
             $c = Constante::FindOrFail($const);
@@ -158,8 +156,7 @@ class ConsultationsController extends Controller
             $orient['consultation_id'] = $consult->id ;
             LettreOrientation::create($orient);
           }
-        }
-        /*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
+        }/*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
         if($request->liste != null)//save Ordonnance
         {
           $ord = new ordonnance;$ord->date = Date::Now();

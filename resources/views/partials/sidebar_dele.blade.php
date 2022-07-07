@@ -22,36 +22,28 @@
     <li>
       <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-h-square"></i>
-            <span class="menu-text">Colloques en cours</span>
+            <span class="menu-text">Colloques</span>
             <b class="arrow fa fa-angle-down"></b>
       </a>
       <b class="arrow"></b>
       <ul class="submenu">
         <li>
-          <a href="{{ route('colloque.index')}}"><i class="menu-icon fa fa-eye pink"></i>Colloques </a>
+          <a href="{{ route('colloque.index')}}"><i class="menu-icon fa fa-eye pink"></i>Liste des colloques </a>
           <b class="arrow"></b>
         </li>
         <li>
-          <a href="{{ route('colloque.create')}}"> <i class="menu-icon fa fa-plus purple"></i> Ajouter un colloque </a>
+          <a href="{{ route('colloque.create')}}"> <i class="menu-icon fa fa-plus purple"></i>Ajouter un colloque </a>
           <b class="arrow"></b>
         </li>              
       </ul>
     </li><!-- colloques en cours -->
     <li>
-      <a href="#" class="dropdown-toggle">  <!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
-        <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demandes hosp</span>
+      <a href="#" class="dropdown-toggle"><!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
+        <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demandes Hospi</span>
       </a><b class="arrow"></b>
         <ul class="submenu">
           <li >             
-              <a href="/demandehosp/listedemandes/0">
-                   <i class="menu-icon fa fa-eye pink"></i>Demandes médicales
-              </a>
-              <b class="arrow"></b>
-          </li>
-          <li class="">
-              <a href="/demandehosp/listedemandes/1">
-                  <i class="menu-icon fa fa-eye pink"></i>Demandes chirurgicales
-              </a>
+              <a href="{{ route('demandehosp.index')}}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
               <b class="arrow"></b>
           </li>
         </ul>       

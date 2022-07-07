@@ -60,8 +60,14 @@ $('document').ready(function(){
 <div class="row">
   <ul class="list-unstyled spaced">
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
-    li><i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin de la consultation  :</strong>&nbsp;{{ $consultation->medecin->full_name }}</li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>&nbsp;{{ $consultation->medecin->Specialite->nom }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin de la consultation  :</strong>&nbsp;{{ $consultation->medecin->full_name }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>&nbsp;
+    @if(isset($consultation->medecin->specialite))
+      {{ $consultation->medecin->Specialite->nom }}
+    @else
+      {{ $consultation->medecin->Service->Specialite->nom }}
+    @endif
+    </li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>&nbsp;{{ $consultation->motif }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>&nbsp;{{ $consultation->histoire_maladie }}
     </span></li>
@@ -76,7 +82,7 @@ $('document').ready(function(){
 <div class="row">
 <ul class="list-unstyled spaced">
   @if(isset($consultation->examensCliniques))
-  @if(isset($consultation->examensCliniques->consts))
+    @if(isset($consultation->examensCliniques->consts))
        @foreach(json_decode($specialite->consConst ,true) as $const)
       <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom?>
         @if($consultation->examensCliniques->consts[$obj->nom ] != null)
@@ -84,14 +90,15 @@ $('document').ready(function(){
             <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span>({{$obj->unite }})</li>
              @endif
         @endforeach
-  @endif
+    @endif
     <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat général du patient :</strong><span>{{ $consultation->examensCliniques->etat  }}</span></li>
     <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
       <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
-@endif
+  @endif
 </ul>
 </div>
-@if($consultation->examsAppareil->count()>0)
+@endif
+@if($consultation->examsAppareil->count() > 0)
 <div class="row">
   <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens Appareils</strong></span></div>
 </div>
@@ -105,11 +112,10 @@ $('document').ready(function(){
       <p>{{ $examAppareil->description}}</p>
     </div>  
     @endif
-  @endforeach
-        </div>
-</div> <!-- fin -->
+    @endforeach
+    </div>
+</div> 
 </div>
-@endif
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">

@@ -21,6 +21,7 @@ use App\modeles\demandeexb;
 use App\modeles\demandeexr;
 use App\modeles\Etablissement;
 use App\modeles\Etatsortie;
+use App\modeles\Specialite;
 use App\User;
 use Auth; 
 use Date;
@@ -30,6 +31,7 @@ use PDF;
 use Storage;
 use File;
 use Session;
+//use Redirect;
 use Response;
 class HomeController extends Controller
 {
@@ -59,7 +61,7 @@ class HomeController extends Controller
       Session::put('etabTel2', $etab->tel2);
       Session::put('etabLogo', $etab->logo);
       switch (Auth::user()->role_id) {
-          case 1://medecin & meecinChef
+          case 1://medecin & medChef
                 return view('patient.index');
                 break;
           case 2://rec
@@ -68,15 +70,19 @@ class HomeController extends Controller
           case 3://inf                    
                 return redirect()->action('HospitalisationController@index');
                 break;
-          case 4: 
+          case 4: //admin
                 return view('home.dashboard'); //return redirect()->action('UsersController@index');
                 break;
-          case 5:
-                return redirect()->action('RdvHospiController@index');//surv
+          case 5://surv
+                return redirect()->action('RdvHospiController@index');
                 break;
           case 6://colloque
-                return redirect()->action('ColloqueController@index');
-                break;
+                $specialite = Specialite::findOrFail(Auth::user()->employ->Service->specialite_id);
+                if($specialite->dhValid)
+                  return redirect()->action('ColloqueController@index');
+                else  
+                  return view('errors.404');
+                 break;
           case 8:
                 return redirect()->action('StatistiqusController@index');
                 break;      

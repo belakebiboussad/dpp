@@ -2,16 +2,12 @@
 <html lang="en">
 @include('partials.htmlheader')
 <body class="no-skin">
-
 @if (! Auth::guest())
     @include('partials.navbar')
 @endif
-
 <div class="main-container" id="main-container">
-    @if (! Auth::guest())
-        @include('partials.sidebar')
+    @if (! Auth::guest()) {{--  @include('partials.sidebar') --}}
     @endif
-
     <div class="main-content">
         <div class="main-content-inner">
             <div class="page-content">
@@ -81,9 +77,7 @@
             </div>
         </div>
     </div>
-
-    @include('partials.footer')
-
+    {{-- @include('partials.footer') --}}
 </div>
 
 @include('partials.scripts')

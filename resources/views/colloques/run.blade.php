@@ -83,7 +83,7 @@
 		    		<tr id= "{{ $j }}">
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
-		  				<td>{{ $demande->Specialite->nom }}</td>
+		  				<td>{{ $demande->Specialite->nom }} {{ $demande->id }}</td>
 		  				<td>{{$demande->consultation->date }}</td>
 						  <td>{{ $demande->modeAdmission }}</span></td>
 							<td>

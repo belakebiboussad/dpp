@@ -37,7 +37,7 @@
       	<strong>Liste des Colloques du Service {{ $service->nom}} 	</strong>
 			</h5>&nbsp;<span class="badge badge-info numberResult"></span>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-        
+
 			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Colloque</b></a>
 			</div>	
 		</div>
@@ -125,6 +125,8 @@
   }
   var field ="etat";
   $(function(){
+    field= "etat"; 
+    getColloques(field, null);
     $('body').on('click','.colFind',function(event){
       getColloques(field,$('#'+field).val().trim());
     });

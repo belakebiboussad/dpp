@@ -41,7 +41,6 @@ class ColloqueController extends Controller
       public function index(Request $request)
       {
         $service = service::findOrFail(Auth::user()->employ->service_id);
-        dd(Auth::user()->employ->specialite);
         if($request->ajax())  
         { 
           if($request->value == '')
@@ -52,8 +51,7 @@ class ColloqueController extends Controller
             $colloques = colloque::with('employs','Service')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")
                                 ->where('service_id', $service->id)->get();
           return Response::json($colloques);
-        }else
-          //$colloques=colloque::with('employs','Service')->where('etat',null)->where('service_id', $service->id)->get();                                   
+        }else //$colloques=colloque::with('employs','Service')->where('etat',null)->where('service_id', $service->id)->get();                                   
           return view('colloques.index', compact('colloques','service'));
       }
     /**

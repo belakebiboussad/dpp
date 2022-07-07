@@ -65,8 +65,8 @@
 	  return actions;
 	}
  	$('document').ready(function(){
-    getConsultations("date",'<?= date("Y-m-j") ?>');
    	field= "date"; 
+    getConsultations(field,'<?= date("Y-m-j") ?>');
     $(document).on('click','.findconsult',function(event){	//var value = $('#'+field).val().trim();
       getConsultations(field,$('#'+field).val().trim());
     	if(field != "date")

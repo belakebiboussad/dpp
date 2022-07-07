@@ -14,6 +14,10 @@ class service extends Model
 	{
     return $this->hasMany('App\modeles\employ');
 	}
+  public function Specialite()
+  {
+    return $this->belongsTo('App\modeles\Specialite','specialite_id');
+  }
 	public function salles()
 	{
     return $this->hasMany('App\modeles\salle');    		
