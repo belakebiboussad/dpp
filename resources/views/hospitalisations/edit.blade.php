@@ -188,7 +188,7 @@
 	        <label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
 	        <div class="col-sm-8">
 	      		<select name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
-	            <option value="0" selected>Selectionnez le service d'hospitalisation</option>
+	            <option value="" selected disabled>Selectionnez le service</option>
 	            @foreach($services as $service)
 	            <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
 	              {{ $service->nom }}
@@ -201,7 +201,7 @@
           <label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
           <div class="col-sm-8">
             <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
-              <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
+              <option value="" selected disabled>Selectionnez la salle</option>      
               @foreach($hosp->admission->lit->salle->service->salles as $salle)
               <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >{{ $salle->nom }}</option>
               @endforeach
@@ -212,7 +212,7 @@
           <label class="col-sm-4 control-label" for="lit">Lit :</label>
           <div class="col-sm-8">
             <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
-              <option value="0" selected>Selectionnez le lit d'hospitalisation</option>      
+              <option value="" selected disabled>Selectionnez le lit</option>      
               @foreach($hosp->admission->lit->salle->lits as $lit)
               <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >{{ $lit->nom }} </option>
                @endforeach

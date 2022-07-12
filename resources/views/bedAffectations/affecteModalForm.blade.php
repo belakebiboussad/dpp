@@ -13,7 +13,7 @@
           <div class="form-group">
             <label class="control-label" for="heureSortiePrevue">Service : </label>
               <div >
-               <select  class="form-control selectpicker show-menu-arrow place_holder serviceHosp"/>
+               <select  class="form-control selectpicker serviceHosp"/>
                      <option value="" selected  disabled>Selectionnez un service</option>
                       @foreach($services as $service)
                       <option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -24,18 +24,18 @@
                 <div class="form-group">
                         <label class="control-label" for="salle">Salle :</label>
                         <div >
-                             <select  class="form-control selectpicker show-menu-arrow place_holder salle"/>
+                             <select  class="form-control selectpicker salle"/>
                                    <option value="0" selected>Selectionnez une salle</option>
                              </select>
                      </div>  
               </div>
-                 <div class="form-group">
-                        <label class="control-label" for="lit_id">Lit :</label>
-                        <div >
-                             <select  name="lit_id" class="form-control selectpicker show-menu-arrow place_holder lit_id"/>
-                                   <option value="" selected disabled>Selectionnez un lit</option>
-                             </select>
-                     </div>  
+                <div class="form-group">
+                  <label class="control-label" for="lit_id">Lit :</label>
+                  <div >
+                       <select  name="lit_id" class="form-control selectpicker lit_id"/>
+                             <option value="" selected disabled>Selectionnez un lit</option>
+                       </select>
+               </div>  
               </div>
         </div>
         <div class="modal-footer">

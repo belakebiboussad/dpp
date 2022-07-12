@@ -9,23 +9,23 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead class="thin-border-bottom">
                               <tr>
-                                    <th rowspan="2" hidden></th>
-                                     <th class="center" width="3%"  rowspan="2"  ></th>
-                                     <th class="center" rowspan="2" width="11%"><h5><strong>Patient</strong></h5></th>
-                                     <th class="center" colspan="2"><h5><strong>Entrée</strong></h5></th>
-                                     <th class="center" colspan="2"><h5><strong>Sortie prévue</strong></h5></th>
-                                      <th class="font-weight-bold center" rowspan="2"><h5><strong>Médecin traitant</strong></h5></th>
-                                    <th class="center" colspan="3"><h5><strong>Lit réservé</strong></h5></th>
-                                    <th class="detail-col center" rowspan="2"><em class="fa fa-cog"></em></th>
+                                <th rowspan="2" hidden></th>
+                                 <th class="center" width="3%"  rowspan="2"></th>
+                                 <th class="center" rowspan="2" width="11%">Patient</th>
+                                 <th class="center" colspan="2">Entrée</th>
+                                 <th class="center" colspan="2">Sortie prévue</th>
+                                  <th class="font-weight-bold center" rowspan="2">Médecin traitant</th>
+                                <th class="center" colspan="3">Lit réservé</th>
+                                <th class="detail-col center" rowspan="2" width="10%"><em class="fa fa-cog"></em></th>
                           </tr>
                           <tr>
-                            <th class="center"><h5><strong>Date</strong></h5></th>
-                            <th class="center"><h5><strong>Heure</strong></h5></th>
-                            <th class="center"><h5><strong>Date</strong></h5></th>
-                            <th class="center"><h5><strong>Heure</strong></h5></th>
-                            <th class="font-weight-bold center"><strong>Lit</strong></th>
-                            <th class="font-weight-bold center"><strong>Salle</strong></th>
-                            <th class="font-weight-bold center"><strong>Service</strong></th>
+                            <th class="center">Date</th>
+                            <th class="center">Heur</th>
+                            <th class="center">Date</th>
+                            <th class="center">Heure</th>
+                            <th class="font-weight-bold center">Lit</strong></th>
+                            <th class="font-weight-bold center">Salle</strong></th>
+                            <th class="font-weight-bold center">Service</th>
                           </tr>
                         </thead>
                         <tbody id ="rendez-VousBody" class="bodyClass">
@@ -39,13 +39,15 @@
                               </label>
                             </td>
                             <td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
-                            <td class ="text-danger"><strong>{{ $rdv->date }}</strong></td>
-                            <td><strong>{{ \Carbon\Carbon::parse($rdv->heure)->format('H:i') }}</strong></td>
-                            <td class="center text-danger"><strong>{{ $rdv->date_Prevu_Sortie }}</strong></td>
+                            <td class ="text-danger">{{ $rdv->date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($rdv->heure)->format('H:i') }}</td>
+                            <td class="center text-danger">{{ $rdv->date_Prevu_Sortie }}</td>
                             <td class="center text-danger">
-                              <strong>{{ \Carbon\Carbon::parse($rdv->heure_Prevu_Sortie)->format('H:i') }}</strong>
+                              {{ \Carbon\Carbon::parse($rdv->heure_Prevu_Sortie)->format('H:i') }}
                             </td>
-                            <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }}</strong></td>
+                            <td>
+                              {{ isset($specialite->dhValid, $rdv->demandeHospitalisation->DemeandeColloque ) ? $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_nam: $rdv->demandeHospitalisation->consultation->medecin->full_name}}
+                            </td>
                             <td class="center">
                               @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @endif    
                             </td>
@@ -56,7 +58,7 @@
                             <td>
                               @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }} @endif  
                             </td>
-                            <td class="center">
+                            <td class="center" width="10%">
                               <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
                                 <i class="ace-icon fa fa-clock-o"></i>
                               </a>

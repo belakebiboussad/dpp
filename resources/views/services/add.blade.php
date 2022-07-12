@@ -22,7 +22,7 @@
 								<select  name="type"  class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
 									<option value="0">Médical</option>
 									<option value="1">Chirurgical</option>
-									<option value="2" >Fonctionnel</option>
+									<option value="2">Paramédical</option>
 								</select>		
 							</div>
 						</div>

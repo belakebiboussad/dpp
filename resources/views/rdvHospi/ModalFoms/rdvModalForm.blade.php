@@ -49,7 +49,7 @@
                                 <label class="control-label" for="heureSortiePrevue">Service : </label>
                                 <div >
                                      <select  class="form-control selectpicker show-menu-arrow place_holder serviceHosp"/>
-                                           <option value="0" selected  disabled>Selectionnez un service</option>
+                                           <option value="" selected  disabled>Selectionnez un service</option>
                                             @foreach($services as $service)
                                             <option value="{{ $service->id }}">{{ $service->nom }}</option>
                                             @endforeach

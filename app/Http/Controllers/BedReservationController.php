@@ -16,11 +16,12 @@ class BedReservationController extends Controller
 	public function index()
 	{
 		$tomorrow = date("Y-m-d", strtotime('now'));
-		$services =service::where('type','!=',"2")->get();
+		$services =service::where('hebergement',1)->get();
+    $specialite = Auth::user()->employ->Service->Specialite;
 		$rdvs =	rdv_hospitalisation::doesntHave('bedReservation')->whereHas('demandeHospitalisation',function ($q){
 																			$q->doesntHave('bedAffectation')->where('service',Auth::user()->employ->service_id);    
 																		})->where('date','>=',$tomorrow)->where('etat','=',null)->get();
-		return view('reservation.index', compact('rdvs','services'));
+		return view('reservation.index', compact('rdvs','services','specialite'));
 	}
 	public function store(Request $request)
 	{

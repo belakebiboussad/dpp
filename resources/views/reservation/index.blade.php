@@ -22,7 +22,7 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4 style="display: inline;"><strong>Réserver un lit </strong></h4><div class="pull-right"></div></div>
+<div class="page-header"><h4>Réserver un lit</h4></div><!-- style="display: inline;" -->
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col">
@@ -37,8 +37,10 @@
 						<tr>
 							<th class="center"><h6><strong>Patient</strong></h6></th>
 							<th class="center"><h6><strong>Mode d'admission</strong></h6></th>
-							<th class="center" width="3%"><h6><strong>Priorité</strong></h6></th>
-							<th class="center"><h6><strong>Médecin traitant</strong></h6></th>
+							@isset($specialite->dhValid)
+              <th class="center" width="3%"><h6><strong>Priorité</strong></h6></th>
+							@endisset
+              <th class="center"><h6><strong>Médecin traitant</strong></h6></th>
 							<th class="center"><h6><strong>Date d'entrée</strong></h6></th>
 							<th class="center"><h6><strong>Date sortie prévue</strong></h6></th>
 						  <th class="center"><em class="fa fa-cog"></em></th>
@@ -62,27 +64,17 @@
 							@endswitch
 						</td>
 						<td>
-						@switch($rdv->demandeHospitalisation->ordre_priorite)
-		  				@case(1)
-								<span class="label label-sm label-success">{{$rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
-							  @break
-						  @case(2)
-								<span class="label label-sm label-warning">{{ $rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
-								@break
-						  @case(3)
-							  <span class="label label-sm label-danger">{{ $rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
-							  @break
-						  @default
-							  <span class="label label-sm label-success">{{ $rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
-							  @break
-						@endswitch
+            @isset($specialite->dhValid,$rdv->demandeHospitalisation->DemeandeColloque)
+						<span class="badge badge-{{ ($rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
+                  {{ isset($demande->DemeandeColloque) ? $demande->DemeandeColloque->ordre_priorite : '' }}</span>
+            @endisset
 						</td>
 						<td>
-							{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name }} </td>
+              {{ isset($specialite->dhValid, $rdv->demandeHospitalisation->DemeandeColloque) ? $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_nam: $rdv->demandeHospitalisation->consultation->medecin->full_name}}
+							{{-- $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name --}} </td>
 						<td>{{ $rdv->date }} &nbsp;{{ $rdv->heure }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
-						<td><!--<a class="btn btn-xs btn-success" id ="addReserv"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> 
-onclick ="addReserv({{$rdv->id}})"-->
+						<td><!--<a class="" id ="addReserv"></a> onclick ="addReserv({{$rdv->id}})"-->
 							<button class="btn btn-xs btn-success" id ="addReserv" value ='{{ $rdv->id }}' data-demande-id = "{{ $rdv->demandeHospitalisation->id }}" title="Réserver un lit">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 							</button>

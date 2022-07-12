@@ -49,14 +49,16 @@ $('document').ready(function(){
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center"><h5><strong>Patient</strong></h5></th>
-								<th class="center"><h5><strong>Mode d'admission</strong></h5></th>
-								<th class="center" width="3%"><h5><strong>Priorité</strong></h5></th>
-								<th class="center"><h5><strong>Médecin Traitant</strong></h5></th>
-								<th class="center hidden-xs"><h5><strong>Observation</strong></h5></th>
-								<th class="center"><h5><strong>Date</strong></h5></th>
-								<th class="center"><h5><strong>Spécialité</strong></h5></th>
-								<th class="center"><em class="fa fa-cog"></em></th>
+								<th class="center">Patient</th>
+                <th class="center">Date</th>
+								<th class="center">Mode d'admission</th>
+                <th class="center">Spécialité</th>
+                <th class="center">Médecin Traitant</th>
+								@isset($specialite->dhValid)
+                <th class="center" width="3%">Priorité</th>
+								<th class="center hidden-xs">Observation</th>					
+								@endisset
+                <th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -65,16 +67,20 @@ $('document').ready(function(){
 	           {{--@if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) --}}
 							<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
-								<td>{{ $demande->modeAdmission }}</td>
-								<td>
-                                                                <span class="badge badge-{{ ($demande->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
-                                                                         {{ $demande->DemeandeColloque->ordre_priorite }}</span>
-								</td>
-								<th>{{ $demande->DemeandeColloque->medecin->full_name }}</th>
-								<td class="hidden-xs">{{ $demande->DemeandeColloque->observation }}</td>
 								<td>{{ $demande->consultation->date }}</td>
-								<td>{{ $demande->Specialite->nom }}</td>
-								<td class="center">
+                <td>{{ $demande->modeAdmission }}</td>
+                <td>{{ $demande->Specialite->nom }}</td>
+                <th>
+                  {{ isset($specialite->dhValid) ? $demande->DemeandeColloque->medecin->full_name: $demande->consultation->medecin->full_name}}
+                </th>
+								@isset($specialite->dhValid)
+                <td>
+                  <span class="badge badge-{{ ($demande->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
+                  {{ isset($demande->DemeandeColloque) ? $demande->DemeandeColloque->ordre_priorite : '' }}</span>
+								</td>
+								<td class="hidden-xs">{{ isset($demande->DemeandeColloque) ? $demande->DemeandeColloque->observation : '' }}</td>
+							  @endisset
+              	<td class="center">
 									<div class="btn-group">
 										<button class="btn btn-sm btn-success addRdvh"  title="Affecter un Rendez-Vous" value="{{ $demande->id }}">
 											<i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -104,10 +110,10 @@ $('document').ready(function(){
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center"><h5><strong>Patient</strong></h5></th>
-								<th class="center"><h5><strong>Mode d'admission</strong></h5></th>
-								<th class="center"><h5><strong>Date</strong></h5></th>
-								<th class="center"><h5><strong>Spécialité</strong></h5></th>
+								<th class="center">Patient</th>
+								<th class="center">Date</th>
+                <th class="center">Mode d'admission</th>
+								<th class="center">Spécialité</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -115,8 +121,9 @@ $('document').ready(function(){
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
-								<td><span class="label label-sm label-warning">Urgence</span></td>
-								<td>{{ $demande->consultation->date }}</td><td>{{ $demande->Specialite->nom }}</td>
+								<td>{{ $demande->consultation->date }}</td>
+                <td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
+                <td>{{ $demande->Specialite->nom }}</td>
 								<td class="center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'><i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 									</button>
