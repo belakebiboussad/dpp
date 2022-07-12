@@ -1,6 +1,6 @@
 @extends('app_sur')
 @section('main-content')
-<div class="row"><h4 style="display: inline;"><strong>Affectation des lits </strong></h4></div>
+<div class="page-header"><h4>Affectation des lits</h4></div>
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6 col-xs-6 widget-container-col">

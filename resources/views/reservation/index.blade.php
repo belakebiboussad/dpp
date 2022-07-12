@@ -25,7 +25,7 @@
 <div class="page-header"><h4>Réserver un lit</h4></div><!-- style="display: inline;" -->
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col">
+	<div class="col-sm-6 col-xs-6 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5>
@@ -87,7 +87,7 @@
 		</div>
 	</div>
 	</div>
-	<div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1">
+	<div class="col-sm-5 col-xs-5 col-md-offset-1">
 	<form id="addReservationForm" action="{{ route('reservation.store') }}" method="POST" accept-charset="utf-8" role="form" hidden>
 		{{ csrf_field() }}
 		<input type="hidden" id="rdv_id" name="rdv_id">
