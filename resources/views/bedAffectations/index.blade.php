@@ -1,10 +1,10 @@
 @extends('app_sur')
 @section('main-content')
-<div class="page-header"><h4>Affectation des lits</h4></div><div class="space-12"></div>
+<div class="page-header"><h4>Affecter un lit</h4></div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8 widget-container-col">
 	<div class="widget-box widget-color-blue">
-		<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
+		<div class="widget-header"><h5 class="widget-tit le bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -38,7 +38,6 @@
                   {{ $rdv->demandeHospitalisation->modeAdmission }}
               </span>
             </td>
-						
             @isset($specialite->dhValid)
             <td>
              <span class="badge badge-{{ ($demande->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
@@ -51,6 +50,13 @@
             {{ isset($specialite->dhValid) ? $rdv->demandeHospitalisation->medecin->full_name: $rdv->demandeHospitalisation->consultation->medecin->full_name}}
             </td>
 						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
+            @if($rdv->bedReservation)
+            <td>{{ $rdv->bedReservation->lit->salle->service->nom }}</td>
+            <td>{{ $rdv->bedReservation->lit->salle->nom }}</td>
+            <td>{{ $rdv->bedReservation->lit->nom }}</td>
+            @else
+              <td></td><td></td><td></td>
+            @endif
 						<td>
 							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>

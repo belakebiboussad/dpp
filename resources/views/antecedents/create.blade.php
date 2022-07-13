@@ -47,14 +47,8 @@
 				</div>
 				<div style="text-align: center;">
 					<button class="btn btn-info" type="submit">
-						<i class="ace-icon fa fa-check bigger-110"></i>
-						Enregistrer
-					</button>
-						&nbsp; &nbsp; &nbsp;
-					<button class="btn" type="reset">
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-						Annuler
-					</button>
+						<i class="ace-icon fa fa-check bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 				</div>
 			</div>														
 	</form>

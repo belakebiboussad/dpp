@@ -158,11 +158,11 @@
           }               
         });
         $(".salle").change(function(){
-            if($(this ).val() != "")
-            {  
+            if($(this ).val() != null)
+            { 
               var attr = $('.lit_id').attr('disabled');
               if (typeof attr == typeof undefined && attr == false)
-                      $('.lit_id').attr('disabled', 'disabled');
+                $('.lit_id').attr('disabled', 'disabled');
               $('.lit_id').removeAttr("disabled");
               var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
               var formData = { 
@@ -192,9 +192,8 @@
      
                 },
             });    
-          }
-          else
-          {
+          }else
+          { //$('.lit_id option:selected').remove();
             $(".lit_id").prop("selectedIndex", 0);
             $(".lit_id" ).attr("disabled", true); 
           }

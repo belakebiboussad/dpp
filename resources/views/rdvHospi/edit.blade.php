@@ -158,8 +158,8 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label" for="lit_id"> <strong>Lit :</strong></label>
             <div class="col-sm-8">
-              <select id="lit_id" name="lit_id" class="selectpicker col-xs-12">
-                <option value="" selected disabled>Selectionnez le lit</option>
+              <select id="lit_id" name="lit_id" class="selectpicker lit_id col-xs-12">
+                <option value="" disabled>Selectionnez le lit</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
                   @if($lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie))) 
@@ -193,23 +193,22 @@
             </div>
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-3 control-label" for="lit_id"><strong>Lit :</strong></label>
+          <label class="col-sm-4 control-label" for="lit_id"><strong>Lit :</strong></label>
           <div class="col-sm-8">
             <select name="lit_id" class="selectpicker col-xs-12 lit_id" disabled>
-              <option value="" selected disabled>Selectionnez le lit</option>      
+              <option value="" selected>Selectionnez le lit</option>      
             </select>
           </div>  
         </div>
       </div><!-- ROW -->
       @endif
-      <div class="space-12"></div> <div class="space-12"></div>  <div class="space-12"></div>
+      <div class="space-12"></div> <div class="space-12"></div>
+      <div class="hr hr-dotted"></div>
       <div class="row">
-         <div class="col-xs-3"></div>
-          <div class="col-xs-6 center bottom">
-            <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-            <a href="/listeRDVs" class="btn btn-warning" ><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
-          </div>
-          <div class="col-xs-3"></div>
+        <div class="col-xs-12 center">
+          <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+          <a href="/listeRDVs" class="btn btn-warning" ><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+        </div>
       </div>
     </form>
   </div>
