@@ -28,7 +28,7 @@
       <b class="arrow"></b>
       <ul class="submenu">
         <li>
-          <a href="{{ route('colloque.index')}}"><i class="menu-icon fa fa-eye pink"></i>Liste des colloques </a>
+          <a href="{{ route('colloque.index')}}"><i class="menu-icon fa fa-eye pink"></i>Colloques </a>
           <b class="arrow"></b>
         </li>
         <li>
@@ -43,7 +43,7 @@
       </a><b class="arrow"></b>
         <ul class="submenu">
           <li >             
-              <a href="{{ route('demandehosp.index')}}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
+              <a href="{{ route('demandehosp.index')}}"><i class="menu-icon fa fa-eye pink"></i>Cemandes</a>
               <b class="arrow"></b>
           </li>
         </ul>       

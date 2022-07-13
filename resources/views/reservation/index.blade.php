@@ -1,4 +1,4 @@
-@extends('app'){{-- @extends('app_sur') --}}
+@extends('app')
 @section('page-script')
 <script type="text/javascript">
 	function addReserv(rdv_id)
@@ -22,10 +22,10 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Réserver un lit</h4></div><!-- style="display: inline;" -->
+<div class="page-header"><h4>Réserver un lit</h4></div>
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-6 col-xs-6 widget-container-col">
+	<div class="col-sm-8 col-xs-8 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5>
@@ -35,46 +35,40 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center"><h6><strong>Patient</strong></h6></th>
-							<th class="center"><h6><strong>Mode d'admission</strong></h6></th>
+							<th class="center">Patient</th>
+							<th class="center">Mode d'admission</th>
 							@isset($specialite->dhValid)
-              <th class="center" width="3%"><h6><strong>Priorité</strong></h6></th>
+              <th class="center" width="3%">Priorité</th>
 							@endisset
-              <th class="center"><h6><strong>Médecin traitant</strong></h6></th>
-							<th class="center"><h6><strong>Date d'entrée</strong></h6></th>
-							<th class="center"><h6><strong>Date sortie prévue</strong></h6></th>
+              <th class="center">Service</th>
+              <th class="center">Specialité</th>
+              <th class="center">Médecin traitant</th>
+							<th class="center">Date d'entrée</th>
+							<th class="center">Date sortie prévue</th>
 						  <th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($rdvs as $rdv)
 					<tr>
-						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+						<td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
 						<td>
-							@switch($rdv->demandeHospitalisation->modeAdmission)
- 							  @case(0)
-   								<span class="label label-sm label-primary">Programme</span>
-      							@break
-      					@case(1)
-   								<span class="label label-sm label-success">Ambulatoire</span>
-      							@break
-      					@case(2)
-   								<span class="label label-sm label-warning">Urgence</span>
-      						@break		
-							@endswitch
+		          <span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
+              {{ $rdv->demandeHospitalisation->modeAdmission }}</span>
 						</td>
 						<td>
             @isset($specialite->dhValid,$rdv->demandeHospitalisation->DemeandeColloque)
 						<span class="badge badge-{{ ($rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
-                  {{ isset($demande->DemeandeColloque) ? $demande->DemeandeColloque->ordre_priorite : '' }}</span>
+                  {{ isset($rdv->demandeHospitalisation->DemeandeColloque) ? $rdv->demandeHospitalisation->DemeandeColloque->ordre_priorite : '' }}</span>
             @endisset
 						</td>
+            <td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
+            <td>{{ $rdv->demandeHospitalisation->Specialite->nom }}</td>
 						<td>
-              {{ isset($specialite->dhValid, $rdv->demandeHospitalisation->DemeandeColloque) ? $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_nam: $rdv->demandeHospitalisation->consultation->medecin->full_name}}
-							{{-- $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name --}} </td>
-						<td>{{ $rdv->date }} &nbsp;{{ $rdv->heure }}</td>
-						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
-						<td><!--<a class="" id ="addReserv"></a> onclick ="addReserv({{$rdv->id}})"-->
+              {{ isset($specialite->dhValid, $rdv->demandeHospitalisation->DemeandeColloque) ? $rdv->demandeHospitalisation->DemeandeColloque->medecin->full_name : $rdv->demandeHospitalisation->consultation->medecin->full_name}}
+				    </td>
+						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
+						<td>
 							<button class="btn btn-xs btn-success" id ="addReserv" value ='{{ $rdv->id }}' data-demande-id = "{{ $rdv->demandeHospitalisation->id }}" title="Réserver un lit">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 							</button>
@@ -87,7 +81,7 @@
 		</div>
 	</div>
 	</div>
-	<div class="col-sm-5 col-xs-5 col-md-offset-1">
+	<div class="col-sm-4 col-xs-4"><!-- col-md-offset-1 -->
 	<form id="addReservationForm" action="{{ route('reservation.store') }}" method="POST" accept-charset="utf-8" role="form" hidden>
 		{{ csrf_field() }}
 		<input type="hidden" id="rdv_id" name="rdv_id">

@@ -32,7 +32,7 @@ class AntecedantsController extends Controller
     public function create($id_patient)
     {
         $patient = patient::FindOrFail($id_patient);
-        return view('antecedents.create_antec',compact('patient'));
+        return view('antecedents.create',compact('patient'));
     }
     /**
      * Store a newly created resource in storage.

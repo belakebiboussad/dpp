@@ -37,27 +37,15 @@ class RDVController extends Controller
         $rdv = rdv::FindOrFail($id);
         $rdv ->update([  "etat"=>"Valider" ]);
           return redirect()->route("rdv.show",$rdv->id);
-      }
-      public function reporter($id)
-      {
-        $rdv = rdv::FindOrFail($id);
-        $patient = patient::FindOrFail($rdv->patient_id);
-        return view('rdv.reporter_rdv',compact('rdv','patient'));
-      }
-      public function storereporte(Request $request,$id)
-      {
-        $rdv = rdv::FindOrFail($id);
-        $rdv->update([
-            "date"=>$request->daterdv,
-        ]);
-        return redirect()->route("rdv.show",$rdv->id);
-      }/* public function choixpatient() {     return view('patient.index'); }*/
+      }/*public function reporter($id){$rdv = rdv::FindOrFail($id); $patient = patient::FindOrFail($rdv->patient_id);
+return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function storereporte(Request $request,$id)
+{$rdv = rdv::FindOrFail($id);$rdv->update(["date"=>$request->daterdv,]);return redirect()->route("rdv.show",$rdv->id);}*/
       public function index(Request $request,$patientID = null)
       {/*if ($request->ajax()){$rdvs =  rdv::with('patient')->where("employ_id", "=", Auth::user()->employ->id)->get(); return response()->json($rdvs);}else{}*/        
         $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
         $specialites = Specialite::where('type','!=',null)->get();
         if(in_array(Auth::user()->role_id,[1,13,14])) 
-        {//$specialite = Auth::user()->employ->specialite;
+        {
           $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)
                                    ->where('etat',null)->orwhere('etat',1)->get(); 

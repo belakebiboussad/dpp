@@ -200,7 +200,7 @@ function errorMsg(msg, error) {
 @endsection
 @section('main-content')
 	<div class="row">
-		<div class="col-sm-12 col-md-12">
+		<div class="col-sm-12">
 			<div class="panel panel-default">
 			<div class="panel-heading left"> 
 				<H4><strong>Rechercher un patient</strong></H4>

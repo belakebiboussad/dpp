@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-{{($hosp->etat_id != 1)? '8':'12' }}">
+  <div class="col-sm-{{($hosp->etat_id != 1) ? '8':'12' }}">
     <div class="widget-box">
       <div class="widget-header"><h5 class="widget-title"><strong>Patient : {{ $patient->full_name }}</strong></h5></div>
         <div class="widget-body">
@@ -46,7 +46,6 @@
 @include('constantes.scripts.functions')
 <script type="text/javascript" charset="utf-8" async defer>
   $( function() { 
-  if('{{ Auth::user()->employ->specialite }}' ) {
     if('{{$specialite->hospConst}}' != "");
     {
        var days = []; var constValues= [];
@@ -85,6 +84,5 @@
             })
           });
       }
-  }
 });
 </script>

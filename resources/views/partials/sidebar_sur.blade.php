@@ -40,7 +40,7 @@
         <ul class="submenu">
           <li class="">     
             <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Liste des hospitalisations
+              <i class="menu-icon fa fa-caret-right"></i>Hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
@@ -59,7 +59,7 @@
             </a>
             <b class="arrow"></b>
           </li>
-          <li><a href="/listeRDVs"><i class="menu-icon fa fa-clock-o"></i>Liste des rendez-vous</a><b class="arrow"></b></li>
+          <li><a href="/listeRDVs"><i class="menu-icon fa fa-clock-o"></i>Rendez-Vous</a><b class="arrow"></b></li>
         </ul>
       </li>
       <li class="">
@@ -75,12 +75,9 @@
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="/bedAffectation" title="Affecter in lit">
-              <i class="menu-icon fa fa-plus"></i>Affecter un lit
-            </a>
-            <b class="arrow"></b>
+            <a href="/bedAffectation" title="Affecter in lit"><i class="menu-icon fa fa-plus"></i>Affecter un lit
+            </a><b class="arrow"></b>
           </li>
-          {{-- <li class=""><a href="/404"><i class="menu-icon fa fa-clock-o"></i>Liste des lits</a><b class="arrow"></b></li> --}}
         </ul>
       </li>
     </ul><!-- /.nav-list -->

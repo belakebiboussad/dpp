@@ -3,9 +3,9 @@
  @foreach($consts as $const)
   <div class="col-xs-2">
     @if(isset($hospConsts))
-    <label><input type="checkbox" name="hospConsts[]" class="ace" {{ (in_array($const->id, $hospConsts))? 'checked' : '' }} />
+    <label><input type="checkbox" name="hospConsts[]" class="ace" value="{{ $const->id}}"  {{ (in_array($const->id, $hospConsts))? 'checked' : '' }} />
     @else
-    <label><input type="checkbox" name="hospConsts[]" class="ace"/>
+    <label><input type="checkbox" name="hospConsts[]" class="ace" value="{{ $const->id}}" />
     @endif
     <span class="lbl">&nbsp;{{ $const->nom }}</span></label>
   </div> 

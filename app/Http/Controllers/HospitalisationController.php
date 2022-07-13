@@ -131,12 +131,12 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
   {
     $hosp = hospitalisation::find($id);
     if(isset(Auth::user()->employ->specialite))
-    {   
-      $consts = consts::all();
-      $specialite = Specialite::findOrFail($employe = Auth::user()->employ->specialite);
-      return view('hospitalisations.show',compact('hosp','consts','specialite'));
-    }else
-      return view('hospitalisations.show',compact('hosp'));
+      $specialite = Auth::user()->employ->Specialite;
+    else
+      $specialite = Auth::user()->employ->Service->Specialite;
+    $consts = consts::all();
+    return view('hospitalisations.show',compact('hosp','consts','specialite'));
+/*if(isset(Auth::user()->employ->specialite)){return view('hospitalisations.show',compact('hosp','consts','specialite'));}else return view('hospitalisations.show',compact('hosp'));*/
   }
   /**
    * Show the form for editing the specified resource.

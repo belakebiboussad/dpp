@@ -2,7 +2,7 @@
 @section('title','Modifier  fonctionnaire')
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Actualisation des données du fonctionnaire :&nbsp;</strong>
+	<h1><strong>Actualisation des données du fonctionnaire :&nbsp;</strong>
 		 <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>{{ $assure->full_name }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
 	</h1>

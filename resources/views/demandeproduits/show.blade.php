@@ -1,8 +1,8 @@
 @extends('app')
 @section('title','Détails demande')
 @section('main-content')
-<div class="row">
-	<h4 style="display: inline;"><strong>Détails de la demande du</strong> &quot;{{ $demande->Date}}&quot;</h4>
+<div class="page-header">
+	<h4 ><strong>Détails de la demande du</strong> &quot;{{ $demande->Date}}&quot;</h4>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
 		@if(!isset($demande->etat) &&( $demande->demandeur->service == Auth::user()->employ->service))

@@ -23,7 +23,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class=""><a href="{{ route('users.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un utilisateur </a><b class="arrow"></b></li>
-          <li class=""><a href="{{ route('users.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des utilisateurs</a></li>
+          <li class=""><a href="{{ route('users.index') }}"><i class="menu-icon fa fa-eye pink"></i>Utilisateurs</a></li>
         </ul>
       </li>
       <li>
@@ -31,14 +31,14 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li><a href="{{ route('role.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un rôle</a><b class="arrow"></b></li>
-          <li ><a href="{{ route('role.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des rôles </a><b class="arrow"></b></li>
+          <li ><a href="{{ route('role.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rôles </a><b class="arrow"></b></li>
          </ul>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b></a>
         <b class="arrow"></b>
         <ul class="submenu">
-          <li class=""> <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des fonctionnaires</a><b class="arrow"></b></li>          
+          <li class=""> <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a><b class="arrow"></b></li>          
         </ul>
       </li>
       <li>

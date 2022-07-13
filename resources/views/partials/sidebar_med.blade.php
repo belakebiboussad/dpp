@@ -33,14 +33,14 @@
           <li>
             <a href="{{ route('patient.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un patient</a><b class="arrow"></b>
           </li>
-          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des patients</a><b class="arrow"></b></li>
+          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Patients</a><b class="arrow"></b></li>
         </ul>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b>
         </a><b class="arrow"></b>
         <ul class="submenu">
-          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires</a><b class="arrow"></b>
+          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a><b class="arrow"></b>
           </li>
         </ul>
         </li>
@@ -50,7 +50,7 @@
           </a><b class="arrow"></b>
           <ul class="submenu">
             </li>
-            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste des consultations</a><b class="arrow"></b>
+            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i>Consultations</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -62,8 +62,7 @@
           <ul class="submenu">
             <li>
               <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                <i class="menu-icon fa fa-eye pink"></i>Liste des hospitalisations
-              </a><b class="arrow"></b>
+                <i class="menu-icon fa fa-eye pink"></i>Hospitalisations</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -76,7 +75,7 @@
                     <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
                   </li>
                   <li>
-                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a><b class="arrow"></b>
+                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b>
                   </li>
                   <li>
                     <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
@@ -85,11 +84,11 @@
           </li>
         <li>
                 <a href="#" class="dropdown-toggle">
-                     <i class="menu-icon fa fa-table"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+                     <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
                 </a><b class="arrow"></b>
                 <ul class="submenu">
                      <li>
-                            <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a> <b class="arrow"></b>
+                            <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a> <b class="arrow"></b>
                      </li>
                 </ul>
         </li>
@@ -118,7 +117,7 @@
               <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
             </li>
             <li>
-              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
+              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a>
               <b class="arrow"></b>
           </li>              
         </ul>

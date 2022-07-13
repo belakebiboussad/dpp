@@ -25,9 +25,8 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-  <h1 style="display: inline;">Modification du  RDV Hospitalisation du:
-    <strong>&laquo;{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}&raquo;
-    </strong></h1>
+  <h1>Modification du  RDV Hospitalisation du :
+    &laquo;{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}&raquo;</h1>
   <div class="pull-right">
     <a href="/listeRDVs" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
   </div>

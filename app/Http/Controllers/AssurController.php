@@ -310,11 +310,10 @@ class AssurController extends Controller
                 }
               }
             }//1
-            return Response([$output,$ayants])->withHeaders(['count' =>1]);  
-           }else//Nom == ""
-          {
+              return Response([$output,$ayants])->withHeaders(['count' =>1]);  
+            }else//Nom == ""
             return Response(null)->withHeaders(['count' =>0]);//pas de Fonctionnaire
-          }
+          
        } catch (Exception $e) {
           echo 'Exception reçue Com Object : ',  $e->getMessage(), "\n";
        }
