@@ -158,7 +158,7 @@
           }               
         });
         $(".salle").change(function(){
-            if($(this ).val() != null)
+            if($(this ).val() != "")
             { 
               var attr = $('.lit_id').attr('disabled');
               if (typeof attr == typeof undefined && attr == false)
@@ -182,19 +182,18 @@
                 success: function(data, textStatus, jqXHR){                  
                       var selectLit = $('.lit_id').empty();                      
                       if(data.length != 0){
-                            selectLit.append("<option value=''>Selectionnez un lit</option>");
-                            $.each(data,function(){
-                                     selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                            });
-                            $('#AffectSave').removeAttr("disabled");
+                        selectLit.append("<option value=''>Selectionnez un lit</option>");
+                        $.each(data,function(){
+                                 selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                        });
+                        $('#AffectSave').removeAttr("disabled");
                     }else
                       selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
      
                 },
             });    
           }else
-          { //$('.lit_id option:selected').remove();
-            $(".lit_id").prop("selectedIndex", 0);
+          { $(".lit_id").prop("selectedIndex", 0);
             $(".lit_id" ).attr("disabled", true); 
           }
         });
@@ -204,7 +203,7 @@
         });
         jQuery('body').on('click', '.bedAffect', function (event) {
           $('.demande_id').val($(this).val());
-          $('#patient_id').val($(this).attr('data-Pid'));
+          $('#patient_id').val($(this).attr('data-Pid'));//cas dh urg
           jQuery('#bedAffectModal').modal('show');
           $('#bedAffectModal').on('hidden.bs.modal', function (e) {
             $('#bedAffectModal form')[0].reset();
@@ -213,21 +212,23 @@
         jQuery('body').on('click', '#AffectSave', function (e) {
           e.preventDefault();
           var formData = {
-                  demande_id : jQuery('.demande_id').val(),
-                  lit_id     : $('.lit_id').val()
+             _token: CSRF_TOKEN,
+            demande_id : $('.demande_id').val(),
+            lit_id     : $('.lit_id').val()
           };
+          
           $.ajax({
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  },
-                  url : '{{ route ("lit.affecter") }}',
-                  type:'POST',
-                  data:formData,//dataType: 'json',
-                  success: function (data) {
-                    $("#demande" + formData['demande_id']).remove();
-                    $('#bedAffectModal').trigger("reset");
-                    $('#bedAffectModal').modal('hide');
-                  }
+              url : '{{ route ("lit.affecter") }}',
+              type:'POST',
+              data:formData,
+              success: function (data) {
+                alert(data);
+               /*
+                $("#demande" + formData['demande_id']).remove();
+                $('#bedAffectModal').trigger("reset");
+                $('#bedAffectModal').modal('hide');*/
+                
+              }
          });
         });
       })

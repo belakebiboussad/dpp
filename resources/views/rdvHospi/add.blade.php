@@ -138,8 +138,8 @@
 					<div class="col-sm-4 col-xs-12">
 				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie">Service :</label>
 						<div class="col-sm-8">
-							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
-							  <option value="0" selected >Selectionnez un service</option>
+							<select id="serviceh" class="selectpicker col-xs-12 col-sm-12 serviceHosp"/>
+							  <option value="" selected >Selectionnez un service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -149,24 +149,24 @@
 				  <div class="col-sm-4 col-xs-12">
 			   		<label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
 					 	<div class="col-sm-8">
-							<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-								<option value="0" selected>Selectionnez une salle</option>
+							<select class="selectpicker col-xs-12 col-sm-12 salle" disabled>
+								<option value="" selected>Selectionnez une salle</option>
 					  	</select>
 						</div>
 				  </div>
 				 	<div class="col-sm-4 col-xs-12">
 				 		<label class="col-sm-4 control-label" for="lit_id"><strong>Lit :</label>
 				  	<div class="col-sm-8">
-							<select id="lit_id" name="lit_id"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-									<option value="0" selected disabled>Selectionnez un lit</option>
+							<select name="lit_id" class="selectpicker col-xs-12 col-sm-12 lit_id" disabled>
+									<option value="" selected disabled>Selectionnez un lit</option>
 							</select>
 						</div>	
 					</div>
-			  </div><div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>
+			  </div><div class="hr hr-dotted"></div>
 				<div class="row">
-					<div class="center bottom" style="bottom:0px;">
-						<button class="btn btn-info btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp;&nbsp; &nbsp;
-						<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+					<div class="center bottom">
+						<button class="btn btn-info btn-xs" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp;&nbsp; &nbsp;
+						<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 					</div>
 				</div>			
 			</form>	

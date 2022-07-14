@@ -15,7 +15,7 @@ class rdv_hospitalisation extends Model
     }
     public function getDatePrevsorAttribute()
     {
-      return date('Y-m-d H:i', strtotime("$this->date $this->heure"));
+      return date('Y-m-d H:i', strtotime("$this->date_Prevu_Sortie $this->heure"));
     }
     public function demandeHospitalisation()
     {

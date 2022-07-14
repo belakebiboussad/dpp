@@ -18,10 +18,10 @@ class BedReservationController extends Controller
 		$tomorrow = date("Y-m-d", strtotime('now'));
 		$services =service::where('hebergement',1)->get();
     $specialite = Auth::user()->employ->Service->Specialite;
-		$rdvs =	rdv_hospitalisation::doesntHave('bedReservation')->whereHas('demandeHospitalisation',function ($q){
+    $rdvs =	rdv_hospitalisation::doesntHave('bedReservation')->whereHas('demandeHospitalisation',function ($q){
 																			$q->doesntHave('bedAffectation')->where('service',Auth::user()->employ->service_id);    
-																		})->where('date','>=',$tomorrow)->where('etat','=',null)->get();
-		return view('reservation.index', compact('rdvs','services','specialite'));
+																		})->where('date','>=',$tomorrow)->where('etat',null)->get();
+    return view('reservation.index', compact('rdvs','services','specialite'));
 	}
 	public function store(Request $request)
 	{

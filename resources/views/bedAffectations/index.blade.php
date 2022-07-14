@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="page-header"><h4>Affecter un lit</h4></div><div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-8 col-xs-8 widget-container-col">
+	<div class="col-sm-12 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header"><h5 class="widget-tit le bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
 		<div class="widget-body">
@@ -11,6 +11,7 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th rowspan="2"  class="center">Patient</th>
+              <th rowspan="2" class="center">Genre</th>
              	<th rowspan="2"  class="center">Mode d'admission</th>
 						  @isset($specialite->dhValid)
             	<th  rowspan="2" class="center" width="3%">Priorité</th>
@@ -32,7 +33,8 @@
 					<tbody>
 					@foreach($rdvs as $rdv)
 					<tr id="{{ 'demande'.$rdv->demandeHospitalisation->id }}">
-						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}{{ $rdv->id }}</td>
+            <td>{{$rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
 						<td>
               <span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
                   {{ $rdv->demandeHospitalisation->modeAdmission }}
@@ -69,11 +71,11 @@
 			</div>
 		</div>
 	</div>
-	</div><div class="col-sm-4 col-xs-4"></div>
+	</div>
 </div><div class="space-12"></div>
 @if(isset($demandesUrg) && $demandesUrg->count())
 <div class="row">
-	<div class="col-sm-7 col-xs-7 widget-container-col">
+	<div class="col-sm-12 col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-red">
 			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes d'hospitalisations urgentes</h5></div>
 			<div class="widget-body">
@@ -82,9 +84,12 @@
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="center">Patient</th>
+                <th class="center">Genre</th>
 								<th class="center">Mode d'admission</th>
-								<th class="center">Date</th>
+								<th class="center">Date entrée</th>
+                <th class="center">Service</th>
 								<th class="center">Spécialité</th>
+                <th class="center">Médecin traitant</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -92,8 +97,13 @@
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
+                <td>{{ $demande->consultation->patient->Sexe }}</td>
+
 								<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
-	        						<td>{{ $demande->consultation->date }}</td><td>{{ $demande->Specialite->nom }}</td>
+                <td>{{ $demande->consultation->date }}</td>
+                <td>{{ $demande->Service->nom }}</td>
+                <td>{{ $demande->Specialite->nom }}</td>
+                <td>{{ $demande->consultation->medecin->full_name }}</td>  
 								<td class="center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
@@ -109,7 +119,6 @@
 			</div>
 		</div>
   </div>
-	<div class="col-sm-5 col-xs-5"></div>	
 </div>
 @endif
 <div class="row">@include('bedAffectations.affecteModalForm')</div>

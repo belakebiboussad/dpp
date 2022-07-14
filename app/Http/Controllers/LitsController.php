@@ -49,8 +49,8 @@ class LitsController extends Controller
       $services = service::where('hebergement',1)->get();
       if(isset($request->id))
       {
-              $salle = salle::FindOrFail($request->id);
-             return view('lits.create', compact('services','salle'));
+        $salle = salle::FindOrFail($request->id);
+        return view('lits.create', compact('services','salle'));
       }else
         return view('lits.create', compact('services'));
     }
@@ -141,37 +141,43 @@ class LitsController extends Controller
       {
         $demande= DemandeHospitalisation::find($request->demande_id); 
         $lit = lit::FindOrFail( $request->lit_id);
+        return $lit->bedReservation;
         if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-        {
-          $rdv = $demande->RDVs->where('etat', NULL)->first(); //if($rdv->has('bedReservation')) $rdv->bedReservation()->delete();
-          $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
-        }else {
-            $now = $today = Carbon::now()->toDateString();
-            $newDateTime = Carbon::now()->addDay(3)->toDateString();
-            $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
-            $demande->update([ 'etat' => 1 ]);   
+        { 
+          $rdv = $demande->getInProgressMet();
+          if($rdv->has('bedReservation'))
+            $rdv->bedReservation()->delete();
+          //$free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
+        }else
+        { 
+          $now = $today = Carbon::now()->toDateString();
+          $newDateTime = Carbon::now()->addDay(3)->toDateString();
+          //get reservation of this bed between this day
+
+          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+          $demande->update([ 'etat' => 1 ]); //program  
         }
+        /*
         if(!$free)
           $lit->bedReservation()->delete(); 
+        */
         $affect = bedAffectation::create($request->all());
         $lit->update([ "affectation" =>1 ]);
-        if($request->ajax()) //return Response::json($affect);
-          return $affect;
-       }
+        return $affect;
+      }
         public function affecter()
         {
           $now = date("Y-m-d", strtotime('now'));
           $services = service::where('hebergement','1')->get();
           $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
-                                     ->whereHas('demandeHospitalisation',function ($q){
-                                           $q->where('service',Auth::user()->employ->service_id)
-                                             ->where('etat',1);   
-                                    })->where('etat', null)->where('date','>=',$now)->get();//->whereNull('etat')
+                                      ->whereHas('demandeHospitalisation',function ($q){
+                                           $q->where('service',Auth::user()->employ->service_id)->where('etat',1);      
+                                    })->where('date','>=',$now)->where('etat', null)->get();                         
           $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
-                                      ->whereHas('consultation',function($q) use($now){
-                                           $q->where('date', $now);
-                                      })->where('modeAdmission',2)->where('etat',null)->where('service',Auth::user()->employ->service)->get(); 
-           return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
+                                        ->whereHas('consultation',function($q) use($now){
+                                             $q->where('date', $now);
+                                        })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service_id)->get();
+          return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }
   /**
   **function ajax return lits ,on retourne pas les lits bloque ou reservé

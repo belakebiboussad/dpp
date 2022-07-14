@@ -97,48 +97,5 @@ $('document').ready(function(){
 		</div>
 	</div><!-- /.span -->
 </div>
-@if(isset($demandesUrg) && $demandesUrg->count() )
-<div class="space-12"></div><div class="space-12"></div>
-<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations urgentes</strong></h5></div>
-<div class="row">
-	<div class="col-xs-12 widget-container-col">
-		<div class="widget-box widget-color-red">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5></div>
-		</div>
-		<div class="widget-body">
-				<div class="widget-main no-padding">
-					<table class="table table-striped table-bordered table-hover">
-						<thead class="thin-border-bottom">
-							<tr>
-								<th class="center">Patient</th>
-								<th class="center">Date</th>
-                <th class="center">Mode d'admission</th>
-								<th class="center">Spécialité</th>
-								<th class="center"><em class="fa fa-cog"></em></th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($demandesUrg as $demande)
-							<tr id="{{ 'demande'.$demande->id }}">
-								<td>{{ $demande->consultation->patient->full_name }}</td>
-								<td>{{ $demande->consultation->date }}</td>
-                <td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
-                <td>{{ $demande->Specialite->nom }}</td>
-								<td class="center">
-									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'><i class="fa fa-bed fa-1x" aria-hidden="true"></i>
-									</button>
-{{-- <a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-120"></i>
-									</a> --}}
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
-		</div>
-	</div>
-</div>
-@endif
 <div class="row">@include('rdvHospi.ModalFoms.rdvModalForm')</div>
-<div class="row">@include('bedAffectations.affecteModalForm')</div>
 @endsection

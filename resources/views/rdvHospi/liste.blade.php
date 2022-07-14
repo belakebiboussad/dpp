@@ -1,6 +1,6 @@
 @extends('app_sur')
 @section('main-content')
-<div class="row"> <h3><strong>Liste des rendez-vous d'hospitalisation :</strong></h3></div>
+<div class="page-header"> <h3><strong>Liste des rendez-vous d'hospitalisation :</strong></h3></div>
 <div class="col-xs-12 widget-container-col">
      <div class="widget-box widget-color-blue">
            <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Rendez-vous</h5></div>
