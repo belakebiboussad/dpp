@@ -3,7 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
-    <title>>Résumé standard de sortie</title>
+    <title>Résumé standard de sortie</title>
     <style type="text/css" media="screen">
       @page {
           margin: 100px 25px;
@@ -45,7 +45,7 @@
           <table>
             <tr>
               <td>
-              <strong>Etablissement :</strong>&nbsp;<span>{{ $etablissement->nom }}</span><br>
+              <strong>Etablissement :</strong>&nbsp;<span>{{ $etab->nom }}</span><br>
               <strong>Service de :</strong>&nbsp;<span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span><br>
               <strong>Chef de Service :</strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span><br>
               </td>
@@ -64,8 +64,6 @@
                   <strong>&nbsp;&nbsp;Matricule :</strong>&nbsp; 
                   @if($obj->patient->Type != 5 )
                     <span>{{ $obj->patient->assure->matricule }}</span>
-                  @else
-                    /
                   @endif
                 </h5>&nbsp;&nbsp;&nbsp;&nbsp;
                 <h5 class="rect"><strong>&nbsp;&nbsp;N° Dossier :<span> &nbsp;{{ $obj->patient->IPP}}</span></strong></h5>
@@ -139,7 +137,7 @@
                 <strong>Diagnostic principale de sotie :</strong>&nbsp;
                 <span>{{ $obj->diagSortie }}</span><br>
                 <h5  class="center"><strong>Diagnostics associés :</strong></h5>
-                <ol class="c">
+                <ol class="list">
                   <li>1-</li>
                   <li>2-</li>
                   <li>3-</li>
@@ -154,11 +152,7 @@
             </tr>
           </table>
         </div> <!--     </section> -->
-        <div class="sec-gauche">Le Chef de Service</div>
-        <div class="sec-droite">
-          Le Médecin traitant
-        </div>
-
+        <div class="sec-gauche">Le Chef de Service</div><div class="righte">Le Médecin traitant</div>
       </main>
     </div>
   </body>

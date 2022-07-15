@@ -30,7 +30,7 @@
     </li>
     <li class="">
         <a href="{{ route('demandeproduit.index') }}">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste des demandes </span>
+                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
       </a>
       <b class="arrow"></b>
     </li>

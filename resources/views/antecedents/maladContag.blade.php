@@ -4,7 +4,7 @@
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Maladie Contagieuse</b></font></h5>
  			<div class="widget-toolbar widget-toolbar-light no-border">
-				<a id ="maladiecontag" data-target="" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+				<a id ="maladiecontag" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
 		</div>
 		<div class="widget-body">

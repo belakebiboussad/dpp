@@ -26,14 +26,10 @@ class RdvHospiController extends Controller
   {
     $now = date("Y-m-d", strtotime('now'));    
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
-    /*$demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
-                                                                $q->where('id', Auth::user()->employ->service);    })->whereHas('demandeHosp',function ($q){$q->where('etat',5); })->get();*/   
-    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',5) ->where('service',Auth::user()->employ->service)->get();
-    $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
-                                        ->whereHas('consultation',function($q) use($now){
-                                             $q->where('date', $now);
-                                        })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service)->get(); //'en attente'
-     return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
+    $specialite = Auth::user()->employ->Service->Specialite;//tester si il y'à validation demandes etat 5 sinon etat 0 
+    $state = ($specialite->dhValid) ? 5: null;
+    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
+    return view('rdvHospi.index', compact('specialite','demandes','services'));
   }
   public function create($id)
   {
@@ -43,39 +39,39 @@ class RdvHospiController extends Controller
   }
   public function store(Request $request)
   {
-       $rdv = rdv_hospitalisation::firstOrCreate([
+    $rdv = rdv_hospitalisation::firstOrCreate([
                 "date"         =>$request->dateEntree,
                 "heure"        =>$request->heure,   
                 "id_demande"        =>$request->demande_id,       
                 "date_Prevu_Sortie" =>$request->dateSortiePre,
                 "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-        ]);
-        if(isset($request->lit) && ($request->lit !=0))
-        {   
-          BedReservation::firstOrCreate([
-              "id_rdvHosp"=>$rdv->id,
-              "id_lit" =>$request->lit,
-          ]);           
-        }
-        $demande= DemandeHospitalisation::find($request->demande_id);
-        $demande->update(['etat' =>1]); 
-        return redirect()->action('RdvHospiController@index');
+    ]);
+    if(isset($request->lit) && ($request->lit !=0))
+    {   
+      BedReservation::firstOrCreate([
+          "id_rdvHosp"=>$rdv->id,
+          "id_lit" =>$request->lit,
+      ]);           
+    }
+    $demande= DemandeHospitalisation::find($request->demande_id);
+    $demande->update(['etat' =>1]); 
+    return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function getlisteRDVs()
   {
-        $rdvHospis = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
-                                                           $q->where('etat', 1);
-                                                 })->whereHas('demandeHospitalisation.Service',function($q){
-                                                      $q->where('id',Auth::user()->employ->service);       
-                                                 })->where('etat','=',null)->get();
-        return view('rdvHospi.liste',compact('rdvHospis'));
+    $specialite = Auth::user()->employ->Service->Specialite;
+    $rdvHospis = rdv_hospitalisation::with('bedReservation')->doesntHave('demandeHospitalisation.bedAffectation')
+                                      ->whereHas('demandeHospitalisation',function ($q){
+                                           $q->where('service',Auth::user()->employ->service_id)->where('etat',1);      
+                                    })->where('etat', null)->get();                                         
+    return view('rdvHospi.liste',compact('specialite','rdvHospis'));
   }
   public function edit($id)
   {
-    $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-    $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
+    $specialite = Auth::user()->employ->Service->Specialite;
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
-    return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
+    $rdv =  rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.DemeandeColloque','bedReservation')->find($id);
+    return view('rdvHospi.edit', compact('specialite','demande','services','rdv'));       
   }
   public function update(Request $request,$id)
   {
@@ -143,8 +139,8 @@ class RdvHospiController extends Controller
         $t = Carbon::now();
         $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
         $patient =  $rdv->demandeHospitalisation->consultation->patient;
-        $etablissement = Etablissement::first();
-        $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etablissement'))->setPaper('a4','landscape');
+        $etab = Etablissement::first();
+        $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etab'))->setPaper('a4','landscape');
         $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
         return $pdf->stream($name);
   }

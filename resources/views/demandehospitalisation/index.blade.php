@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>	<br/>
+			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
@@ -20,7 +20,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach( $demandehospitalisations as $demande)
+					@foreach( $demandes as $demande)
 						<tr>
 							<td>{{ $demande->consultation->patient->full_name }}</td>
 							<td><span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
@@ -35,14 +35,15 @@
 								<a href="{{route('demandehosp.show', $demande->id)}}" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 									<i class="ace-icon fa fa-hand-o-up bigger-120" aria-hidden="true"></i>
 								</a>
-								@if(Auth::User()->employee_id == $demande->consultation->employ_id || (Auth::User()->role_id == 6))
-								@if($demande->etat == 'en attente')	 
-								<a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
-									<i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>
-								</a>
-								<a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
-								</a>
-								@endif
+                @if($demande->getEtatID($demande->etat) == null)
+                  @if(Auth::User()->employee_id == $demande->consultation->employ_id)
+                  <a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
+                    <i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>
+                  </a>
+                  @endif
+								  @if(Auth::User()->employee_id == $demande->consultation->employ_id || (Auth::User()->role_id == 6))
+  								 <a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i></a>
+  							  @endif
 								@endif
 							</td>
 						</tr>

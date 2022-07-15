@@ -1,7 +1,8 @@
 @extends('app')
 @section('title','Nouvelle Consultation')
 @section('style')
- <link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
+ <link rel="stylesheet" href="{{ asset('css/print.css') }}" />	
+ <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />  
 <style>
 	.modaldialog {
 	  width:92%;
@@ -104,30 +105,28 @@
 	}
 	function editMedicm(med)
   {
-	$.ajax({
-		  type: 'GET',
-		  url: '/getmed/'+med,
-		  dataType: "json",
-		  success: function (result)
-		  {
-			  $("#nommedic").val(result['Nom_com']);
-			  $("#forme").val(result['Forme']);
-			  $("#dosage").val(result.Dosage);
-			  $("#id_medicament").val(result['id']);
-			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-		  }
-	  });
+  	$.ajax({
+  		  type: 'GET',
+  		  url: '/getmed/'+med,
+  		  dataType: "json",
+  		  success: function (result)
+  		  {
+  			  $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
+  			  $("#dosage").val(result.Dosage);$("#id_medicament").val(result['id']);
+  			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+  		  }
+   });
   }
   function addmidifun()
   {
 		var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td>';
-		med += '<td class ="bleu center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-		med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+		med += '<td class ="bleu center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');rowDelete('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+		med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="rowDelete('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 		$("#ordonnance").append(med);
 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		$("#nommedic").val('');$("#forme").val('');$("#dosage").val('');$("#posologie_medic").val('');
   }
-  function supcolonne(id)
+  function rowDelete(id)
   {
 		$("#"+id).remove();
   }
@@ -144,14 +143,13 @@ $('document').ready(function(){
 				});
 			});
       $('#select2-multiple-style .btn').on('click', function(e){
-			var target = $(this).find('input[type=radio]');
-		var which = parseInt(target.val());
-			if(which == 2) 
-				$('.select2').addClass('tag-input-style');
-		  else
-			$('.select2').removeClass('tag-input-style');
-		});
-		$(function() {
+  			var target = $(this).find('input[type=radio]');
+  		  var which = parseInt(target.val());
+  			if(which == 2) 
+  				$('.select2').addClass('tag-input-style');
+  		  else
+  			$('.select2').removeClass('tag-input-style');
+		  });
 			var checkbox = $("#isOriented");// Get the form fields and hidden div
 			var hidden = $("#hidden_fields");// Setup an event listener for when the state of the    // checkbox changes.
 			 checkbox.change(function() {
@@ -161,12 +159,11 @@ $('document').ready(function(){
 						hidden.hide();
 						$("#lettreorientaioncontent").val("");
 				 }
-			})
-		}); 
+		})
 	  $(".two-decimals").change(function(){
-					this.value = parseFloat(this.value).toFixed(2);
+			this.value = parseFloat(this.value).toFixed(2);
 	  });
-		/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
+/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*/
 		/*$("#btnCalc").click(function(event){event.preventDefault(); });*/
 	  $('#medc_table').DataTable({
 				processing: true,
@@ -191,11 +188,11 @@ $('document').ready(function(){
 				  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
 				],
 	  });
-	  jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
-  		jQuery('#EnregistrerAntecedant').val("add");
-  		jQuery('#modalFormData').trigger("reset");
-  		$('#AntecCrudModal').html("Ajouter un antécédent");
-  		if(this.id == "AntFamil-add")
+	  $('#btn-add, #AntFamil-add').click(function () {//ADD
+  	  $('#EnregistrerAntecedant').val("add");
+  		$('#modalFormData').trigger("reset");
+      $('#AntecCrudModal').html("Ajouter un antécédent");
+  	  if(this.id == "AntFamil-add")
   		{
   			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
   			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
@@ -205,7 +202,7 @@ $('document').ready(function(){
   			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
   				$('#atcdsstypehide').removeClass("hidden");
   		}
-  		jQuery('#antecedantModal').modal('show');
+  		$('#antecedantModal').modal('show');
   	});
   	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
   			jQuery('#EnregistrerAntecedantPhys').val("add");
@@ -348,30 +345,30 @@ $('document').ready(function(){
 				cim_code						 : $('#phys_cim_code').val(),
 				description         : $("#descriptionPhys").val(),
 				habitudeAlim 				 : $('#habitudeAlim').val()
-		};
-		formData.tabac = $("#tabac").is(":checked") ? 1:0;
-	      formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
-		if($('.dataTables_empty').length > 0)
+		  };
+  		formData.tabac = $("#tabac").is(":checked") ? 1:0;
+  	  formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+		  if($('.dataTables_empty').length > 0)
 				$('.dataTables_empty').remove();
-		$.ajaxSetup({
-			headers: {
+		  $.ajaxSetup({
+			  headers: {
 						  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 				}
-		});
-		var state = jQuery('#EnregistrerAntecedantPhys').val();
-		var type = "POST";
-		var atcd_id = jQuery('#atcdPhys_id').val();
-		var ajaxurl = '/atcd';
-		if (state == "update") {
-			type = "PUT";
-			ajaxurl = '/atcd/' + atcd_id;
-	  } 
-		$.ajax({
-			   type: type,
-			   url: ajaxurl,
-			   data: formData,
-			   dataType: 'json',
-			   success: function (data) {
+		  });
+		  var state = jQuery('#EnregistrerAntecedantPhys').val();
+		  var type = "POST";
+		  var atcd_id = jQuery('#atcdPhys_id').val();
+		  var ajaxurl = '/atcd';
+		  if (state == "update") {
+		  	type = "PUT";
+		    ajaxurl = '/atcd/' + atcd_id;
+	    } 
+		  $.ajax({
+			  type: type,
+			  url: ajaxurl,
+			  data: formData,
+			  dataType: 'json',
+			  success: function (data) {
 					var tabac = data.tabac != 0 ? 'Oui' : 'Non';
 					var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
 					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>'+data.date+'</td><td>'
@@ -426,7 +423,8 @@ $('document').ready(function(){
 				}
 			}	    
 		});//calendrier  	
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);var today = (new Date()).setHours(0, 0, 0, 0);
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+    var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar').fullCalendar({//plugins: [ 'dayGrid', 'timeGrid' ],
         header: {
           left: 'prev,next today',
@@ -434,12 +432,10 @@ $('document').ready(function(){
          right: 'month,agendaWeek,agendaDay'
         },
         defaultView : 'basicWeek',//'agendaWeek',
-		  	height: 650,
-        //teste
+		  	height: 650,//teste
         showAgendaButton: true,
         timeFormat: 'H:mm',
-        axisFormat: 'H:mm',
-        //  teste
+        axisFormat: 'H:mm',// teste
         firstDay: 0,
 		  	slotDuration: '00:15:00',
 		  	minTime:'08:00:00',
@@ -520,10 +516,10 @@ $('document').ready(function(){
     $(".shoutnbr").ionRangeSlider({ min:0,max:4,step:1, from:0, grid:true, grid_num:4, postfix:" fois", skin:"big" });
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
 	  $("#drugsPrint").click(function(){
-          	  	var pid = '{{ $patient->id }}';
-          	  	var mid = '{{  Auth::User()->employ->id }}';
-          	  	var keys=[], meds=[];
-          		$("#ordonnance thead tr th").each(function(){
+  	  var pid = '{{ $patient->id }}';
+  	  var mid = '{{  Auth::User()->employ->id }}';
+  	  var keys=[], meds=[];
+  		$("#ordonnance thead tr th").each(function(){
 				if(($(this).html() == "id") || ($(this).html() == "Posologie"))
 					keys.push($(this).html());  
 			});
@@ -551,7 +547,7 @@ $('document').ready(function(){
 			$.ajax({
 				type: "POST",
 				url: "/ordonnaces/print",
-				data:formData,//contentType: "application/j-son;charset=UTF-8",
+				data:formData,
 				dataType: "json",
 				success: function (data,status, xhr) {	  	
 					$('#iframe-pdf').contents().find('html').html(data.html);
@@ -566,7 +562,7 @@ $('document').ready(function(){
       $(".calendar").fullCalendar( 'refetchEvents' );
       $('#RDV').modal("show");
     });
- });// ready
+});// ready
 </script>
 @endsection
 @section('main-content')
@@ -591,11 +587,11 @@ $('document').ready(function(){
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist">
 				<li role= "presentation" class="col-md-4 in active">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
+				  <span class="bigger-160" style="font-size:10vw">Interrogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-					<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+					<a href="#ExamClinique"  aria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
 						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
@@ -630,15 +626,19 @@ $('document').ready(function(){
 	</form>
 	</div>	
 </div>
-<div class="row">@include('consultations.ModalFoms.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
-<div class="row">@include('antecedents.AntecedantModal')</div>
-<div class="row">@include('antecedents.AntecedantModalPhysio')</div>
-<div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
-<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
+@include('antecedents.AntecedantModal')
+@include('consultations.ModalFoms.LettreOrientation')
+@include('consultations.ModalFoms.DemadeHospitalisation')
+@include('antecedents.AntecedantModalPhysio')
+@include('consultations.ModalFoms.Ordonnance')
+@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 <div class="row">@include('rdv.rendezVous')</div>
-<div class="row">@include('cim10.cimModalForm')</div>
-<div class="row"><div id="OrientLetterPdf" hidden>@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
-<div class="row"><div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-<div class="row"><div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
-<div class="row center">@include('examenradio.ModalFoms.crrPrint')</div>
+@include('cim10.cimModalForm')
+<div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterImgPDF')</div>
+<div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
+<div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
+{{--
+@include('consultations.ModalFoms.certificatDescriptif')
+@include('examenradio.ModalFoms.crrPrint')
+--}}
 @endsection

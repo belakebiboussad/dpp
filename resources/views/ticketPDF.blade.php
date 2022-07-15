@@ -3,9 +3,6 @@
 <head>
 	<title>RDV</title>
 	<link rel="stylesheet" href="css/styles.css">
-<style>
-	/*.numberCircle { width: 60px;line-height: 60px;border-radius: 50%;text-align: center;font-size: 40px;border: 2px solid #666;}*/
-</style>
 </head>
 <body>
 	<div class="row"><div class="col-sm-12">@include('partials.etatHeader-min')</div></div>
@@ -28,7 +25,7 @@
 			<td class="col-md-4"><strong>Spécilaité :</strong><span>&nbsp;{{ $ticket->Specialite->nom }}</span></td>
 		</tr>
 	</table><br>
-	<div class="sec-droite"><!-- style="text-align: center;" -->
+	<div class="right">
 		<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG( $ticket->Patient->IPP, 'C128')}}" alt="barcode"/>
 	<br><span>IPP:{{$ticket->Patient->IPP }}</span>
 	</div>

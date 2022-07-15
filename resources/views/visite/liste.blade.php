@@ -4,7 +4,7 @@
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Visites & Contrôles</h5>
 			@if(in_array(Auth::user()->role_id,[1,13,14])){{-- med,chefser,medchef --}}
 			<div class="widget-toolbar widget-toolbar-light no-border">
-			     <a href="/visite/create/{{ $hosp->id}}"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+			     <a href="/visite/create/{{ $hosp->id}}"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
 			@endif
 		</div>

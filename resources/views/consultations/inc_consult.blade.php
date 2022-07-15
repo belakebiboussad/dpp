@@ -55,13 +55,21 @@ $('document').ready(function(){
 <div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-  <span class="f-16"><strong>Interrogatoire</strong></span></div>
+  <span class="ft16"><strong>Interrogatoire</strong></span></div>
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>{{ $consultation->motif }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin de la consultation  :</strong>&nbsp;{{ $consultation->medecin->full_name }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>&nbsp;
+    @if(isset($consultation->medecin->specialite))
+      {{ $consultation->medecin->Specialite->nom }}
+    @else
+      {{ $consultation->medecin->Service->Specialite->nom }}
+    @endif
+    </li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>&nbsp;{{ $consultation->motif }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>&nbsp;{{ $consultation->histoire_maladie }}
     </span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic :</strong><span>{{ $consultation->Diagnostic }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
@@ -69,12 +77,12 @@ $('document').ready(function(){
 </div>
 @if(isset($consultation->examensCliniques))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Examens clinique</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens clinique</strong></span></div>
 </div>
 <div class="row">
 <ul class="list-unstyled spaced">
   @if(isset($consultation->examensCliniques))
-  @if(isset($consultation->examensCliniques->consts))
+    @if(isset($consultation->examensCliniques->consts))
        @foreach(json_decode($specialite->consConst ,true) as $const)
       <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom?>
         @if($consultation->examensCliniques->consts[$obj->nom ] != null)
@@ -82,36 +90,36 @@ $('document').ready(function(){
             <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span>({{$obj->unite }})</li>
              @endif
         @endforeach
-  @endif
+    @endif
     <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat général du patient :</strong><span>{{ $consultation->examensCliniques->etat  }}</span></li>
     <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
       <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
-@endif
+  @endif
 </ul>
 </div>
-@if($consultation->examensCliniques->examsAppareil->count()>0)
+@endif
+@if($consultation->examsAppareil->count() > 0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Examens Appareils</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens Appareils</strong></span></div>
 </div>
 <div class="row">
   <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
     <div class="group">
-    @foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
+    @foreach($consultation->examsAppareil as $examAppareil)
       @if(null !== $examAppareil )
       <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab"  aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span> Appareil{{ $examAppareil->Appareil->nom }}</h3>
       <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"  role="tabpanel" style="display: none;"  aria-hidden="true">
       <p>{{ $examAppareil->description}}</p>
     </div>  
     @endif
-  @endforeach
-        </div>
-</div> <!-- fin -->
+    @endforeach
+    </div>
+</div> 
 </div>
-@endif
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'examen biologique</strong></span>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen biologique</strong></span>
   </div>
 </div>
 <div class="row">
@@ -123,27 +131,30 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th><th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center"><strong>Date</strong></th>
+                <th class="center"><strong>Etat</strong></th>
+                <th class="center" width="19%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
                 <td>{{ $consultation->date }}</td>
-                <td>
+                <td class="center">
                 <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
                 {{ $consultation->demandeexmbio->etat }}</span>
                 </td>
-                <td class="center">
-                  @if($consultation->medecin->id == Auth::user()->employ->id)
+                <td class="center">{{-- @if($consultation->medecin->id == Auth::user()->employ->id)@endif --}}
                     <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs">
                       <i class="fa fa-hand-o-up fa-xs"></i>
                     </a>
+                    @if($consultation->medecin->id == Auth::user()->employ->id)
                     @if($consultation->demandeexmbio->etat == "En Cours")
                     <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
                      <button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                     @endif
+                    @endif
                      <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a> 
-                  @endif
+                  
                 </td>
             </tbody>
           </table>
@@ -155,7 +166,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandExmImg)) 
 <div class="row">
-  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'examen d'imagerie</strong></span>
+  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen d'imagerie</strong></span>
   </div>
 </div>
 <div class="row">
@@ -167,13 +178,16 @@ $('document').ready(function(){
         <table class="table table-striped table-bordered table-hover">
           <thead class="thin-border-bottom">
             <tr>
-              <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th><th class="center"><em class="fa fa-cog"></em></th>
+              <th class="center"><strong>Date</strong></th>
+              <th class="center">
+              <strong>Etat</strong></th>
+              <th class="center" width="19%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
               <td>{{ $consultation->date }}</td>
-              <td>
+              <td class="center">
               <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
               {{ $consultation->demandExmImg->etat }}
               </span>
@@ -181,12 +195,14 @@ $('document').ready(function(){
               <td class="center">
                 <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs">
                 <i class="fa fa-hand-o-up fa-xs"></i></a>
+                @if($consultation->medecin->id == Auth::user()->employ->id)
                 @if(!$consultation->demandExmImg->hasResult())
-                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs  btn-primary">
+                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs btn-primary">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
-                @endif 
+                @endif
+                @endif
                 <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>      
             </td>
             </tr>
@@ -200,7 +216,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->ordonnances))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Ordonnance</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Ordonnance</strong></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -218,7 +234,7 @@ $('document').ready(function(){
               <tr id="{{ 'ordonnace'.$consultation->ordonnances->id }}">
                 <td>{{ $consultation->ordonnances->date }}</td>
                 <td class="center">
-                  <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye"></i></a>
+                  <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye-slash"></i></a>
                   <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                   <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 </td>
@@ -233,7 +249,7 @@ $('document').ready(function(){
 @endif
 @isset($consultation->demandeHospitalisation)
 <div class="row dh">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="f-16"><strong>Demande d'hospitalisation</span></strong>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'hospitalisation</span></strong>
   </div>
 </div>
 <div class="row dh">
@@ -262,7 +278,7 @@ $('document').ready(function(){
               </td>
               <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
               <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
-              <td>
+              <td class="center">
                 <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
               </td>
               @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
@@ -283,36 +299,35 @@ $('document').ready(function(){
   </div>
 </div>
 @endisset
-@if(isset($consultation->lettreOrintation))
+@if($consultation->lettreOrintation->count()>0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="f-16"><strong>Lettre d'Orientation</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Lettres d'Orientation</strong></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
     <div class="widget-box widget-color-blue">
-      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettre</h5></div>
+      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettres d'orientation</h5></div>
       <div class="widget-body">
         <div class="widget-main no-padding">
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th>
                 <th class="center"><strong>Spécilalité</strong></th>
-                <th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center" width="12%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ $consultation->date }}</td>
-                <td>{{ $consultation->lettreOrintation->Specialite->nom }}</td>
+                @foreach($consultation->lettreOrintation as $orient)
+                <td>{{ $orient->Specialite->nom }}</td>
                 <td class="center">
-                  <a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
-                    <i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
+                  <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".{{ $orient->id }}collapsed">
+                    <i class="ace-icon fa fa-eye-slash fa-xs"></i><span class="sr-only">Details</span>
                   </a>
-                  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->age }}',    '{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
+                  <a href="{{route("orientLetToPDF",$orient->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                 </td>
               </tr>
-              <tr class="collapse out budgets collapsed">
+              <tr class="collapse out budgets {{ $orient->id }}collapsed">
                 <td colspan="12">
                   <div class="table-detail">
                     <div class="row">
@@ -320,7 +335,17 @@ $('document').ready(function(){
                         <div class="profile-user-info profile-user-info-striped">
                           <div class="profile-info-row">
                             <div class="profile-info-name text-center"><strong>Motif:</strong></div>
-                            <div class="profile-info-value">{{ $consultation->lettreOrintation->motif }}</div>
+                            <div class="profile-info-value">{{ $orient->motif }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
+                        <div class="profile-user-info profile-user-info-striped">
+                          <div class="profile-info-row">
+                            <div class="profile-info-name text-center"><strong>Examen:</strong></div>
+                            <div class="profile-info-value">{{ $orient->examen }}</div>
                           </div>
                         </div>
                       </div>
@@ -328,6 +353,7 @@ $('document').ready(function(){
                   </div>
                 </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

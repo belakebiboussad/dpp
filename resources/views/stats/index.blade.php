@@ -40,7 +40,6 @@
         },
         ]
     };
-
        var barChartDataa = {
         labels:      serv,serv,
         datasets: [{
@@ -51,9 +50,7 @@
            
         ]
     };
-
    window.onload = function() {
-
         var ctxXX = document.getElementById("canvass").getContext("2d");
         window.myBar = new Chart(ctxXX, {
         type: 'bar',

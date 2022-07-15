@@ -26,13 +26,13 @@
       </li>
       <li>
         <a href="#" class="dropdown-toggle">
-          <i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires </span>
+          <i class="menu-icon fa fa-users"></i>  <span class="menu-text">Fonctionnaires </span>
             <b class="arrow fa fa-angle-down"></b>
         </a>
         <b class="arrow"></b>
           <ul class="submenu">
              <li>
-                <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires</a>
+                <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a>
                 <b class="arrow"></b>
               </li>
             </ul>

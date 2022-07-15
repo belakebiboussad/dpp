@@ -25,10 +25,10 @@ class SalleController extends Controller
     public function index(Request $request)
     {
       if($request->ajax())  
-      {
-        $salles = salle::whereserviceId($request->id)->get();
-        $view = view("services.ajax_servicerooms",compact('salles'))->render();
-        return Response::json(['html'=>$view]);
+      { 
+        $service = service::FindOrFail($request->id);
+        $view = view("services.ajax_servicerooms",compact('service'))->render();
+        return $view;
       }else
       {
         $salles = salle::all();
@@ -136,11 +136,9 @@ class SalleController extends Controller
       {
         foreach ($salles as $key1 => $salle) {
           foreach ($salle->lits as $key => $lit) {
-                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
-                if(! $free)
-              {
-                  $salle->lits->pull($key);
-              }
+            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
+            if(! $free)
+              $salle->lits->pull($key);
           }
         }
         foreach ($salles as $key => $salle) {
@@ -152,14 +150,12 @@ class SalleController extends Controller
             foreach ($salle->lits as $key => $lit) {
               $affect = $lit->affecter($lit->id); 
               if($affect)
-              {
                 $salle->lits->pull($key);
-              }
             }
           }
           foreach ($salles as $key => $salle) {
-                if((count($salle->lits) == 0))
-                       $salles->pull($key);
+            if((count($salle->lits) == 0))
+              $salles->pull($key);
           }
       }
       return($salles);

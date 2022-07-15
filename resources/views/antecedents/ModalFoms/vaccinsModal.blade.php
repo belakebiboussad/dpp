@@ -21,7 +21,7 @@
 					</div>
 					<div class="row">
 	      	<div class="col-sm-12">
-	  	    	<label for="dateVacc" class="control-label"><strong>Date :</strong></label>
+	  	    	<label for="dateVacc" class="control-label">Date :</label>
 						<div class="">
 							<input type="date" id="dateVacc" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" autocomplete="off"/>
 						</div> 
@@ -118,7 +118,6 @@ $(function(){
           },
           error: function (data) {
              console.log('Error:', data);
-            alert("error"); 
           }
     	});
   });

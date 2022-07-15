@@ -17,7 +17,10 @@ class EmployeController extends Controller
     {
         $this->middleware('auth');
     }
-    // public function index()  { }
+    public function index(Request $request) {
+      if($request->ajax())
+        return (specialite::FindOrFail($request->id))->employes;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +42,7 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-        $employe = employ::FindOrFail($id);//$employe = employ::with('service')->FindOrFail($id);
+        $employe = employ::FindOrFail($id);
         return view('employe.show',compact('employe'));
     }
 
@@ -73,9 +76,8 @@ class EmployeController extends Controller
            "date"         => "Le champ :attribute n'est pas une date valide.",
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
-        if ($validator->fails()) {
-              return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
-        }
+        if ($validator->fails())
+          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,
@@ -87,17 +89,20 @@ class EmployeController extends Controller
                 "Tele_fixe"=>$request->fixe,
                 "tele_mobile"=>$request->mobile,
                 "specialite"=>$request->specialite,
-                "service"=>$request->service,
+                "service_id"=>$request->service,
                 "Matricule_dgsn"=>$request->mat,
                 "NSS"=>$request->nss,
         ]);
         return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
     }
-      /**
-       * Remove the specified resource from storage.
-       *
-       * @param  \App\modeles\employ  $employ
-       * @return \Illuminate\Http\Response
-       */
-/*public function searchBySpececialite(Request $request){$doctors =  (specialite::FindOrFail($request->specialiteId))->employes;return Response::json($doctors);}*/
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\modeles\employ  $employ
+     * @return \Illuminate\Http\Response
+     */
+    public function searchBySpececialite(Request $request){
+      $doctors =  (specialite::FindOrFail($request->specialite))->employes;
+      return Response::json($doctors);
+    }
 }

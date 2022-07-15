@@ -18,7 +18,7 @@
         </div>
     </div><!-- /.sidebar-shortcuts -->
     <li class="">
-        <a href="home"> <i class="menu-icon fa fa-picture-o"></i> <span class="menu-text">Menu Gestion Patients</span> </a>
+        <a href="home"><i class="menu-icon fa fa-picture-o"></i> <span class="menu-text">Menu Gestion Patients</span> </a>
         <b class="arrow"></b>
     </li>
     <ul class="nav nav-list">
@@ -28,7 +28,7 @@
         </li>
         <li>
             <a href="/listeexrs">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste des demandes </span>
+                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
             </a>
             <b class="arrow"></b>
         </li>

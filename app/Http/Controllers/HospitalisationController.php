@@ -20,6 +20,7 @@ use App\modeles\etablissement;
 use App\modeles\prescription_constantes;
 use App\modeles\Constantes; 
 use App\modeles\consts;
+use App\modeles\ModeHospitalisation;
 use Carbon\Carbon;
 use PDF;//use Dompdf\Dompdf;
 use View;
@@ -41,35 +42,31 @@ class HospitalisationController extends Controller
       {
         if($request->ajax())  
         { 
-            // if(isset($request->value))
-            //   return $request->value;
-            // else
-            //   return "df";
             if(Auth::user()->role_id != 9){
               if($request->field != 'Nom' && ($request->field != 'IPP'))
               {
-                if($request->value != "0")   //admission.demandeHospitalisation.DemeandeColloque.medecin
+                if($request->value != "0")
                   $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin')
                                           ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                                  $q->where('id',Auth::user()->employ->service);
+                                                  $q->where('id',Auth::user()->employ->service_id);
                                                  })->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                else//'admission.demandeHospitalisation.DemeandeColloque.medecin'
+                else
                   $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin')
                                           ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                                    $q->where('id',Auth::user()->employ->service);
+                                                    $q->where('id',Auth::user()->employ->service_id);
                                                   })->where('etat',null)->get();                                   
               } else//'admission.demandeHospitalisation.DemeandeColloque.medecin
                   $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin')
                           ->whereHas('patient',function($q) use ($request){
                                  $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                           })->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                                    $q->where('id',Auth::user()->employ->service);
+                                                    $q->where('id',Auth::user()->employ->service_id);
                           })->get();
             }else
             {
               if($request->field != 'Nom' && ($request->field != 'IPP'))
               {
-                if($request->value != "0")   //'admission.demandeHospitalisation.DemeandeColloque.medecin',
+                if($request->value != "0")
                   $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin')
                                           ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
                 else
@@ -87,15 +84,15 @@ class HospitalisationController extends Controller
         {
           $etatsortie = Etatsortie::where('type','0')->get();
           $chapitres = chapitre::all();
-          $etablissement = Etablissement::first();
-          $medecins = employ::where('service',Auth::user()->employ->service)->get();
+          $etab = Etablissement::first();
+          $medecins = employ::where('service_id',Auth::user()->employ->service_id)->get();
           if(Auth::user()->role_id != 9 )//9:admission
             $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
-                                                  $q->where('id',Auth::user()->employ->service);
+                                                  $q->where('id',Auth::user()->employ->service_id);
                                                  })->where('etat','=',null)->get();
           else
             $hospitalisations = hospitalisation::where('etat','=',null)->get();             
-          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etablissement'));
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins','etab'));
         }
       }
   /**
@@ -103,23 +100,13 @@ class HospitalisationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-      public function create()
-      {
-        $serviceID = Auth::user()->employ->service;
-        $adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-                          ->whereHas('rdvHosp', function($q){
-                                              $q->where('date','=',date("Y-m-d"));
-                            })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                            $q->where('service', $serviceID)->where('etat',2);//->where('etat','admise')
-                                      })->get(); //admission d'urgenes
-        $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.medecin','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-                          ->whereHas('demandeHospitalisation.consultation', function($q){
-                                              $q->where('date',date("Y-m-d"));
-                          })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                            $q->where('service', $serviceID)->where('modeAdmission',2)->where('etat',2);
-                                      })->get();                                                    
-        return view('hospitalisations.create', compact('adms','admsUrg'));
-      }
+/*public function create(){$serviceID = Auth::user()->employ->service_id;$adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
+->whereHas('rdvHosp', function($q){$q->where('date','=',date("Y-m-d"));})->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
+$q->where('service', $serviceID)->where('etat',2);})->get(); //admission d'urgenes
+$admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.medecin','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
+->whereHas('demandeHospitalisation.consultation', function($q){$q->where('date',date("Y-m-d"));
+})->whereHas('demandeHospitalisation',function($q) use ($serviceID) {$q->where('service', $serviceID)->where('modeAdmission',2)->where('etat',2);                                      })->get();                                                    
+        return view('hospitalisations.create', compact('adms','admsUrg'));}*/
   /**
    * Store a newly created resource in storage.
    *
@@ -127,26 +114,13 @@ class HospitalisationController extends Controller
    * @return \Illuminate\Http\Response
    */
       public function store(Request $request)
-      { 
-        $today = Carbon::now()->format('Y-m-d');
-        $admission =  admission::find($request->id_admission); 
-        $hosp = hospitalisation::create([
-          "Date_entree"=>$today,//>$request->Date_entree,
-          "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
-          "patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
-          "id_admission"=>$request->id_admission,
-          'medecin_id'=>$request->medecin,
-          "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
-          "modeHosp_id"=>$request->mode,//"etat"=>"en cours",
-        ]);
-        if(isset($dmission->rdvHosp))
-        { 
-          $admission->rdvHosp->update([ "etat" =>1 ]);
-          $admission->rdvHosp->demandeHospitalisation->update(["etat" =>3]);
-        }else
-      $admission->demandeHospitalisation->update(["etat" =>3]);
-      return redirect()->action('HospitalisationController@index');
-  }
+      { /*$today = Carbon::now()->format('Y-m-d'); $admission =  admission::find($request->id_admission); 
+$hosp = hospitalisation::create(["Date_entree"=>$today,"Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
+"patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,"id_admission"=>$request->id_admission,
+'medecin_id'=>$request->medecin,"garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,"modeHosp_id"=>$request->mode,]);
+if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admission->rdvHosp->demandeHospitalisation->update(["etat" =>3]);
+}else$admission->demandeHospitalisation->update(["etat" =>3]);return redirect()->action('HospitalisationController@index');*/
+   }
   /**
    * Display the specified resource.
    *
@@ -157,12 +131,12 @@ class HospitalisationController extends Controller
   {
     $hosp = hospitalisation::find($id);
     if(isset(Auth::user()->employ->specialite))
-    {   
-      $consts = consts::all();
-      $specialite = Specialite::findOrFail($employe = Auth::user()->employ->specialite);
-      return View::make('hospitalisations.show', compact('hosp','consts','specialite'));
-    }else
-      return View::make('hospitalisations.show', compact('hosp'));
+      $specialite = Auth::user()->employ->Specialite;
+    else
+      $specialite = Auth::user()->employ->Service->Specialite;
+    $consts = consts::all();
+    return view('hospitalisations.show',compact('hosp','consts','specialite'));
+/*if(isset(Auth::user()->employ->specialite)){return view('hospitalisations.show',compact('hosp','consts','specialite'));}else return view('hospitalisations.show',compact('hosp'));*/
   }
   /**
    * Show the form for editing the specified resource.
@@ -172,9 +146,13 @@ class HospitalisationController extends Controller
    */
   public function edit($id)
   {
-    $hosp = hospitalisation::find($id); 
-    $services =service::all();
-    return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+    $hosp = hospitalisation::find($id);
+    $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
+      $q->whereIn('role_id', [1, 13, 14]);
+    })->get();
+    $modesHosp = ModeHospitalisation::all(); 
+    $services =service::where('hebergement',1)->get();
+    return view('hospitalisations.edit',compact('hosp','services','employes','modesHosp'));//->with('hosp', $hosp)->with('services',$services);
   }
   /**
    * Update the specified resource in storage.
@@ -205,7 +183,7 @@ class HospitalisationController extends Controller
    */
   public function affecterLit()
   {
-    $ServiceID = Auth::user()->employ->service;
+    $ServiceID = Auth::user()->employ->service_id;
     return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
   }
   public function detailHospXHR(Request $request)
@@ -216,7 +194,7 @@ class HospitalisationController extends Controller
   }
   public function  codebarrePrint(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id); //$etablissement = Etablissement::first();// ,'img'=>$img// ,'etablissement'=>$etablissement
+    $hosp = hospitalisation::FindOrFail($request->id); //$etab = Etablissement::first();// ,'img'=>$img// ,'etab'=>$etab
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);//plusieure en foramt A4
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();

@@ -149,8 +149,9 @@ $(function(){
 							<div class="col-sm-7">
 								<select class="form-control" name="service">
 									<option value="" disabled>Selectionner</option>		
+
 									@foreach($services as $key=>$value)
-									<option value="{{ $key }}" {{ ($user->employ->service == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
+									<option value="{{ $key }}" {{ ($user->employ->service_id == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 									@endforeach
 							</select>
 							</div>
@@ -222,7 +223,8 @@ $(function(){
 			@if( $user->active)
 				<label class ="pull-right col-xs-11 col-sm-11">Désactiver cse Compte :
 					<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger"  value="0"> 
-				</label>
+          <span class="lbl middle"></span>
+        </label>
 			@else
 				<label class ="pull-right col-xs-11 col-sm-11"> Activer le Compte :
 				<input type="checkbox" name="activeCompt" class="collapse" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Oui" data-off="<i class='fa fa-pause'></i> Non" data-size="mini" data-onstyle="primary" data-offstyle="danger"  value="1">

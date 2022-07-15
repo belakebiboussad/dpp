@@ -4,7 +4,7 @@
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>THERAPEUTIQUES RECUES</b></font></h5>
 		 	<div class="widget-toolbar widget-toolbar-light no-border"> {{-- @if(isset($patient->therapieRecue)) hidden @endif --}}
-				<a id="therapRecueAdd" class="btn-xs align-middle @if(count($patient->therapieRecue)) hidden @endif" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+				<a id="therapRecueAdd" class="btn-xs align-middle @if(count($patient->therapieRecue)) hidden @endif" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
 	 	</div>
 	 	<div class="widget-body">

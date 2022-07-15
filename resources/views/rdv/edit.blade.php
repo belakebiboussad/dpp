@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
  @include('rdv.scripts.calendar')
- @include('rdv.scripts.print'){{-- print rdv --}}
+ @include('rdv.scripts.js')
 <script>
  $(function(){
        var today = (new Date()).setHours(0, 0, 0, 0);
@@ -49,28 +49,29 @@
                    @endforeach 	
                 ],
                 eventRender: function (event, element, webData) {
-              	       if(event.id == {{$Rdv->id}})
-                             if(event.fixe)
-                                      element.css('background-color', '#87CEFA'); 
-                              else
-                                     element.css('background-color', '#378006');   
-                      else
-                              element.css('background-color', '#D3D3D3');
-                      element.css("padding", "5px");
+      	         
+                  if(event.id == {{$Rdv->id}})
+                    if(event.fixe)
+                      element.css('background-color', '#87CEFA'); 
+                    else
+                      element.css('background-color', '#378006');   
+                  else
+                    element.css('background-color', '#D3D3D3');
+                  element.css("padding", "5px");
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                      if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$Rdv->id}}))
-                     {      
-                             if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today) //(calEvent.fixe) &&
-                              {
-                                   $('#printRdv').attr("data-id",calEvent.id);
-                                   $('#printRdv').removeClass('hidden'); 
-                              }
-                             if($('#fixe').length &&(calEvent.fixe))
-                                    $("#fixe"). prop("checked", true);
-                             $('#idRDV').val(calEvent.id);
-                             ajaxEditEvent(calEvent,false);
-                     }
+                    if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$Rdv->id}}))
+                    {      
+                        if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today) //(calEvent.fixe) &&
+                        {
+                          $('#printRdv').attr("data-id",calEvent.id);
+                          $('#printRdv').removeClass('hidden'); 
+                        }
+                        if($('#fixe').length &&(calEvent.fixe))
+                          $("#fixe"). prop("checked", true);
+                        $('#idRDV').val(calEvent.id);
+                        ajaxEditEvent(calEvent,false);
+                    }
                },
                 eventAllow: function(dropLocation, draggedEvent) {
                        if (draggedEvent.id != {{$Rdv->id}} || (draggedEvent.start < today))  
@@ -83,7 +84,7 @@
                       });
                       if($('#fixe').length &&(event.fixe))
                               $("#fixe"). prop("checked", true);
-                      ajaxEditEvent(event,true);// if( event.id == {{-- $Rdv->id--}} )
+                      ajaxEditEvent(event,true);
                 },
                select: function(start, end) {
                    $('.calendar1').fullCalendar('unselect');
@@ -94,7 +95,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modifier le  rendez-vous du patient :</strong>
+	<h1><strong>Modifier le  rendez-vous du patient</strong>
   	<i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
  		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->full_name }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>

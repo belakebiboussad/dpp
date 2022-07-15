@@ -24,8 +24,8 @@
  </style>
 @endsection
 @section('page-script')
- @include('rdv.scripts.calendar')
- @include('rdv.scripts.print'){{-- print rdv --}}
+@include('rdv.scripts.calendar')
+@include('rdv.scripts.js')
 <script>
 function reset_in()
 {
@@ -47,7 +47,7 @@ $(function(){
         slotDuration: '00:15:00',
         minTime:'08:00:00',
         maxTime: '17:00:00',
-        navLinks: true, // can click day/week names to navigate views
+        navLinks: true,
         selectable: true,
         selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
         editable: true,
@@ -58,24 +58,24 @@ $(function(){
         aspectRatio: 1.5,
         disableDragging: false,
         eventDurationEditable : false,
-        displayEventTime : false,
+        displayEventTime : false, //themeSystem : "Cosmo",
         views: {},
         events: [
-                @foreach($rdvs as $rdv)
-                {
-                      title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
-                      start : '{{ $rdv->date }}',
-                      end:   '{{ $rdv->fin }}',
-                      id :'{{ $rdv->id }}',
-                      idPatient:'{{$rdv->patient->id}}',
-                      tel:'{{$rdv->patient->tele_mobile1}}',
-                      age:{{ $rdv->patient->age }},
-                      specialite: {{ $rdv->specialite_id }},
-                      medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
-                      fixe:  {{ $rdv->fixe }},
-                      etat : '{{ $rdv->etat }}',
-                },
-             @endforeach 
+              @foreach($rdvs as $rdv)
+              {
+                  title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
+                  start : '{{ $rdv->date }}',
+                  end:   '{{ $rdv->fin }}',
+                  id :'{{ $rdv->id }}',
+                  idPatient:'{{$rdv->patient->id}}',
+                  tel:'{{$rdv->patient->tele_mobile1}}',
+                  age:{{ $rdv->patient->age }},
+                  specialite: {{ $rdv->specialite_id }},
+                  medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
+                  fixe:  {{ $rdv->fixe }},
+                  etat : '{{ $rdv->etat }}',
+              },
+           @endforeach 
           ],
           select: function(start, end) {
                     $('.calendar1').fullCalendar('unselect');
@@ -83,16 +83,16 @@ $(function(){
           eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-                     reset_in();
-                      if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
-                      {
-                              $('#printRdv').attr("data-id",calEvent.id);
-                             $('#printRdv').removeClass('hidden'); 
-                       }
-                      if($('#fixe').length &&(calEvent.fixe))
-                          $("#fixe"). prop("checked", true);
-                      $('#idRDV').val(calEvent.id);
-                       ajaxEditEvent(calEvent,false);
+              reset_in();
+              if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
+              {
+                $('#printRdv').attr("data-id",calEvent.id);
+                $('#printRdv').removeClass('hidden'); 
+               }
+              if($('#fixe').length &&(calEvent.fixe))
+                  $("#fixe"). prop("checked", true);
+              $('#idRDV').val(calEvent.id); 
+              ajaxEditEvent(calEvent,'{{ $appointDoc }}',false);
             }
           },
            eventRender: function (event, element, webData) {
@@ -127,29 +127,32 @@ $(function(){
             });
             if($('#fixe').length &&(event.fixe))
               $("#fixe"). prop("checked", true);
-            ajaxEditEvent(event,true);          
+            ajaxEditEvent(event,'{{ $appointDoc }}',true);          
           },      
         }); // calendar
-           $('#patient').editableSelect({
+        $("#specialite" ).change(function() {
+          getDoctors($(this).val(),'{{ $appointDoc }}');
+        });
+        $('#patient').editableSelect({
               effects: 'default', 
               editable: false, 
-           }).on('select.editable-select', function (e, li) {
+        }).on('select.editable-select', function (e, li) {
                $('#last-selected').html(
                        li.val() + '. ' + li.text()
                 );
                $("#btnSave").removeAttr("disabled");
-           });
-           $("#patient").on("keyup", function() {
+        });
+        $("#patient").on("keyup", function() {
                  var field = $("select#filtre option").filter(":selected").val();
                  if(field != "Dat_Naissance")
                         remoteSearch(field,$("#patient").val()); //to call ajax
-           });
+        });
 })
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4 style="display: inline;"><strong>Liste des rendez-vous:</strong></h4></div><div class="space-12"></div>
-<div class="row"  style="margin-left:-2%;">
+<div class="page-header"><h4 ><strong>Liste des rendez-vous:</strong></h4></div><div class="space-12"></div>
+<div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">
           <div class="panel-heading"><div class="left"> <strong>Liste des rendez-vous</strong></div></div>

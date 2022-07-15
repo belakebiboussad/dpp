@@ -44,7 +44,20 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  /*public function store(Request $request,$consultId){$demande = demandeexb::FirstOrCreate([ "id_consultation" => $consultId,]); foreach($request->exm as $id_exb) {  $demande->examensbios()->attach($id_exb);}}*/
+  public function store(Request $request)//,$consultId
+  {
+
+    if($request->ajax())    
+    { 
+      if(isset($request->id_consultation))
+        $demande = demandeexb::FirstOrCreate([ "id_consultation" => $request->id_consultation]);
+      else
+         $demande = demandeexb::FirstOrCreate([ "visite_id" => $request->visite_id]);
+      $exams = json_decode($request->exams);
+      $demande->examensbios()->attach($exams);
+      return $demande;
+    }
+  }
   /**
      * Display the specified resource.
      *
@@ -101,19 +114,17 @@ class DemandeExbController extends Controller
     public function destroy(Request $request ,$id)
     { 
       $demande = demandeexb::FindOrFail($id);
+      $const_id = $demande->id_consultation;
       $demande = demandeexb::destroy($id);
       if($request->ajax())  
-        return Response::json($demande);
+        return $demande;
       else
-      {
-        $consult_id = $demande->consultation;
-        return redirect()->action('ConsultationsController@show',$consult_id);
-      }     
-    }
+        return redirect()->action('ConsultationsController@show', $const_id);
+     }
     public function detailsdemandeexb($id)
     {
       $demande = demandeexb::FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->consultation))
       {
         $medecin =  $patient = $demande->consultation->medecin;     
@@ -124,7 +135,7 @@ class DemandeExbController extends Controller
         $medecin =  $patient = $demande->visite->medecin ;   
         $patient = $demande->visite->hospitalisation->patient;   
       }
-      return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
+      return view('examenbio.details', compact('demande','patient','medecin','etab'));
     }
     public function uploadresultat(Request $request)
     {
@@ -165,7 +176,7 @@ class DemandeExbController extends Controller
     public function print($id)
     {
       $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->id_consultation))
       {
         $patient = $demande->consultation->patient ;
@@ -179,7 +190,7 @@ class DemandeExbController extends Controller
         $medecin = $demande->visite->medecin;
       }
       $filename = "demandeExamensBio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etablissement','medecin'));
+      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etab','medecin'));
       return $pdf->stream($filename);
     }
     public function downloadcrb($id)

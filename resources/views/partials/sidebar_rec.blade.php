@@ -37,20 +37,20 @@
                     <b class="arrow"></b>
                 </li>
                 <li>
-                    <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-caret-right"></i>Liste des patients</a>
+                    <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-caret-right"></i>Patients</a>
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
         <li>
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires </span>
+            <i class="menu-icon fa fa-users"></i>  <span class="menu-text">Fonctionnaires </span>
             <b class="arrow fa fa-angle-down"></b>
           </a>
             <b class="arrow"></b>
             <ul class="submenu">
               <li>
-                <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires</a>
+                <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a>
                 <b class="arrow"></b>
               </li>
             </ul>
@@ -67,7 +67,7 @@
               <b class="arrow"></b>
             </li>
             <li>
-              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des RDVs</a>
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a>
               <b class="arrow"></b>
             </li>
             </ul>

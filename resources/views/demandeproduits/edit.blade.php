@@ -49,14 +49,14 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modification de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<h1><strong>Modification de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
 		</a>
 	</div>
 </div>
-<div class="space-12"></div>
+<div class="space-12"></div><div class="space-12"></div>
 <div class="row">
 <div class="col-xs-12">
 	<div class="col-xs-12 col-sm-5">

@@ -90,8 +90,8 @@ class ticketController extends Controller
       public function ticketPdf($id)
       {
         $ticket = ticket::with('Patient')->FindOrFail($id);
-        $etablissement = Etablissement::first();
-        $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
+        $etab = Etablissement::first();
+        $pdf = PDF::loadView('ticketPDF', compact('ticket','etab'))->setPaper('a6','landscape');
         $name = "Ticket-".$ticket->Patient->Nom."-".$ticket->Patient->Prenom.".pdf";
         return $pdf->download($name);
       }

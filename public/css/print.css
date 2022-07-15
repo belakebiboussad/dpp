@@ -21,5 +21,5 @@
 	 .btn-print {display:none;}
  }
 @media print {
- 	 ol.c { list-style-type: decimal; 	font-size:14px;}
+ 	 ol.list { list-style-type: decimal; 	font-size:14px;}
 }

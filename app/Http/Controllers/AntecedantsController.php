@@ -32,7 +32,7 @@ class AntecedantsController extends Controller
     public function create($id_patient)
     {
         $patient = patient::FindOrFail($id_patient);
-        return view('antecedents.create_antec',compact('patient'));
+        return view('antecedents.create',compact('patient'));
     }
     /**
      * Store a newly created resource in storage.
@@ -66,9 +66,9 @@ class AntecedantsController extends Controller
      */
     public function edit($id)
     {
-        $atcd = antecedant::FindOrFail($id);
-        $patient = patient::FindOrFail($atcd->pid);
-        return view('antecedents.edit',compact('atcd','patient'));
+      $atcd = antecedant::FindOrFail($id);
+      $patient = patient::FindOrFail($atcd->pid);
+      return view('antecedents.edit',compact('atcd','patient'));
     }
 
     /**
@@ -92,8 +92,8 @@ class AntecedantsController extends Controller
      */
     public function destroy($id)
     {
-        $atcd = antecedant::destroy($id);
-        return $atcd;
+      $atcd = antecedant::destroy($id);
+      return $atcd;
     }
 
 }

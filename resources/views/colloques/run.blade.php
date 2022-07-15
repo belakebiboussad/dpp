@@ -9,51 +9,49 @@
 	});
 	function valideDemande(elm,line,id){
 		var  select = $("#" + line).find("select");
-		if (select.val() == null) {
-			if (!$(".red")[0]){
-	    	              select.after('<div class="red">Sélectionner un Medecin</div>'); 
-			}  
-	       } else {
-	  	        var formData = {
-              	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
-            	   	  	observation : $("#" + line).find('[name=observation]').val(),
-               		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-                             id_demande : $("#" + line).find('[name=demandeId]').val(),
-                              id_colloque :$("#colloqueId").val(),
-		         };
-  		       var ajaxurl = '/demandehosp/valider';
-            		if(!($(elm).hasClass("btn-success")))
-                      {	
-       	                      ajaxurl = '/demandehosp/invalider';
-                      }
-		 	$.ajax({
-			 	headers: {
-			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			      },
-	        		url : ajaxurl,
-		        	type:'POST',
-			       data:formData,
-			        dataType: 'json',
-		               success: function (data) {
-                                     if(data.etat == "Valide")
-			               {
-			     			  $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-			       		          $(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
-			 		 } else {
-				     	        $(elm).removeClass("btn-danger").addClass("btn-success");
-					        $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-				      }
-			      },
-			      error:function(data){
-			          console.log('Error:', data);
+    if (select.val() == null)
+		{
+    	if (!$(".red")[0])
+	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
+    }else {
+      var formData = {
+  	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
+	   	  	observation : $("#" + line).find('[name=observation]').val(),
+       		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+          id_demande : $("#" + line).find('[name=demandeId]').val(),
+          id_colloque :$("#colloqueId").val(),
+      };
+      var ajaxurl = '/demandehosp/valider';
+    	if(!($(elm).hasClass("btn-success")))
+        ajaxurl = '/demandehosp/invalider';
+       	$.ajax({
+		  	  headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		      },
+        	url : ajaxurl,
+	        type:'POST',
+		      data:formData,
+		      dataType: 'json',
+          success: function (data) {
+            if(data.etat == "Valide")
+            {
+   	    		  $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+     		      $(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+		 		    } else {
+			     	  $(elm).removeClass("btn-danger").addClass("btn-success");
+				      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
 			      }
+		      },
+		      error:function(data){
+		          console.log('Error:', data);
+		      }
 			}); 
 		}
 	}
 </script>
 @endsection
 @section('main-content')
-<div  class="row"><h4><strong>Déroulement du colloque  {{( $colloque->type == "0" ) ? 'Médical' :'Chérurgical'}}  de la semaine du </strong> <strong>&quot;<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong></h4>
+<div  class="row"><h4><strong>Déroulement du colloque du service &quot; {{ $colloque->Service->nom }}&quot;  de la semaine du </strong> <strong>&quot;<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong></h4>
 </div>
 <form id="detail_coll" class="form-horizontal" method="GET" action="/endcolloque/{{ $colloque->id }}"> {{--return redirect()->action('ColloqueController@index');--}}
 	{{ csrf_field() }}
@@ -85,7 +83,7 @@
 		    		<tr id= "{{ $j }}">
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
-		  				<td>{{ $demande->Specialite->nom }}</td>
+		  				<td>{{ $demande->Specialite->nom }} {{ $demande->id }}</td>
 		  				<td>{{$demande->consultation->date }}</td>
 						  <td>{{ $demande->modeAdmission }}</span></td>
 							<td>

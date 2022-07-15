@@ -14,18 +14,27 @@
 			url: '/demandehosp/' + id,
 	        	 success: function (data) {
 					$(".dh").remove();//$("#dh" + id).remove();
-			},
-			error: function (data) {
-				 console.log('Error:', data);
 			}
 	});
+  }
+  function showConsult(consultId) //a voir ce lui den haut
+  { 
+    url= '{{ route ("consultdetailsXHR", ":slug") }}',
+    url = url.replace(':slug',consultId);
+    $.ajax({
+      type : 'GET',
+      url:url,
+      success:function(data,status, xhr){
+        $('#consultDetail').html(data);
+      }
+    });             
   }
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
-}).fail(function () {console.log("Could not connect to Hub.");});});*/
- $('document').ready(function(){
-      $("#accordion" ).accordion({
+}).fail(function () {console.log("Could not connect to Hub.");});});*/// $('document').ready(function(){
+$(function(){
+    $("#accordion" ).accordion({
 	      collapsible: true ,
 	      heightStyle: "content",
 	      animate: 250,
@@ -46,15 +55,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  // $('#hosptList').DataTable({
-  //     "searching":false,
-  //     "pageLength" : 10,
-  //     bLengthChange: false,
-  //     "info" : false,
-  //     "language": {
-  //               "url": '/localisation/fr_FR.json'
-  //           }, 
-  // });
+  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,"language": { "url": '/localisation/fr_FR.json'},});*/
   $('#specialiteTick').change(function(){
         if($(this).val() =="")        	
          	$('#print').prop('disabled', 'disabled');
@@ -85,7 +86,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
                   console.log('Error:', data);
             }
         });
-	})
+	 })
   });
  /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
       e.preventDefault();//Clear out old row's color 	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
@@ -97,10 +98,11 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 <div class="row">
 	<div class="pull-right">
 	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info btn-bold"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
-	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o  orange"> Supprimer</i>
-	 </a>
+	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o orange"> Supprimer</i></a>
 	 </div>
 </div>
+<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
+<br/>
 <div>
 	<div  class="user-profile">
 		<div class="tabbable">
@@ -108,7 +110,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				<li class="active">
 					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Informations administratives</strong></a>
 				</li>
-				@if(in_array(Auth::user()->role_id,[1,14]))
+				@if(in_array(Auth::user()->role_id,[1,13,14]))
 					@if( $patient->antecedants->count() >0)
 					<li>
 						 <a data-toggle="tab" href="#Ants">
@@ -155,10 +157,8 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				<div id="homme_conf" class="tab-pane">
 				  <div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
 				</div>
-        <div id="doc" class="tab-pane">
-              @include('documents.index')
-        </div>
-			</div>
+        <div id="doc" class="tab-pane">@include('documents.index')</div>
+       </div>
 		</div>
 	</div>
 </div>

@@ -63,7 +63,7 @@ class UsersController extends Controller
         "nom"=> "required",
         "prenom"=> "required",
         "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",//"nss"=> "required",
+        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", ////"nss"=> "required",
         "username"=> "required",
         "password"=> "required",// "mail"=> "required",
         "role"=> "required",
@@ -78,19 +78,17 @@ class UsersController extends Controller
             "Tele_fixe"=>$request->fixe,
             "tele_mobile"=>$request->mobile,
             "specialite"=>$request->specialite,
-            "service"=>$request->service,
+            "service_id"=>$request->service,
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
-      ]);
-/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
+      ]);/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
       $user = User::firstOrCreate([
         "name"=>$request->username,// "password"=>$request->password,
         "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
         "employee_id"=>$employe->id,
         "role_id"=>$request->role,
-      ]);
-      //return redirect(Route('employs.show',$employe->id)); 
+      ]);//return redirect(Route('employs.show',$employe->id)); 
       return redirect(Route('users.show',$user->id));                 
     }
     /**
@@ -155,15 +153,15 @@ class UsersController extends Controller
         if(isset($request->activeCompt))
           $activer=1;
       }
-     $user->update([
+      $user->update([
               'name'=>$request->username,
-               "password"=>$user->password,
-               "email"=>$request->email,
+              "password"=>$user->password,
+              "email"=>$request->email,
               "employee_id"=>$user->employee_id,
               "role_id"=>$request->role,
               "active"=>$activer,   
      ]);  
-    return redirect(Route('users.show',$id));
+     return redirect(Route('users.show',$id));
     }
 
     /**
@@ -288,7 +286,7 @@ class UsersController extends Controller
               break;
         case "service_id"  :
               $users = User::with('role')->whereHas('employ', function ($q) use ($value){
-                                             $q->where('service',$value);
+                                             $q->where('service_id',$value);
                                          })->get();
               break; 
         default:    

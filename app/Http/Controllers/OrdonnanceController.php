@@ -12,7 +12,7 @@ use Jenssegers\Date\Date;
 use PDF;
 use Response;
 use Storage;
-use File;// use Dompdf\Dompdf;
+use File;
 use View;
 class OrdonnanceController extends Controller
 {
@@ -33,7 +33,7 @@ class OrdonnanceController extends Controller
     public function create($id_consultation)
     {
       $consultation = consultation::where("id",$id_consultation)->get()->first();
-      $patient = patient::where("id",$consultation->pid)->get()->first();
+      $patient = patient::where("id",$consultation->pid)->first();
       return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
     /**
@@ -88,11 +88,11 @@ class OrdonnanceController extends Controller
        $ordonnance = ordonnance::FindOrFail($id);
        return view('ordennance.show', compact('ordonnance'));
     }
-    public function show_ordonnance($id)
+    public function print($id)
     {  
       $ordonnance = ordonnance::FindOrFail($id);
-      $etablissement = Etablissement::first();
-      $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance','etablissement'));
+      $etab = Etablissement::first();
+      $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('ordonnance','etab'));
       $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
       Storage::put('public/pdf/'.$filename,$pdf->output());
       $file = storage_path() . "/app/public/pdf/" . $filename;
@@ -110,25 +110,4 @@ class OrdonnanceController extends Controller
       $ord = ordonnance::destroy($id);
       return Response::json($ord);
     }
-    public function print(Request $request)
-    { 
-      $medicaments = array(); $posologies = array();
-      $patient = patient::FindOrFail($request->id_patient);
-      $employe = employ::FindOrFail($request->id_employe);
-      $etablissement = Etablissement::first();
-      $meds = json_decode($request->meds);    
-      foreach ($meds as $key => $med) {
-        foreach ($med as $key => $value) {
-          if($key == "id")
-          {
-            $m =  medicament::FindOrFail($value); 
-            $medicaments[] = $m;                                        
-          }else
-            array_push($posologies, $value);
-        }
-      }
-      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies','etablissement'))->render();
-      return(['html'=>$view]);//return Response::json(['html'=>$view]);
-   }
-
 }

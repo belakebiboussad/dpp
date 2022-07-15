@@ -11,26 +11,36 @@
         <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
         @if(Auth::user()->role_id == 2)
 			  <div class="panel panel-default">
- 			    <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
+ 			    <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
-       	  	<div class="row">
-	         	<div class="col-sm-12">
-           		<div class="form-group">
-		          	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
-		          	<select class="form-control" id="specialite" required>
+       	   	<div class="form-group">
+		         	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+		          	<select class="form-control specialite" id="specialite" required>
                  	<option value="" selected disabled> Selectionner...</option>
                  	@foreach($specialites as $specialite)
                		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
                		 @endforeach
                 </select>
-	         		</div>
-           	</div>
+	         	</div>
           </div>
-	        </div>
         </div>
+        @isset($appointDoc)
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <i class="ace-icon fa  fa-user-md bigger-110"></i>&nbsp;<span>Selectionner une médecin</span></div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-form-label"><strong>Médecin :</strong></label>  
+                <select class="form-control" id="employ_id" disabled>
+                  <option value="" selected="selected">Selectionner...</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        @endisset
 	      @endif
         <div class="panel panel-default" id="patientPanel">
-      		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
+      		<div class="panel-heading"><i class="ace-icon fa fa-user"></i>&nbsp;<span>Selectionner un patient</span></div>
         	<div class="panel-body">	
         		<div class="row">
 	          	<div class="col-sm-4">
@@ -48,10 +58,6 @@
 			          <div class="form-group">
 			          	<label class="col-form-label" for="patient"><strong>&nbsp;</strong></label>
 			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
-                    {{-- @if(isset($patient))
-                       @else
-                     <input type="search"  class="form-control"  id="pat-search" name="q" value ="{{ $patient->full_name }}"autocomplete="off">
-                    @endif --}}
                     <div id="livesearch"></div>
                     </div>
 			          	</div>
@@ -60,8 +66,8 @@
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-success" type="button" id ="btnSave"   data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
-			 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
+		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
+			      <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
 		      </div>
       	</form>
   		</div>
@@ -79,9 +85,8 @@
   {
     $('#date').val(date); $('#fin').val(fin);  $('#fixe').val(fixe);
     if(pid !== 0)
-    { // $("#pat-search").val('{{-- $patient->full_name --}}').show();// $("#pat_id").val(pid);
-     // $("#pat-search").attr("disabled", false);//$("#btnSave").removeAttr("disabled");
-      $("#pat_id").val(pid); //$("#pat-search").val(name);
+    {
+      $("#pat_id").val(pid);
       if(! ($( "#patientPanel" ).hasClass( "hidden" )))
         $("#patientPanel").addClass("hidden");
     }else
@@ -103,7 +108,8 @@
     getPatient(); 
   });
   $("#specialite" ).change(function() {
-    if($("#specialite") != '')
+    getDoctors($(this).val(), '{{ $appointDoc }}');
+    if($(this).val() != '')
     {
       if('{{ $patient->id }}' == '')
       {

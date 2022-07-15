@@ -129,7 +129,7 @@
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
-		<div class="panel-heading left">{{-- style="height: 40px; font-size: 2.3vh;" --}}
+		<div class="panel-heading left">
 			<strong>Rechercher une sortie</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
@@ -144,12 +144,12 @@
     		</div>
         <div class="col-sm-4">
         	<div class="form-group">
-         		<label class="control-label" for="" ><strong>Date sortie:</strong></label>
+         		<label class="control-label" for="Date_Sortie">Date sortie:</label>
          		<div class="input-group">
   			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     			</div>
-		</div>
+		    </div>
         </div>	
   		</div>
 		</div>

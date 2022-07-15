@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 27 avr. 2022 à 15:17
+-- Généré le : mar. 10 mai 2022 à 11:29
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dpdgsndb`
+-- Base de données : `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -45,6 +45,42 @@ CREATE TABLE IF NOT EXISTS `actes` (
   KEY `fk_code_ngap` (`code_ngap`),
   KEY `fk_acte_viste` (`id_visite`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `actes`
+--
+
+INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap`, `periodes`, `nbrFJ`, `duree`, `retire`, `created_at`, `updated_at`) VALUES
+(3, 'acte1', 6, 'une foie le soir', 'paramedicale', 'CA', NULL, 1, NULL, b'1', NULL, NULL),
+(4, 'acte1', 340, '2 fois par jour', 'paramedicale', 'CRM', NULL, 1, NULL, b'0', NULL, NULL),
+(5, 'pensement', 11, 'trois fois par jour', 'paramedicale', 'CRD', NULL, 1, NULL, b'0', NULL, NULL),
+(6, 'douche', 11, 'chaque jour', 'paramedicale', 'CRM', NULL, 1, NULL, b'1', NULL, NULL),
+(7, 'pensement', 13, 'une foie le soir', 'paramedicale', 'CRN', NULL, 1, NULL, b'1', NULL, NULL),
+(10, 'faire le pensement', 165, 'changer chaque soir', 'medicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(11, 'faire un pensement', 165, 'kyk', 'medicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(12, 'faire un pensement', 165, 'une chaque soir', 'medicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(13, 'faire un pensement', 165, 'une foie le soir', 'medicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(14, 'faire un pensement', 165, 'acte un ds', 'medicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(15, 'faire un pensement', 195, 'tou les jour a 10', 'medicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(16, 'laver le pied', 195, 'le soir', 'medicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(17, 'faire eguille', 199, 'calculer la temerateur', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(18, 'faire une eguille', 207, 'apre mange', 'paramedicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(19, 'faire un pensement', 205, 'a la cuisse chaque matin', 'medicale', NULL, NULL, 1, NULL, b'0', NULL, NULL),
+(20, 'faire la toillette', 205, 'chaque matin', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(21, 'faire une toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(22, 'faire la toilette', 206, 'chaque jour', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(23, 'temperateut', 206, 'dqsdsq', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(24, 'acte', 214, 'une foie le soir', 'paramedicale', NULL, NULL, 1, NULL, b'1', NULL, NULL),
+(25, 'puipo', 253, NULL, 'medicale', 'C', NULL, 1, NULL, b'1', NULL, NULL),
+(26, 'faire une toilette', 260, 'apres dfdsfdsf', 'paramedicale', 'CRD', NULL, 1, NULL, b'1', NULL, NULL),
+(31, 'faire un pensement', 305, 'une foie le soir', 'paramedicale', 'CRD', NULL, 1, NULL, b'1', NULL, NULL),
+(32, 'faire un pensement', 310, NULL, 'paramedicale', 'AIS', NULL, 4, NULL, b'0', NULL, NULL),
+(33, 'faire un pensement', 311, 'après nettoyage', 'paramedicale', 'AIS', NULL, 3, NULL, b'0', NULL, NULL),
+(34, 'faire un pensement', 313, 'apres nettoyage', 'paramedicale', 'AIS', NULL, 3, NULL, b'0', NULL, NULL),
+(35, 'faire un pensement', 314, 'apres netoyage', 'paramedicale', 'AIS', NULL, 4, NULL, b'0', NULL, NULL),
+(36, 'acte1', 345, 'une foie le soir', 'paramedicale', 'C', NULL, 3, NULL, b'0', NULL, NULL),
+(37, 'acte2', 345, 'dauxfoie le soir', 'paramedicale', 'IK', NULL, 3, NULL, b'1', NULL, NULL),
+(38, 'acte3', 346, 'quatre foie le soir', 'paramedicale', 'CRN', NULL, 4, NULL, b'0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -77,9 +113,24 @@ CREATE TABLE IF NOT EXISTS `acte_execs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_exec_acte` (`acte_id`),
-  KEY `fk_exec_employ` (`employ_id`)
+  KEY `fk_exec_employ` (`employ_id`),
+  KEY `fk_exec_acte` (`acte_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `acte_execs`
+--
+
+INSERT INTO `acte_execs` (`id`, `acte_id`, `employ_id`, `does`, `obs`, `ordre`, `state`, `created_at`, `updated_at`) VALUES
+(7, 15, 113, 1, 'dsqdq', NULL, NULL, '2022-04-06 16:08:54', '2022-04-06 16:08:54'),
+(8, 15, 113, 1, 'dsqdq', NULL, NULL, '2022-04-06 16:09:07', '2022-04-06 16:09:07'),
+(9, 15, 113, 1, 'dsqdsq', NULL, NULL, '2022-04-06 16:10:25', '2022-04-06 16:10:25'),
+(10, 16, 113, 1, 'qsds', NULL, NULL, '2022-04-06 16:11:48', '2022-04-06 16:11:48'),
+(11, 18, 103, 1, 'avec succes', NULL, NULL, '2022-04-07 13:59:33', '2022-04-07 13:59:33'),
+(12, 18, 103, 1, 'fait mais une fievre', NULL, NULL, '2022-04-10 13:35:02', '2022-04-10 13:35:02'),
+(24, 35, 103, 1, 'sqSQ', 1, NULL, '2022-04-17 13:05:02', '2022-04-17 13:05:02'),
+(27, 35, 103, 1, 'dqsdsq', 2, NULL, '2022-04-17 13:08:01', '2022-04-17 13:08:01'),
+(30, 34, 103, 1, 'xw<x', 1, NULL, '2022-04-17 13:27:10', '2022-04-17 13:27:10');
 
 -- --------------------------------------------------------
 
@@ -142,6 +193,29 @@ CREATE TABLE IF NOT EXISTS `admissions` (
   KEY `admissions_id_rdvHosp_foreign` (`id_rdvHosp`) USING BTREE,
   KEY `fk_admission_demandeHosp` (`demande_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `admissions`
+--
+
+INSERT INTO `admissions` (`id`, `demande_id`, `date`, `id_rdvHosp`, `id_lit`, `etat`) VALUES
+(1, 47, '2021-07-10 14:01:27', 3, 7, NULL),
+(3, 48, '2021-07-12 10:48:44', NULL, 5, 1),
+(4, 52, '2021-07-12 13:29:31', 11, 6, NULL),
+(5, 50, '2021-07-13 08:58:56', 4, 4, NULL),
+(6, 53, '2021-07-13 09:02:55', 13, 3, NULL),
+(8, 54, '2021-07-24 16:54:42', NULL, 4, NULL),
+(9, 71, '2022-03-30 10:04:12', NULL, 3, 1),
+(10, 73, '2022-03-30 10:04:20', NULL, 1, NULL),
+(11, 75, '2022-03-30 10:43:22', NULL, 3, NULL),
+(12, 67, '2022-04-03 09:20:23', 16, 12, NULL),
+(14, 70, '2022-04-07 15:34:26', 18, 1, 1),
+(15, 76, '2022-04-14 08:29:03', 19, 1, 1),
+(16, 82, '2022-04-14 16:08:57', 20, 5, 1),
+(17, 81, '2022-04-14 16:29:53', 21, 14, 1),
+(18, 83, '2022-04-14 17:17:55', 22, 15, NULL),
+(19, 84, '2022-04-14 17:37:37', 23, 14, NULL),
+(20, 77, '2022-04-19 10:04:49', 25, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +386,6 @@ INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`
 ('dfdsf', 'fdsfds', NULL, NULL, 'M', 'C', NULL, NULL, NULL, 'A+', 'Activité', 'pj', NULL, NULL, '032564245155', NULL),
 ('mradfi', 'patient', '1979-01-08', 613, 'M', 'M', 'cite 20 out bat 54 appt 02', 287, 9, 'A+', 'Activité', 'PC', '47564', 3, '032564245458', NULL),
 ('rabii', 'lamia', '1973-06-13', 613, 'F', 'C', 'alger', 613, 16, 'A+', 'Activité', 'PJ', NULL, 1, '032564245657', 'sdd44554545s'),
-('djouali', 'ahmed', '1989-06-13', 613, 'M', 'M', 'alger', 606, 16, 'B+', 'Activité', 'police', 'MT103', 8, '032564245689', '898744564052'),
 ('malade', 'assure', '1942-09-28', NULL, 'M', 'C', 'ain el hammam', 613, 16, 'B+', 'Activité', 'police judicaire', 'Mp102', 6, '034956424565', NULL),
 ('dqs', 'dqsd', NULL, NULL, 'M', NULL, NULL, NULL, NULL, 'B+', 'Licencié', NULL, NULL, 1, '054654564981', NULL),
 ('aliane', 'moula', '1994-06-14', NULL, 'M', NULL, NULL, NULL, 49, 'B+', 'Retraite', NULL, NULL, 1, '055562487569', NULL),
@@ -347,12 +420,11 @@ INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`
 ('DAOUDI', 'SAMIR', '1970-02-12', 613, 'M', 'M', 'CITE 62 CHALET N° 69 DAR EL BEIDA', NULL, 9, 'O+', 'Activité', 'PP', '12122', 11, '720304008357', NULL),
 ('ds', 'dsq', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'A+', 'Activité', 'hgj', 'jh145', 1, '757577575701', NULL),
 ('FAID', 'SAMIR', '1970-02-12', NULL, 'M', 'M', 'BP 1 RAS EL OUED BORDJ BOU ARRERIDJ', NULL, 34, 'O+', 'Activité', 'DRH', '27130', 5, '783062001550', NULL),
-('amari', 'oualid', '1974-01-15', 613, 'M', 'M', 'alger', 613, 16, 'B+', 'Activité', 'Pj', 'Mt021', 1, '785632564245', NULL),
 ('nounou', 'foaud', '1961-06-14', NULL, 'M', NULL, NULL, NULL, 49, 'A-', 'Démission', NULL, NULL, 1, '875614312555', NULL),
 ('sdf', 'fsdf', NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', 'Activité', 'PJ', NULL, 1, '875614325800', NULL),
 ('begar', 'redouane', '2021-09-13', NULL, 'M', NULL, 'alger', 613, 16, 'B+', 'Activité', 'ppj', NULL, NULL, '875614325815', NULL),
 ('dahmoun', 'djalil', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'B+', 'Activité', 'mj', NULL, 1, '875614325843', NULL),
-('oukali', 'amar', '1964-06-16', 613, 'M', 'M', 'hussein dey', 613, 16, 'A+', 'Détachement', NULL, 'MT103', 3, '875614325844', '898744564189'),
+('fdsf', 'dqsd', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'A+', 'Détachement', NULL, NULL, 1, '875614325844', NULL),
 ('koudil', 'hamza', NULL, NULL, 'M', 'D', 'rua ben omar kouba', NULL, 15, 'A+', 'Activité', 'PJ', 'hk128', 12, '875614325845', NULL),
 ('AMGHAR', 'TOUFIK', '1970-02-12', 1556, 'M', 'M', 'RUE MEHENI MOKHTAR BABOR ', 1556, 19, 'A+', 'Activité', 'DST', '3M533', 6, '880669014435', NULL),
 ('BOUALAMALLAH', 'MOHAMED ALI', '1989-05-11', 1556, 'M', 'M', 'RUE BOUZAR BOUALEM DOUAOUDA MARINE', 1556, 42, 'A+', 'Activité', 'PJ', '3J654', 6, '891657001839', NULL),
@@ -362,7 +434,6 @@ INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`
 ('lounis', 'damia', '2019-05-20', NULL, 'M', 'C', 'ds', 613, 16, 'A+', 'Congé Longue Durée', NULL, 'd2sd4', 2, '962656566485', NULL),
 ('aradj', 'lotfi', '1980-01-06', NULL, 'M', NULL, NULL, NULL, 49, 'AB-', 'Activité', 'PC', NULL, 1, '982564245654', NULL),
 ('gre', 'greg', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'A+', 'Congé Maladie', NULL, NULL, 1, '985620217569', NULL),
-('djaredi', 'ali', '1973-10-30', 297, 'M', 'M', 'el affroun', 297, 9, 'O+', 'Activité', 'service 1', 'MT144', NULL, '985624521569', '561248825575'),
 (NULL, NULL, NULL, NULL, 'M', 'C', NULL, NULL, 49, '', 'Détachement', NULL, NULL, 1, '985624875614', NULL),
 ('ali', 'patient', '1965-07-20', NULL, 'M', NULL, NULL, 1556, 49, 'B+', 'Retraite', NULL, NULL, 1, '985624875656', NULL),
 ('up', 'assure', NULL, NULL, 'F', NULL, NULL, NULL, 49, 'A+', 'Détachement', NULL, NULL, 1, '985624875695', NULL),
@@ -664,18 +735,34 @@ CREATE TABLE IF NOT EXISTS `colloques` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `etat` enum('en cours','cloture','annule') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en cours',
+  `date_creation` date NOT NULL,
   `type` tinyint(1) NOT NULL COMMENT '0:medicale,1:chirurgical',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `colloques`
 --
 
-INSERT INTO `colloques` (`id`, `date`, `etat`, `type`, `created_at`, `updated_at`) VALUES
-(176, '2022-04-27', 'en cours', 0, '2022-04-27 13:52:10', '2022-04-27 13:52:10');
+INSERT INTO `colloques` (`id`, `date`, `etat`, `date_creation`, `type`) VALUES
+(158, '2021-07-08', 'cloture', '2021-07-08', 0),
+(159, '2021-07-10', 'cloture', '2021-07-10', 0),
+(160, '2021-07-10', 'cloture', '2021-07-10', 0),
+(161, '2021-07-12', 'cloture', '2021-07-12', 0),
+(162, '2021-07-12', 'cloture', '2021-07-12', 0),
+(163, '2021-12-09', 'cloture', '2021-12-09', 0),
+(164, '2022-02-27', 'cloture', '2022-02-27', 0),
+(165, '2022-02-28', 'cloture', '2022-02-27', 0),
+(166, '2022-03-16', 'cloture', '2022-03-16', 0),
+(167, '2022-04-03', 'cloture', '2022-04-03', 0),
+(168, '2022-04-07', 'cloture', '2022-04-07', 0),
+(169, '2022-04-14', 'cloture', '2022-04-14', 0),
+(170, '2022-04-14', 'cloture', '2022-04-14', 0),
+(171, '2022-04-14', 'cloture', '2022-04-14', 0),
+(172, '2022-04-14', 'cloture', '2022-04-14', 0),
+(173, '2022-04-14', 'cloture', '2022-04-14', 0),
+(174, '2022-04-16', 'cloture', '2022-04-16', 0),
+(175, '2022-04-19', 'cloture', '2022-04-19', 0);
 
 -- --------------------------------------------------------
 
@@ -2377,15 +2464,20 @@ CREATE TABLE IF NOT EXISTS `constantes` (
 --
 
 INSERT INTO `constantes` (`id`, `poids`, `taille`, `PAS`, `PAD`, `pouls`, `temp`, `glycemie`, `LDL`, `HDL`, `apgar`, `shoutnbr`, `PC`, `date`, `examCl_id`, `hospitalisation_id`) VALUES
+(44, 128.8, 231, NULL, NULL, NULL, NULL, 3.7, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL),
 (45, 100, 120, 120, 82, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-03-29 09:30:21', NULL, 2),
 (46, 99, 118, 122, 83, NULL, 37.1, 0.8, 1.5, NULL, NULL, NULL, NULL, '2022-03-29 09:31:17', NULL, 2),
 (47, 95, 115, NULL, 79, 64, 37.8, 1.05, NULL, NULL, NULL, NULL, NULL, '2022-03-29 09:32:27', NULL, 2),
 (48, 80, 90, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-03-29 11:18:23', NULL, 2),
+(49, 69.6, NULL, NULL, NULL, 4, NULL, 1.8, NULL, NULL, NULL, NULL, NULL, NULL, 6, NULL),
+(50, 33.8, 47, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7, NULL),
 (51, NULL, NULL, 110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-14 14:26:07', NULL, 2),
 (52, NULL, 105, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-14 14:27:01', NULL, 2),
 (53, 85, 112, 120, 90, 70, 38, 0, NULL, NULL, NULL, NULL, NULL, '2022-04-14 14:28:21', NULL, 2),
 (54, NULL, NULL, NULL, NULL, NULL, NULL, 0.9, NULL, NULL, NULL, NULL, NULL, '2022-04-14 14:29:31', NULL, 2),
 (55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1.8, NULL, NULL, NULL, NULL, '2022-04-14 14:30:09', NULL, 2),
+(57, 107.8, 141, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL),
+(58, 75.6, 172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL),
 (67, NULL, NULL, NULL, NULL, 9, 37, NULL, 1.8, NULL, NULL, NULL, NULL, '2022-04-18 16:19:46', NULL, 14),
 (68, NULL, NULL, NULL, NULL, NULL, 37.05, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-18 16:55:00', NULL, 14),
 (69, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-19 08:53:00', NULL, 14),
@@ -2480,14 +2572,79 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
 --
 
 INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `employ_id`, `pid`, `id_code_sim`, `id_lieu`) VALUES
-(284, 'avec dh', NULL, '2022-04-27', NULL, 'avec dh', 0, NULL, 102, 304, NULL, 21);
+(162, 'avec dh', NULL, '2021-07-08', NULL, 'avec dh', 0, NULL, 102, 190, NULL, 21),
+(163, 'dhu', NULL, '2021-07-12', NULL, 'dhu', 0, NULL, 102, 190, NULL, 21),
+(164, 'dhu', NULL, '2021-07-10', NULL, 'dhu', 0, NULL, 88, 190, NULL, 21),
+(165, 'dhamb', NULL, '2021-07-10', NULL, 'dhamb', 0, NULL, 88, 226, NULL, 21),
+(166, 'dhp', NULL, '2021-07-10', NULL, 'dhpdhp', 0, NULL, 88, 238, NULL, 21),
+(167, 'avec dh', NULL, '2021-07-12', NULL, '</span>', 0, NULL, 88, 265, NULL, 21),
+(168, 'avec du ambulatoire', NULL, '2021-07-12', NULL, 'avec du ambulatoire', 0, NULL, 88, 275, NULL, 21),
+(171, 'avec bio', NULL, '2021-07-13', NULL, 'avec bio', 0, NULL, 88, 253, NULL, 21),
+(177, 'avec dradio', NULL, '2021-07-22', NULL, 'avec dradio', 0, NULL, 102, 191, NULL, 21),
+(178, 'avec dradio', NULL, '2021-07-23', NULL, 'avec dradio', 0, NULL, 102, 206, NULL, 21),
+(179, 'dhu', NULL, '2021-07-24', NULL, 'dhu', 0, NULL, 88, 204, NULL, 21),
+(180, 'gregr', NULL, '2021-07-27', NULL, 'grregergre', 0, NULL, 88, 191, NULL, 21),
+(187, 'avec radio', NULL, '2021-09-21', NULL, 'avec radio', 0, NULL, 100, 192, NULL, 21),
+(188, 'avec bio + radio', NULL, '2021-09-21', NULL, 'avec bio + radio', 0, NULL, 113, 222, NULL, 21),
+(189, 'avec dh', NULL, '2021-12-09', NULL, 'sh', 0, NULL, 113, 194, NULL, 21),
+(190, 'avec dh', NULL, '2021-12-09', NULL, 'avec dh', 0, NULL, 102, 190, NULL, 21),
+(191, 'avec dh', NULL, '2021-12-09', 'vxcvcx', 'avec dh', 0, NULL, 102, 191, NULL, 21),
+(192, 'avec radio', NULL, '2022-01-19', NULL, 'avec radio', 0, NULL, 113, 222, NULL, 21),
+(193, 'avec dh', NULL, '2022-02-27', NULL, 'avec dh', 0, NULL, 113, 268, NULL, 21),
+(194, 'avec dh', NULL, '2022-02-27', NULL, 'avec dh', 0, NULL, 113, 270, NULL, 21),
+(195, 'avec dhu', NULL, '2022-03-04', NULL, 'avec dhu', 0, NULL, 100, 190, NULL, 21),
+(196, 'aven lettre rientation', NULL, '2022-03-04', NULL, 'aven lettre rientation', 0, NULL, 100, 191, NULL, 21),
+(203, 'avec examen appareil', NULL, '2022-03-06', NULL, 'avec examen appareil', 0, NULL, 100, 190, NULL, 21),
+(204, 'avec examen appareil', NULL, '2022-03-07', NULL, 'avec examen appareilavec examen appareil', 0, NULL, 113, 194, NULL, 21),
+(205, 'avec radio', NULL, '2022-03-22', NULL, 'avec radio', 0, NULL, 100, 192, NULL, 21),
+(206, 'avec radio', NULL, '2022-03-22', NULL, 'avec radio', 0, NULL, 100, 192, NULL, 21),
+(208, 'avec radio', NULL, '2022-03-22', NULL, 'avec radio', 0, NULL, 113, 194, NULL, 21),
+(209, 'avec radio', NULL, '2022-03-23', NULL, 'avec radio', 0, NULL, 113, 222, NULL, 21),
+(210, 'avec radio', NULL, '2022-03-23', NULL, 'avec radio', 0, NULL, 113, 285, NULL, 21),
+(216, 'avec examen clinique', NULL, '2022-03-27', 'avec examen clinique', 'avec examen clinique', 0, NULL, 113, 272, NULL, 21),
+(218, 'examen appareil', NULL, '2022-03-27', NULL, 'examen appareil', 0, NULL, 113, 277, NULL, 21),
+(237, 'avec dh', NULL, '2022-03-29', NULL, 'avec dh', 0, NULL, 102, 261, NULL, 21),
+(238, 'avec dh', NULL, '2022-03-29', NULL, 'avec dh', 0, NULL, 113, 222, NULL, 21),
+(239, 'avec dh', NULL, '2022-03-29', NULL, 'avec dh', 0, NULL, 102, 265, NULL, 21),
+(240, 'avec dhu', NULL, '2022-03-30', NULL, 'avec dhu', 0, NULL, 100, 228, NULL, 21),
+(241, 'avc dh', NULL, '2022-03-30', NULL, 'avc dh', 0, NULL, 103, 285, NULL, 21),
+(242, 'avec dh', NULL, '2022-03-30', NULL, 'cddc', 0, NULL, 113, 193, NULL, 21),
+(243, 'motif teste', NULL, '2022-03-30', NULL, 'ljk', 0, NULL, 100, 192, NULL, 21),
+(244, 'fze', NULL, '2022-03-30', NULL, 'fezf', 0, NULL, 113, 194, NULL, 21),
+(245, 'motif teste', NULL, '2022-03-30', NULL, 'motift', 0, NULL, 102, 190, NULL, 21),
+(246, 'de', NULL, '2022-03-30', NULL, 'de', 0, NULL, 102, 191, NULL, 21),
+(247, 'ave tout', NULL, '2022-03-30', NULL, 'ave tout', 0, NULL, 102, 188, NULL, 21),
+(248, 'avec dh', NULL, '2022-04-03', NULL, 'avec dh', 0, NULL, 103, 222, NULL, 21),
+(249, 'avec dh', NULL, '2022-04-03', NULL, 'avec dh', 0, NULL, 100, 192, NULL, 21),
+(251, 'avec dh', NULL, '2022-04-04', NULL, 'avec dh', 0, NULL, 122, 252, NULL, 21),
+(254, 'avec ordonnance', NULL, '2022-04-06', NULL, 'avec ordonnance', 0, NULL, 100, 243, NULL, 21),
+(255, 'avec dh', NULL, '2022-04-07', NULL, 'avec dh', 0, NULL, 121, 190, NULL, 21),
+(265, 'antecefant', NULL, '2022-04-07', NULL, 'antecefant', 0, NULL, 103, 226, NULL, 21),
+(266, 'avec dh', NULL, '2022-04-07', NULL, 'avec dh', 0, NULL, 121, 272, NULL, 21),
+(267, 'avc radio', NULL, '2022-04-07', NULL, 'avc radio', 0, NULL, 103, 222, NULL, 21),
+(268, 'dsq', NULL, '2022-04-07', NULL, 'qs', 0, NULL, 102, 222, NULL, 21),
+(269, 'fsd', NULL, '2022-04-07', NULL, 'fdsf', 0, NULL, 102, 268, NULL, 21),
+(270, 'sqd', NULL, '2022-04-07', NULL, 'dqsd', 0, NULL, 102, 268, 'E15', 21),
+(271, 'sqd', NULL, '2022-04-07', NULL, 'dqsd', 0, NULL, 102, 268, 'E15', 21),
+(272, 'avec examen rad', NULL, '2022-04-10', NULL, 'avec examen rad', 0, NULL, 102, 222, NULL, 21),
+(273, 'avec radio', NULL, '2022-04-10', NULL, 'avec radio', 0, NULL, 102, 238, NULL, 21),
+(274, 'avec dh', NULL, '2022-04-14', NULL, 'avec dh', 0, NULL, 103, 194, NULL, 21),
+(275, 'une consultation', NULL, '2022-04-14', NULL, 'une consultation', 0, NULL, 103, 270, NULL, 21),
+(276, 'avec dh', NULL, '2022-04-14', NULL, 'avec dh', 0, NULL, 103, 188, NULL, 21),
+(277, 'motif consu', NULL, '2022-04-14', NULL, 'resume consult', 0, NULL, 103, 193, NULL, 21),
+(278, 'motif consult', NULL, '2022-04-14', NULL, 'resumé de consultation', 0, NULL, 113, 193, NULL, 21),
+(279, 'motif consult', NULL, '2022-04-14', NULL, 'resume consult', 0, NULL, 113, 285, NULL, 21),
+(280, 'jnoji', NULL, '2022-04-16', NULL, 'oio', 0, NULL, 113, 188, NULL, 21),
+(281, 'kjolkjo', NULL, '2022-04-16', NULL, 'oiuoiu', 0, NULL, 113, 188, NULL, 21),
+(282, 'avec ordonance', NULL, '2022-04-24', NULL, 'avec ordonance', 0, NULL, 103, 193, NULL, 21),
+(283, 'avec db et dr', NULL, '2022-04-24', NULL, 'avec db et dr', 0, NULL, 103, 268, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -2506,6 +2663,17 @@ CREATE TABLE IF NOT EXISTS `crrs` (
   PRIMARY KEY (`id`),
   KEY `fk_exam_rad` (`exam_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='compte Rendue Radiologique';
+
+--
+-- Déchargement des données de la table `crrs`
+--
+
+INSERT INTO `crrs` (`id`, `indication`, `techRea`, `result`, `conclusion`, `exam_id`) VALUES
+(1, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 28),
+(2, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 29),
+(3, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 58),
+(4, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 51),
+(5, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 52);
 
 -- --------------------------------------------------------
 
@@ -3095,6 +3263,28 @@ CREATE TABLE IF NOT EXISTS `demandeexb` (
   KEY `fk_visite` (`visite_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `demandeexb`
+--
+
+INSERT INTO `demandeexb` (`id`, `etat`, `resultat`, `crb`, `id_consultation`, `visite_id`) VALUES
+(7, 1, 'd_1648477668.png', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 6),
+(8, 1, 'c_1648463080.bmp', 'est un compte rendu biologique', NULL, 9),
+(9, 1, 'etudiant.png', '$**p\r\n\r\np^$\r\np^$', NULL, 13),
+(19, 1, 'd_1648634343.png', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 247, NULL),
+(20, NULL, NULL, NULL, 271, NULL),
+(21, NULL, NULL, NULL, 275, NULL),
+(22, 1, 'resultat2_1650807666.jpg', NULL, 277, NULL),
+(23, NULL, NULL, NULL, 278, NULL),
+(24, NULL, NULL, NULL, 279, NULL),
+(25, NULL, NULL, NULL, 280, NULL),
+(26, NULL, NULL, NULL, 281, NULL),
+(27, 1, 'result1_1650805710.png', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 283, NULL),
+(28, NULL, NULL, NULL, NULL, 331),
+(29, NULL, NULL, NULL, NULL, 331),
+(30, NULL, NULL, NULL, NULL, 331),
+(31, NULL, NULL, NULL, NULL, 332);
+
 -- --------------------------------------------------------
 
 --
@@ -3110,6 +3300,47 @@ CREATE TABLE IF NOT EXISTS `demandeexb_examenbio` (
   KEY `id_demandeexb` (`id_demandeexb`),
   KEY `id_examenbio` (`id_examenbio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `demandeexb_examenbio`
+--
+
+INSERT INTO `demandeexb_examenbio` (`id`, `id_demandeexb`, `id_examenbio`) VALUES
+(76, 19, 8),
+(77, 19, 22),
+(78, 19, 33),
+(79, 20, 8),
+(80, 21, 1),
+(81, 21, 12),
+(82, 21, 14),
+(83, 21, 18),
+(84, 22, 13),
+(85, 22, 18),
+(86, 22, 19),
+(87, 23, 1),
+(88, 23, 25),
+(89, 24, 14),
+(90, 24, 18),
+(91, 24, 27),
+(92, 25, 3),
+(93, 25, 7),
+(94, 26, 7),
+(95, 26, 13),
+(96, 27, 2),
+(97, 27, 14),
+(98, 27, 22),
+(99, 27, 27),
+(100, 27, 28),
+(101, 30, 2),
+(102, 30, 8),
+(103, 30, 14),
+(104, 30, 19),
+(105, 31, 14),
+(106, 31, 19),
+(107, 31, 24),
+(108, 31, 25),
+(109, 31, 27),
+(110, 31, 28);
 
 -- --------------------------------------------------------
 
@@ -3129,6 +3360,29 @@ CREATE TABLE IF NOT EXISTS `demandeexr` (
   KEY `fk_consultation` (`id_consultation`),
   KEY `fk_demanderadio_visite` (`visite_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `demandeexr`
+--
+
+INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `id_consultation`, `visite_id`) VALUES
+(30, 'rtgret', 'terttretr', 1, 269, NULL),
+(31, 'sqds', 'dqsd', NULL, 270, NULL),
+(32, 'sqds', 'dqsd', NULL, 271, NULL),
+(34, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', NULL, 273, NULL),
+(35, 'info', 'expliaxtion', NULL, 275, NULL),
+(36, 'info', 'explication', 1, 277, NULL),
+(37, 'info', 'explication', 1, 278, NULL),
+(38, 'info', 'explication', NULL, 279, NULL),
+(39, 'oi', NULL, NULL, 280, NULL),
+(40, 'Demande d\'examen radiologique', 'Explication de la demande de diagnostic', 1, 283, NULL),
+(41, 'Demande d\'examen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(42, 'Demande d\'examen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(43, 'Demande d\'examen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(44, 'Demande d\'fdsdsexamen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(45, 'Demande d\'fdsdsexamen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(46, 'Demande d\'fdsdsexamen radiologique', 'Explication de la demande de diagnostic', NULL, NULL, 328),
+(48, 'yrty', 'yrt', NULL, NULL, 332);
 
 -- --------------------------------------------------------
 
@@ -3231,6 +3485,34 @@ CREATE TABLE IF NOT EXISTS `demandeexr_examenradio` (
   KEY `fk_exam-type` (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `demandeexr_examenradio`
+--
+
+INSERT INTO `demandeexr_examenradio` (`id`, `demande_id`, `exm_id`, `type_id`, `etat`, `resultat`, `observation`, `crr_id`) VALUES
+(28, 30, 7, 1, b'1', 'b_1650801683.png', NULL, 1),
+(29, 30, 10, 3, b'1', 'img_1650801715.png', NULL, 2),
+(30, 31, 7, 1, NULL, NULL, NULL, NULL),
+(31, 31, 22, 10, NULL, NULL, NULL, NULL),
+(32, 32, 8, 10, NULL, NULL, NULL, NULL),
+(33, 32, 16, 1, NULL, NULL, NULL, NULL),
+(36, 31, 10, 1, NULL, NULL, NULL, NULL),
+(48, 34, 10, 1, NULL, NULL, NULL, NULL),
+(49, 35, 10, 1, NULL, NULL, NULL, NULL),
+(50, 35, 13, 2, NULL, NULL, NULL, NULL),
+(51, 36, 10, 1, b'1', 'resultat1_1650806726.jpg', NULL, 4),
+(52, 36, 10, 2, b'1', 'IMG00008_1650806750', NULL, 5),
+(53, 37, 10, 1, b'1', 'resultat2_1650807421.jpg', NULL, NULL),
+(54, 37, 10, 3, b'1', 'resultat3_1650807456.jpg', NULL, NULL),
+(55, 38, 10, 1, NULL, NULL, NULL, NULL),
+(56, 38, 14, 2, NULL, NULL, NULL, NULL),
+(57, 39, 10, 1, NULL, NULL, NULL, NULL),
+(58, 40, 7, 1, b'1', 'resultat1_1650806215.jpg', NULL, 3),
+(59, 46, 10, 1, NULL, NULL, NULL, NULL),
+(60, 46, 14, 2, NULL, NULL, NULL, NULL),
+(62, 48, 9, 1, NULL, NULL, NULL, NULL),
+(63, 48, 10, 2, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -3250,14 +3532,45 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
   KEY `fk_DemandeHospitalisation_Consultation1_idx` (`id_consultation`),
   KEY `service` (`service`),
   KEY `fk_dh_specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandehospitalisations`
 --
 
 INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmission`, `degree_urgence`, `etat`, `id_consultation`) VALUES
-(86, 1, 1, 0, NULL, NULL, 284);
+(47, 11, 11, 1, NULL, 3, 162),
+(48, 3, 3, 1, NULL, 3, 163),
+(49, 11, 11, 0, NULL, 2, 164),
+(50, 11, 11, 2, NULL, 3, 165),
+(51, 11, 11, 1, NULL, 3, 166),
+(52, 3, 3, 1, NULL, 3, 167),
+(53, 11, 11, 2, NULL, 3, 168),
+(54, 11, 11, 0, NULL, 3, 179),
+(57, 1, 1, 1, NULL, 3, 191),
+(58, 3, 3, 2, NULL, 3, 193),
+(59, 3, 3, 1, NULL, 3, 194),
+(60, 1, 1, 1, NULL, 1, 195),
+(66, 1, 1, 1, NULL, 5, 237),
+(67, 3, 3, 0, NULL, 3, 238),
+(68, 1, 1, 1, NULL, 5, 239),
+(69, 1, 1, 1, NULL, 1, 240),
+(70, 3, 3, 1, NULL, 3, 241),
+(71, 3, 3, 2, NULL, 3, 242),
+(72, 1, 1, 0, NULL, 5, 243),
+(73, 3, 3, 2, NULL, 3, 244),
+(74, 1, 1, 0, NULL, 5, 245),
+(75, 1, 1, 2, NULL, 3, 246),
+(76, 3, 3, 0, NULL, 3, 248),
+(77, 1, 1, 0, NULL, 3, 249),
+(78, 9, 9, 0, NULL, 5, 251),
+(79, 7, 7, 0, NULL, 5, 255),
+(80, 7, 7, 0, NULL, 5, 266),
+(81, 3, 3, 0, NULL, 3, 274),
+(82, 3, 3, 1, NULL, 3, 276),
+(83, 3, 3, 0, NULL, 3, 278),
+(84, 3, 3, 0, NULL, 3, 279),
+(85, 3, 3, 0, NULL, 1, 281);
 
 -- --------------------------------------------------------
 
@@ -3400,6 +3713,38 @@ CREATE TABLE IF NOT EXISTS `dem_colloques` (
   KEY `fklit` (`lit_id`),
   KEY `fk_demandeH` (`id_demande`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `dem_colloques`
+--
+
+INSERT INTO `dem_colloques` (`id_colloque`, `id_demande`, `id_medecin`, `ordre_priorite`, `observation`, `lit_id`) VALUES
+(158, 47, 100, 1, 'est une dema,de programee', NULL),
+(159, 50, 113, 1, 'avec dh ambulat', NULL),
+(160, 51, 88, 1, 'avec dhu', NULL),
+(161, 52, 113, 1, 'observation', NULL),
+(162, 53, 88, 1, 'observatio', NULL),
+(163, 57, 119, 2, 'observation', NULL),
+(164, 59, 119, 1, 'par urgent', NULL),
+(166, 68, 119, 1, 'iuyi', NULL),
+(166, 67, 119, 1, NULL, NULL),
+(166, 67, 119, 1, 'dsqd', NULL),
+(166, 66, 119, 1, NULL, NULL),
+(166, 68, 119, 1, NULL, NULL),
+(166, 74, 88, 1, 'obertr', NULL),
+(166, 72, 100, 1, 'gh', NULL),
+(166, 70, 117, 1, 'jj', NULL),
+(167, 67, 88, 1, 'gtrhhrt', NULL),
+(168, 80, 114, 1, NULL, NULL),
+(168, 79, 119, 2, NULL, NULL),
+(169, 76, 88, 2, 'pas urgente', NULL),
+(170, 82, 88, 2, NULL, NULL),
+(171, 81, 88, 2, 'en urgence', NULL),
+(171, 78, 113, 1, 'consulter', NULL),
+(172, 83, 113, 2, 'a prendre en charge', NULL),
+(173, 84, 88, 2, 'aprendre dés que possible', NULL),
+(174, 85, 114, 3, 'oo,k', NULL),
+(175, 77, 119, 2, 'observaztion', NULL);
 
 -- --------------------------------------------------------
 
@@ -4044,6 +4389,25 @@ CREATE TABLE IF NOT EXISTS `examen_appareil` (
   KEY `appareil_examen_cliniques_examen_clinique_id_foreign` (`examen_clinique_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `examen_appareil`
+--
+
+INSERT INTO `examen_appareil` (`appareil_id`, `examen_clinique_id`, `description`, `created_at`, `updated_at`) VALUES
+(1, 5, 'dsqdsqdqs', NULL, NULL),
+(1, 8, 'RAS', NULL, NULL),
+(1, 9, 'ras', NULL, NULL),
+(1, 10, 'probleme degistif', NULL, NULL),
+(1, 11, 'probleme au niveau de ', NULL, NULL),
+(2, 5, 'dqssq', NULL, NULL),
+(2, 6, 'brgbgrbgrb', NULL, NULL),
+(2, 9, 'des douleurs', NULL, NULL),
+(2, 10, 'ras', NULL, NULL),
+(3, 5, 'resperatoire', NULL, NULL),
+(3, 6, 'hbrthrthrt', NULL, NULL),
+(3, 11, 'asme', NULL, NULL),
+(4, 5, 'lympho', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -4078,6 +4442,21 @@ CREATE TABLE IF NOT EXISTS `examen_clinique` (
   PRIMARY KEY (`id`),
   KEY `fk_examen_consult` (`id_consultation`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `examen_clinique`
+--
+
+INSERT INTO `examen_clinique` (`id`, `autre`, `Etat`, `peaupha`, `id_consultation`) VALUES
+(4, 'dsfvdsvg', 'Etat géneral du patient :', 'Peau et phanéres', 216),
+(5, NULL, NULL, NULL, 218),
+(6, NULL, NULL, NULL, 247),
+(7, NULL, NULL, NULL, 274),
+(8, NULL, NULL, NULL, 275),
+(9, NULL, NULL, NULL, 277),
+(10, NULL, 'ras', NULL, 278),
+(11, NULL, NULL, NULL, 279),
+(12, NULL, NULL, NULL, 280);
 
 -- --------------------------------------------------------
 
@@ -4250,14 +4629,31 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   KEY `fk_hommconf_user` (`created_by`),
   KEY `fk_hommconf_user1` (`updated_by`),
   KEY `fk_garde_patient` (`id_patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `homme_confs`
 --
 
 INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `type`, `lien_par`, `type_piece`, `num_piece`, `date_deliv`, `adresse`, `mob`, `etat_hc`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(135, 304, 'ait ali', 'redouane', '1979-01-26', '0', 10, '0', 'ds4464', NULL, 'algeer', '0569898656', 'actuel', '2022-04-27 14:02:35', '2022-04-27 14:02:35', 102, NULL);
+(101, 189, 'nom3', 'garde3', '1987-01-12', '1', 3, '0', 'M100681', '2014-01-06', 'blida', '0541242420', 'actuel', '2021-01-04 19:57:01', '2021-01-06 17:31:56', 102, NULL),
+(108, 189, 'prevenir', 'prevenir', '2021-04-19', '1', 2, '0', '0254681', '2013-05-13', 'alger', '0555555897', 'actuel', '2021-01-05 15:38:35', '2021-04-20 07:16:00', 102, NULL),
+(110, 204, 'laminegarde', 'garded', '1984-06-20', '0', NULL, '0', '11515', '2018-06-18', 'alger', '0548796545', 'actuel', '2021-01-13 13:30:59', '2021-01-13 13:30:59', 102, NULL),
+(111, 190, 'hom', 'home', '1987-10-04', '0', 4, '1', '04042042', '2019-09-22', 'alger', '0566666666', 'actuel', '2021-04-20 07:13:15', '2021-04-20 07:13:15', 102, NULL),
+(112, 243, 'mrabet', 'ali', '1964-06-23', '0', 2, '0', '04042042', '1989-01-01', 'alger', '0589154646', 'actuel', '2021-06-01 12:14:03', '2021-06-01 12:14:03', 102, NULL),
+(113, 243, 'mrabet', 'aldjia', '1984-06-12', '1', 5, '1', '04042045', '2003-05-19', 'alger', '0797846646', 'actuel', '2021-06-01 12:15:35', '2021-06-01 12:15:35', 102, NULL),
+(114, 188, 'homme confiance', 'homme confiance', '2021-06-06', '0', 2, '0', '04042042', '2021-06-07', 'gsdfgdsfgs grfsdfgsdf', '0666666666', 'actuel', '2021-06-02 08:51:57', '2021-06-02 08:52:13', 102, NULL),
+(116, 265, 'laoui', 'mourad', '2000-06-20', '0', 2, '1', '04042042', '2009-05-18', 'algercscqsc', '0563236647', 'actuel', '2021-06-29 06:44:02', '2021-06-29 06:55:58', 82, NULL),
+(118, 265, 'fez', 'fze', '2017-01-09', '0', 2, '0', '040420411', '2009-05-18', 'blida', '0565623233', 'actuel', '2021-06-29 07:00:44', '2021-06-29 07:00:44', 102, NULL),
+(119, 273, 'salhi', 'djamila', '1983-05-09', '0', 5, '0', '02365654', '2000-12-26', NULL, '0665962323', 'actuel', '2021-07-05 09:15:07', '2021-07-05 10:47:56', 82, NULL),
+(120, 274, 'amoura', 'ahmed', '1970-12-03', '0', 2, '1', 's59523', '2011-07-05', 'bab azoune alger centre', '0605632326', 'actuel', '2021-07-05 09:18:29', '2021-07-05 09:18:29', 82, NULL),
+(121, 275, 'csq', 'dqsd', NULL, '0', 5, '2', 's59521', '2017-04-10', NULL, '0556323232', 'actuel', '2021-07-05 09:48:43', '2021-07-05 09:48:43', 82, NULL),
+(122, 273, 'salhi', 'ouahid', '1989-05-22', '0', 4, '2', '0404208989', '1969-05-27', 'blida el afroun', '0898656565', 'actuel', '2021-07-05 10:47:28', '2021-07-05 10:47:28', 82, NULL),
+(123, 276, 'louali', 'sofiane', '2005-12-01', '0', 9, '1', '04042044', '2016-05-16', NULL, '0623189562', 'actuel', '2021-07-05 10:56:37', '2021-07-05 10:56:37', 82, NULL),
+(124, 278, 'pol', 'abdelkader', '1958-10-28', '0', 7, '0', '2565623', NULL, NULL, '0556983232', 'actuel', '2021-07-05 11:04:06', '2021-07-05 11:04:06', 82, NULL),
+(125, 193, 'nom', 'nom', '2018-01-15', '0', 1, '0', '06315', NULL, NULL, '0562323464', 'actuel', '2022-04-14 14:15:10', '2022-04-14 14:15:10', 103, NULL),
+(133, 193, 'homme', 'homme', '1979-05-14', '0', 1, '0', '0452d45', NULL, NULL, '0569812344', 'actuel', '2022-04-14 16:09:33', '2022-04-14 16:09:33', 113, NULL),
+(134, 285, 'oncle', 'oncle', NULL, '0', 5, '0', '04562', NULL, NULL, '0058965656', 'actuel', '2022-04-14 16:29:04', '2022-04-14 16:29:04', 113, NULL);
 
 -- --------------------------------------------------------
 
@@ -4293,6 +4689,27 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   KEY `fk_medecin_traitant` (`medecin_id`),
   KEY `fk_hosp_patient` (`patient_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `hospitalisations`
+--
+
+INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `medecin_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `etatSortie`, `modeSortie`, `resumeSortie`, `diagSortie`, `ccimdiagSortie`, `etat`) VALUES
+(1, '2021-07-12', '2021-07-15', '2021-07-15', 4, 265, 2, 113, 116, '14:00:00', '12:00:00', '08:00:00', 'Etat a la sortie:', NULL, 'Résumé de sortie:', 'Diagnostic de sortie :', 'J22', 1),
+(2, '2021-07-12', '2021-07-15', '2022-04-14', 3, 190, 2, 88, 111, '14:00:00', '10:00:00', '08:00:00', NULL, NULL, 'yu', 'utyuty', NULL, 1),
+(3, '2021-07-13', '2021-07-16', NULL, 5, 226, 2, 113, NULL, '14:00:00', '10:00:00', '11:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'dqsdsqd', 'D02', 1),
+(4, '2021-07-13', '2021-07-16', '2022-04-28', 6, 277, 2, 88, NULL, '14:00:00', '10:00:00', '10:00:00', 'ytrytr', '0', 'ytr', 'yrtytr', 'D11', NULL),
+(5, '2021-10-05', '2021-10-06', NULL, 8, 204, 1, 88, 110, '14:00:00', '10:00:00', '10:00:00', NULL, NULL, '\'\'', '\'\'', NULL, NULL),
+(6, '2022-03-30', '2022-04-03', '2022-04-14', 9, 193, 1, 111, NULL, '14:00:00', '10:00:00', '08:00:00', 'ras', NULL, 'sortie avec', 'san diagnostic', NULL, 1),
+(7, '2022-03-30', '2022-04-02', '2022-04-03', 10, 194, 2, 111, NULL, '14:00:00', '10:00:00', '11:00:00', 'thtr', NULL, 'hrthtr', 'trh', 'J22', 1),
+(8, '2022-03-30', '2022-04-02', '2022-03-30', 11, 191, 2, 94, NULL, '14:00:00', '10:00:00', '11:00:00', 'd df', NULL, NULL, 'ddfdf', 'D10', 1),
+(9, '2022-04-07', '2022-04-08', '2022-04-07', 14, 285, 1, 117, NULL, '14:00:00', '10:00:00', '08:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'hfghfgh', NULL, 1),
+(10, '2022-04-14', '2022-04-16', '2022-04-14', 15, 222, 1, 88, NULL, '14:00:00', '10:00:00', '08:00:00', 'Etat a la sortie:', NULL, 'Résumé de sortie:', 'Diagnostic de sortie :', NULL, 1),
+(11, '2022-04-14', '2022-04-17', '2022-04-14', 16, 188, 2, 88, 114, '14:00:00', '10:00:00', '08:00:00', 'Etat a la sortie:', NULL, 'Résumé de sortie:', NULL, NULL, 1),
+(12, '2022-04-14', '2022-04-18', '2022-04-14', 17, 194, 2, 88, NULL, '14:00:00', '10:00:00', '08:00:00', 'Etat a la sortie:', NULL, 'Résumé de sortie:', 'diagnoqtc', NULL, 1),
+(13, '2022-04-14', '2022-04-19', '2022-04-14', 18, 193, 2, 113, 133, '14:00:00', '10:00:00', '08:00:00', 'ras', NULL, 'resume', 'pneumonie', NULL, 1),
+(14, '2022-04-14', '2022-04-17', NULL, 19, 285, 2, 111, 134, '14:00:00', '10:00:00', '10:00:00', NULL, NULL, '\'\'', '\'\'', NULL, NULL),
+(15, '2022-04-19', '2022-04-23', NULL, 20, 192, 2, 100, NULL, '14:00:00', '10:00:00', '10:00:00', NULL, NULL, '\'\'', '\'\'', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -10613,11 +11030,7 @@ INSERT INTO `membres` (`id_colloque`, `id_employ`) VALUES
 (174, 119),
 (175, 82),
 (175, 119),
-(175, 94),
-(176, 79),
-(176, 82),
-(176, 119),
-(176, 94);
+(175, 94);
 
 -- --------------------------------------------------------
 
@@ -10888,6 +11301,14 @@ CREATE TABLE IF NOT EXISTS `ordonnances` (
   KEY `fk_Ordonnance_Consultation1_idx` (`id_consultation`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `ordonnances`
+--
+
+INSERT INTO `ordonnances` (`id`, `date`, `duree`, `id_consultation`) VALUES
+(2, '2022-04-06', NULL, 254),
+(3, '2022-04-24', NULL, 282);
+
 -- --------------------------------------------------------
 
 --
@@ -10971,23 +11392,86 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `Type` enum('0','1','2','3','4','5','6') NOT NULL COMMENT '0:as,1:conj,2:pere,3:mere,4:enfant,5:dérogation,6:autre,',
   `description` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `Date_creation` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `commune_res` (`commune_res`) USING BTREE,
   KEY `fk_patient_commNaissane` (`Lieu_Naissance`),
   KEY `fk_assure` (`Assurs_ID_Assure`)
-) ENGINE=InnoDB AUTO_INCREMENT=306 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
 --
 
-INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `description`, `active`, `created_at`, `updated_at`) VALUES
-(302, '02006302', 'amari', 'khadidja', NULL, '2006-04-27', 613, 'F', 'C', 'el harechh', 613, 16, '0456546456', NULL, NULL, NULL, 'B', '-', '785632564245', '4', NULL, 1, '2022-04-27 12:55:29', '2022-04-27 13:39:52'),
-(303, '12006303', 'oukali', 'lotfi', NULL, '2006-04-27', NULL, 'M', 'C', NULL, 613, 16, NULL, NULL, NULL, NULL, 'A', '+', '875614325844', '4', NULL, 1, '2022-04-27 12:59:21', '2022-04-27 12:59:21'),
-(304, '12006304', 'amara', 'nadji', NULL, '2006-04-27', NULL, 'M', NULL, NULL, NULL, NULL, '0566646464', NULL, NULL, NULL, 'B', '+', NULL, '6', NULL, 1, '2022-04-27 13:00:20', '2022-04-27 13:00:20'),
-(305, '02006305', 'djaredi', 'amena', NULL, '2006-04-27', 613, 'F', 'M', 'el a', 297, 9, '0569865656', NULL, NULL, NULL, 'B', NULL, '985624521569', '1', NULL, 1, '2022-04-27 13:30:22', '2022-04-27 13:30:22');
+INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `description`, `active`, `Date_creation`, `created_at`, `updated_at`) VALUES
+(188, '02020188', 'ait ouali', 'malha', NULL, '2014-06-17', 613, 'F', 'C', 'rue 01', 613, 16, '0555555555', '', NULL, NULL, 'A', NULL, '653121548746', '1', NULL, 1, '2022-03-15', NULL, '2020-12-13 08:07:43'),
+(189, '02020189', 'mrabet', 'kamel', NULL, NULL, 613, 'M', 'C', 'alger', 613, 16, '0556565121', '06', NULL, NULL, 'B', '+', '653233259866', '4', NULL, 1, '2022-03-15', NULL, '2020-12-13 08:17:44'),
+(190, '02020190', 'djared', 'amel', NULL, '1968-11-05', 287, NULL, 'C', 'blida', 287, 9, '0555555587', '', NULL, NULL, 'O', NULL, '455122326514', '3', NULL, 1, '2022-03-15', NULL, '2020-12-13 08:32:20'),
+(191, '12020191', 'begar', 'ali', NULL, '1959-01-04', 287, 'M', 'C', 'blida', 287, 9, '0555555555', '', NULL, NULL, 'A', NULL, '875614325815', '2', NULL, 1, '2021-09-30', NULL, '2020-12-13 08:32:22'),
+(192, '02020192', 'slimana', 'ouamer', NULL, '1979-06-23', 613, 'M', 'M', 'rue 01', 613, 16, '0666666666', '', NULL, NULL, 'O', NULL, '444624875695', '2', NULL, 1, '2021-05-19', NULL, '2020-12-13 08:43:03'),
+(193, '02020193', 'touami', 'zouhir', NULL, '2020-12-06', 613, 'M', 'M', 'alg', 287, 9, '0555555555', '', NULL, NULL, 'B', '+', '585624875695', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 10:03:43'),
+(194, '02020194', 'rebyas', 'kader', NULL, '2005-05-08', 613, 'M', 'D', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', NULL, '985624875695', '4', NULL, 1, '2021-06-27', NULL, '2020-12-13 14:58:59'),
+(202, '12020202', 'ahmed', 'malia', NULL, '1959-01-27', 613, 'F', 'M', 'alger', 613, 16, '0555555555', '', NULL, '149020015465', 'A', '+', '894568124785', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 20:00:06'),
+(203, '02020203', 'zouaoui', 'omar', NULL, '1980-12-05', 1452, 'M', 'M', 'rue 02', 287, 9, '0555555555', '', NULL, NULL, 'AB', '+', '456568796767', '0', NULL, 1, '2022-03-15', NULL, '2020-12-16 07:40:15'),
+(204, '02020204', 'lamine', 'ouali', NULL, '1950-06-27', 613, 'M', 'C', 'rua ben omar kouba', 613, 16, '0556231479', '', NULL, NULL, 'B', '+', '875614325845', '0', NULL, 1, '2021-01-10', NULL, '2020-12-16 10:18:39'),
+(206, '02021206', 'malde', 'malade', NULL, '1964-11-19', 613, 'M', 'M', 'cite 20 out bat 54 appt 02', 613, 16, '0606354364', '0627275754', NULL, '555555144444', 'B', '+', '023032056590', '0', NULL, 1, '2021-10-04', NULL, '2021-01-10 08:50:43'),
+(207, '02021207', 'patient', 'malade', NULL, '1993-05-10', 613, 'F', 'V', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', '-', '655953213333', '0', NULL, 1, '2021-02-11', NULL, '2021-01-18 20:58:00'),
+(208, '02021208', 'police', 'police', NULL, '1982-05-12', NULL, 'M', NULL, 'rue 3 blida', 287, 9, '0555555555', NULL, NULL, NULL, 'O', '+', '245767249874', '0', NULL, 1, '2021-01-19', NULL, '2021-01-19 14:41:29'),
+(210, '02021210', 'davis', 'moh', NULL, '1937-01-14', 1556, 'M', 'M', 'CITE DE POLICE BT E/2 N 08 BOUZAREAH ALGER', 613, 16, '0555555555', '', NULL, NULL, 'O', '+', '370033012963', '0', NULL, 0, '2021-01-25', NULL, '2021-01-19 17:55:50'),
+(211, '02021211', 'mradfi', 'allaoua', NULL, '1979-01-08', 613, 'M', 'M', 'cite 20 out bat 54 appt 02', 287, 9, '0556599898', '0689898989', NULL, NULL, 'A', '+', '568932465665', '0', NULL, 1, '2021-09-30', NULL, '2021-03-22 11:07:26'),
+(222, '02021222', 'foudil', 'feradj', NULL, '2021-05-02', 613, 'M', 'C', NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '875614325845', '4', NULL, 1, '2021-05-17', NULL, '2021-05-06 12:07:11'),
+(225, '02021225', 'medouar', 'lotfi', NULL, '1963-06-18', 613, 'M', 'C', 'alger', 613, 16, '0555555555', NULL, NULL, NULL, 'A', '+', '455122326514', '3', NULL, 1, '2022-04-07', NULL, '2021-05-08 10:28:44'),
+(226, '02021226', 'patient23', 'fatma amel', NULL, '2010-05-21', 613, 'F', 'M', NULL, 287, 9, '0669386386', '', NULL, NULL, NULL, NULL, '455122326514', '1', NULL, 1, '2021-05-08', NULL, '2021-05-08 10:35:35'),
+(227, '02021227', 'ali', 'farid', NULL, '1939-11-30', 613, 'M', 'C', NULL, 1556, 49, '0555555555', NULL, NULL, NULL, NULL, NULL, '985624875656', '1', NULL, 1, '2022-03-29', NULL, '2021-05-11 12:53:54'),
+(228, '02021228', 'ouali', 'djamel', NULL, '1995-06-20', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, '465465454789', '4', NULL, 1, '2021-05-11', NULL, '2021-05-11 12:57:59'),
+(236, '02021236', 'ouali', 'mourad', NULL, NULL, NULL, 'M', 'C', 'alger', NULL, NULL, '', '', NULL, NULL, NULL, NULL, '458978835145', '0', NULL, 1, '2021-09-30', NULL, '2021-05-12 05:48:30'),
+(237, '02021237', 'douar', 'manel', NULL, '1996-03-13', 613, 'F', 'M', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '982564245654', '3', NULL, 1, '2022-03-15', NULL, '2021-05-12 05:50:38'),
+(238, '02021238', 'ould rachid', 'amar', NULL, '1984-06-19', NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 'O', NULL, '031164245651', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:37:20'),
+(239, '02021239', 'ouled brahim', 'farid', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '444256424565', '2', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:39:31'),
+(240, '02021240', 'ait ali', 'djamila', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '669914253678', '1', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:41:04'),
+(243, '02021243', 'mrabet', 'sabrina', 'djouahra', '2000-05-11', 493, 'F', 'M', 'alger', 287, 9, '05', '', NULL, NULL, 'A', NULL, '999256424565', '1', NULL, 1, '2021-06-01', NULL, '2021-05-12 10:00:38'),
+(245, '02021245', 'mrabet', 'oualid', NULL, NULL, 493, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '655914253678', '4', NULL, 1, '2021-05-12', NULL, '2021-05-12 10:07:40'),
+(246, '02021246', 'boali', 'sabrina', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '581245887898', '3', NULL, 1, '2021-05-12', NULL, '2021-05-12 10:12:27'),
+(247, '02021247', 'ouali', 'loucif', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '415624875695', '2', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:01:02'),
+(248, '02021248', 'louali', 'karima', NULL, NULL, NULL, 'F', 'M', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '155256424565', '1', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:04:04'),
+(249, '02021249', 'meraoui', 'abdelah', NULL, NULL, NULL, 'M', 'C', '', NULL, NULL, '', '', NULL, NULL, 'A', NULL, '993256424565', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:11:42'),
+(252, '02021252', 'ahmed', 'ali', NULL, '1970-02-12', 613, 'M', 'V', 'rue 01 bab hassen', 287, 9, '', '', NULL, NULL, 'A', '+', '894568124785', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 12:15:32'),
+(253, '02021253', 'lalmi', 'omia', NULL, '1970-02-12', NULL, 'F', 'C', 'rue 02', 287, 9, '', '', NULL, NULL, 'AB', '+', '565464560456', '1', NULL, 1, '2022-03-15', NULL, '2021-05-16 11:55:25'),
+(256, '02021256', 'AMOURA', 'ISLAM', NULL, '1990-12-04', 613, 'M', 'C', 'RUE BOUGHOUAS AZZEDDINE COMMUNE DE YAHIA BENI KECHA', NULL, 43, '0555555555', '', NULL, NULL, 'O', '+', '902878002637', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 10:58:54'),
+(258, NULL, 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:30:49'),
+(259, '02021259', 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', 'alger', 613, 16, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-09-30', NULL, '2021-06-10 14:31:31'),
+(261, '12021261', 'amar', 'ouaheb', NULL, '1933-06-10', 287, 'M', 'M', NULL, NULL, NULL, '', '', NULL, '005124555144', 'A', NULL, '005624875694', '2', NULL, 1, '2021-06-15', NULL, '2021-06-14 09:58:17'),
+(263, '12021263', 'dqsd', 'dqsd', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, '004566666456', 'B', NULL, '054654564981', '2', NULL, 1, '2021-06-14', NULL, '2021-06-14 12:26:25'),
+(265, '12021265', 'rabia', 'ali', NULL, '1989-05-15', 287, 'M', 'C', NULL, 802, 22, '', '', NULL, NULL, NULL, NULL, NULL, '5', NULL, 1, '2021-09-01', NULL, '2021-06-28 13:22:54'),
+(266, '12021266', 'aliane', 'moula', NULL, '1994-06-14', NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '055562487569', '0', NULL, 1, '2021-06-28', NULL, '2021-06-28 13:45:09'),
+(268, '12021268', 'nounou', 'abderazek', NULL, '2009-05-18', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '875614312555', '1', NULL, 1, '2022-02-27', NULL, '2021-06-28 14:01:38'),
+(269, '12021269', 'lounis', 'damia', NULL, '2019-05-20', NULL, 'M', 'C', 'ds', 613, 16, '0555555555', '', NULL, NULL, 'A', NULL, '962656566485', '0', NULL, 1, '2021-09-30', NULL, '2021-06-28 14:43:25'),
+(270, '12021270', 'merizak', 'lotfi', NULL, '2018-05-07', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '125454649798', '4', NULL, 1, '2022-02-27', NULL, '2021-06-28 17:29:39'),
+(271, '12021271', 'ait ouelhadj', 'madjid', NULL, '1988-12-26', 613, 'M', 'M', NULL, NULL, NULL, '0505555555', '', NULL, NULL, 'A', '+', NULL, '5', NULL, 1, '2022-03-23', NULL, '2021-07-05 08:46:30'),
+(272, '02021272', 'salhi', 'alia', NULL, '2017-07-10', NULL, 'F', NULL, 'alger', 613, 16, '0587563288', NULL, NULL, NULL, 'B', '+', NULL, '5', 'derogation', 1, '2021-07-05', NULL, '2021-07-05 09:14:47'),
+(273, '02021273', 'salhi', 'alia', NULL, '2017-07-10', 613, 'F', 'C', 'alger', 613, 16, '0587563288', '0645641230', NULL, '042752101074', 'B', '+', '023560454545', '1', NULL, 0, '2021-10-04', NULL, '2021-07-05 09:15:07'),
+(274, '12021274', 'amoura', 'rami', NULL, '2000-08-18', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, 'B', '+', NULL, '5', NULL, 1, '2021-07-05', NULL, '2021-07-05 09:18:29'),
+(275, '12021275', 'ferioui', 'oussama', NULL, '1999-07-14', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '6', NULL, 1, '2022-03-15', NULL, '2021-07-05 09:48:43'),
+(276, '02021276', 'pol', 'djami', NULL, '1991-08-16', NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '720304008357', '4', NULL, 1, '2021-07-05', NULL, '2021-07-05 10:55:01'),
+(277, '02021277', 'daoudi', 'elyes', NULL, '2018-05-21', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '720304008357', '4', NULL, 1, '2022-03-04', NULL, '2021-07-05 11:01:17'),
+(278, '02021278', 'pol', 'badi', NULL, '2014-05-19', NULL, 'M', NULL, NULL, NULL, NULL, '0545123585', '', NULL, NULL, NULL, NULL, '720304008357', '4', NULL, 1, '2021-07-05', NULL, '2021-07-05 11:04:06'),
+(281, '12021281', 'autre', 'autre', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '5', 'autre', 1, '2022-03-15', NULL, '2021-09-23 13:29:47'),
+(282, '02021282', 'derogation', 'derogation', 'nom1,j,j', NULL, NULL, 'F', 'M', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '6', 'derogation', 1, '2021-09-23', NULL, '2021-09-23 13:32:03'),
+(283, '12021283', 'ds', 'dsq', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '757577575701', '0', NULL, 1, '2021-10-04', NULL, '2021-10-04 15:15:37'),
+(284, '12021284', 'berahmou', 'nadir', NULL, '2021-10-03', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '5', NULL, 1, '2022-03-06', NULL, '2021-10-04 15:16:26'),
+(285, '12021285', 'louali', 'ahmed', NULL, '2019-12-31', NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '032564245142', '1', NULL, 1, '2022-03-23', NULL, '2021-10-04 15:21:16'),
+(286, '12021286', 'rez', 'rez', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '0579656565', '', NULL, NULL, NULL, NULL, '121232564245', '0', NULL, 1, '2021-10-04', NULL, '2021-10-04 15:23:52'),
+(287, '02021287', 'moha', 'nouara', NULL, NULL, NULL, 'F', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '720304008357', '3', NULL, 1, '2022-03-15', NULL, '2021-10-05 09:03:56'),
+(288, '02021288', 'pol', 'ali', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '0645491316', '', NULL, '235555144658', NULL, NULL, '720304008357', '4', NULL, 1, '2021-10-05', NULL, '2021-10-05 10:02:14'),
+(289, '02021289', 'DAOUDI', 'ahmed', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '0587563288', '', NULL, NULL, NULL, NULL, '720304008357', '2', NULL, 1, '2022-03-04', NULL, '2021-10-05 10:07:47'),
+(290, '02021290', 'mama', 'mama', NULL, NULL, NULL, 'F', 'C', NULL, NULL, NULL, '0589565623', '', NULL, '123154646416', NULL, NULL, '720304008357', '1', NULL, 1, '2021-10-05', NULL, '2021-10-05 10:36:30'),
+(291, '02021291', 'ahmed', 'redouane', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '0787465464', '0645689874', NULL, NULL, NULL, NULL, '894568124785', '2', NULL, 1, '2021-10-05', NULL, '2021-10-05 10:40:03'),
+(295, '02022295', 'fegoum', 'fatma zohra', NULL, NULL, NULL, 'F', 'M', NULL, NULL, NULL, '0555555555', '', NULL, NULL, 'O', '+', '894568124785', '1', NULL, 1, '2022-03-15', NULL, '2022-03-15 12:20:14'),
+(298, '11957298', 'rouane', 'ali', NULL, '1957-03-27', 613, 'M', 'V', 'alger', NULL, NULL, '0546546464', '0465464040', NULL, NULL, 'A', '+', NULL, '6', NULL, 1, '2022-03-27', NULL, '2022-03-27 15:00:15'),
+(299, '02022299', 'DAOUDI', 'enfant', NULL, '2020-05-04', 613, 'M', 'C', NULL, NULL, NULL, '0432365052', '0695421245', NULL, NULL, 'A', '+', '720304008357', '2', NULL, 1, '2022-03-28', NULL, '2022-03-28 08:46:46'),
+(300, '11958300', 'nouali', 'lamine', NULL, '1958-04-27', 613, 'M', 'C', NULL, 613, 16, '0558965665', NULL, NULL, NULL, 'A', '+', NULL, '6', NULL, 1, '2022-04-27', '2022-04-27 12:08:52', '2022-04-27 12:08:52');
 
 -- --------------------------------------------------------
 
@@ -11006,6 +11490,17 @@ CREATE TABLE IF NOT EXISTS `patient_vaccin` (
   KEY `fk_vaccin` (`vaccin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `patient_vaccin`
+--
+
+INSERT INTO `patient_vaccin` (`patient_id`, `vaccin_id`, `date`, `created_at`, `updated_at`) VALUES
+(222, 1, '2021-10-04', '2021-11-15 12:06:14', '2021-11-15 12:06:14'),
+(194, 2, '2021-11-17', '2021-11-15 12:25:35', '2021-12-08 11:06:24'),
+(193, 1, '2021-10-31', '2021-11-24 20:36:40', '2021-11-24 20:36:40'),
+(222, 5, '2021-11-28', '2021-12-08 12:51:42', '2021-12-08 12:51:42'),
+(194, 3, '2022-01-02', '2022-01-18 18:46:44', '2022-01-18 18:46:44');
+
 -- --------------------------------------------------------
 
 --
@@ -11021,6 +11516,32 @@ CREATE TABLE IF NOT EXISTS `prescription_constantes` (
   KEY `fk_prescription_visite` (`visite_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `prescription_constantes`
+--
+
+INSERT INTO `prescription_constantes` (`id`, `visite_id`, `observation`) VALUES
+(34, 184, 'faire le HSL et pouls'),
+(35, 185, 'faire le glycemie et pouls'),
+(36, 186, 'faire le glycemie et pouls'),
+(37, 191, 'le poids'),
+(38, 192, 'le poids et le HDL'),
+(39, 193, 'le poids et la hdl'),
+(40, 194, 'le poids et la hdl et la glycemie'),
+(41, 195, 'le poids et la hdl et la glycemie'),
+(42, 290, 'à calculer chaque deux jour'),
+(43, 313, 'chaque deus heures'),
+(44, 314, 'chaque deus heures'),
+(45, 323, 'chaque deux heure'),
+(46, 324, 'chaque deux heure'),
+(47, 327, 'caque deux heure'),
+(48, 328, 'caque deux heure'),
+(51, 331, 'caque deux heure'),
+(52, 332, 'caque deux heure'),
+(53, 334, 'chaque deux heure'),
+(54, 340, 'chaque deux jour'),
+(55, 347, 'chaque deux heure');
+
 -- --------------------------------------------------------
 
 --
@@ -11034,6 +11555,60 @@ CREATE TABLE IF NOT EXISTS `pres_cons` (
   KEY `fk_constante` (`cons_id`),
   KEY `fk_prescription` (`prescription_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `pres_cons`
+--
+
+INSERT INTO `pres_cons` (`prescription_id`, `cons_id`) VALUES
+(34, 6),
+(34, 9),
+(35, 6),
+(35, 7),
+(36, 6),
+(36, 7),
+(37, 1),
+(38, 1),
+(38, 9),
+(39, 1),
+(39, 9),
+(40, 1),
+(40, 7),
+(40, 9),
+(41, 1),
+(41, 7),
+(41, 9),
+(42, 1),
+(42, 6),
+(42, 7),
+(43, 1),
+(43, 3),
+(43, 6),
+(44, 1),
+(45, 3),
+(45, 4),
+(45, 5),
+(45, 8),
+(46, 3),
+(46, 4),
+(46, 5),
+(47, 3),
+(47, 4),
+(47, 6),
+(48, 3),
+(48, 4),
+(48, 6),
+(51, 3),
+(51, 4),
+(51, 6),
+(52, 3),
+(52, 4),
+(52, 6),
+(53, 1),
+(53, 2),
+(54, 3),
+(55, 3),
+(55, 7);
 
 -- --------------------------------------------------------
 
@@ -11055,7 +11630,221 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   KEY `fk_RDV_Employe` (`employ_id`),
   KEY `fk_RDV_Patient` (`patient_id`),
   KEY `fk_specialite` (`specialite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=440 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=453 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `rdvs`
+--
+
+INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `patient_id`, `etat`) VALUES
+(235, '2022-03-02 10:45:00', '2022-03-02 11:00:00', 1, 1, 100, 191, 0),
+(236, '2022-03-02 11:30:00', '2022-03-02 11:45:00', 0, 1, 100, 207, 0),
+(237, '2022-03-01 13:15:00', '2022-03-01 13:30:00', 0, 1, 100, 206, 0),
+(238, '2022-03-01 10:30:00', '2022-03-01 10:45:00', 0, 1, 100, 192, 0),
+(239, '2022-03-01 12:15:00', '2022-03-01 12:30:00', 0, 1, 100, 287, NULL),
+(241, '2022-03-05 11:45:00', '2022-03-05 12:00:00', 1, 1, 100, 188, 0),
+(242, '2022-03-05 16:45:00', '2022-03-05 17:00:00', 1, 1, 100, 278, 0),
+(244, '2022-03-05 16:30:00', '2022-03-05 16:45:00', 1, 1, 82, 277, 0),
+(245, '2022-03-05 13:00:00', '2022-03-05 13:15:00', 1, 1, 82, 188, NULL),
+(246, '2022-03-05 14:15:00', '2022-03-05 14:30:00', 1, 1, 82, 226, NULL),
+(247, '2022-03-05 15:00:00', '2022-03-05 15:15:00', 0, 1, 82, 289, NULL),
+(248, '2022-03-05 11:45:00', '2022-03-05 12:00:00', 0, 1, 82, 193, NULL),
+(249, '2022-03-04 12:00:00', '2022-03-04 12:15:00', 1, 7, 82, 253, NULL),
+(250, '2022-03-05 14:00:00', '2022-03-05 14:15:00', 1, 1, 100, 225, NULL),
+(254, '2022-03-05 12:45:00', '2022-03-05 13:00:00', 1, 3, 113, 277, NULL),
+(255, '2022-03-15 11:30:00', '2022-03-15 11:45:00', 1, 1, 100, 189, 0),
+(256, '2022-03-08 11:30:00', '2022-03-08 11:45:00', 1, 3, 113, 225, NULL),
+(257, '2022-03-09 08:30:00', '2022-03-09 08:45:00', 1, 3, 113, 192, NULL),
+(258, '2022-03-10 09:45:00', '2022-03-10 10:00:00', 1, 3, 113, 188, NULL),
+(259, '2022-03-11 13:15:00', '2022-03-11 13:30:00', 1, 3, 113, 236, NULL),
+(260, '2022-03-10 14:00:00', '2022-03-10 14:15:00', 1, 1, 82, 270, NULL),
+(261, '2022-03-11 15:45:00', '2022-03-11 16:00:00', 1, 10, 82, 206, NULL),
+(262, '2022-03-11 12:30:00', '2022-03-11 12:45:00', 1, 9, 82, 189, NULL),
+(263, '2022-03-10 11:45:00', '2022-03-10 12:00:00', 1, 1, 82, 207, NULL),
+(264, '2022-03-12 15:45:00', '2022-03-12 16:00:00', 1, 10, 82, 284, NULL),
+(265, '2022-03-11 11:15:00', '2022-03-11 11:30:00', 1, 4, 82, 193, NULL),
+(266, '2022-03-09 12:45:00', '2022-03-09 13:00:00', 1, 1, 82, 207, NULL),
+(267, '2022-03-09 15:15:00', '2022-03-09 15:30:00', 1, 1, 82, 193, NULL),
+(268, '2022-03-09 16:30:00', '2022-03-09 16:45:00', 1, 8, 82, 202, NULL),
+(269, '2022-03-09 14:45:00', '2022-03-09 15:00:00', 1, 4, 82, 256, NULL),
+(270, '2022-03-09 13:45:00', '2022-03-09 14:00:00', 1, 11, 82, 281, NULL),
+(271, '2022-03-09 10:15:00', '2022-03-09 10:30:00', 1, 7, 82, 290, NULL),
+(272, '2022-03-10 12:30:00', '2022-03-10 12:45:00', 1, 3, 113, 284, NULL),
+(273, '2022-03-10 15:15:00', '2022-03-10 15:30:00', 1, 3, 113, 284, NULL),
+(274, '2022-03-10 13:45:00', '2022-03-10 14:00:00', 1, 3, 113, 284, NULL),
+(275, '2022-03-10 16:30:00', '2022-03-10 16:45:00', 1, 3, 113, 284, NULL),
+(276, '2022-03-10 11:15:00', '2022-03-10 11:30:00', 1, 3, 113, 284, NULL),
+(277, '2022-03-10 08:45:00', '2022-03-10 09:00:00', 1, 3, 113, 284, NULL),
+(278, '2022-03-13 08:15:00', '2022-03-13 08:30:00', 1, 3, 113, 284, 0),
+(279, '2022-03-10 15:45:00', '2022-03-10 16:00:00', 1, 3, 113, 188, NULL),
+(280, '2022-03-10 14:15:00', '2022-03-10 14:30:00', 0, 3, 113, 188, NULL),
+(282, '2022-03-15 12:45:00', '2022-03-15 13:00:00', 0, 1, 100, 191, 0),
+(283, '2022-03-12 12:15:00', '2022-03-12 12:30:00', 1, 6, 100, 288, NULL),
+(284, '2022-03-18 13:15:00', '2022-03-18 13:30:00', 1, 1, 82, 207, 0),
+(285, '2022-03-12 11:15:00', '2022-03-12 11:30:00', 1, 2, 82, 246, NULL),
+(286, '2022-03-12 15:30:00', '2022-03-12 15:45:00', 1, 3, 113, 206, NULL),
+(287, '2022-03-12 12:00:00', '2022-03-12 12:15:00', 0, 3, 113, 206, NULL),
+(288, '2022-03-12 13:30:00', '2022-03-12 13:45:00', 1, 3, 113, 270, NULL),
+(289, '2022-03-18 12:15:00', '2022-03-18 12:30:00', 1, 2, 82, 206, 0),
+(290, '2022-03-16 11:45:00', '2022-03-16 12:00:00', 0, 1, 100, 190, 0),
+(291, '2022-03-12 10:15:00', '2022-03-12 10:30:00', 0, 1, 100, 190, NULL),
+(292, '2022-03-19 10:45:00', '2022-03-19 11:00:00', 0, 1, 100, 190, 0),
+(293, '2022-03-12 11:00:00', '2022-03-12 11:15:00', 1, 3, 113, 289, NULL),
+(294, '2022-03-12 16:00:00', '2022-03-12 16:15:00', 1, 8, 82, 274, NULL),
+(295, '2022-03-15 09:45:00', '2022-03-15 10:00:00', 1, 3, 113, 194, NULL),
+(296, '2022-03-18 13:45:00', '2022-03-18 14:00:00', 1, 3, 113, 274, 0),
+(297, '2022-03-16 10:15:00', '2022-03-16 10:30:00', 1, 4, 82, 190, 0),
+(298, '2022-03-18 09:15:00', '2022-03-18 09:30:00', 1, 4, 82, 190, 0),
+(299, '2022-03-17 11:30:00', '2022-03-17 11:45:00', 1, 4, 82, 190, 0),
+(301, '2022-03-18 10:15:00', '2022-03-18 10:30:00', 1, 3, 82, 190, NULL),
+(302, '2022-03-18 11:45:00', '2022-03-18 12:00:00', 1, 11, 82, 190, NULL),
+(303, '2022-03-19 14:45:00', '2022-03-19 15:00:00', 1, 5, 82, 206, NULL),
+(304, '2022-03-17 11:30:00', '2022-03-17 11:45:00', 1, 9, 82, 265, NULL),
+(305, '2022-03-17 09:00:00', '2022-03-17 09:15:00', 1, 2, 82, 203, NULL),
+(306, '2022-03-19 12:30:00', '2022-03-19 12:45:00', 0, 3, 113, 193, NULL),
+(307, '2022-03-16 12:00:00', '2022-03-16 12:15:00', 1, 3, 113, 189, NULL),
+(308, '2022-03-13 11:45:00', '2022-03-13 12:00:00', 1, 3, 113, 286, 0),
+(309, '2022-03-13 13:00:00', '2022-03-13 13:15:00', 1, 4, 82, 225, 0),
+(310, '2022-03-13 15:30:00', '2022-03-13 15:45:00', 1, 3, 82, 202, 0),
+(311, '2022-03-13 13:15:00', '2022-03-13 13:30:00', 0, 3, 113, 252, 0),
+(312, '2022-03-13 09:45:00', '2022-03-13 10:00:00', 0, 3, 113, 204, 0),
+(313, '2022-03-13 11:00:00', '2022-03-13 11:15:00', 1, 1, 100, 225, NULL),
+(314, '2022-03-14 08:45:00', '2022-03-14 09:00:00', 1, 1, 100, 202, NULL),
+(315, '2022-03-13 12:00:00', '2022-03-13 12:15:00', 1, 1, 100, 222, NULL),
+(316, '2022-03-13 14:15:00', '2022-03-13 14:30:00', 1, 4, 82, 274, NULL),
+(317, '2022-03-14 13:30:00', '2022-03-14 13:45:00', 1, 3, 82, 190, NULL),
+(318, '2022-03-14 15:30:00', '2022-03-14 15:45:00', 1, 3, 82, 189, NULL),
+(319, '2022-03-14 11:45:00', '2022-03-14 12:00:00', 1, 2, 82, 226, NULL),
+(320, '2022-03-13 15:30:00', '2022-03-13 15:45:00', 1, 4, 82, 226, NULL),
+(321, '2022-03-14 16:45:00', '2022-03-14 17:00:00', 1, 1, 82, 192, NULL),
+(322, '2022-03-15 14:00:00', '2022-03-15 14:15:00', 1, 3, 82, 188, NULL),
+(323, '2022-03-15 08:30:00', '2022-03-15 08:45:00', 1, 5, 82, 226, NULL),
+(324, '2022-03-15 15:30:00', '2022-03-15 15:45:00', 1, 12, 82, 206, NULL),
+(325, '2022-03-14 10:15:00', '2022-03-14 10:30:00', 1, 1, 82, 189, NULL),
+(326, '2022-03-14 12:45:00', '2022-03-14 13:00:00', 1, 3, 82, 188, NULL),
+(327, '2022-03-15 16:30:00', '2022-03-15 16:45:00', 1, 11, 82, 276, NULL),
+(329, '2022-03-14 16:30:00', '2022-03-14 16:45:00', 1, 4, 82, 207, NULL),
+(330, '2022-03-15 10:45:00', '2022-03-15 11:00:00', 1, 4, 82, 203, NULL),
+(331, '2022-03-14 10:00:00', '2022-03-14 10:15:00', 1, 8, 82, 207, NULL),
+(332, '2022-03-14 14:30:00', '2022-03-14 14:45:00', 1, 9, 82, 208, NULL),
+(333, '2022-03-14 16:00:00', '2022-03-14 16:15:00', 1, 10, 82, 208, NULL),
+(334, '2022-03-15 15:00:00', '2022-03-15 15:15:00', 1, 10, 82, 192, NULL),
+(335, '2022-03-15 12:45:00', '2022-03-15 13:00:00', 1, 1, 82, 237, NULL),
+(336, '2022-03-16 11:00:00', '2022-03-16 11:15:00', 1, 1, 100, 191, NULL),
+(337, '2022-03-16 15:30:00', '2022-03-16 15:45:00', 0, 1, 100, 206, NULL),
+(338, '2022-03-16 13:45:00', '2022-03-16 14:00:00', 1, 3, 82, 270, NULL),
+(339, '2022-03-16 16:30:00', '2022-03-16 16:45:00', 1, 5, 82, 253, NULL),
+(340, '2022-03-16 16:45:00', '2022-03-16 17:00:00', 1, 8, 82, 261, NULL),
+(341, '2022-03-16 10:00:00', '2022-03-16 10:15:00', 1, 3, 82, 284, NULL),
+(342, '2022-03-16 13:00:00', '2022-03-16 13:15:00', 1, 3, 82, 194, NULL),
+(343, '2022-03-16 14:30:00', '2022-03-16 14:45:00', 1, 7, 82, 226, 0),
+(344, '2022-03-16 14:30:00', '2022-03-16 14:45:00', 1, 7, 82, 193, NULL),
+(345, '2022-03-16 12:30:00', '2022-03-16 12:45:00', 1, 7, 82, 278, NULL),
+(346, '2022-03-17 14:30:00', '2022-03-17 14:45:00', 1, 7, 82, 190, NULL),
+(347, '2022-03-16 15:00:00', '2022-03-16 15:15:00', 1, 2, 82, 243, NULL),
+(348, '2022-03-16 08:45:00', '2022-03-16 09:00:00', 1, 8, 82, 208, NULL),
+(349, '2022-03-17 16:15:00', '2022-03-17 16:30:00', 1, 4, 82, 202, NULL),
+(350, '2022-03-16 16:15:00', '2022-03-16 16:30:00', 1, 1, 82, 225, NULL),
+(351, '2022-03-16 16:00:00', '2022-03-16 16:15:00', 1, 9, 82, 256, NULL),
+(352, '2022-03-16 15:45:00', '2022-03-16 16:00:00', 1, 2, 82, 203, NULL),
+(353, '2022-03-16 10:15:00', '2022-03-16 10:30:00', 1, 4, 82, 207, NULL),
+(354, '2022-03-16 11:30:00', '2022-03-16 11:45:00', 1, 3, 82, 222, NULL),
+(355, '2022-03-16 09:00:00', '2022-03-16 09:15:00', 1, 9, 82, 252, NULL),
+(357, '2022-03-16 08:00:00', '2022-03-16 08:15:00', 1, 2, 82, 265, 0),
+(359, '2022-03-16 08:15:00', '2022-03-16 08:30:00', 1, 12, 82, 271, NULL),
+(360, '2022-03-16 09:30:00', '2022-03-16 09:45:00', 1, 4, 82, 277, NULL),
+(361, '2022-03-16 08:30:00', '2022-03-16 08:45:00', 1, 11, 82, 269, NULL),
+(362, '2022-03-16 10:45:00', '2022-03-16 11:00:00', 1, 12, 82, 211, NULL),
+(363, '2022-03-16 11:15:00', '2022-03-16 11:30:00', 1, 6, 82, 194, NULL),
+(364, '2022-03-16 10:30:00', '2022-03-16 10:45:00', 1, 4, 82, 203, NULL),
+(365, '2022-03-16 09:45:00', '2022-03-16 10:00:00', 1, 8, 82, 227, NULL),
+(366, '2022-03-16 13:15:00', '2022-03-16 13:30:00', 1, 7, 82, 204, NULL),
+(367, '2022-03-17 09:00:00', '2022-03-17 09:15:00', 1, 3, 113, 284, NULL),
+(368, '2022-03-17 11:15:00', '2022-03-17 11:30:00', 1, 3, 113, 277, NULL),
+(369, '2022-03-17 10:45:00', '2022-03-17 11:00:00', 1, 1, 100, 202, NULL),
+(370, '2022-03-17 14:15:00', '2022-03-17 14:30:00', 1, 1, 100, 190, NULL),
+(371, '2022-03-20 09:15:00', '2022-03-20 09:30:00', 1, 1, 82, 206, NULL),
+(372, '2022-03-20 12:00:00', '2022-03-20 12:15:00', 1, 7, 82, 211, NULL),
+(373, '2022-03-20 14:45:00', '2022-03-20 15:00:00', 1, 5, 82, 188, NULL),
+(374, '2022-03-20 10:15:00', '2022-03-20 10:30:00', 1, 7, 82, 226, NULL),
+(375, '2022-03-20 11:30:00', '2022-03-20 11:45:00', 1, 3, 82, 270, NULL),
+(376, '2022-03-22 09:30:00', '2022-03-22 09:45:00', 1, 8, 82, 261, NULL),
+(377, '2022-03-21 12:15:00', '2022-03-21 12:30:00', 1, 2, 82, 191, NULL),
+(378, '2022-03-21 09:30:00', '2022-03-21 09:45:00', 1, 4, 82, 228, NULL),
+(379, '2022-03-21 14:45:00', '2022-03-21 15:00:00', 1, 1, 82, 243, NULL),
+(380, '2022-03-20 16:00:00', '2022-03-20 16:15:00', 1, 2, 82, 276, NULL),
+(381, '2022-03-20 12:45:00', '2022-03-20 13:00:00', 1, 1, 82, 192, NULL),
+(382, '2022-03-20 14:15:00', '2022-03-20 14:30:00', 1, 7, 82, 207, NULL),
+(383, '2022-03-20 16:45:00', '2022-03-20 17:00:00', 1, 7, 82, 191, NULL),
+(384, '2022-03-20 15:30:00', '2022-03-20 15:45:00', 1, 7, 82, 208, NULL),
+(385, '2022-03-20 13:45:00', '2022-03-20 14:00:00', 1, 7, 82, 269, NULL),
+(386, '2022-03-20 08:45:00', '2022-03-20 09:00:00', 1, 7, 82, 237, NULL),
+(387, '2022-03-20 08:00:00', '2022-03-20 08:15:00', 1, 7, 82, 188, NULL),
+(388, '2022-03-20 13:15:00', '2022-03-20 13:30:00', 1, 7, 82, 202, NULL),
+(389, '2022-03-20 10:45:00', '2022-03-20 11:00:00', 1, 3, 82, 284, NULL),
+(390, '2022-03-21 10:30:00', '2022-03-21 10:45:00', 1, 7, 82, 206, NULL),
+(391, '2022-03-21 13:30:00', '2022-03-21 13:45:00', 1, 1, 82, 193, NULL),
+(392, '2022-03-21 16:00:00', '2022-03-21 16:15:00', 1, 4, 82, 193, NULL),
+(393, '2022-03-22 12:45:00', '2022-03-22 13:00:00', 1, 2, 82, 275, NULL),
+(394, '2022-03-22 14:45:00', '2022-03-22 15:00:00', 1, 7, 82, 237, NULL),
+(395, '2022-03-22 11:00:00', '2022-03-22 11:15:00', 1, 3, 82, 188, NULL),
+(396, '2022-03-22 16:30:00', '2022-03-22 16:45:00', 1, 12, 82, 238, NULL),
+(397, '2022-03-22 12:45:00', '2022-03-22 13:00:00', 1, 3, 113, 193, NULL),
+(398, '2022-03-24 09:15:00', '2022-03-24 09:30:00', 1, 1, 82, 190, NULL),
+(399, '2022-03-24 08:15:00', '2022-03-24 08:30:00', 1, 3, 82, 270, NULL),
+(400, '2022-03-24 11:45:00', '2022-03-24 12:00:00', 1, 5, 82, 243, NULL),
+(401, '2022-03-24 15:00:00', '2022-03-24 15:15:00', 1, 7, 82, 271, NULL),
+(402, '2022-03-24 16:45:00', '2022-03-24 17:00:00', 1, 8, 82, 227, NULL),
+(403, '2022-03-24 15:30:00', '2022-03-24 15:45:00', 1, 12, 82, 193, NULL),
+(404, '2022-03-24 14:30:00', '2022-03-24 14:45:00', 0, 3, 113, 285, NULL),
+(405, '2022-03-24 10:30:00', '2022-03-24 10:45:00', 1, 3, 113, 194, NULL),
+(406, '2022-03-24 13:15:00', '2022-03-24 13:30:00', 1, 10, 82, 258, NULL),
+(407, '2022-03-25 10:00:00', '2022-03-25 10:15:00', 1, 4, 82, 228, NULL),
+(408, '2022-03-25 14:45:00', '2022-03-25 15:00:00', 1, 9, 82, 228, NULL),
+(409, '2022-03-24 12:30:00', '2022-03-24 12:45:00', 1, 1, 82, 192, NULL),
+(410, '2022-03-24 11:00:00', '2022-03-24 11:15:00', 1, 4, 82, 204, NULL),
+(411, '2022-03-24 16:15:00', '2022-03-24 16:30:00', 1, 4, 82, 284, NULL),
+(412, '2022-03-24 14:00:00', '2022-03-24 14:15:00', 1, 4, 82, 191, NULL),
+(413, '2022-03-30 08:00:00', '2022-03-30 08:15:00', 1, 1, 100, 193, NULL),
+(414, '2022-03-30 08:30:00', '2022-03-30 08:45:00', 0, 3, 113, 285, NULL),
+(415, '2022-03-30 09:15:00', '2022-03-30 09:30:00', 1, 7, 82, 227, NULL),
+(416, '2022-03-30 10:15:00', '2022-03-30 10:30:00', 1, 5, 82, 259, NULL),
+(417, '2022-03-30 12:45:00', '2022-03-30 13:00:00', 1, 12, 82, 253, NULL),
+(418, '2022-03-30 14:00:00', '2022-03-30 14:15:00', 1, 10, 82, 284, NULL),
+(419, '2022-03-30 11:30:00', '2022-03-30 11:45:00', 1, 11, 82, 284, NULL),
+(420, '2022-03-30 15:00:00', '2022-03-30 15:15:00', 1, 7, 82, 275, NULL),
+(421, '2022-03-30 08:15:00', '2022-03-30 08:30:00', 1, 7, 82, 190, NULL),
+(422, '2022-03-30 12:15:00', '2022-03-30 12:30:00', 1, 6, 82, 203, NULL),
+(423, '2022-03-30 10:45:00', '2022-03-30 11:00:00', 1, 2, 82, 261, NULL),
+(424, '2022-03-30 16:00:00', '2022-03-30 16:15:00', 1, 1, 100, 226, NULL),
+(425, '2022-03-30 16:45:00', '2022-03-30 17:00:00', 1, 3, 82, 277, NULL),
+(426, '2022-03-30 16:30:00', '2022-03-30 16:45:00', 1, 7, 82, 194, NULL),
+(427, '2022-03-30 15:30:00', '2022-03-30 15:45:00', 1, 7, 82, 192, NULL),
+(428, '2022-03-31 12:00:00', '2022-03-31 12:15:00', 1, 1, 102, 188, NULL),
+(429, '2022-04-01 10:15:00', '2022-04-01 10:30:00', 1, 1, 102, 191, NULL),
+(430, '2022-03-31 14:00:00', '2022-03-31 14:15:00', 1, 1, 82, 225, NULL),
+(431, '2022-04-15 09:15:00', '2022-04-15 09:30:00', 1, 2, 82, 191, NULL),
+(432, '2022-04-15 11:00:00', '2022-04-15 11:15:00', 1, 9, 82, 256, NULL),
+(433, '2022-04-14 10:00:00', '2022-04-14 10:15:00', 1, 3, 103, 193, 0),
+(434, '2022-04-18 10:00:00', '2022-04-18 10:15:00', 1, 3, 103, 193, 0),
+(435, '2022-04-20 11:00:00', '2022-04-20 11:15:00', 1, 3, 113, 193, 0),
+(436, '2022-04-20 14:00:00', '2022-04-20 14:15:00', 1, 3, 113, 285, NULL),
+(437, '2022-04-25 09:00:00', '2022-04-25 09:15:00', 1, 3, 113, 188, NULL),
+(438, '2022-04-25 10:00:00', '2022-04-25 10:15:00', 1, 3, 113, 188, NULL),
+(439, '2022-04-19 11:45:00', '2022-04-19 12:00:00', 1, 3, 103, 270, NULL),
+(440, '2022-05-11 13:00:00', '2022-05-11 13:15:00', 1, 1, 102, 226, NULL),
+(441, '2022-05-10 13:15:00', '2022-05-10 13:30:00', 1, 1, 102, 191, NULL),
+(442, '2022-05-10 10:15:00', '2022-05-10 10:30:00', 0, 1, 102, 202, NULL),
+(443, '2022-05-10 16:00:00', '2022-05-10 16:15:00', 1, 1, 102, 207, NULL),
+(444, '2022-05-10 14:30:00', '2022-05-10 14:45:00', 1, 1, 102, 191, NULL),
+(445, '2022-05-10 11:45:00', '2022-05-10 12:00:00', 1, 3, 103, 272, NULL),
+(446, '2022-05-10 13:45:00', '2022-05-10 14:00:00', 1, 3, 103, 270, NULL),
+(447, '2022-05-10 15:45:00', '2022-05-10 16:00:00', 1, 3, 103, 193, NULL),
+(448, '2022-05-10 08:00:00', '2022-05-10 08:15:00', 1, 3, 103, 277, 0),
+(449, '2022-05-10 08:15:00', '2022-05-10 08:30:00', 1, 3, 103, 284, NULL),
+(450, '2022-05-10 09:00:00', '2022-05-10 09:15:00', 1, 3, 103, 193, NULL),
+(451, '2022-05-10 08:00:00', '2022-05-10 08:15:00', 1, 1, 102, 274, NULL),
+(452, '2022-05-10 08:45:00', '2022-05-10 09:00:00', 1, 1, 102, 211, NULL);
 
 -- --------------------------------------------------------
 
@@ -11369,7 +12158,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   PRIMARY KEY (`id`),
   KEY `responsable_id` (`responsable_id`),
   KEY `FK_service_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `services`
@@ -11566,6 +12355,19 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   KEY `fk_trait_visite` (`visite_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `traitements`
+--
+
+INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `nbrPJ`, `duree`, `visite_id`) VALUES
+(91, 20, '3 comprime par jour', NULL, 3, 3, 271),
+(92, 107, '4 comprime par jour', NULL, 4, 1, 271),
+(93, 105, '1 comprime par jour', NULL, 1, 1, 272),
+(98, 108, '2comprime par jour', NULL, 3, NULL, 304),
+(99, 106, '3 comprime par jour', NULL, 3, NULL, 311),
+(100, 106, '4 comprime par jour', NULL, 4, NULL, 313),
+(101, 77, '2comprime par jour', NULL, 2, NULL, 346);
+
 -- --------------------------------------------------------
 
 --
@@ -11710,14 +12512,14 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', 'infcar@hop.dz', 1, 3, 'NVTu9aW6lsr6osCB5c6G5LsxLlsYGfaJeRzSBvTt8eamYf8iUJok0ra3O51Y', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'neHa3u6SvopbS9BS6wfpGIBwdsl7mKTY6gpaDpg8ALriVQDR5nyR0hkJdfMn', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'w9aRLjo81VtItqmPGfF4hBlxodtexodfB116MoBXhxcYx7zoEVuub0zdbvAg', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'cBQwQhRbHWbtos2gqZfzNHHTbcSHfJBOi4csTzD8h375WS4rNZNXVBC3Vt4X', 1),
 (29, 'surint', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'surint@hop.dz', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, '3cje24czswYsF93sqrtbB9SbUui3XqaHwsJGn8VNslY0ja5UwfkqkFpoa2vu', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'rec@gmail.com', 82, 2, 'MB9viADYAt3KvkRpf1oAd8matxcYeSN3LR93HFhEbHhbc7fqPNx6gtdiLDru', 1),
 (33, 'medorl', '$2y$10$MkXa.6SlrtM.V/6WY.LsFeiWb7qNiUAS.ZEQIn9on2Py7IVSOUYim', 'medOrl@gmail.cpm', 79, 1, 'vi7jdwX1xkuQN9uDXLrwZpygZeXf2cQFy6Nhz26EOLEYulAcw1OGXZ78vpCc', 1),
 (34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, 'D2K1PO1TorwFP3NTwJunhtXqXRaQubCvPlB5jzGzWWAUcrAL1mUc7hsWQA2i', 1),
-(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'XTl5sYv6fEWZ9vXeXlDzB9T5dk0sFNY3mkkTnCZ9BzVA9LYOErCuEb6KaYEL', 1),
+(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '5YDBxPs7kU1u88AgVf4lEgHVIBwQ879VlxSujItK0RaskjLuQ1DvbG1btzl6', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'rZ7tFjNH3XidoWkBpVRs2PGQk7F85us8ACEZlpNXIZl7VYj8gMctmmsskQUR', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
@@ -11726,8 +12528,8 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '5Zq1qFaBDQIuU62Jr87eQ0aVyeAJ8q0SXFztxmsgFcgOUgPKEV9bhiYUqctf', 1),
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'xSem4M4Q6SrE58iO0fMreXAdvhQYbYbalvHd1voXVUxxsrCiRyvLcDp6wC5a', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'dTgUJlehZSWVXbuOVqU5g9yzx938s0YmCOHkCLfUVPKLYnXN76Izzl7AH9Jc', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'PZc3LZ75Ih2p8NiU1EPpwI6Zc8P4QHCqXgxZtamTFlKPBIGCIlNrJn1zosuG', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'ZV6XPXwWpd6nOmIvmgXBT6nhbXiw6DNW9F60wzbd3nmGgUwfS01aBHTYANVO', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'LdCX1Wb6BQop2HFdi8nKGF9DykFmNvvZU2DFpQPuXYOUVL7lA006K7V1GcD5', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'rUaXdMtjbEGcdCb8aiR32E8mfqxxO6r37yEaFgCrxNq7MiMNw4thYhnQR9Su', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'I3gmHlimwGaGSxonfJE40bhuNPzcaVR8V17S0zMwC2ogd5FKdjRUMgvOieY2', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'MxSqSFbsKPmj8yiV73PEEWR6UTZLdGp41aZ002ObxZinCjt9VLq9i0G5H7fA', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'hZYxzMcja9cKA8yg2AhZJOIIQieEU13UNt17CWIl58nTEtl2EMJbfYIZbdq1', 1),
@@ -11786,7 +12588,191 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`)
-) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=348 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `visites`
+--
+
+INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_at`, `updated_at`) VALUES
+(2, '2021-07-24', '17:15:00', 4, 88, NULL, NULL),
+(6, '2021-07-25', '15:21:00', 5, 88, NULL, NULL),
+(8, '2021-07-25', '15:25:00', 5, 88, NULL, NULL),
+(9, '2021-07-25', '15:27:00', 5, 88, NULL, NULL),
+(11, '2021-07-25', '16:24:00', 5, 88, NULL, NULL),
+(12, '2021-07-26', '10:49:00', 5, 88, NULL, NULL),
+(13, '2021-07-26', '15:45:00', 5, 88, NULL, NULL),
+(14, '2021-09-21', '10:40:00', 5, 88, NULL, NULL),
+(15, '2021-09-21', '10:47:00', 4, 114, NULL, NULL),
+(16, '2021-09-23', '13:30:00', 3, 88, NULL, NULL),
+(17, '2021-09-23', '13:33:00', 5, 114, NULL, NULL),
+(18, '2021-09-23', '13:36:00', 5, 114, NULL, NULL),
+(19, '2021-09-23', '13:36:00', 5, 114, NULL, NULL),
+(20, '2021-09-23', '13:39:00', 4, 114, NULL, NULL),
+(21, '2021-09-23', '13:47:00', 4, 114, NULL, NULL),
+(153, '2022-03-30', '10:45:00', 8, 102, NULL, NULL),
+(158, '2022-04-03', '12:41:00', 6, 103, NULL, NULL),
+(161, '2022-04-03', '12:51:00', 6, 103, NULL, NULL),
+(165, '2022-04-06', '12:45:00', 6, 113, NULL, NULL),
+(166, '2022-04-06', '12:56:00', 6, 113, NULL, NULL),
+(167, '2022-04-06', '12:56:00', 6, 113, NULL, NULL),
+(180, '2022-04-06', '13:21:00', 2, 113, NULL, NULL),
+(181, '2022-04-06', '13:23:00', 2, 113, NULL, NULL),
+(182, '2022-04-06', '13:23:00', 2, 113, NULL, NULL),
+(183, '2022-04-06', '13:24:00', 2, 113, NULL, NULL),
+(184, '2022-04-06', '13:26:00', 2, 113, NULL, NULL),
+(185, '2022-04-06', '13:26:00', 2, 113, NULL, NULL),
+(186, '2022-04-06', '13:28:00', 2, 113, NULL, NULL),
+(187, '2022-04-06', '13:29:00', 2, 113, NULL, NULL),
+(188, '2022-04-06', '13:31:00', 2, 113, NULL, NULL),
+(189, '2022-04-06', '13:34:00', 2, 113, NULL, NULL),
+(190, '2022-04-06', '13:36:00', 2, 113, NULL, NULL),
+(191, '2022-04-06', '13:37:00', 2, 113, NULL, NULL),
+(192, '2022-04-06', '13:37:00', 2, 113, NULL, NULL),
+(193, '2022-04-06', '13:38:00', 2, 113, NULL, NULL),
+(194, '2022-04-06', '13:39:00', 2, 113, NULL, NULL),
+(195, '2022-04-06', '13:40:00', 2, 113, NULL, NULL),
+(197, '2022-04-06', '17:19:00', 2, 113, NULL, NULL),
+(198, '2022-04-06', '17:22:00', 2, 113, NULL, NULL),
+(199, '2022-04-06', '17:24:00', 2, 113, NULL, NULL),
+(200, '2022-04-06', '17:34:00', 2, 113, NULL, NULL),
+(201, '2022-04-06', '17:35:00', 2, 113, NULL, NULL),
+(202, '2022-04-07', '13:04:00', 2, 103, NULL, NULL),
+(203, '2022-04-07', '13:04:00', 2, 103, NULL, NULL),
+(204, '2022-04-07', '13:05:00', 2, 103, NULL, NULL),
+(205, '2022-04-07', '13:06:00', 2, 103, NULL, NULL),
+(206, '2022-04-07', '13:07:00', 2, 103, NULL, NULL),
+(207, '2022-04-07', '13:10:00', 2, 103, NULL, NULL),
+(209, '2022-04-10', '13:58:00', 2, 103, NULL, NULL),
+(210, '2022-04-10', '13:58:00', 2, 103, NULL, NULL),
+(211, '2022-04-10', '13:58:00', 6, 103, NULL, NULL),
+(213, '2022-04-10', '14:23:00', 2, 103, NULL, NULL),
+(214, '2022-04-10', '14:28:00', 2, 103, NULL, NULL),
+(215, '2022-04-10', '14:33:00', 2, 103, NULL, NULL),
+(216, '2022-04-10', '14:49:00', 2, 103, NULL, NULL),
+(217, '2022-04-10', '14:57:00', 2, 103, NULL, NULL),
+(218, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(219, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(220, '2022-04-10', '14:58:00', 2, 103, NULL, NULL),
+(221, '2022-04-10', '15:04:00', 2, 103, NULL, NULL),
+(222, '2022-04-10', '15:05:00', 2, 103, NULL, NULL),
+(223, '2022-04-10', '15:07:00', 2, 103, NULL, NULL),
+(224, '2022-04-10', '15:09:00', 2, 103, NULL, NULL),
+(225, '2022-04-10', '15:09:00', 2, 103, NULL, NULL),
+(226, '2022-04-10', '15:10:00', 2, 103, NULL, NULL),
+(227, '2022-04-10', '15:10:00', 2, 103, NULL, NULL),
+(228, '2022-04-10', '15:11:00', 2, 103, NULL, NULL),
+(229, '2022-04-10', '15:13:00', 2, 103, NULL, NULL),
+(230, '2022-04-10', '15:14:00', 2, 103, NULL, NULL),
+(231, '2022-04-10', '15:16:00', 2, 103, NULL, NULL),
+(232, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(233, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(234, '2022-04-10', '15:18:00', 2, 103, NULL, NULL),
+(235, '2022-04-10', '15:20:00', 2, 103, NULL, NULL),
+(236, '2022-04-10', '15:22:00', 2, 103, NULL, NULL),
+(237, '2022-04-10', '15:22:00', 2, 103, NULL, NULL),
+(238, '2022-04-10', '15:23:00', 2, 103, NULL, NULL),
+(239, '2022-04-10', '15:24:00', 2, 103, NULL, NULL),
+(240, '2022-04-10', '15:25:00', 2, 103, NULL, NULL),
+(241, '2022-04-10', '15:25:00', 2, 103, NULL, NULL),
+(242, '2022-04-10', '15:26:00', 2, 103, NULL, NULL),
+(243, '2022-04-10', '15:33:00', 2, 103, NULL, NULL),
+(244, '2022-04-10', '15:36:00', 2, 103, NULL, NULL),
+(245, '2022-04-10', '15:37:00', 2, 103, NULL, NULL),
+(246, '2022-04-10', '15:38:00', 2, 103, NULL, NULL),
+(247, '2022-04-10', '15:40:00', 2, 103, NULL, NULL),
+(248, '2022-04-10', '15:40:00', 2, 103, NULL, NULL),
+(249, '2022-04-10', '15:44:00', 2, 103, NULL, NULL),
+(250, '2022-04-10', '15:44:00', 2, 103, NULL, NULL),
+(251, '2022-04-10', '15:49:00', 2, 103, NULL, NULL),
+(252, '2022-04-10', '15:50:00', 2, 103, NULL, NULL),
+(253, '2022-04-10', '15:51:00', 2, 103, NULL, NULL),
+(254, '2022-04-10', '15:56:00', 2, 103, NULL, NULL),
+(255, '2022-04-10', '15:58:00', 2, 103, NULL, NULL),
+(256, '2022-04-10', '16:00:00', 2, 103, NULL, NULL),
+(257, '2022-04-10', '16:06:00', 2, 103, NULL, NULL),
+(258, '2022-04-10', '16:07:00', 2, 103, NULL, NULL),
+(259, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
+(260, '2022-04-10', '16:08:00', 2, 103, NULL, NULL),
+(261, '2022-04-10', '16:14:00', 2, 103, NULL, NULL),
+(262, '2022-04-10', '16:17:00', 2, 103, NULL, NULL),
+(263, '2022-04-11', '11:28:00', 2, 103, NULL, NULL),
+(265, '2022-04-11', '12:05:00', 6, 103, NULL, NULL),
+(266, '2022-04-11', '12:43:00', 6, 103, NULL, NULL),
+(267, '2022-04-11', '12:44:00', 2, 103, NULL, NULL),
+(268, '2022-04-11', '12:47:00', 6, 103, NULL, NULL),
+(269, '2022-04-11', '12:48:00', 6, 103, NULL, NULL),
+(270, '2022-04-11', '12:49:00', 6, 103, NULL, NULL),
+(271, '2022-04-11', '12:50:00', 6, 103, NULL, NULL),
+(272, '2022-04-12', '14:18:00', 2, 103, NULL, NULL),
+(273, '2022-04-12', '14:45:00', 2, 103, NULL, NULL),
+(274, '2022-04-12', '14:46:00', 2, 103, NULL, NULL),
+(275, '2022-04-12', '14:46:00', 2, 103, NULL, NULL),
+(276, '2022-04-12', '14:47:00', 2, 103, NULL, NULL),
+(277, '2022-04-12', '14:48:00', 2, 103, NULL, NULL),
+(279, '2022-04-12', '15:09:00', 2, 103, NULL, NULL),
+(280, '2022-04-12', '15:13:00', 2, 103, NULL, NULL),
+(281, '2022-04-12', '15:14:00', 2, 103, NULL, NULL),
+(282, '2022-04-12', '15:15:00', 2, 103, NULL, NULL),
+(283, '2022-04-12', '15:16:00', 2, 103, NULL, NULL),
+(284, '2022-04-12', '15:16:00', 2, 103, NULL, NULL),
+(285, '2022-04-13', '12:11:00', 2, 113, NULL, NULL),
+(286, '2022-04-14', '09:28:00', 2, 113, NULL, NULL),
+(287, '2022-04-14', '09:29:00', 2, 113, NULL, NULL),
+(288, '2022-04-14', '13:36:00', 2, 113, NULL, NULL),
+(289, '2022-04-14', '13:36:00', 2, 113, NULL, NULL),
+(290, '2022-04-14', '14:42:00', 2, 103, NULL, NULL),
+(291, '2022-04-14', '16:10:00', 11, 103, NULL, NULL),
+(292, '2022-04-14', '16:12:00', 11, 103, NULL, NULL),
+(293, '2022-04-14', '16:33:00', 11, 113, NULL, NULL),
+(294, '2022-04-14', '16:33:00', 12, 113, NULL, NULL),
+(295, '2022-04-14', '16:39:00', 12, 113, NULL, NULL),
+(296, '2022-04-14', '16:42:00', 12, 113, NULL, NULL),
+(297, '2022-04-14', '16:44:00', 12, 113, NULL, NULL),
+(298, '2022-04-14', '16:45:00', 12, 113, NULL, NULL),
+(299, '2022-04-14', '16:46:00', 12, 113, NULL, NULL),
+(300, '2022-04-14', '16:46:00', 12, 113, NULL, NULL),
+(301, '2022-04-14', '16:50:00', 11, 113, NULL, NULL),
+(302, '2022-04-14', '16:50:00', 12, 113, NULL, NULL),
+(303, '2022-04-14', '16:52:00', 12, 113, NULL, NULL),
+(304, '2022-04-14', '16:53:00', 12, 113, NULL, NULL),
+(305, '2022-04-14', '16:54:00', 12, 113, NULL, NULL),
+(306, '2022-04-14', '16:58:00', 12, 113, NULL, NULL),
+(307, '2022-04-14', '16:59:00', 12, 113, NULL, NULL),
+(308, '2022-04-14', '17:01:00', 12, 113, NULL, NULL),
+(309, '2022-04-14', '17:02:00', 12, 113, NULL, NULL),
+(310, '2022-04-14', '17:02:00', 12, 113, NULL, NULL),
+(311, '2022-04-14', '17:19:00', 13, 113, NULL, NULL),
+(312, '2022-04-14', '17:21:00', 13, 113, NULL, NULL),
+(313, '2022-04-14', '17:39:00', 14, 113, NULL, NULL),
+(314, '2022-04-16', '13:02:00', 14, 113, NULL, NULL),
+(315, '2022-04-17', '14:52:00', 14, 103, NULL, NULL),
+(319, '2022-04-17', '15:08:00', 14, 113, NULL, NULL),
+(320, '2022-04-18', '09:10:00', 14, 113, NULL, NULL),
+(321, '2022-04-18', '09:10:00', 14, 113, NULL, NULL),
+(322, '2022-04-18', '15:51:00', 14, 113, NULL, NULL),
+(323, '2022-04-19', '10:19:00', 14, 103, NULL, NULL),
+(324, '2022-04-19', '10:20:00', 14, 103, NULL, NULL),
+(325, '2022-04-19', '10:20:00', 14, 103, NULL, NULL),
+(326, '2022-04-19', '10:37:00', 14, 103, NULL, NULL),
+(327, '2022-04-19', '10:45:00', 14, 103, NULL, NULL),
+(328, '2022-04-24', '14:52:00', 14, 103, NULL, NULL),
+(331, '2022-04-25', '12:41:00', 14, 103, NULL, NULL),
+(332, '2022-04-25', '12:47:00', 14, 103, NULL, NULL),
+(333, '2022-04-25', '13:02:00', 14, 103, NULL, NULL),
+(334, '2022-04-27', '08:52:00', 14, 103, NULL, NULL),
+(335, '2022-04-27', '09:03:00', 3, 88, NULL, NULL),
+(336, '2022-04-27', '09:04:00', 3, 88, NULL, NULL),
+(337, '2022-04-27', '09:12:00', 3, 88, NULL, NULL),
+(338, '2022-04-27', '09:14:00', 3, 88, NULL, NULL),
+(340, '2022-04-27', '09:16:00', 5, 114, NULL, NULL),
+(341, '2022-04-27', '09:21:00', 3, 114, NULL, NULL),
+(342, '2022-04-27', '09:22:00', 3, 114, NULL, NULL),
+(343, '2022-04-27', '09:23:00', 3, 114, NULL, NULL),
+(344, '2022-04-27', '09:24:00', 3, 114, NULL, NULL),
+(345, '2022-04-27', '09:25:00', 3, 114, NULL, NULL),
+(346, '2022-04-27', '09:28:00', 3, 114, NULL, NULL),
+(347, '2022-04-27', '09:34:00', 3, 114, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -11864,7 +12850,7 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 DROP TABLE IF EXISTS `nextrdvs`;
 
 DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `dpdgsn`.`rdvs`.`id` AS `id`, date_format(`dpdgsn`.`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `dpdgsn`.`rdvs`.`patient_id` AS `patientId`, `dpdgsn`.`patients`.`IPP` AS `IPP`, `dpdgsn`.`patients`.`Nom` AS `Nom`, `dpdgsn`.`patients`.`Prenom` AS `Prenom`, `dpdgsn`.`patients`.`Sexe` AS `Sexe`, date_format(ifnull(`dpdgsn`.`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `dpdgsn`.`specialites`.`id` AS `specialiteId` FROM ((`dpdgsn`.`rdvs` join `dpdgsn`.`patients` on((`dpdgsn`.`rdvs`.`patient_id` = `dpdgsn`.`patients`.`id`))) join `dpdgsn`.`specialites` on((`dpdgsn`.`rdvs`.`specialite_id` = `dpdgsn`.`specialites`.`id`))) WHERE ((`dpdgsn`.`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) AND isnull(`dpdgsn`.`rdvs`.`etat`)) ORDER BY `dpdgsn`.`rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
 
 -- --------------------------------------------------------
 
@@ -11874,7 +12860,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `nextrdvsold`;
 
 DROP VIEW IF EXISTS `nextrdvsold`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS SELECT `dpdgsn`.`rdvs`.`id` AS `id`, date_format(`dpdgsn`.`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `dpdgsn`.`rdvs`.`patient_id` AS `patientId`, `dpdgsn`.`patients`.`IPP` AS `IPP`, `dpdgsn`.`patients`.`Nom` AS `Nom`, `dpdgsn`.`patients`.`Prenom` AS `Prenom`, `dpdgsn`.`patients`.`Sexe` AS `Sexe`, date_format(`dpdgsn`.`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`, `dpdgsn`.`specialites`.`id` AS `specialiteId` FROM ((`dpdgsn`.`rdvs` join `dpdgsn`.`patients` on((`dpdgsn`.`rdvs`.`patient_id` = `dpdgsn`.`patients`.`id`))) join `dpdgsn`.`specialites` on((`dpdgsn`.`rdvs`.`specialite_id` = `dpdgsn`.`specialites`.`id`))) WHERE (`dpdgsn`.`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `dpdgsn`.`rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
 
 -- --------------------------------------------------------
 
@@ -11884,7 +12870,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `nextrdvsoldnew`;
 
 DROP VIEW IF EXISTS `nextrdvsoldnew`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS SELECT `dpdgsn`.`rdvs`.`id` AS `id`, date_format(`dpdgsn`.`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `dpdgsn`.`rdvs`.`patient_id` AS `patientId`, `dpdgsn`.`patients`.`IPP` AS `IPP`, `dpdgsn`.`patients`.`Nom` AS `Nom`, `dpdgsn`.`patients`.`Prenom` AS `Prenom`, `dpdgsn`.`patients`.`Sexe` AS `Sexe`, date_format(ifnull(`dpdgsn`.`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `dpdgsn`.`specialites`.`id` AS `specialiteId` FROM ((`dpdgsn`.`rdvs` join `dpdgsn`.`patients` on((`dpdgsn`.`rdvs`.`patient_id` = `dpdgsn`.`patients`.`id`))) join `dpdgsn`.`specialites` on((`dpdgsn`.`rdvs`.`specialite_id` = `dpdgsn`.`specialites`.`id`))) WHERE ((`dpdgsn`.`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) AND isnull(`dpdgsn`.`rdvs`.`etat`)) ORDER BY `dpdgsn`.`rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
 
 --
 -- Contraintes pour les tables déchargées

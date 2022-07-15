@@ -38,7 +38,7 @@
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b></a>
         <b class="arrow"></b>
         <ul class="submenu">
-          <li class=""> <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des fonctionnaires</a><b class="arrow"></b></li>          
+          <li class=""> <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a><b class="arrow"></b></li>          
         </ul>
       </li>
       <li>
@@ -56,4 +56,22 @@
         <b class="arrow"></b>
       </li>
     </ul><!-- /.nav-list -->
+    <!-- #section:basics/sidebar.layout.minimize -->
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+      <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+    <!-- /section:basics/sidebar.layout.minimize -->
+    <script type="text/javascript">
+    $(function(){
+      $('body').on('change', '#type', function (e) {
+        if($(this).val() == 2)
+        {
+          if(!($( ".medChirservice" ).hasClass( "hidden" )))
+          $('.medChirservice').addClass("hidden");
+        }else
+          if($( ".medChirservice" ).hasClass( "hidden" ))
+            $('.medChirservice').removeClass("hidden");
+      });
+    })
+    </script>
 </div>

@@ -26,6 +26,7 @@ use App\modeles\employ;
 use App\modeles\demandeExamImag;
 use App\modeles\demandeexb;
 use App\User;
+use App\modeles\rdv;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
 use App\modeles\infosupppertinentes;
@@ -36,7 +37,7 @@ use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
-use Carbon\Carbon;//use PDF;
+use Carbon\Carbon;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -44,8 +45,7 @@ class ConsultationsController extends Controller
     protected $DemandeHospCTRL;
     public function __construct(LettreOrientationController $LettreOrientationCtrl)
     {
-      $this->middleware('auth');
-      $this->LettreOrientationCTRL = $LettreOrientationCtrl;
+      $this->middleware('auth'); //$this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
     public function index()
     {
@@ -59,16 +59,21 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
       $consultation = consultation::FindOrFail($request->id);
-      $view =  view("consultations.inc_consult",compact('consultation','etablissement','specialite'))->render();
-      return (['html'=>$view]);
+      $view =  view("consultations.inc_consult",compact('consultation','etab','specialite'))->render();
+      return $view;
     }
     public function listecons($id)
     {
-      $patient = patient::with('Consultations.patient','Consultations.medecin','Consultations.medecin.service')->FindOrFail($id);
+      $patient = patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
+      $consults= consultation::with('patient','medecin.Specialite')
+                              ->whereHas('patient', function($q) use ($id) {
+                                $q->where('pid', $id);
+                              })->get();        
       return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
+      
     }
     /**
      * Show the form for creating a new resource.
@@ -77,17 +82,24 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request,$id_patient)
       {
-        $etablissement = Etablissement::first(); 
+        $date = Carbon::now();
+        $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
-        $specialite = Specialite::findOrFail($employe->specialite);
+        if(isset($employe->specialite))
+          $specialite = $employe->Specialite;
+        else
+          $specialite = $employe->Service->Specialite;
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
-        $meds = User::where('role_id',1)->orWhere('role_id', 13)->orWhere('role_id', 14)->get();
-        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();  //where('type','!=',2)
-        return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));
+        $meds = User::whereIn('role_id', [1,13,14])->get();
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
+        $consult =new consultation;$consult->date=$date;
+        $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
+        $consult->id_lieu =$etab->id;$consult->save();
+        return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
     /**
      * Store a newly created resource in storage.
@@ -98,39 +110,37 @@ class ConsultationsController extends Controller
       public function store(Request $request)
       { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
         $constvalue =  collect();$exam;
-        $etablissement = Etablissement::first(); 
+        $etab = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
                 'motif' => 'required',
                 'resume' => 'required',
          ]);
          if($validator->fails())
-                return redirect()->back()->withErrors($validator)->withInput();
+           return redirect()->back()->withErrors($validator)->withInput();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        if($specialite->consConst) {
-               foreach(json_decode($specialite->consConst) as $const)
-               {
-                    $c = Constante::FindOrFail($const);
-                    if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
-                      $constvalue->put($c->nom, $request->input($c->nom));
-               }
-        }
-        $consult = consultation::create([
-          "motif"=>$request->motif,
-          "histoire_maladie"=>$request->histoirem,
-          "date"=>Date::Now(),
-          "Diagnostic"=>$request->diagnostic,
-          "Resume_OBS"=>$request->resume,
-          "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-          "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-          "employ_id"=>Auth::User()->employee_id,
-          "pid"=>$request->patient_id,
-          "id_code_sim"=>$request->codesim,
-          "id_lieu"=>$etablissement->id
-        ]);    
+        $consult = consultation::FindOrFail($request->id);
+        $consult -> update([
+              "motif"=>$request->motif,
+              "histoire_maladie"=>$request->histoirem,
+              "Diagnostic"=>$request->diagnostic,
+              "Resume_OBS"=>$request->resume,
+              "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+              "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+              "id_code_sim"=>$request->codesim,
+              "id_lieu"=>$etab->id
+        ]);
         foreach($consult->patient->rdvs as $rdv)
         {
-          if( $rdv->date->setTime(0, 0)  == $consult->date->setTime(0, 0) )
-            $rdv->update(['Etat_RDV'=>1]);
+          if( $rdv->date->format('Y-m-d')  == $consult->date)
+            $rdv->update(['etat'=>1]);
+        }
+        if($specialite->consConst != "null" ) {
+          foreach(json_decode($specialite->consConst) as $const)
+          {
+            $c = Constante::FindOrFail($const);
+            if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
+              $constvalue->put($c->nom, $request->input($c->nom));
+          }
         }
         if($constvalue->count()>0)
         {
@@ -140,39 +150,22 @@ class ConsultationsController extends Controller
           $constvalue['examCl_id'] = $exam->id ;
           Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
-        } 
-        if($specialite->appareils) {
-            foreach (json_decode ($specialite->appareils ) as  $appareil) {   
-             $appareil = appareil::FindOrFail($appareil);
-              if( null !== $request->input($appareil->nom))
-             {
-                if(!isset( $exam->id))
-                {
-                  $input = $request->all();
-                  $input['id_consultation'] = $consult->id ;
-                  $exam = examen_cliniqu::create($input);
-                }  
-                $examAppareil = new examAppareil;
-                $examAppareil->appareil_id = $appareil->id;
-                $examAppareil->description = $request->input($appareil->nom); 
-                $examAppareil->examen_clinique_id =  $exam->id;
-                $exam->examsAppareil()->save($examAppareil);
-              }
-            }  
-         }
-        if(($request->motifOr != "") ||(isset($request->specOr))){
-                $this->LettreOrientationCTRL->store($request,$consult->id);
         }
+        if(json_decode($request->orients) !== null) {
+          foreach (json_decode($request->orients, true) as $key => $orient) {
+            $orient['consultation_id'] = $consult->id ;
+            LettreOrientation::create($orient);
+          }
+        }/*if(($request->motifOr != "") ||(isset($request->specOr))){$this->LettreOrientationCTRL->store($request,$consult->id);}*/
         if($request->liste != null)//save Ordonnance
         {
-            $ord = new ordonnance;
-            $ord->date = Date::Now();
-            $consult->ordonnances()->save($ord);
-            foreach (json_decode($request->liste) as $key => $trait) {
-              $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
-            }
+          $ord = new ordonnance;$ord->date = Date::Now();
+          $consult->ordonnances()->save($ord);
+          foreach (json_decode($request->liste) as $key => $trait) {
+            $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+          }
         }
-        if($request->exmsbio  != null && (count($request->exmsbio) >0 ))//save ExamBiolo
+        if((!isset($consult->demandeexmbio)) && ( $request->exmsbio  != null) && (count($request->exmsbio) >0 ))
         {
           $demandeExamBio = new demandeexb;
           $consult->demandeexmbio()->save($demandeExamBio);
@@ -183,7 +176,7 @@ class ConsultationsController extends Controller
             $exam->save();
           }
         }
-        if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+        if((!isset($consult->demandExmImg)) && (!empty($request->ExamsImg)))
         { 
           $demandeExImg = new demandeexr;
           $demandeExImg->InfosCliniques = $request->infosc;
@@ -201,18 +194,8 @@ class ConsultationsController extends Controller
             $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
             $exam->type_id = $acte->type;$exam->save();  
           }
-        } 
-        if($request->modeAdmission != null)
-        {  // $input = $request->all();// $input['etat'] = "en attente" ; $input['id_consultation'] = $consult->id ;
-            DemandeHospitalisation::create([
-                "modeAdmission"=>$request->modeAdmission,
-                "specialite"=>$request->specialiteDemande,
-                "service"=>$request->service,
-                "etat" => NULL,
-                "id_consultation"=>$consult->id
-            ]);
         }
-         return redirect(Route('patient.show',$request->patient_id));
+        return redirect(Route('patient.show',$request->patient_id));
        }
     /**
      * Display the specified resource.
@@ -223,8 +206,19 @@ class ConsultationsController extends Controller
       public function show($id)
       {
         $consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-        return view('consultations.show', compact('consultation','specialite'));
+        return view('consultations.show', compact('consultation','specialite','specialites'));
+      }
+      public function destroy(Request $request, $id)
+      {
+        $consult = consultation::find($id);
+        $pid = $consult->pid;
+        $consult->delete();
+        if($request->ajax())  
+          return $consult;
+        else
+          return redirect()->action('PatientController@show',$pid);
       }
      
     /**
@@ -246,14 +240,15 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      *//* public function choix() { return view('consultations.add'); }*/
-          public function getConsultations(Request $request)
+      public function getConsultations(Request $request)
       {
         if($request->ajax())  
         {         
           if($request->field == 'date')
-            $consults =consultation::with('patient','medecin')->where(trim($request->field),'=',trim($request->value))->get();
+            $consults =consultation::with('patient','medecin.Specialite')
+                                   ->where(trim($request->field), trim($request->value))->get();
           else
-            $consults =consultation::with('patient','medecin')->whereHas('patient',function($q) use ($request){
+            $consults =consultation::with('patient','medecin.Specialite')->whereHas('patient',function($q) use ($request){
                                         $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                     })->get();
           return $consults;

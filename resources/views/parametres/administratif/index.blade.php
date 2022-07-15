@@ -8,10 +8,10 @@
       <div class="widget-body">
         <form class="form-horizontal" role="form" method="POST" action="{{ route('params.store')}}">
           {{ csrf_field() }}
-          @foreach($parametres as $param)
+          @foreach(Auth::user()->role->Parameters  as $param)
           <div class="form-group">
-            <label for="{{ $param->nom }}">{{ $param->label}}</label>
-            <input type="$param->type" class="form-control" name="{{ $param->nom }}" value={{ $param->value }} >
+            <label for="{{ $param->nom }}">{{ $param->label }} :</label>
+            <input type="{{ $param->type }}" class="form-control" name="{{ $param->nom }}" value={{ $param->value }} >
           </div>
           @endforeach
           <div class="bottom center">

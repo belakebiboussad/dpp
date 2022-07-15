@@ -6,7 +6,7 @@
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
     $(document).ready(function() {
         window.prettyPrint && prettyPrint();
-        $("#date_colloque").datepicker("setDate", now);  
+        $("#date").datepicker("setDate", now);  
         $('#liste_membre').multiselect();
         $('#reset').click(function(){
             $('#liste_membre_to').empty();       
@@ -31,8 +31,8 @@
         <div class="col-sm-5 col-xs-5">
           <label for="liste_membre"> <h5> <strong>Liste des médecins :</strong></h5></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
-            @foreach( $membre as $membres)
-            <option id="id_membre" value="{{$membres->id}}" >{{$membres->full_name}}</option>
+            @foreach( $service->employs as $med)
+            <option id="id_membre" value="{{ $med->id }}" >{{ $med->full_name }}</option>
             @endforeach
           </select>
         </div>
@@ -44,7 +44,7 @@
           <button type="button" id="liste_membre_redo" class="btn btn-warning btn-block"><i class="glyphicon glyphicon-step-forward"></i></button>
         </div>            
         <div class="col-sm-5 col-xs-5">
-          <label for="liste_membre_to"> <h5> <strong>&nbsp;Liste des membres :</strong></h5></label>&nbsp;
+          <label for="liste_membre_to"><h5><strong>&nbsp;Liste des membres :</strong></h5></label>&nbsp;
           <br>
           <select name="membres[]" id="liste_membre_to" class="form-control" multiple="multiple"></select>
         </div>
@@ -52,21 +52,12 @@
       <div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
       <div class="row">
         <div class="col-sm-7 col-xs-12">
-            <h4><label class= "control-label no-padding-left col-sm-4 col-xs-4" for="date_colloque"><strong>Date :</strong></label></h4>
-            <input class="col-xs-6 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" 
+            <label class= "control-label no-padding-left col-sm-4 col-xs-4" for="date">Date :</label>
+            <input class="col-xs-6 col-sm-4 date-picker" id="date" name="date" type="text" 
                    placeholder="Date d'entrée prévue" data-date-format="yyyy-mm-dd" required/>
-            <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
+            <button class="btn btn-sm filelink" onclick="$('#date').focus()"><i class="fa fa-calendar"></i></button> 
         </div><div class="col-xs-5"></div>   
       </div><div class="space-12 hidden-xs"></div><div class="space-12"></div>
-      <div class="row">
-          <div class="col-sm-7 col-xs-12">
-            <label for="type_colloque" class= "control-label no-padding-left col-sm-4 col-xs-4"><strong>Type :</strong></label>
-            <select id="type_colloque" name="type_colloque" class="col-sm-4 col-xs-8" required>
-              <option value="0" selected >Médical</option>
-             <option value="1">Chirurgical</option>
-            </select>
-          </div>
-      </div><div class="space-12"></div><div class="space-12"></div>
       <div class="row">
           <div class="col-sm-12">
             <div class="center bottom bt-0">

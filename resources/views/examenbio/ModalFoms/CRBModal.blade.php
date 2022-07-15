@@ -15,8 +15,8 @@
 			  </form>
 			</div>{{-- modal-body --}}
 		  <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" id="crbSave" data-dismiss="modal" onclick= "CRBave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        <button type="button" class="btn btn-sm btn-success" id = "" onclick="CRBPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        <button type="submit" class="btn btn-primary btn-sm" id="crbSave" data-dismiss="modal" onclick= "CRBSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="CRBPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}

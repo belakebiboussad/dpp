@@ -13,10 +13,10 @@ class Lit extends Model
           'affectation' => 'boolean',
           'bloq' => 'boolean',
   ];
-   public function bedReservation()
-  {
-        return $this->hasOne('App\modeles\BedReservation','id_lit');//hasOne
-  }
+        public function bedReservation()
+        {
+                     return $this->hasOne('App\modeles\BedReservation','id_lit');
+        }
        public function isFree($start , $end)//libre de reservation
        {
             $idlit = $this->id;

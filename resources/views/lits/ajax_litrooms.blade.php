@@ -8,7 +8,7 @@
 		@foreach ($lits as $key=>$lit)			
 			<div class="form-group">
 				<div class="i-checks">
-					<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right blue" for="num">Numéro :</label>
 					<div><strong>{{ $lit->num }}</strong></div>
 				</div>	
 			</div>

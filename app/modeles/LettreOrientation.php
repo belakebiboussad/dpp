@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class LettreOrientation extends Model
 {
-    //
-	public $timestamps = false;
-	protected $fillable  = ['motif','specialite','consultation_id'];
+  public $timestamps = false;
+	protected $fillable  = ['specialite','motif','examen','consultation_id',];
 	protected $table="lettre_oriantations";
 	public function consultation()
   {
@@ -17,5 +16,5 @@ class LettreOrientation extends Model
   public function Specialite()
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
-  }  // public function Medecin() { 	return $this->belongsTo('App\modeles\employ','medecin'); }
+  }
 }

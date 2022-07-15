@@ -55,7 +55,7 @@ class VisiteController extends Controller
       {
         $prescredconst =array();
         $date = Carbon\Carbon::now();
-        $etablissement = Etablissement::first(); 
+        $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
         $specialite = Specialite::findOrFail($employe->specialite);
         $hosp = hospitalisation::FindOrFail($id_hosp);
@@ -74,7 +74,7 @@ class VisiteController extends Controller
         $codesNgap = NGAP::all();
         $visite->save();
         $consts = consts::all();
-        return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
+        return view('visite.add',compact('consts', 'hosp','consult' ,'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -83,18 +83,17 @@ class VisiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { //Enregistrer Examen Complentaire
+    { 
       $visite = visite::find($request->id); 
-      //dd($request->all());
-      if($request->exmsbio  != null)  //save ExamBiolo
+      if((!isset($visite->demandeexmbio)) && ($request->exmsbio  != null))//Enregistrer Examen Complentaire
       {
         $demandeExamBio = new demandeexb;
         $visite->demandeexmbio()->save($demandeExamBio);
         foreach($request->exmsbio as $id_exb) {//$demandeExamBio->examensbios()->attach($id_exb);
-           $exam = new demandeexb_examenbio;
-            $exam->id_demandeexb = $demandeExamBio->id;
-            $exam->id_examenbio = $id_exb;
-            $exam->save();
+          $exam = new demandeexb_examenbio;
+          $exam->id_demandeexb = $demandeExamBio->id;
+          $exam->id_examenbio = $id_exb;
+          $exam->save();
         }
       }
       if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)

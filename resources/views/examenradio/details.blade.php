@@ -25,60 +25,53 @@
 <script>
 function CRRPrint()
 { 
+  var fileName ='compteRendRadio-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
   $("#conclusionPDF").text($("#conclusion").val());
   var pdf = new jsPDF('p', 'pt', 'a4');
-  generate(pdf,'pdfContent');
+  generate(fileName,pdf,'pdfContent');
 }
 function CRRSave()
 {
-    $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-      }
-    });
     var formData = {
-      conclusion:$("#conclusion").val(),  
+        _token: CSRF_TOKEN,
+        conclusion:$("#conclusion").val(),  
     };
     var state = jQuery('#crrSave').val();
     if (state == "add") 
       formData.exam_id = $("#examId").val();
-    var type = "POST";
-    var ajaxurl = '/crrs';
+    var type = "POST", ajaxurl = '/crrs';
     if (state == "update") {
       type = "PUT";
       ajaxurl = '/crrs/' +  $('#crrId').val();
     }
     $.ajax({
-           type: type,
-           url: ajaxurl,
-           data: formData,
-           dataType : 'json',
-           success: (data) => {
-                  if (state == "add")
-                  {
-                         $('#crr-edit-'+data).removeClass("hidden");$('#crr-add-'+data).addClass("hidden");     
-                  }  
+            type: type,
+            url: ajaxurl,
+            data: formData,
+            dataType : 'json',
+            success: function (data) {
+              if (state == "add")
+              {
+                $('#crr-edit-' + data.exId).removeClass("hidden");
+                $('#crr-edit-' + data.exId).val(data.crrId);
+                $('#crr-add-' + data.exId).addClass("hidden");     
+              }  
            },
            error: function(data){
-                  console.log(data);
+              console.log(data);
            }
      });
 }
 function uploadFiles(examId)
 {
-
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-    }
-  });
   var formData = new FormData();
+  formData.append('_token', CSRF_TOKEN);
   formData.append('demande_id', '{{ $demande->id }}');
   formData.append('exam_id',examId); 
   formData.append("resultat", $("#exm-" + examId)[0].files[0]);
   $.ajax({
      type:'POST',
-     url: "{{ url('store-file') }}",
+     url: "{{ url('store-res') }}",
      data: formData,
      enctype: 'multipart/form-data',
      contentType: false,
@@ -106,22 +99,20 @@ $(function(){
              {
                     $('#'+res).removeAttr('disabled'); //$('#'+crr).removeAttr('disabled');   
             }else
-                  $('#'+res).attr('disabled', 'disabled'); //$('#'+crr).attr('disabled', 'disabled'); 
+                  $('#'+res).attr('disabled', 'disabled'); 
       }) ; 
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
           base64Img = base64; 
         });
-        imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
-          footer64Img = base64; 
-        });    
+      imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
+        footer64Img = base64; 
+      });    
       $(".start").click( function(e){
         e.preventDefault(); //if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
         var  id  = "#exm-"+$(this).val();
         if ($(id)[0].files.length !== 0) 
-        {
           uploadFiles($(this).val()); 
-        }
-       });
+        });
        $(".cancel").click( function(){
              Swal.fire({
                     title: 'Annulez vous  la demande d\'Examen ?',
@@ -138,12 +129,8 @@ $(function(){
                     allowOutsideClick: false,
                     showCloseButton: true
              }).then((result) => {
-                          $.ajaxSetup({
-                                headers: {
-                                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                                 }
-                          }); 
                          var formData = {
+                                _token: CSRF_TOKEN,
                                  demande_id:'{{ $demande->id }}',
                                  exmId:$(this).val(),
                                 observation: result.value,  
@@ -163,44 +150,41 @@ $(function(){
               })
        });
       $(".open-AddCRRDialog").click(function () { 
-             $('#examId').val($(this).val());
-             jQuery('#CRRForm').trigger("reset");
-             jQuery('#crrSave').val("add");
-              $('#addCRRDialog').modal('show');
+        $('#examId').val($(this).val());
+        $('#CRRForm').trigger("reset");
+        $('#crrSave').val("add");
+        $('#addCRRDialog').modal('show');
       });
       $(".open-editCRRDialog").click(function () { 
-         jQuery('#CRRForm').trigger("reset");
+         $('#CRRForm').trigger("reset");
          crrId =  $(this).val();
          $.get('/crrs/' +crrId+'/edit', function (data) { 
             jQuery('#conclusion').val(data.conclusion);
-            $('#crrModalTitle').html('Editer un compte rendue radiologique');
+            $('#crrModalTitle').html('Editer le compte rendue radiologique');
             $('#crrId').val(data.id);
             jQuery('#crrSave').val("update");
+            $('#crbm').text(data.conclusion);
             $('#addCRRDialog').modal('show');
          })
        });
        $(".deleteExam").click(function () { 
-             event.preventDefault();
-             var examId =  $(this).val();  
-             $.ajaxSetup({
-                   headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-             });
-              var formData = {
-                 examId : examId ,
-            };
-            $.ajax({
+              event.preventDefault();
+              var examId =  $(this).val();  
+              var formData = { _token: CSRF_TOKEN, examId : examId };
+              $.ajax({
                type: "POST",
-               url: "{{ url('delete-file') }}",
+               url: "{{ url('delete-res') }}",
                data: formData,
                dataType : 'json', 
                 success: function (data) {
-                  $("#btn-"+data).removeClass("hidden");
-                  $("#cancel-"+data).removeClass("hidden");
-                  $("#exm-"+data).removeClass("hidden");
-                  $("#delet-"+data).addClass("hidden");
-                  $("tr#"+ data+" td").eq(4).html('');
+                  $("#btn-" + data.id).removeClass("hidden");
+                  $("#cancel-" + data.id).removeClass("hidden");
+                  $("#exm-" + data.id).removeClass("hidden");
+                  $("#delet-" + data.id).addClass("hidden");
+                  $('#crr-edit-' + data.id).val();
+                  $('#crr-edit-' + data.id).addClass("hidden");
+                  $('#crr-add-' + data.id).removeClass("hidden");
+                  $("tr#"+ data.id + " td").eq(4).html('');
                 },
               error: function (data) {
                   console.log('Error:', data);
@@ -309,6 +293,5 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="row text-center">@include('examenradio.ModalFoms.CRRModal')</div>
-<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  
+@include('examenradio.ModalFoms.CRRModal'){{-- @include('examenradio.ModalFoms.crrPrint') --}}
 @endsection

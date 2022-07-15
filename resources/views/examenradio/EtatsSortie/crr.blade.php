@@ -7,15 +7,15 @@
     	<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
     </head>
 <body>
-	 <h3 class="center" id="tutelle">{{ $etablissement->tutelle }}</h3>
-  	 <h4 class="mt-3 center"  >{{ $etablissement->nom }}</h4>
-  	 <h5 class="mt-3 center">{{ $etablissement->adresse }}</h5> {{-- style ="margin-top: -0.3em;" --}}
-  	 <h5 class="mt-3 center" >Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>  
+	 <h3 class="center" id="tutelle">{{ $etab->tutelle }}</h3>
+  	 <h4 class="mt-3 center"  >{{ $etab->nom }}</h4>
+  	 <h5 class="mt-3 center">{{ $etab->adresse }}</h5>
+  	 <h5 class="mt-3 center" >Tél : {{ $etab->tel }} - {{ $etab->tel2 }}</h5>  
       	<h5 class="center mt-3"  >
             @if(isset($path_img))
                   <img src="{{ $path_img }}"  alt="logo" width="80" />
              @else
-                  <img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 80px; height: 80px"/>
+                  <img src="img/{{ $etab->logo }}" alt="logo" style="width: 80px; height: 80px"/>
              @endif
         </h5>
 	<hr class="mt-2"/>

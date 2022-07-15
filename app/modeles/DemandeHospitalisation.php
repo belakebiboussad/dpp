@@ -59,7 +59,14 @@ class DemandeHospitalisation extends Model
   }
   public function RDVs() 
   { 
-        return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date');
+    return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date');
+  }
+  public function getInProgressMet()
+  {
+    foreach ( $this->RDVs as $rdv) {
+      if(!isset($rdv->etat))
+        return $rdv;
+    }
   }
   public function bedAffectation()
   {

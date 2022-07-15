@@ -1,16 +1,17 @@
 @extends('app')
 @section('page-script')
 <script>
-  function CRBave()
+  function CRBSave()
    { 
       $("#crb").val($("#crbm").val());
    }
   function CRBPrint()
   {
-    CRBave();
+    CRBSave();
+    var fileName ='compteRendBiolog-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
     $("#crbPDF").text($("#crbm").val());
     var pdf = new jsPDF('p', 'pt', 'a4');
-    generate(pdf,'pdfContent'); 
+    generate(fileName,pdf,'pdfContent'); 
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {
@@ -114,8 +115,8 @@
                   @foreach($demande->examensbios as $index => $exm)
                   <tr>
                     <td class="center">{{ $index + 1 }}</td>
-                    <td>{{ $exm->Examen->nom }}</td>
-                    <td>{{ $exm->Examen->specialite->nom }}</td>
+                    <td>{{ $exm->nom }}</td>
+                    <td>{{ $exm->Specialite->nom }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                       <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
@@ -150,6 +151,6 @@
   </div><!-- col-xs-12 -->
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div> </div>
 </div><!-- row -->
-<div class="row text-center">@include('examenbio.ModalFoms.CRBModal')</div> 
-<div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>  
+<div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
+{{-- <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> --}}
 @endsection

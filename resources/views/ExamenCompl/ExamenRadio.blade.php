@@ -35,9 +35,7 @@
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue">
 			 <div class="widget-header" >
-				<h5 class="widget-title bigger"><!-- <font color="black"> -->
-          <i class="ace-icon fa fa-table"></i>&nbsp;Examens d'imagerie<!-- </font> -->
-        </h5>
+				<h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>&nbsp;Examens d'imagerie</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
            <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
             <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>

@@ -34,7 +34,7 @@
     </table>
     </section>
     <h5><u><strong>ASSURE :</strong></u></h5>
-    <section class="table tab-space" style="width:100%;">
+    <section class="table tab" style="width:100%;">
       <table>
         <tr>
           <td><span>Qualité :&nbsp;</span><span>{{ $patient->assure->Position }}</span></td>
@@ -68,7 +68,7 @@
       </table>
     </section>
     <h5><u><strong>MALADE :</strong></u></h5>
-    <section class="table tab-space" style="width:100%;">
+    <section class="table tab" style="width:100%;">
       <table>
         <tr>
           <td>
@@ -109,7 +109,7 @@
       </table>
     </section>
     <h5><u><strong>ADMISSION :</strong></u></h5>
-    <section class="table tab-space" style="width:100%;">
+    <section class="table tab" style="width:100%;">
       <table>
         <tr>
          <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Service->nom }}</span></td>
@@ -124,7 +124,7 @@
        </table>
     </section>
     <h5><u><strong>SORTIE :</strong></u></h5>
-    <section class="table tab-space" style="width:100%;">
+    <section class="table tab" style="width:100%;">
       <table>
         <tr>
           <td><span>Date :&nbsp;</span><span></span></td>
@@ -140,7 +140,7 @@
       </table>
     </section><br>
     <div class="row">
-      <div class="sec-droite">
+      <div class="right">
         <div>Alger le:  {{ $date }}</div>
         <div>{{  Auth::user()->employ->Service->nom }}</div>
     </div>

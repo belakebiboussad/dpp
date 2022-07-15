@@ -15,7 +15,7 @@
     </li>
     <li class="list-inline-item" style="width:300px;">
       <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
-    {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
+    {{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}  
     </li>
     <li class="list-inline-item" style="width:270px;">
      <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;

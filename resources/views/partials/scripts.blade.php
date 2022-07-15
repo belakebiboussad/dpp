@@ -45,10 +45,12 @@
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('/js/jQuery.print.js')}}"></script>
-<script src="{{asset('/js//chart.min.js')}}"></script>
+<script src="{{asset('/js/chart.min.js')}}"></script>
+<script src="{{asset('/js/jquery.mobile.custom.min.js')}}"></script>
+<script src="{{asset('/js/jquery-additional-methods.min.js')}}"></script>
+<script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
-{{--  --}}
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   var base64Img = null; 
@@ -59,19 +61,24 @@
         left: 30,
         width: 550
   };
+  function capturekey(e) {
+    e = e || window.event;
+    if (e.code == 'F5' || e.which == 17) {//ControlRight/ControlLeft
+      e.preventDefault();e.stopPropagation();   
+    }
+  }
   $(document).ready(function(){
-      $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
-      $('.timepicker').timepicker({
-              timeFormat: 'HH:mm',
-              interval: 60,
-              minTime: '08',
-              maxTime: '17:00pm',
-              defaultTime: '08:00',   
-              startTime: '08:00',
-              dynamic: true,
-              dropdown: true,
-              scrollbar: true
-      });
+    $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 60,
+            minTime: '08',
+            maxTime: '17:00pm',
+            defaultTime: '08:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+    });
       $('.timepicker1').timepicker({
               minuteStep:30,
                minTime: '08',
@@ -168,7 +175,7 @@
           field =event['target']['id'];
         }
     });  /*$(function() {  var checkbox = $("#hommeConf"); checkbox.change(function() { if(checkbox.is(":checked"))  $("#hommelink").removeClass('invisible'); else$("#hommelink").addClass('invisible');  })  });*/
-     });
+});
 </script>
 <script type="text/javascript">
        var active_class = 'active';
@@ -540,51 +547,60 @@
     });
       function edit(event)
       {       
-            $('#patient_tel').text(event.tel);
-            $('#agePatient').text(event.age);
-            $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-            $('#lien').text(event.title);
-            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-             $('#btnDelete').attr('href','/rdv/'.concat(event.id));
-            $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-            var url = '{{ route("rdv.update", ":slug") }}'; 
-            url = url.replace(':slug',event.id);
-            $('#updateRdv').attr('action',url);
-           $('#fullCalModal').modal({ show: 'true' }); 
+          $('#patient_tel').text(event.tel);
+          $('#agePatient').text(event.age);
+          $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+          $('#lien').text(event.title);
+          $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+          $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+          $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+           $('#btnDelete').attr('href','/rdv/'.concat(event.id));
+          $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+          var url = '{{ route("rdv.update", ":slug") }}'; 
+          url = url.replace(':slug',event.id);
+          $('#updateRdv').attr('action',url);
+         $('#fullCalModal').modal({ show: 'true' }); 
        }
-       function ajaxEditEvent(event,bool)
-       {
-               $.get('/rdv/'+event.id +'/edit', function (data) {
-                      var html ='';$('#specialite').empty();
-                      jQuery(data.specialites).each(function(i, spec){
-                            html += '<option value="'+spec.id+'" >'+spec.nom +'</option>';
-                      });
-                      $('#specialite').removeAttr("disabled");  
-                      $('#specialite').append(html);
-                      $("#specialite").val(data.rdv.specialite_id);                  
-                      $('#patient_tel').text(data.rdv.patient.tele_mobile1);
-                      $('#agePatient').text(event.age);
-                      $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
-                      $('#lien').text(event.title);
-                     if(bool)
-                     {
-                              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                               $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
-                              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                      }else{
-                               var date = new Date(data.rdv.date);
-                              $("#daterdv").val(data.rdv.date);
-                              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-                              $("#datefinrdv").val(data.rdv.fin); 
-                       }
-                        $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
-                        $('#btnDelete').attr('value',data.rdv.id);
-                        $('#updateRDV').attr('value',data.rdv.id);
-                        $('#fullCalModal').modal({ show: 'true' });
-                });
-       } 
+        function ajaxEditEvent(event, appointdoc = null , bool)//bool true fixe else not fixe
+        {
+          $.get('/rdv/'+event.id +'/edit', function (data) {
+            if(appointdoc)
+            {
+              if($("#employ_id").prop('disabled') == true)
+                $("#employ_id" ).attr("disabled", false);
+              $('#employ_id').empty().append('<option value="">Selectionner...</option>');
+              $.each(data.medecins, function(i, empl) {
+                $('#employ_id').append($('<option>', {
+                  value: empl.id,
+                  text: empl.full_name
+                }));
+              })
+            }
+            $("#specialite").val(data.rdv.specialite_id);                  
+            $("#employ_id").val(data.rdv.employ_id);
+            $('#patient_tel').text(data.rdv.patient.tele_mobile1);
+            $('#agePatient').text(data.rdv.patient.age);
+            $('#nomPatient').val(data.rdv.patient.full_name);
+
+            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+            $('#lien').text(event.title);
+            if(bool)
+            {
+              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+              $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+            }else{
+              var date = new Date(data.rdv.date);
+              $("#daterdv").val(data.rdv.date);
+              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+              $("#datefinrdv").val(data.rdv.fin); 
+            }
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+            $('#btnDelete').attr('value',data.rdv.id);
+            $('#updateRDV').attr('value',data.rdv.id);
+            $('#fullCalModal').modal({ show: 'true' });
+          });
+        } 
         function isEmpty(value) {
           return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
         }
@@ -630,25 +646,24 @@
       }
       $(function(){  
         SelectTab(0); 
-      })
-      //pdf report
-       function imgToBase64(url, callback, imgVariable) {
-            if (!window.FileReader) {
-                  callback(null);
-                  return;
-            }
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function() {
-                   var reader = new FileReader();
-                    reader.onloadend = function() {
-                          imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-                          callback(imgVariable);
-                    };
-                    reader.readAsDataURL(xhr.response);
-            };
-            xhr.open('GET', url);
-            xhr.send();
+      })//pdf report
+      function imgToBase64(url, callback, imgVariable) {
+        if (!window.FileReader) {
+          callback(null);
+          return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+                imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                callback(imgVariable);
+          };
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
       }
       function header(doc)
       {      
@@ -656,8 +671,8 @@
         doc.setTextColor(40);
         doc.setFontStyle('normal');
         if (base64Img)
-          doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,80);       
-        doc.line(10, 95, margins.width + 33,95); // horizontal line
+          doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,85);       
+        //doc.line(10, 95, margins.width + 33,95); // horizontal line
       }
       function headerFooterFormatting(doc, totalPages)
       {
@@ -676,7 +691,7 @@
         if (footer64Img)
           doc.addImage(footer64Img, 'JPEG', margins.left, doc.internal.pageSize.height - 50, 540,50);       
       }
-      function generate(pdf,pdfContent)
+     function generate(fileName,pdf,pdfContent)
       {// var pdf = new jsPDF('p', 'pt', 'a4');
         pdf.setFontSize(18);
         pdf.fromHTML(document.getElementById(pdfContent), 
@@ -686,10 +701,8 @@
             width: margins.width,// max width of content on PDF
           },function(dispose) {
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+            pdf.save(fileName);
           }, 
-         margins);
-        iframe =document.getElementById('ipdf');
-        iframe.src = pdf.output('datauristring'); 
-        $("#crrModal").modal(); 
+         margins);/*iframe =document.getElementById('ipdf'); iframe.src = pdf.output('datauristring');$("#crrModal").modal();*/
       }
 </script>

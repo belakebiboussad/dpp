@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Renseigner les rubriques suivantes ... </strong></h5></div>
+				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong></strong></h5></div>
 				<div class="widget-body">
 				<div class="widget-main">
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
@@ -22,21 +22,21 @@
 								<select  name="type"  class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
 									<option value="0">Médical</option>
 									<option value="1">Chirurgical</option>
-									<option value="2" >Fonctionnel</option>
+									<option value="2">Paramédical</option>
 								</select>		
 							</div>
 						</div>
-						<div class="form-group">
+				{{-- 		<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="responsable_id"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
-						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
+						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12">
 									<option value="" selected disabled>Selectionner le chef de service</option>
 									@foreach ($users as $user)
 									<option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
 									@endforeach
 								</select>	
 							</div>
-						</div>
+						</div> --}}
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="hebergement"><strong> Hébergement: </strong></label>

@@ -21,8 +21,8 @@
 	{{ method_field('PUT') }}
 	<div class="row"><div class="col-xs-12 page-header"><h1>Affectation des lits</h1></div></div>
 	<div class="row">
-     	<div class="col-xs-12 widget-container-col" id="widget-container-col-12">
-     		<div class="widget-box widget-color-blue" id="widget-box-12">
+     	<div class="col-xs-12 widget-container-col">
+     		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
 			    <h3 class="widget-title bigger lighter"> <i class="ace-icon fa fa-table"></i>Liste des admissions :</h3>
 			</div>

@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/styles.css">
   <style type="text/css">
+    @page { margin: 100px 25px; }
     table { border-collapse: collapse;  }
     table, th, td { border: 1px solid black; padding: 5px; }
   </style>
 </head>
 <body>
-<div class="container-fluid">
-  @include('partials.etatHeader')
-  <div class="space-12"></div>
-  <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examen radiologique</strong></span></h5> 
+<div class="container-fluid"><!-- @include('partials.etatHeader') -->
+  <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
+  <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons"/></footer>
+  <main>
+<br><br>
+  <div class="textCenter mtP40 ft16"><strong>Demande d'examen radiologique</strong></div>
   <br>
-  <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>
+  <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
         {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
   </div>
   <div class="row">
@@ -49,12 +52,12 @@
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentessssss :</b> </label>
-                    <p class="form-control">{{ $demande->InfosCliniques }}</p>
+                    <label for="infosc"><b>Informations cliniques pertinentes :</b> </label>
+                    <p>{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Explication de la demande de diagnostic</b></label>
+                    <label for="infos"><b>Explication de la demande de diagnostic :</b></label>
                     <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>
@@ -101,9 +104,10 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
+      <div class="section"><div class="right"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
     </div>
   </div>
-</div><!-- container-fluid -->
+</main>
+</div>
 </body>
 </html>

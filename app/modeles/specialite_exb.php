@@ -12,6 +12,6 @@ class specialite_exb extends Model
 
     public function examensbio()
     {
-        return $this->hasMany('App\modeles\examenbiologique','id_specialite_exb');
+        return $this->hasMany('App\modeles\examenbiologique','specialite_id');
     }
 }

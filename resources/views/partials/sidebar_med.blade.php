@@ -20,7 +20,7 @@
         <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(Auth::user()->role_id == "14")
+      @if(in_array(Auth::user()->role->id,[13,14]))
       <li class="">
         <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
@@ -33,24 +33,24 @@
           <li>
             <a href="{{ route('patient.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un patient</a><b class="arrow"></b>
           </li>
-          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des patients</a><b class="arrow"></b></li>
+          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Patients</a><b class="arrow"></b></li>
         </ul>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b>
         </a><b class="arrow"></b>
         <ul class="submenu">
-          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires</a><b class="arrow"></b>
+          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a><b class="arrow"></b>
           </li>
         </ul>
         </li>
         <li>
           <a href="#" class="dropdown-toggle">
-             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span><b class="arrow fa fa-angle-down"></b>
+             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
             </li>
-            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste des consultations</a><b class="arrow"></b>
+            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i>Consultations</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -60,13 +60,9 @@
             <b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-            <li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une hospitalisation
-              </a><b class="arrow"></b>
-            </li>
             <li>
               <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                <i class="menu-icon fa fa-eye pink"></i>Liste des hospitalisations
-              </a><b class="arrow"></b>
+                <i class="menu-icon fa fa-eye pink"></i>Hospitalisations</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -79,7 +75,7 @@
                     <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
                   </li>
                   <li>
-                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a><b class="arrow"></b>
+                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b>
                   </li>
                   <li>
                     <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
@@ -88,11 +84,11 @@
           </li>
         <li>
                 <a href="#" class="dropdown-toggle">
-                     <i class="menu-icon fa fa-table"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+                     <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
                 </a><b class="arrow"></b>
                 <ul class="submenu">
                      <li>
-                            <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a> <b class="arrow"></b>
+                            <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a> <b class="arrow"></b>
                      </li>
                 </ul>
         </li>
@@ -121,11 +117,13 @@
               <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
             </li>
             <li>
-              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
+              <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a>
               <b class="arrow"></b>
           </li>              
         </ul>
         </li>
+        @endif
+        @if(in_array(Auth::user()->role->id,[13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>
@@ -190,22 +188,6 @@
           }
         });
       }
-      function showConsult(consultId) //a voir ce lui den haut
-      { 
-        url= '{{ route ("consultdetailsXHR", ":slug") }}',
-        url = url.replace(':slug',consultId);
-        $.ajax({
-            type : 'GET',
-            url:url,
-            success:function(data,status, xhr){
-
-              $('#consultDetail').html(data.html);
-            },
-            error:function (data){
-              console.log('Error:', data);
-            }
-        });             
-      }
       function showHosp(hospId) //a voir ce lui den haut
       {
         url= '{{ route ("hospdetailsXHR", ":slug") }}',
@@ -226,110 +208,68 @@
       $("#"+field).val(code);
       $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
       $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
-    }  
-       function printExBio(ipp, med){// JsBarcode("#itf", "12345678901237", {format: "itf"});
-          ol = document.getElementById('listBioExam');
-          ol.innerHTML = '';
-          $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
-                 $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
-          });
-          var pdf = new jsPDF('p', 'pt', 'a4');
-          JsBarcode("#barcode",ipp,{
-                format: "CODE128",
-                width: 2,
-                height: 30,
-                textAlign: "left",
-                 text: "IPP: " + ipp 
-          });
-          var canvas = document.getElementById('barcode');
-          var jpegUrl = canvas.toDataURL("image/jpeg");
-          pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-         pdf.setFontSize(12);
-         pdf.text(320,730, 'Docteur : ' + med);
-         generate(pdf,'bioExamsPdf');
     }
-        function printExImg(ipp,med)
-       {
-               $("#infoSupPertinante").text('');
-               ol = document.getElementById('listImgExam');
-               ol.innerHTML = '';
-               var len = $(".infosup :checkbox:checked").length;
-               if($('.infosup input[type="checkbox"]').is(':checked')){
-                       $('#infoSupPertinante').append("<h4><b>Informations supplémentaires pertinentes :</b></h4>")
-                      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-                               if(index != len-1)
-                                      $('#infoSupPertinante').append( this.nextElementSibling.innerHTML + " / ");
-                               else
-                                     $('#infoSupPertinante').append( this.nextElementSibling.innerHTML);
-                      });
-               }else
-                      $("#infoSupPertinante").text('');
-                $("#ExamsImgtab tbody tr").each(function(){
-                         $("ol").append('<li><span class="pieshare"></span>'+ $(this).find('td:eq(3)').text() + " du (la)"+ $(this).find('td:eq(1)').text()+'</li>');
-                });        
-                var pdf = new jsPDF('p', 'pt', 'a4');
-                JsBarcode("#barcode",ipp,{
-                        format: "CODE128",
-                        width: 2,
-                        height: 30,
-                        textAlign: "left",
-                        text: "IPP: " + ipp 
-                });
-                var canvas = document.getElementById('barcode');
-                var jpegUrl = canvas.toDataURL("image/jpeg");
-                pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-                pdf.setFontSize(12);
-                pdf.text(320,730, 'Docteur : ' + med);
-                generate(pdf,'imagExamsPdf');
+    function examsBioSave(patientName, ipp, med,fieldName, fieldValue){
+      var exams=[];
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+        exams.push($(this).val());
+      });
+      var formData = {
+        _token: CSRF_TOKEN,
+        exams:JSON.stringify(exams),
+      };  
+      formData[fieldName] = fieldValue;
+      var type = "POST";
+      url ="{{ route('demandeexb.store') }}";
+      $.ajax({
+            type: type,
+            url: url,
+            data: formData,
+            success: function (data) {
+              examsBioprint(patientName, ipp, med);
+            },
+            error : function(data){
+              console.log("data");
+            }
+      });
     }
-    function printExamCom(ipp, med)
-    {
-      var interest = $('ul#compl').find('li.active').data('interest');
-      switch(interest){
-        case 0:
-                printExBio(ipp,med);
-                break;
-        case 1:
-                printExImg(ipp,med);
-                break;
-         default :
-                break;
-      }
-    }
-    function addExamsImg(form)
-    {
-      var arrayLignes = document.getElementById("ExamsImg").rows;var ExamsImg = [];
+    function examsBioprint(patientName, ipp, med){
+      var fileName ='examsBio-' + patientName +'.pdf'; 
+      ol = document.getElementById('listBioExam');
+      ol.innerHTML = '';
+      $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
+        $("ol").append('<li><span class="pieshare"></span>'+ this.nextElementSibling.innerHTML +'</li>');
+      });
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      JsBarcode("#barcode",ipp,{
+        format: "CODE128",
+        width: 2,
+        height: 30,
+        textAlign: "left",
+        fontSize: 12, 
+        text: "IPP: " + ipp
+      });
+      var canvas = document.getElementById('barcode');
+      var jpegUrl = canvas.toDataURL("image/jpeg");
+      pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+      pdf.setFontSize(12);
+      pdf.text(320,730, 'Docteur : ' + med);
+      generate(fileName,pdf,'bioExamsPdf');
+  }
+  function addExamsImg(form)
+  {
+      var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
       if(arrayLignes.length > 0)
       {
         for(var i=0; i< arrayLignes.length ; i++)
         {
-          ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }
-          
+          ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
         }
         var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
         champ.appendTo(form);
       }
     }
-    function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-            $('#OrientLetterPdf').removeAttr('hidden');
-            $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-            $("#motifCons").text($( "#motifC" ).val());
-            $("#motifO").text($( "#motifOrient" ).val());
-            var element = document.getElementById('OrientLetterPdf');
-            var options = {
-                   filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-            };
-            var exporter = new html2pdf(element, options);
-            $("#OrientLetterPdf").attr("hidden",true);
-             exporter.getPdf(true).then((pdf) => {
-                    console.log('pdf file downloaded');
-            });
-             exporter.getPdf(false).then((pdf) => {
-                    console.log('doing something before downloading pdf file');
-                   pdf.save();
-            });
-      }
-      function IMC1(){
+    function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();
         if(poids==""){
@@ -378,14 +318,15 @@
         var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
         champ.appendTo('#consultForm');
       }//save input modal to input form
-      function lettreorientation() {
-        $('#specialite').val($('#specialiteOrient').val());// $('#medecin').val($('#medecinOrient').val());
-        $('#motifOr').val($('#motifOrient').val()); }
-      function demandehosp()
-      {
-        $('#modeAdmission').val($('#modeAdmissionHospi').val());
-        $('#specialiteDemande').val($('#specialiteHospi').val()); 
-        $('#service').val($('#serviceHospi').val());
+      function OrientationSave() {//$('#specialite').val($('#specialiteOrient').val());$('#motifOr').val($('#motifOrient').val()); // $('#medecin').val($('#medecinOrient').val());
+        var orientations = document.getElementById("orientationsList").rows;
+        var longueur = orientations.length; var orientationliste = []; 
+        for(var i=1; i<longueur; i++)
+        {
+          orientationliste[i-1] = { specialite: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
+        }
+        var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
+        champ.appendTo('#consultForm');
       }
       $(document).ready(function () {
           $('.select2').css('width','50%').select2({allowClear:true});
@@ -397,30 +338,14 @@
              $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           });
           $('input[type=radio][name=exmns]').change(function() {
-             if(! isEmpty($('#examensradio').val()))
+            if(! isEmpty($('#examensradio').val()))
                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-           else
-               $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            else
+            $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           });
           $('#btnclose').click(function(){
            $("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
           })
-          $('#btn-addImgExam').click(function(){
-              var selected = []; var array = [];
-              $('#ExamIgtModal').modal('toggle');
-              $.each($("input[name='exmns']:checked"), function(){
-                selected.push($(this).next('label').text());
-                array.push($(this).val());
-              });   
-              var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-                 exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
-              $('#ExamsImg').append(exam);
-              $('#examensradio').val(' ').trigger('change');
-              $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-          });
-          jQuery('body').on('click', '.delete-ExamImg', function () {
-             $("#acte-" + $(this).val()).remove();
-          });
           $('input[type=radio][name=sexe]').change(function(){
             if(this.value == "M")
             {
@@ -436,96 +361,95 @@
                  $('#Div-nomjeuneFille').removeAttr('hidden');
               else
                 $('#Div-nomjeuneFille').attr('hidden', true);
-          }); 
-          jQuery('body').on('click', '.CimCode', function (event) {
-              $('#cim10Modal').trigger("reset");
-              $('#inputID').val($(this).val());
-              $('#cim10Modal').modal('show');
+          });/*$('#cim10Modal').on('shown.bs.modal', function (e) {$(this).trigger("reset"); });*/ 
+          $('body').on('click', '.CimCode', function (event) {
+            $('#cim10Modal').trigger("reset");
+            $('#inputID').val($(this).val());
+            $('#cim10Modal').modal('show');
           });
-         $('#chapitre').click(function(){
-              if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
-              {
-                    $.ajax({
-                         type : 'get',
-                         url : '{{URL::to('schapitres')}}',
-                        data:{'search':$("#chapitre").val()},
-                        success:function(data,status, xhr){
-                              $( "#schapitre" ).prop( "disabled", false );
-                              var select = $('#schapitre').empty();
-                              select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-                              $.each(data,function(){
-                                    select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-                              });
-                        }
-                    });
-              }else
-                    $( "#schapitre" ).prop( "disabled", true );
-         });
-         $('#schapitre').click(function(){
-            var fieldname = $('#inputID').val();
-            $('#liste_codesCIM tbody').empty();
-            if($("#schapitre").val() != 0)
+          $('#chapitre').click(function(){
+            if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
             {
-              $.ajax({
-                  type : 'get',
-                  url : '{{URL::to('maladies')}}',
-                  data:{'search':$("#schapitre").val()},
-                  success:function(data,status, xhr){
-                        $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
-                        $('#liste_codesCIM' ).DataTable( {
-                             processing: true,
-                            bInfo : false,
-                            pageLength: 5,
-                            destroy: true,
-                            "language": { "url": '/localisation/fr_FR.json' },
-                            "data" : data,
-                            columns: [ 
-                                 {  data: 'CODE_DIAG'},
-                                 {  data: 'NOM_MALADIE'},
-                                 {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
-                                      "render": function(data,type,full,meta){
-                                            if( type === 'display' ) {
-                                              return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
-                                            }
-                                            return data;
-                                     }       
-                                 }
-                            ],
-                            "columnDefs": [
-                                  {"targets": 1 ,  className: "dt-head-center" },
-                                  {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
-                            ]
-                      });    
-                  },
-                  error:function(){
-                        console.log("error");
-                  },
-              });
-          }
-        });
-        $("#deletepod").click(function(){
-             $("tr:has(input:checked)").remove();
-        }); 
-        jQuery('body').on('click', '.delete-atcd', function (e) {
-          event.preventDefault();
-          var atcd_id = $(this).val();
-          $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  $.ajax({
+                       type : 'get',
+                       url : '{{URL::to('schapitres')}}',
+                      data:{'search':$("#chapitre").val()},
+                      success:function(data,status, xhr){
+                            $( "#schapitre" ).prop( "disabled", false );
+                            var select = $('#schapitre').empty();
+                            select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                            $.each(data,function(){
+                                  select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                            });
+                      }
+                  });
+            }else
+              $( "#schapitre" ).prop( "disabled", true );
+          });
+          $('#schapitre').click(function(){
+              var fieldname = $('#inputID').val();
+              $('#liste_codesCIM tbody').empty();
+              if($("#schapitre").val() != 0)
+              {
+                $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('maladies')}}',
+                    data:{'search':$("#schapitre").val()},
+                    success:function(data,status, xhr){
+                          $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+                          $('#liste_codesCIM' ).DataTable( {
+                               processing: true,
+                              bInfo : false,
+                              pageLength: 5,
+                              destroy: true,
+                              "language": { "url": '/localisation/fr_FR.json' },
+                              "data" : data,
+                              columns: [ 
+                                   {  data: 'CODE_DIAG'},
+                                   {  data: 'NOM_MALADIE'},
+                                   {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+                                        "render": function(data,type,full,meta){
+                                              if( type === 'display' ) {
+                                                return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+                                              }
+                                              return data;
+                                       }       
+                                   }
+                              ],
+                              "columnDefs": [
+                                    {"targets": 1 ,  className: "dt-head-center" },
+                                    {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+                              ]
+                        });    
+                    },
+                    error:function(){
+                          console.log("error");
+                    },
+                });
             }
           });
-        $.ajax({
-          type: "DELETE",
-            url: '/atcd/' + atcd_id,
-          success: function (data) {
-                $("#atcd" + atcd_id).remove();
-             },
-            error: function (data) {
-               console.log('Error:', data);
-            }
-        });
-        
-    }); 
-}) 
+          $("#deletepod").click(function(){
+             $("tr:has(input:checked)").remove();
+          }); 
+          $('body').on('click', '.delete-atcd', function (e) {
+            event.preventDefault();
+            var atcd_id = $(this).val();
+            $.ajaxSetup({
+              headers: {
+               'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            $.ajax({
+              type: "DELETE",
+                url: '/atcd/' + atcd_id,
+              success: function (data) {
+                    $("#atcd" + atcd_id).remove();
+                 },
+                error: function (data) {
+                   console.log('Error:', data);
+                }
+            });
+          });
+  }) 
 </script>
 </div>

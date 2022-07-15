@@ -10,22 +10,22 @@
           <input type="hidden" value=""  id ="doc_id" name="doc_id"> <div class="space-12"></div>
           <div class="row">
             <div class="col-sm-3">
-              <label for="resultat" id="labelresultat"class="control-label no-padding-right"><b>Attacher le résultat</b></label>
+              <label for="resultat" id="labelresultat"class="control-label no-padding-right">Attacher le résultat</label>
             </div>
             <div class="col-sm-7">
              <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/> 
             </div>  
           </div><div class="space-12"></div><div class="space-12"></div>
           <div class="row">
-            <div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Titre du document :</b></label></div>
+            <div class="col-sm-3"><label for="" class="control-label no-padding-right">Titre du document :</label></div>
             <div class="col-sm-7"><input  id="nomDoc" name="nomDoc" class="form-control" required/></div>
           </div> <div class="space-12"></div><div class="space-12"></div>
           <div class="row">
-            <div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Description :</b></label></div>
+            <div class="col-sm-3"><label for="" class="control-label no-padding-right">Description :</label></div>
             <div class="col-sm-7"><textarea  id="descriptions" name="descriptions" class="form-control" required></textarea> </div>
           </div><div class="space-12"></div> <div class="space-12"></div>
           <div class="row">
-            <div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Type :</b></label></div>
+            <div class="col-sm-3"><label for="" class="control-label no-padding-right">Type :</label></div>
             <div class="col-sm-7">
               <select type="text" id="types" name="types" data-placeholder="selectionnez le type" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" required />
                <option value="analyses biologique">Analyses biologique</option>
@@ -33,7 +33,7 @@
                <option value="analyse anapath">Analyse d'anapath</option>
               </select>
             </div>  
-          </div><div class="space-12"></div> <div class="space-12"></div> <div class="space-12"></div>
+          </div><div class="space-12"></div> <div class="space-12"></div><div class="space-12"></div>
           <hr>
         <div class="clearfix form-actions">
          <div class="col-md-offset-5 col-md-7">

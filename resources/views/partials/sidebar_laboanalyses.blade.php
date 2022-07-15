@@ -38,7 +38,7 @@
             <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
           </li>
           <li>
-            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a>
             <b class="arrow"></b>
           </li>              
         </ul>

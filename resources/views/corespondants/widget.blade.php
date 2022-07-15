@@ -5,7 +5,9 @@
         <i class="ace-icon fa fa-table"></i>Gardes malade/Homme de confiance
       </h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-			  <div class="fa fa-plus-circle"></div><a href="#" id="btn-addCores" class="btn-xs tooltip-link"><strong>Correspondant</strong></a>
+        <a href="#" id="btn-addCores" class="btn-xs tooltip-link align-middle">
+          <i class="fa fa-plus-circle bigger-180"></i>
+        </a>
 			</div>
 		</div>
 		<div class="widget-body">

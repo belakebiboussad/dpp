@@ -9,7 +9,7 @@
 
 <div class="main-container" id="main-container">
     @if (! Auth::guest())
-        @include('partials.sidebar')
+      {{--  @include('partials.sidebar') --}}
     @endif
 
     <div class="main-content">

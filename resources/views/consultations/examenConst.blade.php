@@ -7,14 +7,14 @@
 </div> 
 @endforeach
 <div class="form-group">
-<label class="control-label" for="etatgen"><strong>Etat géneral du patient :</strong></label>
+<label class="control-label" for="etatgen">Etat géneral du patient :</label>
   <textarea type="text" name="etat" placeholder= "Etat Géneral du patient..." class="form-control"></textarea>
 </div>
 <div class="form-group">
-  <label class="control-label" for="peaupha"><strong>Peau et phanéres :</strong></label>
+  <label class="control-label" for="peaupha">Peau et phanéres :</label>
   <textarea type="text" id="peaupha" name="peaupha" placeholder= "Peau et phanéres ..."   class="form-control"></textarea>
 </div>
 <div class="form-group">
-  <label class="control-label" for="autre"><strong>Autre :</strong></label>
+  <label class="control-label" for="autre">Autre :</label>
     <textarea id="autre" name="autre" placeholder="..." class="form-control" min ="30" step="any"></textarea>
 </div>        

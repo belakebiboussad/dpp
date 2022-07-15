@@ -14,7 +14,19 @@ class rdv extends Model// implements IdentifiableEvent
 	public $timestamps = false;
 	protected $fillable =['date','fin','fixe','patient_id','employ_id','specialite_id','etat'];
 	protected $dates = ['date', 'fin'];//,'Temp_rdv'
-	/*public function getId() {	return $this->id;	}*//*public function getTitle(){return $this->patient_id;}*/
+	protected $appends = ['title'];
+  public function getStartAttribute()
+  {
+    return $this->attributes['date'];
+  }
+  public function getEndAttribute()
+  {
+    return $this->attributes['fin'];
+  }
+  public function getTitleAttribute()
+  {
+    return $this->patient->attributes['Nom'].' '.$this->patient->attributes['Prenom'];
+  }
   public function getEtatAttribute()
   {
     return self::STATES[ $this->attributes['etat'] ];
@@ -39,7 +51,7 @@ class rdv extends Model// implements IdentifiableEvent
 	}
 	public function getEnd()
 	{
-	       return $this->date;
+	  return $this->date;
 	}/*public function getTime(){      return $this->Temp_rdv;}*/
 	public function patient()
 	{

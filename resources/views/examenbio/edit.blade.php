@@ -5,16 +5,21 @@
     $('body').on('click', '.examBio-Delete', function (e) {  
       event.preventDefault();
       var exam_id = $(this).val(); 
-     
+      var formData = {
+        exam_id    : $(this).val(),
+        demande_id : '{{ $demande->id }}',
+      };
       $.ajaxSetup({
-              headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
+        headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
       });
+      url='{{ route("exmbio.destroy",":slug") }}';
+      url = url.replace(':slug',$(this).val());
       $.ajax({
         type: "DELETE",
-        url: '/exmbio/' + exam_id,
-        dataType: 'json',
+        url : url,
+        data: formData,
         success: function (data) {
-          $("#exm-" + data.id).remove(); 
+          $("#exm-" + data.id_examenbio).remove(); 
         },
         error: function (data) {
           console.log('Error:', data); 
@@ -35,7 +40,7 @@
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
         <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp; &nbsp;
-      <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"> <i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+      <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
   </div><div class="space-12"></div>
   <div class="row">
@@ -54,8 +59,8 @@
               @foreach($demande->examensbios as $index => $ex)
                 <tr id="{{ 'exm-'.$ex->id }}">
                   <td class="center">{{ $index + 1 }}</td>
-                  <td>{{ $ex->Examen->nom }}</td>
-                   <td>{{ $ex->Examen->specialite->nom }}</td>
+                  <td>{{ $ex->nom }}</td>
+                  <td>{{ $ex->Specialite->nom }}</td>
                   <td class="center">
                     <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger examBio-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
                   </td>

@@ -59,8 +59,7 @@
                 }],
                 "language": {
                             "url": '/localisation/fr_FR.json'
-                },
-/* "columnDefs": [   {"targets": 9 ,  className: "dt-head-center dt-body-center"},],*/
+                },/* "columnDefs": [   {"targets": 9 ,  className: "dt-head-center dt-body-center"},],*/
            });
             $('#btn-addCores').click(function () { 
                 if( $('#EnregistrerGardeMalade').is(":hidden"))
@@ -84,13 +83,9 @@
            });
            $("#EnregistrerGardeMalade").click(function (e) {
                 $('#gardeMalade').modal('toggle');
-                $.ajaxSetup({
-                 headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                });
                 e.preventDefault();
                   var formData = {
+                      _token: CSRF_TOKEN,
                       id_patient:$('#patientId').val(),
                       nom:$('#nom_h').val(),
                       prenom : $('#prenom_h').val(),
@@ -201,7 +196,7 @@
                 }
             }); 
            }) 
-           jQuery('body').on('click', '.delete-garde', function () {////----- DELETE a Garde and remove from the page -----////
+           jQuery('body').on('click', '.delete-garde', function () {
                 var hom_id = $(this).val();
                 $.ajaxSetup({
                   headers: {
@@ -209,14 +204,14 @@
                       }
                 });
                 $.ajax({
-                      type: "DELETE",
-                      url: '/hommeConfiance/' + hom_id,
-                      success: function (data) {
-                          $("#garde" + hom_id).remove();
-                      },
-                      error: function (data) {
-                             console.log('Error:', data);
-                      }
+                    type: "DELETE",
+                    url: '/hommeConfiance/' + hom_id,
+                    success: function (data) {
+                        $("#garde" + hom_id).remove();
+                    },
+                    error: function (data) {
+                           console.log('Error:', data);
+                    }
                 });
           });
           $('#gardeMalade').on('hidden.bs.modal', function () {
@@ -235,12 +230,7 @@
             {
               if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}') 
               {
-                var formData = { id_patient:pid,date:debut, fin:fin, fixe:fixe  };
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                }); 
+                var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
                 var url = "{{ route('rdv.store') }}"; 
                 $.ajax({
                     type : 'POST',
@@ -261,20 +251,16 @@
                               civ : data['patient']['civ'],
                               allDay: false,
                               color:color
-                      } );//calendar1
+                      });//calendar1
                     },
                     error: function (data) {
                       console.log('Error:', data);
                     }
                 });
               }else
-              {
                 showRdvModal(debut,fin,pid,fixe); 
-              }
             }else
-            {
               showRdvModal(debut,fin,0,fixe); 
-            }
         }
         function copyPatient(){ 
           $("#nomf").val($("#nom").val());
@@ -523,7 +509,7 @@
         @elseif(Auth::user()->role_id == 10)
             @include('partials.sidebar_pharm')
         @elseif(Auth::user()->role_id == 13)
-            @include('partials.sidebar_chef_ser') 
+            @include('partials.sidebar_med')<!-- sidebar_chef_ser -->
         @elseif(Auth::user()->role_id == 3)
             @include('partials.sidebar_inf')
          @elseif(Auth::user()->role_id == 11)

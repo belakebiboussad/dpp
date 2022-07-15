@@ -18,41 +18,31 @@
                 </div>
                 <span>&nbsp; Choose Skin</span>
             </div>
-
             <!-- /section:settings.skins -->
-
             <!-- #section:settings.navbar -->
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
                 <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
             </div>
-
             <!-- /section:settings.navbar -->
-
             <!-- #section:settings.sidebar -->
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
                 <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
             </div>
-
             <!-- /section:settings.sidebar -->
-
             <!-- #section:settings.breadcrumbs -->
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
                 <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
             </div>
-
             <!-- /section:settings.breadcrumbs -->
-
             <!-- #section:settings.rtl -->
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
                 <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
             </div>
-
             <!-- /section:settings.rtl -->
-
             <!-- #section:settings.container -->
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
@@ -61,10 +51,8 @@
                     <b>.container</b>
                 </label>
             </div>
-
             <!-- /section:settings.container -->
         </div><!-- /.pull-left -->
-
         <div class="pull-left width-50">
             <!-- #section:basics/sidebar.options -->
             <div class="ace-settings-item">

@@ -4,7 +4,9 @@
           	<div class="widget-header">
           		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Pathologiques</b></font></h5>
           		<div class="widget-toolbar widget-toolbar-light no-border">
-          			<a  id="btn-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+          			<a  id="btn-add" class="btn-xs align-middle" data-toggle="modal">
+                  <i class="fa fa-plus-circle bigger-180"></i>
+                </a>
           		</div>
           	</div>
           	<div class="widget-body" id ="ATCDWidget">
@@ -49,7 +51,7 @@
               <div class="widget-header" >
           		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Physiologiques</b></font></h5>
           		<div class="widget-toolbar widget-toolbar-light no-border">
-          			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+          			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
           		</div>
 	       </div>
         	<div class="widget-body" id ="ATCDWidget">
@@ -99,7 +101,7 @@
 		<div class="widget-header" >
 		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antécédents familiaux</b></font></h5>
 		 <div class="widget-toolbar widget-toolbar-light no-border">
-			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 		</div>
 	 	 </div>
 	 	 <div class="widget-body" id ="ATCDWidget">
@@ -142,11 +144,11 @@
 <div class="row">
  	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
-	         	<input type="hidden" name="exercice" value="0">
-	                <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
-	 		      <span class="lbl text-nowrap">Exercice physique</span>
-	 	       </label>
-               </div>   
+       	<input type="hidden" name="exercice" value="0">
+              <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
+		      <span class="lbl text-nowrap">Exercice physique</span>
+	       </label>
+           </div>   
         </div>
       <div class="col-sm-3 col-xs-6">
 		<div class="checkbox">

@@ -38,7 +38,7 @@ class DemandeExamenRadio extends Controller
     public function details($id)
     {
       $demande = demandeexr::FindOrFail($id);
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->id_consultation))
       {
           $obj = $demande->consultation;
@@ -48,7 +48,7 @@ class DemandeExamenRadio extends Controller
         $obj = $demande->visite;
          $patient = $demande->visite->hospitalisation->patient;
       }
-      return view('examenradio.details', compact('demande','obj','patient','etablissement'));   
+      return view('examenradio.details', compact('demande','obj','patient','etab'));   
     }
     public function upload(Request $request)
     {
@@ -77,7 +77,7 @@ class DemandeExamenRadio extends Controller
     public function update(Request $request, demandeexr $demande)
     { 
       $demande = demandeexr::FindOrFail($request->demande_id);  
-      if(Auth::user()->is(12))
+      if(Auth::user()->is(12))//radiologe
       {
         foreach ($demande->examensradios as $key => $exam)
         {
@@ -90,6 +90,11 @@ class DemandeExamenRadio extends Controller
       {
         if (!empty($request->ExamsImg))
         {
+          $demande->infossuppdemande()->sync($request->infos); 
+          $demande->update([
+            'InfosCliniques' =>$request->infosc,
+            'Explecations' =>$request->explication
+          ]);
           foreach(json_decode($request->ExamsImg) as $exam){
             $examsInp[]=$exam->acteId;
             $typeExamsInp[]=$exam->type;
@@ -105,10 +110,9 @@ class DemandeExamenRadio extends Controller
               $exam->demande_id = $demande->id; $exam->exm_id = $id;
               $exam->type_id = $typeExamsInp[$index];$exam->save();
             }
-            $demande->infossuppdemande()->sync($request->infos);
           }
         }else
-          $demande->delete();
+        $demande->delete();
         return redirect(Route('consultations.show',$demande->id_consultation));   
       }  
     }
@@ -123,11 +127,38 @@ class DemandeExamenRadio extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-/*public function store(Request $request, $consultID){
-$demande = demandeexr::FirstOrCreate(["Date" => Date::now(),"InfosCliniques" => $request->infosc,
-"Explecations" => $request->explication,"id_consultation" => $consultID,]);$examsImagerie = json_decode ($request->ExamsImg);foreach ($examsImagerie as $key => $value) {       
-          $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-        }if(isset($request->infos)){foreach ($request->infos as $id_info){$demande->infossuppdemande()->attach($id_info);}}}*/
+      public function store(Request $request){
+        if($request->ajax())    
+        {
+          $demande = demandeexr::FirstOrCreate([
+            "InfosCliniques" => $request->infosc,
+            "Explecations" => $request->explication
+          ]);
+          if(isset($request->id_consultation))
+            $demande->update([ "id_consultation" => $request->id_consultation]);
+          else
+            $demande->update([ "visite_id" => $request->visite_id]);
+          if(isset($request->infos)){
+            $infos = json_decode($request->infos);
+            $demande->infossuppdemande()->attach($infos);
+          }
+          $examsImagerie = json_decode ($request->ExamsImg);
+          foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
+            $exam = new Demandeexr_Examenradio;
+            $exam->demande_id = $demande->id;
+            $exam->exm_id = $acte->acteId;
+            $exam->type_id = $acte->type;$exam->save();  
+          }
+          /*
+          foreach ($examsImagerie as $key => $value) { 
+            //$demande->examensradios()->attach($value['acteId'], ['examsRelatif' => $value['type']]);
+            $demande->examensradios()->attach($value->acteId, ['type_id' => $value->type]);
+          }
+          */
+          /*$demande->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);*/
+          return $demande;
+        } 
+      }
     /**
      * Display the specified resource.
      *
@@ -185,13 +216,13 @@ $demande = demandeexr::FirstOrCreate(["Date" => Date::now(),"InfosCliniques" => 
       if($request->field != "service")  
       {
         if(isset($request->value))
-             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
         else
-             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
+             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
       }else
       {
         $serviceID = $request->value;
-$demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
+        $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
                         ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);
                         })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {//hospitalisation.
@@ -205,8 +236,10 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
       $ex = Demandeexr_Examenradio::FindOrFail($request->examId);
       if(isset($ex->resultat))
         Storage::delete('public/files/' . $ex->resultat);
-      $ex ->update([   "etat" => null,  "resultat" => null ]);
-        return $ex->id;
+      if(isset($ex->Crr))
+        $ex->Crr->delete();
+      $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
+      return $ex;
     }
     public function examDestroy($id)
     {
@@ -217,7 +250,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
     public function print($id)
     {
       $demande = demandeexr::FindOrFail($id); 
-      $etablissement = Etablissement::first();
+      $etab = Etablissement::first();
       if(isset($demande->consultation))
       {
         $patient = $demande->consultation->patient;
@@ -229,7 +262,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etablissement'));
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab'));
       return $pdf->stream($filename);
     }
 }

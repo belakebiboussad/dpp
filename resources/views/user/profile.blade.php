@@ -52,7 +52,8 @@
         <div class="col-md-6 col-sm-6">
        		<ul class="list-unstyled spaced">
        			<li>
-			    		<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong><label class="blue">{{ Auth::User()->employ->Specialite->nom }}</label>
+			    		<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>
+                <label class="blue">{{ isset(Auth::User()->employ->specialite) ? Auth::User()->employ->Specialite->nom : '' }}</label>
 			      </li>
 						<li>
 			        <i class="ace-icon fa fa-caret-right blue"></i><strong>Matricule :</strong><label class="blue">{{ $employe->Matricule_dgsn }}</label>

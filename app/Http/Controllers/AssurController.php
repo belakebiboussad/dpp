@@ -165,9 +165,6 @@ class AssurController extends Controller
         // }
         // begin
         $patientId = $this->patientSearchByfirstName($assure->Prenom,$assure->NSS);
-        dd($patientId);
-
-        // end
         $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
         $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
         $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
@@ -205,8 +202,8 @@ class AssurController extends Controller
     {
       try {
           //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
+          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+          $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
           $output=""; $ayants="";
           $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));
           if($assure->Nom != null)
@@ -313,11 +310,10 @@ class AssurController extends Controller
                 }
               }
             }//1
-            return Response([$output,$ayants])->withHeaders(['count' =>1]);  
-           }else//Nom == ""
-          {
+              return Response([$output,$ayants])->withHeaders(['count' =>1]);  
+            }else//Nom == ""
             return Response(null)->withHeaders(['count' =>0]);//pas de Fonctionnaire
-          }
+          
        } catch (Exception $e) {
           echo 'Exception reçue Com Object : ',  $e->getMessage(), "\n";
        }

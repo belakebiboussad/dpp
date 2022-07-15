@@ -11,6 +11,10 @@ class examAppareil extends Model
 	protected $fillable = ['appareil_id','cons_id','description'];
 	public function Appareil()
 	{
-  		 return $this->belongsTo('App\modeles\appareil','appareil_id');
+  	return $this->belongsTo('App\modeles\appareil','appareil_id');
 	}
+  public function consultation()
+  {
+    return $this->belongsTo('App\modeles\consultation','cons_id');
+  }
 }

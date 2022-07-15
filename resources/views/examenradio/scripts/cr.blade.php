@@ -41,9 +41,14 @@ function getRequests(url,field,value)
             { data: null,
                         render: function ( data, type, row ) {
                           if(data.id_consultation != null)
-                             return row.consultation.medecin.service.nom ;
-                          else
-                            return  row.visite.medecin.service.nom;
+                          {
+                            if(row.consultation.medecin.service != null)
+                              return row.consultation.medecin.service.nom ;
+                          }else
+                          {
+                            if(row.visite.medecin.service != null)
+                              return  row.visite.medecin.service.nom;
+                          }
                           return data;  
                         },title:'Service',"orderable": true,
             },

@@ -46,36 +46,30 @@
                              </div>  
                       </div>
                       <div class="form-group">
-                                <label class="control-label" for="heureSortiePrevue">Service : </label>
-                                <div >
-                                     <select  class="form-control selectpicker show-menu-arrow place_holder serviceHosp"/>
-                                           <option value="0" selected  disabled>Selectionnez un service</option>
-                                            @foreach($services as $service)
-                                            <option value="{{ $service->id }}">{{ $service->nom }}</option>
-                                            @endforeach
-                                     </select>
-                             </div>  
+                        <label class="control-label">Service : </label>
+                        <select class="form-control selectpicker  serviceHosp"/>
+                          <option value="" selected>Selectionnez un service</option>
+                          @foreach($services as $service)
+                          <option value="{{ $service->id }}">{{ $service->nom }}</option>
+                          @endforeach
+                        </select>
                       </div>
                       <div class="form-group">
-                                <label class="control-label" for="salle">Salle :</label>
-                                <div >
-                                     <select  class="form-control selectpicker show-menu-arrow place_holder salle"/>
-                                           <option value="0" selected>Selectionnez une salle</option>
-                                     </select>
-                             </div>  
+                        <label class="control-label">Salle :</label>
+                        <select  class="form-control selectpicker salle"/>
+                          <option value="0" selected>Selectionnez une salle</option>
+                        </select>
                       </div>
-                         <div class="form-group">
-                                <label class="control-label" for="lit_id">Lit :</label>
-                                <div >
-                                     <select  name="lit" class="form-control selectpicker show-menu-arrow place_holder lit_id"/>
-                                           <option value="" selected disabled>Selectionnez un lit</option>
-                                     </select>
-                             </div>  
+                      <div class="form-group">
+                        <label class="control-label">Lit :</label>
+                        <select  name="lit" class="form-control selectpicker lit_id"/>
+                          <option value="" selected disabled>Selectionnez un lit</option>
+                        </select>   
                       </div>
-      </div>    {{-- boy --}}
+      </div> 
       <div class="modal-footer">
-       <button  type="submit" class="btn btn-info"><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>&nbsp; &nbsp; 
-          <button class="btn" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+       <button  type="submit" class="btn btn-info btn-xs"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp; 
+          <button class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
     </div>
     </form>
     </div>

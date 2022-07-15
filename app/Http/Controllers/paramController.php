@@ -20,44 +20,50 @@ class paramController extends Controller
 	{
     switch (Auth::user()->role_id) {
       case 14:
+      case 13:
         $consts = Constante::all();
         $specialites = specialite_exb::all();
       	$examensImg = TypeExam::all();
         $vaccins = Vaccin::all();
         $antecTypes = antecType::orderBy('id')->get();
         $appareils = appareil::orderBy('id')->get();
-        $consConsts = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->consConst, true);
-        $hospConsts = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->hospConst, true);
-        $specExamsBio = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsbio, true);
-        $specExamsImg = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->exmsImg, true);
-        $specAntecTypes = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->antecTypes, true);
-        $specvaccins = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->vaccins, true);
-        $specappreils = json_decode((specialite::FindOrFail(Auth::user()->employ->specialite))->appareils, true);
-        return view('parametres.medicale.index',compact('consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils'));
+        $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
+        $specialite  = specialite::FindOrFail($specialite_id);
+        $consConsts = json_decode($specialite->consConst, true);
+        $hospConsts = json_decode($specialite->hospConst, true);
+        $specExamsBio = json_decode($specialite->exmsbio, true);
+        $specExamsImg = json_decode($specialite->exmsImg, true);
+        $specAntecTypes = json_decode($specialite->antecTypes, true);
+        $specvaccins = json_decode($specialite->vaccins, true);
+        $specappreils = json_decode($specialite->appareils, true);
+        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils'));
         break;
       case 4:
       case 8:
-        $parametres =  Parametre::all();
-        return view('parametres.administratif.index',compact('parametres'));
+        $parametres = Auth::user()->role->Parameters;
+        return view('parametres.administratif.index');//,compact('parametres')
         break;
     }
   }   
   public function store(Request $request)
   {
+    foreach (Auth::user()->role->Parameters as $key => $param) {
+      if(in_array($param->nom, $request->keys()))
+      {
+        $nomv = $param->nom;
+        $param->update(['value'=>$request->$nomv ]);
+      }else
+      {
+         $param->update(['value'=>null ]);
+      }
+    }
     switch (Auth::user()->role_id) {
-      case 4://admin
-      case 8://direc
-        $parametres =  Parametre::all();
-        foreach ($parametres as $key => $param) {
-          if(in_array($param->nom, $request->keys()))
-          {
-            $nomv = $param->nom;
-            $param->update(['value'=>$request->$nomv]);
-          }
-        }
-        break;
+/*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
+if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update(['value'=>$request->$nomv ]); }}break; */
+      case 13://med chef
       case 14://chef de service
-        $specialite = specialite::FindOrFail(Auth::user()->employ->specialite);
+        $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
+        $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
         $input['consConst'] = $request->consConsts;
         $input['hospConst'] = $request->hospConsts;
@@ -66,6 +72,7 @@ class paramController extends Controller
         $input['antecTypes'] = $request->antecTypes;
         $input['vaccins'] = $request->vaccs;
         $input['appareils'] = $request->appareils;
+        $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
         break;
     }  

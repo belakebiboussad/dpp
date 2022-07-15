@@ -61,7 +61,7 @@
       return actions;
      }
      function loadDataTable(data){
-          $('#liste_hosptalisations').dataTable({// "processing": true,
+          $('#liste_hosptalisations').dataTable({
           "paging":   true,
           "destroy": true,
            "ordering": true,
@@ -104,11 +104,6 @@
               { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
               { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
               { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-              // { data: "admission.demande_hospitalisation.service.nom" ,
-              //         render: function ( data, type, row ) {
-              //                return row.admission.demande_hospitalisation.service.nom;
-              //         } ,  title:'Service',"orderable": false  
-              //  },//7
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
               },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
@@ -221,7 +216,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3">
-            <label><strong>Etat :</strong></label>
+            <label>Etat :</label>
             <select id='etat' class="form-control filter">
               <option value=""></option>
               <option value="0" selected active>En cours</option>
@@ -229,14 +224,10 @@
             </select>
           </div>
           <div class="col-sm-3">
-             <label><strong>  Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+             <label>Patient :</label><input type="text" id="Nom" class="form-control filter">
           </div>
-          <div class="col-sm-3">
-             <label><strong>IPP :</strong></label>
-             <input type="text" id="IPP" class="form-control filter">
-          </div>
-           <div class="col-sm-3">
-            <label class="control-label" for="" ><strong>Date de sortie:</strong></label>
+          <div class="col-sm-3"><label>IPP :</label><input type="text" id="IPP" class="form-control filter"></div>
+           <div class="col-sm-3"><label>Date de sortie:</label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
@@ -254,7 +245,7 @@
   <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent">
     <div class="widget-header"><h5 class="widget-title bigger lighter">
-      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<label><span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span></label>
+      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span>
     </div>
     <div class="widget-body">
       <div class="widget-main no-padding">
@@ -267,7 +258,6 @@
               <th class ="center  priority-6"><strong>Date sortie prévue</strong></th>
               <th class ="center priority-4"><strong>Date sortie</strong></th>
               <th class ="center  priority-5"><strong>Mode</strong></th>
-              {{-- @if(!in_array(Auth::user()->role->id,[1,3,5,14]))@endif --}}
               <th  class ="center  priority-6"><strong>Service</strong></th>
              <th  class ="center  priority-6"><strong>Médecin</strong></th>
               <th class ="center  priority-6"><strong>Etat</strong></th>
@@ -282,21 +272,22 @@
                       <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
                     </td>
                     <td>{{  $hosp->Date_entree}}</td>
-                    <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
+                    <td  class="priority-6">{{ $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
-                    <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
-                     {{-- @if(!in_array(Auth::user()->role->id,[1,3,5,14]))@endif --}}
+                    <td class="priority-5">{{ (isset($hosp->modeHospi)) ? $hosp->modeHospi->nom : '' }}</td>
                     <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>
-                    <td class="priority-6">{{  $hosp->medecin->full_name }}</td>
+                    <td class="priority-6">{{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}</td>
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat)  ?  $hosp->etat : 'En Cours'}}</span>
                      </td>
                     <td class ="center"  width="12%">
                       <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                      @if(in_array(Auth::user()->role_id,[1,13,14]))
+                      @if(in_array(Auth::user()->role_id,[1,5,13,14]))
                         <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>           
+                       @if(Auth::user()->role_id != 5)
                         <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
                         <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation" onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
+                       @endif 
                       @endif
                       @if(Auth::user()->role_id == 5){{-- surmed --}}
                         <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('{{ $hosp->id }}')"><i class="fa fa-barcode"></i></a>                      

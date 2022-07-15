@@ -122,7 +122,7 @@
 							  + data.workduration +'</td><td>' + data.expulsduration +'</td><td>'
 							  + data.Type +'</td><td>' + data.incident +'</td>';
 						acc += '<td class ="center"><button class="btn btn-xs btn-info open-modalacc" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true" ></i></button>&nbsp;';
-				  	acc += '<button class="btn btn-xs btn-danger delete-acc" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';;
+				  	acc += '<button class="btn btn-xs btn-danger delete-acc" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';
 			 			if (state == "add")
 			 			{
 			 				$('#accouchTab' +' tbody').append(acc);
@@ -141,7 +141,7 @@
 			event.preventDefault();
 			var acc_id = $(this).val();
   	  $.get('/accouch/' + acc_id, function (data) { 
-                    $('#acc_id').val(data.id);
+        $('#acc_id').val(data.id);
 				$('#lieu').val(data.etablisement);
 				$('#terme').val(data.terme);
 				$('#presentation').val(data.presentation);
