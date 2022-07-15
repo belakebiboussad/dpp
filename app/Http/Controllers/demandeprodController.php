@@ -176,15 +176,18 @@ class demandeprodController extends Controller
           $demande->dispositifs()->detach();
           $demande->reactifs()->detach();
           $listes = json_decode($request->liste);
+         //dd($listes);
           for ($i=0; $i < count($listes); $i++) { 
                   $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
                   if($gamme->id == "1")
                   {   
-                      $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                      $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
                   }elseif($gamme->id == "2") {
-                       $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                       $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
                     }elseif($gamme->id == "3") {
-                      $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                      $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
+                    }elseif($gamme->id == "4") {
+                        $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
                     }
             }
            return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);

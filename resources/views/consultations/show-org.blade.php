@@ -7,19 +7,19 @@
 </div><div class="space-12"></div>
 <div class="row"><h4>Détails de la Consultation du {{ $consultation->date}} :</h4></div> 
   <div class="tabbable"  class="user-profile">
-        <ul class="nav nav-tabs padding-24">
-              <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
-                @isset($consultation->demandeHospitalisation) 
-                      <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
-               @endisset
-               @isset($consultation->examensCliniques) 
-                      <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
-               @endisset
-               @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
-                <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
-               @endif
-        </ul>
-           <div class="tab-content no-border padding-24">
+    <ul class="nav nav-tabs padding-18">
+        <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
+          @if(isset($consultation->demandeHospitalisation) )
+        <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
+          @endif
+          @if(isset($consultation->examensCliniques) )
+        <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
+          @endif
+          @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
+          <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
+          @endif
+     </ul>
+      <div class="tab-content no-border padding-24">
           <div id="Intero" class="tab-pane in active">
           <div class="row">
           <ul class="list-unstyled spaced">
@@ -31,14 +31,14 @@
           </ul>
           </div>
           </div>{{-- Intero --}}
-             @isset($consultation->demandeHospitalisation) 
+            @if(isset($consultation->demandeHospitalisation) )
               <div id="DH" class="tab-pane">
                  <div class="row">
                     <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
                       <strong><span style="font-size:18px;">Demande d'hospitalisation</span></strong>
                     </div>
                 </div>
-                <div class="row">
+               <div class="row">
                      <div class="col-xs-11 widget-container-col" >
                              <div class="widget-box widget-color-blue">
                               <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
@@ -84,11 +84,10 @@
                             </div>
                       </div>
               </div>
-              </div> {{-- DH --}}
-              @endisset
-          @isset($consultation->examensCliniques) 
+            @endif
+          @if(isset($consultation->examensCliniques) )
           <div id="ExamClin" class="tab-pane">
-                <div class="row">
+            <div class="row">
                <h4 > Paramétres généreaux</h4>
               <ul class="list-unstyled spaced">
                 @if(isset($consultation->examensCliniques->consts))
@@ -116,11 +115,11 @@
                </ul>
                </div>
              @endif 
-          </div>{{-- ExamClin --}}
-          @endisset
-          @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
-          <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
-           @if(isset($consultation->demandeexmbio))
+          </div>
+          @endif
+          @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) ||(isset($consultation->ordonnances)))
+           <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
+                @if(isset($consultation->demandeexmbio))
                 <div class="row">
                     <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
                       <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
@@ -242,11 +241,11 @@
                      </div>
                 </div>
                 @endif
-          </div>      {{-- ExamCompl --}}
+           </div> {{-- ExamCompl/Ord --}}
           @endif
-         </div>{{-- tab-content  --}}
-    </div>  {{-- tabbable --}}
-</div>    {{-- container-fluid --}}
+     </div> {{-- tab-content  --}}
+</div>{{-- tabbable --}}
+</div>
 @endsection
 @section('page-script')
 @include('examenradio.scripts.imgRequestdJS')

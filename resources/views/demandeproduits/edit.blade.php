@@ -31,8 +31,11 @@ $('document').ready(function(){
 			    	case 5:
 			    		jsonData["qte"] = $(element).find('input').val() ;
 		    			break;
-						default:				
-		    					break;	
+				case 6:
+                                    jsonData["unite"] = $(element).find('input').val() ;
+                                    break;
+                              default:				
+		    			break;	
 		    			}
       		  	});
  			 		produits.push(jsonData);
@@ -133,6 +136,7 @@ $('document').ready(function(){
 											<th>Gamme</th>
 											<th>Spécialités</th>
 											<th>Quantité</th>
+                                                                                  <th>Unité</th>
 										</tr>
 									</thead>
 									<tbody >
@@ -144,6 +148,7 @@ $('document').ready(function(){
 												<td> MEDICAMENTS</td>
 												<td>{{ $medicament->specialite->nom }}</td>
 											  <td><input type="number" id="quantite" class="form-control" value="{{ $medicament->pivot->qte }}" min=1></td>
+                                                                                          <td><input type="text" id="unite" class="form-control" value="{{ $medicament->pivot->unite }}" ></td>
 											</tr>
 										@endforeach
 										@foreach($demande->dispositifs as $dispositif)
@@ -154,6 +159,7 @@ $('document').ready(function(){
 												<td>DISPOSITIFS MEDICAUX</td>
 												<td>/</td>
 												<td><input type="number" id="quantite" class="form-control" value="{{ $dispositif->pivot->qte }}"></td>
+                                                                                      <td><input type="text" id="unite" class="form-control" value="{{ $dispositif->pivot->unite }}" ></td>
 											</tr>
 										@endforeach
 										@foreach($demande->reactifs as $reactif)
@@ -164,8 +170,20 @@ $('document').ready(function(){
 												<td>Réactifs chimiques et dentaires</td>
 												<td>/</td>
 												<td><input type="number" id="quantite"class="form-control" value="{{ $reactif->pivot->qte }}"></td>
+                                                                                        <td><input type="text" id="unite" class="form-control" value="{{ $reactif->pivot->unite }}" ></td>
 											</tr>
 										@endforeach
+                                                                          @foreach($demande->consomables as $consom)
+                                                                            <tr>
+                                                                              <td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+                                                                              <td hidden>{{ $consom->id }}</td>
+                                                                              <td>{{ $consom->nom }}</td>
+                                                                              <td>Produits consommables de Labo</td>
+                                                                              <td>/</td>
+                                                                              <td><input type="number" id="quantite"class="form-control" value="{{ $consom->pivot->qte }}"></td>
+                                                                                <td><input type="text" id="unite" class="form-control" value="{{ $consom->pivot->unite }}" ></td>
+                                                                            </tr>
+                                                                          @endforeach
 									</tbody>
 								</table>
 							</div>
