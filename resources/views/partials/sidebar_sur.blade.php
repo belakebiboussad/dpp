@@ -38,45 +38,37 @@
         </a>
         <b class="arrow"></b>
         <ul class="submenu">
-          <li class="">     
-            <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Hospitalisations
-            </a>
+          <li>     
+            <a href="{{ route('hospitalisation.index') }}"><i class="menu-icon fa fa-caret-right"></i>Hospitalisations</a>
             <b class="arrow"></b>
           </li>
         </ul>
       </li>
-      <li class="">
+      <li>
         <a href="#" class="dropdown-toggle">
           <i class="menu-icon fa fa-calendar"></i><span class="menu-text">Rendez-Vous</span>
-          <b class="arrow fa fa-angle-down"></b>
-        </a>
-        <b class="arrow"></b>
+          <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>
         <ul class="submenu">
           <li class="">
             <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>Ajouter un rendez-vous
-            </a>
-            <b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>Ajouter un rendez-vous</a><b class="arrow"></b>
           </li>
           <li><a href="/listeRDVs"><i class="menu-icon fa fa-clock-o"></i>Rendez-Vous</a><b class="arrow"></b></li>
         </ul>
       </li>
-      <li class="">
+      <li>
         <a href="#" class="dropdown-toggle">
           <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
-          <span class="menu-text">Gestion des lits</span><b class="arrow fa fa-angle-down"></b>
+          <span class="menu-text">Réservations des lits</span><b class="arrow fa fa-angle-down"></b>
         </a>
         <ul class="submenu">
-          <li class="">
+          <li>
             <a href="{{ route('reservation.index') }}" title="Reserver  un lit">
-              <i class="menu-icon fa fa-plus"></i>Reserver un lit
-            </a>
-            <b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>Ajouter  une réservation</a><b class="arrow"></b>
           </li>
-          <li class="">
-            <a href="/bedAffectation" title="Affecter in lit"><i class="menu-icon fa fa-plus"></i>Affecter un lit
-            </a><b class="arrow"></b>
+          <li><a href="/listeRDVs"><i class="menu-icon fa fa-caret-right"></i>Réservations</a><b class="arrow"></b></li>
+          <li>
+            <a href="/bedAffectation" title="Affecter in lit"><i class="menu-icon fa fa-plus"></i>Affecter un lit</a><b class="arrow"></b>
           </li>
         </ul>
       </li>
@@ -121,10 +113,7 @@
           {
             var attr = $('.salle').attr('disabled');
             if($(".salle").prop('disabled') == true)
-              $(".salle" ).attr("disabled", false);
-            /*
-              $('.lit_id option[value=""]').prop('selected', true);  $('.lit_id').attr('disabled', 'disabled');
-            */
+              $(".salle" ).attr("disabled", false);   /*  $('.lit_id option[value=""]').prop('selected', true);  $('.lit_id').attr('disabled', 'disabled');         */
             var formData = { 
                 ServiceID: $(this).val(), 
                 Affect :$('.affect').val(),
@@ -132,8 +121,8 @@
             };
             if($('.affect').val() == '0')
             {
-              formData.StartDate =$('#dateEntree').val();
-              formData.EndDate = $("#dateSortiePre").val();
+                  formData.StartDate =$('#dateEntree').val();
+                  formData.EndDate = $("#dateSortiePre").val();
             } 
             $.ajax({
               url : '/getsalles',
@@ -158,40 +147,43 @@
           }               
         });
         $(".salle").change(function(){
-            if($(this ).val() != "")
-            { 
-              var attr = $('.lit_id').attr('disabled');
-              if (typeof attr == typeof undefined && attr == false)
-                $('.lit_id').attr('disabled', 'disabled');
-              $('.lit_id').removeAttr("disabled");
-              var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
-              var formData = { 
-                       SalleId:  $(this).val(), 
-                      Affect :$('.affect').val(),
-             };
-             if($('.affect').val() == '0')
-             {
-                formData.StartDate =$('#dateEntree').val();
-                formData.EndDate = $("#dateSortiePre").val();
-                formData.rdvId   = rdvId;
-              } 
-              $.ajax({
-               url : '/getlits',
-               type : 'GET',
-                data:formData,
-                success: function(data, textStatus, jqXHR){                  
-                      var selectLit = $('.lit_id').empty();                      
-                      if(data.length != 0){
-                        selectLit.append("<option value=''>Selectionnez un lit</option>");
-                        $.each(data,function(){
-                                 selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                        });
-                        $('#AffectSave').removeAttr("disabled");
-                    }else
-                      selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-     
-                },
-            });    
+               if($(this ).val() != "")
+              { 
+                       var attr = $('.lit_id').attr('disabled');
+                      if (typeof attr == typeof undefined && attr == false)
+                             $('.lit_id').attr('disabled', 'disabled');
+                        $('.lit_id').removeAttr("disabled");
+                        var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
+                        
+                        var formData = { 
+                                 SalleId:  $(this).val(), 
+                                Affect :$('.affect').val(),
+                       };
+                       if($('.affect').val() == '0')
+                       {
+                              formData.StartDate =$('#dateEntree').val();
+                              formData.EndDate = $("#dateSortiePre").val();
+                              formData.rdvId   = rdvId;
+                        } 
+                        $.ajax({
+                               url : '/getNotResBeds',
+                               type : 'GET',
+                                data:formData,
+                                success: function(data, textStatus, jqXHR){                  
+                                       alert(data);
+                                       /*
+                                       var selectLit = $('.lit_id').empty();                      
+                                       if(data.length != 0){
+                                               selectLit.append("<option value=''>Selectionnez un lit</option>");
+                                               $.each(data,function(){
+                                                      selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                               });
+                                               $('#AffectSave').removeAttr("disabled");
+                                        }else
+                                               selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                                        */
+                                },
+                         });    
           }else
           { $(".lit_id").prop("selectedIndex", 0);
             $(".lit_id" ).attr("disabled", true); 

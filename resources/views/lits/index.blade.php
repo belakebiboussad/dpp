@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-function bedShow(id){/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',data:{'search':$id},success:function(data,status, xhr){alert("fgfd"); $('#lit').html(data.html);}});*/
+function bedShow(id){
  	$.get('/lit/'+id, function (data, status, xhr) {
 	  $('#lit').html(data.html);
 	});
@@ -11,7 +11,7 @@ function bedShow(id){/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',
 @section('main-content')
 <div class="page-header"><h4>Lits :</h4></div>
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Détails des lits </h5>
@@ -24,11 +24,9 @@ function bedShow(id){/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<th class="center">Numéro</th>
-								<th class="center">Nom</th>
-								<th class="center">Service</th>
-								<th class="center">Chambre</th>
-								<th class="center">Bloqué </th>
+								<th class="center">Numéro</th><th class="center">Nom</th>
+								<th class="center">Service</th><th class="center">Chambre</th>
+								<th class="center">Bloqué </th><th class="center">Affecté</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -40,6 +38,7 @@ function bedShow(id){/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',
 								<td>{{ $lit->salle->service->nom }}</td>
 								<td>{{ $lit->salle->nom }}</td>
 								<td>{{ $lit->bloq == 1 ? "Oui" : "Non" }}</td>
+                                                            <td>{{ $lit->affectation == 1 ? "Oui" : "Non" }}</td>
 								<td class="center">
 	 								<button title="" class="btn btn-xs btn-success" onclick="bedShow('{{$lit->id}}');"><i class="ace-icon fa fa-hand-o-up"></i></button>
 									<a href="{{ route('lit.edit', $lit->id) }}" class="btn btn-xs btn-info">
@@ -56,7 +55,7 @@ function bedShow(id){/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-6" id="lit">
+	<div class="col-xs-5" id="lit">
 	</div>
 </div>
 @endsection

@@ -21,7 +21,7 @@
                         <label class="control-label" for="heure">Heure entrée </label>
                         <div class="input-group">
                              <input type="text" name ="heure" id ="heure" class="form-control timepicker1"  required>
-                               <div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
+                               <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                      </div>  
                 </div>
                    <div class="form-group">
@@ -42,7 +42,7 @@
                                 <label class="control-label" for="heureSortiePrevue">Heure sortie :</label>
                                 <div class="input-group">
                                      <input type="text" name ="heureSortiePrevue" id ="heureSortiePrevue" class="form-control timepicker1"  required>
-                                       <div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
+                                       <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                              </div>  
                       </div>
                       <div class="form-group">
@@ -57,7 +57,7 @@
                       <div class="form-group">
                         <label class="control-label">Salle :</label>
                         <select  class="form-control selectpicker salle"/>
-                          <option value="0" selected>Selectionnez une salle</option>
+                          <option value="" selected>Selectionnez une salle</option>
                         </select>
                       </div>
                       <div class="form-group">

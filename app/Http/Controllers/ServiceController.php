@@ -48,7 +48,6 @@ class ServiceController extends Controller
       $service = service::create($request->all()); 
       if($request->ajax())
       {
-         //$view = view("services.ajax_show",compact('service'))->render();
          return $service->load('responsable');
       }else
         return redirect()->action('ServiceController@index');
