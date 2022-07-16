@@ -1,52 +1,39 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h4><strong>Détails de la chambre "{{ $salle->nom }}"</strong></h4></div>
+	<div class="page-header"><h4>Détails de la chambre "{{ $salle->nom }}"</h4></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h6 class="widget-title"><strong>Détails de la chambre :</strong></h6></div>
+				<div class="widget-header"><h6 class="widget-title">Détails de la chambre :</h6></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro chambre:</strong></label>
-							<div><strong>{{ $salle->num }}</strong></div>
+							<label class="col-sm-3 control-label blue">Numéro chambre:</label><span> {{ $salle->num }} </span>
+                                              </div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label blue">Nom :</label> <span>{{ $salle->nom }}</span>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Dénomination :</strong></label>
-							<div><strong>{{ $salle->nom }}</strong></div>
+							<label class="col-sm-3 control-label blue">Capacité :</label><span> {{ $salle->max_lit }} lits</span>       
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Capacité :</strong></label>
-							<div><strong>{{ $salle->max_lit }} lits</strong></div>
+							<label class="col-sm-3 control-label blue">Lits en place :</label><span> {{ $salle->lits->count() }} lits  </span>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Lits en place :</strong></label>
-							<div><strong>{{ $salle->lits->count()	}} lits</strong></div>
+							<label class="col-sm-3 control-label blue">Bloc : </label><span>{{ $salle->bloc }}</span>
+         					</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label blue">Etage : </label><span>{{ $salle->etage }}</span> 
+                                              </div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label blue">Etat : </label>
+              	                                     <span class="label label-sm label-{{ (isset($salle->etat )) ? 'warning' : 'primary' }}">
+                                                    @if(!(isset( $salle->etat )))    Non   @endif
+                                                     Bloquée</span>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="bloc"><strong> Bloc : </strong></label>
-							<div><strong>{{ $salle->bloc }}</strong></div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="etage"><strong> Etage : </strong></label>
-							<div><strong>{{ $salle->etage }}</strong></div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="etat"><strong> Etat : </strong></label>
-							<div>
-								@if(isset( $salle->etat ))
-									<span class="label label-sm label-warning">
-								@else
-									<span class="label label-sm label-success">
-									Non 
-								@endif
-									Bloquée</span>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="service"><strong> Service : </strong></label>
-							<div><strong>{{ $salle->service->nom}}</strong></div>
-						</div>
+							<label class="col-sm-3 control-label blue">Service :</label><span>{{ $salle->service->nom}}</span>
+              				</div>
 					</div>
 				</div>
 			</div>
@@ -54,23 +41,19 @@
 		<div class="col-xs-6">
 		  @if( $salle->lits->count() > 0 )
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title"><strong>Liste des lits :</strong> </strong></h5></div>
+				<div class="widget-header"><h5 class="widget-title">Liste des lits :</h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<table class="table table-striped table-bordered table-hover">
 							<thead>
-								<tr>
-									<th>Numéro</th>
-									<th>Etat</th>
-									<th>Affectation</th><!-- <th></th> -->
-								</tr>
+								<tr><th>Numéro</th><th>Etat</th><th>Affectation</th></tr>
 							</thead>
 							<tbody>
 								@foreach($lits as $lit)
 								<tr>
 									<td>{{ $lit->num }}</td>
-									<td>{{ $lit->etat == 1 ? "Non Bloqué" : "Bloqué" }}</td>
-									<td>{{ $lit->affectation == 0 ? "Non Affecté" : "Affecté" }}</td><!-- <td></td> -->
+									<td>{{ $lit->bloq == 1 ? "Bloqué" : "Non Bloqué" }}</td>
+									<td>{{ $lit->affectation == 1 ? "Affecté" : "Non Affecté" }}</td>
 								</tr>
 								@endforeach
 							</tbody>

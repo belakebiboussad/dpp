@@ -29,13 +29,13 @@ class LitsController extends Controller
     {
       if($request->ajax())  
       {
-        $lits = lit::where('salle_id',$request->id)->get();
-        $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-        return ['html'=>$view];
+            $lits = lit::where('salle_id',$request->id)->get();
+            $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
+            return ['html'=>$view];
       }else
       {
-        $lits=lit::with('salle','salle.service')->get();
-        return view('lits.index', compact('lits'));
+            $lits=lit::with('salle','salle.service')->get();
+            return view('lits.index', compact('lits'));
       }
     }
     /**
@@ -44,36 +44,28 @@ class LitsController extends Controller
      * @return \Illuminate\Http\Response
      */
     //public function createlit()  $services = service::all();{ return view('lits.create_lit_2', compact('services'));}
-    public function create(Request $request)
-    {
-      $services = service::where('hebergement',1)->get();
-      if(isset($request->id))
+      public function create(Request $request)
       {
-        $salle = salle::FindOrFail($request->id);
-        return view('lits.create', compact('services','salle'));
-      }else
-        return view('lits.create', compact('services'));
-    }
+            $services = service::where('hebergement',1)->get();
+              if(isset($request->id))
+              {
+                      $salle = salle::FindOrFail($request->id);
+                     return view('lits.create', compact('services','salle'));
+              }else
+                return view('lits.create', compact('services'));
+        }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-       $etat = 1;
-        if(isset($_POST['etat']) )
-        $etat = 0;  
-        lit::create([
-          "num"=>$request->numlit,
-          "nom"=>$request->nom,
-          "etat"=>$etat,
-          "affectation"=>0,
-          "salle_id"=>$request->salle_id,
-       ]);
-       return redirect()->action('LitsController@index');
-    }
+      public function store(Request $request)
+       {
+               $lit =lit::create($request->all());
+               return redirect()->action('LitsController@index');
+        }
     /**
      * Display the specified resource.
      *
@@ -117,17 +109,11 @@ class LitsController extends Controller
      */
       public function update(Request $request, $id)
       {
-        $lit = lit::FindOrFail($id);
-        $etat =1 ;
-        if(isset($_POST['etat']) )
-          $etat = 0;   
-        $lit->update([
-          "num"=>$request->numlit,
-          "nom"=>$request->nom,
-          "etat"=>$etat,//"affectation"=>$request->affectation,
-          "salle_id"=>$request->salle,
-        ]);
-        return redirect()->route('lit.index');//return redirect()->action('LitsController@index');
+              $lit = lit::FindOrFail($id);
+              $input = $request->all();
+               $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
+              $lit->update($input);   
+               return redirect()->route('lit.index');
       }
 
     /**
