@@ -74,14 +74,13 @@ class LitsController extends Controller
      */
     public function show(Request $request,$id)
     {
-      $lit = lit::with('salle','salle.service')->FindOrFail($id);
-      if($request->ajax())  
-      {
-        $view = view("lits.ajax_show",compact('lit'))->render();
-        return Response::json(['html'=>$view]);
-      }else
-        return view('lits.show', compact('lit'));
-      
+            $lit = lit::with('salle','salle.service')->FindOrFail($id);
+            if($request->ajax())  
+            {
+              $view = view("lits.show",compact('lit'))->render();
+              return Response::json(['html'=>$view]);
+            }else
+              return view('lits.show', compact('lit'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -91,14 +90,14 @@ class LitsController extends Controller
      */
     public function edit($id)
     {
-      $lit = lit::FindOrFail($id);
-      $salles = salle::all();
-      return view('lits.edit', compact('lit','salles'));
+            $lit = lit::FindOrFail($id);
+            $salles = salle::all();
+            return view('lits.edit', compact('lit','salles'));
     }
     public function destroy($id)
     {
-      $lit = lit::destroy($id);
-      return redirect()->route('lit.index');    
+          $lit = lit::destroy($id);
+          return redirect()->route('lit.index');    
     }
     /**
      * Update the specified resource in storage.
@@ -111,7 +110,7 @@ class LitsController extends Controller
       {
               $lit = lit::FindOrFail($id);
               $input = $request->all();
-               $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
+              $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
               $lit->update($input);   
                return redirect()->route('lit.index');
       }
@@ -168,19 +167,20 @@ class LitsController extends Controller
   /**
   **function ajax return lits ,on retourne pas les lits bloque ou reservé
   */
-      public function getlits(Request $request)
+      public function getNoResBeds(Request $request)
       {
               $lits =array();
               $salle =salle::FindOrFail($request->SalleId);
-              if( $request->Affect == '0')  
+              if( $request->Affect == '0')  //pour une reservation ?
               {
-                       if(isset($request->rdvId))
-                      {
+                       if(isset($request->rdvId))//edit hosp rdv
+                      {     
+                              return $request->rdvId; 
                               $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId)->with('bedReservation');
                               if(isset($rdvHosp->bedReservation))
                                      $rdvHosp->bedReservation->delete();           
                       }
-                      foreach ($salle->lits as $key => $lit) {  
+                       foreach ($salle->lits as $key => $lit) {  
                               $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
                               if(!($free))
                                      $salle->lits->pull($key); //$lits->push($lit);    

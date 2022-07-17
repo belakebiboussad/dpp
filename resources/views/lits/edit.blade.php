@@ -16,20 +16,19 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="numlit">Numéro :</label>
+					<label class="col-sm-3 control-label" for="num">Numéro :</label>
 					<div class="col-sm-9">
 						<input type="number" name="num" value="{{ $lit->num }}" class="col-xs-10 col-sm-5" required/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="nom">Nom : </label>
-
+					<label class="col-sm-3 control-label" for="nom">Nom : </label>
 					<div class="col-sm-9">
 						<input type="text" name="nom" value="{{ $lit->nom }}"  class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etage">Chambre : </label>
+					<label class="col-sm-3 control-label" for="salle_id">Chambre : </label>
 					<div class="col-sm-9">
 						<select class="col-xs-10 col-sm-5" id="salle" name="salle_id" required>
 							@foreach($salles as $salle)
@@ -42,7 +41,7 @@
                               <div class=" col-sm-9 col-sm-offset-3">
                             <div class="form-group">
                                       <label>Bloqué :
-                                        <input id="" type="checkbox" class="ace ace-switch ace-switch-4"  name="etats" value ="1"  data-on="Oui"  data-off="Non" {{ $lit->bloq == 1  ? "checked" : "" }} />
+                                        <input id="" type="checkbox" class="ace ace-switch ace-switch-6"  name="bloq" value ="1"  {{ $lit->bloq == 1  ? "checked" : "" }} />
                                         <span class="lbl"></span>
                                       </label>
                             </div>
