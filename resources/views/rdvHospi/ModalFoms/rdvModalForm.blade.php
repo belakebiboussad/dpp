@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
       </div>
-      <form id"rdvHAddForm" method="POST"  class="form-horizontal"  action="{{  route('rdvHospi.store') }}">
+      <form id"rdvHAddForm" method="POST"  class="form-horizontal"  action="{{ route('rdvHospi.store') }}">
         {!! csrf_field() !!}
         <input type="hidden" name="demande_id" id="demande_id"  class="demande_id">
         <input type="hidden"  class="affect" value="0">

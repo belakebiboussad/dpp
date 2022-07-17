@@ -35,9 +35,9 @@
 @endsection
 @section('main-content')
 <div class="page-content">
-	<div class="row">	
-		<div ><h4><strong>Bienvenu(e) Monsieur :</strong> &nbsp;<q class="blue">{{ Auth::User()->employ->full_name }}</q></h4></div>		
-	</div><div class="space-12"></div>
+	<div class="page-header">	
+		<div ><h4>Bienvenu(e) Monsieur :&nbsp;<q class="blue">{{ Auth::User()->employ->full_name }}</q></h4></div>		
+	</div>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default ">
@@ -51,25 +51,22 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-sm-4">
-			      <div class="form-group col-sm-12"><label>Matricule:</label>
-							<div class="input-group col-sm-8">
+						<div class="form-group col-sm-4"><label>Matricule:</label>
+							<div class="input-group col-sm-12">
 								<input type="text" class="form-control input-sx" id="matricule" name="matricule" placeholder="Matricule de l'assuré(e)..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
-						</div>
-						<div class="col-sm-4">
-			      <div class="form-group col-sm-12"><label>NSS:</label>
-							<div class="input-group col-sm-8">
+			      <div class="form-group col-sm-4 col-offset-sm-1"><label>NSS:</label>
+							<div class="input-group col-sm-12">
 								<input type="text" class="form-control input-sx nssform" id="nss" name="nss" placeholder="Numéro du sécurité..."/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					  	</div>
 					  </div>
-						</div>
+				
 					</div><!-- row -->
 				</div><!-- body -->
-				<div class="panel-footer" style="height:40px;">
+				<div class="panel-footer">
 					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
 					{{--<a href="{{ route('assur.destroy',12122) }}" data-method="DELETE">suprimer</a>--}}
 				</div>

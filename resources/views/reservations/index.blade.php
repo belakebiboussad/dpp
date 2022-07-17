@@ -23,7 +23,6 @@
 @endsection
 @section('main-content')
 <div class="page-header"><h4>Réserver un lit</h4></div>
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8 widget-container-col">
 	<div class="widget-box widget-color-blue">

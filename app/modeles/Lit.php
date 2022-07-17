@@ -14,25 +14,25 @@ class Lit extends Model
           'affectation' => 'boolean',
           'bloq' => 'boolean',
   ];
-        public function bedReservation()
-        {
-              return $this->hasOne('App\modeles\BedReservation','id_lit');
-        }
-       public function isFree($start , $end)//libre de reservation
-       {
-              $idlit = $this->id;
-              $lit =Lit::FindOrFail($idlit);
-              if($lit->bloq == 1)
-                  return false; 
-               $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ 
-                                                                            $q->where('id',$idlit);
-                                                                        })->get(); 
-               foreach ($reservations as $key => $reservation) {
-                      if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
-                            return false;
-                  }   
-                return true;
-        }//dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui
+  public function bedReservation()
+  {
+        return $this->hasOne('App\modeles\BedReservation','id_lit');
+  }
+  public function isFree($start , $end)//libre de reservation
+  {
+    $idlit = $this->id;
+    $lit =Lit::FindOrFail($idlit);
+    if($lit->bloq == 1)
+      return false; 
+    $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ 
+                                                                  $q->where('id',$idlit);
+                                                              })->get(); 
+    foreach ($reservations as $key => $reservation) {
+            if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
+                  return false;
+        }   
+      return true;
+  }//dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui
 /*public function isFreeU($start){$lit =Lit::FindOrFail($this->id);if($lit->etat == 0)return false;$reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
 $q->where('id',$idlit);})->get();foreach ($reservations as $key => $reservation){if( $start <= strtotime($reservation->rdvHosp->date_Prevu_Sortie))return true;} return false;}*/
   public function affecter($id)

@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 id="myModalBedaffect"> Affecter un lit</h4>
         </div>
-          <form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
+          <form id="modalFormData" name="modalFormData" method="POST" class="form-horizontal" novalidate="">
         {!! csrf_field() !!}
         <input type="hidden" class="demande_id" name="demande_id">
         <input type="hidden" id="patient_id" name="patient_id">
@@ -30,12 +30,12 @@
                   </select>
                </div>  
               </div>
-                <div class="form-group">
+                <div class="form-group row">
                   <label class="control-label" for="lit_id">Lit :</label>
                   <div >
-                       <select  class="form-control selectpicker lit_id"/>
-                             <option value="" selected disabled>Selectionnez un lit</option>
-                       </select>
+                    <select  class="form-control selectpicker lit_id" required disabled/>
+                      <option value="" selected disabled>Selectionnez un lit</option>
+                    </select>
                </div>  
               </div>
         </div>

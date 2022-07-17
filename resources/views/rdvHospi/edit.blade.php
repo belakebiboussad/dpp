@@ -25,7 +25,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-  <h1>Modification du  RDV Hospitalisation du :
+  <h1>Modification du  Rendez-vous d'hospitalisation du :
     &laquo;{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}&raquo;</h1>
   <div class="pull-right">
     <a href="/listeRDVs" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
@@ -38,7 +38,7 @@
       {{ method_field('PUT') }}
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
       <input type="hidden" name="demande_id" class="demande_id" value="{{ $rdv->demandeHospitalisation->id }}">
-      <!-- <input type="hidden" id="affect" value="0"> -->
+      <input type="hidden" class ="affect" value="0">
       <div class="row">
         <div class="col-sm-12"><h4 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h4></div>
       </div>

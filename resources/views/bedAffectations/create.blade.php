@@ -59,9 +59,9 @@
             @else
               <td></td><td></td><td></td>
             @endif
-						<td>
+						<td class="center">
 							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
-								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
+								<i class="fa fa-bed" aria-hidden="true"></i>
 							</button>
 						</td>
 					</tr>
@@ -121,5 +121,41 @@
   </div>
 </div>
 @endif
-<div class="row">@include('bedAffectations.affecteModalForm')</div>
+<div class="row">@include('bedAffectations.ModalFoms.addAffecteModal')</div>
+@endsection
+@section('page-script')
+<script type="text/javascript">
+$(function(){
+  $('body').on('click', '.bedAffect', function (event) {
+    $('.demande_id').val($(this).val());
+    $('#patient_id').val($(this).attr('data-Pid'));//cas dh urg
+    $('#bedAffectModal').modal('show');
+    $('#bedAffectModal').on('hidden.bs.modal', function (e) {
+      $('#bedAffectModal form')[0].reset();
+    });
+  });
+  jQuery('body').on('click', '#AffectSave', function (e) {
+    e.preventDefault();
+    var formData = {
+       _token: CSRF_TOKEN,
+      demande_id : $('.demande_id').val(),
+      lit_id     : $('.lit_id').val()
+    };
+    
+    $.ajax({
+        url : '{{ route ("lit.affecter") }}',
+        type:'POST',
+        data:formData,
+        success: function (data) {
+          alert(data);
+         /*
+          $("#demande" + formData['demande_id']).remove();
+          $('#bedAffectModal').trigger("reset");
+          $('#bedAffectModal').modal('hide');*/
+          
+        }
+   });
+  });
+})
+</script>
 @endsection

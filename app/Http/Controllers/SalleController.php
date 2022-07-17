@@ -123,15 +123,15 @@ class SalleController extends Controller
     {
       $type = 0;
       $demande = DemandeHospitalisation::with('consultation.patient')->FindOrFail($request->demande_id);
+      return $request->demande_id;  
+      $service = service::FindOrFail($request->ServiceID);
       if($demande->consultation->patient->Sexe == "M")
-      {
         $type = 0;
-      }
       elseif($demande->consultation->patient->Sexe == "F")
-      {
         $type = 1;
-      }
-      $salles = salle::where('service_id',$request->ServiceID)->where('genre', $type)->where('etat',null)->get();
+      //$salles = salle::where('service_id',$request->ServiceID)->where('genre', $type)->where('etat',null)->get();
+      $salles = $service->salles;
+     
       if( $request->Affect == '0')  
       {
         foreach ($salles as $key1 => $salle) {
