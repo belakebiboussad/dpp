@@ -134,6 +134,10 @@ Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
+// del
+Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
+// end del
+
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/dbToPDF/{id}','DemandeExbController@print');

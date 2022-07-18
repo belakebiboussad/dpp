@@ -106,15 +106,19 @@ class RdvHospiController extends Controller
         return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function destroy($id)
-  {   
-        $rdvHospi =  rdv_hospitalisation::find($id);  
-        if(isset($rdvHospi->bedReservation))  
-              $rdvHospi->bedReservation()->delete();
-          $rdvHospi->demandeHospitalisation->etat =5;//"valide";
-          $rdvHospi->demandeHospitalisation->save();
-          $rdvHospi->etat=0;
-          $rdvHospi->save(); 
-          return redirect()->action('RdvHospiController@getlisteRDVs');
+  {   $specialite = Auth::user()->employ->Service->Specialite;
+      $rdvHospi =  rdv_hospitalisation::find($id);  
+      if(isset($rdvHospi->bedReservation))  
+        $rdvHospi->bedReservation()->delete();
+      /*
+      $rdvHospi->demandeHospitalisation->etat =5;//"valide";
+      $rdvHospi->demandeHospitalisation->save();
+      */
+      $state = ($specialite->dhValid) ? 5: null;
+      $rdvHospi->demandeHospitalisation->update(["etat"=>$state]);
+      $rdvHospi->update(["etat"=>0]);
+        //$rdvHospi->etat=0;$rdvHospi->save(); 
+        return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function getRdvs(Request $request)
   {

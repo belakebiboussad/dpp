@@ -90,19 +90,19 @@
       </div>
       <div class="row">
       	<div class="form-group col-xs-4">
-          	<label class="col-sm-4 control-label no-padding-right" for="Date_entree">Date :</label>
+          	<label class="col-sm-4 control-label" for="Date_entree">Date :</label>
            	<div class="col-sm-8">
               <input class="col-xs-12 col-sm-12 date-picker" id="dateEntree" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
             </div> 
         	</div>
 					<div class="form-group col-xs-4">
-	          <label class="col-sm-4 control-label no-padding-right" for="heure_entrée">Heure :</label>
+	          <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
 	          <div class="col-sm-8">   
 	            <input id="heurEnt" class="col-xs-12 col-sm-12 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/ >
 		        </div>
         	</div>
         	<div id = "numberofDays" class="form-group col-xs-4">
-          	<label class="col-sm-4 control-label no-padding-right" for="numberDays">Durée :</label>
+          	<label class="col-sm-4 control-label" for="numberDays">Durée :</label>
            	<div class="col-sm-8">
 		          <input class="col-xs-10 col-sm-10" id="numberDays" name="" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 		           <label for=""><small>&nbsp;nuit(s)</small></label>
@@ -114,7 +114,7 @@
         </div>
      	  <div class="row">
           <div class="form-group col-xs-4">
-	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie">Date :</label>
+	          <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
 	          <div class="col-sm-8">
 	            <input class="col-xs-10 col-sm-10 date-picker" id="dateSortiePre" name="Date_Prevu_Sortie" type="text" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
 	            <button class="btn btn-sm filelink" onclick="$('#dateSortiePre').focus();">
@@ -123,7 +123,7 @@
 	          </div>
 	        </div>
 		      <div class="form-group col-xs-4">
-		        <label class="col-sm-4 control-label no-padding-right" for="Heure_Prevu_Sortie">Heure :</label>
+		        <label class="col-sm-4 control-label" for="Heure_Prevu_Sortie">Heure :</label>
 		        <div class="col-sm-8">   
 		          <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-10 col-sm-10 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 			      	<button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>	
@@ -133,7 +133,7 @@
         <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Hospitalisation</h4></div></div>
         <div class="row">
           <div class="form-group col-xs-5">
-            <label class="col-sm-5 control-label no-padding-right" for="medecin_id">Médecin traitant :&nbsp;</label>
+            <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant :&nbsp;</label>
             <div class="input-group col-sm-7">
               <select name="medecin_id" id="medecin_id" class="col-sm-12" @if(!in_array(Auth::user()->role->id,[1,13])) disabled @endif>
                 <option value="" disabled>Selectionnez...</option>
@@ -144,7 +144,7 @@
             </div>
           </div>
           <div class="form-group col-xs-5">
-              <label class="col-sm-5 control-label no-padding-right" for="garde_id">Garde malade :&nbsp;</label>
+              <label class="col-sm-5 control-label" for="garde_id">Garde malade :&nbsp;</label>
               <div class="input-group col-sm-7">
               <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
                 <option value="" >Selectionnez le garde malade</option>
@@ -161,9 +161,9 @@
         </div>
         <div class="row form group">
 	     <div class="col-xs-4">
-	        <label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
+	        <label class="col-sm-4 control-label" for="serviceh">Service :</label>
 	        <div class="col-sm-8">
-	      		<select name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
+	      		<select name="serviceh" class="selectpicker col-xs-12 col-sm-12 serviceHosp" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
 	            <option value="" selected disabled>Selectionnez le service</option>
 	            @foreach($services as $service)
 	            <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
@@ -174,9 +174,9 @@
 	        </div>
 	      </div>
 	      <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
+          <label class="col-sm-4 control-label" for="salle">Salle :</label>
           <div class="col-sm-8">
-            <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
+            <select id="salle" name="salle" class="selectpicker col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
               <option value="" selected disabled>Selectionnez la salle</option>      
               @foreach($hosp->admission->lit->salle->service->salles as $salle)
               <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >{{ $salle->nom }}</option>
@@ -187,7 +187,7 @@
         <div class="col-xs-4">
           <label class="col-sm-4 control-label" for="lit">Lit :</label>
           <div class="col-sm-8">
-            <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
+            <select id="lit" name="lit" class="selectpicker col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
               <option value="" selected disabled>Selectionnez le lit</option>      
               @foreach($hosp->admission->lit->salle->lits as $lit)
               <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >{{ $lit->nom }} </option>

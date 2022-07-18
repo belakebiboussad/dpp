@@ -1,7 +1,6 @@
 @extends('app')
 @section('main-content')
 <div class="page-header"><h4>Réserver un lit</h4></div>
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-12 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
@@ -14,6 +13,7 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class="center">Patient</th>
+              <th class="center">Genre</th>
 							<th class="center">Mode d'admission</th>
 							@isset($specialite->dhValid)
               <th class="center" width="3%">Priorité</th>
@@ -30,6 +30,7 @@
 					@foreach($rdvs as $rdv)
 					<tr id ="{{ 'rdv-' . $rdv->id }}">
 						<td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+            <td>{{ $rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
 						<td>
 		          <span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
               {{ $rdv->demandeHospitalisation->modeAdmission }}</span>
@@ -74,26 +75,26 @@
       $.get('/rdvHospi/' + $(this).val() + '/edit', function (data, status, xhr) { 
         $("#dateEntree").val(data['date']);
         $("#dateSortiePre").val(data['date_Prevu_Sortie']);
-        //$('.demande_id').val();
+        $('.demande_id').val(data['id_demande']);
         $('#bedReservModal').modal('show');
       });   
     });
-  })
-  $(document).ready(function(){
     $("#saveReservation").click(function(e){   // $('#addReservationForm').submit(); // $("#serviceh").selct(0);
       e.preventDefault();
-      var formData = { _token: CSRF_TOKEN, id_rdvHosp:$("#rdv_id").val(), id_lit:$(".lit_id").val()  };
+      var formData = { _token: CSRF_TOKEN, id_rdvHosp:$("#rdv_id").val(), id_lit:$(".lit_id").val()};
       var url = "{{ route('reservation.store') }}"; 
        $.ajax({
             type : 'POST',
             url :url,
             data:formData,
             success:function(data){
-              $("#rdv-" + data.id).remove();
+              $("#rdv-" + data.id_rdvHosp).remove();
+               $('#bedReservModal').modal('hide');
+    
             },
       });
       
     });
-  });
+  })
 </script>
 @endsection

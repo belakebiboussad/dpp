@@ -79,25 +79,25 @@
           </div>
          @endisset
         </div>
-      <div class="row"><div class="col-sm-12"> <h3 class="header smaller lighter blue">Admissions</h3></div></div>
+      <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Admissions</h3></div></div>
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label no-padding-right" for="dateEntree">Date entrée prévue :</label>
+            <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure">Heure entrée prévue :</label>
+            <label class="col-sm-7 control-label" for="heure">Heure entrée prévue :</label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heure" name="heure" class="form-control timepicker1" type="text" value = "{{ $rdv->heure }}" required />
-              <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span> 
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label no-padding-right" for="numberDays">Durée prévue :</label>
+            <label class="col-sm-6 control-label" for="numberDays">Durée prévue :</label>
             <div class="col-sm-6 col-xs-6">    
               <input class="col-xs-8 col-sm-8" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
               <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
@@ -109,28 +109,28 @@
       <div class="row">
         <div class="col-sm-12"> 
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label no-padding-right" for="dateSortiePre">Date sortie prévue :</label>
+            <label class="col-sm-6 control-label" for="dateSortiePre">Date sortie prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input class="form-control date-picker" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
-              <span class="input-group-addon"> <i class="fa fa-calendar bigger-110"></i> </span>    
+              <span class="input-group-addon" <i class="fa fa-calendar"></i> </span>    
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heureSortiePrevue">Heure sortie prévue :</label>
+            <label class="col-sm-7 control-label" for="heureSortiePrevue">Heure sortie prévue :</label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required />
-              <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i> </span> 
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i> </span> 
             </div>  
           </div>
         </div>
       </div> 
-      <div class="row"><div class="col-sm-12">  <h3 class="header smaller lighter blue">Hébergement</h3></div> </div>
+      <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div></div>
       <div class="space-12"></div>
       @if(isset($rdv->bedReservation->id_lit))
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="dateSortie"> <strong> Service:</strong> </label>
+            <label class="col-sm-4 control-label" for="dateSortie">Service :</label>
             <div class="col-sm-8">
               <select name="serviceh" class="selectpicker col-xs-12 serviceHosp"/>
                 <option value="" selected>Selectionnez le service</option>
@@ -143,7 +143,7 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="salle">Salle :</label>
+            <label class="col-sm-4 control-label" for="salle">Salle :</label>
             <div class="col-sm-8">
               <select name="salle" class="selectpicker col-xs-12 salle">
                 <option value="" selected disabled>Selectionnez la salle</option>      

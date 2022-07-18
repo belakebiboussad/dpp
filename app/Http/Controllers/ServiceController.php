@@ -13,10 +13,19 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $services = service::with('responsable')->get();
-      return view('services.index', compact('services'));
+      //ajax pour tester
+      if($request->ajax())  
+      {
+        //supprimer
+        $service = service::FindOrFail($request->id);
+        return $service->salles()->where('etat',null)->get();
+      }else
+      {
+        $services = service::with('responsable')->get();
+        return view('services.index', compact('services'));
+      } 
     }
     /**
      * Show the form for creating a new resource.

@@ -16,7 +16,7 @@ class Lit extends Model
   ];
   public function bedReservation()
   {
-        return $this->hasOne('App\modeles\BedReservation','id_lit');
+        return $this->hasMany('App\modeles\BedReservation','id_lit');//hasOne
   }
   public function isFree($start , $end)//libre de reservation
   {
@@ -28,10 +28,10 @@ class Lit extends Model
                                                                   $q->where('id',$idlit);
                                                               })->get(); 
     foreach ($reservations as $key => $reservation) {
-            if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
+      if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
                   return false;
-        }   
-      return true;
+    }   
+    return true;
   }//dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui
 /*public function isFreeU($start){$lit =Lit::FindOrFail($this->id);if($lit->etat == 0)return false;$reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
 $q->where('id',$idlit);})->get();foreach ($reservations as $key => $reservation){if( $start <= strtotime($reservation->rdvHosp->date_Prevu_Sortie))return true;} return false;}*/

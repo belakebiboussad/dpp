@@ -98,21 +98,14 @@
         });
         $("#dateSortie").attr('readonly', true);
         $("#dateEntree").change(function(){
-            $('#numberDays').val(0); 
-            addDays();
-            if( ! isEmpty($('#lit').val()))
-            {
-              $('#serviceh option[value=0]').prop('selected', true);
-              $("#serviceh").trigger("change"); 
-            }
+          $('#numberDays').val(0); addDays();
+          if( ! isEmpty($('.lit_id').val()))
+            $(".serviceHosp").prop("selectedIndex", 0).change();
         });
         $("#numberDays").on('click keyup', function() {
+          if( ! isEmpty($('.lit_id').val()))
+            $(".serviceHosp").prop("selectedIndex", 0).change();
           addDays();
-           if( ! isEmpty($('#lit').val()))
-           {
-              $('#serviceh option[value=0]').prop('selected', true);
-              $("#serviceh").trigger("change"); 
-           }
         });
         $(".serviceHosp").change(function(){
           if($(this ).val() != "")
@@ -122,7 +115,8 @@
               $(".salle" ).attr("disabled", false);/*  $('.lit_id option[value=""]').prop('selected', true);  $('.lit_id').attr('disabled', 'disabled');         */
             var formData = { 
                 ServiceID: $(this).val(), 
-                Affect :$('.affect').val(),//demande_id: $('.demande_id').val(),
+                Affect :$('.affect').val(),
+                demande_id: $('.demande_id').val(),
             };
             if($('.affect').val() == '0')
             {
@@ -134,13 +128,11 @@
               type:'GET',
               data:formData,
               success: function(data, textStatus, jqXHR){
-                alert(data);
-                /*
+                //alert(data);
+              /*
                 $.each(data, function(key, value){
                   alert(key + ":" + value);
-                });
-                */
-                /*
+                });*/
                 var select = $('.salle').empty();
                 if(data.length != 0){
                       select.append('<option value="">Selectionnez une salle</option>');   
@@ -148,7 +140,7 @@
                         select.append('<option value="'+this.id+'">'+this.nom+'</option>');
                      });
                 }else
-                  select.append('<option value="" selected disabled>Pas de salle</option>');*/
+                  select.append('<option value="" selected disabled>Pas de salle</option>');
               },
               
             });   
@@ -181,18 +173,15 @@
                     data:formData,
                     success: function(data, textStatus, jqXHR){                  
                       /*$.each(data[0], function(key, value){ alert(key + ":" + value); })*/
-                       
-                     
-                      
                       var selectLit = $('.lit_id').empty();                      
                       if(data.length != 0){
-                                 selectLit.append("<option value=''>Selectionnez un lit</option>");
-                                 $.each(data,function(){
-                                        selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                 });
-                                 $('#AffectSave').removeAttr("disabled");
-                          }else
-                                 selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                        selectLit.append("<option value=''>Selectionnez un lit</option>");
+                        $.each(data,function(){
+                          selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                        });
+                        $('#AffectSave').removeAttr("disabled");
+                      }else
+                        selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
                     },
              });    
           }else

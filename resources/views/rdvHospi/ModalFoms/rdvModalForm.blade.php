@@ -2,10 +2,10 @@
   <div class="modal-dialog modal-lg">
     <div  class="modal-content custom-height-modal">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
-      </div>
-      <form id"rdvHAddForm" method="POST"  class="form-horizontal"  action="{{ route('rdvHospi.store') }}">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
+    </div>
+    <form id"rdvHAddForm" method="POST"  class="form-horizontal"  action="{{ route('rdvHospi.store') }}">
         {!! csrf_field() !!}
         <input type="hidden" name="demande_id" id="demande_id"  class="demande_id">
         <input type="hidden"  class="affect" value="0">
@@ -27,9 +27,9 @@
                    <div class="form-group">
                         <label class="control-label" for="numberDays">Durée :</label>
                         <div class="input-group">
-                             <input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
-                               <span class="input-group-addon">nuit(s)</span>      
-                     </div> 
+                          <input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
+                           <span class="input-group-addon">nuit(s)</span>      
+                        </div> 
                      </div>
                      <div class="form-group">
                         <label class="control-label" for="dateSortiePre">Date sortie :</label>
@@ -56,21 +56,21 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label">Salle :</label>
-                        <select  class="form-control selectpicker salle"/>
+                        <select  class="form-control selectpicker salle" disabled/>
                           <option value="" selected>Selectionnez une salle</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label class="control-label">Lit :</label>
-                        <select  name="lit" class="form-control selectpicker lit_id"/>
+                        <label class="control-label" disabled>Lit :</label>
+                        <select  name="lit" class="form-control selectpicker lit_id" disabled />
                           <option value="" selected disabled>Selectionnez un lit</option>
                         </select>   
                       </div>
       </div> 
       <div class="modal-footer">
-       <button  type="submit" class="btn btn-info btn-xs"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp; 
-          <button class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
-    </div>
+        <button  type="submit" class="btn btn-info btn-xs"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; 
+        <button class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
+      </div>
     </form>
     </div>
     </div>

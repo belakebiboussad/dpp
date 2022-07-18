@@ -7,6 +7,7 @@ use Auth;
 use App\modeles\rdv_hospitalisation;
 use App\modeles\service;
 use App\modeles\salle;
+use App\modeles\lit;
 use App\modeles\BedReservation;
 class BedReservationController extends Controller
 {
@@ -16,7 +17,10 @@ class BedReservationController extends Controller
   }
 	public function index()
 	{
-    
+    //test
+    $services = service::all();
+    //sdd($services);
+    return view('reservations.index', compact('services'));
 	}
   public function create()
   {
@@ -46,31 +50,42 @@ class BedReservationController extends Controller
     /**
   **function ajax return lits ,on retourne pas les lits bloque ou reservé
   */
-    public function getNoResBeds(Request $request)
+  public function getNoResBeds(Request $request)
+  {
+    $lits =array();
+    $salle =salle::FindOrFail($request->SalleId);
+    if( $request->Affect == "0")//pour une reservation ?
     {
-      $lits =array();
-      $salle =salle::FindOrFail($request->SalleId);
-      if( $request->Affect == "0")//pour une reservation ?
-      {
-        if(isset($request->rdvId))//edit hosp rdv
-        {     
-          $rdvHosp =  rdv_hospitalisation::with('bedReservation')->FindOrFail($request->rdvId);
-          if(isset($rdvHosp->bedReservation))
-            $rdvHosp->bedReservation()->delete();
-        }
-        foreach ($salle->lits as $key => $lit) {  
-          $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-          if(!($free))
-            $salle->lits->pull($key); //$lits->push($lit);    
-        }
-      }else
-      {//pour affectation
-        foreach ($salle->lits as $key => $lit) {
-                $affect = $lit->affecter($lit->id); 
-                if($affect)
-                  $salle->lits->pull($key);
-              }
-       }    
-        return $salle->lits;
+      if(isset($request->rdvId))//edit hosp rdv
+      {     
+        $rdvHosp =  rdv_hospitalisation::with('bedReservation')->FindOrFail($request->rdvId);
+        if(isset($rdvHosp->bedReservation))
+          $rdvHosp->bedReservation()->delete();
       }
+      foreach ($salle->lits as $key => $lit) {  
+        $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+        if(!($free))
+          $salle->lits->pull($key); //$lits->push($lit);    
+      }
+    }else
+    {//pour affectation
+      foreach ($salle->lits as $key => $lit) {
+        $affect = $lit->affecter($lit->id); 
+        if($affect)
+          $salle->lits->pull($key);
+      }
+     }    
+      return $salle->lits;
+  }
+  public function getNoResBedsTeste(Request $request)
+  {
+    $lits = array();
+    $salle =salle::FindOrFail($request->id);
+    return $salle->lits;  
+  }
+  public function update(Request $request, $id)
+  {
+    $lit = lit::FindOrFail( $request->lit_id);
+    dd($lit->bedReservation);
+  }
 }

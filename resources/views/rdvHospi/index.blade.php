@@ -4,17 +4,19 @@
 <script type="text/javascript">
 $(function(){
 	 $(".addRdvh").on('click', function(event) {
-	       $('#demande_id').val($(this).val());
-               jQuery('#rdvHModal').modal('show');
-	 	 $('#rdvHModal').on('hidden.bs.modal', function (e) {
-                            $('#rdvHModal form')[0].reset();
-           	 });
+	    $('#demande_id').val($(this).val());
+      $('#rdvHModal').modal('show');
+	 	  $('#rdvHModal').on('hidden.bs.modal', function (e) {
+        $('#rdvHModal form')[0].reset();
+      });
 	 });
 })
 function updateDureePrevue()
 {
-	if($("#dateEntree").val() != undefined) {
-		var dEntree = $('#dateEntree').datepicker('getDate');
+  if(! isEmpty($('#dateEntree').val())){
+		if($(".serviceHosp").val() != "")
+      $(".serviceHosp").prop("selectedIndex", 0).change();
+    var dEntree = $('#dateEntree').datepicker('getDate');
  		var dSortie = $('#dateSortiePre').datepicker('getDate');
 		var iSecondsDelta = dSortie - dEntree;
 		var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
@@ -24,13 +26,14 @@ function updateDureePrevue()
 			$("#dateSortiePre").datepicker("setDate", dEntree); 
 		}
 		$('#numberDays').val(iDaysDelta );	
-	}
+	}else
+    $("#dateEntree").datepicker("setDate", $('#dateSortiePre').datepicker('getDate'));
+  
 }
-var nowDate = new Date();
-var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+var now = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + ('0'+ new Date().getDate()).slice(-2);
 $('document').ready(function(){
  	$("#dateEntree").datepicker("setDate", now);			
-  	$("#dateSortiePre").datepicker("setDate", now);
+  $("#dateSortiePre").datepicker("setDate", now);
 });
 </script>
 @endsection
@@ -48,6 +51,7 @@ $('document').ready(function(){
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="center">Patient</th>
+                <th class="center">Genre</th>
                 <th class="center">Date</th>
 								<th class="center">Mode d'admission</th>
                 <th class="center">Spécialité</th>
@@ -65,6 +69,7 @@ $('document').ready(function(){
 	           {{--@if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) --}}
 							<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
+                <td>{{ $demande->consultation->patient->Sexe }} </td>
 								<td>{{ $demande->consultation->date }}</td>
                 <td>{{ $demande->modeAdmission }}</td>
                 <td>{{ $demande->Specialite->nom }}</td>
