@@ -16,7 +16,7 @@ class Lit extends Model
   ];
   public function bedReservation()
   {
-        return $this->hasMany('App\modeles\BedReservation','id_lit');//hasOne
+        return $this->hasMany('App\modeles\BedReservation','id_lit');
   }
   public function isFree($start , $end)//libre de reservation
   {
