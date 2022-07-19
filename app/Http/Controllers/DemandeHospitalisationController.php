@@ -121,7 +121,7 @@ class DemandeHospitalisationController extends Controller
         if($request->ajax())
         {
           $demande = DemandeHospitalisation::destroy($id);
-          return Response::json("d");
+          return Response::json($demande);
         }
         else
         {

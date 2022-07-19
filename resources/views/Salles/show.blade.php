@@ -46,12 +46,12 @@
 					<div class="widget-main">
 						<table class="table table-striped table-bordered table-hover">
 							<thead>
-								<tr><th>Numéro</th><th>Etat</th><th>Affectation</th></tr>
+								<tr><th>Numéro</th><th>Nom</th><th>Etat</th><th>Affectation</th></tr>
 							</thead>
 							<tbody>
 								@foreach($lits as $lit)
 								<tr>
-									<td>{{ $lit->num }}</td>
+									<td>{{ $lit->num }}</td><td>{{ $lit->nom }}</td>
 									<td>{{ $lit->bloq == 1 ? "Bloqué" : "Non Bloqué" }}</td>
 									<td>{{ $lit->affectation == 1 ? "Affecté" : "Non Affecté" }}</td>
 								</tr>

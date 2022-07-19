@@ -19,7 +19,6 @@ class BedReservationController extends Controller
 	{
     //test
     $services = service::all();
-    //sdd($services);
     return view('reservations.index', compact('services'));
 	}
   public function create()
@@ -54,6 +53,7 @@ class BedReservationController extends Controller
   {
     $lits =array();
     $salle =salle::FindOrFail($request->SalleId);
+  
     if( $request->Affect == "0")//pour une reservation ?
     {
       if(isset($request->rdvId))//edit hosp rdv
@@ -69,8 +69,9 @@ class BedReservationController extends Controller
       }
     }else
     {//pour affectation
+      return $salle->lits;
       foreach ($salle->lits as $key => $lit) {
-        $affect = $lit->affecter($lit->id); 
+        $affect = $lit->isAffected($lit->id); 
         if($affect)
           $salle->lits->pull($key);
       }
@@ -85,7 +86,17 @@ class BedReservationController extends Controller
   }
   public function update(Request $request, $id)
   {
+    $now = date("Y-m-d", strtotime('now'));//"2022-07-19"
+    //$now1 = \Carbon\Carbon::now();//object
+    $now2 = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
     $lit = lit::FindOrFail( $request->lit_id);
-    dd($lit->bedReservation);
+    $beds = BedReservation::whereHas('rdvHosp',function($q) use($now){ 
+                   $q->where('date','>=',$now);
+          })->whereHas('lit',function($q) use($id){ 
+                   $q->where('id', $id);
+          })->get();
+   
+
+    dd($beds);
   }
 }

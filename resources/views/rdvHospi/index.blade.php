@@ -71,7 +71,9 @@ $('document').ready(function(){
 								<td>{{ $demande->consultation->patient->full_name }} </td>
                 <td>{{ $demande->consultation->patient->Sexe }} </td>
 								<td>{{ $demande->consultation->date }}</td>
-                <td>{{ $demande->modeAdmission }}</td>
+                <td><span class="badge badge-{{( $demande->getModeAdmissionID($demande->modeAdmission)) == 2 ? 'warning':'primary' }}">
+                               {{ $demande->modeAdmission }}</span>
+                </td>
                 <td>{{ $demande->Specialite->nom }}</td>
                 <th>
                   {{ isset($specialite->dhValid) ? $demande->DemeandeColloque->medecin->full_name: $demande->consultation->medecin->full_name}}

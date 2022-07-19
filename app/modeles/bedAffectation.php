@@ -9,7 +9,7 @@ class bedAffectation extends Model
   public $timestamps = true;
 	protected $table = 'bedAffectation';
   protected $fillable  = ['demande_id','lit_id'];
-  public function lit()
+  public function Lit()
   {
   	return $this->belongsTo('App\modeles\Lit','lit_id');
   }

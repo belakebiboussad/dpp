@@ -20,22 +20,29 @@ class Lit extends Model
   }
   public function isFree($start , $end)//libre de reservation
   {
+    $now = date("Y-m-d", strtotime('now'));
+    $now1 = \Carbon\Carbon::now();
     $idlit = $this->id;
     $lit =Lit::FindOrFail($idlit);
     if($lit->bloq == 1)
       return false; 
+    // je cherche les reservaaion future  
+    //not testé    
     $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ 
-                                                                  $q->where('id',$idlit);
-                                                              })->get(); 
+                                      $q->where('id',$idlit);
+                                    })->whereHas('rdvHosp',function($q) use($now){ 
+                                      $q->where('date','>=',$now);
+                                    })->get(); 
+
     foreach ($reservations as $key => $reservation) {
       if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
-                  return false;
+        return false;
     }   
     return true;
   }//dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui
 /*public function isFreeU($start){$lit =Lit::FindOrFail($this->id);if($lit->etat == 0)return false;$reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
 $q->where('id',$idlit);})->get();foreach ($reservations as $key => $reservation){if( $start <= strtotime($reservation->rdvHosp->date_Prevu_Sortie))return true;} return false;}*/
-  public function affecter($id)
+  public function isAffected($id)
   {
     $affect = false;
     $lit =Lit::FindOrFail($id);

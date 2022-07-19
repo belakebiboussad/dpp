@@ -136,10 +136,10 @@ Route::get("flash","HomeController@flash");
 Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del
 Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
+//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 // end del
 
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
-Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');

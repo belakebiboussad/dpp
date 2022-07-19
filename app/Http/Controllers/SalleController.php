@@ -147,7 +147,7 @@ class SalleController extends Controller
           }else{
             foreach ($salles as $key1 => $salle) {
               foreach ($salle->lits as $key => $lit) {
-                $affect = $lit->affecter($lit->id); 
+                $affect = $lit->isAffected($lit->id);
                 if($affect)
                   $salle->lits->pull($key);
               }

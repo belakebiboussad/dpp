@@ -50,7 +50,7 @@
 				    </td>
 						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
 						<td class="center">
-							<button class="btn btn-xs btn-success" id ="addReserv" value ='{{ $rdv->id }}' title="Réserver un lit">
+							<button class="btn btn-xs btn-success addReserv" value ='{{ $rdv->id }}' title="Réserver un lit">
 							<!-- data-demande-id = "{{-- $rdv->demandeHospitalisation->id --}}" -->
               	<i class="fa fa-bed" aria-hidden="true"></i>
 							</button>
@@ -69,7 +69,7 @@
 @section('page-script')
 <script type="text/javascript">
   $(function(){
-    $("#addReserv").click(function(e){
+    $(".addReserv").click(function(e){
       e.preventDefault();
       $('#rdv_id').val($(this).val());
       $.get('/rdvHospi/' + $(this).val() + '/edit', function (data, status, xhr) { 
@@ -89,8 +89,8 @@
             data:formData,
             success:function(data){
               $("#rdv-" + data.id_rdvHosp).remove();
-               $('#bedReservModal').modal('hide');
-    
+              $(".serviceHosp").prop("selectedIndex", 0).change();
+              $('#bedReservModal').modal('hide');
             },
       });
       

@@ -28,7 +28,7 @@ class RdvHospiController extends Controller
     $services = service::where('type','<>',2)->where('hebergement','1')->get();
     $specialite = Auth::user()->employ->Service->Specialite;//tester si il y'à validation demandes etat 5 sinon etat 0 
     $state = ($specialite->dhValid) ? 5: null;
-    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
+    $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('modeAdmission','<>',2)->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
     return view('rdvHospi.index', compact('specialite','demandes','services'));
   }
   public function create($id)

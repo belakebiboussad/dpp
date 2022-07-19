@@ -12,6 +12,8 @@
                                 <th rowspan="2" hidden></th>
                                  <th class="center" width="3%"  rowspan="2"></th>
                                  <th class="center" rowspan="2" width="11%">Patient</th>
+                                 <th class="center" rowspan="2">Genre</th>
+                                 <th class="center" rowspan="2">Mode d'admission</th>
                                  <th class="center" colspan="2">Entrée</th>
                                  <th class="center" colspan="2">Sortie prévue</th>
                                   <th class="font-weight-bold center" rowspan="2">Médecin traitant</th>
@@ -39,6 +41,10 @@
                               </label>
                             </td>
                             <td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+                            <td>{{ $rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
+                            <td><span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
+                               {{ $rdv->demandeHospitalisation->modeAdmission }}</span>
+                            </td>
                             <td class ="text-danger">{{ $rdv->date }}</td>
                             <td>{{ \Carbon\Carbon::parse($rdv->heure)->format('H:i') }}</td>
                             <td class="center text-danger">{{ $rdv->date_Prevu_Sortie }}</td>

@@ -75,7 +75,7 @@
             <a href="{{ route('bedAffectation.create') }}" title="Reserver un lit">
               <i class="menu-icon fa fa-plus"></i>Ajouter  une Affectation</a><b class="arrow"></b>
           </li>
-          <li><a href=""><i class="menu-icon fa fa-caret-right"></i>Affectations</a><b class="arrow"></b></li>
+          <li><a href="{{ route('bedAffectation.index') }}"><i class="menu-icon fa fa-caret-right"></i>Affectations</a><b class="arrow"></b></li>
          </ul>
       </li><!-- end affectation -->
     </ul><!-- /.nav-list -->
@@ -128,11 +128,6 @@
               type:'GET',
               data:formData,
               success: function(data, textStatus, jqXHR){
-                //alert(data);
-              /*
-                $.each(data, function(key, value){
-                  alert(key + ":" + value);
-                });*/
                 var select = $('.salle').empty();
                 if(data.length != 0){
                       select.append('<option value="">Selectionnez une salle</option>');   

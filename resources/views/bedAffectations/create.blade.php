@@ -98,7 +98,6 @@
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
                 <td>{{ $demande->consultation->patient->Sexe }}</td>
-
 								<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
                 <td>{{ $demande->consultation->date }}</td>
                 <td>{{ $demande->Service->nom }}</td>
@@ -140,18 +139,23 @@ $(function(){
        _token: CSRF_TOKEN,
       demande_id : $('.demande_id').val(),
       lit_id     : $('.lit_id').val()
-    };
-    
+    }; 
     $.ajax({
-        url : '{{ route ("lit.affecter") }}',
+        url : '{{ route ("bedAffectation.store") }}',
         type:'POST',
         data:formData,
         success: function (data) {
-          alert(data);
-         /*
+          //alert(data);
+          $.each(data,function(key1, value1){
+            $.each(value1,function(key, value){
+              alert(key + ":" + value);
+            });
+          });
+          /*
           $("#demande" + formData['demande_id']).remove();
           $('#bedAffectModal').trigger("reset");
-          $('#bedAffectModal').modal('hide');*/
+          $('#bedAffectModal').modal('hide');
+          */
           
         }
    });

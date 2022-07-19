@@ -10,7 +10,6 @@ use App\modeles\bedReservation;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\bedAffectation;
 use App\modeles\employ;
-use Carbon\Carbon;
 use Auth; 
 use Response;
 class LitsController extends Controller
@@ -111,40 +110,5 @@ class LitsController extends Controller
         $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
         $lit->update($input);   
          return redirect()->route('lit.index');
-      }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    //affeter lit pour demande d'urgence
-      public function affecterLit(Request $request )
-      {
-        $demande= DemandeHospitalisation::find($request->demande_id); 
-        $lit = lit::FindOrFail( $request->lit_id);
-        //return $lit->bedReservation;
-        if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-        { 
-          $rdv = $demande->getInProgressMet();
-           if($rdv->has('bedReservation'))
-            $rdv->bedReservation()->delete();
-          //$free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  
-        }else
-        { 
-          $now = $today = Carbon::now()->toDateString();
-          $newDateTime = Carbon::now()->addDay(3)->toDateString();
-          //get reservation of this bed between this day
-          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
-          $demande->update([ 'etat' => 1 ]); //program  
-        }
-        /*
-        if(!$free)
-          $lit->bedReservation()->delete(); 
-        */
-        $affect = bedAffectation::create($request->all());
-        $lit->update([ "affectation" =>1 ]);
-        return $affect;
       }
 }
