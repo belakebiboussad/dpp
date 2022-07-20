@@ -64,14 +64,16 @@
                             <td>
                               @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }} @endif  
                             </td>
-                            <td class="center" width="10%">
-                              <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
+                            <td class="center" width="10%"><!-- can't edit rdv with affectation -->
+                              <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" @if($rdv->demandeHospitalisation->bedAffectation()->exists()) disabled @endif>
                                 <i class="ace-icon fa fa-clock-o"></i>
                               </a>
+
                               <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
                                 <i class="ace-icon fa fa-print" ></i>
                               </a>
-                              <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a>
+                              <!-- can't delete rdv with affectation -->
+                              <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?" @if($rdv->demandeHospitalisation->bedAffectation()->exists()) disabled @endif><i class="fa fa-trash-o fa-xs"></i></a>
                               <a href="/rdvHospi/ticketPrint/{{ $rdv->demandeHospitalisation->consultation->patient->id}}" class="btn btn-info btn-xs" title="Imprimer Ticket"><i class="fa fa-file-pdf-o fa-xs"></i></a>
                             </td>
                           </tr>     

@@ -17,7 +17,7 @@
   	$('.filelink' ).click( function( e ) { e.preventDefault(); });
     updateDureePrevue();
   	$('#numberDays').on('click keyup', function() {
-      var jsDate = $('#dateEntree').datepicker('getDate');
+       var jsDate = $('#dateEntree').datepicker('getDate');
     	jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
     	var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
     	$("#dateSortiePre").datepicker("setDate", dateEnd);    

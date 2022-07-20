@@ -59,8 +59,10 @@ class RdvHospiController extends Controller
   }
   public function getlisteRDVs()
   {
+    //$now = \Carbon\Carbon::now(); rdv future
     $specialite = Auth::user()->employ->Service->Specialite;
-    $rdvHospis = rdv_hospitalisation::with('bedReservation')->doesntHave('demandeHospitalisation.bedAffectation')
+    //j'affiche pas les lits affecté// ->doesntHave('demandeHospitalisation.bedAffectation')
+    $rdvHospis = rdv_hospitalisation::with('bedReservation')
                                       ->whereHas('demandeHospitalisation',function ($q){
                                            $q->where('service',Auth::user()->employ->service_id)->where('etat',1);      
                                     })->where('etat', null)->get();                                         

@@ -18,25 +18,39 @@ class Lit extends Model
   {
         return $this->hasMany('App\modeles\BedReservation','id_lit');
   }
+  
+  public function getReservation($start , $end)
+  {
+    $now = \Carbon\Carbon::now();
+    $resrvs = [];
+    $reservations =  $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ 
+                                      $q->where('date','>=', $now);
+                                    })->get(); 
+    foreach ($reservations as $res) {
+      if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)))
+        array_push($resrvs, $res);
+    }
+    return $resrvs;   
+  }
+
   public function isFree($start , $end)//libre de reservation
   {
-    $now = date("Y-m-d", strtotime('now'));
-    $now1 = \Carbon\Carbon::now();
+    $now = \Carbon\Carbon::now();
     $idlit = $this->id;
     $lit =Lit::FindOrFail($idlit);
     if($lit->bloq == 1)
       return false; 
-    // je cherche les reservaaion future  
-    //not testé    
-    $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ 
-                                      $q->where('id',$idlit);
-                                    })->whereHas('rdvHosp',function($q) use($now){ 
-                                      $q->where('date','>=',$now);
-                                    })->get(); 
-
-    foreach ($reservations as $key => $reservation) {
-      if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date)))
-        return false;
+    $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){  // je cherche les reservaaion future//not testé   
+                                            $q->where('id',$idlit);
+                                    })->whereHas('rdvHosp',function($q) use($now){
+                                        $q->where('date','>=', $now);
+                                    })->get();  
+    /*$reservations = $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ $q->where('date','>=', $now); })->get(); */
+                                                       
+    foreach ($reservations as $res) {
+/* if(( $start < strtotime($res->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($res->rdvHosp->date)))return false; */  
+      if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)))
+        return false;   
     }   
     return true;
   }//dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui

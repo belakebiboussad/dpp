@@ -162,9 +162,8 @@
                 <option value="" disabled>Selectionnez le lit</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                  @if($lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie))) 
+                  {{-- @if($lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)))  --}} {{-- @endif --}}
                   <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
-                  @endif
                 @endforeach
               </select>
             </div> 

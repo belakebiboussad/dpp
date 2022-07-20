@@ -135,7 +135,7 @@ class SalleController extends Controller
         {
           foreach ($salles as $key1 => $salle) {
             foreach ($salle->lits as $key => $lit) {
-              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
+              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
               if(! $free)
                 $salle->lits->pull($key);
             }

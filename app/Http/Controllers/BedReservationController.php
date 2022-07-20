@@ -53,7 +53,6 @@ class BedReservationController extends Controller
   {
     $lits =array();
     $salle =salle::FindOrFail($request->SalleId);
-  
     if( $request->Affect == "0")//pour une reservation ?
     {
       if(isset($request->rdvId))//edit hosp rdv
@@ -85,18 +84,14 @@ class BedReservationController extends Controller
     return $salle->lits;  
   }
   public function update(Request $request, $id)
-  {
-    $now = date("Y-m-d", strtotime('now'));//"2022-07-19"
-    //$now1 = \Carbon\Carbon::now();//object
+  { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"
+    $now = \Carbon\Carbon::now();//object
     $now2 = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
     $lit = lit::FindOrFail( $request->lit_id);
-    $beds = BedReservation::whereHas('rdvHosp',function($q) use($now){ 
+    $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($now){ 
                    $q->where('date','>=',$now);
           })->whereHas('lit',function($q) use($id){ 
                    $q->where('id', $id);
           })->get();
-   
-
-    dd($beds);
   }
 }

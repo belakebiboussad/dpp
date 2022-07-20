@@ -45,7 +45,7 @@
           <i class="menu-icon fa fa-calendar"></i><span class="menu-text">Rendez-Vous</span>
           <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>
         <ul class="submenu">
-          <li class="">
+          <li>
             <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
               <i class="menu-icon fa fa-plus"></i>Ajouter un rendez-vous</a><b class="arrow"></b>
           </li>
@@ -99,11 +99,11 @@
         $("#dateSortie").attr('readonly', true);
         $("#dateEntree").change(function(){
           $('#numberDays').val(0); addDays();
-          if( ! isEmpty($('.lit_id').val()))
+          if( ! isEmpty($('.serviceHosp').val()))
             $(".serviceHosp").prop("selectedIndex", 0).change();
         });
         $("#numberDays").on('click keyup', function() {
-          if( ! isEmpty($('.lit_id').val()))
+          if( ! isEmpty($('.serviceHosp').val()))
             $(".serviceHosp").prop("selectedIndex", 0).change();
           addDays();
         });
