@@ -45,8 +45,7 @@ class Lit extends Model
                                     })->whereHas('rdvHosp',function($q) use($now){
                                         $q->where('date','>=', $now);
                                     })->get();  
-    /*$reservations = $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ $q->where('date','>=', $now); })->get(); */
-                                                       
+    /*$reservations = $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ $q->where('date','>=', $now); })->get(); */                                                 
     foreach ($reservations as $res) {
 /* if(( $start < strtotime($res->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($res->rdvHosp->date)))return false; */  
       if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)))

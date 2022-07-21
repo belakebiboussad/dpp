@@ -146,13 +146,13 @@ $(function(){
         data:formData,
         success: function (data) {
            alert(data);
-          
+          /*
           $.each(data,function(key1, value1){
             $.each(value1,function(key, value){
               alert(key + ":" + value);
             });
           });
-          
+          */
           // $("#demande" + formData['demande_id']).remove();
           // $('#bedAffectModal').trigger("reset");
           // $('#bedAffectModal').modal('hide');

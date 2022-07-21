@@ -9,6 +9,7 @@ use App\modeles\service;
 use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\BedReservation;
+use Carbon\Carbon;
 class BedReservationController extends Controller
 {
 	public function __construct()
@@ -84,14 +85,19 @@ class BedReservationController extends Controller
     return $salle->lits;  
   }
   public function update(Request $request, $id)
-  { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"
-    $now = \Carbon\Carbon::now();//object
-    $now2 = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
+  { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"$now = \Carbon\Carbon::now();//object
+    $now = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
     $lit = lit::FindOrFail( $request->lit_id);
+    $now = $today = Carbon::now()->toDateString();
+    $newDateTime = Carbon::now()->addDay(3)->toDateString();
+      //get reservation of this bed between this day
+    $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+    dd($free);
     $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($now){ 
                    $q->where('date','>=',$now);
           })->whereHas('lit',function($q) use($id){ 
                    $q->where('id', $id);
           })->get();
+    dd($beds);      
   }
 }

@@ -56,11 +56,13 @@ class AffectationsController extends Controller
     { 
       $now = $today = Carbon::now()->toDateString();
       $newDateTime = Carbon::now()->addDay(2)->toDateString();
-      $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));//return Response::json($free);
+      $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+      return Response::json($free);
       if(!$free)
       {
         $reservs = $lit->getReservation(strtotime($now), strtotime($newDateTime));
         //return count($reservs);
+        return $newDateTime;
         foreach ($reservs as $res) {
           return $res;
 
