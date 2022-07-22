@@ -31,11 +31,11 @@
               <td>{{ $affect->Lit->salle->nom }}</td>
               <td>{{ $affect->Lit->nom }}</td>
               <td class="center">
-              <a href="{{ route('bedAffectation.destroy', $affect->demande_id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+              <a href="{{ route('bedAffectation.destroy', $affect->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
               <i class="ace-icon fa fa-trash-o"></i>
               </a>
-  {{--             <a href="{{ route('bedAffectation.destroy', $affect->demande_id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-              <i class="ace-icon fa fa-trash-o"></i> --}}
+  {{--   <a href="{{ route('bedAffectation.destroy', $affect->demande_id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">      <i class="ace-icon fa fa-trash-o"></i> --}}
+        
               </td>
             </tr>
             @endforeach 

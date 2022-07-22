@@ -33,7 +33,7 @@
 					<tbody>
 					@foreach($rdvs as $rdv)
 					<tr id="{{ 'demande'.$rdv->demandeHospitalisation->id }}">
-						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}{{ $rdv->id }}</td>
+						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
             <td>{{$rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
 						<td>
               <span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
@@ -83,13 +83,10 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center">Patient</th>
-                <th class="center">Genre</th>
-								<th class="center">Mode d'admission</th>
-								<th class="center">Date entrée</th>
-                <th class="center">Service</th>
-								<th class="center">Spécialité</th>
-                <th class="center">Médecin traitant</th>
+								<th class="center">Patient</th> <th class="center">Genre</th>
+               						<th class="center">Mode d'admission</th><th class="center">Date entrée</th>
+							        <th class="center">Service</th><th class="center">Spécialité</th>
+                                                          <th class="center">Médecin traitant</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -97,12 +94,12 @@
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
-                <td>{{ $demande->consultation->patient->Sexe }}</td>
-								<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
-                <td>{{ $demande->consultation->date }}</td>
-                <td>{{ $demande->Service->nom }}</td>
-                <td>{{ $demande->Specialite->nom }}</td>
-                <td>{{ $demande->consultation->medecin->full_name }}</td>  
+                                                            <td>{{ $demande->consultation->patient->Sexe }}</td>
+                                            		<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
+                                                            <td>{{ $demande->consultation->date }}</td>
+                                                            <td>{{ $demande->Service->nom }}</td>
+                                                            <td>{{ $demande->Specialite->nom }}</td>
+                                                            <td>{{ $demande->consultation->medecin->full_name }}</td>  
 								<td class="center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
@@ -145,18 +142,10 @@ $(function(){
         type:'POST',
         data:formData,
         success: function (data) {
-           alert(data);
-          /*
-          $.each(data,function(key1, value1){
-            $.each(value1,function(key, value){
-              alert(key + ":" + value);
-            });
-          });
-          */
-          // $("#demande" + formData['demande_id']).remove();
-          // $('#bedAffectModal').trigger("reset");
-          // $('#bedAffectModal').modal('hide');
-       
+               $("#demande" + formData['demande_id']).remove();
+               $('#bedAffectModal').trigger("reset");
+               $('#bedAffectModal').modal('hide');
+              
         }
    });
   });

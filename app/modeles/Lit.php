@@ -2,6 +2,7 @@
 
 namespace App\modeles;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 class Lit extends Model
 { //etat si etat=0  il est bloque,etat= 1 non bloque, //affectation , affectation = 0 libre,affectation = 1 occupé    
   //bloqué si bloq=1  il est bloque,bloq= null non bloque, //affectation , affectation = null libre,affectation = 1 occupé    
@@ -16,18 +17,21 @@ class Lit extends Model
   ];
   public function bedReservation()
   {
+        //return $this->belongsToMany('App\modeles\BedReservation','bedreservation','id_lit');
         return $this->hasMany('App\modeles\BedReservation','id_lit');
   }
-  
   public function getReservation($start , $end)
   {
-    $now = \Carbon\Carbon::now();
+    //$now = \Carbon\Carbon::now();
+    $now = $today = Carbon::now()->toDateString();
     $resrvs = [];
     $reservations =  $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ 
                                       $q->where('date','>=', $now);
                                     })->get(); 
     foreach ($reservations as $res) {
-      if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)))
+if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)) || ((strtotime($res->rdvHosp->date) >= 
+      $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))
+  ||((strtotime($res->rdvHosp->date)  < $start ) && (strtotime($res->rdvHosp->date_Prevu_Sortie) > $end)))
         array_push($resrvs, $res);
     }
     return $resrvs;   
@@ -48,7 +52,9 @@ class Lit extends Model
     /*$reservations = $this->bedReservation()->whereHas('rdvHosp',function($q) use($now){ $q->where('date','>=', $now); })->get(); */                                                 
     foreach ($reservations as $res) {
 /* if(( $start < strtotime($res->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($res->rdvHosp->date)))return false; */  
-      if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)))
+  if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))|| ((strtotime($res->rdvHosp->date) >= 
+    $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))
+    ||((strtotime($res->rdvHosp->date)  < $start ) && (strtotime($res->rdvHosp->date_Prevu_Sortie) > $end)))
         return false;   
     }   
     return true;

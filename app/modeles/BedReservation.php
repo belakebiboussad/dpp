@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BedReservation extends Model
 {
-  public $timestamps = true;
-	protected $table = 'bedReservation';
+    public $timestamps = true;
+    protected $table = 'bedreservation';
   protected $fillable  = ['id_rdvHosp','id_lit'];
   public function lit()
   {

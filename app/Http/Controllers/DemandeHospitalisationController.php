@@ -149,7 +149,7 @@ class DemandeHospitalisationController extends Controller
       $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
                                                       ->whereHas('consultation',function($q) use($date){
                                                               $q->where('date', $date);
-                                                      }) ->where('modeAdmission','2')->where('etat','programme')->get();
+                                                      }) ->where('modeAdmission',2)->where('etat',1)->get();
        return json_encode($demandehospitalisations);        
     }
 }

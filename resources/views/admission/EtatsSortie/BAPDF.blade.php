@@ -18,13 +18,12 @@
   </head>
   <body>
   <div class="container-fluid">
-    <div class="row mt-12 center"><img src='img/entete2.png' alt="Entete" width="98%"/></div>
-    <br>
+    <div class="row mt-12 center"><img src='img/entete2.png' alt="Entete" width="98%"/></div><br> 
     <div class="center mt-10">
-      <h3 class="text-uppercase"><span style="font-size: xx-large;"><strong><u>{{ $etat->nom}}</u></strong></span></h3>
+      <h3 class="text-uppercase"><strong><u>{{ $etat->nom}}</u></strong></h3>
       <h4 class="text-uppercase"><strong>(BILLET DE SALLE)</strong></h4>
     </div><br> 
-    <section class="table solid" style="width:100%;"> 
+    <section class="table solid"> 
       <table>
       <tr>
         <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Admission N° :&nbsp;</strong><span>&nbsp;{{ $obj->id }}</span></td>
@@ -34,7 +33,7 @@
     </table>
     </section>
     <h5><u><strong>ASSURE :</strong></u></h5>
-    <section class="table tab" style="width:100%;">
+    <section class="table tab">
       <table>
         <tr>
           <td><span>Qualité :&nbsp;</span><span>{{ $patient->assure->Position }}</span></td>
@@ -58,7 +57,11 @@
         </tr>
         <tr>
           <td><span>Matricule :&nbsp;</span><span>{{ $patient->assure->matricule }}</span></td>
-          <td><span>Grade :&nbsp;</span><span>{{ $patient->assure->grade->nom }}</span></td>
+          <td><span>Grade :&nbsp;</span><span>
+                @isset( $patient->assure->grade)
+                      {{ $patient->assure->grade->nom }}
+                @endisset
+                </span></td>
           <td><span>Service :&nbsp;</span><span>{{ $patient->assure->Service }}</span></td>
         </tr>
         <tr>
@@ -68,7 +71,7 @@
       </table>
     </section>
     <h5><u><strong>MALADE :</strong></u></h5>
-    <section class="table tab" style="width:100%;">
+    <section class="table tab">
       <table>
         <tr>
           <td>
@@ -109,7 +112,7 @@
       </table>
     </section>
     <h5><u><strong>ADMISSION :</strong></u></h5>
-    <section class="table tab" style="width:100%;">
+    <section class="table tab">
       <table>
         <tr>
          <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Service->nom }}</span></td>
@@ -124,7 +127,7 @@
        </table>
     </section>
     <h5><u><strong>SORTIE :</strong></u></h5>
-    <section class="table tab" style="width:100%;">
+    <section class="table tab">
       <table>
         <tr>
           <td><span>Date :&nbsp;</span><span></span></td>
