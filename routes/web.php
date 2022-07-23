@@ -72,7 +72,7 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');//Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');//Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
-Route::get('/consultations/create/{id}','ConsultationsController@create');//Route::get('getConsultations/{id}','ConsultationsController@listecons');
+Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');

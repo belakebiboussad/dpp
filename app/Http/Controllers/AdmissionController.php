@@ -84,8 +84,7 @@ class AdmissionController extends Controller
           $rdv->update([ "etat" =>1 ]);
         return redirect()->action('AdmissionController@index');
 /*if(isset($request->id_RDV)){ $demande =  DemandeHospitalisation::find($request->demande_id);$adm=admission::create(["id_rdvHosp"=>$request->id_RDV,"demande_id"=>$request->demande_id,"date"=>$now,                    "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
-]);$adm->rdvHosp->demandeHospitalisation->update([ "etat" =>2  ]);$adm->rdvHosp->update([ "etat" => 1  ]);}else{$demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
-$adm=admission::create(["demande_id"=>$request->demande_id,"date"=>$now, "id_lit"=>$demande->bedAffectation->lit_id]);$demande->update([  "etat" =>2  ]);}return redirect()->action('AdmissionController@index');*/
+]);$adm->rdvHosp->demandeHospitalisation->update([ "etat" =>2  ]);$adm->rdvHosp->update([ "etat" => 1  ]);}else{$demande = DemandeHospitalisation::FindOrFail($request->demande_id); $adm=admission::create(["demande_id"=>$request->demande_id,"date"=>$now, "id_lit"=>$demande->bedAffectation->lit_id]);$demande->update([  "etat" =>2  ]);}return redirect()->action('AdmissionController@index');*/
         }  
     /**
      * Display the specified resource.

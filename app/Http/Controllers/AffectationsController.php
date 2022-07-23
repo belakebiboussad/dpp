@@ -33,17 +33,16 @@ class AffectationsController extends Controller
   }
   public function store(Request $request)
   {
-    $free = true;
-    $demande= DemandeHospitalisation::find($request->demande_id); 
-    $lit = lit::FindOrFail( $request->lit_id);
-    if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-    { 
-      $rdv = $demande->getInProgressMet(); 
-      if($rdv->bedReservation()->exists()) 
-      {
-//if($rdv->bedReservation->id_lit != $request->lit_id)  //lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
-        $rdv->bedReservation()->delete();
-      }    
+        $free = true;
+        $demande= DemandeHospitalisation::find($request->demande_id); 
+        $lit = lit::FindOrFail( $request->lit_id);
+        if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
+        { 
+               $rdv = $demande->getInProgressMet(); 
+               if($rdv->bedReservation()->exists()) 
+               {//if($rdv->bedReservation->id_lit != $request->lit_id)  //lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
+                  $rdv->bedReservation()->delete();
+                }    
       $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));
       if(!$free)
       {
@@ -78,8 +77,7 @@ $rdv->bedReservation()->delete();    //$free = $lit->isFree(strtotime($rdv->date
     $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));      $demande->update([ 'etat' => 1 ]); //program    }      if(!$free)  $lit->bedReservation()->delete(); 
    $affect = bedAffectation::create($request->all());    $lit->update([ "affectation" =>1 ]);    return $affect;  }*/
   public function destroy($id)
-  {
-        //$affect = bedAffectation::with('demandeHosp','Lit')->where('demande_id',$demande_id)->firstOrFail(); 
+  {     //$affect = bedAffectation::with('demandeHosp','Lit')->where('demande_id',$demande_id)->firstOrFail(); 
         $affect = bedAffectation::with('demandeHosp','Lit')->find($id); 
         if($affect->demandeHosp->getModeAdmissionID($affect->demandeHosp->modeAdmission)== 2)
                    $affect->demandeHosp->update([ 'etat'=>null]);

@@ -83,10 +83,10 @@
 @endsection
 @section('main-content')
 	<div class="page-header">
-		<h4><strong>Modification des données du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->full_name }}</h4>
+		<h4>Modification des données du patient :&nbsp;{{ $patient->getCivilite() }} {{ $patient->full_name }}</h4>
 		<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un Patient
+				<i class="ace-icon fa fa-arrow-circle-left  blue"></i> Rechercher un Patient
 			</a>
 		</div>
 	</div>
@@ -125,8 +125,8 @@
   </div><div class="hr hr-dotted"></div>
   <div class="row">
 		<div class="center"><br>
-			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-warning btn-sm" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
 	</div>
 </form>	

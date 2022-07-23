@@ -7,18 +7,18 @@
   <ul class="nav navbar-nav list-inline">
 {{-- <li class="list-inline-item" style="width:200px;"><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}</li> --}}
     <li class="list-inline-item" style="width:200px;">
-      <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
     </li>
     <li class="list-inline-item" style="width:300px;">
-      <i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;
       <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
     </li>
     <li class="list-inline-item" style="width:300px;">
-      <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
+      <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;
     {{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}  
     </li>
     <li class="list-inline-item" style="width:270px;">
-     <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;
+     <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;
      {{ \Carbon\Carbon::parse($hosp->Date_entree)->format('d/m/Y') }}
     </li>
     <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">

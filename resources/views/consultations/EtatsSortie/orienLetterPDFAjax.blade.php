@@ -42,9 +42,7 @@
         @endif
           qui s'est présenté ce jour pour {{ $orient->motif }}, et dont l'éxamen général du patient retrouve {{ $orient->examen }}.
         </p>
-        <p class="espace">
-          Je vous le confie pour une méilleure prise en charge.
-        </p>
+        <p class="espace"> Je vous le confie pour une méilleure prise en charge.</p>
       </div>
       <div class="col-sm-12"><p class="espace"> <strong>Respectueusement</strong></p></div>
     </main>

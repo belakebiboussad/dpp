@@ -19,15 +19,15 @@
   }
   function showConsult(consultId) //a voir ce lui den haut
   { 
-    url= '{{ route ("consultdetailsXHR", ":slug") }}',
-    url = url.replace(':slug',consultId);
-    $.ajax({
-      type : 'GET',
-      url:url,
-      success:function(data,status, xhr){
-        $('#consultDetail').html(data);
-      }
-    });             
+        url= '{{ route ("consultdetailsXHR", ":slug") }}',
+        url = url.replace(':slug',consultId);
+        $.ajax({
+              type : 'GET',
+              url:url,
+              success:function(data,status, xhr){
+                       $('#consultDetail').html(data);
+              }
+        });             
   }
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
