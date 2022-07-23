@@ -128,28 +128,41 @@
         </div>
         <div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Hospitalisation</h4></div></div>
         <div class="row">
-          <div class="form-group col-xs-5">
-            <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant  :&nbsp;</label>
-            <div class="input-group col-sm-7">
-              <select name="medecin_id" id="medecin_id" class="col-sm-12" @if(!in_array(Auth::user()->role->id,[1,13])) disabled @endif>
-                <option value="" disabled>Selectionnez...</option>
-                @foreach( $employes as $empl)
-                <option value="{{$empl->id}}" @if($empl->id == $hosp->admission->demandeHospitalisation->consultation->medecin->id ) selected @endif>{{$empl->full_name}}</option>
-                @endforeach
-              </select> 
-            </div>
-          </div>
-          <div class="form-group col-xs-5">
-              <label class="col-sm-5 control-label" for="garde_id">Garde malade :&nbsp;</label>
-              <div class="input-group col-sm-7">
-              <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
-                <option value="" >Selectionnez le garde malade</option>
-                @foreach( $hosp->patient->hommesConf as $homme)
-                <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
+              <div class="form-group col-xs-4">
+                      <label class="col-sm-5 control-label" for="mode"><strong>Mode d'hospitalisation :</strong></label>
+                      <div class="col-sm-7">
+                              <select  name="modeHosp_id" class="col-xs-12 col-sm-12" required>
+                                     <option value="">Selectionnez...</option>
+                                    @foreach($modesHosp as $mode)
+                                      <option value="{{ $mode->id }}" @if($hosp->modeHosp_id == $mode->id) selected @endif>{{ $mode->nom}}</option>
+                                    @endforeach
+                              </select>
+                      </div>
+               </div>
+              <div class="form-group col-xs-4">
+                      <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant  :</label>
+                      <div class="input-group col-sm-7">
+                              <select name="medecin_id" id="medecin_id" class="col-sm-12" @if(!in_array(Auth::user()->role->id,[1,13])) disabled @endif>
+                                    <option value="" disabled>Selectionnez...</option>
+                                    @foreach( $employes as $empl)
+                                    <option value="{{$empl->id}}" @if($empl->id == $hosp->admission->demandeHospitalisation->consultation->medecin->id ) selected @endif>{{$empl->full_name}}</option>
+                                      @endforeach
+                              </select> 
+                     </div>
+              </div>
+               @if($hosp->patient->hommesConf->count() > 0)
+               <div class="form-group col-xs-4">
+                      <label class="col-sm-5 control-label" for="garde_id">Garde malade :</label>
+                      <div class="input-group col-sm-7">
+                        <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
+                             <option value="" >Selectionnez le garde malade</option>
+                             @foreach( $hosp->patient->hommesConf as $homme)
+                              <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
+                              @endforeach
+                        </select>
+                      </div>
+               </div>
+               @endif
         </div>
         @if((Auth::user()->role_id == 5) &&(isset($hosp->admission->id_lit)))    
         <div class="row">

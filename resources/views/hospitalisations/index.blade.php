@@ -103,15 +103,30 @@
               { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
               { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
               { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
-              { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
+              { data: null, title:'Mode',"orderable": false,
+                       render: function(data, type, row){
+                              if(data.mode_hospi != null)
+                                     return data.mode_hospi.nom;
+                              else
+                                    return '';
+                       }
+               },//6
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
               },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
+              { data:  null , title:'Garde malade',"orderable": false,
+                      render: function(data, type, row){
+                               if(data.garde != null)
+                                     return data.garde.full_name;
+                              else
+                                    return '';
+                      }  
+               },
               { data: "etat" ,
                       render: function(data, type, row){
                                return '<span class="badge badge-pill badge-'+(row.etat_id == 1 ? 'success':'primary')+'">'+row.etat+'</span>';
                       },title:'Etat', "orderable":false 
-              },//8
+              },//9
              { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
           ],
           "columnDefs": [
@@ -252,16 +267,12 @@
         <table class="table display table-responsive table-bordered" id="liste_hosptalisations">
           <thead>
             <tr>
-              <th class ="center"><strong>Patient</strong></th>
-              <th class ="center priority-4"><strong>Mode d'admission</strong>
-              </th><th class ="center"><strong>Date d'entrée</strong></th>
-              <th class ="center  priority-6"><strong>Date sortie prévue</strong></th>
-              <th class ="center priority-4"><strong>Date sortie</strong></th>
-              <th class ="center  priority-5"><strong>Mode</strong></th>
-              <th  class ="center  priority-6"><strong>Service</strong></th>
-             <th  class ="center  priority-6"><strong>Médecin</strong></th>
-              <th class ="center  priority-6"><strong>Etat</strong></th>
-              <th class ="center" width="12%"><strong><em class="fa fa-cog"></em></strong></th>
+              <th class ="center">Patient</th><th class ="center priority-4">Mode d'admission</th>   
+              <th class ="center">Date d'entrée</th><th class ="center  priority-6">Date sortie prévue</th>
+              <th class ="center priority-4">Date sortie</th><th class ="center  priority-5">Mode</th>
+              <th  class ="center  priority-6">Service</th><th  class ="center  priority-6">Médecin</th>
+             <th  class ="center  priority-6">Garde malade</th> <th class ="center  priority-6">Etat</th>
+              <th class ="center" width="12%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
            <tbody>
@@ -277,6 +288,7 @@
                     <td class="priority-5">{{ (isset($hosp->modeHospi)) ? $hosp->modeHospi->nom : '' }}</td>
                     <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>
                     <td class="priority-6">{{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}</td>
+                       <td class="priority-6">{{ (isset($hosp->garde)) ? $hosp->garde->full_name : ''  }}</td>
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat)  ?  $hosp->etat : 'En Cours'}}</span>
                      </td>

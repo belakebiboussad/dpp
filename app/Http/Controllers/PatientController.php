@@ -263,28 +263,28 @@ class PatientController extends Controller
      */
        public function show($id)
        {  
-          $patient = patient::FindOrFail($id);
-          $specialites = Specialite::all();
-          $grades = grade::all(); 
-          $employe=Auth::user()->employ;
-          $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-          $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-          $demandesExB = demandeexb::with('consultation')->where('etat',1)
-                                    ->whereHas('consultation',function($q) use($id){
-                                         $q->where('pid', $id);
-                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                      $q->where('patient_id', $id);   
-                                    })->get();
-          $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
-                                    ->whereHas('consultation',function($q) use($id){
-                                         $q->where('pid', $id);
-                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                      $q->where('patient_id', $id);   
-                                    })->get();
-          $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
-                                      $q->where('pid', $id);
-                                    })->get();
-          return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
+              $patient = patient::FindOrFail($id);
+              $specialites = Specialite::all();
+              $grades = grade::all(); 
+              $employe=Auth::user()->employ;
+              $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+              $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+              $demandesExB = demandeexb::with('consultation')->where('etat',1)
+                                        ->whereHas('consultation',function($q) use($id){
+                                             $q->where('pid', $id);
+                                        })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                          $q->where('patient_id', $id);   
+                                        })->get();
+              $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
+                                        ->whereHas('consultation',function($q) use($id){
+                                             $q->where('pid', $id);
+                                        })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                          $q->where('patient_id', $id);   
+                                        })->get();
+              $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
+                                          $q->where('pid', $id);
+                                        })->get();
+             return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
         }
     /**
      * Show the form for editing the specified resource.
