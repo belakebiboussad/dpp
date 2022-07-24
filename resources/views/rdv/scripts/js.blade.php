@@ -1,10 +1,10 @@
 <script  type="text/javascript" charset="utf-8" async defer>
-function getDoctors(specid)
+function getDoctors(specid,appointDoct)
 {
   $("#employ_id").empty().append('<option selected="selected" value="">Selectionner...</option>');
   if(specid != '')
   {
-    if('{{ $appointDoc }}' != null)
+    if(appointDoct != null)
     {
       var url = '{{ route("employs.index") }}';
       $.ajax({

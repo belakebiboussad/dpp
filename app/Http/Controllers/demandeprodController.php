@@ -145,22 +145,22 @@ class demandeprodController extends Controller
        }
       public function valider(Request $request,$id)
        {
-               $demande = demand_produits::FindOrFail($id);
-               $listes = json_decode($request->liste);
-               for ($i=0; $i < count($listes); $i++) { 
-                    $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
-                    $attributes = ['qteDonne' => $listes[$i]->qteDem];
-                      if($gamme->id == "1")
-                      {
-                              $demande->medicaments()->updateExistingPivot($listes[$i]->produit, $attributes);
-                        }elseif($gamme->id == "2") {
-                              $demande->dispositifs()->updateExistingPivot($listes[$i]->produit, $attributes);
-                       }elseif($gamme->id == "3") {
-                              $demande->reactifs()->updateExistingPivot($listes[$i]->produit, $attributes);
-                      }
-               }   
-              $demande->update([  "etat" => "1" ]);
-               return redirect()->action('demandeprodController@index');
+           $demande = demand_produits::FindOrFail($id);
+           $listes = json_decode($request->liste);
+           for ($i=0; $i < count($listes); $i++) { 
+                $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
+                $attributes = ['qteDonne' => $listes[$i]->qteDem];
+                  if($gamme->id == "1")
+                  {
+                          $demande->medicaments()->updateExistingPivot($listes[$i]->produit, $attributes);
+                    }elseif($gamme->id == "2") {
+                          $demande->dispositifs()->updateExistingPivot($listes[$i]->produit, $attributes);
+                   }elseif($gamme->id == "3") {
+                          $demande->reactifs()->updateExistingPivot($listes[$i]->produit, $attributes);
+                  }
+           }   
+          $demande->update([  "etat" => "1" ]);
+           return redirect()->action('demandeprodController@index');
     }  
     /**
      * Update the specified resource in storage.

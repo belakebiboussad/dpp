@@ -22,10 +22,10 @@
     <div class="modal-footer">
      <form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('admission.store')}}">
       {{ csrf_field() }}
-      <input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
-      <input id="demande_id" type="text" name="demande_id" value="{{$rdv->id_demande}}" hidden>
-      <button type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
-      <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button></button>
+      <input id="id_RDV" type="hidden" name="id_RDV" value="{{$rdv->id}}">
+      <input id="demande_id" type="hidden" name="demande_id" value="{{$rdv->id_demande}}">
+      <button type="submit" class="btn btn-success"><i class="ace-icon fa fa-check"></i>Valider</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="ace-icon fa fa-undo"></i>Annuler</button></button>
       </form>
     </div>
     </div>

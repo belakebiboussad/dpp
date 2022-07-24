@@ -55,6 +55,7 @@ route::resource('acteExec','ActeExecController');
 route::resource('orientLetter','LettreOrientationController');
 route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
+Route::resource('bedAffectation','AffectationsController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -68,18 +69,16 @@ Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
-Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
-Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');//Route::post('/ordonnaces/print','OrdonnanceController@print');
+Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');//Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');//Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
-Route::get('/consultations/create/{id}','ConsultationsController@create');//Route::get('getConsultations/{id}','ConsultationsController@listecons');
+Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
 Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
-Route::get('/listecolloques/{type}','ColloqueController@index');
-Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
+Route::get('/listecolloques','ColloqueController@index');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
@@ -95,9 +94,7 @@ Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
-Route::get('/rdv/valider/{id}','RDVController@valider');
-Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/reporte/{id}','RDVController@storereporte');
+Route::get('/rdv/valider/{id}','RDVController@valider');/*Route::get('/rdv/reporter/{id}','RDVController@reporter');Route::post('/rdv/reporte/{id}','RDVController@storereporte');*/
 Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
@@ -136,10 +133,13 @@ Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
-Route::get('/getlits','LitsController@getlits');
+Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
+// del
+Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
+//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
+// end del
+
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
-Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
-Route::get('/bedAffectation','LitsController@affecter');//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
@@ -173,3 +173,7 @@ route::post('/storeprescriptionconstantes','HospitalisationController@store_pres
 Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
 route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
+//////
+Route::get('/searchdate','StatistiqusController@seardate');
+Route::get('/searstat','StatistiqusController@searstat');
+Route::get('/searchStat','StatistiqusController@search')->name('stats.search');

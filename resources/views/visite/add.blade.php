@@ -48,15 +48,10 @@
 	});  
 	  $("#EnregistrerActe").click(function (e) {
 			e.preventDefault();//var periodes = [];
-			
 			if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
-				$('#acteModal').modal('toggle');
-			$.ajaxSetup({
-			  headers: {
-					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-				}
-			});//$("input[name='p[]']:checked").each(function() {periodes.push($(this).attr('value'));	});
+				$('#acteModal').modal('toggle'); //$("input[name='p[]']:checked").each(function() {periodes.push($(this).attr('value'));	});
 			var formData = {
+                                    _token: CSRF_TOKEN,
 					id_visite: $('#id_visite').val(),
 					nom:$("#acte").val(),
 					type:$('#type').val(),
@@ -112,7 +107,7 @@
 			});
 		  jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
 			  var acte_id = $(this).val();
-			  $.ajaxSetup({
+  		  $.ajaxSetup({
 					headers: {
 						'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 					}
@@ -139,17 +134,13 @@
 	  var periodes = [];
 	 if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
 	   	$('#traitModal').modal('toggle');
-	  $.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-			}
-		});
    	var formData = {
+                              _token: CSRF_TOKEN,
 				visite_id: $('#id_visiteT').val(),
 				med_id:$("#produit").val(),
 				posologie:$("#posologie").val(),/*periodes :periodes,*/
-        nbrPJ : $('#nbrPJ').val(),
-        duree : $('#dureeT').val()
+                            nbrPJ : $('#nbrPJ').val(),
+                              duree : $('#dureeT').val()
 		};
     var state = jQuery('#EnregistrerTrait').val();
 		var trait_id = jQuery('#trait_id').val();
@@ -261,25 +252,25 @@
 						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span>
 						</a>
 					</li>
-          @if (!empty(json_decode($specialite->hospConst, true))) 
-					<li role= "presentation" class="col-md-4">
-						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
-						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
-						</a>
-					</li>
-          @endif
+                                    @if (!empty(json_decode($specialite->hospConst, true))) 
+      					<li role= "presentation" class="col-md-4">
+      						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
+      						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
+      						</a>
+      					</li>
+                                    @endif
 				</ul>
 			</div>
 			<div class="row">
 				<div class ="tab-content"  style = "border-style: none;" >
 				<div role="tabpanel" class ="tab-pane active " id="Actes"> 
 					<div class= "col-md-12 col-xs-12">
-					<div class= "widget-box widget-color-green" id="widget-box-2">
+					<div class= "widget-box widget-color-green">
 						<div class="widget-header" >
 						<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
 						<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 							<div class="fa fa-plus-circle"></div>
-							<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h5><strong>Acte Médical</strong></h5>	</a>	
+							<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h5>Acte Médical</h5></a>	
 						</div>
 						</div>
 						<div class="widget-body" id ="ConsigneWidget">
@@ -288,12 +279,12 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								        <th class ="hidden"></th>
-									  <th class ="center sorting_disabled"><strong>Acte</strong></th>
-										<th class ="center sorting_disabled"><strong>Type</strong></th>
-										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th>
-<!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>	<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th> -->
-										<th class ="center sorting_disabled"><strong>Application</strong></th>
-										<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
+									  <th class ="center sorting_disabled">Acte</th>
+										<th class ="center sorting_disabled">Type</th>
+										<th class ="center sorting_disabled">Code NGAP</th>
+<!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>	<th scope="col" class ="center sorting_disabled" width="3%">Nombre de jours</th> -->
+										<th class ="center sorting_disabled">Application</th>
+										<th class ="center sorting_disabled">Médecin prescripteur</th>											
                                                                        <th class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -309,7 +300,7 @@
 										<td> {{ $acte->description }}</td>
 										<td> {{ $acte->visite->medecin->full_name}}</td>
 										<td class="center nosort">
-										<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+										<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button>
 							  <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 									  </td>	
 									</tr>
@@ -341,9 +332,9 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 									<th class ="hidden"></th>
-									<th class ="center sorting_disabled"><strong>Nom médicament</strong></th>
-									<th class ="center sorting_disabled"><strong>Posologie</strong></th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
-									<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
+									<th class ="center sorting_disabled">Nom médicament</th>
+									<th class ="center sorting_disabled">Posologie</th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
+									<th class ="center sorting_disabled">Médecin prescripteur</th>											
 									<th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -356,7 +347,7 @@
 									  <td> {{ $trait->posologie}}</td>{{--<td>@foreach($trait->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $trait->duree }}</td>--}}
 										<td> {{ $trait->visite->medecin->full_name}}</td>
 								 		<td class="center nosort">
-											<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+											<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button>
 							  			<button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 								  </td>	
 								</tr>

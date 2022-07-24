@@ -81,16 +81,14 @@ class UsersController extends Controller
             "service_id"=>$request->service,
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
-      ]);
-/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
+      ]);/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
       $user = User::firstOrCreate([
         "name"=>$request->username,// "password"=>$request->password,
         "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
         "employee_id"=>$employe->id,
         "role_id"=>$request->role,
-      ]);
-      //return redirect(Route('employs.show',$employe->id)); 
+      ]);//return redirect(Route('employs.show',$employe->id)); 
       return redirect(Route('users.show',$user->id));                 
     }
     /**
@@ -155,7 +153,7 @@ class UsersController extends Controller
         if(isset($request->activeCompt))
           $activer=1;
       }
-     $user->update([
+      $user->update([
               'name'=>$request->username,
               "password"=>$user->password,
               "email"=>$request->email,
@@ -163,7 +161,7 @@ class UsersController extends Controller
               "role_id"=>$request->role,
               "active"=>$activer,   
      ]);  
-    return redirect(Route('users.show',$id));
+     return redirect(Route('users.show',$id));
     }
 
     /**

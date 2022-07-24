@@ -15,7 +15,7 @@
             @isset($res->crb)    
             <a href="{{ route('crbs.download',$demande->id )}}" title=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
             @endisset
-            @if(isset($demande->consultation)) <!-- {{ ($demande->visite_id != null ? 'Visite': 'Consultation') }} -->
+            @if(isset($demande->consultation)) {{-- ($demande->visite_id != null ? 'Visite': 'Consultation') --}}
             <span class="smaller-80">( Consultation du {{ \Carbon\Carbon::parse($demande->consultation->date)->format('d/m/Y') }})</span>
             @else
             <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
@@ -30,7 +30,7 @@
   </div>
 </div>
 @endif
- @if(null != $demandesExR->count()>0)
+ @if($demandesExR->count() > 0)
 <div class="row">
   <div class="col-sm-7">
   <div class="widget-box widget-color-blue">
@@ -65,13 +65,11 @@
   </div>
 </div>
 @endif
-@if (!(empty($ordonnances)))
+ @if($ordonnances->count() > 0)
 <div class="row">
   <div class="col-sm-7">
   <div class="widget-box widget-color-pink">
-    <div class="widget-header">
-      <h4 class="widget-title lighter smaller">Ordonnances</h4>
-    </div>
+    <div class="widget-header"><h4 class="widget-title lighter">Ordonnances</h4></div>
     <div class="widget-body">
       <div class="widget-main padding-8">
         <ul  class="tree tree-unselectable tree-folder-select" role="tree">

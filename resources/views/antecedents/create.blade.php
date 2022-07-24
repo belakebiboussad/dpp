@@ -1,7 +1,7 @@
 @extends('app_med')
 @section('main-content')
 	<div class="page-header">
-		<h1 style="display: inline;"><strong>Ajouter Antécédant Pour :</strong> 
+		<h1 ><strong>Ajouter Antécédant Pour :</strong> 
 		  @include('patient._patientInfo')
 	</div>
 	 	<div class= "col-md-6 col-xs-6">
@@ -47,14 +47,8 @@
 				</div>
 				<div style="text-align: center;">
 					<button class="btn btn-info" type="submit">
-						<i class="ace-icon fa fa-check bigger-110"></i>
-						Enregistrer
-					</button>
-						&nbsp; &nbsp; &nbsp;
-					<button class="btn" type="reset">
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-						Annuler
-					</button>
+						<i class="ace-icon fa fa-check bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 				</div>
 			</div>														
 	</form>

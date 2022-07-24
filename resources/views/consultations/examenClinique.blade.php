@@ -1,18 +1,20 @@
 <div id="ExamGeneral" class="tabpanel">
   <div class="row">
     <ul class = "nav nav-pills nav-justified navbar-custom1 list-group" role="tablist" id ="cliniq">
-      @if("" != $specialite->consConst)
+      @if (!empty(json_decode($specialite->consConst, true))) 
       <li role= "presentation" class="active">
         <a href="#ExamGen"  name="ExamGen" aria-controls="ExamGen" role="tab" data-toggle="tab" class="jumbotron">
         <i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">Examen général</span>
          </a>
       </li>
       @endif
+      @if (!empty(json_decode($specialite->appareils, true))) 
       <li role= "presentation" name="appareils">
         <a href="#Appareils" aria-controls="Appareils" role="tab" data-toggle="tab" class="jumbotron">
         <span class="medical medical-icon-i-internal-medicine" aria-hidden="true"></span><span class="bigger-130">Examen d'appareils</span>
          </a>
       </li>
+       @endif
     </ul>
   </div>
   <div class="row">

@@ -27,15 +27,16 @@ class paramController extends Controller
         $vaccins = Vaccin::all();
         $antecTypes = antecType::orderBy('id')->get();
         $appareils = appareil::orderBy('id')->get();
-        $specialite = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
-        $consConsts = json_decode((specialite::FindOrFail($specialite))->consConst, true);
-        $hospConsts = json_decode((specialite::FindOrFail($specialite))->hospConst, true);
-        $specExamsBio = json_decode((specialite::FindOrFail($specialite))->exmsbio, true);
-        $specExamsImg = json_decode((specialite::FindOrFail($specialite))->exmsImg, true);
-        $specAntecTypes = json_decode((specialite::FindOrFail($specialite))->antecTypes, true);
-        $specvaccins = json_decode((specialite::FindOrFail($specialite))->vaccins, true);
-        $specappreils = json_decode((specialite::FindOrFail($specialite))->appareils, true);
-        return view('parametres.medicale.index',compact('consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils'));
+        $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
+        $specialite  = specialite::FindOrFail($specialite_id);
+        $consConsts = json_decode($specialite->consConst, true);
+        $hospConsts = json_decode($specialite->hospConst, true);
+        $specExamsBio = json_decode($specialite->exmsbio, true);
+        $specExamsImg = json_decode($specialite->exmsImg, true);
+        $specAntecTypes = json_decode($specialite->antecTypes, true);
+        $specvaccins = json_decode($specialite->vaccins, true);
+        $specappreils = json_decode($specialite->appareils, true);
+        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils'));
         break;
       case 4:
       case 8:
@@ -71,6 +72,7 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
         $input['antecTypes'] = $request->antecTypes;
         $input['vaccins'] = $request->vaccs;
         $input['appareils'] = $request->appareils;
+        $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
         break;
     }  

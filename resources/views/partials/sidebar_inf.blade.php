@@ -44,7 +44,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('hospitalisation.index') }}"> <i class="menu-icon fa fa-caret-right"></i>Liste des hospitalisations</a>          
+            <a href="{{ route('hospitalisation.index') }}"> <i class="menu-icon fa fa-caret-right"></i>Hospitalisations</a>          
             <b class="arrow"></b>
           </li>
         </ul>

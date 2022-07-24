@@ -76,9 +76,8 @@ class EmployeController extends Controller
            "date"         => "Le champ :attribute n'est pas une date valide.",
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
-        if ($validator->fails()) {
-              return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
-        }
+        if ($validator->fails())
+          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,

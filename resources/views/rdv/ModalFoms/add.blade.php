@@ -108,7 +108,7 @@
     getPatient(); 
   });
   $("#specialite" ).change(function() {
-    getDoctors($(this).val());
+    getDoctors($(this).val(), '{{ $appointDoc }}');
     if($(this).val() != '')
     {
       if('{{ $patient->id }}' == '')

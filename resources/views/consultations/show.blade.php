@@ -70,12 +70,15 @@ td
         <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
         @endisset
         @isset($consultation->examensCliniques) 
-          <li ><a data-toggle="tab" href="#ExamClin">Examen clinique</a> </li>
+          <li ><a data-toggle="tab" href="#ExamClin">Examens cliniques</a> </li>
         @endisset
+        @if($consultation->examsAppareil->count() > 0) 
+          <li ><a data-toggle="tab" href="#ExamApp">Examens appareils</a> </li>
+        @endif
         @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
         @endif
-        @isset($consultation->lettreOrintation)
+        @if($consultation->lettreOrintation->count() > 0)
           <li ><a data-toggle="tab" href="#Orients">Lettres d'orientations</a></li> 
         @endif
     </ul>
@@ -84,7 +87,15 @@ td
         <div class="row">
           <ul class="list-unstyled spaced">
             <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Spécialite de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->medecin->Specialite->nom }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Spécialite de la consultation :</span>
+             <span class="badge badge-pill badge-success">
+              @if(isset($consultation->medecin->specialite))
+              {{ $consultation->medecin->Specialite->nom }}
+              @else
+              {{ $consultation->medecin->Service->Specialite->nom }}
+              @endif
+             </span>
+             </li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16 ">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
@@ -147,7 +158,7 @@ td
       </div>
       </div> {{-- DH --}}
         @endisset
-          @isset($consultation->examensCliniques) 
+        @isset($consultation->examensCliniques) 
           <div id="ExamClin" class="tab-pane">
                 <div class="row">
                <h4 > Paramétres généreaux</h4>
@@ -167,18 +178,20 @@ td
                  <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span>&nbsp;</li>
                </ul>
             </div>
-            @if($consultation->examensCliniques->examsAppareil->count()>0)
-              <div class="row">
-               <h4 >Examens Appareils</h4>
-               <ul class="list-unstyled spaced">
-                @foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
-                      <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Appareil {{ $examAppareil->Appareil->nom }} : <blockquote>{{ $examAppareil->description}}</blockquote></span></li>
-                @endforeach
-               </ul>
-               </div>
-             @endif 
           </div>{{-- ExamClin --}}
           @endisset
+          @if($consultation->examsAppareil->count()>0)
+          <div id="ExamApp" class="tab-pane"><div class="space-12 hidden-xs"></div> 
+            <div class="row">
+             <h4 >Examens Appareils</h4>
+             <ul class="list-unstyled spaced">
+              @foreach($consultation->examsAppareil as $examAppareil)
+                    <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Appareil {{ $examAppareil->Appareil->nom }} : <blockquote>{{ $examAppareil->description}}</blockquote></span></li>
+              @endforeach
+             </ul>
+            </div>
+          </div><!-- ExamApp -->
+          @endif 
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->demandExmImg)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
           <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
             @if(isset($consultation->demandeexmbio))
@@ -254,7 +267,6 @@ td
                                     <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                                     @if(!$consultation->demandExmImg->hasResult())
                                     <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                    <!-- <a href="{{ route('demandeexr.destroy', $consultation->demandExmImg->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a> -->
                                     <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                                     @endif
                                     <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a>

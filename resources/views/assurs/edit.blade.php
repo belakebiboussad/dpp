@@ -2,7 +2,7 @@
 @section('title','Modifier  fonctionnaire')
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Actualisation des données du fonctionnaire :&nbsp;</strong>
+	<h1><strong>Actualisation des données du fonctionnaire :&nbsp;</strong>
 		 <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>{{ $assure->full_name }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
 	</h1>
@@ -32,12 +32,9 @@
 	</div>
 	@include('assurs.editAssure')
 	<div class="hr hr-dotted"></div>
-	<div class="row">
-		<div class="center">
-			<br>
-			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-		</div>
+	<div class="row center">
+		<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+		<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 	</div>
 </form>
 @endsection

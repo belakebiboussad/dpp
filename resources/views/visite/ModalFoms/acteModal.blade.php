@@ -11,52 +11,41 @@
         <input type="hidden" value="" name="idhosp">
         <input type="hidden" id ="id_visite" value="{{ $id }}">
         <input type="hidden" id ="acte_id">
-        <div class="row">
-          <div class="col-xs-12">
-            <label for="specialiteProd"><strong>Acte:</strong></label>
+        <div class="form-group row">
+            <label class="control-label" for="specialiteProd">Acte :</label>
             <input type="text" id="acte" class="form-control" placeholder = "Nom de l'Acte"/> 
-          </div>    
-        </div><div class="space-12"></div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label for="type"><strong>Type :</strong></label>
+        </div>
+        <div class="form-group row">
+            <label for="type" class="control-label">Type :</label>
             <select class="form-control" id="type" data-placeholder="selectionnez le type de l'acte">
               <option value="" selected disabled >selectionnez le type de l'acte</option>
               <option value="paramedicale">paramédicale</option>
               <option value="medicale">médicale</option>
-            </select>
-          </div>    
-        </div><div class="space-12"></div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label for="code_ngap"><strong>Code NGAP :</strong></label>
+            </select>    
+        </div>
+        <div class="form-group row">
+            <label class="control-label" for="code_ngap">Code NGAP :</label>
             <select id="code_ngap" class="form-control">
               <option value="" selected disabled>selectionnez le Code NGAP</option>
               @foreach($codesNgap as $code)
               <option value="{{ $code->code }}">{{ $code->libelle }}</option>}
               @endforeach
             </select>
-          </div>
-        </div><div class="space-12"></div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label for="specialiteProd"><strong>Application:</strong></label>
+        </div>
+        <div class="form-group row">
+            <label  class="control-label" for="specialiteProd">Application :</label>
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
-          </div>    
-        </div><br/>
-         <div class="row">
-          <div class="col-xs-12">
-            <label for="dureeT"><strong>Nombre d'application/jour:</strong></label>
+        </div>
+         <div class=" form-group row">
+            <label  class="control-label" for="dureeT">Nombre d'application/jour :</label>
             <input type="number" id="nbrFJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
-          </div> <!-- <div class="col-xs-6">  <label for="dureeT"><strong>Durée(jour):</strong></label>
-          <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/></div> -->
-        </div><hr>
+           <!-- <label for="dureeT">Durée(jour):</label>
+          <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/> -->
+        </div>
         <div class="row" align="right">
-          <button type="submit" id="EnregistrerActe" class="btn btn-primary btn-sm" value ="add">
-            <i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
-          </button>
-          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-            <i class="ace-icon fa fa-close bigger-110"></i>Fermer
+          <button type="submit" id="EnregistrerActe" class="btn btn-primary btn-xs" value ="add">
+            <i class="ace-icon fa fa-save"></i>&nbsp;Enregistrer</button>
+          <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler
           </button>
         </div>
       </form>

@@ -78,8 +78,8 @@
 					<div class="hr hr-dotted"></div>
 					<div class="row">
 						<div class="col-sm-12 center">
-							<button class="btn btn-info" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-							<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+							<button class="btn btn-info btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
+							<button class="btn btn-warning btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 						</div>
 					</div>	
 		  	</div>	<!-- col-sm-12 -->

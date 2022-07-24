@@ -57,7 +57,10 @@ class VisiteController extends Controller
         $date = Carbon\Carbon::now();
         $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
-        $specialite = Specialite::findOrFail($employe->specialite);
+        if(isset($employe->specialite))
+               $specialite = $employe->Specialite;
+        else
+               $specialite =$employe->Service->Specialite;
         $hosp = hospitalisation::FindOrFail($id_hosp);
         $lastVisite = $hosp->getlastVisite();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;

@@ -22,7 +22,7 @@
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
 	 		<div class="tab-pane active examsBio" id="biologique"> 
-	 			@if(!is_null($specialite->exmsbio))
+	      @if($specialite->exmsbio !== "null")
           @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
 	 	  	  	<div class="checkbox col-xs-4">
 	 	   			 <label>
@@ -31,11 +31,15 @@
 				 		 </label>
 	 		  		</div>
 	 				@endforeach 
+        @else
+          Non configurer
 	 			@endif
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> 
-        @if(!is_null($specialite->exmsImg))
+        @if($specialite->exmsImg !== "null")
           @include('ExamenCompl.ExamenRadio')
+        @else
+          Non configurer
         @endif
       </div>
 	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>
