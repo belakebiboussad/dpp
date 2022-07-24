@@ -221,7 +221,7 @@ $(function(){
 		</div>
 		<div class="form-group">
 			@if( $user->active)
-				<label class ="pull-right col-xs-11 col-sm-11">Désactiver cse Compte :
+				<label class ="pull-right col-xs-11 col-sm-11">Désactiver ce Compte :
 					<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger"  value="0"> 
           <span class="lbl middle"></span>
         </label>
