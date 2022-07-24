@@ -35,7 +35,7 @@
                           <button class="btn btn-info" type="submit" id="EnregistrerDoc" value ="add"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                             Démarrer l'envoie
                          </button>
-                          <button type="button" id="fermer"class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-190"></i>
+                          <button type="button" id="fermer"class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close"></i>
                            Annuller l'envoie</button>
                      </div>
                  </div>
