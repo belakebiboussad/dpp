@@ -18,16 +18,16 @@
  </script>
  @endsection
 @section('main-content')
-<div class="row"><div class="col-sm-12 col-md-12"><h4><strong>Rechercher une demande d'examen radiologique</strong></h4></div></div>
+<div class="page-header"><h4>Rechercher une demande d'examen radiologique</h4></div>
 <div class="row">
   	<div class="panel panel-default">
-    		<div class="panel-heading"><strong>Rechercher</strong></div>
+    		<div class="panel-heading">Rechercher</div>
     		<div class="panel-body">
 	  	 <div class="row">
 	      		<div class="col-sm-4">
 	      			<div class="form-group">
-	      				<label><strong>Etat :</strong></label>
-	         			<select  id="etat" class="selectpicker show-menu-arrow  col-xs-12 col-sm-12 filter">
+	      				<label class="control-label">Etat :</label>
+	         			<select  id="etat" class="selectpicker col-xs-12 col-sm-12 filter">
 		         			<option selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option>
 		         			<option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}
@@ -35,8 +35,8 @@
 	         		</div>
 	         	</div>
 	         	<div class="col-sm-4">
-	      			<div class="form-group"><label><strong>Service :</strong></label>
-		      			<select  id="service" class="selectpicker show-menu-arrow col-xs-11 col-sm-11 filter">
+	      			<div class="form-group"><label>Service :</label>
+		      			<select  id="service" class="selectpicker col-xs-11 col-sm-11 filter">
 		      				<option value="">Selectionner...</option>	
 		      				@foreach ($services as $service)
 		      					<option value="{{ $service->id }}">{{ $service->nom}}</option>
@@ -65,11 +65,11 @@
 									<thead>
 										<tr>
 											<th class="center">#</th>
-											<th class="hidden-480 center"><strong>Date</strong></th>
-											<th class="center"><strong>Service</strong></th>
-											<th class="center"><strong>Médecin demandeur</strong></th>
-											<th class="center"><strong>Patient</strong></th>
-											<th class="center"><strong>Etat</strong></th>
+											<th class="hidden-480 center">Date</th>
+											<th class="center">Service</th>
+											<th class="center">Médecin demandeur</th>
+											<th class="center">Patient</th>
+											<th class="center">Etat</th>
 											<th class="center"><em class="fa fa-cog"></em></th>
 										</tr>
 									</thead>

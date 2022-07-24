@@ -3,7 +3,7 @@
   <div class="col-sm-7">
   <div class="widget-box widget-color-green2">
     <div class="widget-header">
-      <h4 class="widget-title lighter smaller"> Resultats d'examens biologiques </h4>
+      <h4 class="widget-title lighter smaller">Examens biologiques </h4>
     </div>
     <div class="widget-body">
       <div class="widget-main padding-8">
@@ -35,7 +35,7 @@
   <div class="col-sm-7">
   <div class="widget-box widget-color-blue">
     <div class="widget-header">
-      <h4 class="widget-title lighter smaller"> Resultats d'examens radiologiques </h4>
+      <h4 class="widget-title lighter smaller">Examens radiologiques </h4>
     </div>
     <div class="widget-body">
       <div class="widget-main padding-8">

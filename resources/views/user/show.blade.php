@@ -17,108 +17,80 @@
 	</ul>
 	<div class="tab-content profile-edit-tab-content jumbotron">
 		<div id="info-general" class="tab-pane in active">
-							<h5 class="header blue bolder smaller">Informations administratives</h5>
+			<h5 class="header blue bolder">Informations administratives</h5>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Nom :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->nom }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4 text-right">Nom :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->nom }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Prénom :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->prenom }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4  text-right">Prénom :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->prenom }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Date Naissance :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Date_Naiss }}</label> </div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4  text-right">Date Naissance :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Date_Naiss }}</label> </div>
 				</div>
-				<div class="vspace-12-sm"></div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Lieu Naissance :</b></label>
-						<div class="col-sm-8">	<label class="blue">{{ $user->employ->Lieu_Naissance }}</label>	</div>
-					</div>
+                    </div><div class="space-12"></div>
+                     <div class="row">
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4  text-right">Lieu Naissance :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Lieu_Naissance }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Genre :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->sexe == "M" ? "Masculin" : "Féminin" }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4  text-right">Genre :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->sexe == "M" ? "Masculin" : "Féminin" }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Adresse :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Adresse }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4  text-right">Adresse :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Adresse }}</label></div>
 				</div>
 			</div>
-			<h5 class="header blue bolder smaller">Contacts</h5>
+			<h5 class="header blue bolder">Contacts</h5>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Tél mobile :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->tele_mobile }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4 text-rightl">Tél mobile :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->tele_mobile }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Tél Fixe :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Tele_fixe }}</label>	</div>
+				<div class="form-group col-xs-12 col-sm-4">
+						<label class="col-sm-4 text-right">Tél Fixe :</label>
+						<div class="col-sm-8"><label class="blue">{{ $user->employ->Tele_fixe }}</label></div>
 				  </div>
-				</div>
 			</div>
-			<h5 class="header blue bolder smaller">Informations du poste</h5>
+			<h5 class="header blue bolder">Informations du poste</h5>
 			<div class="row">
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right"><b>Matricule :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Matricule_dgsn }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-3">
+					<label class="col-sm-4  text-right">Matricule :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Matricule_dgsn }}</label></div>
 				</div>
 				@isset($user->employ->service)
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Service :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Service->nom }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-3">
+					<label class="col-sm-4  text-right">Service :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Service->nom }}</label></div>
 				</div>
 				@endisset
 				@isset($user->employ->Specialite)
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><strong>Spécialité :</strong></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->employ->Specialite->nom }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-3">
+					<label class="col-sm-4  text-right">Spécialité :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->Specialite->nom }}</label></div>
 				</div>
 				@endisset	
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>NSS :</b></label>
-						<div class="col-sm-8">	<label class="blue">{{$user->employ->NSS }}</label>	</div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-3">
+					<label class="col-sm-4  text-right">NSS :</label>
+					<div class="col-sm-8"><label class="blue">{{$user->employ->NSS }}</label></div>
 				</div>
 			</div>
 		</div>
-		<div id="info-compte" class="tab-pane">
-					<div class="space-12"></div>	
-			<h4 class="header blue bolder smaller">Informations du compte</h4>
+		<div id="info-compte" class="tab-pane"><div class="space-12"></div> 
+			<h4 class="header blue bolder">Informations du compte</h4>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Nom d'utilisateur :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4 control-label  text-right">Nom d'utilisateur :</label>
+					<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><b>Rôle :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->role->role }}</label>	</div>
-					</div>
+				<div class="form-group col-xs-12 col-sm-4">
+					<label class="col-sm-4 control-label  text-right">Rôle :</b></label>
+					<div class="col-sm-8"><label class="blue">{{ $user->role->role }}</label></div>
 				</div>
 			</div>
 		</div>
