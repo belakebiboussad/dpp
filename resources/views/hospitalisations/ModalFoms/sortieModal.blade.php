@@ -20,7 +20,7 @@
 	   
 			</div>
 			<div class="form-group row">
-                	      	<label for="etatSortie"><strong>Etat a la sortie:</strong></label><textarea class="form-control"  id="etatSortie"></textarea>
+        <label for="etatSortie"><strong>Etat a la sortie:</strong></label><textarea class="form-control"  id="etatSortie"></textarea>
 			</div>
 			<div class="form-group row">
                 	      	<label for="modeSortie"><strong>Mode de sortie :</strong></label>
@@ -65,15 +65,16 @@
                             <textarea class="form-control"  id="diagSortie"></textarea>
 		  </div>
 		  <div class="form-group row">
-	         	<label for="diagSortie"><strong>Code Cim-10 :</strong></label>
-	      	        <div class="input-group">
-			      <input type="text" class="form-control" id="ccimdiagSortie" disabled/>
-			      <span class="input-group-addon" style=" padding: 0px 6px;"> 
-			       <button class="btn btn-xs CimCode" type="button" value="ccimdiagSortie"><i class="fa fa-search"></i></button>
-        		      </span>
-	    	        </div>
-		 </div>
-              </div>
+       <label for="diagSortie" class="control-label">Code Cim-10 :</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search" id="ccimdiagSortie" disabled>
+          <div class="input-group-btn">
+            <button class="btn btn-default btn-xs CimCode" type="button" value="ccimdiagSortie">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>    </div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-info btn-xs btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save"></i>Enregistrer</button>
 	  	<button type="reset" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-close"></i>Annuler</button>
