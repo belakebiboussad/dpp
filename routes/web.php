@@ -94,7 +94,7 @@ Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
-Route::get('/rdv/valider/{id}','RDVController@valider');/*Route::get('/rdv/reporter/{id}','RDVController@reporter');Route::post('/rdv/reporte/{id}','RDVController@storereporte');*/
+Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);

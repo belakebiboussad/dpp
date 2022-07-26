@@ -93,7 +93,7 @@
                 </ul>
         </li>
         @if(Auth::user()->role_id == "10")
-        <li class="">
+        <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits de la pharmacie</span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>

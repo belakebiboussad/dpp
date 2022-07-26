@@ -9,7 +9,7 @@
 	    <div class="modal-body">
        	<input type="hidden" id="date"><input type="hidden" id="fin">
         <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
-        @if(Auth::user()->role_id == 2)
+        @if(Auth::user()->role_id == 15)
 			  <div class="panel panel-default">
  			    <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
@@ -45,7 +45,7 @@
         		<div class="row">
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
-          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
+          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> 
           		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
          		        <option value="" selected disabled="">Selectionner...	</option>
 	                 		<option value="Nom">Nom</option>
@@ -66,8 +66,8 @@
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>    
-			      <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
+		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save"></i>&nbsp;Enregistrer</button>    
+			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
 		      </div>
       	</form>
   		</div>
@@ -76,10 +76,10 @@
  <script type="text/javascript" charset="utf-8">
   function Fill(pid, name)
   {
-    $("#pat_id").val(pid);
-    $("#pat-search").val(name);
-    $("#livesearch").html('')
-    $("#btnSave").attr("disabled", false);
+        $("#pat_id").val(pid);
+        $("#pat-search").val(name);
+        $("#livesearch").html('')
+        $("#btnSave").attr("disabled", false);
   }
   function showRdvModal(date,fin,pid = 0,fixe)
   {
@@ -100,12 +100,12 @@
   }
   $(function(){
     $("#pat-search").on("keyup", function() {//patient
-    if (!($("#btnSave").is(":disabled")))
-    {
-      $("#btnSave").prop('disabled',true);
-      $('#pat_id').val('');
-    }
-    getPatient(); 
+              if (!($("#btnSave").is(":disabled")))
+              {
+                $("#btnSave").prop('disabled',true);
+                $('#pat_id').val('');
+              }
+             getPatient(); 
   });
   $("#specialite" ).change(function() {
     getDoctors($(this).val(), '{{ $appointDoc }}');
@@ -120,7 +120,7 @@
     }
   });
   $( "#filtre" ).change(function() {
-    resetPation();
+    resetPatient();
     if($(this).val() != '' && ( $("#pat-search").prop('disabled') == true))
       $("#pat-search").prop('disabled',false);
   });

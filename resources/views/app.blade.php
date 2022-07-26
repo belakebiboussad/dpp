@@ -440,16 +440,13 @@
           });
        });
       $(document).ready(function(){
-          $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
-            if($(this).children("option:selected").val() !=="")
-            {
-            if($(this).attr('name') === "gs")
-            {
-              $("#rh" ).attr("disabled", false);/*if($("#type").val() =="0")  $("#gsf").val($("#gs option:selected").val()); */ 
-            }else
-            {
-              $("#rhf" ).attr("disabled", false);/*if($("#type").val() =="0") $("#gs").val($("#gsf option:selected").val());*/
-            } 
+             $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
+             if($(this).children("option:selected").val() !=="")
+              {
+                     if($(this).attr('name') === "gs")
+                            $("#rh" ).attr("disabled", false);
+                      else
+                      $("#rhf" ).attr("disabled", false);  
           }else
           {
             if($(this).attr('name') === "gs")
@@ -493,13 +490,13 @@
      </script>
         @yield('page-script')
         @if( Auth::user()->role_id == 1)
-            @include('partials.sidebar_med')
-        @elseif( Auth::user()->role_id == 2)
-            @include('partials.sidebar_rec')
+               @include('partials.sidebar_med')
+        @elseif(in_array( Auth::user()->role_id,[2,15]))   {{-- @elseif( Auth::user()->role_id == 2) --}}
+            @include('partials.sidebar_rec', ['borneIp'=> (App\modeles\Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value])
         @elseif(Auth::user()->role_id == 4)
-            @include('partials.sidebar')
+              @include('partials.sidebar')
         @elseif(Auth::user()->role_id == 5)
-            @include('partials.sidebar_sur')    
+               @include('partials.sidebar_sur')    
         @elseif(Auth::user()->role_id == 6) 
             @include('partials.sidebar_dele')
          @elseif(Auth::user()->role_id == 8) 

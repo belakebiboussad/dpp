@@ -23,6 +23,7 @@
 									<option value="0">Médical</option>
 									<option value="1">Chirurgical</option>
 									<option value="2">Paramédical</option>
+                                                                  <option value="3">Administratif</option>
 								</select>		
 							</div>
 						</div>

@@ -174,22 +174,7 @@ $(function(){
 								{{ $service->nom }}
 							@endif
 						</td>
-						<td>
-              @switch($service->type)
-               @case(0)
-                    Médicale
-                    @break
-                @case(1)
-                    Chirurgicale
-                   @break
-                @case(2)
-                    Fonctionnel
-                    @break
-                @default
-                  Médicale
-                  @break
-               @endswitch
-            </td>				
+						<td>{{ $service->type }} </td>  
 						<td>
 							@isset($service->responsable)
 								{{ $service->responsable->full_name }}
