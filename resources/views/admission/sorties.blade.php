@@ -169,13 +169,13 @@
 				<table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
 	  				<thead class="thin-border-bottom thead-light">
 				      	<tr>
-					          <th rowspan="2" class="center"><h5><strong>Patient</strong></h5></th> 
-					          <th rowspan="2" class="center"><h5><strong>Service</strong></h5></th>
-					          <th rowspan="2" class="center"><h5><strong>Date Entrée</strong></h5></th>
-					          <th rowspan="2" class="center"><h5><strong>Mode Entrée</strong></h5></th>
-					          <th rowspan="2" class="center"><h5><strong>Date Sortie</strong></h5></th>
-					          <th rowspan="2" class="center"><h5><strong>Mode Sortie</strong></h5></th>
-					          <th colspan="3" scope="colgroup" class="center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
+					          <th rowspan="2" class="center"><h5>Patient</h5></th> 
+					          <th rowspan="2" class="center"><h5>Service</h5></th>
+					          <th rowspan="2" class="center"><h5>Date Entrée</h5></th>
+					          <th rowspan="2" class="center"><h5>Mode Entrée</h5></th>
+					          <th rowspan="2" class="center"><h5>Date Sortie</h5></th>
+					          <th rowspan="2" class="center"><h5>Mode Sortie</h5></th>
+					          <th colspan="3" scope="colgroup" class="center"><h5>Hébergement</h5></th> <!-- merge four columns -->
 					          <th rowspan="2" class="center"><em class="fa fa-cog"></em></th>	
 				      	</tr>
 				      	<tr>
@@ -205,7 +205,7 @@
 						 	<td>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</td>
 						 	<td>{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</td>
 						 	@else
-							<td>/td><td></td><td></td>
+							<td></td><td></td><td></td>
 							@endif
 							<td class="center">
 								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie">

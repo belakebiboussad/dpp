@@ -176,8 +176,9 @@
                 $('.deces').addClass('hidden');
             } 
      });
-     jQuery('#saveCloturerHop').click(function () {
+     $('#saveCloturerHop').click(function () {
           var formData = {
+            _token: CSRF_TOKEN,
             id                      : $("#hospID").val(),
             Date_Sortie        : jQuery('#Date_SortieH').val(),
             Heure_sortie       : jQuery('#Heure_sortie').val(),
@@ -211,6 +212,7 @@
                   data: formData,
                   dataType: 'json',
                   success: function (data) {
+                    alert( data.id);
                     $("#hospi" + data.id).remove();
                   },
                   error: function (data){
