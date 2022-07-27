@@ -18,7 +18,7 @@
                                  <th class="center" colspan="2">Sortie prévue</th>
                                   <th class="font-weight-bold center" rowspan="2">Médecin traitant</th>
                                 <th class="center" colspan="3">Lit réservé</th>
-                                <th class="detail-col center" rowspan="2" width="10%"><em class="fa fa-cog"></em></th>
+                                <th class="detail-col center" rowspan="2" width="15%"><em class="fa fa-cog"></em></th>
                           </tr>
                           <tr>
                             <th class="center">Date</th>
@@ -69,7 +69,7 @@
                                 <i class="ace-icon fa fa-clock-o"></i>
                               </a>
 
-                              <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
+                              <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV" target="_blank">
                                 <i class="ace-icon fa fa-print" ></i>
                               </a>
                               <!-- can't delete rdv with affectation -->
