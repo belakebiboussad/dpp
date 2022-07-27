@@ -605,9 +605,14 @@
         }
       function ImprimerEtat(className,objID)
       { 
-              $("#className").val( className );
-              $("#objID").val(objID);
-              $('#EtatSortie').modal('show');
+        // $("#className").val( className );
+        // $("#objID").val(objID);
+        var etats = {!! $etatsortie->toJson() !!};
+        $.each(etats,function(key1,etat){
+            $("#etatsList").append('<li><a class="list-link btn btn-group" target="_blank" href="reportprint/'+className+'/'+ objID+'/'+ etat['id'] + '" >'+ etat['nom'] + '</a></li><br/>');
+        });
+       
+        $('#EtatSortie').modal('show');
       }
       function myFunction() {
         var x = document.getElementById("myTopnav");

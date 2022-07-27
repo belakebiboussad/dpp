@@ -99,7 +99,10 @@ Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');//Route::get('/choixpatient','RDVController@choixpatient');
-Route::get('/reportprint','HomeController@print');
+
+//Route::get('/reportprint','HomeController@print');
+Route::get('/reportprint/{className}/{objId}/{stateId}','HomeController@print');
+
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
 route::get('/getrdv','RDVController@getRDV');
 route::get('/getpatient','PatientController@getpatient');//route::get('/getpatientcons','PatientController@getpatientconsult');

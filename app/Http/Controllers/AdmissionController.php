@@ -39,7 +39,8 @@ class AdmissionController extends Controller
                                              ->whereHas('consultation', function($q){
                                                 $q->where('date', date("Y-m-d"));
                                              })->where('modeAdmission',2)->where('etat',1)->get();
-         $etatsortie = Etatsortie::where('type','1')->get();
+        $etatsortie = Etatsortie::where('type','1')->get();
+        //dd($etatsortie);
         return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**

@@ -470,7 +470,30 @@
         });
         if($("#Position").val() != "Activité" )
           $('#serviceFonc').addClass('invisible');
-        $(document).on('click', '.selctetat', function(event){
+      /* with button*/
+       $(document).on('click', '.selctetat', function(event){
+           var data = '';
+        $.ajax({
+            type: 'GET',
+            url: '/pdf/generate',
+            data: data,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(response){
+                var blob = new Blob([response]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Sample.pdf";
+                link.click();
+            },
+            error: function(blob){
+                console.log(blob);
+            }
+        });
+        });
+      /*
+      $(document).on('click', '.selctetat', function(event){
           event.preventDefault();
           var formData = {
             class_name: $('#className').val(),    
@@ -485,7 +508,8 @@
               $('#EtatSortie').modal('hide');
             },
           });
-       });
+      });
+      */
       }) 
      </script>
         @yield('page-script')

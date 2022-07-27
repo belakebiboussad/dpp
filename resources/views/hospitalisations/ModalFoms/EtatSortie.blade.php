@@ -9,12 +9,14 @@
 			<section class="list--wrapper">
 			  <h2 class="list-title blue bolder">Sélectionner un document</h2>
 			  <div class="hr hr-dotted"></div>
-			  <ol class="list">
-				  @foreach($etatsortie as $etat)
-			    <li class="">
-			      <button class="list-link btn btn-group selctetat" value ="{{ $etat->id}}">{{ $etat->nom}}</button>
-			    </li><br/>
+			  <ol class="list" id ="etatsList">
+			{{--	  @foreach($etatsortie as $etat)
+			    <li>
+	 <button class="list-link btn btn-group selctetat" value ="{{ $etat->id}}">{{ $etat->nom}}</button> 
+			    <a href="#" class="list-link btn btn-group selctetat" value ="{{ $etat->id}}" target="_blank">{{ $etat->nom}}</a>
+          </li><br/>
 			    @endforeach
+          --}}
 			  </ol>
     	</section>   
 	  	</div>

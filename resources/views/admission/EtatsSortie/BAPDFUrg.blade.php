@@ -56,7 +56,12 @@
      		</tr>
      		<tr>
      			<td><span>Matricule :&nbsp;</span><span>{{ $patient->assure->matricule }}</span></td>
-     			<td><span>Grade :&nbsp;</span><span>{{ $patient->assure->grade->nom }}</span></td>
+     			<td><span>Grade :&nbsp;</span><span>
+            {{-- $patient->assure->grade->nom --}}
+             @isset( $patient->assure->grade)
+              {{ $patient->assure->grade->nom }}
+            @endisset
+          </span></td>
      			<td><span>Service :&nbsp;</span><span>{{ $patient->assure->Service }}</span></td>
      		</tr>
      		<tr>
