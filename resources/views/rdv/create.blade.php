@@ -121,7 +121,7 @@ $(function() {
         events :[
                 @foreach($rdvs as $key =>   $rdv)
                 {
-                    title : '{{ $rdv->patient->full_name  --}} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+                    title : '{{ $rdv->patient->full_name }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
                     start : '{{ $rdv->date }}',
                     end:   '{{ $rdv->fin }}',
                     id :'{{ $rdv->id }}',
@@ -188,7 +188,7 @@ $(function() {
                       $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                       $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
                       $('#specialiteName').val(data.specialite.nom);
-                      $('#medecinName').val(data.employe.full_name);
+                      (data.employe != null) ?$('#medecinName').val(data.employe.full_name):'';
                       (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                       $('#civiliteCode').val(calEvent.civ);
                       $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id)); // $('#printRdv').attr("data-id",calEvent.id); 
