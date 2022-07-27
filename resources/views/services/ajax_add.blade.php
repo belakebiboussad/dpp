@@ -19,11 +19,12 @@
                   <option value="0">Médicale</option>
                   <option value="1">Chirurgical</option>
                   <option value="2">Paramédical</option>
+                  <option value="3">Administratif</option>
                 </select> 
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3 control-label" for="type"><strong>Chef:</strong></label>
+              <label class="col-sm-3 control-label" for=""><strong>Chef:</strong></label>
               <div class="col-sm-9">
                 <select id="responsable_id" class="selectpicker col-xs-12">
                   <option value="" selected disabled>Selectionner le chef du service</option>

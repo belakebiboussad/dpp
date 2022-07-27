@@ -8,19 +8,18 @@
       <div class="modal-body">
       <form id ="updateRdv" role="form" action="" method="POST"> 
       <input type="hidden" id="idRDV"><input  id="daterdv" type="hidden" /><input id="datefinrdv" type="hidden" />
-      
       <div class="row">
         <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i>
-          <strong>&nbsp;Téléphone :</strong><span id="patient_tel" ></span>
+          <a>&nbsp;Téléphone :</a><span id="patient_tel" ></span>
         </div>
-        <div class="col-sm-6"><strong>&nbsp;Âge :</strong><span id="agePatient"></span><small>Ans</small></div>
+        <div class="col-sm-6"><a>&nbsp;Âge :</a><span id="agePatient"></span><small>Ans</small></div>
       </div><div class="space-12"></div>
       @if(Auth::user()->role->id == 2)
         <div class="panel panel-default">
         <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
         <div class="panel-body">
           <div class="form-group">
-            <label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+            <label class="col-form-label" for=""><a>Spécialité :</a></label>  
             <select class="form-control specialite" id="specialite">
               <option value="" selected disabled> Selectionner...</option>
               @foreach($specialites as $specialite)
@@ -33,10 +32,10 @@
       @isset($appointDoc)
       <div class="panel panel-default">
         <div class="panel-heading">
-        <i class="ace-icon fa  fa-user-md bigger-110"></i>&nbsp;<span>Selectionner une médecin</span></div>
+        <i class="ace-icon fa  fa-user-md"></i>&nbsp;<span>Selectionner une médecin</span></div>
         <div class="panel-body">
           <div class="form-group">
-            <label class="col-form-label"><strong>Médecin :</strong></label>  
+            <label class="col-form-label"><a>Médecin :</a></label>  
               <select class="form-control" id="employ_id" disabled>
                 <option value="" selected="selected">Selectionner...</option>
               </select>
@@ -49,7 +48,7 @@
         <div class="panel-heading">&nbsp;<span>Patient</span></div>
         <div class="panel-body">
           <div class="form-group">
-            <label class="col-form-label" for=""><strong>patient :</strong></label> 
+            <label class="col-form-label"><strong>patient :</strong></label> 
             <input id="nomPatient" class="form-control" value="" readonly /> 
           </div>
         </div>
@@ -84,8 +83,8 @@
         @endif 
         <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>      
         <button  type="button" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</button>
-        <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-       <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
+        <a id="printRdv" class="btn btn-success btn-xs hidden"  aria-hidden="true" target="_blank"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
+       <button type="button" class="btn btn-xs btn-warning" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
            <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
     </div>
   </form>  

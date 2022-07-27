@@ -581,7 +581,6 @@
             $('#patient_tel').text(data.rdv.patient.tele_mobile1);
             $('#agePatient').text(data.rdv.patient.age);
             $('#nomPatient').val(data.rdv.patient.full_name);
-
             $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
             $('#lien').text(event.title);
             if(bool)

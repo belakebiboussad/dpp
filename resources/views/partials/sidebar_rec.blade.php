@@ -55,7 +55,7 @@
               </li>
             </ul>
         </li>
-        {{--
+       @if(Auth::user()->is(15))
         <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-calendar-o"></i><span class="menu-text">Gestion RDV</span>
@@ -63,22 +63,38 @@
           </a>
           <b class="arrow"></b>
           <ul class="submenu">
+             <li><a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV</a><b class="arrow"></b>  </li> 
             <li>
-              <a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV</a>
-              <b class="arrow"></b>
-            </li>
-            <li>
-              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a>
-              <b class="arrow"></b>
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a>  <b class="arrow"></b>
             </li>
             </ul>
         </li>
-        --}}
+        @endif
     </ul>
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-    </div>
+    </div> {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
+      <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
+      <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>{{-- --}}
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+        $(function () {
+      if(loaded)
+      {
+              $.connection.hub.url = '{{ $borneIp}}/myhubs';
+              // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';// $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
+              // Connect Hubs without the generated proxy
+              var chatHubProxy = $.connection.myChatHub;
+              $.connection.hub.start().done(function (e) {
+                    console.log("Hub connected.");
+                    $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
+                        var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
+                        chatHubProxy.server.send(barcode);       
+                    });
+                }).fail(function () {
+                  console.log("Could not connect to Hub.");
+                });
+      }
+});
     </script>
 </div>

@@ -21,6 +21,7 @@
                   <option value="0" @if($service->type == 0) selected @endif>Médicale</option>
                   <option value="1" @if($service->type == 1) selected @endif>Chirurgical</option>
                   <option value="2" @if($service->type == 2) selected @endif>Paramédical</option>
+                   <option value="3" @if($service->type == 3) selected @endif>Administratif</option>
                 </select> 
               </div>
             </div>

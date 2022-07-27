@@ -21,6 +21,7 @@ use Storage;//use DNS2D;
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
 use BigFish\PDF417\Renderers\SvgRenderer;
+use File;
 class RDVController extends Controller
 {
     /**
@@ -97,7 +98,7 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
             else
               $specialite_id = Auth::user()->employ->Service->specialite_id; 
           }
-          if(Auth::user()->role_id ==2)
+          if(Auth::user()->role_id ==15)
             $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
           else
             $employ_id = Auth::user()->employee_id;
@@ -202,26 +203,27 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
       }
       public function print(Request $request,$id)
       { 
-        $rdv = rdv::findOrFail($id);
-        $etab = Etablissement::first();
-        $civilite = $civilite = $rdv->patient->civ;
-        $pdf417 = new PDF417();
-        $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
-        $renderer = new ImageRenderer([
-            'format' => 'png', //'color' => '#FF0000',
-            'scale' => 1,//1
-            'ratio'=>3,//hauteur,largeur
-            'padding'=>0,//espace par rapport left
-            'format' =>'data-url'
-        ]);
-        $img = $renderer->render($data);
-        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etab))->render();
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($viewhtml);
-        $dompdf->setPaper('a6', 'landscape');
-        $dompdf->render();
-        $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
-        return $dompdf->stream($name); 
+            $rdv = rdv::findOrFail($id);
+            $etab = Etablissement::first();
+            $civilite = $civilite = $rdv->patient->civ;
+            $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
+            $pdf417 = new PDF417();
+            $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
+            $renderer = new ImageRenderer([
+                'format' => 'png', //'color' => '#FF0000',
+                'scale' => 1,//1
+                'ratio'=>3,//hauteur,largeur
+                'padding'=>0,//espace par rapport left
+                'format' =>'data-url'
+            ]);
+            $img = $renderer->render($data);
+            $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etab))->render();
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($viewhtml);
+            $dompdf->setPaper('a6', 'landscape');
+            $dompdf->render();
+        
+            return $dompdf->stream($filename); 
       }
 /* public function checkFullCalendar(Request $request){$events = array(); $today = Carbon::now()->format('Y-m-d');$rendezVous = rdv::all();
 foreach ($rendezVous as $rdv) {$patient = patient::FindOrFail($rdv->patient_id);$rdv = array();$e['id'] = $patient->id;

@@ -17,19 +17,7 @@
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue"><strong>Type:</strong></label>
-							<div class="col-sm-9">
-								@switch($service->type)
-									@case(0)
-       									<span class="label label-sm label-danger">Médical</span>
-        								 	@break
-        								@case(1)
-        									<span class="label label-sm label-success">Chirurgical</span>
-        									@break
-        								@default
-        									<span class="label label-sm label-primary"><b>Paramédical</b></span>
-        									@break
-									@endswitch
-							</div>
+							<div class="col-sm-9">{{ $service->type }}</div>
 						</div>
 						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">

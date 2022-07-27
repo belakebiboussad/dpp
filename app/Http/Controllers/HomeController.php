@@ -60,13 +60,14 @@ class HomeController extends Controller
       Session::put('etabTel', $etab->tel);
       Session::put('etabTel2', $etab->tel2);
       Session::put('etabLogo', $etab->logo);
-      switch (Auth::user()->role_id) {
-          case 1://medecin & medChef
-                return view('patient.index');
-                break;
-          case 2://rec
-                 return view('patient.index'); //return view('home.home_recep');
-                break;
+        switch (Auth::user()->role_id) {
+                case 1://medecin & medChef
+                       return view('patient.index');
+                       break;
+               case 15:        
+                case 2://rec
+                      return view('patient.index'); //return view('home.home_recep');
+                      break;
           case 3://inf                    
                 return redirect()->action('HospitalisationController@index');
                 break;
