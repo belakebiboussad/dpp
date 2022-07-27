@@ -491,8 +491,8 @@
         @yield('page-script')
         @if( Auth::user()->role_id == 1)
                @include('partials.sidebar_med')
-        @elseif(in_array( Auth::user()->role_id,[2,15]))   {{-- @elseif( Auth::user()->role_id == 2) --}}
-            @include('partials.sidebar_rec', ['borneIp'=> (App\modeles\Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value])
+        @elseif(in_array( Auth::user()->role_id,[2,15]))
+            @include('partials.sidebar_rec')
         @elseif(Auth::user()->role_id == 4)
               @include('partials.sidebar')
         @elseif(Auth::user()->role_id == 5)

@@ -76,10 +76,15 @@
  <script type="text/javascript" charset="utf-8">
   function Fill(pid, name)
   {
-        $("#pat_id").val(pid);
-        $("#pat-search").val(name);
-        $("#livesearch").html('')
+    $("#pat_id").val(pid);
+    $("#pat-search").val(name);
+    $("#livesearch").html('')
+    @if(Auth::user()->role_id == 15)
+      if(($("#specialite").val()) != null)
         $("#btnSave").attr("disabled", false);
+    @else
+      $("#btnSave").attr("disabled", false);
+    @endif
   }
   function showRdvModal(date,fin,pid = 0,fixe)
   {
@@ -109,9 +114,11 @@
   });
   $("#specialite" ).change(function() {
     getDoctors($(this).val(), '{{ $appointDoc }}');
+    
     if($(this).val() != '')
     {
-      if('{{ $patient->id }}' == '')
+      alert($(this).val());
+      if('{{ $patient->id }}' == '' )
       {
         if($("#filtre").prop('disabled') == true)
           $("#filtre").prop('disabled',false);

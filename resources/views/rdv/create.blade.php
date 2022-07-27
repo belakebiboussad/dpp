@@ -13,8 +13,8 @@
   </style>
 @endsection
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
-{{-- <script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
-<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> --}}
+{{--<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
+<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>  --}}
 @include('rdv.scripts.js')
 <script>
 function resetPatient()
@@ -29,7 +29,7 @@ function resetPatient()
               $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
       }
 }
-// var loaded;
+var loaded;
 function reset_in(){
   $("#filtre").val('');
   $("#pat-search").attr("disabled", true);
@@ -62,7 +62,6 @@ function getPatient()
         }
   });
 }
-/*
 $(function () {
       if(loaded)
       {
@@ -81,7 +80,7 @@ $(function () {
                 });
       }
 });
-*/
+
 $(function() {
    $("#showfullCalModal").on('hide.bs.modal', function(){
         $('#specialiteId').val('');
