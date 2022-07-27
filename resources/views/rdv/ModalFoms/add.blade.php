@@ -105,26 +105,34 @@
   }
   $(function(){
     $("#pat-search").on("keyup", function() {//patient
-              if (!($("#btnSave").is(":disabled")))
-              {
-                $("#btnSave").prop('disabled',true);
-                $('#pat_id').val('');
-              }
-             getPatient(); 
-  });
+        if (!($("#btnSave").is(":disabled")))
+        {
+          $("#btnSave").prop('disabled',true);
+          $('#pat_id').val('');
+        }
+       getPatient(); 
+    });
   $("#specialite" ).change(function() {
     getDoctors($(this).val(), '{{ $appointDoc }}');
     
     if($(this).val() != '')
     {
-      alert($(this).val());
+      if('{{ $patient->id }}' != '' || ($('#pat_id').val() != ''))
+        $("#btnSave").removeAttr("disabled");
+    }else
+    {
+      if($("#filtre").prop('disabled') == true)
+        $("#filtre").prop('disabled',false);
+    }  
+       /*
       if('{{ $patient->id }}' == '' )
       {
         if($("#filtre").prop('disabled') == true)
           $("#filtre").prop('disabled',false);
       }else
         $("#btnSave").removeAttr("disabled");  
-    }
+      */
+      
   });
   $( "#filtre" ).change(function() {
     resetPatient();
