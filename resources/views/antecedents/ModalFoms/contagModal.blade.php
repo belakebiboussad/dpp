@@ -34,16 +34,16 @@
 			});
 		});
 		$("#contagDiseaseSave").click(function (e) {
-				e.preventDefault();
+			e.preventDefault();
 			  var formData = {
 					patient_id : '{{ $patient->id }}',
 					maladie_id : $('#maladie').val(),
-				};
-				$.ajaxSetup({
+			};
+			$.ajaxSetup({
 					headers: {
 				   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					}
-				});
+			});
 		  	var state = $(this).val();
 				var type = "POST";
 				var ajaxurl = '/cim10/';

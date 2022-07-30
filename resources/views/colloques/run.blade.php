@@ -15,11 +15,11 @@
 	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
     }else {
       var formData = {
-  	  		id_medecin : $("#" + line).find('[name=medecin]').val(),
-	   	  	observation : $("#" + line).find('[name=observation]').val(),
-       		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-          id_demande : $("#" + line).find('[name=demandeId]').val(),
-          id_colloque :$("#colloqueId").val(),
+  	  	id_medecin : $("#" + line).find('[name=medecin]').val(),
+	   	observation : $("#" + line).find('[name=observation]').val(),
+       		ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), 
+              id_demande : $("#" + line).find('[name=demandeId]').val(),
+               id_colloque :$("#colloqueId").val(),
       };
       var ajaxurl = '/demandehosp/valider';
     	if(!($(elm).hasClass("btn-success")))

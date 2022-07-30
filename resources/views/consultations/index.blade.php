@@ -68,7 +68,7 @@
   {
 	  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Détails consultation"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;';
 	      actions +='<a href = "/consultations/create/'+data.patient.id+'" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter consultation"><i class="fa fa-plus-circle"></i></a>&nbsp;';
-        actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+        actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(3,\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
 	  return actions;
 	}
  	$('document').ready(function(){

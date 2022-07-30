@@ -26,7 +26,7 @@
     <section class="table solid"> 
       <table>
       <tr>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Admission N° :&nbsp;</strong><span>&nbsp;{{ $obj->id }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Admission N° :&nbsp;</strong><span>&nbsp;{{ $rdv->id }}</span></td>
         <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Date :</strong><span>&nbsp;{{ $date }}</span></td>
         <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Heure :</strong><span>&nbsp;{{ Date("H:i") }}</span></td>
       </tr>
@@ -36,37 +36,37 @@
     <section class="table tab">
       <table>
         <tr>
-          <td><span>Qualité :&nbsp;</span><span>{{ $patient->assure->Position }}</span></td>
+          <td><span>Qualité :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->Position }}</span></td>
           <td><span>Détail :</span></td>
         </tr>
         <tr>
-          <td><span>Nom :&nbsp;</span><span>{{ $patient->assure->Nom }}</span></td>
-          <td><span>Prénom :&nbsp;</span><span>{{ $patient->assure->Prenom }}</span></td>
-          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->assure->Date_Naissance)->format('d/m/Y') }}</span></td>
+          <td><span>Nom :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->Nom }}</span></td>
+          <td><span>Prénom :&nbsp;</span><span>{{ $patirdv->demandeHospitalisation->consultation->patientent->assure->Prenom }}</span></td>
+          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($rdv->demandeHospitalisation->consultation->patient->assure->Date_Naissance)->format('d/m/Y') }}</span></td>
         </tr>
         <tr>
-          <td><span>Adresse :&nbsp;</span><span>{{ $patient->assure->adresse }},
-          @isset($patient->assure->commune_res)
-           {{ $patient->assure->commune->nom_commune }},  {{ $patient->assure->commune->daira->wilaya->nom }}
+          <td><span>Adresse :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->adresse }},
+          @isset($rdv->demandeHospitalisation->consultation->patient->assure->commune_res)
+           {{ $rdv->demandeHospitalisation->consultation->patient->assure->commune->nom_commune }},  {{ $rdv->demandeHospitalisation->consultation->patient->assure->commune->daira->wilaya->nom }}
            @endisset
            </span>
           </td>
         </tr>
         <tr>
-          <td><span>Tel :&nbsp;</span><span>{{ $patient->tele_mobile1 }}</span></td>
+          <td><span>Tel :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->tele_mobile1 }}</span></td>
         </tr>
         <tr>
-          <td><span>Matricule :&nbsp;</span><span>{{ $patient->assure->matricule }}</span></td>
+          <td><span>Matricule :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->matricule }}</span></td>
           <td><span>Grade :&nbsp;</span><span>
-                @isset( $patient->assure->grade)
-                      {{ $patient->assure->grade->nom }}
+                @isset( $rdv->demandeHospitalisation->consultation->patient->assure->grade)
+                      {{ $rdv->demandeHospitalisation->consultation->patient->assure->grade->nom }}
                 @endisset
                 </span></td>
-          <td><span>Service :&nbsp;</span><span>{{ $patient->assure->Service }}</span></td>
+          <td><span>Service :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->Service }}</span></td>
         </tr>
         <tr>
-          <td><span>N° SS:&nbsp;</span><span>{{ $patient->assure->NSS }}</span></td>
-          <td><span>MGSN:&nbsp;</span><span>{{ $patient->assure->NMGSN }}</span></td>
+          <td><span>N° SS:&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->NSS }}</span></td>
+          <td><span>MGSN:&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->assure->NMGSN }}</span></td>
         </tr>
       </table>
     </section>
@@ -77,7 +77,7 @@
           <td>
             <span>Qualité :&nbsp;</span>
             <span>
-                @switch($patient->Type)
+                @switch($rdv->demandeHospitalisation->consultation->patient->Type)
                 @case(0)
                     Assuré
                     @break
@@ -105,9 +105,9 @@
           <td><span>Détail :</span></td>
         </tr>
         <tr>
-          <td><span>Nom :&nbsp;</span><span>{{ $patient->Nom }}</span></td>
-          <td><span>Prénom :&nbsp;</span><span>{{ $patient->Prenom }}</span></td>
-          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->Date_Naissance)->format('d/m/Y') }}</span></td>
+          <td><span>Nom :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->Nom }}</span></td>
+          <td><span>Prénom :&nbsp;</span><span>{{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}</span></td>
+          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($rdv->demandeHospitalisation->consultation->patient->Date_Naissance)->format('d/m/Y') }}</span></td>
         </tr>
       </table>
     </section>
@@ -115,11 +115,11 @@
     <section class="table tab">
       <table>
         <tr>
-         <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Service->nom }}</span></td>
-         <td><span>&nbsp;Spécialité:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Specialite->nom }}</span></td>
+         <td><span>&nbsp;Service:</span><span>&nbsp;{{ $rdv->demandeHospitalisation->Service->nom }}</span></td>
+         <td><span>&nbsp;Spécialité:</span><span>&nbsp;{{ $rdv->demandeHospitalisation->Specialite->nom }}</span></td>
         </tr>
         <tr>
-          <td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $obj->demandeHospitalisation->consultation->medecin->full_name }}</span></td>
+          <td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $rdv->demandeHospitalisation->consultation->medecin->full_name }}</span></td>
         </tr>
         <tr>
           <td><span>&nbsp;Chargé des admissions :</span><span>{{ Auth::user()->employ->Service->responsable->full_name }}</span></td>

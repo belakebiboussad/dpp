@@ -232,12 +232,11 @@ function errorMsg(msg, error) {
 						<div class="input-group col-sm-12 col-xs-12">
 							<input id="IPP" name="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
 				                      <span class="input-group-btn"> 
-								<button class="btn btn-default" id="scanButton" type="button" data-toggle="modal" data-target="#livestream_scanner">
+								<button class="btn btn-default btn-xs" id="scanButton" type="button" data-toggle="modal" data-target="#livestream_scanner">
 									<i class="fa fa-barcode"></i>
 								</button> 
 							</span>
-						
-            </div>
+						</div>
 					</div>		
 				</div>
 			</div>  {{-- body --}}

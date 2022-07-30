@@ -603,16 +603,22 @@
         function isEmpty(value) {
           return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
         }
-      function ImprimerEtat(className,objID)
-      { 
-        // $("#className").val( className );
-        // $("#objID").val(objID);
-        var etats = {!! $etatsortie->toJson() !!};
-        $.each(etats,function(key1,etat){
-            $("#etatsList").append('<li><a class="list-link btn btn-group" target="_blank" href="reportprint/'+className+'/'+ objID+'/'+ etat['id'] + '" >'+ etat['nom'] + '</a></li><br/>');
-        });
-       
-        $('#EtatSortie').modal('show');
+       function ImprimerEtat(type,className,objID)
+      {  /* // $("#className").val( className ); $("#objID").val(objID)*/
+             $("#etatsList").empty()
+               $.ajax({
+                      type: "GET",
+                       url: '/gerReports/' + type,
+                      success: function (data) {
+                            $.each(data,function(key1,etat){
+                                    $("#etatsList").append('<li><a class="list-link btn btn-group" target="_blank" href="reportprint/'+className+'/'+ objID+'/'+ etat['id'] + '" >'+ etat['nom'] + '</a></li><br/>');  
+                                });  
+                      },
+                    error: function (data) {
+                            console.log('Error:', data);
+                    }
+          });
+                $('#EtatSortie').modal('show');
       }
       function myFunction() {
         var x = document.getElementById("myTopnav");

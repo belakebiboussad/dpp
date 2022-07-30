@@ -31,17 +31,16 @@ class AdmissionController extends Controller
       }
       public function index()
       {
-        $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
-                                    ->whereHas('demandeHospitalisation', function($q){
-                                           $q->where('etat', 1);
-                                    })->where('etat',null)->where('date',date("Y-m-d"))->get();
-        $demandesUrg = DemandeHospitalisation::with('bedAffectation')
-                                             ->whereHas('consultation', function($q){
-                                                $q->where('date', date("Y-m-d"));
-                                             })->where('modeAdmission',2)->where('etat',1)->get();
-        $etatsortie = Etatsortie::where('type','1')->get();
-        //dd($etatsortie);
-        return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
+              $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
+                                          ->whereHas('demandeHospitalisation', function($q){
+                                                 $q->where('etat', 1);
+                                          })->where('etat',null)->where('date',date("Y-m-d"))->get();
+              $demandesUrg = DemandeHospitalisation::with('bedAffectation')
+                                                   ->whereHas('consultation', function($q){
+                                                      $q->where('date', date("Y-m-d"));
+                                                   })->where('modeAdmission',2)->where('etat',1)->get();
+              $etatsortie = Etatsortie::where('type','1')->get();
+                return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.

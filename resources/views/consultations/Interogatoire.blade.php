@@ -17,7 +17,6 @@
 				<div role="tabpanel" class = "tab-pane in active" id="Motif">@include('consultations.motif')</div>
 				<div role="tabpanel" class = "tab-pane" id="ATCD">@include('consultations.Antecedant')</div>
 			</div>
-		</div><!-- col-sm-9	 -->
-		<div class= "col-sm-3"><div>@include('consultations.actions')</div></div>
+		</div><div class= "col-sm-3"><div>@include('consultations.actions')</div></div>
 	</div><!-- row -->
 </div>

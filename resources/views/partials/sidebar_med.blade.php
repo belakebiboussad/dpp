@@ -203,12 +203,12 @@
             }
          });             
       }
-    function addCIMCode(code,field)
-    {
-      $("#"+field).val(code);
-      $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
-      $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
-    }
+      function addCIMCode(code,field)
+      {
+            $("#"+field).val(code);
+          $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+          $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+      }
     function examsBioSave(patientName, ipp, med,fieldName, fieldValue){
       var exams=[];
       $('.examsBio input.ace:checkbox:checked').each(function(index, value) {
@@ -361,11 +361,11 @@
                  $('#Div-nomjeuneFille').removeAttr('hidden');
               else
                 $('#Div-nomjeuneFille').attr('hidden', true);
-          });/*$('#cim10Modal').on('shown.bs.modal', function (e) {$(this).trigger("reset"); });*/ 
+          });
           $('body').on('click', '.CimCode', function (event) {
-            $('#cim10Modal').trigger("reset");
-            $('#inputID').val($(this).val());
-            $('#cim10Modal').modal('show');
+                    $('#cim10Modal').trigger("reset");
+                   $('#inputID').val($(this).val());
+                    $('#cim10Modal').modal('show');
           });
           $('#chapitre').click(function(){
             if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
