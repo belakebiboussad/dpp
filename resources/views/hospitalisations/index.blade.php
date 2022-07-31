@@ -21,9 +21,9 @@
 <script>
     var nowDate = new Date();
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-     function cloturerHosp(hospID)
+     function cloturerHosp(id)
      { 
-        $("#hospID").val( hospID );
+        $("#id").val(id);
         $('#sortieHosp').modal('show');
         $('#Heure_sortie').timepicker({ template: 'modal' });
      }/*function getMedecin (data, type, dataToSet) {       return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom'];  }*/
@@ -43,7 +43,7 @@
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-       if( data.etat_id != 1)                    
+      if( data.etat_id != 1)                    
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
          actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
@@ -56,7 +56,7 @@
           actions +='<a href="/soins/index/'+data.id+'" class ="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins"><img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px"></a>';
       }else
       if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
-        actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+        actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(0,\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
       }  
       return actions;
      }
@@ -136,7 +136,7 @@
             {"targets": 5 ,  className: "dt-head-center priority-5" },
             {"targets": 6 ,  className: "dt-head-center priority-6" },
             {"targets": 7 ,  className: "dt-head-center priority-6" },
-            {"targets": 9,  className: "dt-head-center dt-body-center"}
+            {"targets": 10,  className: "dt-head-center dt-body-center"}
           ]
           
       });
@@ -156,19 +156,19 @@
       }
       var field ="etat";
       $('document').ready(function(){
-            $(document).on('click','.findHosp',function(event){
+          $(document).on('click','.findHosp',function(event){
               getHospitalisations(field,$('#'+field).val().trim());
-            });
-           $('#modeSortie').change(function(){
-                   if($(this).val()==="0")
-                    {
-                        if($('.transfert').hasClass('hidden'))
-                          $('.transfert').removeClass('hidden');
-                    }else{ 
-                        if(! ($('.transfert').hasClass('hidden')))
-                          $('.transfert').addClass('hidden');
-                    }
-                    if ($(this).val()==="2"){
+          });
+          $('#modeSortie').change(function(){
+               if($(this).val()==="0")
+                {
+                    if($('.transfert').hasClass('hidden'))
+                      $('.transfert').removeClass('hidden');
+                }else{ 
+                    if(! ($('.transfert').hasClass('hidden')))
+                      $('.transfert').addClass('hidden');
+                }
+                if ($(this).val()==="2"){
               if($('.deces').hasClass('hidden'))
                   $('.deces').removeClass('hidden');
           }else{
@@ -179,15 +179,15 @@
      $('#saveCloturerHop').click(function () {
           var formData = {
             _token: CSRF_TOKEN,
-            id                      : $("#hospID").val(),
+            id                 : $("#id").val(),
             Date_Sortie        : jQuery('#Date_SortieH').val(),
             Heure_sortie       : jQuery('#Heure_sortie').val(),
             modeSortie         :jQuery('#modeSortie').val(),
-            resumeSortie     : $('#resumeSortie').val(),
-            etatSortie            : $('#etatSortie').val(),
-            diagSortie           : $("#diagSortie").val(),
-            ccimdiagSortie    : $("#ccimdiagSortie").val(),
-            etat            :1,
+            resumeSortie       : $('#resumeSortie').val(),
+            etatSortie         : $('#etatSortie').val(),
+            diagSortie         : $("#diagSortie").val(),
+            ccimdiagSortie     : $("#ccimdiagSortie").val(),
+            etat               :  1,
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();
@@ -203,22 +203,18 @@
           {
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
-              $.ajax({
-                  headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  },
-                  type: "POST",
-                  url: '/hospitalisation/'+$("#hospID").val(),
-                  data: formData,
-                  dataType: 'json',
-                  success: function (data) {
-                    alert( data.id);
-                    $("#hospi" + data.id).remove();
-                  },
-                  error: function (data){
-                    console.log('Error:', data);
-                  },
-              });
+            $.ajax({
+                type: "POST",
+                url: '/hospitalisation/'+$("#id").val(),
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                  $("#hospi" + data.id).remove();
+                },
+                error: function (data){
+                  console.log('Error:', data);
+                },
+            });
           }
       });
   });
@@ -229,7 +225,7 @@
   <div class="col-sm-12 col-md-12">
     <h4><strong>Rechercher une hospitalisation</strong></h4>
     <div class="panel panel-default">
-      <div class="panel-heading"><strong>Rechercher</strong></div>
+      <div class="panel-heading"><b>Rechercher</b></div>
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3">

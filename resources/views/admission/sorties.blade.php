@@ -22,36 +22,36 @@
 	}
 	function getAction(data, type, dataToSet) {
 		var actions='';
-		if(data.etat !=1) {
+		if(data.etat != 1) {
 			var dateSortie = new Date(data.hospitalisation.Date_Sortie);
-		        var dt = new Date();
+		  var dt = new Date();
 			actions +='	<button type="button" class="btn btn-info btn-xs '+(areSameDate(dt, dateSortie) ? '' : 'disabled') +'" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie"><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
 		}else
-			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'admission\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
+			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(2,\'admission\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
 		return actions;
 	}
 	function getSorties(field,value)
 	{
 		$("#liste_sorties").dataTable().fnDestroy();
-	  	$.ajax({
-         		 url : '{{URL::to('getSortiesAdmissions')}}',
-          		data: {    
-             	    "field":field,
-                		 "value":value,
-        		},
-       		dataType: "json",
-       		success: function(data) {
+	  $.ajax({
+        url : '{{URL::to('getSortiesAdmissions')}}',
+        data: {    
+          "field":field,
+         "value":value,
+        },
+       	dataType: "json",
+       	success: function(data) {
 			 	$(".numberResult").html(data.length);
 			  	var oTable =$("#liste_sorties").DataTable ({
 	        			"processing": true,
-		          		"paging":   true,
-		          		"destroy": true,
+		          	"paging":   true,
+		          	"destroy": true,
 			        	"ordering": true,
 			         	"searching":false,
-			          	"info" : false,
-			          	"language":{"url": '/localisation/fr_FR.json'},
-			          	"data" : data,
-			          	"fnCreatedRow": function( nRow, aData, iDataIndex ) {
+			          "info" : false,
+			          "language":{"url": '/localisation/fr_FR.json'},
+			          "data" : data,
+			          "fnCreatedRow": function( nRow, aData, iDataIndex ) {
 			                 $(nRow).attr('id',"adm"+aData.id);
 			          	},
 			          	"columns": [
@@ -129,18 +129,17 @@
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
-		<div class="panel-heading left">
-			<strong>Rechercher une sortie</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
-		</div>
+		<div class="panel-heading left">Rechercher une sortie</div>
+		
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
-     				<div class="form-group"><label><strong>Etat :</strong></label>
-         			 <select id='etat' class="form-control filter" style="width: 200px">
-             				 <option value="0">En cours</option>
-		                <option value="1">Validée</option>
-		            </select>
-     				  </div>		
+     			<div class="form-group"><label><strong>Etat :</strong></label>
+         	  <select id='etat' class="form-control filter">
+      				<option value="0">En cours</option>
+		          <option value="1">Validée</option>
+		        </select>
+     			</div>		
     		</div>
         <div class="col-sm-4">
         	<div class="form-group">
@@ -169,19 +168,19 @@
 				<table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
 	  				<thead class="thin-border-bottom thead-light">
 				      	<tr>
-					          <th rowspan="2" class="center"><h5>Patient</h5></th> 
-					          <th rowspan="2" class="center"><h5>Service</h5></th>
-					          <th rowspan="2" class="center"><h5>Date Entrée</h5></th>
-					          <th rowspan="2" class="center"><h5>Mode Entrée</h5></th>
-					          <th rowspan="2" class="center"><h5>Date Sortie</h5></th>
+					          <th rowspan="2" class="center">Patient</th> 
+					          <th rowspan="2" class="center">Service</th>
+					          <th rowspan="2" class="center">Date Entrée</th>
+					          <th rowspan="2" class="center">Mode Entrée</th>
+					          <th rowspan="2" class="center">Date Sortie</th>
 					          <th rowspan="2" class="center"><h5>Mode Sortie</h5></th>
 					          <th colspan="3" scope="colgroup" class="center"><h5>Hébergement</h5></th> <!-- merge four columns -->
 					          <th rowspan="2" class="center"><em class="fa fa-cog"></em></th>	
 				      	</tr>
 				      	<tr>
-				          <th scope="col" class="center"><h6><strong>Service</strong></h6></th>
-									<th scope="col" class="center"><h6><strong>Salle</strong></h6></th>
-									<th scope="col" class="center"><h6><strong>Lit</strong></h6></th>							
+				          <th scope="col" class="center">Service</th>
+									<th scope="col" class="center">Salle</th>
+									<th scope="col" class="center">Lit</th>							
 				      		</tr>
 	  				</thead>
 	  				<tbody>

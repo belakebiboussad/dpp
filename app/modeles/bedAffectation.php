@@ -8,7 +8,7 @@ class bedAffectation extends Model
 {
   public $timestamps = true;
 	protected $table = 'bedAffectation';
-  protected $fillable  = ['demande_id','lit_id'];
+  protected $fillable  = ['demande_id','lit_id','state'];//null en cours 1 temine
   public function Lit()
   {
   	return $this->belongsTo('App\modeles\Lit','lit_id');

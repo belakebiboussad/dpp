@@ -196,7 +196,7 @@ $(function(){
 				<div  class="col-sm-12 form-group">
 					<label for="specialite"><b>Spécialité:</b></label>
 					<select class="form-control" id="specialiteTick" name="specialite"  required>
-						<option value="" selected diasabled>Selectionner...</option>
+						<option value="" selected disabled>Selectionner...</option>
 						@foreach($specialites as $specialite)
 						<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
 						@endforeach

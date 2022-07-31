@@ -89,7 +89,7 @@
    <ul class="nav navbar-nav list-inline">
         <li class="list-inline-item" style="width: 300px;" >
             <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
-        {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}
+        {{ $hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->nom }}
         </li>
         <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
         <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>

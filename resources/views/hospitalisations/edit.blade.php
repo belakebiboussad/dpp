@@ -164,15 +164,15 @@
                </div>
                @endif
         </div>
-        @if((Auth::user()->role_id == 5) &&(isset($hosp->admission->id_lit)))    
+        {{-- @if((Auth::user()->role_id == 5))     --}}
         <div class="row">
           <div class="col-sm-12"><h4 class="header  lighter blue">Hébergement</h4></div>
         </div>
         <div class="row form group">
 	     <div class="col-xs-4">
 	        <label class="col-sm-4 control-label" for="serviceh">Service :</label>
-	        <div class="col-sm-8">
-	      		<select name="serviceh" class="selectpicker col-xs-12 col-sm-12 serviceHosp" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
+	        <div class="col-sm-8">{{-- @if(in_array(Auth::user()->role->id,[1])) --}}
+	      		<select name="serviceh" class="selectpicker col-xs-12 col-sm-12 serviceHosp" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}/>
 	            <option value="" selected disabled>Selectionnez le service</option>
 	            @foreach($services as $service)
 	            <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
@@ -185,7 +185,7 @@
 	      <div class="col-xs-4">
           <label class="col-sm-4 control-label" for="salle">Salle :</label>
           <div class="col-sm-8">
-            <select id="salle" name="salle" class="selectpicker col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
+            <select id="salle" name="salle" class="selectpicker col-xs-12 col-sm-12" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}>
               <option value="" selected disabled>Selectionnez la salle</option>      
               @foreach($hosp->admission->lit->salle->service->salles as $salle)
               <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >{{ $salle->nom }}</option>
@@ -196,7 +196,7 @@
         <div class="col-xs-4">
           <label class="col-sm-4 control-label" for="lit">Lit :</label>
           <div class="col-sm-8">
-            <select id="lit" name="lit" class="selectpicker col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
+            <select id="lit" name="lit" class="selectpicker col-xs-12 col-sm-12" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}>
               <option value="" selected disabled>Selectionnez le lit</option>      
               @foreach($hosp->admission->lit->salle->lits as $lit)
               <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >{{ $lit->nom }} </option>
@@ -205,7 +205,7 @@
           </div>  
         </div>
       </div>
-      @endif
+      {{--@endif --}}
        <div class="hr hr-dotted"></div>
       <div class="row">
         <div class="col-xs-12 center">

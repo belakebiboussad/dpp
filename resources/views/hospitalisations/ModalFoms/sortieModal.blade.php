@@ -5,7 +5,7 @@
 		    <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Sortie du patient</h4>
 		</div>
 		<div class="modal-body">
-		 	<input type="hidden" id="hospID" value="">
+		 	<input type="hidden" id="id" value="">
 	 		<div class="form-group row">
     				<label for="Date_Sortie"><strong>Date de sortie :</strong></label>
    				<input type="text" id="Date_SortieH" class="form-control date-picker"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" data-provide="datepicker" required/>
@@ -76,7 +76,8 @@
         </div>
       </div>    </div>
 		<div class="modal-footer">
-			<button type="submit" class="btn btn-info btn-xs btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save"></i>Enregistrer</button>
+			<button type="submit" class="btn btn-info btn-xs btn-submit" id ="saveCloturerHop" data-dismiss="modal">
+        <i class="ace-icon fa fa-save"></i>Enregistrer</button>
 	  	<button type="reset" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-close"></i>Annuler</button>
 		</div>
 	</div>
