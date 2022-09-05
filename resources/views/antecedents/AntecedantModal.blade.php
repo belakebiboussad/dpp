@@ -1,6 +1,6 @@
-<div id="antecedantModal" class="modal fade"><!-- aria-labelledby="AntecCrudModal"  aria-hidden="true" -->
+<div id="antecedantModal" class="modal fade">
 <div class="modal-dialog modal-lg">
-   	<div  id="" class="modal-content custom-height-modal">
+   	<div class="modal-content custom-height-modal">
 		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="AntecCrudModal">Ajouter un antécédent</h4>

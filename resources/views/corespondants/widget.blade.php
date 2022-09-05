@@ -16,11 +16,11 @@
         <thead>
           <tr>
             <th hidden></th>
-            <th class ="center"><strong>Nom</strong> </th>    <th class ="center"><strong>Prénom</strong></th>
-            <th class ="center"><strong>né(e) le</strong></th><th class ="center"><strong>Adresse</strong></th>
-            <th class ="center"><strong>Tél</strong></th><th class ="center"><strong>Qualité</strong></th>
-            <th class ="center"><strong>Type Pièce</strong></th><th class ="center"><strong>N°</strong></th>
-            <th class ="center"><strong>Date de délivrance</strong></th><th class="sorting_disabled center"><em class="fa fa-cog"></em></th>
+            <th class ="center sorting_disabled">Nom</th><th class ="center sorting_disabled">Prénom</th>
+            <th class ="center sorting_disabled">né(e) le</th><th class ="center sorting_disabled">Adresse</th>
+            <th class ="center sorting_disabled">Tél</th><th class ="center sorting_disabled">Qualité</th>
+            <th class ="center sorting_disabled">Type Pièce</th><th class ="center sorting_disabled">N°</th>
+            <th class ="center sorting_disabled">Date de délivrance</th><th class="sorting_disabled center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
         <tbody>

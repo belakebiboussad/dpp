@@ -134,6 +134,7 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
     else
       $specialite = Auth::user()->employ->Service->Specialite;
     $consts = consts::all();
+    //dd($hosp->admission->demandeHospitalisation);
     return view('hospitalisations.show',compact('hosp','consts','specialite'));
 /*if(isset(Auth::user()->employ->specialite)){return view('hospitalisations.show',compact('hosp','consts','specialite'));}else return view('hospitalisations.show',compact('hosp'));*/
   }

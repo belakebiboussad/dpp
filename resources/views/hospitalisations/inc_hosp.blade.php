@@ -1,6 +1,6 @@
 <div class="page-header" style="margin-top:-5px;"><h5><strong>Résumé du l'hospitalisation :</strong></h5></div>
 <div class="row">
-	<div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hospitalisation</span></strong></div>
+	<div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right"><span style="font-size:16px;">Hospitalisation</span></div>
 </div>
 <div class="row">
   <div class="col-sm-12">
@@ -34,7 +34,7 @@
 @if($hosp->etat_id == 1)
 <div class="space-12"></div>
 <div class="row">
-  <div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Sortie d'hospitalisation</span></strong></div>
+  <div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right"><span style="font-size:16px;">Sortie d'hospitalisation</span></div>
 </div>
 <div class="row">
   <div class="col-sm-12">
@@ -56,7 +56,7 @@
       <i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de sortie :</strong>&nbsp;&nbsp;
       @if(!(isset($hosp->modeSortie)))
           Domicile
-        @else
+      @else
           @switch($hosp->modeSortie)
             @case(0)
               Transfet
@@ -75,24 +75,42 @@
               @break
           @endswitch
         @endif
-    </li>  
-</ul>
+    </li>
+  </ul>
 </div>
 </div>
+   @if($hosp->modeSortie == 0)
+    <div class="row">
+      <div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right"><span style="font-size:16px;">Transfert</span></div>
+    </div>
+    <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i>Structure:&nbsp;&nbsp;
+      {{ $hosp->Transfert->structure}}
+    </li>
+     <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i>Motif du transfert:
+      {{ $hosp->Transfert->motif}}
+    </li>
+    @endif
+     @if($hosp->modeSortie == 2)
+    <div class="row">
+      <div class="col-xs-12 label label-lg label-blank arrowed-in arrowed-right"><span style="font-size:16px;">Décès</span></div>
+    </div>
+    @endif
 @endif
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-xs-12 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div>
+	<div class="col-xs-12 label label-lg label-success arrowed-in arrowed-right"><span style="font-size:16px;">Hébergement</span></div>
 </div>
 <div class="row">
   <div class="col-sm-12">
    <ul class="nav navbar-nav list-inline">
-        <li class="list-inline-item" style="width: 300px;" >
-            <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
-        {{ $hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->nom }}
-        </li>
-        <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
-        <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
+      <li class="list-inline-item" style="width: 300px;" >
+          <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
+      {{ $hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->nom }}
+      </li>
+      <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
+      <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
     </ul>
   </div>
 </div>

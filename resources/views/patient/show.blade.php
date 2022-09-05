@@ -29,17 +29,215 @@
               }
         });             
   }
+  function HommeConfcopy(id)
+  {
+    $.get('/hommeConfiance/'+id+'/edit', function (data) {
+      $('#patientId').val(data.id_patient);
+      $('#typeH option').each(function() {
+        if($(this).val() == data.type) 
+          $(this).prop("selected", true);
+      });  
+      $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+      $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+      $('#lien_par option').each(function() {
+        if($(this).val() == data.lien_par) 
+          $(this).prop("selected", true);
+      });
+      switch(data.type_piece)
+      {
+        case "0":
+          $('#CNI').prop('checked',true);
+          break;
+        case "1":
+          $('#Permis').prop('checked',true);
+          break;
+        case "2":
+          $('#Passeport').prop('checked',true);
+          break;
+        default:
+          break;
+      }
+      $('#num_piece').val(data.num_piece);
+      $('#date_piece_id').val(data.date_deliv);
+      $('#adresse_h').val(data.adresse);
+      $('#mobile_h').val(data.mob);
+      jQuery('#gardeMalade').modal('show');
+    });
+  }
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
 }).fail(function () {console.log("Could not connect to Hub.");});});*/// $('document').ready(function(){
 $(function(){
+    $('#listeGardes').DataTable({ 
+        colReorder: true,
+        stateSave: true,
+        searching:false,
+        'aoColumnDefs': [{
+          'bSortable': false,
+          'aTargets': ['nosort']
+        }],
+        "language": {
+                    "url": '/localisation/fr_FR.json'
+        },
+    });
+    $('#btn-addCores').click(function () { 
+        if( $('#EnregistrerGardeMalade').is(":hidden"))
+          $('#EnregistrerGardeMalade').show();
+        $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
+        $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
+    }); 
+    jQuery('body').on('click', '.show-modal', function () {
+      HommeConfcopy($(this).val());
+      jQuery('#EnregistrerGardeMalade').hide();
+      $('#CoresCrudModal').html("Détails du Correspondant(e)");
+      $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
+    });
+    jQuery('body').on('click', '.open-modal', function () {
+      HommeConfcopy($(this).val());
+      if( $('#EnregistrerGardeMalade').is(":hidden"))
+        $('#EnregistrerGardeMalade').show();
+      jQuery('#EnregistrerGardeMalade').val("update"); 
+      $('#CoresCrudModal').html("Editer un Correspondant(e)");
+       $('#gardeMalade').modal('toggle');
+    });
+    jQuery('body').on('click', '.delete-garde', function () {
+        var hom_id = $(this).val();
+        $.ajaxSetup({
+          headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+        });
+        $.ajax({
+            type: "DELETE",
+            url: '/hommeConfiance/' + hom_id,
+            success: function (data) {
+                $("#garde" + hom_id).remove();
+            }
+        });
+    });
+    $('#gardeMalade').on('hidden.bs.modal', function () {
+      $('#gardeMalade form')[0].reset();
+      $('#addGardeMalade *').prop('disabled', false);
+    });
+    $("#EnregistrerGardeMalade").click(function (e){
+        $('#gardeMalade').modal('toggle');
+        e.preventDefault();
+        var formData = {
+            _token: CSRF_TOKEN,
+            id_patient:$('#patientId').val(),
+            nom:$('#nom_h').val(),
+            prenom : $('#prenom_h').val(),
+            date_naiss : $('#datenaissance_h').val(),
+            type:$('#typeH').val(),
+            lien_par : $('#lien_par').val(),
+            type_piece : $("input[name='type_piece']:checked").val(),
+            num_piece : $('#num_piece').val(),
+            date_deliv : $('#date_piece_id').val(),
+            adresse : $('#adresse_h').val(),
+            mob : $('#mobile_h').val(),
+            created_by: $('#userId').val()
+        };
+        var state = jQuery('#EnregistrerGardeMalade').val();
+        var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+        if (state == "update") {
+          type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+        }
+        if (state == "add") {
+              ajaxurl ="{{ route('hommeConfiance.store') }}";
+        }
+        $('#addGardeMalade').trigger("reset");
+        $.ajax({
+          type: type,
+          url: ajaxurl,
+          data: formData,
+          dataType: 'json',
+          success: function (data) {
+              var lien =  "";
+              if($('.dataTables_empty').length > 0)
+              {
+                $('.dataTables_empty').remove();
+              }
+              switch(data.lien_par){
+                case "0":
+                      lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
+                      break;
+                case "1":
+                       lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
+                      break;
+                case "2":
+                      lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
+                      break;
+                case "3":
+                      lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
+                       break;
+                case "4":
+                      lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
+                      break;
+                case "5":
+                      lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
+                      break;
+                case "6":
+                      lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
+                      break; 
+                case "7":
+                       lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
+                      break;
+                case "8":
+                        lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
+                        break;              
+                case "9":
+                        lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
+                        break; 
+                case "10":
+                        lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
+                        break; 
+                case "11":
+                        lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
+                        break; 
+                case "12":
+                        lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
+                        break; 
+                case "13":
+                        lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
+                        break; 
+                default:
+                        break;
+              }
+              switch(data.type_piece)
+              {
+                  case "0":
+                         type='<span class="label label-sm label-success"><strong>Carte nationale d\'identité</strong></span>';
+                        break;
+                   case "1":
+                        type='<span class="label label-sm label-success"><strong>Permis de Conduire</strong></span>';
+                        break;
+                   case "2":
+                        type='<span class="label label-sm label-success"><strong>Passeport</strong></span>';
+                        break;
+                  default:
+                        break;
+              }
+              var dateLivr = (data.date_deliv != null)? data.date_deliv :'';
+              var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom
+                        + '</td><td>'+ data.date_naiss+'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>'
+                         + type + '</td><td>' + data.num_piece + '</td><td>' + dateLivr + '</td>';
+              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
+              homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+              homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              if (state == "add") 
+                $("#listeGardes tbody").append(homme);
+              else 
+                $("#garde" + hom_id).replaceWith(homme);          
+          },
+        }); 
+    }); 
     $("#accordion" ).accordion({
 	      collapsible: true ,
 	      heightStyle: "content",
 	      animate: 250,
 	      header: ".accordion-header"
-      }).sortable({
+    }).sortable({
 	      axis: "y",
 	      handle: ".accordion-header",
 	      stop: function( event, ui ) {

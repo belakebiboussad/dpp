@@ -47,7 +47,7 @@ class hospitalisation extends Model
       {
             return $this->belongsTo('App\modeles\ModeHospitalisation','modeHosp_id');
        }
-    public function medecin()//medecin traitant
+    public function medecin()
     {
       return $this->belongsTo('App\modeles\employ','medecin_id');
     }
@@ -55,4 +55,8 @@ class hospitalisation extends Model
     {/*foreach($this->visites as $v) { if(isset($v->prescreptionconstantes)) return $v;    }*/
       return $this->visites->first();
     } 
+    public function Transfert()
+    {
+      return $this->hasOne('App\modeles\Transfert','hosp_id');
+    }
 }

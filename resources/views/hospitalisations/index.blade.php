@@ -169,13 +169,17 @@
                       $('.transfert').addClass('hidden');
                 }
                 if ($(this).val()==="2"){
-              if($('.deces').hasClass('hidden'))
-                  $('.deces').removeClass('hidden');
-          }else{
-            if(! ($('.deces').hasClass('hidden')))
-                $('.deces').addClass('hidden');
-            } 
-     });
+                  if($('.deces').hasClass('hidden'))
+                    $('.deces').removeClass('hidden');
+                  if(!($('.diagSortie').hasClass('hidden')))
+                    $('.diagSortie').addClass('hidden');
+                }else{
+                  if(! ($('.deces').hasClass('hidden')))
+                    $('.deces').addClass('hidden');
+                   if($('.diagSortie').hasClass('hidden'))
+                    $('.diagSortie').removeClass('hidden');
+                } 
+          });
      $('#saveCloturerHop').click(function () {
           var formData = {
             _token: CSRF_TOKEN,
