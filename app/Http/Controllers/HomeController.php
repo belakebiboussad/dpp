@@ -150,7 +150,7 @@ class HomeController extends Controller
                   $filename = "LORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                   $pdf = PDF::loadView('consultations.EtatsSortie.lettreOrientationMedicalePDF', compact('etat','obj','date','etab'));
                   break;
-               case "8"://Bulltin Admission
+                case "8"://Bulltin Admission
                       if($className == "rdv_hospitalisation")
                       { 
                               $rdv=rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find( $objId);
@@ -162,11 +162,11 @@ class HomeController extends Controller
                       }
                       $filename = "BA-". $patient->Nom."-".$patient->Prenom.".pdf";
                       break;
-              case "9"://Billet de salle
+                case "9"://Billet de salle
                           if($className == "rdv_hospitalisation")
                           { 
-                                $patient = $obj->demandeHospitalisation->consultation->patient;
-                                $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etab'));
+                            $patient = $obj->demandeHospitalisation->consultation->patient;
+                            $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etab'));
                           }else
                           {
                             $patient = $obj->consultation->patient;
@@ -174,7 +174,12 @@ class HomeController extends Controller
                           }
                           $filename = "BS-". $patient->Nom."-".$patient->Prenom.".pdf";
                         break;
-              default:
+                 case "10"://CERTIFICAT DECES
+                  $filename = "CERTDECE-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                  $dece = $obj->Dece;
+                  $pdf = PDF::loadView('hospitalisations.EtatsSortie.certificatDecePDF', compact('etat','obj','dece','date','etab'));
+                  break;
+                default:
                   return Response::json(['html'=>"unknown"]);
                   break;
             }

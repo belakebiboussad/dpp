@@ -60,8 +60,7 @@
             </tr>
             <tr>
               <td>
-                <h5 class="rect">
-                  <strong>&nbsp;&nbsp;Matricule :</strong>&nbsp; 
+                <h5 class="rect"><strong>&nbsp;&nbsp;Matricule :</strong>&nbsp;
                   @if($obj->patient->Type != 5 )
                     <span>{{ $obj->patient->assure->matricule }}</span>
                   @endif

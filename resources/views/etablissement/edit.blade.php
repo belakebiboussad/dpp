@@ -10,14 +10,19 @@
 			<div class="widget-box widget-primary" >
 				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Etablissement hospitalier</strong></h5></div>
 				<div class="widget-body">
-					<div class="widget-main">
-						<div class="space-12 hidden-xs"></div>
+					<div class="widget-main"><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="nom">Nom de l'établissement :</label>
+							<label class="col-sm-3 control-label no-padding-right" for="nom">Nom :</label>
 							<div class="col-sm-9">
 								<input type="text" name="nom"  class="col-xs-12 col-sm-12"  value = "{{ $etab->nom }} " />
 							</div>
 						</div><div class="space-12  hidden-xs"></div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="nom">Acronyme :</label>
+              <div class="col-sm-9">
+                <input type="text" name="acronyme"  class="col-xs-12 col-sm-12"  value = "{{ $etab->acronyme }} " />
+              </div>
+            </div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom">Adresse:</label>
 							<div class="col-sm-9"><input type="text" name="adresse" class="col-xs-12 col-sm-12" value="{{ $etab->adresse }}" /></div>
@@ -44,7 +49,7 @@
 				<img src="{{ url('/img/'.$etab->logo) }}" alt ="" height="30%" width="30%" id ="logoimg"/>
 			</div>
 			<div class="form-group">
-				<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ $etab->logo }}" /> 
+				<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ url('/img/'.$etab->logo) }}" /> 
 			</div>
 		</div>
 		</div><div class="space-12  hidden-xs"></div>	

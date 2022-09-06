@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-lg">
 		<div  id="" class="modal-content custom-height-modal">
 	  	<div class="modal-header">
-	    		<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Générer un document patient</h4>
+	    		<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Imprimé un Etat de Sortie</h4>
 	  	</div>
 	  	<div class="modal-body">
 	  		<input type="hidden" id="className" value=""><input type="hidden" id="objID" value="">
@@ -10,13 +10,8 @@
 			  <h2 class="list-title blue bolder">Sélectionner un document</h2>
 			  <div class="hr hr-dotted"></div>
 			  <ol class="list" id ="etatsList">
-			{{--	  @foreach($etatsortie as $etat)
-			    <li>
-	 <button class="list-link btn btn-group selctetat" value ="{{ $etat->id}}">{{ $etat->nom}}</button> 
-			    <a href="#" class="list-link btn btn-group selctetat" value ="{{ $etat->id}}" target="_blank">{{ $etat->nom}}</a>
-          </li><br/>
-			    @endforeach
-          --}}
+{{--@foreach($etatsortie as $etat)<li><button class="list-link btn btn-group selctetat" value ="{{ $etat->id}}">{{ $etat->nom}}</button> 
+<aclass="list-link btn btn-group selctetat" value ="{{ $etat->id}}" target="_blank">{{ $etat->nom}}</a></li><br/>@endforeach--}}
 			  </ol>
     	</section>   
 	  	</div>

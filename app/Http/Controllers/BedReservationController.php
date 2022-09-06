@@ -89,19 +89,15 @@ class BedReservationController extends Controller
    $resrvs = [];
     //$start = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
     $lit = lit::FindOrFail( $request->lit_id);
-    $start = $today = Carbon::now()->toDateString();
-   // $start = Carbon::now();//egale now
-    $end = Carbon::now()->addDay(3)->toDateString();
-      //get reservation of this bed between this day
+    $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now
+    $end = Carbon::now()->addDay(3)->toDateString(); //get reservation of this bed between this day
     $free = $lit->isFree(strtotime($start),strtotime( $end));
     $reservs = $lit->getReservation(strtotime($start), strtotime($end));
-    //dd(strtotime($start));
     $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($start){ 
                    $q->where('date','>=',$start);
           })->whereHas('lit',function($q) use($id){ 
                    $q->where('id', $id);
-          })->get();
-  //dd($beds);      
+          })->get();      
 foreach ($beds as $res) {
 if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)) || ((strtotime($res->rdvHosp->date) >= 
       $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))

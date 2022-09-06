@@ -15,9 +15,6 @@
         text-align: left;
         padding: 20px 20px 20px 20px; 
       }
-      .marge {
-        margin-left:5px;
-      }
       .borderv {
         border: 1px solid #000; 
       }
@@ -45,8 +42,10 @@
           <h5 class="center"> <strong>PARTIE A REMPLIR PAR LE PRATICIEN</strong></h5>
         </section>
         <section class="borderv">
-          <div class="marge">
-            Je soussigné(e), <br>
+          <div class="tab">
+            Je soussigné(e),
+          </div>
+          <div>
             Madame, Mademoiselle, Monsieur : <span>{{ $obj->medecin->full_name }}</span><br/><span>
             Docteur en Médecine et exerçant en tant que .................................au sein  de {{ $etab->nom }} ,
             Certifie avoir été informé que {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et 
@@ -57,7 +56,7 @@
             <br><br>
             <table>
               <tr>
-                <td>Fait à EHSN, le {{ $date }}</td>
+                <td>Fait à  $etab->acronyme, le {{ $date }}</td>
                 <td></td>
                 <td>Signature</td>
               </tr>
@@ -70,8 +69,10 @@
           <h5 class="center"><strong>PARTIE A REMPLIR PAR LE PATIENT</strong></h5>
         </section>
         <section class="borderv"> 
-        <div class="marge">
-          Je soussigné(e), <br>
+        <div class="tab">
+          Je soussigné(e),
+        </div>
+        <div>
           {{ $obj->patient->getCivilite() }} {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et déclare vouloir 
           quitter définitivement l'établissement le  {{ $date }}
           à :............................heures </span><br>
@@ -91,7 +92,7 @@
           <br><br>
           <table>
             <tr>
-              <td>Fait à EHSN, le {{ $date }}</td>
+              <td>Fait à {{ $etab->acronyme}}, le {{ $date }}</td>
               <td></td>
               <td>Signature</td>
             </tr>

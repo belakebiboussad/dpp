@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transfert extends Model
 {
-   	public $timestamps = false;
+  public $timestamps = false;
  	protected $fillable = ['structure','motif','hosp_id'];
  	public function hospitalisation()
 	{

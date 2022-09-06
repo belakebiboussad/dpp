@@ -171,13 +171,13 @@
                 if ($(this).val()==="2"){
                   if($('.deces').hasClass('hidden'))
                     $('.deces').removeClass('hidden');
-                  if(!($('.diagSortie').hasClass('hidden')))
-                    $('.diagSortie').addClass('hidden');
+                  if(!($('.ndeces').hasClass('hidden')))
+                    $('.ndeces').addClass('hidden');
                 }else{
                   if(! ($('.deces').hasClass('hidden')))
                     $('.deces').addClass('hidden');
-                   if($('.diagSortie').hasClass('hidden'))
-                    $('.diagSortie').removeClass('hidden');
+                   if($('.ndeces').hasClass('hidden'))
+                    $('.ndeces').removeClass('hidden');
                 } 
           });
      $('#saveCloturerHop').click(function () {
@@ -201,7 +201,7 @@
               formData.cause = $("#cause").val();
               formData.date = $("#date").val();
               formData.heure = $("#heure").val();
-              formData.medecin = $("#medecin").val();
+              formData.med_id = $("#medecin").val();
           } 
           if(!($("#Date_Sortie").val() == ''))
           {

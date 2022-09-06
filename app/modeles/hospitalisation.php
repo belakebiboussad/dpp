@@ -59,4 +59,8 @@ class hospitalisation extends Model
     {
       return $this->hasOne('App\modeles\Transfert','hosp_id');
     }
+     public function Dece()
+    {
+      return $this->hasOne('App\modeles\Dece','hosp_id');
+    }
 }

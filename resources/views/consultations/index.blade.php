@@ -2,31 +2,32 @@
 @section('page-script')
  <script >
   function getConsultations(field,value)
-{
+  {
   	$.ajax({
          	url : '{{ URL::to('getConsultations') }}',
-                data: {    
-                      "field":field,
-                      "value":value,
-              },
-              dataType: "json",// recommended response type
+          data: {    
+                "field":field,
+                "value":value,
+          },
+          dataType: "json",// recommended response type
         	success: function(data) {
-                      $(".numberResult").html(data.length);
-                       $("#liste_conultations").DataTable ({
-                               "processing": true,
-                                "paging":   true,
-                               "destroy": true,
-                               "ordering": true,
-                              "searching":false,
-                              "info" : false,
-                              "responsive": true,
-                               "language":{"url": '/localisation/fr_FR.json'},
-                              "data" : data,// "scrollX": true,
-                              "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                                      $(nRow).attr('id',"consult"+aData.id);
-                              },
+                  
+                  $(".numberResult").html(data.length);
+                  $("#liste_conultations").DataTable ({
+                        "processing": true,
+                        "paging":   true,
+                        "destroy": true,
+                        "ordering": true,
+                        "searching":false,
+                        "info" : false,
+                        "responsive": true,
+                         "language":{"url": '/localisation/fr_FR.json'},
+                        "data" : data,// "scrollX": true,
+                        "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                            $(nRow).attr('id',"consult"+aData.id);
+                        },
                             "columns": [
-/*{ data:null,title:'#', "orderable": false,searchable: false,render: function ( data, type, row ) { if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" /><span class="lbl"></span>';}return data;}, className: "dt-body-center", },*/
+/*{data:null,title:'#',"orderable": false,searchable:false,render: function ( data, type, row ){if(type === 'display'){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'"/><span class="lbl"></span>';}return data;},className: "dt-body-center", },*/
                                       { data: "date" , title:'Date' },
                                       { data: null,
                                         render: function ( data, type, row ) {
@@ -59,7 +60,6 @@
               {"targets": 4 ,  className: "dt-head-center" },
               {"targets": 5 ,  className: "dt-head-center dt-body-center" },
             ]
-
         });
       }
 		});

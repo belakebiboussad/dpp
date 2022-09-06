@@ -11,10 +11,10 @@ class EtablissementControler extends Controller
 	 public function index() 
 	 {
 	 	$etab = Etablissement::first();
-	 	if(isset($etab))
-	 	{//dd(Storage::get($etab->logo));//dd(Storage::url($etab->logo));
-	 		return view('etablissement.show',compact('etabl'));
-	 	}else
+	 
+    if(isset($etab))
+	      return view('etablissement.show',compact('etab'));
+	 	else
 	 		return view('etablissement.add');
 	 }
 	public function store(Request $request) 
@@ -29,27 +29,23 @@ class EtablissementControler extends Controller
 	   		$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
 	 	  	$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
 	 	}
-	 	$etab =Etablissement::create([
-	    	"nom"=>$request->nom,
-	   	 	"adresse"=>$request->adresse,
-	    	"tel"=>$request->tel,
-	    	"tel2"=>$request->tel2,
-	    	"tutelle"=>$request->tutelle,
-	    	"logo"=>$filename,
-	 	]);
+    $input = $request->all();
+    $input['logo'] = $filename;
+    $etab = Etablissement::create($input); 
 		return redirect()->action('EtablissementControler@show',$etab->id);
 	}
 	public function edit(Etablissement $etab)
-	 {
-	   	return view('etablissement.edit',compact('etab'));
-	 }
-	 public function show(Etablissement $etab)
-	 {
+	{
+    $etab = Etablissement::first();
+	  return view('etablissement.edit',compact('etab'));
+	}
+	public function show(Etablissement $etab)
+	{
 		return view('etablissement.show',compact('etab'));
-	 }
+	}
 	public function update(Request $request,$id)
 	{	
-  		$etab = Etablissement::FindOrFail($id);
+  	$etab = Etablissement::FindOrFail($id);
 		$filename="";
 		if($request->hasfile('logo')){
 			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
@@ -58,23 +54,20 @@ class EtablissementControler extends Controller
 	  			$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
 	  			File::delete('img/'.$etab->logo);//Storage::disk('public')->delete($etab->logo);
 			}	  	
-   		}	
-		$etab ->update([
-  		"nom"=>$request->nom,
- 	 		"adresse"=>$request->adresse,
-  		"tel"=>$request->tel,
-  		"tel2"=>$request->tel2,
-  		"tutelle"=>$request->tutelle,
-  		"logo"=>$filename,
-		]);
+   	}	
+    $input = $request->all();
+    $input['logo'] = $filename;
+    $etab->update($input); 
 		return redirect()->action('EtablissementControler@index');
   }
-  public  function destroy(Etablissement $etab)
+  public  function destroy( $id)
   {
-		if ($etab->logo != "") { 	//Storage::delete($etab->logo);	
-   			Storage::disk('public')->delete($etab->logo);
-  		}
-  		$etab->delete();//$etab = Etablissement::destroy($etab->id);
+		$etab = Etablissement::FindOrFail($id);
+    if ($etab->logo != "") { 	//Storage::delete($etab->logo);	
+   		Storage::disk('public')->delete($etab->logo);
+  	}
+  	
+    $etab->delete();//$etab = Etablissement::destroy($etab->id);
 		return view('etablissement.add');
 	}
   	

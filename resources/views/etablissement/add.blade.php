@@ -13,9 +13,15 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom">Nom:</label>
 							<div class="col-sm-9">
-								<input type="text" name="nom"  class="col-xs-12 col-sm-12" />
+								<input type="text" name="nom" class="col-xs-12 col-sm-12" />
 							</div>
 						</div><div class="space-12  hidden-xs"></div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="nom">Acronyme:</label>
+              <div class="col-sm-9">
+                <input type="text" name="acronyme" class="col-xs-12 col-sm-12" />
+              </div>
+            </div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom">Adresse:</label>
 							<div class="col-sm-9"><input type="text" name="adresse" class="col-xs-12 col-sm-12"  /></div>

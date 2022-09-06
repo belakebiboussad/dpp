@@ -32,11 +32,7 @@
           et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
         </p>
       </div>
-      <div class="row sign">
-        <div class="col-sm-12">
-         <span><strong> Date :</strong> {{ $date }}</span>
-        </div>
-      </div>
+      <div class="sign"><span><strong> Date :</strong> {{ $date }}</span></div>
       <div class="footer">
         <div class="textCenter">Certificat établit pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre
         </div>

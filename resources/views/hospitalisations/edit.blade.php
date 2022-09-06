@@ -128,16 +128,16 @@
         </div>
         <div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Hospitalisation</h4></div></div>
         <div class="row">
-              <div class="form-group col-xs-4">
-                      <label class="col-sm-5 control-label" for="mode"><strong>Mode d'hospitalisation :</strong></label>
-                      <div class="col-sm-7">
-                              <select  name="modeHosp_id" class="col-xs-12 col-sm-12" required>
-                                     <option value="">Selectionnez...</option>
-                                    @foreach($modesHosp as $mode)
-                                      <option value="{{ $mode->id }}" @if($hosp->modeHosp_id == $mode->id) selected @endif>{{ $mode->nom}}</option>
-                                    @endforeach
-                              </select>
-                      </div>
+          <div class="form-group col-xs-4">
+            <label class="col-sm-5 control-label" for="mode">Mode d'hospitalisation :</label>
+            <div class="col-sm-7">
+              <select  name="modeHosp_id" class="col-xs-12 col-sm-12" required>
+                     <option value="">Selectionnez...</option>
+                    @foreach($modesHosp as $mode)
+                      <option value="{{ $mode->id }}" @if($hosp->modeHosp_id == $mode->id) selected @endif>{{ $mode->nom}}</option>
+                    @endforeach
+              </select>
+            </div>
                </div>
               <div class="form-group col-xs-4">
                       <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant  :</label>
@@ -204,9 +204,7 @@
             </select>
           </div>  
         </div>
-      </div>
-      {{--@endif --}}
-       <div class="hr hr-dotted"></div>
+      </div><div class="hr hr-dotted"></div>
       <div class="row">
         <div class="col-xs-12 center">
           <button class="btn btn-info btn-xs" type="submit"> <i class="ace-icon fa fa-save"></i>Enregistrer</button>

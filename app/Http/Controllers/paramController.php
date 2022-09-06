@@ -13,6 +13,7 @@ use App\modeles\appareil;
 use App\modeles\TypeExam;
 use App\modeles\Vaccin;
 use App\modeles\Parametre;
+use App\modeles\ModeHospitalisation;
 use Config;
 class paramController extends Controller
 {
@@ -36,7 +37,8 @@ class paramController extends Controller
         $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
         $specappreils = json_decode($specialite->appareils, true);
-        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils'));
+        $modesHosp = ModeHospitalisation::all(); 
+        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
         break;
       case 4:
       case 8:
@@ -53,9 +55,7 @@ class paramController extends Controller
         $nomv = $param->nom;
         $param->update(['value'=>$request->$nomv ]);
       }else
-      {
-         $param->update(['value'=>null ]);
-      }
+         $param->update(['value'=>null ]); 
     }
     switch (Auth::user()->role_id) {
 /*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
@@ -74,6 +74,19 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
         $input['appareils'] = $request->appareils;
         $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
+        if(Auth::user()->role_id == 13)
+        {
+          $modesHosp = ModeHospitalisation::all();
+          foreach($modesHosp as $mode) {
+            //$mode = ModeHospitalisation::FindOrFail($id);
+           if(in_array($mode->id, $request->hospModes))
+              $mode->update(["selected"=>1]);
+            else
+              $mode->update(["selected"=>null]);
+
+          }
+        } 
+
         break;
     }  
     return redirect()->action('paramController@index');

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use App\modeles\service;
 use App\modeles\Transfert;
+use App\modeles\Dece;
 use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
@@ -40,9 +41,9 @@ class HospitalisationController extends Controller
       }
       public function index(Request $request)
       {
-       if($request->ajax())  
-       { 
-        if(Auth::user()->role_id != 9) {
+        if($request->ajax())  
+        { 
+          if(Auth::user()->role_id != 9) {
                 if($request->field != 'Nom' && ($request->field != 'IPP'))
                 {
                       if($request->value != "0")
@@ -79,11 +80,11 @@ class HospitalisationController extends Controller
                                 })->get();
             }    
              return $hosps; 
-         }  else
+         }else
          {
           $etatsortie = Etatsortie::where('type','0')->get();
           $chapitres = chapitre::all();
-           $etab = Etablissement::first();
+          $etab = Etablissement::first();
           $medecins = Auth::user()->employ->Service->employs;
           if(Auth::user()->role_id != 9 )//9:admission
                   $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
@@ -133,10 +134,8 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
       $specialite = Auth::user()->employ->Specialite;
     else
       $specialite = Auth::user()->employ->Service->Specialite;
-    $consts = consts::all();
-    //dd($hosp->admission->demandeHospitalisation);
+    $consts = consts::all();  
     return view('hospitalisations.show',compact('hosp','consts','specialite'));
-/*if(isset(Auth::user()->employ->specialite)){return view('hospitalisations.show',compact('hosp','consts','specialite'));}else return view('hospitalisations.show',compact('hosp'));*/
   }
   /**
    * Show the form for editing the specified resource.
@@ -150,7 +149,7 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
     $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
       $q->whereIn('role_id', [1, 13, 14]);
     })->get();
-    $modesHosp = ModeHospitalisation::all(); 
+    $modesHosp = ModeHospitalisation::where('selected',1)->get(); 
     $services =service::where('hebergement',1)->get();
     return view('hospitalisations.edit',compact('hosp','services','employes','modesHosp'));//->with('hosp', $hosp)->with('services',$services);
   }
@@ -163,19 +162,24 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
    */
      public function update(Request $request, $id)
      {
+        $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
-          $hosp = hospitalisation::find($id);
           $input = $request->all();
           $input['hosp_id'] = $hosp->id ;
           $affect = $hosp->admission->demandeHospitalisation->bedAffectation->update(['state'=>1]);
           $hosp->admission->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>null]);
           if($request->modeSortie == "0")
             $transfert = Transfert::create($input);
+          if($request->modeSortie == "2")
+            $dece = Dece::create($input);
           $hosp->update($request->all());
           return $hosp;
         }else
+        {
+          $hosp->update($request->all());
           return redirect()->action('HospitalisationController@index');  
+        }
     }
   /**
    * Remove the specified resource from storage.

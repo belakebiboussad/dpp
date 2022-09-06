@@ -59,8 +59,7 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
     {
-          $etab = Etablissement::first();
-          //$specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
+          $etab = Etablissement::first(); //$specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
               if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
                       $specialite = Auth::user()->employ->Specialite;
                 else
@@ -250,16 +249,22 @@ class ConsultationsController extends Controller
      *//* public function choix() { return view('consultations.add'); }*/
       public function getConsultations(Request $request)
       {
-             if($request->ajax())  
-              {         
-                       if($request->field == 'date')
-                              $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
-                                                                              ->where(trim($request->field), trim($request->value))->get();
-                      else
-                             $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')->whereHas('patient',function($q) use ($request){
-                                                                                    $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                                                                           })->get();
-                        return $consults;
-              }
+        $service_id = Auth::user()->employ->service_id;
+        if($request->ajax())  
+        {         
+          if($request->field == 'date')
+            $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
+                                    ->whereHas('medecin.Service',function($q) use($service_id){ 
+                                               $q->where('id',$service_id);
+                                    })->where(trim($request->field), trim($request->value))->get();
+          else
+            $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
+                                    ->whereHas('medecin.Service',function($q) use($service_id){ 
+                                               $q->where('id',$service_id);
+                                    })->whereHas('patient',function($q) use ($request){
+                                        $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                                    })->get();
+            return $consults;
+        }
        }
 }
