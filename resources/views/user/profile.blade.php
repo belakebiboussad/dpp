@@ -108,7 +108,7 @@
         <input type="hidden" name="user_id" value="{{ $user->id }}">
         <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}"> </div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Mot de passe Actuel:<span style="color: red">*</span></dtrong></label>
+          <label class="col-md-4 control-label" align="right"><strong>Mot de passe Actuel:<span class="text-danger">*</span></dtrong></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="curPassword" name="curPassword" placeholder="taper le mot de passe actuel" required/>
             <small class="help-block"></small>
@@ -116,14 +116,14 @@
         </div>
         <div class="space-12"></div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Nouveau mot de passe:<span style="color: red">*</span></strong></label>
+          <label class="col-md-4 control-label" align="right"><strong>Nouveau mot de passe:<span class="text-danger">*</span></strong></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="taper un nouveau mot de passe" required />
             <small class="help-block"></small>
           </div>
         </div><div class="space-12"></div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Confirmer nouveau mot de passe:<span style="color: red">*</span></strong></label>
+          <label class="col-md-4 control-label" align="right"><strong>Confirmer nouveau mot de passe:<span class="text-danger">*</span></strong></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmer mot de passe" required />
             </div>

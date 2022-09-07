@@ -67,7 +67,7 @@
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="mb-3">
-            <label for="num_piece">Délivré le :<span style="color: red">*</span></label>
+            <label for="num_piece">Délivré le :<span class="text-danger">*</span></label>
             <input class="form-control date-picker" id="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
           </div>
           <div class="mb-3">

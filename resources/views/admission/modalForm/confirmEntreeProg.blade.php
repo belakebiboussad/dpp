@@ -8,12 +8,12 @@
     <div class="modal-body">
       <div class="form-group">
           <div>
-           <h3><span style="color: blue;">{{$rdv->demandeHospitalisation->consultation->patient->full_name}}</span></h3>
+           <h3><span class="text-danger">{{$rdv->demandeHospitalisation->consultation->patient->full_name}}</span></h3>
          </div>  
       </div>
       <div class="form-group">
         <div>
-           <h3 style="color: red;">Le &quot;<span> {{ (\Carbon\Carbon::parse($rdv->date))->format('d/m/Y') }}</span>&quot;
+           <h3 class="text-danger">Le &quot;<span> {{ (\Carbon\Carbon::parse($rdv->date))->format('d/m/Y') }}</span>&quot;
             &nbsp;à &nbsp;<span>{{ Date("H:i")}}</span>
            </h3>
          </div>  

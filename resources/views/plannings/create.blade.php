@@ -45,12 +45,12 @@
                 <div class="form-group row">
                     <label for="comment" class="col-sm-2 col-form-label">La demande</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="comment" id="comment" cols="30" rows="5" value="3mois" required></textarea>
+                        <textarea class="form-control" name="comment" id="comment" cols="30" rows="5" value="" required></textarea>
                     </div>
                 </div>
             </fieldset>
             <div class="form-group col text-center">
-                <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+                 <button type="submit" class="btn btn-sm btn-primary mt-3"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
             </div>
         </form>
     </div>

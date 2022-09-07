@@ -47,17 +47,17 @@ $(function(){
 				<div class="row">
 					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label no-padding-right" for="nom">Nom :</label>
+							<label class="col-sm-3 control-label" for="nom">Nom :</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12" type="text" name="nom" value="{{ $user->employ->nom }}"  required/>
+								<input class="form-control" type="text" name="nom" value="{{ $user->employ->nom }}"  required/>
 							</div>
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}" >
-							<label class="col-sm-3 control-label no-padding-right" for="prenom">Prénom :</label>
+							<label class="col-sm-3 control-label" for="prenom">Prénom :</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12" type="text" name="prenom" value="{{ $user->employ->prenom }}" required/>
+								<input class="form-control" type="text" name="prenom" value="{{ $user->employ->prenom }}" required/>
 							</div>
 						</div>
 					</div>
@@ -65,25 +65,25 @@ $(function(){
 				<div class="row">
 						<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label no-padding-right" for="datenaissance">Né(e) le :</label>
+							<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}"  data-date-format="yyyy-mm-dd" autocomplete="off" required/>
+								<input class="form-control date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}"  data-date-format="yyyy-mm-dd" autocomplete="off" required/>
 								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 							</div>	
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label no-padding-right" for="lieunaissance">Né(e) à :</label>
+							<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à :</label>
 							<div class="col-sm-9">
-									<input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  required/>
+									<input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  required/>
 							</div>	
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
+					<div>
 						<div class="col-sm-3 ml-auto align-top">
 							<label class="inline control-label pull-right" style="padding-top: 0px;">Genre :</label>
 						</div>
@@ -101,7 +101,7 @@ $(function(){
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('nss') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label no-padding-right" for="nss">NSS :</label>
+						<label class="col-sm-3 control-label" for="nss">NSS :</label>
 						<div class="col-sm-9"><input type="text" class="form-control nssform" name="nss" value="{{ $user->employ->NSS }}" ></div>
 						</div>
 					</div>
@@ -110,15 +110,15 @@ $(function(){
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label no-padding-right" for="adresse">Adresse :</label>
+							<label class="col-sm-3 control-label" for="adresse">Adresse :</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12" type="text" name="adresse" value="{{ $user->employ->Adresse }}" />
+								<input class="form-control " type="text" name="adresse" value="{{ $user->employ->Adresse }}" />
 							</div>	
 						</div>	
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group {{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-padding-right no-wrap" for="mobile">Tél mob :</label>
+							<label class="col-sm-5 control-label no-wrap" for="mobile">Tél mob :</label>
 							<div class="col-sm-7">
 							<input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  required />
 							</div>	
@@ -137,7 +137,7 @@ $(function(){
 				  <div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-padding-right " for="mat">Matricule :</label>
+							<label class="col-sm-5 control-label" for="mat">Matricule :</label>
 							<div class="col-sm-7">
 							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->Matricule_dgsn }}"  maxlength =5 minlength =5>
 							</div>	
@@ -145,11 +145,10 @@ $(function(){
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('service') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-padding-right " for="service">Service :</label>
+							<label class="col-sm-5 control-label" for="service">Service :</label>
 							<div class="col-sm-7">
 								<select class="form-control" name="service">
-									<option value="" disabled>Selectionner</option>		
-
+									<option value="" disabled>--Selectionner--</option>		
 									@foreach($services as $key=>$value)
 									<option value="{{ $key }}" {{ ($user->employ->service_id == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 									@endforeach
@@ -159,7 +158,7 @@ $(function(){
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('specialite') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-padding-right " for="specialite">Spécialité :</label>
+							<label class="col-sm-5 control-label" for="specialite">Spécialité :</label>
 							<div class="col-sm-7">
 							<select class="form-control" name="specialite">
 								<option value="" >Selectionner</option>
@@ -171,26 +170,26 @@ $(function(){
 						</div>
 					</div>	   
 				</div>
-				<div class="form-actions center">
-					<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-save icon-on-left "></i>Enregistrer</button>
+				<div class="form-group col text-center">
+					<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
 				</div>
 			</form>
 		</div>
 	</div><!-- col-sm-8 -->
-	<div class="col-sm-3 col-xs-12 well well-sm">	<!-- style="text-align: center;" -->
-		<div class="w-120 p-3 mb-2" style="height:45px;"><h4 class="center"><strong>Informations d'authentification</strong></h4></div>
+	<div class="col-sm-3 col-xs-12 well well-sm">
+		<div class="w-120 p-3 mb-2" ><h4 class="center">Informations d'authentification</h4></div>
 		<form class="form-horizontal" action="{{route('users.update',$user->id)}}" method="POST">
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}
   		<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="username">Login	:</label>
+				<label class="col-sm-4 control-label" for="username">Login	:</label>
 				<div class="col-sm-8 input-group">
 				  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
 				 	<input type="text" name="username" placeholder="Username" value="{{ $user->name }}" class="col-xs-11 col-sm-11" required/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="email">Email :</label>
+				<label class="col-sm-4 control-label" for="email">Email :</label>
 				<div class="col-sm-8 input-group">
 			  	<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
 			    <input type="email" name="email" value="{{ $user->email }}" class="col-xs-11 col-sm-11"/>
@@ -198,7 +197,7 @@ $(function(){
 			  </div>
 			</div>
 			<div class="form-group">
-			<label class="col-sm-4 control-label no-padding-right" for="role">Rôle :</label>
+			<label class="col-sm-4 control-label" for="role">Rôle :</label>
 			<div class="col-sm-8 input-group">
 				<div class="input-group-addon"><i class="menu-icon fa fa-tags"></i></div>
 			  <select class="col-xs-11 col-sm-11" name="role" required>
@@ -209,7 +208,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label no-padding-right " for="active">Compte :</label>
+			<label class="col-sm-4 control-label" for="active">Compte :</label>
 			<div class="col-sm-8 input-group">
 				<input type="checkbox"  {{ ($user->active) ?'checked':'' }} Disabled>
 				@if( $user->active)
@@ -235,13 +234,13 @@ $(function(){
 			<div class=" col-xs-10 col-sm-10  col-sm-offset-1">
 				<div class="form-group">
 					@if(Auth::user()->is(4))
-						<button id="btnResetPassword" class="btn btn-sm btn-primary col-xs-12 col-sm-12center" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
+						<button id="btnResetPassword" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
 					@endif
 				</div>
 			</div>
 		</div>
 		<div class="form-actions center">
-			<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
+			<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp;
 			<button class="btn  btn-sm btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
   </form>

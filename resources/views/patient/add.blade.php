@@ -74,11 +74,10 @@
 			 		<div class="tab-content">
 						<div id="Assure" class="tab-pane in active">@include("assurs.addAssure")</div>
 						<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
-					</div>
-					<div class="hr hr-dotted"></div>
+					</div><div class="hr hr-dotted"></div>
 					<div class="row">
 						<div class="col-sm-12 center">
-							<button class="btn btn-info btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
+							<button class="btn btn-primary btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
 							<button class="btn btn-warning btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 						</div>
 					</div>	

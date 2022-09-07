@@ -123,10 +123,10 @@
 		  <input type="tel" name="mobile2" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
 	</div>
 	<div class="form-group col-sm-3">
-		<label class="control-label col-sm-4 col-xs-4" for="type">Type :<span style="color: red">*</span></label>
+		<label class="control-label col-sm-4 col-xs-4" for="type">Type :<span class="text-danger">*</span></label>
 		<div class="col-sm-8 col-xs-8">
 			<select class="form-control" id="type" name="type" onchange="showTypeAdd(this.value,1);">
-				<option value="" disabled selected>------</option>
+				<option value="" disabled selected>-- Selectionner --</option>
 				<option value="0">Assure</option>
 				<option value="1">Conjoint(e)</option>
 				<option value="2">Pere</option>

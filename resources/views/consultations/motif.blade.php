@@ -10,7 +10,7 @@
 </div>
 <div class="row">	
 	<div class="form-group {{ $errors->has('motif') ? 'has-error' : '' }}">
-		<label class="col-sm-4 control-label no-padding-right" for="motif">Motif de consultation : <span style="color: red">*</span></label> 
+		<label class="col-sm-4 control-label no-padding-right" for="motif">Motif de consultation : <span class="text-danger">*</span></label> 
 		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control" required/></div>
 	</div>
 </div>
@@ -40,7 +40,7 @@
                   {{-- end added --}}
 <div class="row">	
 	<div class="form-group">
-		<label class="col-sm-4 control-label" for="resume">Résumé :<span style="color: red">*</span></label>  
+		<label class="col-sm-4 control-label" for="resume">Résumé :<span class="text-danger">*</span></label>  
 		<div class="col-sm-8"><textarea class="form-control" id="resume" name="resume" placeholder="Résumé..." required></textarea></div>
 	</div>
 </div>

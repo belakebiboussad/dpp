@@ -14,7 +14,7 @@
 			 	<div class="col-sm-12">
 				 	<h3>
 						<span style="color: orange;"><strong>{{  (\Carbon\Carbon::parse($demande->consultation->date))->format('d/m/Y') }}</strong>
-						</span>&nbsp;à &nbsp;<span style="color: red;"><strong>{{ Date("H:i") }}</strong></span>
+						</span>&nbsp;à &nbsp;<span class="text-danger"><strong>{{ Date("H:i") }}</strong></span>
 				 	</h3>
 			 	</div>	
 			</div>

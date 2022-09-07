@@ -10,7 +10,7 @@
 			     <input type="hidden" name=""  id="crrId" value="">
      		    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span style="color: red">*</span></b></label>
+			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span class="text-danger">*</span></b></label>
 					       <textarea class="form-control a" id="conclusion" rows="10" required></textarea>
 			      </div>	
 			    </div>
