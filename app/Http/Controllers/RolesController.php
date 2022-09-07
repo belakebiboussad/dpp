@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\rol;
+use Session;
 class RolesController extends Controller
 {
     /**
@@ -18,7 +19,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles = rol::all();
-        return view('role.index_role', compact('roles'));
+        return view('role.index', compact('roles'));
     }
 
     /**
@@ -28,7 +29,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        return view('role.create_role');
+        return view('role.create');
     }
 
     /**
@@ -46,7 +47,8 @@ class RolesController extends Controller
               "role"=>$request->rolename,
            ]);
          $roles = rol::all();
-        return view('role.index_role',compact('roles'));
+         Session::flash('message','Rôle crée avec succès'); 
+        return view('role.index',compact('roles'));
     }
 
     /**
@@ -58,7 +60,7 @@ class RolesController extends Controller
     public function show($id)
     {
           $role = rol::FindOrFail($id);
-           return view('role.show_role', compact('role'));
+           return view('role.show', compact('role'));
     }
 
     /**
@@ -89,7 +91,6 @@ class RolesController extends Controller
        $role->update([
          "role"=>$request->rolename,
        ]);
-     
       return redirect(Route('role.index'));   
     }
 
@@ -99,8 +100,12 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+      public function destroy($id)
+      {
+            $role = rol::find($id);
+            $role->delete();
+            $roles = rol::all();
+             Session::flash('message','Rôle supprimé avec succès');
+              return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
+        }
 }

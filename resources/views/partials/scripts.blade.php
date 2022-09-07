@@ -51,6 +51,7 @@
 <script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('/js/2bcba094d2.js')}}"></script> --}}
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   var base64Img = null; 

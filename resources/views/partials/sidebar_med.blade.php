@@ -71,15 +71,11 @@
                   <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
                 </a><b class="arrow"></b>
                 <ul class="submenu">
-                  <li>
-                    <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
-                  </li>
-                  <li>
-                    <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b>
-                  </li>
-                  <li>
-                    <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
-                  </li>
+                      <li>
+                        <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
+                      </li>
+                      <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
+                       <li><a href="{{ route('planning.create') }}"><i class="fa fa-calendar-plus"> Demande de congés / recupération</i> </a><b class="arrow"></b></li>
                 </ul>
           </li>
         <li>

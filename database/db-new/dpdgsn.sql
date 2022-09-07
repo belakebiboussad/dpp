@@ -1,13 +1,14 @@
--- phpMyAdmin SQL Dump
--- version 5.1.0
+﻿-- phpMyAdmin SQL Dump
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 06 sep. 2022 à 16:09
--- Version du serveur :  5.7.23
--- Version de PHP : 7.2.10
+-- Généré le :  mer. 07 sep. 2022 à 19:20
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dpdgsn`
+-- Base de données :  `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -2639,7 +2640,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=1076 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1077 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -11761,6 +11762,26 @@ INSERT INTO `patient_vaccin` (`patient_id`, `vaccin_id`, `date`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `plannings`
+--
+
+DROP TABLE IF EXISTS `plannings`;
+CREATE TABLE IF NOT EXISTS `plannings` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `date` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `date_end` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` tinyint(1) DEFAULT NULL COMMENT 'null:congé,1:recuperation,2congres ,3 autre',
+  `state` tinyint(1) DEFAULT NULL COMMENT 'null:''en cours'',1:''vlid&,0:annulé''',
+  PRIMARY KEY (`id`),
+  KEY `fk_plznning_employ` (`employee_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `prescription_constantes`
 --
 
@@ -12469,7 +12490,7 @@ CREATE TABLE IF NOT EXISTS `rols` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rols`
@@ -12891,7 +12912,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'infcar@hop.dz', 1, 3, 'KrhnMY6VzvVtigUQrx1cr0BTUwyG6mah1NMKZ10iXFJh5UV2FQCvWGnscYBt', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'Ne7KdQM1HisCqRKAhOodoWaYv8YVXUzTFS2XM5nSrwgUVl05VpyOVCJOfHqF', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'o2Fgnsq9WJh6UOBYfifjUw9aSTh3ArQRu9PxG6Uu2t5gz0Yk7vYrY1pSq5rL', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, '4YqIxqj0O5PgIPJL3cU5Ta7V2BJNngDHbZx8m20Un0TJ1wO9OlvBtBxs7WyO', 1),
 (29, 'surChir', '$2y$10$gHCiRJBS4469OzGufzfWq.K8Kw3rNGvM/6x.MgPZMQyj5Wvjo6qPu', 'surint@hop.dz', 80, 5, 'iMgr3I0Te8VzpYDokNZ2d6T6Vy9tBgAYRFr0M14rYuwKhR6SJUMrBhZswWct', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, '7Sa2ZYYWR7a0b4flgbq8CG4R41k86yG5d9IFmvKa20AhvggCatigYmaq1nzE', 1),
@@ -12907,7 +12928,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '8J3IJJ8yzTym9eFSYeHJKTeSddOO4u9FTIxMqX3LG7PdsjB9HAX23QcsYMAN', 1),
 (45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'XBfCG4DQVEqm0Sv6u7fEdWw6TT0DW6ywvmFnbZxTMalzPmPdqDvK1RZ40U0J', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 14, '3AEzWlT4gfoANUjc4ges5Mgs9rYBf3A1Tlk9NTkYr4i6U0sThdC1ZyEijPKf', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'FFadyRrcYtHDzCVfvcuwUSJ7YDQLUk9osgPUm1umVhmE3fjRQXEvo1ogRW1C', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'Lbv89izCxWNozKk6rCv4u8eaG0EJofuHlpi85Xqe3XLNL3vNYXqKaTenRpcc', 1),
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, '6sxLE5tDMQvj5GtbNGrMjwpwNuUmmhgAhA2DjHhJGEYJ6aQTBCEGqMtivKML', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'dLol7fWGgvdalPNqgtlCAtL88OLXeht7LyhVsTWp4I6xAuOYr275hantdgSA', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'Zbrk8t5ySQHWoGBMY0arq79kxWtnUpLGIzBiQfvyA45zDORvBLJPfVyVdHxe', 1),
@@ -12926,7 +12947,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (70, 'chefchir', '$2y$10$CrAZwPEvTnjQLo3khuwEA.w.VYe0KTeGllF7xPPRshsYZezrAopC2', NULL, 125, 14, 'bnRFGtslrmCoJu9qw0IlCEmlqKqKSca7lKHmRLH2RlD5oncMevE42ydwat65', 1),
 (71, 'medChirur', '$2y$10$UNMV.EukP1JpyuYdC8cQmefrV9PToLm0z4XDNxC7PqjcACCXhwUTq', NULL, 126, 1, 'mCO3GcTXAtgAR7fKQrHGDygj6p1sKK59SJ3RB0hzsqLAclN63m0YC2uRcJLf', 1),
 (72, 'delColMedInt', '$2y$10$WAD7XNbM8QLXKvyKPxXhBOUJ/cRogMZTShjzOXO7fqyHSLeJaHoeC', NULL, 127, 6, '5eJYbyKmNOzGMT2wALc98418ebrNDWWXv88nYp8Ro7sdGAMw4t4WlOCs1oHa', 1),
-(73, 'sec', '$2y$10$OwnkKkGGx28ppr7YEQTJGutQS.Mjrq03NQSpRJGLXAu0lFsOuUT3O', NULL, 128, 15, 'LeXA1ZHAvTcWdjYQX3JG40o2Ie8GpRjI2INwvNpFbQKXcSTVKlUJUpxVohQC', 1);
+(73, 'sec', '$2y$10$OwnkKkGGx28ppr7YEQTJGutQS.Mjrq03NQSpRJGLXAu0lFsOuUT3O', NULL, 128, 15, 'LSjeyuYY5L6DjEchabZ9nb63BkHc5iz3SWCgCW1VZH3fCIMahyBqkCX0vQ8d', 1);
 
 -- --------------------------------------------------------
 
@@ -13238,8 +13259,7 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where ((`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) and isnull(`rdvs`.`etat`)) order by `rdvs`.`date` desc ;
 
 -- --------------------------------------------------------
 
@@ -13248,8 +13268,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `nextrdvsold`;
 
-DROP VIEW IF EXISTS `nextrdvsold`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) order by `rdvs`.`date` desc ;
 
 -- --------------------------------------------------------
 
@@ -13258,8 +13277,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `nextrdvsoldnew`;
 
-DROP VIEW IF EXISTS `nextrdvsoldnew`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(ifnull(`patients`.`Dat_Naissance`,'19700101'),'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where ((`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) and isnull(`rdvs`.`etat`)) order by `rdvs`.`date` desc ;
 
 --
 -- Contraintes pour les tables déchargées
@@ -13480,6 +13498,12 @@ ALTER TABLE `parametres`
 ALTER TABLE `patient_vaccin`
   ADD CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_vaccin` FOREIGN KEY (`vaccin_id`) REFERENCES `vaccins` (`id`);
+
+--
+-- Contraintes pour la table `plannings`
+--
+ALTER TABLE `plannings`
+  ADD CONSTRAINT `fk_plznning_employ` FOREIGN KEY (`employee_id`) REFERENCES `employs` (`id`);
 
 --
 -- Contraintes pour la table `prescription_constantes`

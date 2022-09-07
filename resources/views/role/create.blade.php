@@ -17,15 +17,8 @@
 					</div>
 				</div>
 				<div class="center">
-              			<button class="btn btn-info" type="submit" style="margin-top:10px">
-	                		<i class="ace-icon fa fa-save bigger-110"></i>
-	                		Enregistrer
-	              		</button>
-	              		&nbsp; &nbsp; &nbsp;
-	              		<button class="btn" type="reset" style="margin-top:10px">
-	                		<i class="ace-icon fa fa-undo bigger-110"></i>
-	                		Réinitialiser
-	              		</button>
+              			<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save "></i>Enregistrer</button>&nbsp; 
+	                	<button class="btn btn-sm btn-warning" type="reset"> <i class="ace-icon fa fa-undo"></i>Annuler </button>
             	</div>
 			</form>
 	</div>

@@ -235,14 +235,14 @@ $(function(){
 			<div class=" col-xs-10 col-sm-10  col-sm-offset-1">
 				<div class="form-group">
 					@if(Auth::user()->is(4))
-						<button id="btnResetPassword" class="btn btn-sm btn-danger col-xs-12 col-sm-12center" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-undo bigger-110"></i>Changer le mot de passe </button>
+						<button id="btnResetPassword" class="btn btn-sm btn-primary col-xs-12 col-sm-12center" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
 					@endif
 				</div>
 			</div>
 		</div>
 		<div class="form-actions center">
 			<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
-			<button class="btn  btn-sm btn-danger" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
+			<button class="btn  btn-sm btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
   </form>
 	</div>	
