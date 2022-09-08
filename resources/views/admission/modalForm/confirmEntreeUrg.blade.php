@@ -23,8 +23,8 @@
 		{{ csrf_field() }}
 			<input id="demande_id" type="text" name="demande_id" value="{{$demande->id}}" hidden>
 			<div class="modal-footer">
-				<button  type="submit" class="btn btn-success" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
+				<button  type="submit" class="btn btn-success" ><i class="ace-icon fa fa-check"></i>Valider</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 			</div> 
 		</form>
 	</div>

@@ -3,11 +3,11 @@
 	<div class="row"><h4><strong>Consultations des détails du service :</strong></h4></div>
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="widget-box" id="widget-box-1">
+			<div class="widget-box">
 				<div class="widget-header"><h5 class="widget-title"><strong>Détails du service :</strong></h5>
 					<div class="pull-right">
 						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des services</a>
-						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
+						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-danger btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
 					</div>
 				</div>
 				<div class="widget-body">

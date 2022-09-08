@@ -170,6 +170,28 @@
               }
           });
         }
+        function updateDureePrevue()
+        {
+          if(! isEmpty($('.date').val())){// if($(".date").val() != undefined) {
+              var dEntree = $('.date').datepicker('getDate');
+              var dSortie = $('.date_end').datepicker('getDate');
+              var iSecondsDelta = dSortie - dEntree;
+              var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+              if(iDaysDelta < 0)
+              {
+                iDaysDelta = 0;
+                $(".date_end").datepicker("setDate", dEntree); 
+              }
+              $('.numberDays').val(iDaysDelta );  
+          }else
+            $(".date").datepicker("setDate", $('.date_end').datepicker('getDate')); 
+        }
+        function addDays()
+        {
+          var datefin = new Date($('.date').val());
+          datefin.setDate(datefin.getDate() + parseInt($('.numberDays').val(), 10));
+          $(".date_end").val(moment(datefin).format("YYYY-MM-DD"));        
+        }
         $(function () {
           $( "#Position" ).change(function() {
                 if($(this).val() != "Activité")

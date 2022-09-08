@@ -2,39 +2,36 @@
 @section('title','Gestion Rendez_Vous & Lits')
 @section('page-script')
 <script type="text/javascript">
-$(function(){
-	 $(".addRdvh").on('click', function(event) {
-	    $('#demande_id').val($(this).val());
+  var nowDate = new Date();
+  var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+   $(function(){
+	  $(".addRdvh").on('click', function(event) {
+      $('#demande_id').val($(this).val());
+      $(".date").datepicker("setDate", now);     
+      $(".date_end").datepicker("setDate", now);
+      $(".numberDays").val(0);
       $('#rdvHModal').modal('show');
 	 	  $('#rdvHModal').on('hidden.bs.modal', function (e) {
         $('#rdvHModal form')[0].reset();
       });
-	 });
+	  });
+    $(".numberDays").on('click keyup', function() {
+      if( ! isEmpty($('.serviceHosp').val()))
+        $(".serviceHosp").prop("selectedIndex", 0).change();
+      addDays();
+    });
+    $(".date").change(function(){
+      if( ! isEmpty($('.serviceHosp').val()))
+        $(".serviceHosp").prop("selectedIndex", 0).change();
+      $('.numberDays').val(0);
+      addDays();
+    });
+    $(".date_end").change(function(){
+      if($(".serviceHosp").val() != "")
+         $(".serviceHosp").prop("selectedIndex", 0).change();
+      updateDureePrevue();
+    })
 })
-function updateDureePrevue()
-{
-  if(! isEmpty($('#dateEntree').val())){
-		if($(".serviceHosp").val() != "")
-      $(".serviceHosp").prop("selectedIndex", 0).change();
-    var dEntree = $('#dateEntree').datepicker('getDate');
- 		var dSortie = $('#dateSortiePre').datepicker('getDate');
-		var iSecondsDelta = dSortie - dEntree;
-		var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
-		if(iDaysDelta < 0)
-		{
-			iDaysDelta = 0;
-			$("#dateSortiePre").datepicker("setDate", dEntree); 
-		}
-		$('#numberDays').val(iDaysDelta );	
-	}else
-    $("#dateEntree").datepicker("setDate", $('#dateSortiePre').datepicker('getDate'));
-  
-}
-var now = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + ('0'+ new Date().getDate()).slice(-2);
-$('document').ready(function(){
- 	$("#dateEntree").datepicker("setDate", now);			
-  $("#dateSortiePre").datepicker("setDate", now);
-});
 </script>
 @endsection
 @section('main-content')

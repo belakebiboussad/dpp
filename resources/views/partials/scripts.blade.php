@@ -69,21 +69,11 @@
     }
   }
   $(document).ready(function(){
-    $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 60,
-            minTime: '08',
-            maxTime: '17:00pm',
-            defaultTime: '08:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-    });
+/* $('.timepicker').timepicker({timeFormat: 'HH:mm',minuteStep: 60,//minTime: '08', maxTime: '17',defaultTime: '08:00', startTime: '08:00',dynamic: true,dropdown: true,scrollbar: true,showMeridian: false});*/   
       $('.timepicker1').timepicker({
-              minuteStep:30,
-               minTime: '08',
-               maxTime: '18',
+              minuteStep:15,
+              minTime: '08',
+              maxTime: '18',
               defaultTime: '08:00',   
               startTime: '08:00',
               showMeridian: false
@@ -498,7 +488,7 @@
           $(this).prev().focus();
       });
       $( function() {
-        $(".ltnow").datepicker( "option", "maxDate", new Date ); //diable future date
+        $(".ltnow").datepicker( "option", "maxDate", new Date ); //disable future date
       }); 
       //or change it into a date range picker
       $('.input-daterange').datepicker({autoclose:true});

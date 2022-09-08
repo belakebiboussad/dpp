@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h4><strong>Liste des rôles :</strong></h4></div>
+<div class="page-header"><h4><strong>Liste des rôles :</strong></h4></div>
  @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -21,7 +21,7 @@
 			<thead class="thin-border-bottom">
 				<tr>
 					<th>N°</th >
-	   				<th>Nom</th><th class="center"><em class="fa fa-cog"></em></th>
+	   			<th>Nom</th><th class="center"><em class="fa fa-cog"></em></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,11 +30,11 @@
 				<td  width="10%">{{ ++ $i }}</td>
 				<td width="80%">{{ $role->role }}</td>
 				<td width="10%" class="center">
-					<div   class="hidden-sm hidden-xs btn-group">
-                            			<a width="50%" class="btn btn-xs btn-success" href="/role/show/{{$role->id}}">
-                                			<i  width="50%" class="ace-icon fa fa-hand-o-up"></i></a>
+					<div class="hidden-sm hidden-xs btn-group">
+            <a width="50%" class="btn btn-xs btn-success" href="/role/show/{{$role->id}}">
+                <i  width="50%" class="ace-icon fa fa-hand-o-up"></i></a>
 						<a href="{{ route('role.edit', $role->id) }}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil "></i></a>
-                                             <a href="{{route('role.destroy',$role->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+            <a href="{{route('role.destroy',$role->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
                                                     <i class="ace-icon fa fa-trash-o bigger-120"></i></a>
                            			</div>
 				</td>

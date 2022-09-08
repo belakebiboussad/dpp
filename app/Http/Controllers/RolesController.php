@@ -71,10 +71,9 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = rol::FindOrFail($id);
-        return view('role.edit', compact('role'));
+      $role = rol::FindOrFail($id);
+      return view('role.edit', compact('role'));
     }
-
     /**
      * Update the specified resource in storage.
      *

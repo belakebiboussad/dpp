@@ -11,10 +11,31 @@ class Planning extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'employee_id', 'date', 'date_end', 'type','desc','state'
+    public const TYPE = [
+      '' => 'Congés',
+      1 => 'Récupération',
+      2 => 'Congrès et séminaires',
+      3 => 'Autre'
     ];
-
+    public const STATES = [
+      ''=> 'en Cours',
+      0 => 'Annule',
+      1 => 'Valide'
+    ];
+    protected $fillable = [
+        'employee_id', 'date', 'heure','date_end','heure_end', 'type','desc','state'
+    ];
+    public function getStateAttribute()
+    {
+     return self::STATES[ $this->attributes['state'] ];
+    }
+    public function getTypeAttribute()
+    {
+      return self::TYPE[ $this->attributes['type'] ];
+    }
+    public static function getStateID($state) {
+      return array_search($state, self::STATES); 
+    }
     /**
      * Get the Employee
      */

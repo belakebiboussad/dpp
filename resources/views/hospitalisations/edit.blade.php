@@ -2,42 +2,18 @@
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
-  var dEntree = $('#dateEntree').datepicker('getDate'); 
+  var dEntree = $('.date').datepicker('getDate'); 
   $(function(){  
-    $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 60,
-            minTime: '08',
-            maxTime: '16:00pm',  // defaultTime: '09:00',  
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-    });
   	$('.filelink' ).click( function( e ) { e.preventDefault(); });
     updateDureePrevue();
-  	$('#numberDays').on('click keyup', function() {
-       var jsDate = $('#dateEntree').datepicker('getDate');
-    	jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
-    	var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
-    	$("#dateSortiePre").datepicker("setDate", dateEnd);    
-    });  
+  	$('.numberDays').on('click keyup', function() {
+      addDays();
+    });
+    $(".date_end").change(function(){
+      updateDureePrevue();
+    })  
 	});
-	function updateDureePrevue()
-	{
-		if($("#dateEntree").val() != undefined) {
- 				var dEntree = $('#dateEntree').datepicker('getDate');
-     		var dSortie = $('#dateSortiePre').datepicker('getDate');
-  			var iSecondsDelta = dSortie - dEntree;
-  			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
-  			if(iDaysDelta < 0)
-  			{
-  				iDaysDelta = 0;
-  				$("#dateSortiePre").datepicker("setDate", dEntree); 
-  			}
-  			$('#numberDays').val(iDaysDelta );	
-		}
-	}
+
 </script>
 @endsection
 @section('main-content')
@@ -92,7 +68,7 @@
                 <div class="form-group col-xs-4">
                   	<label class="col-sm-4 control-label" for="Date_entree">Date :</label>
                    	<div class="col-sm-8">
-                      <input class="col-xs-12 col-sm-12 date-picker" id="dateEntree" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
+                      <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
                     </div> 
         	</div>
 		<div class="form-group col-xs-4">
@@ -102,9 +78,9 @@
 		        </div>
         	</div>
         	<div id = "numberofDays" class="form-group col-xs-4">
-          	<label class="col-sm-4 control-label" for="numberDays">Durée :</label>
+          	<label class="col-sm-4 control-label">Durée :</label>
            	<div class="col-sm-8">
-		          <input class="col-xs-10 col-sm-10" id="numberDays" name="" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+		          <input class="col-xs-10 col-sm-10 numberDays" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 		           <label for=""><small>&nbsp;nuit(s)</small></label>
 		        </div>  
         	</div>
@@ -114,8 +90,8 @@
                 <div class="form-group col-xs-4">
         	          <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
         	          <div class="col-sm-8">
-        	            <input class="col-xs-10 col-sm-10 date-picker" id="dateSortiePre" name="Date_Prevu_Sortie" type="text" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
-        	            <button class="btn btn-sm filelink" onclick="$('#dateSortiePre').focus();"><i class="fa fa-calendar"></i></button>            
+        	            <input class="col-xs-10 col-sm-10 date-picker date_end" name="Date_Prevu_Sortie" type="text" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
+        	            <button class="btn btn-sm filelink" onclick="$('.date_end').focus();"><i class="fa fa-calendar"></i></button>            
         	          </div>
 	        </div>
 		<div class="form-group col-xs-4">

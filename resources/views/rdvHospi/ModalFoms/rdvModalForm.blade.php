@@ -10,13 +10,13 @@
         <input type="hidden" name="demande_id" id="demande_id"  class="demande_id">
         <input type="hidden"  class="affect" value="0">
       <div class="modal-body">
-               <div class="form-group">
-                        <label class="control-label" for="dateEntree">Date entrée :</label>
-                        <div class="input-group">
-                            <input type="text" name ="dateEntree" id="dateEntree" class="date-picker form-control"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
-                            <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-                        </div>
-               </div>
+         <div class="form-group">
+                  <label class="control-label" for="dateEntree">Date entrée :</label>
+                  <div class="input-group">
+                      <input type="text" name ="dateEntree" class="date-picker form-control date"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+                  </div>
+         </div>
                <div class="form-group">
                         <label class="control-label" for="heure">Heure entrée </label>
                         <div class="input-group">
@@ -27,14 +27,14 @@
                    <div class="form-group">
                         <label class="control-label" for="numberDays">Durée :</label>
                         <div class="input-group">
-                          <input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
+                          <input min="0" max="50" value="0" class="form-control numberDays" type="number" required>
                            <span class="input-group-addon">nuit(s)</span>      
                         </div> 
                      </div>
                      <div class="form-group">
                         <label class="control-label" for="dateSortiePre">Date sortie :</label>
                         <div class="input-group">
-                            <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd" autocomplete ="off" onchange="updateDureePrevue()" required>
+                            <input type="text" name ="dateSortiePre" class="date-picker form-control date_end"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
                             <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
                         </div>
                       </div> 

@@ -86,26 +86,9 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-      function addDays()
-      {
-        var datefin = new Date($('#dateEntree').val());
-        datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
-        $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));        
-      }
       $(function(){
         $(".filelink" ).click( function( e ) {
             e.preventDefault();  
-        });
-        $("#dateSortie").attr('readonly', true);
-        $("#dateEntree").change(function(){
-          $('#numberDays').val(0); addDays();
-          if( ! isEmpty($('.serviceHosp').val()))
-            $(".serviceHosp").prop("selectedIndex", 0).change();
-        });
-        $("#numberDays").on('click keyup', function() {
-          if( ! isEmpty($('.serviceHosp').val()))
-            $(".serviceHosp").prop("selectedIndex", 0).change();
-          addDays();
         });
         $(".serviceHosp").change(function(){
           if($(this ).val() != "")

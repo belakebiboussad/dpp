@@ -9,17 +9,7 @@
     $( "#RDVForm" ).submit(function( event ) {  
       $("#dateSortiePre").prop('disabled', false);
     });
-    $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 15,
-            minTime: '08',
-            maxTime: '17:00pm',
-            defaultTime: '09:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-    });  //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	});
 </script>
 @endsection

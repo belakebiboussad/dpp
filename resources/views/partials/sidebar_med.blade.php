@@ -67,7 +67,7 @@
           </ul>
         </li>
         <li>
-                <a href="#" class="dropdown-toggle">
+        <a href="#" class="dropdown-toggle">
                   <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
                 </a><b class="arrow"></b>
                 <ul class="submenu">
@@ -75,14 +75,13 @@
                         <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
                       </li>
                       <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
-                       <li><a href="{{ route('planning.create') }}"><i class="fa fa-calendar-plus"> Demande de congés / recupération</i> </a><b class="arrow"></b></li>
                 </ul>
           </li>
         <li>
-                <a href="#" class="dropdown-toggle">
-                     <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
-                </a><b class="arrow"></b>
-                <ul class="submenu">
+          <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+            </a><b class="arrow"></b>
+             <ul class="submenu">
                      <li>
                             <a href="{{ route('demandehosp.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a> <b class="arrow"></b>
                      </li>
@@ -102,14 +101,14 @@
         </li>
         @endif
         @if(Auth::user()->is(14))
-        <li class="">
+        <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
             <b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
           <ul class="submenu">
-            <li class="">
+            <li>
               <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
             </li>
             <li>
@@ -119,6 +118,17 @@
         </ul>
         </li>
         @endif
+        <li>
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-calendar" aria-hidden="true"></i><span class="menu-text">Plannings</span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+          <b class="arrow"></b>
+          <ul class="submenu">
+            <li><a href="{{ route('planning.create') }}"><i class="menu-icon fa fa-plus purple"></i> Demande de congés / recupération</i> </a><b class="arrow"></b></li>
+
+          </ul>
+        </li>
         @if(in_array(Auth::user()->role->id,[13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
