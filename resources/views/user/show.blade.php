@@ -84,11 +84,11 @@
 		<div id="info-compte" class="tab-pane"><div class="space-12"></div> 
 			<h4 class="header blue bolder">Informations du compte</h4>
 			<div class="row">
-				<div class="form-group col-xs-12 col-sm-4">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label class="col-sm-4 control-label  text-right">Nom d'utilisateur :</label>
 					<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
 				</div>
-				<div class="form-group col-xs-12 col-sm-4">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label class="col-sm-4 control-label  text-right">Rôle :</b></label>
 					<div class="col-sm-8"><label class="blue">{{ $user->role->role }}</label></div>
 				</div>
