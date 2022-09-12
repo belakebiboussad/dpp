@@ -471,7 +471,7 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
           </a>
         </li>
       </ul>
-      <div class ="tab-content no-border"><!-- tyle = "border-style: none;" -->
+      <div class ="tab-content no-border">
           <div role="tabpanel" class = "tab-pane active" id="Interogatoire">@include('consultations.Interogatoire')</div>
           <div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
           <div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>  

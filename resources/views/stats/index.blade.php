@@ -76,21 +76,29 @@
 @endsection
 @section('main-content')
 <div class="page-content">
+   {{-- <div class="row"><div class="col-sm-12 center"> <h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
+        </div></div>--}}
+    <div class="page-header">Tableau du Board</div>
     <div class="row">
-        <div class="col-sm-12 center">
-            <h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
+      <div class="col-lg-3 col-md-6 col-xs-12">
+            <div class="widget">
+                <div class="widget-body">
+                    <div class="widget-icon orange pull-left">
+                        <i class="fa fa-desktop"></i>
+                    </div>
+                    <div class="widget-content pull-left">
+                        <div class="title">14</div>
+                        <div class="comment">Lits</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="space-12"></div>
-
-    <div class="space-12"></div>
-<div class="row">
-  <div class="col-sm-12 infobox-container">
-   
-     <div class="infobox infobox-red">
-      <div class="infobox-icon">
-      <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
-      </div>
+    <div class="row">
+      <div class="col-sm-12 infobox-container">
+      <div class="infobox infobox-red">
+      <div class="infobox-icon"><i class="menu-icon fa fa-bed" aria-hidden="true"></i> </div>
       <div class="infobox-data">
         <span class="infobox-data-number">{{ App\modeles\lit::all()->count() }}</span>
         <div class="infobox-content"><b>Lits</b></div>
@@ -111,7 +119,7 @@
         <div class="col-sm-12">
             <div class="widget-box transparent">
                 <div class="widget-header widget-header-flat widget-header-small">
-                    <h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail">Resultats: </h5>
+                    <h5 class="widget-title"></h5>
                     <label for=""><span class="badge badge-info numberResult"></span></label>
                     <label for=""><span class="badge badge-info numberResultt"></span></label>
 
@@ -121,11 +129,8 @@
                   <div class = "panel panel-default" >
                  <div class = "panel-header" > Tableau de bord </div>
                  <div class = "panel-body" >
-                   
-                    <canvas id = "canvaslit"  > </canvas>
-
-                 
-                      </div >
+                    <canvas id = "canvaslit"> </canvas>
+                  </div >
 
 
             </div >
