@@ -156,12 +156,7 @@ class AssurController extends Controller
       if($handle != null)
       {
         $assure = $handle->SelectPersonnel(trim('12122'),trim(''));//10246 3M534
-        $enfants = explode ( '|' , $assure->Enfants);
-        // foreach ($enfants as $key => $enfant)
-        // {
-        //   dd(str_replace($assure->Nom, "",$enfant));    
-        // }
-        // begin
+        $enfants = explode ( '|' , $assure->Enfants);/* foreach ($enfants as $key => $enfant){dd(str_replace($assure->Nom, "",$enfant));}begin*/
         $patientId = $this->patientSearchByfirstName($assure->Prenom,$assure->NSS);
         $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
         $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
@@ -198,9 +193,8 @@ class AssurController extends Controller
     }
     public function search(Request $request)
     {
-      try {
-          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network dll
+      try {//$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+          $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network dll
           $output=""; $ayants="";
           $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));
           if($assure->Nom != null)
@@ -208,8 +202,10 @@ class AssurController extends Controller
             $action = ""; 
             $positions = array("Révoqué", "Licencié", "Démission", "Contrat résilié");
             $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
-            $service = utf8_encode($assure->Service);
-            $date =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
+            $service = utf8_encode($assure->Service);//$date =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
+            //$date =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
+            $date = \Carbon\Carbon::createFormat('d/m/Y',$assure->date_Naissance);
+            $date = $date->format('Y-m-d');
             $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
             switch(($assure->SituationFamille{0})){
               case "M"  :
@@ -220,7 +216,6 @@ class AssurController extends Controller
                     $sf = "C";
                     $civ ="Célibataire(e)";
                     break; 
-                     
               case "D"  :
                     $sf = "D";
                     $civ ="Divorcé(e)";
@@ -254,7 +249,6 @@ class AssurController extends Controller
             $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'.$date.'</td><td>'.$sexe.'</td><td>'.$civ.'</td><td>'
                     .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'
                     .$assure->Matricule.'</td><td>'.utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
-
             if(!in_array(utf8_encode($assure->Position), $positions))//1
             {    
               if($assure->Conjoint != ''){
