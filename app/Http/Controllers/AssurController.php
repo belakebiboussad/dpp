@@ -31,11 +31,7 @@ class AssurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-      public function create()
-      {
-        $grades = grade::all();
-        return view('assurs.add',compact('grades')); 
-      }
+/*public function create(){$grades = grade::all();return view('assurs.add',compact('grades'));}*/
     /**
      * Store a newly created resource in storage.
      *
@@ -148,9 +144,9 @@ class AssurController extends Controller
     { 
       //J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!DLL_CDTA_My//I:/MessPrograms/program.net/com/GRH/GRH/bin/Debug/GRH.DLL 
       //vrai derniere dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-      $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
+      //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
       //dgsn network dll,path=J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!Last_DGSN_DLL//I:/MessPrograms/program.net/Pgm-Laptop/GRH_DLL/GRH_DLLL/bin/x64/Debug
-      //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
+      $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
       //teste network dll
       //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
       if($handle != null)
@@ -193,7 +189,8 @@ class AssurController extends Controller
     }
     public function search(Request $request)
     {
-      try {//$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+      try {
+          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
           $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network dll
           $output=""; $ayants="";
           $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));

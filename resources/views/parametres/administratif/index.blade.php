@@ -1,12 +1,12 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
+<div class="page-header"><h1>Paramètres</h1></div>
   <div class="row">
   <div class="col-sm-12">
-    <div class="widget">
-      <div class="widget-title">Paramètres</div>
+    <div class="widget"><div class="widget-title"></div>
       <div class="widget-body">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('params.store')}}">
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('home') }}">
           {{ csrf_field() }}
           @foreach(Auth::user()->role->Parameters  as $param)
           <div class="form-group">

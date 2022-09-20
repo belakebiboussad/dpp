@@ -29,11 +29,7 @@ class AntecedantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id_patient)
-    {
-        $patient = patient::FindOrFail($id_patient);
-        return view('antecedents.create',compact('patient'));
-    }
+/*public function create($id_patient){$patient = patient::FindOrFail($id_patient);return view('antecedents.create',compact('patient'));}*/
     /**
      * Store a newly created resource in storage.
      *
@@ -64,13 +60,8 @@ class AntecedantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-      $atcd = antecedant::FindOrFail($id);
-      $patient = patient::FindOrFail($atcd->pid);
-      return view('antecedents.edit',compact('atcd','patient'));
-    }
-
+    /*public function edit($id){ $atcd = antecedant::FindOrFail($id);    $patient = patient::FindOrFail($atcd->pid);
+      return view('antecedents.edit',compact('atcd','patient')); }*/
     /**
      * Update the specified resource in storage.
      *

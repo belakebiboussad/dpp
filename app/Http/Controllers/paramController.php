@@ -41,7 +41,7 @@ class paramController extends Controller
         return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
         break;
       case 4:
-      case 8:
+      case 8://dir
         $parametres = Auth::user()->role->Parameters;
         return view('parametres.administratif.index');//,compact('parametres')
         break;
