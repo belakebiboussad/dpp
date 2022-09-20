@@ -22,16 +22,8 @@ function getActions(data){
   return actions;            
 }
 $(function(){
-  // $('body').on('change', '#type', function (e) {
-  //   if($(this).val() == 2)
-  //   {
-  //     if(!($( ".medChirservice" ).hasClass( "hidden" )))
-  //       $('.medChirservice').addClass("hidden");
-  //   }else
-  //     if($( ".medChirservice" ).hasClass( "hidden" ))
-  //       $('.medChirservice').removeClass("hidden");
-
-  // });
+  /*  $('body').on('change', '#type', function (e) {    if($(this).val() == 2)   { if(!($( ".medChirservice" ).hasClass( "hidden" )))
+        $('.medChirservice').addClass("hidden");  }else   if($( ".medChirservice" ).hasClass( "hidden" ))    $('.medChirservice').removeClass("hidden"); }); */
   $('body').on('click', '#serv-add', function (e) {
       e.preventDefault();
       var formData = {

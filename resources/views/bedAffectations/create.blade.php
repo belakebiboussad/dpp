@@ -1,6 +1,6 @@
 @extends('app_sur')
 @section('main-content')
-<div class="page-header"><h4>Affecter un lit</h4></div><div class="space-12"></div>
+<div class="page-header"><h1>Affecter un lit</h1></div>
 <div class="row">
 	<div class="col-sm-12 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
@@ -59,7 +59,7 @@
             @else
               <td></td><td></td><td></td>
             @endif
-						<td class="center">
+					<td class="center">
 							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
 								<i class="fa fa-bed" aria-hidden="true"></i>
 							</button>

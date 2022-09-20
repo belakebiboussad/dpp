@@ -34,8 +34,7 @@
                      <div class="form-group">
                         <label class="control-label" for="dateSortiePre">Date sortie :</label>
                         <div class="input-group">
-                            <input type="text" name ="dateSortiePre" class="date-picker form-control date_end"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
-                            <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+                            <input type="text" name ="dateSortiePre" class="date-picker form-control date_end"  data-date-format="yyyy-mm-dd" autocomplete ="off" required><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
                         </div>
                       </div> 
                        <div class="form-group">

@@ -19,7 +19,7 @@
 </div >
 @endsection
 @section('page-script')
-<!-- <script src="{{-- asset('/js/Chart.min.js') --}}"></script> -->
+{{-- <script src="{{asset('/js/Chart.min.js') }}"></script> --}}
 <script>
     var date = <?php echo $date; ?>;
     var nvhosp = <?php echo $nvhosp; ?>;

@@ -55,22 +55,18 @@
           </select>
         </div>
       </div>
-      <div class="space-12"></div> <div class="space-12"></div><div class="space-12"></div><!-- ici date -->
+      <div class="space-12"></div> <div class="space-12"></div>
       <div class="row">
         <div class="col-xs-7">
-          <label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque">Date:</label>
+          <label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date">Date:</label>
           <input class="col-xs-4 col-sm-4 date-picker" id="date" name="date" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" required/>
           <button class="btn btn-sm filelink" onclick="$('#date').focus()"><i class="fa fa-calendar"></i></button> 
         </div><div class="col-xs-5"></div>
       </div>
       <div class="space-12"></div><div class="space-12"></div>
-      <div class="row">
-          <div class="col-xs-6 center">
-            <div class="col-md-offset-6 col-md-7">
-              <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>&nbsp; &nbsp; &nbsp; &nbsp;
-              <button class="btn btn-xs" type="reset" id="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-            </div>
-          </div>
+      <div class="center form-actions">
+              <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save "></i>Enregistrer </button>&nbsp; &nbsp;&nbsp;
+              <button class="btn btn-xs btn-warning" type="reset" id="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
         </div>
     </form>
   </div>  <!-- cpl-s-12    -->

@@ -34,10 +34,8 @@
 		<div class="col-xs-4 col-sm-4 center">
 			<span class="profile-picture">
 				<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
-			</span>
-			<div class="space space-4"></div>
-				{{--<a href="{{ route('assur.edit', $assure->id) }}" class="btn btn-sm btn-block btn-success">
-				 	<i class="ace-icon fa fa-pencil bigger-120"></i><span class="bigger-110">Modifier</span>
+			</span><div class="space space-4"></div>
+{{--<a href="{{ route('assur.edit', $assure->id) }}" class="btn btn-sm btn-block btn-success"><i class="ace-icon fa fa-pencil"></i><span>Modifier</span>
 				</a> --}}
 				<a  href="patientAssuree/{{$assure->id  }}" class="btn btn-sm btn-block btn-primary" >
 					<i class="ace-icon fa fa-plus bigger-120"></i>

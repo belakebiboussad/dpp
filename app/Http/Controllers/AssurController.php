@@ -179,7 +179,7 @@ class AssurController extends Controller
            }
                    
         } catch (Throwable $e) {
-          dd("Non");
+          return false;
         }
         $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
       }else{

@@ -152,11 +152,11 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4 ><strong>Liste des rendez-vous:</strong></h4></div><div class="space-12"></div>
+<div class="page-header"><h4 >Liste des rendez-vous:</h4></div>
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">
-          <div class="panel-heading"><div class="left"> <strong>Liste des rendez-vous</strong></div></div>
+          <div class="panel-heading"><div class="left"> <strong>Rendez-vous</strong></div></div>
           <div class="panel-body"><div class="calendar1"></div></div>
           <div class="panel-footer">
           <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>

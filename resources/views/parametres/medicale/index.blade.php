@@ -1,8 +1,7 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-<div class="page-header">Paramètres
-</div>
+<div class="page-header">Paramètres</div>
   <div class="row">
   <div class="col-sm-12">
     <div class="widget"><div class="widget-title"></div>

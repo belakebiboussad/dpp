@@ -52,7 +52,7 @@ $('document').ready(function(){
   });
 });
 </script>
-<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
+<div class="page-header mt-5"><h5>Résumé de la consulation :</h5></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
   <span class="ft16"><strong>Interrogatoire</strong></span></div>

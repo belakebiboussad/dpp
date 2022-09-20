@@ -1,83 +1,60 @@
-
-
 @extends('app')
 @section('title','Rechercher un Fonctionnaire')
 @section('page-script')
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"> </script>
-
-<script>
-    $(document).ready(function(){
-       
-                    event.preventDefault();
-                  
+ {{-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"> </script> --}}
+ <script>
+       $(document).ready(function(){
+              event.preventDefault();
                 $.ajax({
-                    type : 'get',
-                    url : '{{URL::to('searchdate')}}',
-                    data:{},
-                    success:function(data,status, xhr){
-                        for (key in data) {
-
-
-                    
-                      var datalit = data.datalit;
-                     
-                          
-
-                          }     
-
-
-  var ctxcoss = document.getElementById("canvaslit").getContext("2d");
-  window.myBar = new Chart(ctxcoss, {
-  type: 'pie',
-  data: {
-
-    labels: ['Reservé', 'Affecté', 'Libre'],
-    datasets: [{
-      data: datalit,
-       backgroundColor: [
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        
-      ],
-    }]
-  },
-  options: {
-
-       
-       pieceLabel: {
-            mode: 'value',
-            position: 'outside',
-            fontColor: '#000',
-            format: function (value) {
-                return '$' + value;
-            }
-        },
-        title: {
-            display: true,
-            text: 'Etats des lits',
-            fontSize: 15,
-            fontStyle: 'bold'
-        },
-        legend: {
-            display: true,
-            position: 'bottom',
-        },
-
-  }
-});
-                    }
-            });
-       
+                       type : 'get',
+                      url : '{{URL::to('searchdate')}}',
+                      data:{},
+                      success:function(data,status, xhr){
+                              for (key in data) {
+                                    var datalit = data.datalit;
+                              }     
+                              var ctxcoss = document.getElementById("canvaslit").getContext("2d");
+                              window.myBar = new Chart(ctxcoss, {
+                                      type: 'pie',
+                                     data: {
+                                                  labels: ['Reservé', 'Affecté', 'Libre'],
+                                                  datasets: [{
+                                                          data: datalit,
+                                                           backgroundColor: [
+                                                                 "#F7464A",
+                                                                "#46BFBD",
+                                                                "#FDB45C",
+                                                            ],
+                                             }]
+                                    },
+                                    options: {     
+                                             pieceLabel: {
+                                                    mode: 'value',
+                                                    position: 'outside',
+                                                    fontColor: '#000',
+                                                    format: function (value) {
+                                                        return '$' + value;
+                                                    }
+                                             },
+                                            title: {
+                                                   display: true,
+                                                    text: 'Etats des lits',
+                                                    fontSize: 15,
+                                                    fontStyle: 'bold'
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'bottom',
+                                            },
+                                      }
+                              });
+                      }
+              });
     });
 </script>
-
-
 @endsection
 @section('main-content')
 <div class="page-content">
-   {{-- <div class="row"><div class="col-sm-12 center"> <h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
-        </div></div>--}}
     <div class="page-header">Tableau du Board</div>
     <div class="row">
       <div class="col-lg-3 col-md-6 col-xs-12">
@@ -109,11 +86,7 @@
                 </div>
 </div>
 </div>
-
-    <div class="row">
-        <div class="panel panel-default ">
-          
-        </div><!-- panel -->
+    <div class="row"><div class="panel panel-default ">  </div><!-- panel -->
     </div><!-- row -->
     <div class="row" id="stat" >
         <div class="col-sm-12">
@@ -122,12 +95,11 @@
                     <h5 class="widget-title"></h5>
                     <label for=""><span class="badge badge-info numberResult"></span></label>
                     <label for=""><span class="badge badge-info numberResultt"></span></label>
-
                 </div>
                 <div class="bodycontainer scrollable" id="listhospit">
                   <div class = "col-md-10 offset-md-1" >
                   <div class = "panel panel-default" >
-                 <div class = "panel-header" > Tableau de bord </div>
+                 <div class = "panel-header" > Lits</div>
                  <div class = "panel-body" >
                     <canvas id = "canvaslit"> </canvas>
                   </div >

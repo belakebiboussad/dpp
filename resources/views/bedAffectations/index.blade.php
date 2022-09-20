@@ -14,8 +14,7 @@
               <tr>
                 <th class="center">Patient</th>
                 <th class="center">Genre</th>
-              <!--   <th class="center">Date d'entrée</th>
-                <th class="center">Date sortie prévue</th> -->
+              <!--   <th class="center">Date d'entrée</th>  <th class="center">Date sortie prévue</th> -->
                 <th class="center">Service</th>
                 <th class="center">Salle</th>
                 <th class="center">Lit</th>
@@ -33,9 +32,7 @@
               <td class="center">
               <a href="{{ route('bedAffectation.destroy', $affect->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
               <i class="ace-icon fa fa-trash-o"></i>
-              </a>
-  {{--   <a href="{{ route('bedAffectation.destroy', $affect->demande_id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">      <i class="ace-icon fa fa-trash-o"></i> --}}
-        
+              </a> {{--   <a href="{{ route('bedAffectation.destroy', $affect->demande_id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i> --}}
               </td>
             </tr>
             @endforeach 

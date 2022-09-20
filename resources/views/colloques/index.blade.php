@@ -2,20 +2,17 @@
 @section('main-content')
 <div class="container-fluid">
 <div class="row">
-  <div class="col-sm-12 col-md-12"> <h4><strong>Rechercher un colloque</strong></h4>
+  <div class="col-sm-12 col-md-12"> <h4>Rechercher un colloque</h4>
     <div class="panel panel-default"><div class="panel-heading">Rechercher par :</div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-sm-4">
-            <label><strong>Date :</strong></label>
+          <div class="col-sm-4"><label>Date :</label>
               <div class="input-group">
                 <input type="text" id ="date" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
               </div> 
-          </div>
-          <div class="col-sm-1"></div>
-          <div class="col-sm-4">
-            <label><strong>Etat :</strong></label>
+          </div> 
+          <div class="col-sm-4 col-sm-offset-1"> <label>Etat :</label>
              <select id='etat' class="form-control filter">
               <option value="" selected active>En cours</option>
               <option value="1">Cloturée</option>
@@ -34,10 +31,9 @@
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
-      	<strong>Liste des Colloques du Service {{ $service->nom}} 	</strong>
+      	Liste des Colloques du Service {{ $service->nom}}
 			</h5>&nbsp;<span class="badge badge-info numberResult"></span>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-
 			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Colloque</b></a>
 			</div>	
 		</div>

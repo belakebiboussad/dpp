@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h4><strong>Liste des rôles :</strong></h4></div>
+<div class="page-header"><h4>Liste des rôles :</h4></div>
  @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -19,10 +19,7 @@
 		<div class="widget-main no-padding">
 			<table class="table table-striped table-bordered table-hover">
 			<thead class="thin-border-bottom">
-				<tr>
-					<th>N°</th >
-	   			<th>Nom</th><th class="center"><em class="fa fa-cog"></em></th>
-				</tr>
+				<tr>	<th>N°</th ><th>Nom</th><th class="center"><em class="fa fa-cog"></em></th></tr>
 			</thead>
 			<tbody>
 			@foreach( $roles as $i=>$role)
@@ -44,7 +41,6 @@
 			</table>
 			</div>
 	</div>
-
  </div>
  </div>  
 

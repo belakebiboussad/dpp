@@ -1,6 +1,6 @@
 @extends('app_inf')
 @section('main-content')
-<div class="page-header"><h1><strong>Liste Des Consignes:</strong> </h1></div>
+<div class="page-header"><h1>Liste Des Consignes :</h1></div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="row">

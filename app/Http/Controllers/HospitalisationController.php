@@ -129,13 +129,13 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
    */
   public function show($id)
   {
-    $hosp = hospitalisation::find($id);
-    if(isset(Auth::user()->employ->specialite))
-      $specialite = Auth::user()->employ->Specialite;
-    else
-      $specialite = Auth::user()->employ->Service->Specialite;
-    $consts = consts::all();  
-    return view('hospitalisations.show',compact('hosp','consts','specialite'));
+        $hosp = hospitalisation::find($id);
+        if(isset(Auth::user()->employ->specialite))
+                $specialite = Auth::user()->employ->Specialite;
+         else
+                $specialite = Auth::user()->employ->Service->Specialite;
+         $consts = consts::all();  
+        return view('hospitalisations.show',compact('hosp','consts','specialite'));
   }
   /**
    * Show the form for editing the specified resource.
@@ -165,16 +165,19 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
         $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
-          $input = $request->all();
-          $input['hosp_id'] = $hosp->id ;
-          $affect = $hosp->admission->demandeHospitalisation->bedAffectation->update(['state'=>1]);
-          $hosp->admission->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>null]);
-          if($request->modeSortie == "0")
-            $transfert = Transfert::create($input);
-          if($request->modeSortie == "2")
-            $dece = Dece::create($input);
-          $hosp->update($request->all());
-          return $hosp;
+                $input = $request->all();
+                $input['hosp_id'] = $hosp->id ;
+                $affect = $hosp->admission->demandeHospitalisation->bedAffectation->update(['state'=>1]);
+                $hosp->admission->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>null]);
+                if($request->modeSortie == "0")
+                  $transfert = Transfert::create($input);
+               if($request->modeSortie == "2")
+                {
+                      $dece = Dece::create($input);
+                      $hosp->patient->update([ "active"=>0]);//patient decede on, peut pas ajouter de consultation
+                }
+                $hosp->update($request->all());
+                return $hosp;
         }else
         {
           $hosp->update($request->all());

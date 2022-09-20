@@ -203,10 +203,7 @@ function errorMsg(msg, error) {
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 			<div class="panel-heading left"> 
-				<H4><strong>Rechercher un patient</strong></H4>
-				<div class="pull-right">
-					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
-				</div>
+				<H4>Rechercher un patient</H4>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -254,7 +251,7 @@ function errorMsg(msg, error) {
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i><strong> Résultats</strong>:</h5><label><span class="badge badge-info numberResult"></span></label>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats :</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>

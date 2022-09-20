@@ -72,7 +72,8 @@ class ColloqueController extends Controller
      */
       public function store(Request $request)
       { 
-        $colloque=colloque::create([
+              dd("ffsdf");
+              $colloque=colloque::create([
                               "date"=>$request->date,
                               "service_id"=>Auth::user()->employ->service_id,         
         ]);

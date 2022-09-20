@@ -2,7 +2,7 @@
 @section('title','Détails demande')
 @section('main-content')
 <div class="page-header">
-	<h4 ><strong>Détails de la demande du</strong> &quot;{{ $demande->Date}}&quot;</h4>
+	<h4 >Détails de la demande du &quot;{{ $demande->Date}}&quot;</h4>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
 		@if(!isset($demande->etat) &&( $demande->demandeur->service == Auth::user()->employ->service))
@@ -11,8 +11,7 @@
 		</a>
 		@endif
 	</div>
-</div>
-<div class="space-12"></div>
+</div><div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="widget-box">
@@ -27,15 +26,15 @@
 								<table class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th class="center"><strong>Code produit</strong></th>
-												<th class="center" ><strong>Produit</strong></th>
-												<th class="center"><strong>Spécialité</strong></th>
-												<th class="center"><strong>Gamme </strong></th>
-												<th class="center"><strong>Quantité</strong></th>
+												<th class="center">Code produit</th>
+												<th class="center" >Produit</th>
+												<th class="center">Spécialité</th>
+												<th class="center">Gamme </th>
+												<th class="center">Quantité</th>
 												@if($demande->etat == "1")
 												<th class="center">Quantité donnée</th>
 												@endif
-												<th class="center"><strong>Unite</strong></th>
+												<th class="center">Unite</th>
 											</tr>
 										</thead>
 										<tbody>

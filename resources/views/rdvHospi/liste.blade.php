@@ -1,6 +1,6 @@
 @extends('app_sur')
 @section('main-content')
-<div class="page-header"> <h3><strong>Liste des rendez-vous d'hospitalisation :</strong></h3></div>
+<div class="page-header"> <h3>Liste des rendez-vous d'hospitalisation :</h3></div>
 <div class="col-xs-12 widget-container-col">
      <div class="widget-box widget-color-blue">
            <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Rendez-vous</h5></div>
@@ -64,14 +64,13 @@
                             <td>
                               @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }} @endif  
                             </td>
-                            <td class="center" width="10%"><!-- can't edit rdv with affectation -->
+                            <td class="center" width="15%"><!-- can't edit rdv with affectation -->
                               <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" @if($rdv->demandeHospitalisation->bedAffectation()->exists()) disabled @endif>
                                 <i class="ace-icon fa fa-clock-o fa-xs"></i>
                               </a>
                               <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV" target="_blank">
                                 <i class="ace-icon fa fa-print fa-xs" ></i>
-                              </a>
-                              <!-- can't delete rdv with affectation -->
+                              </a> <!-- can't delete rdv with affectation -->
                               <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?" @if($rdv->demandeHospitalisation->bedAffectation()->exists()) disabled @endif><i class="fa fa-trash-o fa-xs"></i></a>
                               <a href="/rdvHospi/ticketPrint/{{ $rdv->demandeHospitalisation->consultation->patient->id}}" class="btn btn-info btn-xs" title="Imprimer Ticket"><i class="fa fa-file-pdf-o fa-xs"></i></a>
                             </td>

@@ -55,7 +55,7 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Traitement de la demande du </strong> &quot;{{ $demande->demandeur->full_name }}&quot;</h1>
+	<h1>Traitement de la demande du &quot;{{ $demande->demandeur->full_name }}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
@@ -75,13 +75,11 @@ $('document').ready(function(){
 							<table id="cmd" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th hidden><strong>Produit</strong></th>
-										<th class="center"><strong>Produit</strong></th>
-										<th class="center"><strong>Code Produit</strong></th>
-										<th class="center"><strong>Gamme</strong></th>
-										<th class="center"><strong>Spécialité</strong></th>
-										<th class="center"><strong>Quantité</strong></th>
-										<th class="center"><strong>Quantité Donner</strong></th>
+										<th hidden>Produit</th><th class="center">Produit</th>
+										<th class="center">Code Produit</th><th class="center">Gamme</th>
+										<th class="center">Spécialité</th>
+										<th class="center">Quantité</th>
+										<th class="center">Quantité Donner</th>
 										<th><em class="fa fa-cog"></em></th>
 									</tr>
 								</thead>
@@ -126,9 +124,8 @@ $('document').ready(function(){
 								<tr>
 									<td hidden>{{ $consomable->id }}</td>
 									<td>{{ $consomable->nom }}</td>
-									<td>/</td>
-									<td>Produits consommables de Labo</td>
-									<td>/</td>
+									<td></td>
+									<td>Produits consommables de Labo</td><td></td>
 									<td class="center">{{ $consomable->pivot->qte }}</td>
 									<td><input type="number" class="form-control" name="" value="{{ (isset($consomable->pivot->qteDonne)) ? $consomable->pivot->qteDonne: $consomable->pivot->qte }}" placeholder="" min="1" max="{{ $consomable->pivot->qte }}"> </td>
 								</tr>	
@@ -143,7 +140,7 @@ $('document').ready(function(){
 		<div class="row">
 			<div class="col-xs-12">
 				<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('demandeproduit.valider', $demande->id) }}">
-				{{ csrf_field() }}{{-- {{ method_field('PUT') }} --}}					
+				{{ csrf_field() }}
 				<div class="form-actions center">
 					<button type="submit" id="validerdmd" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer</button>
 				</div>

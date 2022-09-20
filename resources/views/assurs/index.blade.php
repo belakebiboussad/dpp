@@ -41,14 +41,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default ">
-				<div class="panel-heading left">
-					<H5><strong>Rechercher un fonctionnaire</strong></H5>
-					@if(in_array(Auth::user()->role->id,[1,2,13,14]))
-					<div class="pull-right">
-						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
-					</div>
-					  @endif
-				</div>
+				<div class="panel-heading left"><H5>Rechercher un fonctionnaire</H5></div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-sm-4"><label>Matricule:</label>
@@ -77,7 +70,7 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail"><strong> Résultats:</strong></h5>
+					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail">Résultats :</h5>
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
@@ -85,18 +78,18 @@
 					<thead>
 						<tr class="info"><th colspan="12">Détails fonctionnaire</th></tr>
 						<tr class="liste">
-						  <th class="blue" width="9%">Nom</th>
-							<th class="blue" width="9%">Prénom</th>
-							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="6%">Genre</th>
-							<th class="blue" width="7%">Civilité</th>
-							<th class="blue" width="5%">Wilaya Résidence</th>
-						  <th class="blue" width="10%">NSS</th>
-							<th class="blue" width="8%">Position</th>
-							<th class="blue"  width="5%">Matricule</th>
-							<th class="blue" width="11%">Service</th>
-							<th class="blue" width="7%">Grade</th>
-							<th class="blue"><em class="fa fa-cog"></em></th>
+						  <th  width="9%">Nom</th>
+							<th  width="9%">Prénom</th>
+							<th  width="7%">Né(e) le</th>
+							<th  width="6%">Genre</th>
+							<th  width="7%">Civilité</th>
+							<th  width="5%">Wilaya Résidence</th>
+						  <th  width="10%">NSS</th>
+							<th  width="8%">Position</th>
+							<th   width="5%">Matricule</th>
+							<th  width="11%">Service</th>
+							<th  width="7%">Grade</th>
+							<th ><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>
 						<tbody id="assure"></tbody>
@@ -114,9 +107,9 @@
 						<thead>
 							<tr class="info"><th colspan="12"><i class="ace-icon fa fa-table"></i>Ayants droits</th></tr>
 							<tr class="liste">
-						    <th class="blue" width="25%">Prénom</th>
-								<th class="blue" width="20%">Relation</th>
-								<th class="blue"><em class="fa fa-cog"></em></th>	
+						    <th  width="25%">Prénom</th>
+								<th  width="20%">Relation</th>
+								<th ><em class="fa fa-cog"></em></th>	
 							</tr>
 						</thead>
 						<tbody id="liste_ayants"></tbody>

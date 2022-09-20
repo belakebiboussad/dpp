@@ -1,8 +1,7 @@
 @extends('app')
 @section('main-content')
 <div class="row">
- 	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif>
-		<h1><strong>Mon Profil</strong></h1>
+ 	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif><h1>Mon Profil</h1>
 	</div>
 </div>
 <div class="row">
