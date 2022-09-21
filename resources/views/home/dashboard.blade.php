@@ -1,9 +1,8 @@
 @extends('app')
 @section('title','Dossier patient')
 @section('main-content')
-<div class="space-12"></div>
 <div class="row">
-  <div class="col-sm-12 infobox-container">
+  <div class="col-sm-12">
     <div class="infobox infobox-blue">
       <div class="infobox-icon"><i class="ace-icon fa fa-user-md"></i></div>
       <div class="infobox-data">
@@ -32,8 +31,8 @@
         <span class="infobox-data-number">{{ App\User::where("role_id",5)->get()->count() }}</span>
         <div class="infobox-content"><b>Surveillants médicaux</b></div>
       </div>
-    </div><div class="space-12"></div>
-  </div><div class="space-12-sm"></div>
+    </div>
+  </div>
 </div>
 <div class="space-12"></div>
 <div class="row">

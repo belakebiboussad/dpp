@@ -2,14 +2,24 @@
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
-    var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
+    var debut = new Date($('#dateEntree').val());//var dateRDV = $('#dateEntree').val();//var datefinRDV =$('#dateSortie').val();
     var fin = new Date($('#dateSortiePre').val());
     var diff = new Date(fin - debut);
     $('#numberDays').val(diff/1000/60/60/24);
     $( "#RDVForm" ).submit(function( event ) {  
       $("#dateSortiePre").prop('disabled', false);
+    }); //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    $(".numberDays").on('click keyup', function() {
+      if( ! isEmpty($('.serviceHosp').val()))
+        $(".serviceHosp").prop("selectedIndex", 0).change();
+      addDays();
     });
-    //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    $(".date").change(function(){
+      if( ! isEmpty($('.serviceHosp').val()))
+        $(".serviceHosp").prop("selectedIndex", 0).change();
+      $('.numberDays').val(0);
+      addDays();
+    });
 	});
 </script>
 @endsection
@@ -75,7 +85,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
+              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>
@@ -89,7 +99,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="numberDays">Durée prévue :</label>
             <div class="col-sm-6 col-xs-6">    
-              <input class="col-xs-8 col-sm-8" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
+              <input class="col-xs-8 col-sm-8 numberDays" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
               <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
             </div>
           </div>
@@ -101,7 +111,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateSortiePre">Date sortie prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input class="form-control date-picker" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
+              <input class="form-control date-picker date_end" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
               <span class="input-group-addon" <i class="fa fa-calendar"></i> </span>    
             </div>  
           </div>

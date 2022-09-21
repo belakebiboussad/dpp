@@ -1,4 +1,5 @@
 <div class="row">
+  <div class="col-sm-12">
 	<div class="col-sm-5 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
@@ -35,5 +36,8 @@
 			</div>
 			</div>
 		</div>
-	</div><div class="col-sm-7 col-xs-12" id="consultDetail"></div>
+	</div>
+  <div class="vspace-12-sm"></div>
+  <div class="col-sm-7 col-xs-12" id="consultDetail"></div>
+</div>
 </div>

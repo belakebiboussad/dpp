@@ -19,7 +19,6 @@ td
       $.ajaxSetup({
         headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
       });
-     
       $.ajax({
         type: "DELETE",
         url: '/orientLetter/' + id,
