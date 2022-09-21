@@ -30,7 +30,7 @@ class StatistiqusController extends Controller
                 })->where('service_id',Auth::user()->employ->service_id)->count();
     $infsCount = employ::whereHas('User', function($q){
                                                  $q->where('role_id', 3);
-                })->where('service_id',Auth::user()->employ->service_id)->count();
+                })->where('service_id', Auth::user()->employ->service_id)->count();
     $hospCount = hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
                     $q->where('specialite', Auth::user()->employ->specialite);
                 })->where('etat', null)->count();
@@ -42,7 +42,10 @@ class StatistiqusController extends Controller
     $nbFreeBed = lit::whereHas('salle',function($q){
             $q->where('service_id', Auth::user()->employ->service_id);
     })->where('affectation',null)->count();
-    return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed'));
+    $consultsNbr = consultation::where('specialite',Auth::user()->employ->specialite_id)
+                                ->where('date', $today)->get();       
+    dd($consultsNbr);                              
+    return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed','consultsNbr'));
   }
   ///////////////////search/////////
   public function searstat(Request $request)
@@ -188,7 +191,7 @@ class StatistiqusController extends Controller
   /////////////methode pour index recherche
   public function seardate(Request $request)
     {
-
+      
        $datenow = Carbon::now()->format('Y-m-d');;
 
       // $tdate=request('Datfin');
@@ -265,18 +268,34 @@ class StatistiqusController extends Controller
         $libre=0;   
         $somlit=0;
         $somsl=0;   
-
-
-                   
+        //debut
+        $fdate= Carbon::now()->format('2022-09-01');
+        // $nbcons[] = consultation::where('date','<=',$today)->where('date','>=',$dateDebut)->count();
+        $tdate = Carbon::now()->format('Y-m-d');
+        $datearr =  [];
+          
+          // $start = Carbon::parse($fdate);
+          // $end =  Carbon::parse($tdate);
+          $start = Carbon::parse($fdate);
+          $end =  Carbon::parse($tdate);
+          $nbDays = $start->diffInDays($end);
+          
+          //$nbDays = $start->diffInDays($end);
+          $startt=$start->format('y-m-d');
+          array_push($datearr, $startt);
+          $d=$startt;
+          for ($j=0; $j<$nbDays; $j++)
+          { 
+            $cons[] = consultation::where('date','<=',$tdate)->where('date','>=',$fdate)->where('date','=',$d)->count();
+            $d = ($start->addDay(1))->format('y-m-d');
+            array_push($datearr, $d); 
+          }
+          //fin           
 
         if($request->ajax())
          {   $i=0;
-          $output="";
-
-         
-          return Response::json([ 'datalit'=>$datalit]);
-
-
+          $output="";        
+          return Response::json([ 'datalit'=>$datalit,'date'=>$datearr,'nbcons'=>$cons]);
          }
 
   }
