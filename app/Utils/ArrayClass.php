@@ -4,7 +4,6 @@
 /**
  * Utility methods for arrays
  */
-
 abstract class ArrayClass {
   
   /**

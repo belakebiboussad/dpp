@@ -18,12 +18,15 @@ use Jenssegers\Date\Date;
 use View;
 use Response;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DateTime;
 class StatistiqusController extends Controller
 {  
   public function index()
   {
-    $today = Carbon::now()->format('Y-m-d');
+    $today = Carbon::today()->toDateString();
+    $frWeekbefore = (Carbon::now())->subWeek(4);
+    $datearr =  [$frWeekbefore->format('m-d')];
     $services = service::all();
     $medsCount = employ::whereHas('User', function($q){
                     $q->where('role_id', 1);
@@ -38,14 +41,28 @@ class StatistiqusController extends Controller
                                         ->where('etat', null)->count();
     $nbrdvs =rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
                                             $q->where('etat', 1);//'0'
-                                })->where('date','>=',$today)->count();
+                                })->where('date','>=', $today)->count();
     $nbFreeBed = lit::whereHas('salle',function($q){
             $q->where('service_id', Auth::user()->employ->service_id);
     })->where('affectation',null)->count();
-    $consultsNbr = consultation::where('specialite',Auth::user()->employ->specialite_id)
-                                ->where('date', $today)->get();       
-    dd($consultsNbr);                              
-    return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed','consultsNbr'));
+    $consultsNbr = consultation::whereHas('medecin',function($q){
+         $q->where('specialite', Auth::user()->employ->specialite);
+    })->where('date', $today)->count();
+     //statistique pour hospitalisation
+    $nbDays =  Carbon::now()->diffInDays(Carbon::now()->copy()->subMonth()); // $nbDays = $today->diffInDays( $frWeekbefore);
+    $start = Carbon::parse($frWeekbefore); 
+    $dateRange = CarbonPeriod::create($frWeekbefore, Carbon::now())->filter('isWeekday');
+    $dates =  [];
+    foreach ($dateRange as $date) {
+      $dates[] = $date->format('m-d');
+      $nbhosp []= hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
+                                            $q->where('specialite',Auth::user()->employ->specialite);
+                                      })->where('Date_entree',$date->format('y-m-d'))->count();
+      $nbcons[] = consultation::where('date', $date->format('y-m-d'))->count();
+    }
+  
+    $nbcons = json_encode($nbcons); $nbhosp = json_encode($nbhosp);$dates = json_encode($dates);
+    return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed','consultsNbr','dates','nbhosp','nbcons'));
   }
   ///////////////////search/////////
   public function searstat(Request $request)
@@ -80,7 +97,7 @@ class StatistiqusController extends Controller
         $medecinID =  $medecin;
       }
       // $ServiceID = $services;//  $medecinID =  $medecin;
-      if($ServiceID==null &&$medecinID==null)
+      if($ServiceID==null && $medecinID==null)
       {
         $nbhosp[] = hospitalisation::where('etat','=',null)
                                    -> where('Date_entree','<=',$end)->where('Date_entree','>=',$start)
@@ -174,141 +191,87 @@ class StatistiqusController extends Controller
         $libre=0;   
         $somlit=0;
         $somsl=0;   
-
-                   
-
         if($request->ajax())
-         {   $i=0;
-          $output="";
-
-         
-          return Response::json([ 'date'=>$datearr,'nbhosp'=>$nbhosp,'nvhosp'=>$nvhosp,'nbcons'=>$nbcons,'services'=>$services,'datalit'=>$datalit,'medecin'=>$medecin]);
-
-
-         }
+        {
+            $i=0;
+            $output="";
+            return Response::json([ 'date'=>$datearr,'nbhosp'=>$nbhosp,'nvhosp'=>$nvhosp,'nbcons'=>$nbcons,'services'=>$services,'datalit'=>$datalit,'medecin'=>$medecin]);
+        }
 
   }
   /////////////methode pour index recherche
   public function seardate(Request $request)
-    {
-      
-       $datenow = Carbon::now()->format('Y-m-d');;
-
-      // $tdate=request('Datfin');
-       
-
-       $af=0;    
-       $libre=0;   
-       $somlit=0;
-       $somsl=0;
-       $datalit =array();       
-       $lits =array();
-      
-              
-          
-          if(Auth::user()->role_id == 14)
-          { 
-             $ServiceID = Auth::user()->employ->service;
-            $salles = salle::where('service_id',$ServiceID)->get();
-       
-           }
-          else
-
-          {
-        
-            $salles = salle::all();
-       
-          }  
-         $nbsalle=count($salles);
-         foreach ($salles as $key1 => $salle) {
-          $somlit=0;
-         
-          foreach ($salle->lits as $key => $lit) {
-          $idLLit = $lit->id; 
-            $cr=0;
-          $reservations =  bedReservation::whereHas('lit',function($q) use($idLLit){
-                                              $q->where('id',$idLLit);
-                                       })->get();
-          $lit = lit::FindOrFail($idLLit);
-         
-         foreach ($reservations as $key => $reservation) {
-            
-         if (($datenow   >= strtotime($reservation->rdvHosp->date_RDVh))|| ($datenow  <= strtotime($reservation->rdvHosp->date_Prevu_Sortie)))
-         {
+  {
+    $datenow = Carbon::now()->format('Y-m-d');// $tdate=request('Datfin');
+    $fdate = Carbon::createFromFormat('Y-m-d','2022-09-01');
+    $tdate = Carbon::now()->format('Y-m-d');
+    $af=0;  $somlit=0;  $somsl=0;
+    $datalit =array(); $lits =array();
+    if(Auth::user()->role_id == 14)
+    { 
+      $ServiceID = Auth::user()->employ->service;
+      $salles = salle::where('service_id',$ServiceID)->get();
+    }else
+      $salles = salle::all();
+    $nbsalle=count($salles);
+    foreach ($salles as $key1 => $salle) {
+      $somlit=0;
+      foreach ($salle->lits as $key => $lit) {
+        $idLLit = $lit->id; 
+        $cr=0;
+        $reservations =  bedReservation::whereHas('lit',function($q) use($idLLit){
+                                            $q->where('id',$idLLit);
+                                     })->get();
+        $lit = lit::FindOrFail($idLLit);
+        foreach ($reservations as $key => $reservation) {
+          if (($datenow >= strtotime($reservation->rdvHosp->date_RDVh))|| ($datenow  <= strtotime($reservation->rdvHosp->date_Prevu_Sortie)))
             $cr=1;
-         }else
-          {
+          else
             $cr=0;
-          }
-
-            }
-             
-          $affect = $lit->isAffected($idLLit); 
-          if($affect)
-          {
-            $af++;
-          }
-
-          $somlit=$somlit+$cr;
-           }   
-
-           $somsl=$somsl+$somlit;
-          
-         }
-
-        $lit = lit::get()->count();
-
-        $libre= $lit-$somsl-$af;
-
-        array_push($datalit, $somsl);       
-        array_push($datalit, $af); 
-        array_push($datalit, $libre);     
-        
-        $af=0;    
-        $libre=0;   
-        $somlit=0;
-        $somsl=0;   
-        //debut
-        $fdate= Carbon::now()->format('2022-09-01');
-        // $nbcons[] = consultation::where('date','<=',$today)->where('date','>=',$dateDebut)->count();
-        $tdate = Carbon::now()->format('Y-m-d');
-        $datearr =  [];
-          
-          // $start = Carbon::parse($fdate);
-          // $end =  Carbon::parse($tdate);
-          $start = Carbon::parse($fdate);
-          $end =  Carbon::parse($tdate);
-          $nbDays = $start->diffInDays($end);
-          
-          //$nbDays = $start->diffInDays($end);
-          $startt=$start->format('y-m-d');
-          array_push($datearr, $startt);
-          $d=$startt;
-          for ($j=0; $j<$nbDays; $j++)
-          { 
-            $cons[] = consultation::where('date','<=',$tdate)->where('date','>=',$fdate)->where('date','=',$d)->count();
-            $d = ($start->addDay(1))->format('y-m-d');
-            array_push($datearr, $d); 
-          }
-          //fin           
-
-        if($request->ajax())
-         {   $i=0;
-          $output="";        
-          return Response::json([ 'datalit'=>$datalit,'date'=>$datearr,'nbcons'=>$cons]);
-         }
-
+        }
+        $affect = $lit->isAffected($idLLit); 
+        if($affect)
+          $af++;
+        $somlit=$somlit + $cr;
+      }   
+      $somsl=$somsl + $somlit;        
+    }
+    $lit = lit::get()->count();
+    $libre= $lit-$somsl-$af;
+    array_push($datalit, $somsl);  array_push($datalit, $af);  array_push($datalit, $libre);     
+    /*  $af=0;$libre=0;$somlit=0; $somsl=0;         */
+    //debut
+    // $nbcons[] = consultation::where('date','<=',$today)->where('date','>=',$dateDebut)->count();
+    $datearr =  [];
+    $start = Carbon::parse($fdate);
+    $end =  Carbon::parse($tdate);
+    $nbDays = $start->diffInDays($end);
+    $startt=$start->format('y-m-d');
+    array_push($datearr, $startt);
+    $d=$startt;
+    for ($j=0; $j<$nbDays; $j++)
+    { 
+      // $cons[] = consultation::where('date','<=',$tdate)->where('date','>=',$fdate)->where('date','=',$d)->count();
+       $cons[] = consultation::where('date', $d)->count();
+      $d = ($start->addDay())->format('y-m-d');
+      array_push($datearr, $d); 
+    }
+    //fin           
+    if($request->ajax())
+    {
+      $i=0;
+      $output="";        
+      return Response::json([ 'datalit'=>$datalit,'date'=>$datearr,'nbcons'=>$cons]);
+    }
   }
   public function search()
   {
-  
     $services = service::all();
-    if((in_array(Auth::user()->role->id,[4,8])))
-    {  $medecins = employ::all();}
-  else { $medecins = employ::where('service_id',Auth::user()->employ->service_id)->get();}
-
-   
- 
+    if((in_array(Auth::user()->role->id,[4,8]))){
+      $medecins = employ::all();
+    }else {
+      $medecins = employ::where('service_id',Auth::user()->employ->service_id)->get();
+    }
     return view('stats.search', compact('services','medecins'));
   }
 }
