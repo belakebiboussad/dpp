@@ -272,17 +272,29 @@ class StatistiqusController extends Controller
   public function searstat(Request $request)
   {
     $nbcons = [];
+    $className ="";
     switch($request->className)
     {
       case  1 :
-        
+        $className ="consultation";
         break;
       case  2 :
-        return "Hospitalisation";
+        $className ="hospitalisation";
         break;
       case  3 :
-        return "Lit";
+        $className = "Lit";
         break;
     }
+    if(Auth::user()->role_id == 14)
+      if(isset($request->medecin))
+      {
+         $nbcons []= consultation::whereHas('medecin', function($q) use ($request->medecin) {
+                                      $q->where('id', $request->medecin);
+                                  })->where('date','>=',$start)->where('date','<=',$end )->count();
+      }
+      else
+      {
+
+      }
   }
 }

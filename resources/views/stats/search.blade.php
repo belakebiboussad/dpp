@@ -93,12 +93,11 @@
 <script>    
   $(function(){
     $(document).on('click','.statistique',function(event){
-        var service = $('#service').val();
+        /*var service = $('#service').val();
         if(isEmpty(service))
-          var service = '{{  Auth::user()->employ->service_id }}';
-        
+          var service = '{{  Auth::user()->employ->service_id }}';*/
         var formData = {
-            service : service,
+            service : $('#service').val();,
             medecin : $('#medecin').val(),
             Datdebut : $('#Dat_debut').val(),
             Datfin : $('#Dat_fin').val(),
