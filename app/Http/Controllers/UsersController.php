@@ -298,7 +298,7 @@ $users = User::with('role')->where($request->field,$value)->get();else $users = 
     }    
     public function AutoCompleteField(Request $request)
     { 
-      $response = array();$field = trim($request->field);$value = trim($request->q);
+      $response = []; $field = trim($request->field);$value = trim($request->q);
       if($field == "role_id")
         $users = User::whereHas('role', function ($q) use ($value){
                    $q->where('role','LIKE','%'.$value.'%');

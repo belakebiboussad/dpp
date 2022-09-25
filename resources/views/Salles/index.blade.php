@@ -23,12 +23,11 @@ function getRoomBeds(id)
 		<div class="widget-box widget-color-blue" >
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i><span><b>Détails des chambres</b></span>
+				<i class="ace-icon fa fa-table"></i><span>Détails des chambres</span>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-primary no-border">
 					<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i> <strong>Chambre</strong>
-					</a>
+						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i> Chambre</a>
 				</div>
 			
 			</div>

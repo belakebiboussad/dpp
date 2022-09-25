@@ -53,7 +53,7 @@ class VisiteController extends Controller
      */
       public function create($id_hosp)
       {
-        $prescredconst =array();
+        $prescredconst = [];
         $date = Carbon\Carbon::now();
         $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;

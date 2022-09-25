@@ -26,8 +26,7 @@
                         "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                             $(nRow).attr('id',"consult"+aData.id);
                         },
-                            "columns": [
-/*{data:null,title:'#',"orderable": false,searchable:false,render: function ( data, type, row ){if(type === 'display'){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'"/><span class="lbl"></span>';}return data;},className: "dt-body-center", },*/
+                            "columns": [/*{data:null,title:'#',"orderable": false,searchable:false,render: function ( data, type, row ){if(type === 'display'){return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'"/><span class="lbl"></span>';}return data;},className: "dt-body-center", },*/
                                       { data: "date" , title:'Date' },
                                       { data: null,
                                         render: function ( data, type, row ) {

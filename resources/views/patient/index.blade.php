@@ -1,15 +1,5 @@
 @extends('app')
 @section('title','Rechercher un patient')
-@section('style')
-	<style>
-  #interactive.viewport {position: relative; width: 100%; height: auto; overflow: hidden; text-align: center;}
-  #interactive.viewport > canvas, #interactive.viewport > video {max-width: 100%;width: 100%;}
-  canvas.drawing, canvas.drawingBuffer {position: absolute; left: 0; top: 0;}
-  .controls .reader-config-group {
-  	float: left;
-	}
-	</style>
-@endsection
 @section('page-script')
 <script type="text/javascript" src="{{asset('/js/live_w_locator.js')}}"></script> 
 <script>
@@ -202,32 +192,30 @@ function errorMsg(msg, error) {
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
-			<div class="panel-heading left"> 
-				<H4>Rechercher un patient</H4>
-			</div>
-			<div class="panel-body">
+			 <div class="panel-heading left"><H4>Rechercher un patient</H4></div> 
+			 <div class="panel-body">
 				<div class="row">
 					<div class="form-group col-sm-3"><label>Nom:</label>
 						<div class="input-group col-sm-12 col-xs-12">
-							<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="Nom du patient..." autofocus/>
+							<input type="text" class="form-control autofield" id="Nom" placeholder="Nom du patient..." autofocus/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				    </div>
 					</div>
 					<div class="form-group col-sm-3"><label>Prénom:</label> 
 							<div class="input-group col-sm-12 col-xs-12">
-						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="Prénom du patient..."> 
+						  	<input type="text" class="form-control autofield" id="Prenom"  placeholder="Prénom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 					</div>
 					<div class="form-group col-sm-3"><label >Né(e):</label>
 						<div class="input-group col-sm-12 col-xs-12">
-							<input type="text" class="form-control date-picker ltnow" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+							<input type="text" class="form-control date-picker ltnow" id="Dat_Naissance" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>		
 					</div>
 					<div class="form-group col-sm-3"><label>IPP:</label>
 						<div class="input-group col-sm-12 col-xs-12">
-							<input id="IPP" name="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
+							<input id="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
 				                      <span class="input-group-btn"> 
 								<button class="btn btn-default btn-xs" id="scanButton" type="button" data-toggle="modal" data-target="#livestream_scanner">
 									<i class="fa fa-barcode"></i>

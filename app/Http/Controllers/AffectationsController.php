@@ -33,42 +33,42 @@ class AffectationsController extends Controller
   }
   public function store(Request $request)
   {
-        $free = true;
-        $demande= DemandeHospitalisation::find($request->demande_id); 
-        $lit = lit::FindOrFail( $request->lit_id);
-        if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
-        { 
-               $rdv = $demande->getInProgressMet(); 
-               if($rdv->bedReservation()->exists()) 
-               {//if($rdv->bedReservation->id_lit != $request->lit_id)  //lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
-                  $rdv->bedReservation()->delete();
-                }    
+    $free = true;
+    $demande= DemandeHospitalisation::find($request->demande_id); 
+    $lit = lit::FindOrFail( $request->lit_id);
+    if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
+    { 
+      $rdv = $demande->getInProgressMet(); 
+      if($rdv->bedReservation()->exists())//if($rdv->bedReservation->id_lit != $request->lit_id)//lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
+        $rdv->bedReservation()->delete();         
+      
       $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));
       if(!$free)
       {
         $reservs = $lit->getReservation(strtotime($rdv->date), strtotime($rdv->date_Prevu_Sortie));
+        dd($reservs);
         foreach ($reservs as $res) {
-            $res->delete();
+          $res->delete();
         }
       }  
     }else
     { 
-              $now = $today = Carbon::now()->toDateString();
-              $newDateTime = Carbon::now()->addDay(2)->toDateString();
-              $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
-              if(!$free)
-              {
-                    $reservs = $lit->getReservation(strtotime($now), strtotime($newDateTime));
-                      foreach ($reservs as $res) { 
-                             $res->delete();
-                      }
-              }  
-              $demande->update([ 'etat' => 1 ]); //program  
+      $now = $today = Carbon::now()->toDateString();
+      $newDateTime = Carbon::now()->addDay(2)->toDateString();
+      $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));
+      if(!$free)
+      {
+        $reservs = $lit->getReservation(strtotime($now), strtotime($newDateTime));
+        foreach ($reservs as $res) { 
+          $res->delete();
+        }
+      }  
+      $demande->update([ 'etat' => 1 ]); //program  
     } 
-      $affect = bedAffectation::create($request->all());
-      $lit->update([ "affectation" =>1 ]);
-      return $affect;
-   }
+    $affect = bedAffectation::create($request->all());
+    $lit->update([ "affectation" =>1 ]);
+    return $affect;
+  }
   //affeter lit pour demande d'urgence
 /*public function affecterLit(Request $request ){$demande= DemandeHospitalisation::find($request->demande_id);$lit = lit::FindOrFail( $request-
 >lit_id);if($demande->getModeAdmissionID($demande->modeAdmission) !=2){$rdv = $demande->getInProgressMet(); if($rdv->has('bedReservation'))
@@ -78,11 +78,11 @@ $rdv->bedReservation()->delete();    //$free = $lit->isFree(strtotime($rdv->date
    $affect = bedAffectation::create($request->all());    $lit->update([ "affectation" =>1 ]);    return $affect;  }*/
   public function destroy($id)
   {     //$affect = bedAffectation::with('demandeHosp','Lit')->where('demande_id',$demande_id)->firstOrFail(); 
-        $affect = bedAffectation::with('demandeHosp','Lit')->find($id); 
-        if($affect->demandeHosp->getModeAdmissionID($affect->demandeHosp->modeAdmission)== 2)
-                   $affect->demandeHosp->update([ 'etat'=>null]);
-        $affect->Lit->update(['affectation'=>null]);
-        $affect->delete();
-          return redirect()->action('AffectationsController@index');
+    $affect = bedAffectation::with('demandeHosp','Lit')->find($id); 
+    if($affect->demandeHosp->getModeAdmissionID($affect->demandeHosp->modeAdmission)== 2)
+               $affect->demandeHosp->update([ 'etat'=>null]);
+    $affect->Lit->update(['affectation'=>null]);
+    $affect->delete();
+    return redirect()->action('AffectationsController@index');
   }
 }

@@ -484,7 +484,8 @@ class PatientController extends Controller
   }
   public function AutoCompletePatientField(Request $request)
   {
-    $today = Carbon::now();$response = array();
+    $today = Carbon::now();
+    $response = [];
     $sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
     $field = trim($request->field);
     switch(Auth::user()->employ->specialite)
@@ -509,7 +510,7 @@ class PatientController extends Controller
   } 
   public function patientsToMerege(Request $request)
   {
-     $statuses = array(); $values="";
+     $statuses = []; $values="";
      $patientResult = new patient;
      $patient1 = patient::FindOrFail($request->search[0]);
      $patient2 = patient::FindOrFail($request->search[1]);    

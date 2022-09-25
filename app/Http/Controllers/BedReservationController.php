@@ -52,7 +52,7 @@ class BedReservationController extends Controller
   */
   public function getNoResBeds(Request $request)
   {
-    $lits =array();
+    $lits = [];
     $salle =salle::FindOrFail($request->SalleId);
     if( $request->Affect == "0")//pour une reservation ?
     {
@@ -65,7 +65,7 @@ class BedReservationController extends Controller
       foreach ($salle->lits as $key => $lit) {  
         $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
         if(!($free))
-          $salle->lits->pull($key); //$lits->push($lit);    
+          $salle->lits->pull($key);//$lits->push($lit);    
       }
     }else
     {//pour affectation
@@ -75,23 +75,23 @@ class BedReservationController extends Controller
         if($affect)
           $salle->lits->pull($key);
       }
-     }    
-      return $salle->lits;
+    }    
+    return $salle->lits;
   }
   public function getNoResBedsTeste(Request $request)
   {
-    $lits = array();
+    $lits = [];
     $salle =salle::FindOrFail($request->id);
     return $salle->lits;  
   }
   public function update(Request $request, $id)
   { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"$now = \Carbon\Carbon::now();//object
-   $resrvs = [];
     //$start = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
+    $resrvs = [];
     $lit = lit::FindOrFail( $request->lit_id);
-    $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now
+    $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now "2022-09-2"
     $end = Carbon::now()->addDay(3)->toDateString(); //get reservation of this bed between this day
-    $free = $lit->isFree(strtotime($start),strtotime( $end));
+    $free = $lit->isFree(strtotime($start),strtotime($end));//1664060400
     $reservs = $lit->getReservation(strtotime($start), strtotime($end));
     $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($start){ 
                    $q->where('date','>=',$start);
@@ -105,7 +105,6 @@ if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->r
         array_push($resrvs, $res);
       //$res->delete();
       $lit->bedReservation()->detach($res);
-       //$user->photos()->detach($photo);
     }
     dd( $resrvs);   
   }

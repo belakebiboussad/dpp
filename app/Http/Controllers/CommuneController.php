@@ -13,7 +13,7 @@ class CommuneController extends Controller
       }
   public function AutoCompleteCommune(Request $request)
   { 
-    $response = array();
+    $response = [];
     $search = $request->search;
     if($search == ''){
          $communes = Commune::orderby('nom_commune','asc')->limit(15)->get();

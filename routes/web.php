@@ -178,4 +178,4 @@ route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name(
 //////
 Route::get('/searchdate','StatistiqusController@seardate');
 Route::get('/searstat','StatistiqusController@searstat');
-Route::get('/searchStat','StatistiqusController@search')->name('stats.search');
+Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');
