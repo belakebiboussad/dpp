@@ -81,11 +81,11 @@
                   @endif
                   <br>
                   <strong>Date d'admisston a l'hôpital :</strong>&nbsp;
-                  <span>{{  (\Carbon\Carbon::parse($obj->admission->hospitalisation->Date_entree))->format('d/m/Y') }}</span>
+                  <span>{{  (\Carbon\Carbon::parse($obj->admission->hospitalisation->date))->format('d/m/Y') }}</span>
                   <hr class="hr-1"/>
                     <h4 class="center mt-2"><strong>Dernier Service d'Hospitalisation</strong></h4>
                   <hr class="hr-1 mt-2"/>
-                  <strong>Date d'entrée au service :</strong>&nbsp;<span>{{ $obj->Date_entree }}</span><br>
+                  <strong>Date d'entrée au service :</strong>&nbsp;<span>{{ $obj->date }}</span><br>
                   <strong>Médecin traitant :</strong>&nbsp;
                   <span>{{ $obj->admission->hospitalisation->medecin->full_name }}</span><br>
                   <strong>Mode de Sortie :</strong>&nbsp;

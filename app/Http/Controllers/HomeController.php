@@ -114,9 +114,9 @@ class HomeController extends Controller
     }
       public function print( $className,$objId,$stateId)
       {
-        $model_prefix="App\modeles";
+        $model_prefix="App\modeles\\";
         $filename ; $pdf;
-        $modelName = $model_prefix.'\\'.$className;
+        $modelName = $model_prefix.$className;
         $etab = Etablissement::first();
         $date= Carbon::now()->format('d/m/Y');
         $obj=$modelName::find( $objId);

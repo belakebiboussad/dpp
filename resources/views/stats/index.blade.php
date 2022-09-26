@@ -161,7 +161,7 @@ $(function(){
       datasets: [{
           label: 'Hospitalisation',
           backgroundColor: "Bleu",
-          data: {{ $nbhosp  }},
+          data: {{ $nbhosp  }}
       }]
     };
     var barChartDataconsul = {
@@ -169,11 +169,11 @@ $(function(){
             datasets: [{
                 label: 'Consultation',
                 backgroundColor: "green",
-                data: {{ $nbcons }},
+                data: {{ $nbcons }}
             }]
     }; 
     var ctxCons = document.getElementById("canvasconsul").getContext("2d");
-      window.myBar = new Chart(ctxCons, {
+    window.myBar = new Chart(ctxCons, {
           type: 'bar',
           data: barChartDataconsul,
           options: {
@@ -210,7 +210,7 @@ $(function(){
               }
             }
           }
-      });              
+    });              
     // hosp
     var ctxHosp = document.getElementById("Hospcanvas").getContext("2d");
     window.myBar = new Chart(ctxHosp, {

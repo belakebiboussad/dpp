@@ -71,7 +71,7 @@ class AdmissionController extends Controller
             "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
         ]);
        $hosp= hospitalisation::create([
-                "Date_entree"=>$now->format('Y-m-d'),
+                "date"=>$now->format('Y-m-d'),
                 "Date_Prevu_Sortie"=> (isset($request->id_RDV)) ? $rdv->date_Prevu_Sortie:$hospend ,//$request->Date_Prevu_Sortie,
                 "patient_id"=>$adm->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
                 "id_admission"=>$adm->id,

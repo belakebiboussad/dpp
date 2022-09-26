@@ -57,7 +57,7 @@ class StatistiqusController extends Controller
       $dates[] = $date->format('m-d');
       $nbhosp []= hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
                                             $q->where('specialite',Auth::user()->employ->specialite);
-                                      })->where('Date_entree',$date->format('y-m-d'))->count();
+                                      })->where('date',$date->format('y-m-d'))->count();
       $nbcons[] = consultation::where('date', $date->format('y-m-d'))->count();
     }
     //lits
@@ -92,7 +92,7 @@ class StatistiqusController extends Controller
     $tdate=request('Datfin');
     $services=$request->service;
     $medecin=$request->medecin;
-    $af=0;  $libre=0; $somsl=0;$datalit = [];$lits = [];$output="";$datearr =  [];    
+    $af=0;  $libre=0; $somsl=0;$datalit = [];$lits = [];$datearr =  [];    
     $start = Carbon::parse($fdate);
     $end =  Carbon::parse($tdate);
     $nbDays = $start->diffInDays($end);
@@ -113,31 +113,31 @@ class StatistiqusController extends Controller
       if($ServiceID==null && $medecinID==null)
       {
         $nbhosp[] = hospitalisation::where('etat','=',null)
-                                   -> where('Date_entree','<=',$end)->where('Date_entree','>=',$start)
-                                   ->where('Date_entree','>=',$d)->count();
-        $nvhosp[] = hospitalisation::where('etat','=',null)->where('Date_entree','<=',$end)
-                                     ->where('Date_entree','>=',$start)->where('Date_entree','=',$d)->count();
+                                   -> where('date','<=',$end)->where('date','>=',$start)
+                                   ->where('date','>=',$d)->count();
+        $nvhosp[] = hospitalisation::where('etat','=',null)->where('date','<=',$end)
+                                     ->where('date','>=',$start)->where('date','=',$d)->count();
          $nbcons[] = consultation::where('date','<=',$end)->where('date','>=',$start)->where('date','<=',$d)->count();
       }else if($medecinID==null)
       {
         $nbhosp []= hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
                                           $q->where('id',$ServiceID);
-                                    })->where('etat','=',null) ->where('Date_entree','<=',$end)
-                                      ->where('Date_entree','>=',$start)->where('Date_entree','<=',$d)->count();
+                                    })->where('etat','=',null) ->where('date','<=',$end)
+                                      ->where('date','>=',$start)->where('date','<=',$d)->count();
         $nvhosp []= hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
                                             $q->where('id',$ServiceID);
-                                      })->where('etat','=',null) ->where('Date_entree','<=',$end)
-                                    ->where('Date_entree','>=',$start)->where('Date_entree','=',$d)->count(); 
+                                      })->where('etat','=',null) ->where('date','<=',$end)
+                                    ->where('date','>=',$start)->where('date','=',$d)->count(); 
         $nbcons []= consultation::whereHas('medecin.Service', function($q) use ($ServiceID) {
                                     $q->where('service_id', $ServiceID);                           
                                 })->where('date','>=',$start)->where('date','<=',$end)->count();
       }
       if($ServiceID==null &&$medecinID!=null)
       {
-        $nbhosp[] = hospitalisation::where('etat','=',null)-> where('Date_entree','<=',$end)->where('Date_entree','>=',$start)
-                                    ->where('Date_entree','>=',$d)->where('medecin_id',$medecinID)->count();
-        $nvhosp[] = hospitalisation::where('etat','=',null)->where('Date_entree','<=',$end)->where('Date_entree','>=',$start)
-                                    ->where('Date_entree','=',$d)->where('medecin_id',$medecinID)->count();
+        $nbhosp[] = hospitalisation::where('etat','=',null)-> where('date','<=',$end)->where('date','>=',$start)
+                                    ->where('date','>=',$d)->where('medecin_id',$medecinID)->count();
+        $nvhosp[] = hospitalisation::where('etat','=',null)->where('date','<=',$end)->where('date','>=',$start)
+                                    ->where('date','=',$d)->where('medecin_id',$medecinID)->count();
          $nbcons []= consultation::whereHas('medecin', function($q) use ($medecinID) {
                                       $q->where('id', $medecinID);
                                   })->where('date','>=',$start)->where('date','<=',$end )->count();     
@@ -193,7 +193,6 @@ class StatistiqusController extends Controller
         if($request->ajax())
         {
             $i=0;
-            $output="";
             return Response::json([ 'date'=>$datearr,'nbhosp'=>$nbhosp,'nvhosp'=>$nvhosp,'nbcons'=>$nbcons,'services'=>$services,'datalit'=>$datalit,'medecin'=>$medecin]);
         }
 
@@ -255,8 +254,7 @@ class StatistiqusController extends Controller
     //fin           
     if($request->ajax())
     {
-      $i=0;
-      $output="";        
+      $i=0;       
       return Response::json([ 'datalit'=>$datalit,'date'=>$datearr,'nbcons'=>$cons]);
     }
   }
@@ -271,30 +269,72 @@ class StatistiqusController extends Controller
   }
   public function searstat(Request $request)
   {
-    $nbcons = [];
-    $className ="";
+    $model_prefix="App\modeles\\";
+    $dataArray = [];$dates = []; $className =""; $objNbr = 0;$nblits = 0;
+    $start = Carbon::parse($request->datDebut);
+    $end =  Carbon::parse($request->datFin);
+    $dateRange = CarbonPeriod::create($start, $end)->filter('isWeekday');
     switch($request->className)
     {
       case  1 :
-        $className ="consultation";
+        $className = $className."consultation";
         break;
       case  2 :
-        $className ="hospitalisation";
+        $className = $className."hospitalisation";
         break;
       case  3 :
-        $className = "Lit";
+        $className = $className."Lit";
         break;
     }
-    if(Auth::user()->role_id == 14)
-      if(isset($request->medecin))
+    $modelName = $model_prefix.$className;
+     foreach ($dateRange as $date) {
+      $dates[] = $date->format('m-d');
+      if(Auth::user()->role_id != 13)
       {
-         $nbcons []= consultation::whereHas('medecin', function($q) use ($request->medecin) {
-                                      $q->where('id', $request->medecin);
-                                  })->where('date','>=',$start)->where('date','<=',$end )->count();
-      }
-      else
-      {
+        $sid = $request->service;
+        if(isset($request->medecin) && ($request->className != 3 ))
+        {
+          $mid = $request->medecin;
+          $dataArray[] = $nbr = $modelName::whereHas('medecin', function($q) use ($mid) {
+                                      $q->where('id', $mid);
+                                  })->where('date', $date)->count();//->where('date','<=',$end )
+        }else
+        {
+          if($request->className != 3)
+            $dataArray[] = $nbr = $modelName::whereHas('medecin', function($q) use ($sid) {
+                                      $q->where('service_id', $sid);
+                                  })->where('date', $date)->count();
+          else
+            //lit occupe     
+            $dataArray[] = $nbr = hospitalisation::whereHas('medecin', function($q) use ($sid) {
+                                                      $q->where('service_id', $sid);
+                                                  })->where('date','<=', $date)
+                                                  ->where('Date_Sortie','>=', $date)->count();
+          
 
+                                                  // ->orwhere('etat',null) 
+        } 
+      }else
+      {
+        if(isset($request->service))
+        {
+          $sid = $request->service;
+          if(isset($request->medecin))
+          {
+            $mid = $request->medecin;
+          }
+        }else
+        {
+        }
       }
+
+      if($request->className != 3)
+        $objNbr += $nbr;
+      else
+          $objNbr = $modelName::whereHas('salle.service',function($q){
+              $q->where('id',Auth::user()->employ->service_id);
+            })->count();
+    }
+    return Response::json([ 'dates'=>$dates,'dataArray'=>$dataArray,'className'=>strtoupper($className),'objNbr'=>$objNbr]);  
   }
 }

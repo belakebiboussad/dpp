@@ -17,19 +17,19 @@ class StatistiqusController extends Controller
     //$date = [ date('d.m.Y') ,date('d.m.Y',strtotime("-1 days")), date('d.m.Y',strtotime("-2 days")) , date('d.m.Y',strtotime("-3 days")), date('d.m.Y',strtotime("-4 days")) , date('d.m.Y',strtotime("-5 days")) , date('d.m.Y',strtotime("-6 days"))  ];
     $date = [ date('Y-m-d') ,date('Y-m-d',strtotime("-1 days")), date('Y-m-d',strtotime("-2 days")) , date('Y-m-d',strtotime("-3 days")), date('Y-m-d',strtotime("-4 days")) , date('Y-m-d',strtotime("-5 days")) , date('Y-m-d',strtotime("-6 days"))  ];
     /*$d = date('Y-m-d',strtotime("-2 days"));*/
-    /*$hosp = hospitalisation:: where('etat',null)->where('Date_entree',$date[2])->get();*/;   
+    /*$hosp = hospitalisation:: where('etat',null)->where('date',$date[2])->get();*/;   
     $j=0;
     $servs = service::all();
     for ($i=1; $i <7; $i++) 
     {  
       $value = strftime("%y-%m-%d", mktime(0, 0, 0, date('m'), date('d')-$j, date('y')));
-      $nbhosp[] = hospitalisation:: where('etat',null)->where('Date_entree','<=',$value)->count ();
+      $nbhosp[] = hospitalisation:: where('etat',null)->where('date','<=',$value)->count ();
       $j++ ; 
     }
     for ($i=0; $i <6; $i++) 
     {  
-      $value = strftime("%y-%m-%d", mktime(0, 0, 0, date('m'), date('d')-$j, date('y')));//$value = date($value);//$nvhosp[] = hospitalisation::where('etat',null)->where('Date_entree',$value)->count();
-      $nvhosp[] = hospitalisation::where('etat',null)->where('Date_entree',$date[$i])->count();
+      $value = strftime("%y-%m-%d", mktime(0, 0, 0, date('m'), date('d')-$j, date('y')));//$value = date($value);//$nvhosp[] = hospitalisation::where('etat',null)->where('date',$value)->count();
+      $nvhosp[] = hospitalisation::where('etat',null)->where('date',$date[$i])->count();
       $j++ ;        
     }
     $value = strftime("%Y-%m-%d", mktime(0, 0, 0, date('m'), date('d'), date('y')));

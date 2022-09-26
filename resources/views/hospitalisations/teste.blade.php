@@ -39,7 +39,7 @@
             {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
             </li>
             <li class="list-inline-item" style="width:270px;">
-             <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}
+             <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->date }}
             </li>
             <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
              </i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}

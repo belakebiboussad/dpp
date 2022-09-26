@@ -72,7 +72,7 @@
           <tr class="noBorder">
             <td>
               <strong>Date d'hospitalisation :</strong>&nbsp;
-              <span>{{ (\Carbon\Carbon::parse($obj->Date_entree))->format('d/m/Y') }}</span>
+              <span>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span>
             </td>
             <td>
               <strong>Mode d'entrée :</strong>&nbsp;
@@ -96,7 +96,7 @@
             <td><strong>Service :</strong><span> &nbsp;&nbsp;{{ $obj->admission->demandeHospitalisation->Service->nom }}</span></td>
             <td>
               <strong>Date d'entrée :</strong>&nbsp;
-              <span>{{ (\Carbon\Carbon::parse($obj->Date_entree))->format('d/m/Y') }}</span>
+              <span>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span>
             </td>
             <td>
               <strong>Date de Sortie :</strong>&nbsp;

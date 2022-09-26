@@ -18,7 +18,7 @@
     </li>
     <li class="list-inline-item" style="width:270px;">
      <i class="ace-icon fa fa-caret-right blue"></i>Date d'entrée:
-     {{ \Carbon\Carbon::parse($hosp->Date_entree)->format('d/m/Y') }}
+     {{ \Carbon\Carbon::parse($hosp->date)->format('d/m/Y') }}
     </li>
     <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
         </i>Date sortie prévue:

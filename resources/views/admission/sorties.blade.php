@@ -62,7 +62,7 @@
 	                  		      title:'Patient',"orderable": true
 	                    		},
 		                     { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
-		                     { data : "hospitalisation.Date_entree" ,title:'Date Entrée',"orderable": true},
+		                     { data : "hospitalisation.date" ,title:'Date Entrée',"orderable": true},
 		                      { data: "admission.demande_hospitalisation.modeAdmission", 
                                               render: function ( data, type, row ) {    // var mode;
                                                 switch(row.demande_hospitalisation.modeAdmission)

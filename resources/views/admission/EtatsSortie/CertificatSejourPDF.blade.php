@@ -39,7 +39,7 @@
       <div class="row">
         <p class="tab">je soussigné, Docteur  {{$obj->demandeHospitalisation->consultation->medecin->full_name}},
          certifie que  {{ $obj->hospitalisation->patient->getCivilite() }} &nbsp;
-         <strong> {{ $obj->hospitalisation->patient->full_name }}</strong> à été hospitalisée du {{ $obj->hospitalisation->Date_entree }} au {{ $obj->hospitalisation->Date_Sortie }} en {{ $obj->demandeHospitalisation->Service->nom}}
+         <strong> {{ $obj->hospitalisation->patient->full_name }}</strong> à été hospitalisée du {{ $obj->hospitalisation->date }} au {{ $obj->hospitalisation->Date_Sortie }} en {{ $obj->demandeHospitalisation->Service->nom}}
           pour  {{ $obj->demandeHospitalisation->consultation->motif }}
         </p>
       </div><br><br><br>

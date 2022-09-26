@@ -100,7 +100,7 @@
                 return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
                }, title:"Mode Admission","orderable": false 
               },//2
-              { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
+              { data: "date" , title:'Date Entrée', "orderable": true},//3
               { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
               { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
               { data: null, title:'Mode',"orderable": false,
@@ -284,7 +284,7 @@
                       <td class="priority-4">
                       <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
                     </td>
-                    <td>{{  $hosp->Date_entree}}</td>
+                    <td>{{  $hosp->date}}</td>
                     <td  class="priority-6">{{ $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
                     <td class="priority-5">{{ (isset($hosp->modeHospi)) ? $hosp->modeHospi->nom : '' }}</td>

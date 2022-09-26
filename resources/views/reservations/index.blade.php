@@ -27,6 +27,18 @@
       <option value="" selected disabled>Selectionnez un lit</option>
     </select>
   </div>
+  <div class="form-group "><label class="control-label">Date de debut:</label>
+            <div class="input-group col-sm-12 col-xs-12">
+              <input type="text" class="form-control date-picker" name="Dat_debut" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="">
+              <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>    
+          </div>
+          <div class="form-group "><label class="control-label">Date de fin:</label>
+          <div class="input-group col-sm-12 col-xs-12">
+            <input type="text" class="form-control date-picker" name="Dat_fn" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="">
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>    
+          </div>
+          </div>
   <div class="form-group mb-0">
     <button type="submit" class="btn btn-xs btn-success">getReservations</button>
   </div>

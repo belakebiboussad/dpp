@@ -20,7 +20,7 @@
 					@if($patient->hospitalisations->count()>0)
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
-							<td>{{ $hosp->Date_entree }}</td>
+							<td>{{ $hosp->date }}</td>
               <td>{{ $hosp->medecin->full_name }}</td>
 							<td>{{ ($hosp->etat_id == 1 ) ? $hosp->Date_Sortie : $hosp->Date_Prevu_Sortie }}</td>
 							<td>

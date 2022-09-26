@@ -66,9 +66,9 @@
       </div>
        <div class="row">
                 <div class="form-group col-xs-4">
-                  	<label class="col-sm-4 control-label" for="Date_entree">Date :</label>
+                  	<label class="col-sm-4 control-label" for="date">Date :</label>
                    	<div class="col-sm-8">
-                      <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
+                      <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
                     </div> 
         	</div>
 		<div class="form-group col-xs-4">
