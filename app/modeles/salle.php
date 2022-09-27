@@ -8,8 +8,13 @@ class salle extends Model
 {
   public $timestamps = false;
   protected $fillable = ['num','nom','genre','max_lit','bloc','etage','etat','service_id'];
+   protected $appends = ["nb_beds"];
   public function lits(){
     return $this->hasMany('App\modeles\Lit');
+  }
+  public function getNbBedsAttribute()
+  {
+     return $this->lits->count();
   }
   public function service()
   {

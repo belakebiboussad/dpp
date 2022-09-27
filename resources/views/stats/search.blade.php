@@ -103,8 +103,6 @@
             url : '{{URL::to('searstat')}}',
             data: formData,
             success:function(data,status, xhr){ // $("#canvashosp").hide();
-//for (key in data) {//var date = data.date;//var nbhosp = data.nbhosp;//if(nbhosp!=0){$("#canvashosp").show();}
-//var nvhosp = data.nvhosp;//var nbcons = data.nbcons;//var service = data.services;//var datalit = data.datalit;//   var medecin = data.medecin; // }
             $("#stat").show();
             $(".numberResult").html(data.objNbr);
             var barChartData = {
@@ -115,7 +113,6 @@
                           data: data.dataArray,
                         }]
             };
-            
             var ctx = document.getElementById("canvasId").getContext("2d");
             window.myBar = new Chart(ctx, {
               type: 'bar',

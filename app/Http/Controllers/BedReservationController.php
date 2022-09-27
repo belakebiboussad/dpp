@@ -89,7 +89,6 @@ class BedReservationController extends Controller
   public function update(Request $request, $id)
   { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"$now = \Carbon\Carbon::now();//object
     //$start = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
-    /*
     $resrvs = [];
     $lit = lit::FindOrFail( $request->lit_id);
     $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now "2022-09-2"
@@ -110,22 +109,5 @@ class BedReservationController extends Controller
           $lit->bedReservation()->detach($res);
         }
         dd( $resrvs);
-    */ 
-    $start = Carbon::parse($request->Dat_debut);
-    $end =  Carbon::parse($request->Dat_fn);
-   $dates = [];
-    $dateRange = CarbonPeriod::create($start, $end)->filter('isWeekday');  
-    foreach ($dateRange as $date) {
-      $dates[] = $date->format('m-d');
-      // $dataArray[] = hospitalisation::whereHas('medecin', function($q) {
-      //                                                 $q->where('service_id', 1);
-      //                               })->where('date','>=',$date)->where('Date_Sortie','>=',$date )->count();
-       // $dataArray[] = hospitalisation::where('date','<=',$date)->count();
-        $dataArray[] = hospitalisation::where('Date_Sortie','>=',$date)->orWhere('etat',null)->count();
-       // ->where('Date_Sortie','>=',$date )
-    }
-    dd( $dataArray);
-    // var_dump( $dates);
-
   }
 }

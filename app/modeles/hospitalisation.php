@@ -3,12 +3,12 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class hospitalisation extends Model
 {
     public $timestamps = false;//Date_entree
     protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
-    protected $appends = ['etat_id'];
+    protected $appends = ['etat_id',"nb_days"];
     public const STATES = [
       ''=> 'en Cours',
       1 => 'Cloturée',
@@ -26,6 +26,12 @@ class hospitalisation extends Model
     }
     public  function getEtatIdAttribute($state) {//getEtatID
          return array_search($this->etat, self::STATES); 
+    }
+    public function getNbDaysAttribute()
+    {
+      if(!isset($this->Date_Sortie))
+        $this->Date_Sortie = \Carbon\Carbon::now();
+      return (Carbon::parse($this->Date_Sortie)->diffInDays($this->date));  
     }
     public function admission()
     {

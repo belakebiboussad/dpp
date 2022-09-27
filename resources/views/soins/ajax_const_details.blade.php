@@ -1,10 +1,10 @@
-<div class="row "><div class="col-sm-1"></div>
-  <div class="col-sm-5">
+<div class="row "><!-- <div class="col-sm-1"></div> -->
+  <div class="col-sm-6">
     <label for="cnst"><b>{{ $const->nom}} :</b></label>
     <input type="number" step="{{ $const->step }}" id="cnst" class="input input-sm " value="{{ $const->normale }}" min="{{ $const->min}}" max="{{ $const->max}}">     
-    <button type="buton" class ="btn btn-sm btn-primary" id="addCste"><i class="fa fa-plus-circle bigger-120"></i></button>
-      <button class="btn btn-sm btn-danger" id="btnRemovePoints"><i class="fa fa-trash-o fa-lg"></i></button> 
-  </div><div class="col-sm-1"></div>
+    <button type="buton" class ="btn btn-xs btn-primary" id="addCste"><i class="fa fa-plus-circle"></i></button>
+      <button class="btn btn-xs btn-danger" id="btnRemovePoints"><i class="fa fa-trash-o"></i></button> 
+  </div><!-- <div class="col-sm-1"></div> -->
   <div class="col-sm-5">
   <label id="min">Min:{{ $const->min }}</label>&nbsp;<label id="mxn">Max:{{ $const->max }}</label>
   </div>

@@ -112,6 +112,19 @@
       </div>
     </div>
     </div>
+    <div class="col-lg-3 col-md-6 col-xs-12">
+    <div class="widget">
+      <div class="widget-body">
+          <div class="widget-icon pull-left">
+            <i class="ace-icon fa fa-stethoscope bigger-180"></i>
+          </div>
+          <div class="widget-content pull-left">
+              <div class="title">&nbsp;{{ $nbjPerHosp }} Jour</div>
+              <div class="comment">Délai moyen d'hospitalisation</div>
+          </div><div class="clearfix"></div>
+      </div>
+    </div>
+    </div>
   </div><div class="space-12"></div>
   <div class="row">
     <div class="col-lg-6">
@@ -150,7 +163,16 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6"> </div>  
+    <div class="col-lg-6">
+       <div class="widget">
+        <div class="widget-title">
+          <i class="fa fa-cloud-download"></i>Délai moyen d'hospitalisation
+        </div>
+        <div class="widget-body medium no-padding">
+          <canvas id = "DMHOSP" height="230" width="600"></canvas>
+        </div>
+      </div>
+    </div>  
   </div>
 @endsection
 @section('page-script')
@@ -160,7 +182,7 @@ $(function(){
     labels:  {!! $dates !!},
       datasets: [{
           label: 'Hospitalisation',
-          backgroundColor: "Bleu",
+          backgroundColor: "#032cfc",
           data: {{ $nbhosp  }}
       }]
     };
@@ -256,7 +278,6 @@ $(function(){
     window.myBar = new Chart(ctxBed, {
         type: 'pie',
         data: {
-          
           labels: ['Libre','Affecté','Reservé', 'Bloqué'],
           datasets: [{
               data: {{ $datalit }},
@@ -264,10 +285,11 @@ $(function(){
                 "#49be25",
                 "#46BFBD",
                 "#FF4500",
-                ,"#FF2511"],
+                ,"#FF0000",
+              ],
             }]
-          },
-          options: {
+        },
+        options: {
             responsive:true, //metre ca popur regler dimention
             maintainAspectRatio: false,//metre ca popur regler dimention
             pieceLabel: {
@@ -288,8 +310,50 @@ $(function(){
               display: false,
               position: 'bottom',
             },
+        }
+    });  
+    //deb
+    var ctxdmo = document.getElementById("DMHOSP").getContext("2d");
+    chart =  new Chart(ctxdmo, {
+          type: 'line',
+          data: {
+              labels: {!! $monthLabels !!} ,
+              datasets: [{
+                  label: "DMO",
+                  data: {{ $avHospStysub }},
+                  backgroundColor:'#49be25',
+                  borderColor:'#46BFBD',
+                  borderWidth: 4,
+              }]
+          },
+          options: {
+              onClick: (e) => {
+                const canvasPosition = Chart.helpers.getRelativePosition(e, chart);
+              },
+              interaction: {
+                mode: 'nearest'
+              },
+              scales: {
+                  xAxes: [{
+                    gridLines: {
+                        display: true,
+                        drawBorder:true,
+                    },
+                    ticks: {
+                      display: true,
+                      fontFamily: "Montserrat",
+                      fontColor: "#46BFBD",
+                      fontSize: 14, 
+                    }
+                  }],
+                  y: {
+                     beginAtZero: true,
+                     max: 40,
+                  },
+              }//scales
           }
-        });  
+    }); 
+    //end test
    });
 </script>
 @endsection

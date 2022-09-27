@@ -45,8 +45,8 @@
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('/js/jQuery.print.js')}}"></script>
-<!-- <script src="{{asset('/js/Chart-3-3-2.min.js')}}"></script> -->
-<script src="{{asset('/js/Chart-2.9.3.min.js')}}"></script>
+<script src="{{asset('/js/Chart-3-3-2.min.js')}}"></script>
+<!-- <script src="{{asset('/js/Chart-2.9.3.min.js')}}"></script> -->
 <script src="{{asset('/js/jquery.mobile.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery-additional-methods.min.js')}}"></script>
 <script src="{{asset('/js/bootbox.min.js')}}"></script>

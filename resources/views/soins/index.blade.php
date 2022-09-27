@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-6 widget-box transparent"  id="details"></div>       
+    <div class="col-md-6 col-sm-6 widget-box transparent" id="details"></div>       
   </div>
   <div class="row">
     <div class="col-sm-6 widget-container-col">
