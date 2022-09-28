@@ -97,9 +97,8 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-      $user = User::FindOrFail($id);
+    public function show(User $user)
+    { //$user = User::FindOrFail($id);
       $roles = rol::all();
       $services=service::all();
       $specialites=specialite::all();
@@ -112,9 +111,8 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-      $user = User::FindOrFail($id);
       $roles = rol::all()->keyBy('id');
       $services=service::all()->keyBy('id');
       $specialites = Specialite::all()->keyBy('id');
@@ -128,7 +126,7 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {      
       $rule = array(
             "username"=> "required",
@@ -142,7 +140,6 @@ class UsersController extends Controller
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
-      $user = User::FindOrFail($id);
       $activer = $user->active;
       if($user->active)
       {
@@ -171,11 +168,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     //public function destroy(User $user)
-    public function destroy(Request $request , $id)
+    public function destroy(Request $request ,  User $user)
     {
-      $user = User::FindOrFail($id);
-      employ::destroy($user->employee_id);  
-      User::destroy($id);
+      $user->delete();
       return redirect()->route('users.index');
     }
     protected function guard()

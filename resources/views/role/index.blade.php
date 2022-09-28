@@ -28,12 +28,13 @@
 				<td width="80%">{{ $role->role }}</td>
 				<td width="10%" class="center">
 					<div class="hidden-sm hidden-xs btn-group">
-            <a width="50%" class="btn btn-xs btn-success" href="/role/show/{{$role->id}}">
-                <i  width="50%" class="ace-icon fa fa-hand-o-up"></i></a>
-						<a href="{{ route('role.edit', $role->id) }}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil "></i></a>
+            <a width="50%" class="btn btn-xs btn-success" href="{{ route('role.show', $role->id) }}">
+              <i class="ace-icon fa fa-hand-o-up"></i></a>
+						<a href="{{ route('role.edit', $role->id) }}" class="btn btn-xs btn-info">
+            <i class="ace-icon fa fa-pencil"></i></a>
             <a href="{{route('role.destroy',$role->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i></a>
-                           			</div>
+              <i class="ace-icon fa fa-trash-o"></i></a>
+          </div>
 				</td>
 			</tr>
 			@endforeach 

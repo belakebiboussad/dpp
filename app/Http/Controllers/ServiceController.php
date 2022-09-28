@@ -68,9 +68,8 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request,service $service)
     {
-      $service = service::FindOrFail($id);
       if($request->ajax())
       {
         $view = view("services.ajax_show",compact('service'))->render();
@@ -87,9 +86,8 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function edit(Request $request,$id)
+      public function edit(Request $request,service $service)
       {
-        $service = service::FindOrFail($id);
         if($service->type != "2")
         {
           $employs = employ::with('User')->whereHas('User', function($q){
@@ -115,9 +113,8 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request, $id)
-      {
-        $service = service::FindOrFail($id);
+      public function update(Request $request, service $service)
+      { 
         if(isset($service->responsable_id))
         {
           if($request->responsable_id != $service->responsable_id)
@@ -142,11 +139,11 @@ class ServiceController extends Controller
        * @param  int  $id
        * @return \Illuminate\Http\Response
        */
-      public function destroy(Request $request,$id)
+      public function destroy(Request $request,service $service)
       {
-        $service = service::destroy($id);
+        $service->delete();
         if($request->ajax())
-          return $id;
+          return $service->id;
         else
           return redirect()->route('service.index');    
       }

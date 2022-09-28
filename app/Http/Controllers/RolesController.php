@@ -57,21 +57,18 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(rol $role)//
     {
-          $role = rol::FindOrFail($id);
-           return view('role.show', compact('role'));
+       return view('role.show', compact('role'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(rol $role)
     {
-      $role = rol::FindOrFail($id);
       return view('role.edit', compact('role'));
     }
     /**
@@ -81,10 +78,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, rol $role)
     {
-       $role = rol::FindOrFail($id);  
-       $request->validate([
+      $request->validate([
           "rolename" => 'required|min:3',
        ]);
        $role->update([
@@ -99,12 +95,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function destroy($id)
+      public function destroy(rol $role)
       {
-            $role = rol::find($id);
-            $role->delete();
-            $roles = rol::all();
-             Session::flash('message','Rôle supprimé avec succès');
-              return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
-        }
+        $role->delete();
+        $roles = rol::all();
+        Session::flash('message','Rôle supprimé avec succès');
+        return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
+      }
 }

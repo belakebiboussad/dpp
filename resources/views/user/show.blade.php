@@ -28,13 +28,12 @@
 					<div class="col-sm-8"><label class="blue">{{ $user->employ->prenom }}</label></div>
 				</div>
 				<div class="form-group col-xs-12 col-sm-4">
-					<label class="col-sm-4  text-right">Date Naissance :</label>
+					<label class="col-sm-4  text-right">Né(e) le :</label>
 					<div class="col-sm-8"><label class="blue">{{ $user->employ->Date_Naiss }}</label> </div>
 				</div>
-                    </div><div class="space-12"></div>
-                     <div class="row">
+        <div class="row">
 				<div class="form-group col-xs-12 col-sm-4">
-					<label class="col-sm-4  text-right">Lieu Naissance :</label>
+					<label class="col-sm-4  text-right">Né(e) à :</label>
 					<div class="col-sm-8"><label class="blue">{{ $user->employ->Lieu_Naissance }}</label></div>
 				</div>
 				<div class="form-group col-xs-12 col-sm-4">
@@ -81,7 +80,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="info-compte" class="tab-pane"><div class="space-12"></div> 
+		<div id="info-compte" class="tab-pane">
 			<h4 class="header blue bolder">Informations du compte</h4>
 			<div class="row">
 				<div class="form-group col-xs-12 col-sm-6">

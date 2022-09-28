@@ -1,23 +1,17 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h4><strong> Détails du rôle : {{ $role->role }}</strong></h4></div>
+<div class="page-header"><h4>Détails du rôle : {{ $role->role }}</h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="space-10"></div>
-		<div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-				<strong> Nom du rôle </strong>
-			</label>
-			<div class="col-sm-9">
-				<label class="blue">{{ $role->role }}</label>
+		<div class="form-group"><label class="col-sm-3 control-label">Nom du rôle :</label>
+			<div class="col-sm-9"><label>{{ $role->role }}</label>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-				<strong> Nombre d'utilisateurs </strong>
-			</label>
+			<label class="col-sm-3 control-label">Nombre d'utilisateurs :</label>
 			<div class="col-sm-9">
-				<label class="blue">{{ App\User::where("role_id",$role->id)->get()->Count() }}</label>
+				<label>{{ App\User::where("role_id",$role->id)->get()->Count() }}</label>
 			</div>
 		</div>
 	</div>
