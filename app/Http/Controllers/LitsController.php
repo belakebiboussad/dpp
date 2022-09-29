@@ -69,9 +69,8 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request,lit $lit)
     {
-      $lit = lit::with('salle','salle.service')->FindOrFail($id);
       if($request->ajax())  
       {
         $view = view("lits.show",compact('lit'))->render();
@@ -85,15 +84,13 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-      $lit = lit::FindOrFail($id);
-      $salles = salle::all();
+    public function edit(lit $lit)
+    { $salles = salle::all();
       return view('lits.edit', compact('lit','salles'));
     }
-    public function destroy($id)
+    public function destroy(lit $lit)
     {
-      $lit = lit::destroy($id);
+      $lit->delete();
       return redirect()->route('lit.index');    
     }
     /**
@@ -103,12 +100,11 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request, $id)
-      {
-        $lit = lit::FindOrFail($id);
+      public function update(Request $request, lit $lit)
+      { //$lit = lit::FindOrFail($id);
         $input = $request->all();
         $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
         $lit->update($input);   
-         return redirect()->route('lit.index');
+        return redirect()->route('lit.index');
       }
 }

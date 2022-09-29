@@ -19,20 +19,17 @@ class ActeController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $acte = Acte::find($id);//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
-        return $acte;
+    public function edit(Acte $acte )
+    { //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+      return $acte;
     }
-
     public function show($id)
     {
       $consigne = consigne::FindOrFail($id);
       return view('consigne.show_consigne',compact('consigne'));
     }
-    public function update(Request $request,$id)
-    {
-      $acte = Acte::FindOrFail($id);
+    public function update(Request $request, Acte $acte)
+    { 
       $acte->update($request->all());
       return(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]);
     }
@@ -45,9 +42,8 @@ class ActeController extends Controller
       $acte =Acte::create($request->all());
       return(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]);    
     }
-    public function destroy($id)
-    {
-      $acte = Acte::FindOrFail($id);
+    public function destroy(Acte $acte)
+    { 
       $acte -> update([ "retire"=>1]);
       return $acte;
     }

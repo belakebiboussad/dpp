@@ -119,9 +119,8 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-      public function show(Request $request, $id)
+      public function show(Request $request, rdv $rdv)
       {
-        $rdv = rdv::FindOrFail($id);
         if($request->ajax())
           return $rdv->load('specialite','patient','employe');
         else
@@ -133,19 +132,18 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-      public function edit(Request $request, $id)
-      {       
-        $Rdv = rdv::with('patient','employe')->FindOrFail($id);
+      public function edit(Request $request, rdv $rdv)
+      { //$rdv = rdv::with('patient','employe')->FindOrFail($id);
         if($request->ajax())
         { 
-          $medecins = ($Rdv->specialite)->employes;
-          //$medecins = ($Rdv->employe->Specialite)->employes;//$specialites =Specialite::where('type','<>',null)->get();
-          if(isset($Rdv->specialite_id))
-             return Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]);//,'specialites'=>$specialites
+          $medecins = ($rdv->specialite)->employes;
+          //$medecins = ($rdv->employe->Specialite)->employes;//$specialites =Specialite::where('type','<>',null)->get();
+          if(isset($rdv->specialite_id))
+             return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);//,'specialites'=>$specialites
           else 
-            return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+            return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
         }else{
-              $specialite =$Rdv->specialite_id;
+              $specialite =$rdv->specialite_id;
               if(in_array(Auth::user()->role_id,[1,13,14])) 
                   $rdvs = rdv::with('patient','employe')
                               ->whereHas('specialite',function($q) use ($specialite){
@@ -153,7 +151,7 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
                               })->where('etat',null)->orwhere('etat',1)->get(); 
               else
                       $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get(); 
-              return view('rdv.edit',compact('Rdv','rdvs'));
+              return view('rdv.edit',compact('rdv','rdvs'));
         } 
       }
     /**
@@ -163,9 +161,8 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request, $id)
-      { 
-        $rdv = rdv::FindOrFail($id);//$medecinId = (Auth::user()->role_id == 1 )? $rdv->employ_id: $request->medecin;
+      public function update(Request $request, rdv $rdv)
+      { //$rdv = rdv::FindOrFail($id);//$medecinId = (Auth::user()->role_id == 1 )? $rdv->employ_id: $request->medecin;
         $specId = (in_array(Auth::user()->role_id,[1,13,14]) )? Auth::user()->employ->specialite : $request->specialite;
         // if(in_array(Auth::user()->role_id,[1,13,14]))// $fixe =  (isset($request->fixe)) ? 1: 0;
         $date = new DateTime($request->date);
@@ -192,9 +189,8 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-      public function destroy(Request $request, $id)
-      {
-        $rdv = rdv::findOrFail($id); 
+      public function destroy(Request $request, rdv $rdv)
+      { //$rdv = rdv::findOrFail($id); 
         $rdv->update(['etat'=>0]);
         if($request->ajax())
           return Response::json($rdv);//return ($rdv);

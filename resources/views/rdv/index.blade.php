@@ -52,7 +52,7 @@ $(function(){
         selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
         editable: true,
         eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-        // hiddenDays: [ 5, 6 ],
+        hiddenDays: [ 5, 6 ],
         allDaySlot: false,
         weekNumberCalculation: 'ISO',
         aspectRatio: 1.5,

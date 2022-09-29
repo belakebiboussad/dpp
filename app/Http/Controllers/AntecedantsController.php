@@ -18,12 +18,7 @@ class AntecedantsController extends Controller
       {
           $this->middleware('auth');
       }
-    public function index($id)
-    {   
-        $patient = patient::FindOrFail($id);
-        $atcds = antecedant::where("pid",$patient->id)->get()->all();
-        return view('antecedents.index',compact('patient','atcds'));
-    }
+/*public function index($id){$patient = patient::FindOrFail($id);$atcds = antecedant::where("pid",$patient->id)->get()->all(); return view('antecedents.index',compact('patient','atcds'));}*/
     /**
      * Show the form for creating a new resource.
      *
@@ -48,9 +43,8 @@ class AntecedantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(antecedant $atcd)
     {
-      $atcd = antecedant::find($id);
       return $atcd;
     }
 
@@ -69,11 +63,10 @@ class AntecedantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,antecedant $atcd)
     {
-        $atcd = antecedant::find($id);
-        $atcd->update($request->all()); 
-        return $atcd; 
+      $atcd->update($request->all()); 
+      return $atcd; 
     }
     /**
      * Remove the specified resource from storage.
@@ -81,9 +74,9 @@ class AntecedantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(antecedant $atcd)
     {
-      $atcd = antecedant::destroy($id);
+      $atcd->delete();
       return $atcd;
     }
 

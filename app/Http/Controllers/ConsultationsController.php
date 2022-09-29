@@ -57,32 +57,31 @@ class ConsultationsController extends Controller
       $consultation = consultation::FindOrFail($id_cons);
       return view('consultations.resume_cons', compact('consultation'));
     }
-    public function detailconsXHR(Request $request)
+    public function edit(consultation $consultation)
     {
-          $etab = Etablissement::first(); //$specialite = Specialite::findOrFail(Auth::user()->employ->specialite);
-              if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
-                      $specialite = Auth::user()->employ->Specialite;
-                else
-                       $specialite = Auth::user()->employ->Service->Specialite;
-               $consultation = consultation::FindOrFail($request->id);
-               $view =  view("consultations.inc_consult",compact('consultation','etab','specialite'))->render();
-               return $view;
+      $etab = Etablissement::first();
+      if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
+        $specialite = Auth::user()->employ->Specialite;
+      else
+        $specialite = Auth::user()->employ->Service->Specialite;
+     $view =  view("consultations.inc_consult",compact('consultation','etab','specialite'))->render();
+      return $view; 
     }
-        public function listecons($id)
-        {
-          $patient = patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
-          $consults= consultation::with('patient','medecin.Specialite')
-                                  ->whereHas('patient', function($q) use ($id) {
-                                    $q->where('pid', $id);
-                                  })->get();        
-          return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
-        }
+    public function listecons($id)
+    {
+      $patient = patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
+      $consults= consultation::with('patient','medecin.Specialite')
+                              ->whereHas('patient', function($q) use ($id) {
+                                $q->where('pid', $id);
+                              })->get();        
+      return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->full_name ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-      public function create(Request $request,$id_patient)
+      public function create(Request $request, $pid)//$id_patient
       {
         $date = Carbon::now();
         $etab = Etablissement::first(); 
@@ -94,12 +93,12 @@ class ConsultationsController extends Controller
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
-        $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+        $patient = patient::FindOrFail($pid);//$codesim = codesim::all();
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $consult =new consultation;$consult->date=$date;
-        $consult->employ_id=Auth::User()->employee_id;$consult->pid = $id_patient; 
+        $consult->employ_id=Auth::User()->employee_id;$consult->pid = $pid; 
         $consult->id_lieu =$etab->id;$consult->save();
         return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
       }
@@ -208,25 +207,23 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-      public function show($id)
-      {
-              $consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
-               $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-              if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
-                        $specialite = Auth::user()->employ->Specialite;
-               else
-                       $specialite = Auth::user()->employ->Service->Specialite;
-               return view('consultations.show', compact('consultation','specialite','specialites'));
+      public function show(consultation $consultation)//$id
+      { //$consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
+        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
+        if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
+                  $specialite = Auth::user()->employ->Specialite;
+         else
+                 $specialite = Auth::user()->employ->Service->Specialite;
+         return view('consultations.show', compact('consultation','specialite','specialites'));
       }
-      public function destroy(Request $request, $id)
-      {
-            $consult = consultation::find($id);
-            $pid = $consult->pid;
-            $consult->delete();
-            if($request->ajax())  
-              return $consult;
-            else
-              return redirect()->action('PatientController@show',$pid);
+      public function destroy(Request $request, consultation $consult)
+      { //$consult = consultation::find($id);
+        $pid = $consult->pid;
+        $consult->delete();
+        if($request->ajax())  
+           return $consult;
+        else
+          return redirect()->action('PatientController@show',$pid);
       }  
     /**
      * Show the form for editing the specified resource.

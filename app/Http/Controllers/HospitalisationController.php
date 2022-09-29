@@ -127,14 +127,14 @@ if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admi
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show($id)//
   {
     $hosp = hospitalisation::find($id);
     if(isset(Auth::user()->employ->specialite))
-            $specialite = Auth::user()->employ->Specialite;
-     else
-            $specialite = Auth::user()->employ->Service->Specialite;
-     $consts = consts::all();  
+      $specialite = Auth::user()->employ->Specialite;
+    else
+      $specialite = Auth::user()->employ->Service->Specialite;
+    $consts = consts::all();  
     return view('hospitalisations.show',compact('hosp','consts','specialite'));
   }
   /**

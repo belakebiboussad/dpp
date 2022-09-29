@@ -5,7 +5,8 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" id="TraitCrudModal">Prescrire un traitement</h4>
         </div> 
-        <form id="addTrait" method="POST" action ="{{route('traitement.store')}}" name="form1" id="form1">  <!-- /Acte/save -->
+        <form id="addTrait" method="POST" id="form1" action="">
+         <!-- action ="{{-- route('traitement.store')--}}"  -->
         {{ csrf_field() }}
         <input type="hidden" name="id_visite" id ="id_visiteT" value="{{ $id }}">
         <input type="hidden" id ="trait_id" value=""/>

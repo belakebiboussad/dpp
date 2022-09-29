@@ -98,7 +98,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    { //$user = User::FindOrFail($id);
+    { 
       $roles = rol::all();
       $services=service::all();
       $specialites=specialite::all();
@@ -170,6 +170,7 @@ class UsersController extends Controller
     //public function destroy(User $user)
     public function destroy(Request $request ,  User $user)
     {
+      $user->employ->delete();
       $user->delete();
       return redirect()->route('users.index');
     }

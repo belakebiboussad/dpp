@@ -77,7 +77,8 @@ class VisiteController extends Controller
         $codesNgap = NGAP::all();
         $visite->save();
         $consts = consts::all();
-        return view('visite.add',compact('consts', 'hosp','consult' ,'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
+        // ,'consult'
+        return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

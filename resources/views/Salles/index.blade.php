@@ -16,8 +16,7 @@ function getRoomBeds(id)
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4><strong>Liste des chambres</strong></h4>
-</div>
+<div class="page-header"><h4>Liste des chambres</h4></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue" >
@@ -26,10 +25,9 @@ function getRoomBeds(id)
 				<i class="ace-icon fa fa-table"></i><span>Détails des chambres</span>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-primary no-border">
-					<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i> Chambre</a>
-				</div>
-			
+				<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">
+			  <i class="ace-icon  fa fa-plus-circle"></i> Chambre</a>
+			</div>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -38,12 +36,10 @@ function getRoomBeds(id)
 						<tr>
 							<th class ="center">Dénomination</th>
 							<th class ="center">ِCapacité</th>
-							<th class ="center">Lits en place</th>
-							<th class ="center">N° Bloc</th>
-							<th class ="center">Etage</th>
+							<th class ="center">Lits(nb)</th>
 							<th class ="center">Unité</th>
-							<th class ="center">Etat</th>
-							<th class ="center"><strong>Service</strong></th>
+							<th class ="center">Bloquée ?</th>
+							<th class ="center">Service</th>
 							<th class ="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
@@ -53,23 +49,15 @@ function getRoomBeds(id)
 						<td><a href="#" id ={{  $salle->id }} onclick="getRoomBeds({{ $salle->id }});">{{ $salle->nom }}</a></td>
 						<td >{{ $salle->max_lit }}</td>
 						<td >{{ $salle->lits->count() }}</td>
-						<td>{{ $salle->bloc }}</td>
-						<td>{{ $salle->etage }}</td>
-						<td>
-						@if($salle->genre)
-							Femme
-						@else
-							Homme
-						@endif
-						</td>
+						<td>{{ isset($salle->genre) ? 'Femme' : 'Homme'}}</td>
 						<td>
 							@if(isset( $salle->etat ))
-								<span class="label label-sm label-warning">
+								<span class="label label-sm label-warning">Oui
 							@else
-							<span class="label label-sm label-success">
-								Non 
+							<span class="label label-sm label-success">Non 
+								
 							@endif
-							Bloquée</span>
+							</span>
 						</td>
 						<td>{{ $salle->service->nom }}</td>
 					  <td class ="center">

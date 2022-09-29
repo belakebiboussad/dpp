@@ -37,9 +37,8 @@ class HommeConfianceController extends Controller
     return $homme;
 
   }
-  public function destroy($id)
+  public function destroy(homme_conf $homme)
   {
-  	$homme = homme_conf::destroy($id);
-    return $homme;
+  	return $homme;
   } 
 }

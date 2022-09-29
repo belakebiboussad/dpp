@@ -261,30 +261,30 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-       public function show($id)
-       {  
-              $patient = patient::FindOrFail($id);
-              $specialites = Specialite::all();
-              $grades = grade::all(); 
-              $employe=Auth::user()->employ;
-              $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-              $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-              $demandesExB = demandeexb::with('consultation')->where('etat',1)
-                                        ->whereHas('consultation',function($q) use($id){
-                                             $q->where('pid', $id);
-                                        })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                          $q->where('patient_id', $id);   
-                                        })->get();
-              $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
-                                        ->whereHas('consultation',function($q) use($id){
-                                             $q->where('pid', $id);
-                                        })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                          $q->where('patient_id', $id);   
-                                        })->get();
-              $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
-                                          $q->where('pid', $id);
-                                        })->get();
-             return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
+       public function show(patient $patient)
+       {  //c$patient = patient::FindOrFail($id);
+          $id = $patient->id ;
+          $specialites = Specialite::all();
+          $grades = grade::all(); 
+          $employe=Auth::user()->employ;
+          $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+          $correspondants = homme_conf::where("id_patient", $patient->id)->where("etat_hc", "actuel")->get();
+          $demandesExB = demandeexb::with('consultation')->where('etat',1)
+                                    ->whereHas('consultation',function($q) use($id){
+                                         $q->where('pid', $id);
+                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                      $q->where('patient_id', $id);   
+                                    })->get();
+          $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
+                                    ->whereHas('consultation',function($q) use($id){
+                                         $q->where('pid', $id);
+                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
+                                      $q->where('patient_id', $id);   
+                                    })->get();
+          $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
+                                      $q->where('pid', $id);
+                                    })->get();
+         return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
         }
     /**
      * Show the form for editing the specified resource.
@@ -292,11 +292,11 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-      public function edit($id,$asure_id =null)
+      public function edit(patient $patient,$asure_id =null)
       {  
         $assure=null;
         $grades = grade::all(); 
-        $patient = patient::FindOrFail($id);
+        //$patient = patient::FindOrFail($id);
         if(!in_array($patient->Type,[5,6]))
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','grades')); 
@@ -308,11 +308,9 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request,$id)
-      {
-        $assure = new assur;$ayants = array("1", "2", "3","4");$ayantsAssure = array("0","1", "2", "3","4");$derogAutre = array("5","6");
+      public function update(Request $request, patient $patient)
+      { $assure = new assur;$ayants = array("1", "2", "3","4");$ayantsAssure = array("0","1", "2", "3","4");$derogAutre = array("5","6");
         $date = Date::Now();
-        $patient = patient::FindOrFail($id);
         if(!in_array($request->type,$derogAutre ))
         {
           if(($request->type == $patient->Type) || ((in_array($request->type, $ayants) && (in_array($patient->Type, $ayants)))))
@@ -381,9 +379,8 @@ class PatientController extends Controller
         ]);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
-    public function updateP(Request $request,$id) 
-    {
-      $patient = patient::FindOrFail($id);
+    public function updateP(Request $request, patient $patient) 
+    { //$patient = patient::FindOrFail($id);
       $patient -> update([
                "Nom"=>$request->nom,
                "Prenom"=>$request->prenom,
@@ -412,16 +409,14 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-      public function destroy(Request $request , $id)
+      public function destroy(Request $request , patient $patient)
       {
-        if($request->ajax())  
-        {
-          $patient = patient::destroy($id);
-          return $patient;  //Response::json( 
-        }else{
-          patient::destroy($id);
+        $patient->delete();
+        if($request->ajax())        
+          return $patient;
+        else       
           return redirect()->route('patient.index');
-        }
+        
       } 
     //public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
   public function getPatientsList(Request $request)

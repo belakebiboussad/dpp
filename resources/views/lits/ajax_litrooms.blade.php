@@ -1,6 +1,6 @@
-<div class="servive-block servive-block-grey" id="widget-box-2">
+<div class="servive-block servive-block-grey">
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Détails du lit :</b></span>	</h5>
+	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span>Détails du lit :</span></h5>
 </div>
 <div class="widget-body">
 	<div class="widget-main">	
@@ -8,8 +8,7 @@
 		@foreach ($lits as $key=>$lit)			
 			<div class="form-group">
 				<div class="i-checks">
-					<label class="col-sm-3 control-label no-padding-right blue" for="num">Numéro :</label>
-					<div><strong>{{ $lit->num }}</strong></div>
+					<label class="col-sm-3 control-label no-padding-right">Numéro :</label><div>{{ $lit->num }}</div>
 				</div>	
 			</div>
     @endforeach
@@ -22,11 +21,11 @@
 						</div>
 						<div class="form-group">
 						<div class="i-checks">
-							<label class="col-sm-3 control-label  no-padding-right blue">Nom : </label>
+							<label class="col-sm-3 control-label  no-padding-right">Nom : </label>
 							<div>
 								@foreach ($lits as $key=>$lit)	
 								{{ $lit->nom }}<br>
-		                                            @endforeach
+		            @endforeach
 							</div>
 						</div>	
 						</div>

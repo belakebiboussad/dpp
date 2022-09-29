@@ -5,9 +5,9 @@
 		<div class="col-xs-12">
 		<div class="widget-box">
 		<div class="widget-header">
-			<h5 class="widget-title"><i class="ace-icon fa fa-bed bigger-120"></i>Lit :</h5>
+			<h5 class="widget-title"><i class="ace-icon fa fa-bed"></i>Lit :</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-					<i class="ace-icon fa fa-table"></i><a href="/lit">&nbsp;Lits</a>
+					<i class="ace-icon fa fa-table"></i><a href="{{ route('lit.index') }}">&nbsp;Lits</a>
 			</div>
 		</div>
 		<div class="widget-body">
@@ -38,17 +38,17 @@
 					</div>
 				</div>
 				<div>
-                              <div class=" col-sm-9 col-sm-offset-3">
-                            <div class="form-group">
-                                      <label>Bloqué :
-                                        <input id="" type="checkbox" class="ace ace-switch ace-switch-6"  name="bloq" value ="1"  {{ $lit->bloq == 1  ? "checked" : "" }} />
-                                        <span class="lbl"></span>
-                                      </label>
-                            </div>
-                              </div>
+          <div class=" col-sm-9 col-sm-offset-3">
+        <div class="form-group">
+          <label>Bloqué :
+            <input id="" type="checkbox" class="ace ace-switch ace-switch-6"  name="bloq" value ="1"  {{ $lit->bloq == 1  ? "checked" : "" }} />
+            <span class="lbl"></span>
+          </label>
+        </div>
+          </div>
 				<div class="center">
-					<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
-					<button class="btn btn-danger" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
+					<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp;
+					<button class="btn btn-xs btn-danger" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 				</div>
 				</div>
 			</form>

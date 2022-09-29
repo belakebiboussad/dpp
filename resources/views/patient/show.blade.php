@@ -17,21 +17,11 @@
 			}
 	});
   }
-  function showConsult(consultId) //a voir ce lui den haut
-  { 
-        url= '{{ route ("consultdetailsXHR", ":slug") }}',
-        url = url.replace(':slug',consultId);
-        $.ajax({
-              type : 'GET',
-              url:url,
-              success:function(data,status, xhr){
-                       $('#consultDetail').html(data);
-              }
-        });             
-  }
   function HommeConfcopy(id)
   {
-    $.get('/hommeConfiance/'+id+'/edit', function (data) {
+    var url = '{{ route("hommeConfiance.edit", ":slug") }}'; 
+    url = url.replace(':slug',id);
+    $.get(url, function (data) {
       $('#patientId').val(data.id_patient);
       $('#typeH option').each(function() {
         if($(this).val() == data.type) 
@@ -99,10 +89,12 @@ $(function(){
         $('#EnregistrerGardeMalade').show();
       jQuery('#EnregistrerGardeMalade').val("update"); 
       $('#CoresCrudModal').html("Editer un Correspondant(e)");
-       $('#gardeMalade').modal('toggle');
+      $('#gardeMalade').modal('toggle');
     });
     jQuery('body').on('click', '.delete-garde', function () {
-        var hom_id = $(this).val();
+      var id = $(this).val();
+      var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
+      url = url.replace(':slug',id);
         $.ajaxSetup({
           headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -110,9 +102,9 @@ $(function(){
         });
         $.ajax({
             type: "DELETE",
-            url: '/hommeConfiance/' + hom_id,
+            url: url,//'/hommeConfiance/' + id,
             success: function (data) {
-                $("#garde" + hom_id).remove();
+                $("#garde" + id).remove();
             }
         });
     });
@@ -295,8 +287,8 @@ $(function(){
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
-	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info btn-bold"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
-	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o orange"> Supprimer</i></a>
+	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-warning"><i class="ace-icon fa fa-trash-o"> Supprimer</i></a>
 	 </div>
 </div>
 <div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
@@ -338,9 +330,11 @@ $(function(){
 				</li>
 				@endif
 				@if (!is_null($correspondants))
-					<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Homme de confiance</strong></a></li>
+					<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance
+          &nbsp;<span class="badge badge-success">{{ $patient->hommesConf->count() }}</span>
+          </a></li>
 				@endif
-        <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i><strong>Documents</strong></a></li>
+        <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i>Documents</a></li>
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>

@@ -59,17 +59,27 @@
 					description:$('#description').val(),
           nbrFJ : $('#nbrFJ').val()
 			};
-			var state = jQuery('#EnregistrerActe').val();
-			var acte_id = jQuery('#acte_id').val();
 			var type = "POST";
+      var url ='{{ route("acte.store") }}';
+      var state = jQuery('#EnregistrerActe').val();
+      if (state == "update") {
+        type = "PUT";
+        var id = jQuery('#acte_id').val();
+        url = '{{ route("acte.update", ":slug") }}'; 
+        url = url.replace(':slug', id);
+      }
+      /*
+      var acte_id = jQuery('#acte_id').val();
 			var ajaxurl = $('#addActe').attr('action');
 			if (state == "update") {
 				type = "PUT";
 				ajaxurl = '/acte/' + acte_id;
 			}
-			$.ajax({
+			*/
+
+      $.ajax({
 				type:type,
-				url:ajaxurl,
+				url:url,
 				data: formData,
 				dataType:'json',
 				success: function (data) {
@@ -94,35 +104,36 @@
 			});
 		});///edit acte
 		$('body').on('click', '.open-modal', function () {
-				var acteID = $(this).val();
-				$.get('/acte/'+acteID+'/edit', function (data) {
-				$('#EnregistrerActe').val("update");$('#acteCrudModal').html("Editer un Acte Médical");
+			$.get('/acte/'+ $(this).val() +'/edit', function (data) {
+		 		$('#EnregistrerActe').val("update");$('#acteCrudModal').html("Editer un Acte Médical");
 				$('#id_hosp').val(data.id_hosp);$('#acte_id').val(data.id);$('#acte').val(data.nom);
 				$('#type').val(data.type).change();$('#code_ngap').val(data.code_ngap).change();
 				$('#nbrFJ').val(data.nbrFJ).change();
 				$('#description').val(data.description);//alert(data.nbrFJ);
 				jQuery('#EnregistrerActe').val("update");		
-					jQuery('#acteModal').modal('show');
-			  });
-			});
-		  jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
-			  var acte_id = $(this).val();
+			 jQuery('#acteModal').modal('show');
+      });
+		});
+		jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
+			  var id = $(this).val();
   		  $.ajaxSetup({
 					headers: {
 						'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 					}
 				});
+        url='{{ route("acte.destroy",":slug") }}';
+        url = url.replace(':slug',id);
 				$.ajax({
 					type: "DELETE",
-					url: '/acte/' + acte_id,
-				success: function (data) {
-				  $("#acte" + acte_id).remove();
-				},
-				error: function (data) {
-					console.log('Error:', data);
-				}
-			});
-	  });	//end of add acte
+					url: url,
+  				success: function (data) {
+  				  $("#acte" + id).remove();
+  				},
+  				error: function (data) {
+  					console.log('Error:', data);
+  				}
+		  	});
+	   });	//end of add acte
 		$('#btn-addTrait').click(function () {///////////add trait
 		  $('#EnregistrerTrait').val("add");
 			$('#traitModal').trigger("reset");
@@ -143,16 +154,16 @@
                               duree : $('#dureeT').val()
 		};
     var state = jQuery('#EnregistrerTrait').val();
-		var trait_id = jQuery('#trait_id').val();
-		var type = "POST";
-		var ajaxurl = $('#addTrait').attr('action');
-		if(state == "update") {
-			  type = "PUT";
-			  ajaxurl = '/traitement/' + trait_id;
-		} 
-		$.ajax({
+		var type = "POST", url='{{ route("traitement.store") }}';
+    if(state == "update") {
+      type = "PUT";
+      var id = jQuery('#trait_id').val();
+      url = '{{ route("traitement.update", ":slug") }}'; 
+      url = url.replace(':slug', id);
+    }
+   	$.ajax({
 			type:type,
-			url:ajaxurl,
+			url:url,
 			data: formData,
 			dataType:'json',
 			success: function (data) {	
@@ -176,9 +187,8 @@
 		});
 	});
   $('body').on('click', '.edit-trait', function () {//edit traitement
-			  var traitID = $(this).val();
-				$.get('/traitement/'+traitID+'/edit', function (data) {
-						getProducts(1,data.medicament.id_specialite,data.med_id);
+				$.get('/traitement/' +$(this).val()+ '/edit', function (data) {
+          	getProducts(1,data.medicament.id_specialite,data.med_id);
 						$('#trait_id').val(data.id);
 						 $("#produit").removeAttr("disabled");
 						$('#TraitCrudModal').html("Editer un Traitement Médical");		
@@ -191,22 +201,21 @@
 		  	});
 	});////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
-	var trait_id = $(this).val();
-	$.ajaxSetup({
+	   $.ajaxSetup({
 		  headers: {
 			  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 		  }
-	  });
-	$.ajax({
-		type: "DELETE",
-		url: '/traitement/' + trait_id,
-		success: function (data) {
-			$("#trait" + trait_id).remove();
-		},
-		error: function (data) {
-			alert(data);
-		  console.log('Error:', data);
-		}
+    });
+    var id = $(this).val();
+	  $.ajax({
+		  type: "DELETE",
+		  url: '/traitement/' + id,
+		  success: function (data) {
+			 $("#trait" + $(this).val()).remove();
+		  },
+		  error: function (data) {
+			 console.log('Error:', data);
+		  }
 	});
   });	//////////Traitement
 		$('body').on('change', '#specialiteProd', function () {

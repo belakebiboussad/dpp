@@ -26,7 +26,7 @@
           </div>
           <div class="mb-3">
             <label for="prenom_h" class="col-form-label">Prénom:</label>
-            <input class="form-control" id="prenom_h">
+            <input type="text" class="form-control" id="prenom_h">
           </div>
           <div class="mb-3">
             <label for="datenaissance_h">Né(e) le :</label>
@@ -74,7 +74,7 @@
             <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse :</label>
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
-          <div class="mb-3">
+          <div class="form-froup">
             <label for="mobile_h"><i class="fa fa-phone"></i>Mob :</label>
             <div class="input-group col-sm-12">
               <input type="tel" id="mobile_h" class="form-control mobile" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
@@ -84,8 +84,8 @@
         </form>
       </div>
       <div class="modal-footer">
-       <button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
-       <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close"></i>Annuler</button>
+       <button type="submit" class="btn btn-info btn-xs btn-submit" id ="EnregistrerGardeMalade" value="add"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
+       <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
       </div>
     </div>
   </div>

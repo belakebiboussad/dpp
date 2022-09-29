@@ -8,9 +8,9 @@ use Carbon\Carbon;
 class TraitementController extends Controller
 {
     public function edit($id)
-    {
-      $trait = Traitement::with('medicament.specialite')->find($id); //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
-      return $trait;
+    {//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+      $trait = Traitement::FindOrFail($id);
+      return $trait->load('medicament');
     }
     public function show($id)
     {
@@ -30,9 +30,8 @@ class TraitementController extends Controller
       $trait = Traitement::FindOrFail($id);
       $trait->update($request->all());
       return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
-
     }
-    public function destroy($id)
+    public function destroy(Traitement $trait)
     {
       $trait = Traitement::destroy($id);
       return $trait;

@@ -74,11 +74,10 @@ class SalleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(salle $salle)
     {
-        $salle = salle::FindOrFail($id);
-        $lits = lit::where("salle_id", $salle->id)->get()->all();
-        return view('Salles.show', compact('salle','lits'));
+      $lits = lit::where("salle_id", $salle->id)->get()->all();
+      return view('Salles.show', compact('salle'));
     }
 
     /**
@@ -87,9 +86,8 @@ class SalleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(salle $salle)
     {
-      $salle = salle::FindOrFail($id);
       $services = service::all();
       return view('Salles.edit', compact('salle','services'));
     }
@@ -101,9 +99,8 @@ class SalleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, salle $salle)
     {
-      $salle = salle::FindOrFail($id);
       $salle->update($request->all());
       return redirect()->action('SalleController@index');
     }
@@ -114,9 +111,9 @@ class SalleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(salle $salle)
     {
-      $salle = salle::destroy($id);
+      $salle->delete();
       return redirect()->route('salle.index');
     }
     public function getsalles(Request $request)
