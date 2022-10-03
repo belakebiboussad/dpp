@@ -392,7 +392,7 @@ $(function(){
           }
       });
     })
-/* $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});var today = (new Date()).setHours(0, 0, 0, 0);
+/*var today = (new Date()).setHours(0, 0, 0, 0);
  $('.calendar').fullCalendar({header:{left: 'agendaWeek, basicWeek',center: 'title',right: 'month,agendaWeek,agendaDay'
 },defaultView: 'basicWeek',default: 'bootstrap',aspectRatio: 2,navLinks: true,eventLimit: true,editable: true,allDaySlot: false,
 selectable: true,lang: "fa",timezone: 'local',firstDay: 0,slotDuration: '00:15:00',minTime:'08:00:00',maxTime: '17:00:00',

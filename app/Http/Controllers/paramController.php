@@ -77,8 +77,7 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
         if(Auth::user()->role_id == 13)
         {
           $modesHosp = ModeHospitalisation::all();
-          foreach($modesHosp as $mode) {
-            //$mode = ModeHospitalisation::FindOrFail($id);
+          foreach($modesHosp as $mode) { //$mode = ModeHospitalisation::FindOrFail($id);
            if(in_array($mode->id, $request->hospModes))
               $mode->update(["selected"=>1]);
             else
@@ -89,6 +88,6 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
 
         break;
     }  
-    return redirect()->action('paramController@index');
+    return redirect()->action('/home');
   }           
 }

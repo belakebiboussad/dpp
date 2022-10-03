@@ -6,11 +6,10 @@
           <h4 class="modal-title" id="TraitCrudModal">Prescrire un traitement</h4>
         </div> 
         <form id="addTrait" method="POST" id="form1" action="">
-         <!-- action ="{{-- route('traitement.store')--}}"  -->
         {{ csrf_field() }}
         <input type="hidden" name="id_visite" id ="id_visiteT" value="{{ $id }}">
         <input type="hidden" id ="trait_id" value=""/>
-      <div class="modal-body">
+        <div class="modal-body">
         <div class="form-group row">
                <label  class="control-label" for="specialiteProd">Spécialité :</label>
               <select class="form-control" id="specialiteProd" name="specialiteProd">

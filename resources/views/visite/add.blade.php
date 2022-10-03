@@ -201,17 +201,16 @@
 		  	});
 	});////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
-	   $.ajaxSetup({
-		  headers: {
-			  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		  }
-    });
-    var id = $(this).val();
-	  $.ajax({
+	  var id = $(this).val();
+    $.ajax({
 		  type: "DELETE",
 		  url: '/traitement/' + id,
+      data :{
+        "id": id,
+        "_token": CSRF_TOKEN,
+      },
 		  success: function (data) {
-			 $("#trait" + $(this).val()).remove();
+     	  $("#trait" + id).remove();
 		  },
 		  error: function (data) {
 			 console.log('Error:', data);

@@ -31,7 +31,7 @@ class TraitementController extends Controller
       $trait->update($request->all());
       return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
     }
-    public function destroy(Traitement $trait)
+    public function destroy($id)
     {
       $trait = Traitement::destroy($id);
       return $trait;

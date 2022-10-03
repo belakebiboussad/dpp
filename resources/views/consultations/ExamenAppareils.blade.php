@@ -65,7 +65,7 @@ $(function() {
     });
     if($("#"+ $(this).data('id')).find(".wysiwyg-editor").text() != "")
     {
-      var formData = {//_token: CSRF_TOKEN,
+      var formData = {
           cons_id:'{{ $consult->id }}',
           appareil_id:$(this).data('id'),
           description:$("#"+ $(this).data('id')).find(".wysiwyg-editor").text()
@@ -99,12 +99,7 @@ $(function() {
     var formData = {
         appareil_id  : $(this).val(),
         cons_id : '{{ $consult->id }}',
-    };  
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-      }
-    });
+    };
     url='{{ route("appreilExamClin.destroy",":slug") }}';
     url = url.replace(':slug',$(this).val());
     $.ajax({
