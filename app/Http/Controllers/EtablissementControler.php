@@ -8,11 +8,10 @@ use Storage;
 use File;
 class EtablissementControler extends Controller
 {
-	 public function index() 
-	 {
+	public function index() 
+	{
 	 	$etab = Etablissement::first();
-	 
-    if(isset($etab))
+	  if(isset($etab))
 	      return view('etablissement.show',compact('etab'));
 	 	else
 	 		return view('etablissement.add');
@@ -66,9 +65,35 @@ class EtablissementControler extends Controller
     if ($etab->logo != "") { 	//Storage::delete($etab->logo);	
    		Storage::disk('public')->delete($etab->logo);
   	}
-  	
-    $etab->delete();//$etab = Etablissement::destroy($etab->id);
+  	$etab->delete();//$etab = Etablissement::destroy($etab->id);
 		return view('etablissement.add');
 	}
+  public function exportCsv(Request $request)
+  {
+    $fileName = 'etablissement.csv';
+    $etab = Etablissement::first();
+    $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+    );
+    $columns = array('nom', 'acronyme', 'adresse', 'tel','tel2', 'tutelle', 'logo');
+    $callback = function() use($etab, $columns) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+        $row['nom']           = $etab->nom;
+        $row['acronyme']      = $etab->acronyme;
+        $row['adresse']       = $etab->adresse;
+        $row['tel']           = $etab->tel;
+        $row['tel2']          = $etab->tel2;
+        $row['tutelle']       = $etab->tutelle;
+        $row['logo']          = $etab->logo;
+        fputcsv($file, array($row['nom'], $row['acronyme'], $row['adresse'], $row['tel'], $row['tel2'], $row['tutelle'], $etab->logo));
+        fclose($file);
+    };
+    return response()->stream($callback, 200, $headers);
+  }
   	
 }
