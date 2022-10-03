@@ -17,6 +17,18 @@
 			}
 	});
   }
+  function showConsult(id) //a voir ce lui den haut
+  { 
+    url= '{{ route ("consultations.edit", ":slug") }}',//consultdetailsXHR
+    url = url.replace(':slug',id);
+    $.ajax({
+          type : 'GET',
+          url:url,
+          success:function(data,status, xhr){
+            $('#consultDetail').html(data);
+          }
+    });             
+  }
   function HommeConfcopy(id)
   {
     var url = '{{ route("hommeConfiance.edit", ":slug") }}'; 

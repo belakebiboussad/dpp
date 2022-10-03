@@ -20,7 +20,6 @@ $('document').ready(function(){
            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
           }
       });
-      */
       $.ajax({
         type: "DELETE",
         url: '/demandeexb/' + demande_id,
