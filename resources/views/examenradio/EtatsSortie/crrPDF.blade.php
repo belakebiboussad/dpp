@@ -6,7 +6,7 @@
   <title>Compte rendu radiologique </title>
 </head>
     	<body>	{{-- <div class="container-fluid" id="myDiv">@include('examenradio.EtatsSortie.crrS', $crr)</div></div> --}}
-    	  	<div><img src="img/entete.png" class="center thumb img-icons mt-25" alt="entete"/></div>		
+    	  	<div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>		
       		 <hr class="mt-6 hr-1">
   		<div class="sec-gauche"><strong>Médecin prescripteur :</strong><span> {{ $medecin->full_name }}</span></div>
  	 	<div class="right"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</span></div><br> 

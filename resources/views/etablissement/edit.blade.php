@@ -33,7 +33,7 @@
 						</div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nom">Téléphone 2:</label>
-							<div class="col-sm-9"><input type="tel" name="tel2" class="form-controltelfixe" value="{{ $etab->tel2 }}" /></div>
+							<div class="col-sm-9"><input type="tel" name="tel2" class="form-control telfixe" value="{{ $etab->tel2 }}" /></div>
 						</div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nom">Tutelle:</label>
@@ -54,7 +54,7 @@
 		</div><div class="space-12  hidden-xs"></div>	
 			<div class="form-group col text-center">
 				<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp;
-				<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
+				<button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 			</div>
 	</form>
 @endsection

@@ -54,24 +54,25 @@ class HomeController extends Controller
       $ServiceID = Auth::user()->employ->service_id;
       $etab = Etablissement::first(); 
       Session::put('etabname', $etab->nom);
+      Session::put('etabAcr', $etab->acronyme);
       Session::put('etabTut', $etab->tutelle);
       Session::put('etabAdr', $etab->adresse);
       Session::put('etabTel', $etab->tel);
       Session::put('etabTel2', $etab->tel2);
       Session::put('etabLogo', $etab->logo);
-        switch (Auth::user()->role_id) {
-                case 1://medecin & medChef
-                       return view('patient.index');
+      switch (Auth::user()->role_id) {
+          case 1://medecin & medChef
+                     return view('patient.index');
                        break;
-               case 15:        
+          case 15:        
                 case 2://rec
-                      return view('patient.index'); //return view('home.home_recep');
+                      return view('patient.index');
                       break;
           case 3://inf                    
                 return redirect()->action('HospitalisationController@index');
                 break;
           case 4: //admin
-                return view('home.dashboard'); //return redirect()->action('UsersController@index');
+                return view('home.dashboard');
                 break;
           case 5://surv
                 return redirect()->action('RdvHospiController@index');
@@ -153,8 +154,9 @@ class HomeController extends Controller
                 case "8"://Bulltin Admission
                       if($className == "rdv_hospitalisation")
                       { 
-                              $rdv=rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find( $objId);
-                                $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('etat','rdv','date','etab'));
+                        $rdv=rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find( $objId);
+                        $patient = $obj->demandeHospitalisation->consultation->patient;
+                        $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','rdv','date','etab'));
                       }else
                       {
                         $patient = $obj->consultation->patient;

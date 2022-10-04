@@ -6256,10 +6256,6 @@ button.close {
     padding: 2em;
     border-radius: 50%;
 }
-.img1{
-   width: 20px;
-  height: 20px;
-}
 .bodycontainer { max-height: 500px; width: 100%; margin: 0; overflow-y: auto; }
 .table-scrollable { margin: 0; padding: 0; }
 

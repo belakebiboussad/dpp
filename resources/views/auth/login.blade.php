@@ -4,7 +4,9 @@
 <div id="login-box" class="login-box visible widget-box no-border">
 	<div class="widget-body">
 		<div class="widget-main">
-			<h4 class="header blue lighter bigger"><img src = "img/policeman.png" class ="img1"> Veuillez entrer vos information</h4>
+			<h4 class="header blue lighter bigger">
+         <i class="ace-icon fa fa-user"></i>
+         Veuillez entrer vos information</h4>
 			<div class="space-6"></div>
 			<form role="form" method="POST" action="{{ route('login') }}">
 			  <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -22,7 +24,7 @@
 					<div class="space"></div>
 					<div class="clearfix">
 						<label class="inline">
-							<input type="checkbox" class="ace" /><span class="lbl"> Souviens de moi</span>
+							<input type="checkbox" class="ace" /><span class="lbl"> Souvien de moi</span>
 						</label>
 						<button type="submit" class="width-35 pull-right btn btn-sm btn-primary"><i class="ace-icon fa fa-key"></i>	<span class="bigger-110">Entrer</span></button>						
 					</div>

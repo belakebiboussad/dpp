@@ -70,7 +70,7 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail">Résultats :</h5>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats :</h5>
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">

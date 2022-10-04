@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>	
-	<div class="row"><img src="img/entete.png" class="mt-12" alt="entete" width="100%"></div>	
+	<div class="row"><img src="img/entete.jpg" class="mt-12" alt="entete" width="100%"></div>	
 	<hr/>
 	<div class="right"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</span></div>	
 	<div class="row"><strong>Patient(e) :</strong></div>
