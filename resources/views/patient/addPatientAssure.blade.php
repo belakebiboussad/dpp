@@ -122,8 +122,9 @@
 <div class="row">
 <div class="col-sm-4 col-xs-4">
 		<div class="form-group" style="padding-left:15%;">
-			<label class="control-label text-nowrap col-sm-4" for="mobile1"><i class="fa fa-phone"></i>Mob1:</label>
-			<input name="mobile1" type="tel" class="col-sm-8 mobile" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXXXX"/>	
+			<label class="control-label text-nowrap col-sm-4" for="mobile1">
+        <i class="fa fa-phone"></i>Mob1:</label>
+			 <input name="mobile1" type="tel" class="col-sm-8 mobile" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXXXX"/>	
 		</div>		
 		</div>	 
 		<div class="col-sm-4 col-xs-4">

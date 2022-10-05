@@ -13,7 +13,7 @@
 			type: "DELETE",
 			url: '/demandehosp/' + id,
 	        	 success: function (data) {
-					$(".dh").remove();//$("#dh" + id).remove();
+					$(".dh").remove();
 			}
 	});
   }

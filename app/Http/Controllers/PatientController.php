@@ -443,7 +443,7 @@ class PatientController extends Controller
                break;
              }
             foreach ($patients as $key => $pat) {         
-              $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';     
+              $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';   
             }
         return $output;
     }

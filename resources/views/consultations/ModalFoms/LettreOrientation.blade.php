@@ -101,46 +101,46 @@ td
         .end().find("input[type=checkbox], input[type=radio]")
         .prop("checked", "")
         .end();
-    });
-    $('#orientation-add').click(function () {//ADD Orientation
-        $('#orientationSave').val("add");
-        $('#modalFormDataOroient').trigger("reset");
-        $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
-        jQuery('#LettreOrientationAdd').modal('show');
-    });
-    $('#orientationSave').click(function (e) {//save Orientation
-       e.preventDefault();
-      var formData = {
-         _token          : CSRF_TOKEN,
-        consultation_id  : '{{ $consult->id }}',
-        specialite       : $("#specialiteOrient").val(),
-        motif            : $("#motifC").val(), 
-        examen           : $("#motifOrient").val(),
-      };
-      var type = "POST" , url = '';
-      var state = $(this).val(); 
-      if ( state == "update") {
-        type = "PUT";
-        url = '{{ route("orientLetter.update", ":slug") }}'; 
-        url = url.replace(':slug',$("#orient_id").val());
-      }else
-        url ="{{ route('orientLetter.store') }}";
-      $.ajax({
-          type: type,
-          url: url,
-          data: formData,
-          success: function (data) {
-            var orientation ='<tr id="'+ data.id + '"><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
-            orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-            orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-            if(state == "update")
-              $("#" + data.id).replaceWith(orientation);
-            else
-              $("#orientationsList").append(orientation);
-            $('#LettreOrientationAdd').trigger("reset");
-          }
       });
+      $('#orientation-add').click(function () {//ADD Orientation
+          $('#orientationSave').val("add");
+          $('#modalFormDataOroient').trigger("reset");
+          $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
+          jQuery('#LettreOrientationAdd').modal('show');
+      });
+      $('#orientationSave').click(function (e) {//save Orientation
+         e.preventDefault();
+        var formData = {
+           _token          : CSRF_TOKEN,
+          consultation_id  : '{{ $consult->id }}',
+          specialite       : $("#specialiteOrient").val(),
+          motif            : $("#motifC").val(), 
+          examen           : $("#motifOrient").val(),
+        };
+        var type = "POST" , url = '';
+        var state = $(this).val(); 
+        if ( state == "update") {
+          type = "PUT";
+          url = '{{ route("orientLetter.update", ":slug") }}'; 
+          url = url.replace(':slug',$("#orient_id").val());
+        }else
+          url ="{{ route('orientLetter.store') }}";
+        $.ajax({
+            type: type,
+            url: url,
+            data: formData,
+            success: function (data) {
+              var orientation ='<tr id="'+ data.id + '"><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
+              orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+              orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
+              orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              if(state == "update")
+                $("#" + data.id).replaceWith(orientation);
+              else
+                $("#orientationsList").append(orientation);
+              $('#LettreOrientationAdd').trigger("reset");
+            }
+        });
     });
     $('body').on('click', '.open-Orient', function (event) {
       event.preventDefault();
@@ -179,8 +179,7 @@ td
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
-    
-     $('body').on('click', '.delete-orient', function (event) {
+    $('body').on('click', '.delete-orient', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };
       var id =$(this).val();

@@ -6,7 +6,7 @@
 	<form  id="userAdd" class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
-			<div class="widget-main">	{{-- "{{route('users.store')}} --}}
+			<div class="widget-main">{{-- "{{route('users.store')}} --}}
 				{{ csrf_field() }}
 				<h4 class="header blue bolder smaller">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
@@ -72,13 +72,19 @@
 					<div class="col-sm-2">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
 							<label class="control-label col-sm-4 col-xs-4" for="mobile">Mob:</label>
-							<input type="tel" name="mobile" class ="mobile col-sm-8 col-xs-8" required/>
+							<div class="input-group col-sm-8 col-xs-8">
+                <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+                <input type="tel" name="mobile" class ="form-control mobile" required/>
+              </div>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="{{ $errors->has('fixe') ? "has-error" : "" }}">
 						<label class="control-label col-sm-4 col-xs-4" for="fixe">Fixe :</label>
-						<input type="tel" class="telfixe col-sm-8 col-xs-8" name="fixe"></div>
+						<div class="input-group col-sm-8 col-xs-8">
+              <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+              <input type="tel" class="form-control telfixe" name="fixe"></div>
+            </div>
 					</div>
           <div class="col-sm-3">
             <div class="{{ $errors->has('mail') ? "has-error" : "" }}">

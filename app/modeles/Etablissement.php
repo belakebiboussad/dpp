@@ -8,5 +8,8 @@ class Etablissement extends Model
 {
   public $timestamps = false;
   protected $table = "etablissement";
-  protected $fillable = ['nom','acronyme','adresse','tel','tel2','tutelle','logo'];// public function logo() //   return  url('').'/storage/'.$this->logo; // }
+  protected $fillable = ['nom','acronyme','adresse','type_id','tel','tel2','contact','tutelle','logo'];
+  public function Type(){
+      return $this->hasOne('App\modeles\etabtype','type_id');
+  } 
 }

@@ -53,13 +53,16 @@ class HomeController extends Controller
     {
       $ServiceID = Auth::user()->employ->service_id;
       $etab = Etablissement::first(); 
-      Session::put('etabname', $etab->nom);
-      Session::put('etabAcr', $etab->acronyme);
-      Session::put('etabTut', $etab->tutelle);
-      Session::put('etabAdr', $etab->adresse);
-      Session::put('etabTel', $etab->tel);
-      Session::put('etabTel2', $etab->tel2);
-      Session::put('etabLogo', $etab->logo);
+      if(isset($etab))
+      {
+        Session::put('etabname', $etab->nom);
+        Session::put('etabAcr', $etab->acronyme);
+        Session::put('etabTut', $etab->tutelle);
+        Session::put('etabAdr', $etab->adresse);
+        Session::put('etabTel', $etab->tel);
+        Session::put('etabTel2', $etab->tel2);
+        Session::put('etabLogo', $etab->logo);
+      }
       switch (Auth::user()->role_id) {
           case 1://medecin & medChef
                      return view('patient.index');

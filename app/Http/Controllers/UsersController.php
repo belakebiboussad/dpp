@@ -261,7 +261,7 @@ class UsersController extends Controller
             return redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
         }
       }else
-        return redirect()->to('/home');
+      return redirect()->to('/home');
     }
     public function setting($id_user)
     {

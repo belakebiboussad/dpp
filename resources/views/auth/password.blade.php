@@ -1,5 +1,4 @@
 @extends('auth.auth')
-
 @section('content')
 <div id="forgot-box" class="forgot-box widget-box no-border visible">
     <div class="widget-body">
@@ -10,9 +9,7 @@
             </h4>
 
             <div class="space-6"></div>
-            <p>
-                Entrez votre email et recevez les instructions
-            </p>
+            <p>  Entrez votre email et recevez les instructions</p>            
 
             <form role="form" method="POST" action="{{ url('/password/email') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

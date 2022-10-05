@@ -9,22 +9,18 @@
     <table class="table table-bordered table-condensed col-sm-12" width="100%"><!-- w-auto -->
       <tbody>
         <tr>
-          <td class ="noborders"><strong>nom:</strong></td><td align="left">{{ $patient->Nom }}</td>
-          <td class ="noborders"><strong>prenom :</strong></td><td align="left">{{ $patient->Prenom }}</td>
+          <td class ="noborders">nom:</td><td align="left">{{ $patient->Nom }}</td>
+          <td class ="noborders">prenom :</td><td align="left">{{ $patient->Prenom }}</td>
         </tr>
         <tr>
-             <td class ="noborders"><strong><strong>Âge :</strong></strong></td>
-             <td align="left"><span class="badge badge-{{ $patient->age< 18 ? 'danger':'success' }}">{{ $patient->age }}</span>Ans</td>
-             <td class ="noborders"><strong>Né(e) a:</strong></td>
-             <td align="left">
-                @if(isset($patient->Lieu_Naissance))
-                   {{ $patient->lieuNaissance->nom_commune }}
-                @endif
-             </td>
+          <td class ="noborders">Âge :</td>
+          <td align="left"><span class="badge badge-{{ $patient->age< 18 ? 'danger':'success' }}">{{ $patient->age }}</span>Ans</td>
+          <td class ="noborders">Né(e) a:</td>
+          <td align="left">{{ isset($patient->Lieu_Naissance) ? $patient->lieuNaissance->nom_commune :''}}</td>
        </tr>
         <tr>
-          <td class ="noborders"><strong>Genre :</strong></td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
-          <td  class ="noborders"><strong>Civilité:</strong></td>
+          <td class ="noborders">Genre :</td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
+          <td  class ="noborders">Civilité:</td>
           <td align="left">
              @switch($patient->situation_familiale)
                      @case("C")
@@ -43,18 +39,18 @@
           </td>
         </tr>
         <tr>
-          <td class ="noborders"><strong>Adress :</strong></td><td align="left"><small style="text-overflow: ellipsis; ">{{ $patient->Adresse }}</small></td>
-          <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob1:</strong></td><td align="left">{{ $patient->tele_mobile1 }}</td>
+          <td class ="noborders">Adress :</td><td align="left"><small style="text-overflow: ellipsis; ">{{ $patient->Adresse }}</small></td>
+          <td class ="noborders"><i class="fa fa-phone"></i>Mob1:</td><td align="left">{{ $patient->tele_mobile1 }}</td>
         </tr> 
         @if(isset( $patient->NSS ) || isset($patient->tele_mobile2))
         <tr>
-          <td class ="noborders text-no-wrap"><i class="fa fa-phone"></i><strong>Mob2 :</strong></td><td align="left">{{ $patient->tele_mobile2 }}</td>
-          <td class ="noborders"><strong>NSS:</strong></td><td align="left">{{ $patient->NSS }}</td>
+          <td class ="noborders text-no-wrap"><i class="fa fa-phone"></i>Mob2 :</td><td align="left">{{ $patient->tele_mobile2 }}</td>
+          <td class ="noborders">NSS:</td><td align="left">{{ $patient->NSS }}</td>
         </tr> 
         @endif
         <tr>
-          <td class ="noborders"><strong>Sang :</strong></td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
-          <td class ="noborders"><strong>Type:</strong></td>
+          <td class ="noborders">Sang :</td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
+          <td class ="noborders">Type:</td>
           <td align="left">
             @switch($patient->Type)
                @case("0")
@@ -87,34 +83,31 @@
     <table class="table table-bordered table-condensed col-sm-12 w-auto">
       <tbody>
         <tr>
-              <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $patient->assure->Nom }}</td>
-              <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $patient->assure->Prenom }}</td>
+              <td class ="noborders">Nom:</td><td colspan="1">{{ $patient->assure->Nom }}</td>
+              <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
         </tr>
        <tr>
-          <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $patient->assure->Date_Naissance }}</td>
-          <td class ="noborders"><strong>Né(e) a:</strong></td>
-          <td>
-          @if(isset($patient->assure->lieunaissance))
-            {{ $patient->assure->lieuNaissance->nom_commune }}
-          @endif
-          </td>
+          <td class ="noborders text-nowrap">Né(e) le :</td> <td> {{ $patient->assure->Date_Naissance }}</td>
+          <td class ="noborders">Né(e) a:</td>
+          <td>{{ isset($patient->assure->lieunaissance) ? $patient->assure->lieuNaissance->nom_commune :'' }}
+        </td>
        </tr>
         <tr>
-              <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $patient->assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-              <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $patient->assure->matricule }}</td> 
+          <td class ="noborders nowrap">Genre :</td><td>@if ( $patient->assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
+          <td class ="noborders">Matricule:</td><td>{{ $patient->assure->matricule }}</td> 
         </tr>
        <tr>
-                 <td class ="noborders"><strong>NSS :</strong></td><td>{{ $patient->assure->NSS }}</td>
-                <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $patient->assure->NMGSN }}</td>
+          <td class ="noborders">NSS :</td><td>{{ $patient->assure->NSS }}</td>
+          <td class ="noborders">NMGSN:</td><td>{{ $patient->assure->NMGSN }}</td>
        </tr>
-           <tr>
-                 <td colspan="1" class ="noborders nowrap"><strong>Grade :</strong></td>
-                <td>
+        <tr>
+          <td colspan="1" class ="noborders nowrap">Grade :</td>
+          <td>{{ isset($patient->Lieu_Naissance) ? $patient->lieuNaissance->nom_commune :''}}
                      @if(isset($patient->assure->Grade))
                     {{ $patient->assure->grade->nom }}
                   @endif
                   </td>
-                 <td class ="noborders blue"><strong>Etat:</strong></td><td>{{ $patient->assure->Position }}</td>
+                 <td class ="noborders blue">Etat:</td><td>{{ $patient->assure->Position }}</td>
           </tr>
       </tbody>
      </table>

@@ -19,15 +19,15 @@
 <script>
 function resetPatient()
 {
-       $("#livesearch").html("");
-       $("#pat-search").val("");
-        if('{{ $appointDoc }}' != null)
-             $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
-          //tester
-       if (!($("#btnSave").is(":disabled")))
-       {
-              $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
-      }
+     $("#livesearch").html("");
+     $("#pat-search").val("");
+      if('{{ $appointDoc }}' != null)
+           $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
+        //tester
+     if (!($("#btnSave").is(":disabled")))
+     {
+            $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
+    }
 }
 var loaded;
 function reset_in(){
@@ -54,8 +54,7 @@ function getPatient()
             "specialite":spec,
         },
         success: function(html) {
-                $("#livesearch").html(html).show();
-                document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+          $("#livesearch").html(html).show();//document.getElementById("livesearch").style.border="1px solid #A5ACB2";
         },
         error: function() {
           console.log("can't connect to db");

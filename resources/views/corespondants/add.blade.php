@@ -74,9 +74,11 @@
             <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse :</label>
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
+          
           <div class="form-froup">
-            <label for="mobile_h"><i class="fa fa-phone"></i>Mob :</label>
+            <label for="mobile_h">Mob :</label>
             <div class="input-group col-sm-12">
+              <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
               <input type="tel" id="mobile_h" class="form-control mobile" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
               <span class="tel validity input-group-text"></span>
             </div>

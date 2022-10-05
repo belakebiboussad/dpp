@@ -57,8 +57,7 @@ class paramController extends Controller
       }else
          $param->update(['value'=>null ]); 
     }
-    switch (Auth::user()->role_id) {
-/*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
+    switch (Auth::user()->role_id) {/*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
 if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update(['value'=>$request->$nomv ]); }}break; */
       case 13://med chef
       case 14://chef de service
@@ -88,6 +87,6 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
 
         break;
     }  
-    return redirect()->action('/home');
+    return return redirect()->to('/home');
   }           
 }

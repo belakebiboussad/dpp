@@ -109,7 +109,11 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+      { 
+        $request->validate([
+          "motif" => 'required',
+          "resume" => 'required',
+        ]);
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
           $validator = Validator::make($request->all(), [

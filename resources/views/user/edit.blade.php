@@ -118,17 +118,19 @@ $(function(){
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group {{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label class="col-sm-5 control-label no-wrap" for="mobile">Tél mob :</label>
-							<div class="col-sm-7">
-							<input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  required />
+							<label class="control-label col-sm-5" for="mobile">Tél mob :</label>
+							<div class="input-group col-sm-7">
+                <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+							  <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  required />
 							</div>	
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group {{ $errors->has('fixe') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label no-padding-right " for="fixe">Tél Fixe :</label>
-							<div class="col-sm-7">
-								<input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" >
+							<div class="input-group col-sm-7">
+								<span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+                <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" >
 							</div>		
 						</div>
 					</div>

@@ -140,14 +140,20 @@
 	</div>
 </div>
 <div class="row">
-        <div class="form-group col-sm-3">
-        	<label class="control-label col-sm-4 col-xs-4" for="operateur1">Mob1:</label>
-              <input type="tel" name="mobile1" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{ $patient->tele_mobile1 }}">
-        </div>
-    	<div class="form-group col-sm-3">
-    		<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2:</label>
-    	 	<input type="tel" name="mobile2" class="mobile col-sm-8" pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{ $patient->tele_mobile2 }}">
-    	</div>
+  <div class="form-group col-sm-3">
+  	<label class="control-label col-xs-12 col-sm-4" for="mobile1">Mob1:</label>
+    <div class="input-group col-sm-8">
+      <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 
+      <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->tele_mobile1 }}">
+    </div>
+  </div>
+  <div class="form-group col-sm-3">
+  	<label class="control-label col-xs-12 col-sm-4" for="mobile2">Mob2:</label>
+    <div class="input-group col-sm-8">
+      <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 	 	
+        <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->tele_mobile2 }}">
+    </div>
+  </div>
         <div class="form-group col-sm-3">
     		<label class="control-label col-sm-4" for="type">Type :<span class="red">*</span></label>
     		<div class="col-sm-8">

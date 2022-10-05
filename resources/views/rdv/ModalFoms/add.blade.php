@@ -58,7 +58,7 @@
 			          <div class="form-group">
 			          	<label class="col-form-label" for="patient"><strong>&nbsp;</strong></label>
 			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
-                    <div id="livesearch"></div>
+                    <div id="livesearch" class="list-unstyled"></div>
                     </div>
 			          	</div>
 		          	</div>

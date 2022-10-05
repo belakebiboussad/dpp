@@ -23,7 +23,7 @@ class consultation extends Model
       }
       public function examensCliniques()
       {
-          return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
+        return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
       }
       public function examsAppareil()
       {

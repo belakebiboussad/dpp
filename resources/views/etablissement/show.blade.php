@@ -2,7 +2,7 @@
 @section('style')
 <style>
 	body {
-        color: #566787;
+    color: #566787;
 		background: #f5f5f5;
 		font-family: 'Varela Round', sans-serif;
 		font-size: 13px;
@@ -44,7 +44,7 @@
 	<div class="row">
 		<div class="table-wrapper" style="overflow-x:auto;">
       <div class="table-title">
-        <div class="row"><div class="col-sm-6"><h3><b>Etablissement hospitalier</b></h3></div></div>            			 
+        <div class="row"><div class="col-sm-6"><h3>Etablissement hospitalier</h3></div></div>            			 
 			</div>
 			<table class="table table-striped table-hover">
         <thead>
@@ -54,8 +54,9 @@
 		      <th class="center priority-4">Adresse</th>
 					<th class="center priority-4">Téléphone</th>
 					<th class="center priority-4">Téléphone2</th>
+          <th class="center priority-4">Contact</th>
 					<th class="center priority-4">Tutelle</th>
-					<th class="center" width="30%">Logo</th>
+					<th class="center" width="20%">Logo</th>
 		      <th width="10%" class="center"><em class="fa fa-cog"></em></th>
           </tr>
 				</thead>
@@ -66,8 +67,9 @@
             <td class="priority-4">{{ $etab->adresse }}</td>
 						<td class="priority-4">{{ $etab->tel }}</td>
 						<td class="priority-4">{{ $etab->tel2 }}</td>
+            <td>{{ $etab->contact }}</td>
 						<td class="priority-4">{{ $etab->tutelle }} </td>
-            <td>
+            <td class="center"  width="20%">
               {{-- <img src="{{  url('/img/'.$etab->logo) }}" alt="logo" width="100" height="100"/> --}}
                <div class="card-image waves-effect waves-block waves-light">
                                 <img class="activator" src="{{  url('/img/'.$etab->logo) }}" width="100" height="100">
@@ -75,7 +77,7 @@
             </td>		
             <td class="center" width="10%">
               <a href="{{ route('etablissement.edit', $etab->id) }}" class="btn btn-succes btn-xs" ><i class="fa fa-edit fa-xs"></i></a>
-              <a href="{{ route('etablissement.destroy', $etab->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o"></i></a>
+              <a href="{{ route('etablissement.destroy', $etab) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o"></i></a>
               <span data-href="/etabExport" id="export" class="btn btn-success btn-xs" onclick="exportTasks(event.target);">
                 <i class="fa fa-cloud-upload" aria-hidden="true"></i>
               </span>

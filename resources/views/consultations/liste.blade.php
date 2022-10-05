@@ -5,7 +5,7 @@
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<a href="/consultations/create/{{--$patient->id--}}" class="align-middle">
+				<a href="/consultations/create/{{ $patient->id }}" class="align-middle">
           <i class="fa fa-plus-circle bigger-180"></i></a>
       </div>
 		</div><!-- widget-header -->
@@ -27,7 +27,7 @@
 						 <td width="30%">{{ $consult->medecin->full_name }}</td>
              <td><small>{{ $consult->motif }}</small></td>
 						<td class="center" width="14%">
-              <a class="btn btn-primary btn-xs" href="{{ route('consultations.edit', $consult->id)}}"><i class="ace-icon fa fa-eye-slash fa-xs"></i></button>
+              <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="ace-icon fa fa-eye-slash fa-xs"></i></button>
               <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir consultation"><i class="ace-icon fa fa-hand-o-up fa-xs fa-2xs"></i></a>
             </td>	
 					</tr>

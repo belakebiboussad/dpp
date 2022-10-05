@@ -31,15 +31,16 @@ class EtablissementControler extends Controller
     $input = $request->all();
     $input['logo'] = $filename;
     $etab = Etablissement::create($input); 
-		return redirect()->action('EtablissementControler@show',$etab->id);
+    return redirect()->action('EtablissementControler@show',$etab->id);
 	}
 	public function edit(Etablissement $etab)
 	{
     $etab = Etablissement::first();
 	  return view('etablissement.edit',compact('etab'));
 	}
-	public function show(Etablissement $etab)
+	public function show($id)
 	{
+    $etab = Etablissement::FindOrFail($id);
 		return view('etablissement.show',compact('etab'));
 	}
 	public function update(Request $request,$id)
@@ -59,13 +60,13 @@ class EtablissementControler extends Controller
     $etab->update($input); 
 		return redirect()->action('EtablissementControler@index');
   }
-  public  function destroy( $id)
+  public  function destroy($id)
   {
-		$etab = Etablissement::FindOrFail($id);
+	  $etab = Etablissement::FindOrFail($id);
     if ($etab->logo != "") { 	//Storage::delete($etab->logo);	
    		Storage::disk('public')->delete($etab->logo);
-  	}
-  	$etab->delete();//$etab = Etablissement::destroy($etab->id);
+    };
+    $etab->delete();//$etab = Etablissement::destroy($etab->id);
 		return view('etablissement.add');
 	}
   public function exportCsv(Request $request)
