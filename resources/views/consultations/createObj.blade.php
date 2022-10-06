@@ -91,14 +91,12 @@ $(function(){
      footer64Img = base64; 
   });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
   /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
-  var checkbox = $("#isOriented");
-  var hidden = $("#hidden_fields");// Setup an event listener for when the state of the    // checkbox changes.
-  checkbox.change(function() {
-    if (checkbox.is(':checked')) 
-      hidden.show();
+  $("#isOriented").change(function() {
+    if( $("#hidden_fields").hasClass('hidden'))
+      $("#hidden_fields").removeClass('hidden');//show();
     else {
-        hidden.hide();
-        $("#lettreorientaioncontent").val("");
+      $("#hidden_fields").addClass('hidden');
+      $("#lettreorientaioncontent").val("");
     }
   });/*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
 /* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*//*$("#btnCalc").click(function(event){event.preventDefault(); });*/
@@ -301,7 +299,7 @@ $(function(){
     });
     var confirmed = false;
     $("#consultForm").submit(function(event){
-      //event.preventDefault();
+      event.preventDefault();
       if(!checkConsult())
       {
         activaTab("Interogatoire");
@@ -325,6 +323,7 @@ $(function(){
           }).then((result) => {
               if(result.value)
               {
+                alert("fg");
                 confirmed = true; 
                 addExamsImg(this);
                 $("#consultForm").submit();   

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class consultation extends Model
 {
       public $timestamps = false;
-      protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','date','Diagnostic',
+      protected $fillable =['lettreorientaioncontent','motif','histoire_maladie','date','Diagnostic',
                             'id_code_sim','Resume_OBS','employ_id','pid','id_lieu'];
       public function medecin()
       {

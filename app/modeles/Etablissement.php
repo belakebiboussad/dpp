@@ -10,6 +10,6 @@ class Etablissement extends Model
   protected $table = "etablissement";
   protected $fillable = ['nom','acronyme','adresse','type_id','tel','tel2','contact','tutelle','logo'];
   public function Type(){
-      return $this->hasOne('App\modeles\etabtype','type_id');
+      return $this->belongsTo('App\modeles\etabtype','type_id');
   } 
 }

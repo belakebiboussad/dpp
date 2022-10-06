@@ -236,8 +236,7 @@ td
       event.preventDefault();
       var id = $(this).val();
       $.get('/certifDescrip/'+id+'/edit', function (data) {
-        $('#decript_id').val(data.id);
-        $("#examClin").val(data.examen);
+        $('#decript_id').val(data.id); $("#examClin").val(data.examen);
         if(data.isChronic)
           $('#isChronic').prop('checked', true);
         $('#DescripCrudModal').html("Modifier le Certificat descriptf"); 

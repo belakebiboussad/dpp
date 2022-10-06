@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" >Type :</label>
+				<label class="col-sm-3 control-label">Type :</label>
 				<div class="col-sm-9">
           <select id="type" class="form-control">
             @foreach(App\modeles\Accouchement::TYPES  as  $key=>$value)

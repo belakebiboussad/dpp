@@ -55,7 +55,8 @@
 					<th class="center priority-4">Téléphone</th>
 					<th class="center priority-4">Téléphone2</th>
           <th class="center priority-4">Contact</th>
-					<th class="center priority-4">Tutelle</th>
+          <th class="center priority-4 {{isset($etab->type_id) ? '' :'hidden' }}" >Type</th>
+					<th class="center priority-4 {{isset($etab->type_id) ? '' :'hidden' }}">Tutelle</th>
 					<th class="center" width="20%">Logo</th>
 		      <th width="10%" class="center"><em class="fa fa-cog"></em></th>
           </tr>
@@ -68,11 +69,13 @@
 						<td class="priority-4">{{ $etab->tel }}</td>
 						<td class="priority-4">{{ $etab->tel2 }}</td>
             <td>{{ $etab->contact }}</td>
-						<td class="priority-4">{{ $etab->tutelle }} </td>
+             <td class="{{isset($etab->type_id) ? '' :'hidden' }}">
+             {{ isset($etab->type_id) ? $etab->Type->acr :'' }}
+             </td>
+						<td class="priority-4 {{isset($etab->type_id) ? '' :'hidden' }}">{{ $etab->tutelle }} </td>
             <td class="center"  width="20%">
-              {{-- <img src="{{  url('/img/'.$etab->logo) }}" alt="logo" width="100" height="100"/> --}}
-               <div class="card-image waves-effect waves-block waves-light">
-                                <img class="activator" src="{{  url('/img/'.$etab->logo) }}" width="100" height="100">
+               <div class="card-image waves-effect waves-block waves-light {{ $etab->logo == "" ? 'hidden' :''}}">
+                  <img class="activator" src="{{  url('/img/'.$etab->logo) }}" width="100" height="100">
               </div>
             </td>		
             <td class="center" width="10%">

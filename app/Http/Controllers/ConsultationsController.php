@@ -132,8 +132,7 @@ class ConsultationsController extends Controller
               "histoire_maladie"=>$request->histoirem,
               "Diagnostic"=>$request->diagnostic,
               "Resume_OBS"=>$request->resume,
-              "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-              "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+              "lettreorientaioncontent"=>$request->lettreorientaioncontent,
               "id_code_sim"=>$request->codesim,
               "id_lieu"=>$etab->id
         ]);

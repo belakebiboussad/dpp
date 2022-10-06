@@ -72,6 +72,17 @@
           if($( ".medChirservice" ).hasClass( "hidden" ))
             $('.medChirservice').removeClass("hidden");
       });
+      $('#id-publicEtab').on('click', function() {
+        $('.etabPub').each(function(){
+          if($(this ).hasClass( "hidden" ))
+            $(this).removeClass("hidden");
+          else
+          {
+            $(this).addClass("hidden");
+            $("#type_id").val("").change();$("#tutelle").val("");
+          }
+        });
+        });
     })
     </script>
 </div>

@@ -57,16 +57,29 @@
               </fieldset>
             </div>
             <div class="form-group">
-            <span class="col-xs-12 col-sm-7 col-sm-offset-3">
-              <label class="middle">
-                <input class="ace" type="checkbox" id="id-disable-check">
-                <span class="lbl"> Public!</span>
-              </label>
-            </span>
+              <span class="col-xs-12 col-sm-7 col-sm-offset-3">
+                <label class="middle">
+                  <input class="ace" type="checkbox" id="id-publicEtab" {{ isset( $etab->type_id ) ? 'checked':''}}>
+                  <span class="lbl">Etablissement public</span>
+                </label>
+              </span>
             </div>
-          	<div class="form-group etabPub hidden">
+          	<div class="form-group etabPub {{ isset( $etab->type_id ) ? '':'hidden'}}">
+              <label class="col-sm-3 control-label" for="nom">Type :</label>
+              <div class="col-sm-9">
+              <select name="type_id" id="type_id" class="form-control">
+                <option value="" disabled selected>Selectionner...</option>
+                @foreach($types  as  $type)
+                <option value="{{ $type->id }}" {{ $etab->type_id == $type->id ? 'selected' : '' }}>{{ $type->nom }}-{{ $type->acr }}</option>
+                @endforeach
+              </select>
+              </div>
+            </div>
+            <div class="form-group etabPub {{ isset( $etab->type_id ) ? '':'hidden'}}">
 							<label class="col-sm-3 control-label" for="nom">Tutelle :</label>
-							<div class="col-sm-9"><input type="text" name="tutelle" class="form-control" value="{{ $etab->tutelle }}"  /></div>
+							<div class="col-sm-9">
+                <input type="text" name="tutelle" id="tutelle" class="form-control" value="{{ $etab->tutelle }}"/>
+              </div>
 						</div>
             <div class="form-group">
               <label class="col-sm-3 control-label" for="logo">Logo :</label>
@@ -78,7 +91,7 @@
 			</div>
 		</div>
 		<div class="col-sm-3 col-xs-12 center">
-			<div class="form-group">
+			<div class="form-group {{ $etab->logo == "" ? 'hidden' :''}}">
 				<img src="{{ url('/img/'.$etab->logo) }}" alt ="" height="30%" width="30%" id ="logoimg"/>
 			</div>
 		</div>

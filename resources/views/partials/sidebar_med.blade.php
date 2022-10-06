@@ -255,26 +255,24 @@
         fontSize: 12, 
         text: "IPP: " + ipp
       });
-      var canvas = document.getElementById('barcode');
-      var jpegUrl = canvas.toDataURL("image/jpeg");
+      var canvas = document.getElementById('barcode');var jpegUrl = canvas.toDataURL("image/jpeg");
       pdf.addImage(jpegUrl, 'JPEG', 25, 175);
-      pdf.setFontSize(12);
-      pdf.text(320,730, 'Docteur : ' + med);
+      pdf.setFontSize(12);pdf.text(320,730, 'Docteur : ' + med);
       generate(fileName,pdf,'bioExamsPdf');
   }
   function addExamsImg(form)
   {
-      var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
-      if(arrayLignes.length > 0)
+    var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
+    if(arrayLignes.length > 0)
+    {
+      for(var i=0; i< arrayLignes.length ; i++)
       {
-        for(var i=0; i< arrayLignes.length ; i++)
-        {
-          ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
-        }
-        var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-        champ.appendTo(form);
+        ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
       }
+      var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+      champ.appendTo(form);
     }
+  }
     function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();

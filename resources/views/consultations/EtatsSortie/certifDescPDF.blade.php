@@ -56,7 +56,7 @@
     <div>{{$certif->examen}}</div><br>
     <div> 
         <label>
-          <input type="checkbox" id="isOriented" class="larger"/>Il s'agit d'une maladie chronique.
+          <input type="checkbox" id="iscronic" class=""/>Il s'agit d'une maladie chronique.
         </label>
     </div>
     <div class="footer"><div class="textCenter">Certificat établit pour servir et valoir ce que de droit.</div>

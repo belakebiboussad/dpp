@@ -39,7 +39,6 @@
                 </div>
               </div>
             </div><div class="space-12 hidden-xs"></div>
-<!-- begin -->
             <div class="form-group">
               <label class="control-label col-xs-12 col-sm-3" for="tel2">Email :</label>
               <fieldset>
@@ -51,10 +50,26 @@
                 </label>
               </fieldset>
             </div>
-<!-- end -->
-
-
-						<div class="form-group">
+            <div class="form-group">
+              <span class="col-xs-12 col-sm-7 col-sm-offset-3">
+                <label class="middle">
+                  <input class="ace" type="checkbox" id="id-publicEtab">
+                  <span class="lbl">Etablissement public</span>
+                </label>
+              </span>
+            </div>
+            <div class="form-group etabPub hidden">
+              <label class="col-sm-3 control-label" for="nom">Type :</label>
+              <div class="col-sm-9">
+              <select name="type_id" id="type_id" class="form-control">
+                <option value="" disabled selected>Selectionner...</option>
+                @foreach($types  as  $type)
+                <option value="{{ $type->id }}">{{ $type->nom }}-{{ $type->acr }}</option>
+                @endforeach
+              </select>
+              </div>
+            </div>
+						<div class="form-group etabPub hidden">
 							<label class="col-sm-3 control-label" for="tutelle">Tutelle:</label>
 							<div class="col-sm-9"><input type="text" name="tutelle" class="form-control"/></div>
 						</div><div class="space-12  hidden-xs"></div>

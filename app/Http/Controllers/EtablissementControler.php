@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\modeles\Etablissement;
 use Illuminate\Http\Request;
+use App\modeles\etabtype;
 use ToUtf;
 use Storage;
 use File;
@@ -10,11 +11,12 @@ class EtablissementControler extends Controller
 {
 	public function index() 
 	{
+    $types = etabtype::all();
 	 	$etab = Etablissement::first();
 	  if(isset($etab))
-	      return view('etablissement.show',compact('etab'));
+	      return view('etablissement.show', compact('etab','types'));
 	 	else
-	 		return view('etablissement.add');
+	 		return view('etablissement.add', compact('types'));
 	 }
 	public function store(Request $request) 
 	{
@@ -35,8 +37,9 @@ class EtablissementControler extends Controller
 	}
 	public function edit(Etablissement $etab)
 	{
+	  $types = etabtype::all();
     $etab = Etablissement::first();
-	  return view('etablissement.edit',compact('etab'));
+    return view('etablissement.edit',compact('etab','types'));
 	}
 	public function show($id)
 	{
@@ -45,17 +48,27 @@ class EtablissementControler extends Controller
 	}
 	public function update(Request $request,$id)
 	{	
-  	$etab = Etablissement::FindOrFail($id);
 		$filename="";
-		if($request->hasfile('logo')){
-			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
-			if(isset($etab->logo) && ($etab->logo != $filename))
-			{	
-	  			$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
-	  			File::delete('img/'.$etab->logo);//Storage::disk('public')->delete($etab->logo);
-			}	  	
-   	}	
+    $path="";
+    $etab = Etablissement::FindOrFail($id);
+    if($etab->logo != "")
+      $path = public_path() . '/img/' . $etab->logo;
+    if($request->hasfile('logo')) {//file uploaded
+      $filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+      if(($path != "") && (file_exists($path)))//has logo
+      {
+        if((filesize($path) !== filesize($request->file('logo'))) || ($etab->logo != $filename))//uploaded diff to logo
+        { 
+          File::delete($path);//remove log
+          $request->logo->move(public_path('img/'), $filename);//deplace upaded file
+        }
+      }else
+        $request->logo->move(public_path('img/'), $filename);//deplace upaded file
+    }else//no file upladed
+      if(($path != "") && (file_exists($path)))//has logo
+        File::delete($path);
     $input = $request->all();
+    $input['type_id'] = isset($_POST['type_id'])  ?  $request->type_id : null ;
     $input['logo'] = $filename;
     $etab->update($input); 
 		return redirect()->action('EtablissementControler@index');
@@ -63,11 +76,10 @@ class EtablissementControler extends Controller
   public  function destroy($id)
   {
 	  $etab = Etablissement::FindOrFail($id);
-    if ($etab->logo != "") { 	//Storage::delete($etab->logo);	
-   		Storage::disk('public')->delete($etab->logo);
-    };
+    if ($etab->logo != "")
+      File::delete('img/'.$etab->logo);
     $etab->delete();//$etab = Etablissement::destroy($etab->id);
-		return view('etablissement.add');
+    return redirect()->action('EtablissementControler@index');
 	}
   public function exportCsv(Request $request)
   {
