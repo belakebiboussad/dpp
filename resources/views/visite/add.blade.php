@@ -225,8 +225,7 @@
 			  getProducts(1,id_spec);
 			}else
 			{
-			  $("#produit").val(0);
-			  $("#produit").prop('disabled', 'disabled');
+			  $("#produit").val(0);$("#produit").prop('disabled', 'disabled');
 			}	
 		});
 		$("#visiteForm").submit(function(e){

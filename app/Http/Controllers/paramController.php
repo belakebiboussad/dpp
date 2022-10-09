@@ -81,12 +81,11 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
               $mode->update(["selected"=>1]);
             else
               $mode->update(["selected"=>null]);
-
           }
         } 
 
         break;
     }  
-    return return redirect()->to('/home');
+    return redirect()->to('/home');
   }           
 }

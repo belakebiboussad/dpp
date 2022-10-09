@@ -277,7 +277,7 @@
         var poids = $("#poids").val();
         var taille = $("#taille").val();
         if(poids==""){
-          alert("STP, saisir le poids");  // $("#poids").focus();
+          alert("STP, saisir le poids");// $("#poids").focus();
         return 0;
       }else if (isNaN(poids)) {
         alert("poids doit être un nombre!");  
@@ -311,17 +311,7 @@
           $("#interpretation").attr("value", "Obésité III (morbide)");  
           }
       }
-      function storeord()
-      {
-        var arrayLignes = document.getElementById("ordonnance").rows;
-        var longueur = arrayLignes.length; var ordonnance = []; 
-        for(var i=1; i<longueur; i++)
-        {
-          ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
-        }
-        var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-        champ.appendTo('#consultForm');
-      }//save input modal to input form
+      //save input modal to input form
       function OrientationSave() {//$('#specialite').val($('#specialiteOrient').val());$('#motifOr').val($('#motifOrient').val()); // $('#medecin').val($('#medecinOrient').val());
         var orientations = document.getElementById("orientationsList").rows;
         var longueur = orientations.length; var orientationliste = []; 
@@ -331,6 +321,13 @@
         }
         var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
         champ.appendTo('#consultForm');
+      }
+      function selectFill(id,options,field1,field2)
+      {
+        var select = $('#'+id).empty();
+        $.each(options, function(key, val) {
+          select.append($("<option>").val(options[key][field1]).text(options[key][field2]));
+        })
       }
       $(document).ready(function () {
           $('.select2').css('width','50%').select2({allowClear:true});

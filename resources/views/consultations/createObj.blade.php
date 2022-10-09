@@ -37,6 +37,17 @@ function drugRemove(id)
 {
   $("#"+id).remove();
 }
+function storeord()
+{
+    var arrayLignes = document.getElementById("ordonnance").rows;
+    var longueur = arrayLignes.length; var ordonnance = []; 
+    for(var i=1; i<longueur; i++)
+    {
+      ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+    }
+    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+    champ.appendTo('#consultForm');
+}
 function resetField()
 {
   $("#description").val('');$('#dateAntcd').val('');
@@ -123,22 +134,6 @@ $(function(){
         { "targets": 3 ,  className: "dt-head-center dt-body-center" }
       ],
     });
-  $('#btn-add, #AntFamil-add').click(function () {
-    $('#EnregistrerAntecedant').val("add");
-    $('#modalFormData').trigger("reset");
-    $('#AntecCrudModal').html("Ajouter un antécédent");
-    if(this.id == "AntFamil-add")
-    {
-      $("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
-      if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
-        $( "#atcdsstypehide" ).addClass("hidden");
-    }else{
-      $("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-      if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
-        $('#atcdsstypehide').removeClass("hidden");
-    }
-    $('#antecedantModal').modal('show');
-  });
   $('#btn-addAntPhys').click(function () {// //antecedant Physiologique
     $('#EnregistrerAntecedantPhys').val("add");
     $('#modalFormDataPhysio').trigger("reset");
@@ -306,29 +301,28 @@ $(function(){
         return false;
       }else
        {
-        if (!confirmed) {
+          if (!confirmed) {
             Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
             title:'<strong>êtes-vous sûr ?</strong>',
-            icon: 'warning',
+  
             type:'warning',
-            html: '<br/><h4><strong>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</strong></h4><br/><hr/> ',
+            html: '<br/><h4>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</h4><br/><hr/> ',
             showCancelButton: true,
             allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Oui',
             cancelButtonText: "Non",
-            closeOnConfirm: true, //timer: 2000,
+            //closeOnConfirm: true, //timer: 2000, //icon: 'warning',
             showCloseButton: true
           }).then((result) => {
               if(result.value)
               {
-                alert("fg");
                 confirmed = true; 
                 addExamsImg(this);
-                $("#consultForm").submit();   
+                document.getElementById("consultForm").submit()
               }else
-                return false;
+                return false; 
           });
         }
       }     
@@ -479,7 +473,8 @@ $('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, dra
      <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
-          <button class="btn btn-info btn-sm" type="submit" id="send"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+        <!-- id="send" -->
+          <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
           <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
         </div>
       </div>

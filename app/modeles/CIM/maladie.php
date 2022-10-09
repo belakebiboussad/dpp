@@ -10,6 +10,10 @@ class maladie extends Model
 	protected $fillable = ['CODE_DIAG','C_S_CHAPITRE','NOM_MALADIE'];
 	public function sChapitre()
 	{
-	    return $this->belongsTo('App\modeles\CIM\sChapitre',' C_S_CHAPITRE');
+	  return $this->belongsTo('App\modeles\CIM\sChapitre',' C_S_CHAPITRE');
 	}
+  public static function contagius()
+  {
+    return maladie::where("contag", "=", 1)->get();
+  }
 }

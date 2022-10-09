@@ -6,7 +6,7 @@ class patient extends Model
 {
 	public $timestamps = true;
 	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
-  protected $appends = ['full_name','age','civ'];
+  protected $appends = ['full_name','age','civ','allergs'];
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;
@@ -17,7 +17,29 @@ class patient extends Model
     else
     return "99";
   }
-  	public function lieuNaissance()
+  public function getCivAttribute()
+  { 
+    switch ($civilite = $this->getCivilite()) {
+        case 'M.': //$civcode = 1; 
+          return 1;
+          break;
+        case 'Mlle.'://$civcode =2; 
+        case 'Mme.':
+          return 2;
+          break; 
+        case 'Enf.':// $civcode =3; 
+          return 3;
+          break;
+        default :
+          return 1;
+          break;     
+    }
+  }
+  public function getAllergsAttribute()
+  {
+    return $this->Allergies->pluck('id')->toArray();
+  }
+  public function lieuNaissance()
 	{
 		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
 	}
@@ -62,6 +84,14 @@ class patient extends Model
  	{
  		 return $this->hasOne('App\modeles\facteurRisqueGeneral','patient_id');
  	}
+  public function Allergies()
+  {
+    return $this->belongsToMany('App\modeles\Allergie','allergie_patient','patient_id','allergie_id')->withTimestamps();
+  }
+  public function ContagDesease()
+  {
+    return $this->belongsToMany('App\modeles\CIM\maladie','dppdb.maladie_patient','patient_id','maladie_id')->withTimestamps();
+  }
  	public function getCivilite()
  	{
 		if(isset($this->Dat_Naissance))
@@ -85,22 +115,4 @@ class patient extends Model
  				return "M.";
  		}
  	}
-  public function getCivAttribute()
-  {    //$civcode = "";
-    switch ($civilite = $this->getCivilite()) {
-        case 'M.': //$civcode = 1; 
-          return 1;
-          break;
-        case 'Mlle.'://$civcode =2; 
-        case 'Mme.':
-          return 2;
-          break; 
-        case 'Enf.':// $civcode =3; 
-          return 3;
-          break;
-        default :
-          return 1;
-          break;     
-    }
-  }
 }

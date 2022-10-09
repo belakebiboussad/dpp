@@ -26,8 +26,8 @@ use Redirect;
 use MessageBag;
 use Carbon\Carbon;
 use Session;
-use View;//use Response;
-use Flashy;// use \COM;
+use View;
+use Flashy;
 class PatientController extends Controller
 {
   /**
@@ -67,7 +67,7 @@ class PatientController extends Controller
            $prenom = $nomprenom;
           else
            $prenom = $assure->Prenom;         
-        } //return view('patient.addP',compact('assure','NSS','type','prenom')); 
+        }
         return view('patient.addP',compact('assure','NSS','type','nom','prenom')); 
       }
       else

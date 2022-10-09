@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;//use DB;
+namespace App\Http\Controllers;
 use App\modeles\patient;
 use App\modeles\consultation;
 use App\modeles\Constantes;
 use App\modeles\constante;
-use App\modeles\antecedant;
-use App\modeles\codesim;
+use App\modeles\antecedant;//use App\modeles\codesim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
@@ -37,6 +36,8 @@ use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
+use App\modeles\Allergie;
+use App\modeles\CIM\maladie;
 use Carbon\Carbon;
 use Validator;
 use Response;
@@ -81,11 +82,9 @@ class ConsultationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-      public function create(Request $request, $pid)//$id_patient
+      public function create(Request $request, $pid)
       {
-        $date = Carbon::now();
-        $etab = Etablissement::first(); 
-        $employe = Auth::user()->employ;
+        $date = Carbon::now(); $etab = Etablissement::first();$employe = Auth::user()->employ; 
         if(isset($employe->specialite))
           $specialite = $employe->Specialite;
         else
@@ -93,14 +92,15 @@ class ConsultationsController extends Controller
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
-        $patient = patient::FindOrFail($pid);//$codesim = codesim::all();
+        $patient = patient::FindOrFail($pid);
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $consult =new consultation;$consult->date=$date;
         $consult->employ_id=Auth::User()->employee_id;$consult->pid = $pid; 
         $consult->id_lieu =$etab->id;$consult->save();
-        return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite'));//,'rdvs'
+        $allergies = Allergie::all();$deseases = maladie::contagius();
+        return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
       }
     /**
      * Store a newly created resource in storage.
@@ -219,8 +219,9 @@ class ConsultationsController extends Controller
                  $specialite = Auth::user()->employ->Service->Specialite;
          return view('consultations.show', compact('consultation','specialite','specialites'));
       }
-      public function destroy(Request $request, consultation $consult)
-      { //$consult = consultation::find($id);
+      public function destroy(Request $request, $id)
+      { 
+        $consult = consultation::find($id);
         $pid = $consult->pid;
         $consult->delete();
         if($request->ajax())  

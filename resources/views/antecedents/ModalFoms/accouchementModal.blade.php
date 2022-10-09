@@ -69,7 +69,7 @@
 	$(function(){
 		$('body').on('click', '.delete-acc', function (e) {
   		event.preventDefault();
-    	      var acc_id = $(this).val();
+    	var acc_id = $(this).val();
   		$.ajaxSetup({
     		headers: {
      		 	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')

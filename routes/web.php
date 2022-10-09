@@ -57,6 +57,9 @@ route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::resource('bedAffectation','AffectationsController');
 Route::resource('planning','PlanningController');
+
+route::resource('/allergie','AllergieController');
+Route::resource('maladies','CimController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -137,9 +140,7 @@ Route::get("flash","HomeController@flash");
 Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del
 Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
-//route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 // end del
-
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/searchBioRequests','DemandeExbController@search');
@@ -160,10 +161,9 @@ route::get('/getpatientvisite','PatientController@getpatientvisite');
 route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::post('/visite/store/{id}','VisiteController@store');//route::post('/saveActe','ActeController@store');
+Route::post('/visite/store/{id}','VisiteController@store');
 route::get('/acte/run/{id}','ActeController@run')->name('runActe');
 route::get('/schapitres','CimController@getChapters');
-route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
@@ -171,11 +171,10 @@ Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', function () {   return view('errors.404'); });*/
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
-Route::post('/admin/password/reset','UsersController@passwordReset');//Route::get('/traitdetails/{id}', 'TraitementController@getTraitDetails')->name('traits.details');
+Route::post('/admin/password/reset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
 route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
 Route::get('/etabExport', 'EtablissementControler@exportCsv');
-//////
 Route::get('/searchdate','StatistiqusController@seardate');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');

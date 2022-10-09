@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-12 widget-container-col ui-sortable">
 		<div class="widget-box transparent ui-sortable-handle">
-		<div class="widget-header"><h4 class="widget-title lighter"></h4>
+		<div class="widget-header">
 		<div class="widget-toolbar no-border">
 			<ul class="nav nav-tabs" id="myTab2">
 			@foreach($specialites as $specialite)
