@@ -107,9 +107,11 @@ $('document').ready(function(){
     <div class="group">
     @foreach($consultation->examsAppareil as $examAppareil)
       @if(null !== $examAppareil )
-      <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab"  aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span> Appareil{{ $examAppareil->Appareil->nom }}</h3>
-      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"  role="tabpanel" style="display: none;"  aria-hidden="true">
-      <p>{{ $examAppareil->description}}</p>
+      <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab"  aria-selected="false" aria-expanded="false">
+      <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+       Appareil{{ $examAppareil->nom }}</h3>
+      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" role="tabpanel" style="display: none;"  aria-hidden="true">
+      <p>{{ $examAppareil->pivot->description}}</p>
     </div>  
     @endif
     @endforeach

@@ -59,9 +59,9 @@ class demandeprodController extends Controller
       }
       else
       {
-        $serviceID =Auth::user()->employ->service;//$demandes = demand_produits::orderBy('Date', 'desc')->get();
+        $serviceID =Auth::user()->employ->service;
         $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
-              $q->where('id','=',$serviceID); 
+              $q->where('id',$serviceID); 
         })->orderBy('Date', 'desc')->get();
         return view('demandeproduits.index', compact('demandes'));     
       }

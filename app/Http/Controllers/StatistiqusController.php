@@ -170,8 +170,7 @@ class StatistiqusController extends Controller
     $d=$startt;
     for ($j=0; $j<$nbDays; $j++)
     { 
-      // $cons[] = consultation::where('date','<=',$tdate)->where('date','>=',$fdate)->where('date','=',$d)->count();
-       $cons[] = consultation::where('date', $d)->count();
+      $cons[] = consultation::where('date', $d)->count();
       $d = ($start->addDay())->format('y-m-d');
       array_push($datearr, $d); 
     }

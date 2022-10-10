@@ -18,8 +18,7 @@ use App\modeles\Demandeexr_Examenradio;
 use App\modeles\examenanapath;
 use App\modeles\hospitalisation;
 use App\modeles\service;
-use App\modeles\examen_cliniqu;
-use App\modeles\examAppareil;
+use App\modeles\examen_cliniqu;//use App\modeles\examAppareil;
 use App\modeles\ordonnance;
 use App\modeles\employ;
 use App\modeles\demandeExamImag;
@@ -210,7 +209,7 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-      public function show(consultation $consultation)//$id
+      public function show(consultation $consultation)
       { //$consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))

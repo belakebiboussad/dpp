@@ -12,7 +12,6 @@
   </div>
   @endforeach
 </div> 
-<div class="row">@include('antecedents.ModalFoms.contagModal')</div> 
 <script type="text/javascript">
 $(function(){
    $('.desContag').bind('click', function() {

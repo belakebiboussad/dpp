@@ -26,10 +26,10 @@ class consultation extends Model
         return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
       }
       public function examsAppareil()
-      {
-        return $this->hasMany('App\modeles\examAppareil','cons_id');
+      {// consultation
+        return $this->belongsToMany('App\modeles\appareil','examen_appareil','cons_id','appareil_id')->withPivot('description');//->withPivot('description');
       }
-      public function demandExmImg()//examensradiologiques()//used
+      public function demandExmImg()
       {
           return $this->hasOne('App\modeles\demandeexr','id_consultation');
      }

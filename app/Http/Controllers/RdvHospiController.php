@@ -31,20 +31,14 @@ class RdvHospiController extends Controller
     $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('modeAdmission','<>',2)->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
     return view('rdvHospi.index', compact('specialite','demandes','services'));
   }
-  public function create($id)
-  {
-    $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
-    $services = service::where('type','<>',2)->where('hebergement','1')->get();
-    return view('rdvHospi.add', compact('demande','services'));
-  }
   public function store(Request $request)
   {
     $rdv = rdv_hospitalisation::firstOrCreate([
-                "date"         =>$request->dateEntree,
-                "heure"        =>$request->heure,   
-                "id_demande"        =>$request->demande_id,       
-                "date_Prevu_Sortie" =>$request->dateSortiePre,
-                "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+        "date"         =>$request->dateEntree,
+        "heure"        =>$request->heure,   
+        "id_demande"        =>$request->demande_id,       
+        "date_Prevu_Sortie" =>$request->dateSortiePre,
+        "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
     ]);
     if(isset($request->lit) && ($request->lit !=0))
     {   

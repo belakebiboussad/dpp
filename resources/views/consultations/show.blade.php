@@ -158,9 +158,9 @@ td
       </div> {{-- DH --}}
         @endisset
         @isset($consultation->examensCliniques) 
-          <div id="ExamClin" class="tab-pane">
-                <div class="row">
-               <h4 > Paramétres généreaux</h4>
+        <div id="ExamClin" class="tab-pane">
+          <div class="row">
+            <h4> Paramétres généreaux</h4>
               <ul class="list-unstyled spaced">
                 @if(isset($consultation->examensCliniques->consts))
                        @foreach(json_decode($specialite->consConst ,true) as $const)
@@ -185,7 +185,8 @@ td
              <h4 >Examens Appareils</h4>
              <ul class="list-unstyled spaced">
               @foreach($consultation->examsAppareil as $examAppareil)
-                    <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Appareil {{ $examAppareil->Appareil->nom }} : <blockquote>{{ $examAppareil->description}}</blockquote></span></li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i>
+                <span  class="ft16">Appareil {{ $examAppareil->nom }} : <blockquote>{{ $examAppareil->pivot->description}}</blockquote></span></li>
               @endforeach
              </ul>
             </div>

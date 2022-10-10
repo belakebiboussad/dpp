@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 09 oct. 2022 à 15:18
+-- Généré le : lun. 10 oct. 2022 à 15:16
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.4.16
 
@@ -2672,7 +2672,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=1312 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1410 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2886,8 +2886,8 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (1091, 'fe', NULL, '2022-09-25', NULL, 'fef', NULL, 100, 305, NULL, 23),
 (1092, 'avec dh', NULL, '2022-09-26', NULL, 'avec dh', NULL, 124, 228, NULL, 23),
 (1143, 'avec lorient', NULL, '2022-10-03', NULL, 'avec lorient', NULL, 100, 191, NULL, 23),
-(1291, NULL, NULL, '2022-10-09', NULL, NULL, NULL, 100, 222, NULL, 31),
-(1311, NULL, NULL, '2022-10-09', NULL, NULL, NULL, 100, 258, NULL, 31);
+(1408, 'avec appareil', NULL, '2022-10-10', NULL, 'avec appareil', NULL, 113, 193, NULL, 31),
+(1409, 'avec appareil', NULL, '2022-10-10', NULL, 'avec appareil', NULL, 113, 193, NULL, 31);
 
 -- --------------------------------------------------------
 
@@ -4716,21 +4716,25 @@ CREATE TABLE IF NOT EXISTS `examen_anapath_consultations` (
 
 DROP TABLE IF EXISTS `examen_appareil`;
 CREATE TABLE IF NOT EXISTS `examen_appareil` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `appareil_id` int(10) UNSIGNED NOT NULL,
   `cons_id` int(11) NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`appareil_id`,`cons_id`),
   KEY `appareil_examen_cliniques_examen_clinique_id_foreign` (`cons_id`),
   KEY `fk_examen_appareil` (`appareil_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `examen_appareil`
 --
 
-INSERT INTO `examen_appareil` (`id`, `appareil_id`, `cons_id`, `description`) VALUES
-(1, 1, 1043, 'gfdgfdg');
+INSERT INTO `examen_appareil` (`appareil_id`, `cons_id`, `description`) VALUES
+(1, 1408, 'dsd'),
+(1, 1409, 'sdfd dfsdf  sdfsdf '),
+(2, 1408, 'dscd boussad'),
+(2, 1409, 'cdscd dfsdfsdf'),
+(3, 1408, 'sdfsdfds'),
+(3, 1409, 'fsdfsd  dfsdfsdf dsfdsf sdfdsf');
 
 -- --------------------------------------------------------
 
@@ -12752,9 +12756,9 @@ CREATE TABLE IF NOT EXISTS `specialites` (
 --
 
 INSERT INTO `specialites` (`id`, `nom`, `type`, `consConst`, `hospConst`, `exmsbio`, `exmsImg`, `antecTypes`, `vaccins`, `appareils`, `nbMax`, `dhValid`) VALUES
-(1, 'Cardiologie', 0, '[\"1\",\"2\",\"3\",\"4\",\"6\",\"7\"]', '[\"1\",\"2\",\"3\",\"4\"]', '[\"3\",\"8\",\"19\",\"21\",\"22\",\"26\",\"33\",\"35\",\"39\",\"40\",\"55\",\"59\",\"78\"]', '[\"1\",\"2\",\"3\",\"6\",\"9\",\"10\"]', '[\"1\",\"2\",\"3\",\"4\",\"9\"]', '[\"1\",\"2\",\"3\",\"8\"]', '[\"1\",\"2\",\"3\",\"5\"]', NULL, NULL),
+(1, 'Cardiologie', 0, '[\"1\",\"2\",\"3\",\"4\",\"6\",\"7\"]', '[\"1\",\"2\",\"3\",\"4\"]', '[\"3\",\"8\",\"19\",\"21\",\"22\",\"26\",\"33\",\"35\",\"39\",\"40\",\"55\",\"59\",\"78\"]', '[\"1\",\"2\",\"3\",\"6\",\"9\",\"10\"]', '[\"1\",\"2\",\"3\",\"4\",\"8\",\"9\"]', '[\"1\",\"2\",\"3\",\"4\",\"8\"]', '[\"1\",\"2\",\"3\",\"5\"]', NULL, NULL),
 (2, 'Ophtalmologie', 0, '', '', 'null', 'null', '', '', '0', NULL, NULL),
-(3, 'Pédiatrie', 0, 'null', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"3\",\"7\",\"8\",\"12\",\"13\",\"14\",\"15\",\"18\",\"19\",\"20\",\"22\",\"24\",\"25\",\"26\",\"27\",\"28\",\"32\",\"37\",\"76\"]', '[\"1\",\"2\",\"3\",\"4\",\"10\"]', '[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\"]', '[\"1\"]', '[\"1\"]', NULL, NULL),
+(3, 'Pédiatrie', 0, '[\"1\",\"2\"]', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"3\",\"7\",\"8\",\"12\",\"13\",\"14\",\"15\",\"18\",\"19\",\"20\",\"22\",\"24\",\"25\",\"26\",\"27\",\"28\",\"32\",\"37\",\"76\"]', '[\"1\",\"2\",\"3\",\"4\",\"10\"]', '[\"1\",\"2\",\"3\",\"4\",\"8\",\"9\"]', '[\"1\"]', '[\"1\",\"2\",\"3\"]', NULL, NULL),
 (4, 'ORL', 0, '', '', 'null', 'null', '', '', NULL, NULL, 1),
 (5, 'Génécologie', 0, 'null', '[\"2\",\"9\"]', '[\"1\",\"7\",\"14\",\"16\",\"21\"]', '[\"1\",\"2\",\"3\"]', 'null', '[\"1\",\"2\",\"3\"]', '[\"1\",\"3\",\"7\"]', NULL, 1),
 (6, 'Chirurgie dentaire', 1, '', '', 'null', 'null', '', '', NULL, NULL, 1),
@@ -13046,18 +13050,18 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, '588aPd3Md8sznZJMzcJUWz7ReNxS07GvqpBbYmmCdFDmkgShxyDRhrssLkTp', 1),
 (35, 'delColChir', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '3DbtNbOp3VBmRO4pXd0BJ24yyo3r9bRkKSt6ptFGgsxyWBsQE4hGyciQIhSo', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 1, 'SOt4vpTiQfNbFG8J7A2QQ2Y2ZaeSR6dTvAgZPBPX8BGWSTz8XtpP8ExLktM1', 1),
-(39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, '4w0vBAB2uerNedR15R7hdVgsrX2e4WAI5CNFgjQksRN213HFmrw8akLrMmar', 1),
+(39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, '0AGwyvmLgUXzFDDmHjseOlGnIYUpMQmraV6KKltJnoVHxNIDeYJEx8hlYwtb', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '9DjygzFs7ZWUcg2BlqXdKD3vCHdQF8Xeqxmo7LRASi5bb57ig43Nlf2ncwHF', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '1aqEE0nDLwvJz0u0NVWQxKaeeGD0JuqWeiuYB5bIOWNHKgt07AHn0BD8X8pR', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'a4o6bRB7QP2fhydLKJ2RUYGfSsfwOduaWlIDdWtqkqrcN56k4V4O3pROnPAJ', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'hHnH7cCZjDJioqtMw1WKP4tKITvHKwo0bTnk3iM9uXiQ0imEweTYhBC0kSj6', 1),
-(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'Ok7PCDk8QnwsmpImLkrbdkWQlXXz4dZWhE6aWuyg40p59tEtcNH3NUWHb8gn', 1),
-(46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'rWDORAcSdjrNc2KSAIYRdAhyyTna7wdGbh0jKeKFM3NJs8QGO1U51eyvqahF', 1),
+(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, '5JNV5q9W2AFrcA6dKKNtNLUAG5ZTkh1zeGQprxOlqdlM45IhpvpHRshuzxeX', 1),
+(46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, 'THqNLDWj4jySjmNEq6Q7tioSrOUaFqjlm2GKbfF4c9BT6dSz80gv4bq3t1tJ', 1),
 (47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'jY25NN4nfs77Ut5IORO1uHN9EYoJmheDkcZzi7mpNCrHdi7IjW8ItjmlWwuz', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'HgnLSh4z9OgmGifUk9vTeckxaUV60VAa7MEsAPaqweIRZ7Yao1UGoNcBFK8Z', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'AwXnxtWr1U7XNeNF1SHKezqTVN5OOPAjy4TrdWf4QtvQjagCxOVvBr8QZbkM', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'dLol7fWGgvdalPNqgtlCAtL88OLXeht7LyhVsTWp4I6xAuOYr275hantdgSA', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'Zbrk8t5ySQHWoGBMY0arq79kxWtnUpLGIzBiQfvyA45zDORvBLJPfVyVdHxe', 1),
-(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, '3wjrljNXbXdZzMEF3GRVEvCk8XA4eZByWiFGLkoyhii9zy5ExFJnN2EozfIe', 1),
+(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'mzEuZX74GXKotywa2zejuOAgCSSnwLzenCGlYBJWlFjUCpSGaR4sgT0Mk3JF', 1),
 (59, 'chefint', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'chefint@hop.com', 114, 14, 'shwcS905qJBq85UYMWsYZSn7ualFUm4mp0h9jGGYTOFbU4Aw2LlyHug1bbtS', 1),
 (60, 'medger', '$2y$10$2Mrra7cY3/Lb9AiHzbitI.n99.H4cmtMxtzhB4NGKK4BSD2pOrcCq', 'medger@hotmail.com', 115, 1, 'jJSEWn85AJYlG2yeo6x2MAEkqswsOMZ2JPVgdKDT7XuJ8k8X74jy93x8B91d', 1),
 (61, 'medgen', '$2y$10$spTXvp3EM/0N8vCPuQP87u.T06AKea2TsWgU2t4Oyd69Cqxr3xWzu', NULL, 116, 1, 'rZzu887BZZ2uxpYabQEyNdJViZCExlw6fsX2x4n3BXq31ecVGZeKVYaQDKnN', 1),
@@ -13653,13 +13657,6 @@ ALTER TABLE `etablissement`
 --
 ALTER TABLE `examenbiologiques`
   ADD CONSTRAINT `fk_examen_specialite` FOREIGN KEY (`specialite_id`) REFERENCES `specialite_exb` (`id`);
-
---
--- Contraintes pour la table `examen_appareil`
---
-ALTER TABLE `examen_appareil`
-  ADD CONSTRAINT `fk_appareil_consult` FOREIGN KEY (`cons_id`) REFERENCES `consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_examen_appareil` FOREIGN KEY (`appareil_id`) REFERENCES `appareils` (`id`);
 
 --
 -- Contraintes pour la table `examen_clinique`

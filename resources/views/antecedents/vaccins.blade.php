@@ -1,8 +1,12 @@
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Vaccins</h3></div></div>
+<div class="row"><div class="col-sm-12">
+  <h3 class="header smaller lighter blue">Vaccins</h3></div>
+  </div>
 <div class="row">
  	<div class= "widget-box widget-color-pink">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Vaccins</b></font></h5>
+			<h5 class="widget-title bigger lighter">
+        <font color="black"> <i class="ace-icon fa fa-table"></i>
+        &nbsp;<b>Vaccins</b></font></h5>
 		 	<div class="widget-toolbar widget-toolbar-light no-border">
 				<a id ="vaccAdd" data-target="#vaccinModal" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
@@ -20,7 +24,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($patient->vaccins as $vac)
+						{{--
+            @foreach($patient->vaccins as $vac)
 						<tr id="{{ 'vaccin'.$vac->id }}">
 							<td>{{ $vac->nom}}</td>
 							<td>{{ $vac->pivot->date}}</td>
@@ -30,6 +35,7 @@
 							</td>
 						</tr>
 						@endforeach
+            --}}
 					</tbody>
 				</table>
 			</div>
