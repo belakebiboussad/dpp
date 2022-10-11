@@ -8,11 +8,11 @@
 				<table class="table table-striped table-bordered table-hover">
 				<thead class="thin-border-bottom">
 					<tr>
-						<th class ="center"><strong>Date</strong></th>
-						<th class ="center"><strong>Type</strong></th><!-- <th class ="center"><strong>Service</strong></th> -->
-						<th class ="center"><strong>Specialité</strong></th>
-            <th class ="center"><strong>Médcine traitant</strong></th>
-						<th class ="center"><strong>Etat</strong></th>
+						<th class ="center">Date</th>
+						<th class ="center">Type</th><!-- <th class ="center">Service</th> -->
+						<th class ="center">Specialité</th>
+            <th class ="center">Médcine traitant</th>
+						<th class ="center">Etat</th>
 						<th class ="center"><em class="fa fa-cog"></em></th>
 					</tr>
 				</thead>

@@ -32,9 +32,7 @@
 	                 <div class="form-group">
 						<div class="i-checks">
 							<label class="col-sm-3 control-label no-padding-right blue">Etat : </label>
-							<div>
-								<strong>{{ $lit->bloq == 1 ? "Bloqué" : "Non Bloqué" }}</strong>
-							</div>
+							<div><b>{{ $lit->bloq == 1 ? "Bloqué" : "Non Bloqué" }}</b></div>
 						</div>
 						</div>
 						<div class="form-group">

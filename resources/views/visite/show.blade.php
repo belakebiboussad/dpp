@@ -7,13 +7,13 @@
     </div>
   </div>
 	<div class="panel-heading left">
-	  	<h4><strong>Détails de la visite :</strong></h4>
+	  	<h4><b>Détails de la visite :</b></h4>
 	  	<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
 	  	 </div>
 	</div>	
 	<div class="row">
 		<div class="form-group">		
-			<label class="col-sm-1 control-label no-padding-right" for="service"><strong>Date :</strong></label>
+			<label class="col-sm-1 control-label no-padding-right" for="service"><b>Date :</b></label>
 			<div class="col-sm-8 col-xs-8">
 				 <label class="blue">{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</label>
 			</div>
@@ -49,9 +49,9 @@
 						<table class="table table-striped table-bordered table-hover">
 							<thead class="thin-border-bottom">
 								<tr>
-									<th class="center"><strong>Nom</strong></th>
-									<th class="center"><strong>Type</strong></th>
-									<th class="center"><strong>Description</strong></th>
+									<th class="center">Nom</th>
+									<th class="center">Type</th>
+									<th class="center">Description</th>
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -82,9 +82,9 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center"><strong>Nom</strong></th>
-								<th class="center"><strong>Type</strong></th>
-								<th class="center"><strong>Posologie</strong></th>
+								<th class="center">Nom</th>
+								<th class="center">Type</th>
+								<th class="center">Posologie</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -118,9 +118,9 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class="center">#</th>
-							<th class="center"><strong>Date</strong></th>
-							<th class="center"><strong>Nom</strong></th>
-							<th><strong>Etat</strong></th>
+							<th class="center"><b>Date</b></th>
+							<th class="center"><b>Nom</b></th>
+							<th><b>Etat</b></th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
@@ -165,7 +165,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+							<th class="center"><b>Date</b></th><th class="center"><b>Etat</b></th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>

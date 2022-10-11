@@ -7,7 +7,7 @@
         </button>
         <div class="navbar-header pull-left" >
           <a href="#" class="navbar-brand"><small> <i class="ace-icon fa fa-h-square"></i>
-            <strong>Dossier Médical Electronique &quot;{{ Session('etabAcr')}}&quot;</strong></small></a> 
+            <b>Dossier Médical Electronique &quot;{{ Session('etabAcr')}}&quot;</b></small></a> 
          </div>
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
           <ul class="nav ace-nav"> 

@@ -1,21 +1,21 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h4><strong>Liste des demande d'hospitalisation :</strong></h4></div>
+<div class="row"><h4><b>Liste des demande d'hospitalisation :</b></h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>
+			<div class="widget-header"><h5 class="widget-title"><b>Liste des demandes d'hospitalisation:</b></h5></div>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="center"><h5><strong>Patient</h5></strong></th>
-						<th class="center" width="3%"><strong>Age(Ans)</strong></th>
-						<th class="center"><strong>Date</strong></th>
-						<th class="center"><strong>Mode Admission</strong></th>
-						<th class="center"><strong>Spécialité</strong></th>
-						<th class="center"><strong>Service</strong></th>
-						<th class="center"><strong>Motif d'hospitalisation</strong></th>
-						<th class="center"><strong>Etat</strong></th>
+						<th class="center">Patient</th>
+						<th class="center" width="3%">Age(Ans)</th>
+						<th class="center">Date</th>
+						<th class="center">Mode Admission</th>
+						<th class="center">Spécialité</th>
+						<th class="center">Service</th>
+						<th class="center">Motif d'hospitalisation</th>
+						<th class="center">Etat</th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 					</tr>
 				</thead>

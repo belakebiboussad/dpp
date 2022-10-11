@@ -73,7 +73,7 @@ $(function() {
   $(".appareilSave").click(function (e) {
     e.preventDefault();
     if($("#"+ $(this).data('id')).text() != "")
-    {//alert($("#"+ $(this).data('id')).text());
+    {
       var type = "POST",
       url ="{{ route('appreilExamClin.store') }}";  
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });

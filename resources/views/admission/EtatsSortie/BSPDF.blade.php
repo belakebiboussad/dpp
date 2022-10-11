@@ -19,33 +19,33 @@
   <body>
    @include('partials.etatHeader')
    <br>
-     <h3 class="text-uppercase center"><span style="font-size: xx-large;"><strong><u>{{ $etat->nom}}</u></strong></span></h3>
+     <h3 class="text-uppercase center"><span style="font-size: xx-large;"><b><u>{{ $etat->nom}}</u></b></span></h3>
     <br><br> 
     <section class="table solid" style="width:100%;">
      <table>
       <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-            <td colspan="2"><strong>N° :</strong><span>&nbsp;{{ $obj->id }}</td>
-            <td><strong>Date d'admission :</strong><span>&nbsp;{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
+            <td colspan="2"><b>N° :</b><span>&nbsp;{{ $obj->id }}</td>
+            <td><b>Date d'admission :</b><span>&nbsp;{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-              <td><strong>Service :</strong><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span></td>
-              <td><strong>Salle :</strong><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span></td>
-              <td><strong>Lit :</strong><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span></td>
+              <td><b>Service :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span></td>
+              <td><b>Salle :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span></td>
+              <td><b>Lit :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-              <td><strong>Nom :</strong><span>&nbsp;{{ $patient->Nom}}</span></td>
-              <td><strong>Prénom :</strong><span>&nbsp;{{ $patient->Prenom }}</span></td>
+              <td><b>Nom :</b><span>&nbsp;{{ $patient->Nom}}</span></td>
+              <td><b>Prénom :</b><span>&nbsp;{{ $patient->Prenom }}</span></td>
                @if(($patient->situation_familiale == "M") && ( $patient->Type == "1") )
-                   <td><strong>Epoux(se)  :</strong><span>&nbsp;{{ $patient->assure->full_name }}</span></td>
+                   <td><b>Epoux(se)  :</b><span>&nbsp;{{ $patient->assure->full_name }}</span></td>
               @endif
               </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
          <tr>
-          <td><strong>Genre :</strong><span>&nbsp;{{ $patient->Sexe }}</span></td>
-          <td><strong>Né(e) le :</strong><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
-          <td><strong>Né(e) à :</strong><span>&nbsp;{{ $patient->lieuNaissance->nom_commune }}</span></td>
+          <td><b>Genre :</b><span>&nbsp;{{ $patient->Sexe }}</span></td>
+          <td><b>Né(e) le :</b><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
+          <td><b>Né(e) à :</b><span>&nbsp;{{ $patient->lieuNaissance->nom_commune }}</span></td>
         </tr> 
       </table>
     </section><br>  <br>

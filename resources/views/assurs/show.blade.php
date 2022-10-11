@@ -159,7 +159,7 @@
 					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ayants droits</h5>
 						<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 							<div class="fa fa-plus-circle"></div>
-							<a href="patientAssuree/{{$assure->id}} "><strong>Patient</strong></a>
+							<a href="patientAssuree/{{$assure->id}} "><b>Patient</b></a>
 						</div>
 				</div>
 				<div class="widget-body">
@@ -168,10 +168,10 @@
 							<thead class="thin-border-bottom">
 								<tr>
 									<th class= "center">#</th>
-									<th class= "center"> <strong>Nom</strong></th>
-									<th class= "center"><strong>Prénom</strong></th>
-									<th class= "center"><strong>Né(e) le</strong></th>
-									<th class= "center"><strong>Type</strong></th>
+									<th class= "center">Nom</th>
+									<th class= "center">Prénom</th>
+									<th class= "center">Né(e) le</th>
+									<th class= "center">Type</th>
 									<th class= "center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -186,19 +186,19 @@
 								<td>
 								 	@switch($patient->Type)
 								 			@case("0")
-     											<span class="label label-sm label-success"><strong>Assuré(e)</strong></span>
+     											<span class="label label-sm label-success"><b>Assuré(e)</b></span>
         									@break
     									@case("1")
-       										<span class="label label-sm label-warning"><strong>Conjoint(e)</strong></span>
+       										<span class="label label-sm label-warning"><b>Conjoint(e)</b></span>
         									@break
         							@case("2")
-        									<span class="label label-sm label-danger"><strong>Ascendant</strong></span>
+        									<span class="label label-sm label-danger"><b>Ascendant</b></span>
         									@break
         							@case("3")
-        									<span class="label label-sm label-danger"><strong>Descendant</strong></span>
+        									<span class="label label-sm label-danger"><b>Descendant</b></span>
         									@break
         							@case("4")
-        									<span class="label label-sm label-danger"><strong>Autre</strong></span>
+        									<span class="label label-sm label-danger"><b>Autre</b></span>
         									@break		
         								@default
       										<span class="label label-sm label-success">{{$patient->Type}}</span>

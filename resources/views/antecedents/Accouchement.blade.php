@@ -14,13 +14,13 @@
 				<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="accouchTab">
 					<thead class="thin-border-bottom">
 					  <tr>
-					  <th class ="center"><strong>Lieu</strong></th>{{--   <th class ="center"><strong>Terme</strong></th> --}}
-					  <th class ="center"><strong>Presentation</strong></th>
-					  <th class ="center"><strong>D.Ouv Oeuf</strong></th><!-- Durée Ouverture de l'Oeuf(h) -->
-					  <th class ="center"><strong>D. Trav</strong></th><!-- Durée du Travail(h) -->
-					  <th class ="center"><strong>D. Expul</strong></th><!-- Durée du l'Expulsion(h) -->
- 						<th class="center"><strong>Type</strong></th>	
- 						<th class="center"><strong>Incidents</strong></th><!-- <th class="center"><strong>Motif</strong></th> -->
+					  <th class ="center">Lieu</th>{{--   <th class ="center">Terme</th> --}}
+					  <th class ="center">Presentation</th>
+					  <th class ="center">D.Ouv Oeuf</th><!-- Durée Ouverture de l'Oeuf(h) -->
+					  <th class ="center">D. Trav</th><!-- Durée du Travail(h) -->
+					  <th class ="center">D. Expul</th><!-- Durée du l'Expulsion(h) -->
+ 						<th class="center">Type</th>	
+ 						<th class="center">Incidents</th><!-- <th class="center">Motif</th> -->
  						<th class="center"><em class="fa fa-cog"></em></th>
 					  </tr>
 					</thead>

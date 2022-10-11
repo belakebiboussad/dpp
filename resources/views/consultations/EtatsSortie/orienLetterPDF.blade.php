@@ -1,19 +1,19 @@
 <div class="textCenter mtP40 ft16" >
-  <strong>LETTRE D'ORIENTATION MEDICALE</strong>
+  <b>LETTRE D'ORIENTATION MEDICALE</b>
 </div>
-<div class="tab-space40 mtp10"><strong>Alger le :</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
+<div class="tab-space40 mtp10"><b>Alger le :</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
 <div class="row ml-4">
   <div class="col-sm-11">
     <div class="sec-gauche">
-      <strong><u>Docteur:</u></strong>&nbsp;{{ $employe->full_name}}
-      <strong class="espace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specialité</strong>:&nbsp;{{ $specialite->nom}}
+      <b><u>Docteur:</u></b>&nbsp;{{ $employe->full_name}}
+      <b class="espace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specialité</b>:&nbsp;{{ $specialite->nom}}
     </div>
   </div>
 </div>
 <div class="row ml-4">
   <div class="col-sm-11">
     <div class="sec-gauche">
-      <strong><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</strong>{{ $patient->age }}ans
+      <b><u>Patient(e):</u></b>&nbsp;{{ $patient->getCivilite() }}{{ $patient->full_name }},&nbsp;</b>{{ $patient->age }}ans
     </div>
   </div>
 </div>

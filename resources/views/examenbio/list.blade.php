@@ -6,7 +6,7 @@
 			<ul class="nav nav-tabs" id="myTab2">
 			@foreach($specialites as $specialite)
 			<li  @if ($loop->first) class="active" @endif>
-      	<a data-toggle="tab" href="#{{ $specialite->id }}"><strong>{{ $specialite->nom }}</strong></a>
+      	<a data-toggle="tab" href="#{{ $specialite->id }}"><b>{{ $specialite->nom }}</b></a>
 			</li>
 			@endforeach
 			</ul>

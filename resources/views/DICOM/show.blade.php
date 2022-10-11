@@ -111,16 +111,16 @@
   });
 </script>
 <div class="row">
-  <div class="col-sm-4 col-xs-12"><strong>Institution :</strong><span id="institution"></span></div> 
-  <div class="col-sm-4 col-xs-12"><strong>Nom patient :</strong><span id="patientName"></span></div>
-  <div class="col-sm-4 col-xs-12"><strong>Code patient :</strong><span id="patientId"></span></div>
+  <div class="col-sm-4 col-xs-12"><b>Institution :</b><span id="institution"></span></div> 
+  <div class="col-sm-4 col-xs-12"><b>Nom patient :</b><span id="patientName"></span></div>
+  <div class="col-sm-4 col-xs-12"><b>Code patient :</b><span id="patientId"></span></div>
 </div>
 <div class="row">
-  <div class="col-sm-4 col-xs-12"><strong>Date :</strong><span id="date"></span>
+  <div class="col-sm-4 col-xs-12"><b>Date :</b><span id="date"></span>
   </div>
-  <div class="col-sm-4 col-xs-12"><strong>Genre :</strong><span id="genre"></span>
+  <div class="col-sm-4 col-xs-12"><b>Genre :</b><span id="genre"></span>
   </div>
-  <div class="col-sm-4 col-xs-12"><strong>Age :</strong><span id="age"></span><br><!-- <span>Machine: </span><span id="machine"></span><br> -->
+  <div class="col-sm-4 col-xs-12"<b>>Age :</b><span id="age"></span><br><!-- <span>Machine: </span><span id="machine"></span><br> -->
   </div>
 </div>
 <div class="row">

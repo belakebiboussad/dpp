@@ -12,28 +12,28 @@
 <body>	
 	<div class="row"><img src="img/entete.jpg" class="mt-12" alt="entete" width="100%"></div>	
 	<hr/>
-	<div class="right"><strong>Alger le :</strong><span>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</span></div>	
-	<div class="row"><strong>Patient(e) :</strong></div>
-	<div class="tab"><strong>Nom & Prenom :&nbsp;</strong><span>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }} </span></div>
+	<div class="right"><b>Alger le :</b><span>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</span></div>	
+	<div class="row"><b>Patient(e) :</b></div>
+	<div class="tab"><b>Nom & Prenom :&nbsp;</b><span>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }} </span></div>
 		<div  class="tab">
-			<strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($rdv->demandeHospitalisation->consultation->patient->Dat_Naissance)->format('d-m-Y') }}</span>
+			<b>Né(e) le :&nbsp;</b><span>{{ \Carbon\Carbon::parse($rdv->demandeHospitalisation->consultation->patient->Dat_Naissance)->format('d-m-Y') }}</span>
 		</div> 
-		<div class="tab"><strong>Date RDV :&nbsp;</strong><span>{{ $rdv->date}} </span></div>
-		<div class="tab"><strong>Heure RDV :&nbsp;</strong><span>{{ $rdv->heure}} </span></div>
-		<h3 class="center mt-40"><span><strong>Rendez-Vous d'hospitalisation</strong></span></h3>
-		<br><div class="row"><strong>Object :</strong>&nbsp;Attribution d'un Rendez-vous d'hospitalisation</div><br>
+		<div class="tab"><b>Date RDV :&nbsp;</b><span>{{ $rdv->date}} </span></div>
+		<div class="tab"><b>Heure RDV :&nbsp;</b><span>{{ $rdv->heure}} </span></div>
+		<h3 class="center mt-40"><span><b>Rendez-Vous d'hospitalisation</b></span></h3>
+		<br><div class="row"><b>Object :</b>&nbsp;Attribution d'un Rendez-vous d'hospitalisation</div><br>
 		<div>
 			<p  class="espace">
-				Nous vous informons que votre rendez-vous d'hospitalisation dans notre service <strong>&quot;{{ $rdv->demandeHospitalisation->Service->nom }}&quot;</strong>est pour le: <strong>&quot;{{ $rdv->date }}&quot;</strong>.
+				Nous vous informons que votre rendez-vous d'hospitalisation dans notre service <b>&quot;{{ $rdv->demandeHospitalisation->Service->nom }}&quot;</b>est pour le: <b>&quot;{{ $rdv->date }}&quot;</b>.
 			</p>
 			<p class="tab"  style="line-height: 30px">
-				Veuillez <strong>IMPERATIVEMENT</strong> vous présenter <strong>1 heure </strong>avant l'heure prévue de votre rendez-vous d'hospitalisation au service <strong>{{ $rdv->demandeHospitalisation->Service->nom }}</strong>muni(e) de votre pièce d'identité, votre carte chiffa ou attestation de droits.En fonctions de l'hospitalisation prévus pensez à apporter le courier de votre médecin ainsi que vos examens récents(biologie,radiologie,...).	
+				Veuillez <b>IMPERATIVEMENT</b> vous présenter <b>1 heure </b>avant l'heure prévue de votre rendez-vous d'hospitalisation au service <b>{{ $rdv->demandeHospitalisation->Service->nom }}</b>muni(e) de votre pièce d'identité, votre carte chiffa ou attestation de droits.En fonctions de l'hospitalisation prévus pensez à apporter le courier de votre médecin ainsi que vos examens récents(biologie,radiologie,...).	
 			</p>
 			<p class="tab">Si vous êtes dans l'impossibilité de vous rendre à cette consultatation.veuillez avoir l'amabilité de nous prévenir
-			<strong>48 heures</strong> avant en téléphonant au <strong>&quot;023-93-34&quot;</strong>  
+			<b>48 heures</b> avant en téléphonant au <b>&quot;023-93-34&quot;</b>  
 			</p>
 			<p class="espace">En vous remerciant, nous vous prions de croire,Monsieur, à l'expression de nous salutations distinguées.</p>
 		</div>
-		<div class="right"><strong> Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</strong></div>
+		<div class="right"><b> Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</b></div>
 	</body>
 </html>

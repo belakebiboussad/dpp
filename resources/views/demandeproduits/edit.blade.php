@@ -103,7 +103,7 @@ $('document').ready(function(){
 				<hr/>
 				<div class="pull right">
 					<button id="ajoutercmd" class="btn btn-sm btn-success">
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i><strong>Ajouter</strong>
+						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i><b>Ajouter</b>
 					</button>
 				</div>
 			</div>

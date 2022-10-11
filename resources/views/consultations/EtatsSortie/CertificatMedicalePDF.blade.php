@@ -15,24 +15,24 @@
     <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
     <main><br><br><br>	
   	  <hr class="hr-1"/>
-  		<div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div><br>
-  		<div><strong>Service : </strong>{{ $obj->medecin->Service->nom }}</div>
+  		<div class="center"><h3><b>{{ $etat->nom }}</b></h3></div><br>
+  		<div><b>Service : </b>{{ $obj->medecin->Service->nom }}</div>
   		<div>
-  			<strong>Chef de Servise : </strong>{{ $obj->medecin->Service->responsable->full_name }}
+  			<b>Chef de Servise : </b>{{ $obj->medecin->Service->responsable->full_name }}
   		</div><br><br><br><br>
     	<div>
         <p class="espace">
-         Je soussigné, Dr <strong>{{ $obj->medecin->full_name }}</strong>
+         Je soussigné, Dr <b>{{ $obj->medecin->full_name }}</b>
          Docteur en {{ (isset($obj->medecin->specialite))  ? $obj->medecin->Specialite->nom :  $obj->medecin->Service->Specialite->nom }} ,
         </p>
         <p>
-        certifie avoir examiné ce <strong>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</strong>
-          <strong> {{ $obj->patient->getCivilite() }} </strong>
-          <strong>{{ $obj->patient->full_name }}</strong> né(e) le  <strong> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </strong>
+        certifie avoir examiné ce <b>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</b>
+          <b> {{ $obj->patient->getCivilite() }} </b>
+          <b>{{ $obj->patient->full_name }}</b> né(e) le  <b> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </b>
           et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
         </p>
       </div>
-      <div class="sign"><span><strong> Date :</strong> {{ $date }}</span></div>
+      <div class="sign"><span><b> Date :</b> {{ $date }}</span></div>
       <div class="footer">
         <div class="textCenter">Certificat établit pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre
         </div>

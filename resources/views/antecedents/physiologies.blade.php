@@ -20,7 +20,7 @@
 						<th class ="center">Tabac</th>
 						<th class ="center">Ethylisme</th>
 						<th class ="center">Hab alim</th>
-						<th class="center hidden-480"><strong>Description</strong></th>
+						<th class="center hidden-480">Description</th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 				  </tr>
 				</thead>

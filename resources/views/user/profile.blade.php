@@ -29,21 +29,21 @@
       	<div class="col-md-6 col-sm-6">
       		<ul class="list-unstyled spaced">
       			<li>
-			     		<i class="ace-icon fa fa-caret-right blue"></i><strong>Nom :</strong>  <label class="blue">{{ $employe->nom }}</label>
+			     		<i class="ace-icon fa fa-caret-right blue"></i><b>Nom :</b>  <label class="blue">{{ $employe->nom }}</label>
 				    </li>
 						<li>
-				    	<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong><label class="blue">{{ $employe->prenom }}</label>
+				    	<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b><label class="blue">{{ $employe->prenom }}</label>
 				    </li>
 						<li>
-				      <i class="ace-icon fa fa-caret-right blue"></i><strong>Date de Naissance  :</strong>  <label class="blue">{{ $employe->Date_Naiss }}</label>
+				      <i class="ace-icon fa fa-caret-right blue"></i><b>Date de Naissance  :</b>  <label class="blue">{{ $employe->Date_Naiss }}</label>
 				    </li>
 						<li>
-				     	<i class="ace-icon fa fa-caret-right blue"></i><strong>Genre :</strong>
+				     	<i class="ace-icon fa fa-caret-right blue"></i><b>Genre :</b>
 				       	<label class="blue">{{ $employe->sexe == "M" ? 'Masculin' : 'Féminin' }} <i class="fas fa-address-book"></i></label>
 				    </li>
 						@if( $employe->service  != null)
 						<li>
-				      <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong><label class="blue">{{Auth::User()->employ->Service->nom }}</label>
+				      <i class="ace-icon fa fa-caret-right blue"></i><b>Service :</b><label class="blue">{{Auth::User()->employ->Service->nom }}</label>
 				    </li>
 						@endif
          	</ul>
@@ -51,17 +51,17 @@
         <div class="col-md-6 col-sm-6">
        		<ul class="list-unstyled spaced">
        			<li>
-			    		<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>
+			    		<i class="ace-icon fa fa-caret-right blue"></i><b>Spécialité :</b>
                 <label class="blue">{{ isset(Auth::User()->employ->specialite) ? Auth::User()->employ->Specialite->nom : '' }}</label>
 			      </li>
 						<li>
-			        <i class="ace-icon fa fa-caret-right blue"></i><strong>Matricule :</strong><label class="blue">{{ $employe->Matricule_dgsn }}</label>
+			        <i class="ace-icon fa fa-caret-right blue"></i><b>Matricule :</b><label class="blue">{{ $employe->Matricule_dgsn }}</label>
 			      </li>
 						<li>
-			       	<i class="ace-icon fa fa-caret-right blue"></i><strong>Username :</strong><label class="blue">{{ $user->name }}</label>
+			       	<i class="ace-icon fa fa-caret-right blue"></i><b>Username :</b><label class="blue">{{ $user->name }}</label>
 			      </li>
 						<li>
-			       	<i class="ace-icon fa fa-caret-right blue"></i><strong>Rôle :</strong><label class="blue">{{ Auth::user()->role->role }}</label>
+			       	<i class="ace-icon fa fa-caret-right blue"></i><b>Rôle :</b><label class="blue">{{ Auth::user()->role->role }}</label>
 			      </li>
 			  </ul>
        	</div>
@@ -72,11 +72,11 @@
       			<ul class="list-unstyled spaced">
       				<li>
 			    			<i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-			    			<strong>Tél mobile :</strong>  <label class="blue">{{ $employe->tele_mobile  }}</label>
+			    			<b>Tél mobile :</b>  <label class="blue">{{ $employe->tele_mobile  }}</label>
 							</li>
 			  			<li>
 				        <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-				      	<strong>Tél fixe :</strong>  <label class="blue">{{ $employe->Tele_fixe  }}</label>
+				      	<b>Tél fixe :</b>  <label class="blue">{{ $employe->Tele_fixe  }}</label>
 						  </li>
 
          		</ul>
@@ -85,11 +85,11 @@
 	         	<ul class="list-unstyled spaced">
 		        	<li>
 						    <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-home bigger-110"></i>
-						    <strong>Adresse :</strong> <adress class="blue">{{ $employe->Adresse }}</adress>
+						    <b>Adresse :</b> <adress class="blue">{{ $employe->Adresse }}</adress>
 							</li>
 							<li>
 						    <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-envelope bigger-90"></i>
-						    <strong>E-mail :</strong> <adress class="blue">{{ $user->email  }}</adress>
+						    <b>E-mail :</b> <adress class="blue">{{ $user->email  }}</adress>
 							</li>
 	         	</ul>
          </div>
@@ -107,7 +107,7 @@
         <input type="hidden" name="user_id" value="{{ $user->id }}">
         <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}"> </div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Mot de passe Actuel:<span class="text-danger">*</span></dtrong></label>
+          <label class="col-md-4 control-label" align="right"><b>Mot de passe Actuel:<span class="text-danger">*</span></b></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="curPassword" name="curPassword" placeholder="taper le mot de passe actuel" required/>
             <small class="help-block"></small>
@@ -115,14 +115,14 @@
         </div>
         <div class="space-12"></div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Nouveau mot de passe:<span class="text-danger">*</span></strong></label>
+          <label class="col-md-4 control-label" align="right"><b>Nouveau mot de passe:<span class="text-danger">*</span></b></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="taper un nouveau mot de passe" required />
             <small class="help-block"></small>
           </div>
         </div><div class="space-12"></div>
         <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><strong>Confirmer nouveau mot de passe:<span class="text-danger">*</span></strong></label>
+          <label class="col-md-4 control-label" align="right"><b>Confirmer nouveau mot de passe:<span class="text-danger">*</span></b></label>
           <div class="col-md-6">
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmer mot de passe" required />
             </div>

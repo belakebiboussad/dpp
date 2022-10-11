@@ -69,16 +69,14 @@
   <div class="col-xs-12">
     <div class="widget-box">
       <div class="widget-header">
-         <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i><strong>les  chambres du service &nbsp; &quot;{{ $service->nom}} &quot; </strong></h5></div>
+         <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i><b>les  chambres du service &nbsp; &quot;{{ $service->nom}} &quot; </b></h5></div>
       </div>
       <div class="widget-body">
         <div class="widget-main no-padding">
         <table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
           <thead class="thin-border-bottom thead-light">
             <tr>
-                <th class="center"><strong>Numéro</strong></th> 
-              <th class="center"><strong>Nom</strong></th> 
-              <th class="center"><strong>Nombre de lits</strong></th>
+                <th class="center">Numéro</th><th class="center">Nom</th><th class="center">Nombre de lits</th>  
             </tr>    
           </thead>
           <tbody>

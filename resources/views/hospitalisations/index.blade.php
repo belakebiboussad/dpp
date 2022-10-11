@@ -227,7 +227,7 @@
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h4><strong>Rechercher une hospitalisation</strong></h4>
+    <h4><b>Rechercher une hospitalisation</b></h4>
     <div class="panel panel-default">
       <div class="panel-heading"><b>Rechercher</b></div>
       <div class="panel-body">

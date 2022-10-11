@@ -213,7 +213,7 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
                 'format' =>'data-url'
             ]);
             $img = $renderer->render($data);
-            $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etab))->render();
+            $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($viewhtml);
             $dompdf->setPaper('a6', 'landscape');
@@ -221,10 +221,6 @@ return view('rdv.reporter_rdv',compact('rdv','patient'));}  public function stor
         
             return $dompdf->stream($filename); 
       }
-/* public function checkFullCalendar(Request $request){$events = array(); $today = Carbon::now()->format('Y-m-d');$rendezVous = rdv::all();
-foreach ($rendezVous as $rdv) {$patient = patient::FindOrFail($rdv->patient_id);$rdv = array();$e['id'] = $patient->id;
-$e['title'] =$patient->full_name;$e['start'] = new DateTime($rdv->date);$e['end'] = new DateTime($$rdv->date.' +1 day');array_push($events, $e);}return $events ;} */
-// public function orderPdf($id){ $rdv = rdv::findOrFail($id);$pdf = PDF::loadView('rdv.rdv_pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-pour:".patient::where("id",$rdv->patient_id)->get()->first()->Nom."".patient::where("id",$rdv->patient_id)->get()->first()->Prenom.".pdf";return $pdf->download($name); }
       public function listeRdvs(Request $request)
       {
         $rdvs = rdv::with('patient')->get();

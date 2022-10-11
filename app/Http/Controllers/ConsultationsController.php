@@ -18,7 +18,7 @@ use App\modeles\Demandeexr_Examenradio;
 use App\modeles\examenanapath;
 use App\modeles\hospitalisation;
 use App\modeles\service;
-use App\modeles\examen_cliniqu;//use App\modeles\examAppareil;
+use App\modeles\examen_cliniqu;
 use App\modeles\ordonnance;
 use App\modeles\employ;
 use App\modeles\demandeExamImag;

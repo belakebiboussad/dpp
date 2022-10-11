@@ -17,7 +17,7 @@
 			    </div><div class="space-12"></div>
         	<div class="row">
 			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi"><strong>Spécialité :</strong></label>
+			     		<label for="specialiteHospi"><b>Spécialité :</b></label>
 					   	<select class="form-control" id="specialiteHospi">
 						    @foreach($specialites as $specialite)
 						   	<option value="{{ $specialite->id}}" @if( $employe->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>

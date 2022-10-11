@@ -5,7 +5,7 @@
     <title>Lettre d'orientation médicale</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-      @page {/*margin: 20px 50px 80px;*/
+      @page {
           margin: 20px 100px 80px 40px;
       }
       .container {
@@ -43,12 +43,12 @@
         <h5>{{ $etab->nom }}</h5>
         </p> 
       </div><br>
-      <div class="right"><strong>Alger le :</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br><br>
+      <div class="right"><b>Alger le :</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br><br>
       <div class="rectangle"><h3><u>CETIFICAT MEDICAL DESCRIPTIF</u></h3></div><br>
     <div class="espace">
-      <h5><strong>Nom :</strong> {{ $certif->consultation->patient->Nom }}</h5>
-      <h5><strong>PRENOM :</strong> {{ $certif->consultation->patient->Prenom }}</h5>
-      <h5><strong>Date DE NAISSANCE :</strong> {{ \Carbon\Carbon::parse($certif->consultation->patient->Dat_Naissance)->format('d/m/Y') }}</h5>
+      <h5><b>Nom :</b> {{ $certif->consultation->patient->Nom }}</h5>
+      <h5><b>PRENOM :</b> {{ $certif->consultation->patient->Prenom }}</h5>
+      <h5><b>Date DE NAISSANCE :</b> {{ \Carbon\Carbon::parse($certif->consultation->patient->Dat_Naissance)->format('d/m/Y') }}</h5>
     </div><br>
     <div class="tab">
     je soussigné(e), Docteur {{ $certif->consultation->medecin->full_name }}, avoir examiné le sus nommé qui présente :

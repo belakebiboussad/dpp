@@ -35,7 +35,7 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tr class="noBorder">
             <td  width="206" height="30" >
-              <span>MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span><!-- style="text-align: left;" -->
+              <span>MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES</span>
             </td>
             <td  width="230" height="30"></td>
             <td id ="imagewrapper " rowspan="4" width="120" height="120" >
@@ -58,7 +58,7 @@
           <td width="206" height="30" ></td>
           <td rowspan="2" width="230" height="60" >
             <div class="rectangle">
-            <h4><strong>{{ $etat->nom}}</strong></h4>
+            <h4><b>{{ $etat->nom}}</b></h4>
           </div>
           </td><td width="120" height="30" ></td>
         </tr>

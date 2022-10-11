@@ -14,7 +14,7 @@ $(function(){
     <div class="col-sm-12">@include('patient._patientInfo')</div>
   </div>
   <div class="row">
-    <div class="col-sm-5"><h4><strong>Détails de la demande d'examens radiologiques</strong></h4></div>
+    <div class="col-sm-5"><h4><b>Détails de la demande d'examens radiologiques</b></h4></div>
     <div class="col-sm-7 pull-right btn-toolbar"> 
       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>
@@ -34,12 +34,12 @@ $(function(){
           <ul class = "nav nav-pills nav-justified list-group" role="tablist">
             <li class="active" role= "presentation">
               <a href="#exams" role="tab" data-toggle="tab">
-            <i class="fa fa-image  fa-1x"></i>&nbsp;<strong>Examens Radilogique</strong>
+            <i class="fa fa-image  fa-1x"></i>&nbsp;<b>Examens Radilogique</b>
             </a></li>
             @if($demande->hasCCR())
             <li  role="presentation">
               <a href="#crr" role="tab" data-toggle="tab"><i class="fa fa-file fa-1x" aria-hidden="true"></i>&nbsp;
-                <strong>Compte rendu radiologique </strong>
+                <b>Compte rendu radiologique </b>
               </a>
             </li>
             @endif
@@ -57,9 +57,8 @@ $(function(){
                         <thead>
                           <tr>
                             <th class="center" width="5%">N°</th> <th class="center" width="30%">Nom</th>
-                            <th class="center" width="7%"><strong>Type</strong></th>
-                            <th class="center" width="7%"><strong>Etat</strong></th>
-                            <th class="center" width="20%"><strong><em class="fa fa-cog"></em></strong></th>
+                            <th class="center" width="7%">Type</th><th class="center" width="7%">Etat</th>
+                            <th class="center" width="20%"><em class="fa fa-cog"></em></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -104,7 +103,7 @@ $(function(){
                                 <div class="space visible-xs"></div>
                                 <div class="profile-user-info profile-user-info-striped">
                                   <div class="profile-info-row">
-                                    <div class="profile-info-name text-center"><strong>Observation:</strong></div>
+                                    <div class="profile-info-name text-center"><b>Observation:</b></div>
                                     <div class="profile-info-value"> <span>{{ $ex->observation }} </span></div>
                                   </div>
                                 </div>

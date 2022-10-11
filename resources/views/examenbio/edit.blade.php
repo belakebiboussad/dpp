@@ -49,9 +49,9 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th class="center"><strong>#</strong></th>
-              <th class="center"><strong>Nom examen</strong></th>
-               <th class="center"><strong>Specialite</strong></th>
+              <th class="center">#</th>
+              <th class="center">Nom examen</th>
+               <th class="center">Specialite</th>
               <th class="center"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>

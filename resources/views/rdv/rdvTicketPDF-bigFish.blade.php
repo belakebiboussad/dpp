@@ -45,24 +45,24 @@
 	  <div class="row">
 	   	<div class="col-md-4 col-sm-4 float-left" style="font-size:x-small;"></div>
 	   	<div class="col-md-4 col-sm-4 content text-center pt-21">
-        <h4><strong>Rendez-Vous de Consultation</strong></h4>
+        <h4><b>Rendez-Vous de Consultation</b></h4>
       </div>		
 	  </div><br>	
 	  <div class="row mt-10 pt-10">
-		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<strong>{{ $rdv->specialite->nom}}</strong></div>
+		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<b>{{ $rdv->specialite->nom}}</b></div>
 		</div>
 	  <div class="row">
 	   	<div class="col-sm-12">
-		 	  <strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->date)->format('d-m-Y') }}</span>
+		 	  <b> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</b>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->date)->format('d-m-Y') }}</span>
 	   	</div>
 	  </div>
-		<div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
+		<div class="row">	<div class="col-sm-12"><b>Nom : </b><span>{{ $rdv->patient->Nom}}</span></div></div>
 		<div class="row" >
-		  <div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
+		  <div class="col-sm-12"><b>Prenom : </b><span>{{ $rdv->patient->Prenom}}</span> </div>
 		</div>
 		<div id="container" class="mt-2">
 		 		<div id ="row">
-		 			<div id="left"><img src="<?= $img->encoded ?>"/><br><strong>IPP :</strong><span>{{ $rdv->patient->IPP }}</span></div>
+		 			<div id="left"><img src="<?= $img->encoded ?>"/><br><b>IPP :</b><span>{{ $rdv->patient->IPP }}</span></div>
         </div>
 		 		<div id ="parent" class="row mb-12">
 		 			<span>&nbsp;Le jour de votre consultation</span>

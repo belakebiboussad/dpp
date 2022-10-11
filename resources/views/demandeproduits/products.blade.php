@@ -64,9 +64,9 @@
 														<table id="meds_table" class="table table-striped table-bordered">
 															<thead>
 															<tr>	
-																<th class="center"><strong>Nom (Dénomination Commune Internationale)</strong></th>
-																<th class="center"><strong>Spécialité</strong></th>
-																<th class="center"><strong>Code produit</strong></th>
+																<th class="center">Nom (Dénomination Commune Internationale)</th>
+																<th class="center">Spécialité</th>
+																<th class="center">Code produit</th>
 															</tr>
 															</thead>
 															<tbody>
@@ -90,8 +90,8 @@
 														<table id="dispo_table" class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th class="center"><strong>Code produit</strong></th>
-																	<th class="center"><strong>Nom(Dénomination Commune Internationale)</strong></th>
+																	<th class="center">Code produit</th>
+																	<th class="center">Nom(Dénomination Commune Internationale)</th>
 																</tr>
 															</thead>
 															<tbody>

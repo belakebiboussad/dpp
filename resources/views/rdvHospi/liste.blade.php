@@ -25,8 +25,8 @@
                             <th class="center">Heur</th>
                             <th class="center">Date</th>
                             <th class="center">Heure</th>
-                            <th class="font-weight-bold center">Lit</strong></th>
-                            <th class="font-weight-bold center">Salle</strong></th>
+                            <th class="font-weight-bold center">Lit</th>
+                            <th class="font-weight-bold center">Salle</th>
                             <th class="font-weight-bold center">Service</th>
                           </tr>
                         </thead>

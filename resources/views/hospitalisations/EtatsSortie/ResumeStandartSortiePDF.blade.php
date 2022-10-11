@@ -39,56 +39,56 @@
         <br><br>
         <hr class="h-1"/>
         <div>
-          <h3 class="center rect"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
+          <h3 class="center rect"><span style="font-size: xx-large;"><b>{{ $etat->nom}}</b></span></h3>
         </div>
        <div>
           <table>
             <tr>
               <td>
-              <strong>Etablissement :</strong>&nbsp;<span>{{ $etab->nom }}</span><br>
-              <strong>Service de :</strong>&nbsp;<span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span><br>
-              <strong>Chef de Service :</strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span><br>
+              <b>Etablissement :</b>&nbsp;<span>{{ $etab->nom }}</span><br>
+              <b>Service de :</b>&nbsp;<span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span><br>
+              <b>Chef de Service :</b><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span><br>
               </td>
               <td>
                 <div class="center mt-5">
-                  <span><strong>Réservé au Bureau des Entrées</strong></span>
+                  <span><b>Réservé au Bureau des Entrées</b></span>
                   <hr class="hr-1"/>
                 </div>
-                <div><span><strong>Code Sce :</strong></span></div>
+                <div><span><b>Code Sce :</b></span></div>
                 <hr class="hr-1"/>
               </td>
             </tr>
             <tr>
               <td>
-                <h5 class="rect"><strong>&nbsp;&nbsp;Matricule :</strong>&nbsp;
+                <h5 class="rect"><b>&nbsp;&nbsp;Matricule :</b>&nbsp;
                   @if($obj->patient->Type != 5 )
                     <span>{{ $obj->patient->assure->matricule }}</span>
                   @endif
                 </h5>&nbsp;&nbsp;&nbsp;&nbsp;
-                <h5 class="rect"><strong>&nbsp;&nbsp;N° Dossier :<span> &nbsp;{{ $obj->patient->IPP}}</span></strong></h5>
-                <strong>Nom et Prénoms : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->full_name }}</span><br>
-                <strong>Date de naissance(âge) :<strong>&nbsp;
+                <h5 class="rect"><b>&nbsp;&nbsp;N° Dossier :<span> &nbsp;{{ $obj->patient->IPP}}</span></b></h5>
+                <b>Nom et Prénoms : </b>&nbsp;<span> &nbsp;{{ $obj->patient->full_name }}</span><br>
+                <b>Date de naissance(âge) :<b>&nbsp;
                 <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}&nbsp;({{ $obj->patient->age }} ans)</span>
-                <strong class=""> Sexe :</strong>&nbsp;&nbsp;&nbsp;<span>{{ $obj->patient->Sexe }}</span><br>
-                <strong>Lieu de Naissance  :<strong>&nbsp;
+                <b class=""> Sexe :</b>&nbsp;&nbsp;&nbsp;<span>{{ $obj->patient->Sexe }}</span><br>
+                <b>Lieu de Naissance  :<b>&nbsp;
                   @if(isset($obj->patient->Lieu_Naissance))
                   <span> {{ $obj->patient->lieuNaissance->nom_commune }}</span>
                    @endif
                   <br>
-                  <strong>Lieu de résidence(Wilaya) :</strong>&nbsp;
+                  <b>Lieu de résidence(Wilaya) :</b>&nbsp;
                   @if(isset($obj->patient->commune_res))
                    <span>{{ $obj->patient->commune->daira->wilaya->nom }}</span>
                   @endif
                   <br>
-                  <strong>Date d'admisston a l'hôpital :</strong>&nbsp;
+                  <b>Date d'admisston a l'hôpital :</b>&nbsp;
                   <span>{{  (\Carbon\Carbon::parse($obj->admission->hospitalisation->date))->format('d/m/Y') }}</span>
                   <hr class="hr-1"/>
-                    <h4 class="center mt-2"><strong>Dernier Service d'Hospitalisation</strong></h4>
+                    <h4 class="center mt-2"><b>Dernier Service d'Hospitalisation</b></h4>
                   <hr class="hr-1 mt-2"/>
-                  <strong>Date d'entrée au service :</strong>&nbsp;<span>{{ $obj->date }}</span><br>
-                  <strong>Médecin traitant :</strong>&nbsp;
+                  <b>Date d'entrée au service :</b>&nbsp;<span>{{ $obj->date }}</span><br>
+                  <b>Médecin traitant :</b>&nbsp;
                   <span>{{ $obj->admission->hospitalisation->medecin->full_name }}</span><br>
-                  <strong>Mode de Sortie :</strong>&nbsp;
+                  <b>Mode de Sortie :</b>&nbsp;
                   <span>
                     @switch($obj->modeSortie)
                       @case(0)
@@ -108,34 +108,34 @@
                            @break
                     @endswitch  
                   </span><br>
-                  <strong>Date de sortie de l'Hôpital :</strong>&nbsp;
+                  <b>Date de sortie de l'Hôpital :</b>&nbsp;
                   <span>{{ $obj->Date_Sortie }}</span>
               </td>
               <td>
-                <h5><strong>CODE COMMUNDE </strong></h5>
-                <h5><strong>DE NAISSANCE :</strong>
+                <h5><b>CODE COMMUNDE </b></h5>
+                <h5><b>DE NAISSANCE :</b>
                 @if(isset($obj->patient->Lieu_Naissance))
                   <span> &nbsp;{{ $obj->patient->lieuNaissance->nom_commune }}</span>
                  @endif
                  </h5>
-                <h5><strong>Code WILAYA</strong></h5>
-                <h5><strong>DE RESIDENSE :</strong>
+                <h5><b>Code WILAYA</b></h5>
+                <h5><b>DE RESIDENSE :</b>
                 @if(isset($obj->patient->commune_res))
                   <span> &nbsp;{{ $obj->patient->commune->daira->wilaya->nom }}</span>
                 @endif
                 </h5>
                 <hr class="hr-1"/>
-                  <strong>Matricule du Praticien :</strong> <br>
-                  <strong>Code Mode de Sortie :</strong>
+                  <b>Matricule du Praticien :</b> <br>
+                  <b>Code Mode de Sortie :</b>
               </td>
             </tr>
             <tr>
               <td>
-                <strong>Motif d'hospitalisation :</strong>
+                <b>Motif d'hospitalisation :</b>
                 <span>{{ $obj->admission->demandeHospitalisation->consultation->motif }}</span><br>
-                <strong>Diagnostic principale de sotie :</strong>&nbsp;
+                <b>Diagnostic principale de sotie :</b>&nbsp;
                 <span>{{ $obj->diagSortie }}</span><br>
-                <h5  class="center"><strong>Diagnostics associés :</strong></h5>
+                <h5  class="center"><b>Diagnostics associés :</b></h5>
                 <ol class="list">
                   <li>1-</li>
                   <li>2-</li>

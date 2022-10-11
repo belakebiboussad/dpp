@@ -114,7 +114,7 @@
 	  	 <div class="row">
       		<div class="col-sm-4">
       			<div class="form-group">
-      				<label><strong>Etat :</strong></label>
+      				<label><b>Etat :</b></label>
          			<select  id="etat" class="selectpicker show-menu-arrow   col-xs-12 col-sm-12 filter">
 	         			<option selected disabled>Selectionner...</option>
 	         			<option value="">En Cours</option>
@@ -125,7 +125,7 @@
          	</div>
          	@if(Auth::user()->is(10))
          	<div class="col-sm-4">
-      			<div class="form-group"><label><strong>Service :</strong></label>
+      			<div class="form-group"><label><b>Service :</b></label>
       			<select  id="service" class="selectpicker show-menu-arrow col-xs-11 col-sm-11 filter">
       				<option value="">Selectionner...</option>	
       				@foreach ($services as $service)
@@ -146,7 +146,7 @@
 	<div class="col-xs-12">
 		<div class="widget-box">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><strong>Demandes</strong></h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><b>Demandes</b></h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
 				</div>
 			<div class="widget-body">
 					<div class="widget-main">
@@ -156,11 +156,11 @@
 									<table id="demandes_liste" class="table table-striped table-bordered" width="100%">
 										<thead>
 											<tr>
-												<th class="center"><strong>Date</strong></th>
-												<th class="center"><strong>Etat</strong></th>{{-- @if(Auth::user()->role_id == 10)@endif --}}
-												<th class="center"><strong>Service</strong></th>
-												<th class="center"><strong>Chef de service</strong></th>
-												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
+												<th class="center">Date</th>
+												<th class="center">Etat</th>{{-- @if(Auth::user()->role_id == 10)@endif --}}
+												<th class="center">Service</th>
+												<th class="center">Chef de service</th>
+												<th class="center"><em class="fa fa-cog"></em></th>
 											</tr>
 										</thead>
 										<tbody>	

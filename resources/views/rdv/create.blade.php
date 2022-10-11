@@ -141,7 +141,7 @@ $(function() {
                   {
                     Swal.fire({
                         title: 'Confimer vous  le Rendez-Vous ?',
-                        html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</b></h4>',
                         input: 'checkbox',
                         inputValue: 1,
                         inputPlaceholder: 'Redez-Vous Fixe',
@@ -282,8 +282,8 @@ $(function() {
   <div class="row"><div class="col-sm-12 calendar"></div></div>
   <div class="row">
     <div class="col-sm-12 col-sm-12">
-      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
-      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
+      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV fixe</b></h7>
+      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV à fixer</b></h7>
     </div>
   </div>
   <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>

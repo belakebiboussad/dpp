@@ -105,9 +105,7 @@ class BedReservationController extends Controller
           $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))
       ||((strtotime($res->rdvHosp->date)  < $start ) && (strtotime($res->rdvHosp->date_Prevu_Sortie) > $end)))
             array_push($resrvs, $res);
-          //$res->delete();
           $lit->bedReservation()->detach($res);
         }
-        dd( $resrvs);
   }
 }

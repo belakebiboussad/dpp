@@ -146,7 +146,7 @@
 			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))
 			<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 				<div class="widget-box transparent" id="widget-box-12">
-					<div class="widget-header"><h5 class="widget-title lighter"><strong>Informations du fonctionnaire</strong></h5></div>
+					<div class="widget-header"><h5 class="widget-title lighter"><b>Informations du fonctionnaire</b></h5></div>
 					<div class="widget-body">
 						<div class="widget-main padding-6 no-padding-left no-padding-right">
 							<div class="row">

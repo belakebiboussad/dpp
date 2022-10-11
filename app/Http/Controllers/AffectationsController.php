@@ -28,7 +28,7 @@ class AffectationsController extends Controller
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                   ->whereHas('consultation',function($q) use($now){
                                        $q->where('date', $now);
-                                  })->where('modeAdmission','2')->where('etat',null)->where('service',Auth::user()->employ->service_id)->get();
+                                  })->where('modeAdmission','2')->whereNull('etat')->where('service',Auth::user()->employ->service_id)->get();
     return view('bedAffectations.create', compact('rdvs','demandesUrg','services'));  
   }
   public function store(Request $request)
@@ -46,7 +46,6 @@ class AffectationsController extends Controller
       if(!$free)
       {
         $reservs = $lit->getReservation(strtotime($rdv->date), strtotime($rdv->date_Prevu_Sortie));
-        dd($reservs);
         foreach ($reservs as $res) {
           $res->delete();
         }

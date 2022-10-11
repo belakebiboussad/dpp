@@ -14,16 +14,16 @@
     <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" /></footer>
     <main> 
       <hr class="h-1 mtp33"/>
-      <div class="textCenter mtP40 ft16"><strong>LETTRE D'ORIENTATION MEDICALE</strong></div>
-      <div class="tab-space40 mtp10"><strong>Alger le :</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
+      <div class="textCenter mtP40 ft16"><b>LETTRE D'ORIENTATION MEDICALE</b></div>
+      <div class="tab-space40 mtp10"><b>Alger le :</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
       <div class="sec-gauche">
-        <strong>Docteur :</strong> {{ $orient->consultation->medecin->full_name }} &nbsp;&nbsp; 
-        <strong>Specialité</strong>:&nbsp;{{ $orient->consultation->medecin->Specialite->nom}}
+        <b>Docteur :</b> {{ $orient->consultation->medecin->full_name }} &nbsp;&nbsp; 
+        <b>Specialité</b>:&nbsp;{{ $orient->consultation->medecin->Specialite->nom}}
       </div>
       <br>
       <div>
-        <h4>Patient(e) :</strong>&nbsp;{{ $orient->consultation->patient->getCivilite() }}
-          {{ $orient->consultation->patient->full_name }},&nbsp;</strong>{{ $orient->consultation->patient->age }} ans
+        <h4>Patient(e) :</b>&nbsp;{{ $orient->consultation->patient->getCivilite() }}
+          {{ $orient->consultation->patient->full_name }},&nbsp;</b>{{ $orient->consultation->patient->age }} ans
         </h4>
       </div>
       <div class="sec-gauche">
@@ -44,7 +44,7 @@
         </p>
         <p class="espace"> Je vous le confie pour une méilleure prise en charge.</p>
       </div>
-      <div class="col-sm-12"><p class="espace"> <strong>Respectueusement</strong></p></div>
+      <div class="col-sm-12"><p class="espace"> <b>Respectueusement</b></p></div>
     </main>
   </div>
   </body>

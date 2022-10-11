@@ -113,14 +113,9 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-      public function store(Request $request)
-      { /*$today = Carbon::now()->format('Y-m-d'); $admission =  admission::find($request->id_admission); 
-$hosp = hospitalisation::create(["date"=>$today,"Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
-"patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,"id_admission"=>$request->id_admission,
-'medecin_id'=>$request->medecin,"garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,"modeHosp_id"=>$request->mode,]);
-if(isset($dmission->rdvHosp)){ $admission->rdvHosp->update([ "etat" =>1 ]);$admission->rdvHosp->demandeHospitalisation->update(["etat" =>3]);
-}else$admission->demandeHospitalisation->update(["etat" =>3]);return redirect()->action('HospitalisationController@index');*/
-   }
+    public function store(Request $request)
+    { 
+    }
   /**
    * Display the specified resource.
    *

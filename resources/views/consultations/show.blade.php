@@ -106,7 +106,7 @@ td
       <div id="DH" class="tab-pane">
        <div class="row">
           <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-            <strong><span style="font-size:18px;">Demande d'hospitalisation</span></strong>
+            <b><span style="font-size:18px;">Demande d'hospitalisation</span></b>
           </div>
         </div>
         <div class="row">
@@ -197,7 +197,7 @@ td
             @if(isset($consultation->demandeexmbio))
             <div class="row">
               <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
+                <b><span style="font-size:18px;">Demande d'examen biologique</span></b>
               </div>
             </div>
                 <div class="row">
@@ -209,7 +209,7 @@ td
                                <table class="table table-striped table-bordered table-hover">
                                <thead class="thin-border-bottom">
                                   <tr>
-                                    <th class="center"><strong>Date</strong></th> <th class="center"><strong>Etat</strong></th>
+                                    <th class="center">Date</th><th class="center">Etat</th>
                                     <th class="center"><em class="fa fa-cog"></em></th>
                                    </tr>
                                 </thead>
@@ -240,7 +240,7 @@ td
                 @if(isset($consultation->demandExmImg))
                 <div class="row">
                       <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
-                          <strong><span style="font-size:18px;">Demande d'examen d'imagerie</span></strong>
+                          <b><span style="font-size:18px;">Demande d'examen d'imagerie</span></b>
                       </div>
                 </div>
                 <div class="row">
@@ -252,7 +252,7 @@ td
                                 <table class="table table-striped table-bordered table-hover">
                                 <thead class="thin-border-bottom">
                                       <tr>
-                                        <th class="center"><strong>Date</strong></th><th class="center"><strong>Etat</strong></th>
+                                        <th class="center">Date</th><th class="center">Etat</th>
                                             
                                             <th class="center"><em class="fa fa-cog"></em></th>
                                       </tr>
@@ -282,7 +282,7 @@ td
                 @endif
                 @if(isset($consultation->ordonnances))
                 <div class="row">
-                     <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"> <strong><span style="font-size:18px;">Ordonnance</span></strong></div>
+                     <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b><span style="font-size:18px;">Ordonnance</span></b></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-11 widget-container-col">
@@ -293,7 +293,7 @@ td
                             <table class="table table-striped table-bordered table-hover">
                               <thead class="thin-border-bottom">
                                 <tr>
-                                   <th class="center"><strong>Date</strong></th>
+                                   <th class="center">Date</th>
                                   <th class="center"><em class="fa fa-cog"></em></th>
                                </tr>
                                </thead>
@@ -326,9 +326,9 @@ td
                       <table class="table table-striped table-bordered table-hover">
                         <thead class="thin-border-bottom">
                           <tr>
-                            <th class="center"><strong>Spécialité</strong></th>
-                            <th class="center"><strong>Motif</strong></th>
-                            <th class="center"><strong>Examen</strong></th>
+                            <th class="center">Spécialité</th>
+                            <th class="center">Motif</th>
+                            <th class="center">Examen</th>
                             <th class="center"><em class="fa fa-cog"></em></th>
                           </tr>
                         </thead>

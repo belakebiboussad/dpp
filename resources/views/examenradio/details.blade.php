@@ -118,7 +118,7 @@ $(function(){
                     title: 'Annulez vous  la demande d\'Examen ?',
                     icon: 'warning',
                     type:'warning',
-                    html: '<br/><h4><strong>'+'Pourquoi?'+'</strong></h4>',
+                    html: '<br/><h4><b>'+'Pourquoi?'+'</b></h4>',
                     input: 'textarea',
                     inputPlaceholder: 'la cause d\'annulation du l\'examen',
                     showCancelButton: true,
@@ -198,7 +198,7 @@ $(function(){
 <div class="container-fluid">
   <div class="row" width="100%"> @include('patient._patientInfo')</div>
   <div class="row">
-      <div class="col-md-5 col-sm-5"><h4> <strong>Demande d'examen radiologique</strong></h4></div>
+      <div class="col-md-5 col-sm-5"><h4> <b>Demande d'examen radiologique</b></h4></div>
       <div class="col-md-7 col-sm-7 btn-toolbar">
         <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
           <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
@@ -225,9 +225,9 @@ $(function(){
                 <tr>
                   <th class="center" width="10%">N°</th>
                   <th>Nom</th>
-                  <th class="center"><strong>Type</strong></th>
-                  <th class="center"><strong>Attacher le résultat</strong></th>
-                  <th class="center"><strong>Résultat</strong></th>
+                  <th class="center">Type</th>
+                  <th class="center">Attacher le résultat</th>
+                  <th class="center">Résultat</th>
                   <td class="center" width="18%"><em class="fa fa-cog"></em></td>
                 </tr>
               </thead>

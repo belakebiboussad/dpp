@@ -22,7 +22,7 @@
   	<div class="row" style ="margin-top: -0.8em;" ><div class="col-sm-12 center"><h3><u>Compte-rendu radiologique</u></h3></div></div>
    	<br/><br/>
 	<div class="row">
-    		<div class="center solid"><strong><span style="font-size:20px;">Indication </span></strong>
+    		<div class="center solid"><b><span style="font-size:20px;">Indication </span></b>
    		</div>
   	</div><br/>
   	  <div class="row"><div class="col-xs-12"><p  style="font-size:16px;">&nbsp;
@@ -34,7 +34,7 @@
   </p></div>
   </div>
    <div class="row">
-    <div class="center solid"><strong><span style="font-size:20px;">Technique de réaliation</span></strong>
+    <div class="center solid"><b><span style="font-size:20px;">Technique de réaliation</span></b>
    </div>
   </div><br>
   <div class="row"><div class="col-xs-12"><p style="font-size:16px;">&nbsp;
@@ -46,7 +46,7 @@
   </p></div>
   </div>
    <div class="row">
-    <div class="center solid"><strong><span style="font-size:20px;">Résultat</span></strong>
+    <div class="center solid"><b><span style="font-size:20px;">Résultat</span></b>
    </div>
   </div><br>
   <div class="row"><div class="col-xs-12"><p  style="font-size:16px;">&nbsp;
@@ -58,7 +58,7 @@
   </p></div>
   </div>
      <div class="row">
-    <div class="center solid"><strong><span style="font-size:20px;">Synthèse Conclusion</span></strong>
+    <div class="center solid"><b><span style="font-size:20px;">Synthèse Conclusion</span></b>
    </div>
   </div><br>
   <div class="row"><div class="col-xs-12"><p  style="font-size:16px;">&nbsp;

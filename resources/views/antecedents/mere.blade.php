@@ -14,10 +14,10 @@
 				<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="motherTab">
 					<thead class="thin-border-bottom">
 					  <tr>
-						<th class="center"><h5><strong>Age</strong></h5></th>
-						<th class="center"><strong>Poids(kg)</strong></th>
+						<th class="center">Age</th>
+						<th class="center">Poids(kg)</th>
 					  	<th class="center">Taille(cm)</th>
-						<th class="center hidden-480"><strong>Group Sang</strong></th>
+						<th class="center hidden-480">Group Sang</th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 					  </tr>
 					</thead>

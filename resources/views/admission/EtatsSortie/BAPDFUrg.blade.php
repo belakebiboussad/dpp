@@ -20,19 +20,19 @@
   <div class="container-fluid">
   	<div class="row mt-12 center"><img src='img/entete2.png' alt="Entete" width="98%"/></div><br>
   	<div class="center mt-10">
-	 		<h3 class="text-uppercase"><strong><u>{{ $etat->nom}}</u></strong></h3>
-	 		<h4 class="text-uppercase"><strong>(BILLET DE SALLE)</strong></h4>
+	 		<h3 class="text-uppercase"><b><u>{{ $etat->nom}}</u></b></h3>
+	 		<h4 class="text-uppercase">(BILLET DE SALLE)</h4>
   	</div><br> 
   	<section class="table solid"> 
     	<table>
     	<tr>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Admission N° :&nbsp;</strong><span>&nbsp;{{ $obj->id }}</span></td>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Date :</strong><span>&nbsp;{{ $date }}</span></td>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Heure :</strong><span>&nbsp;{{ Date("H:i") }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Admission N° :&nbsp;</b><span>&nbsp;{{ $obj->id }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Date :</b><span>&nbsp;{{ $date }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Heure :</b><span>&nbsp;{{ Date("H:i") }}</span></td>
       </tr>
     </table>
     </section>
-    <h5><u><strong>ASSURE :</strong></u></h5>
+    <h5><u><b>ASSURE :</b></u></h5>
     <section class="table tab">
      	<table>
       	<tr>
@@ -70,7 +70,7 @@
      		</tr>
       </table>
     </section>
-    <h5><u><strong>MALADE :</strong></u></h5>
+    <h5><u><b>MALADE :</b></u></h5>
     <section class="table tab" >
      	<table>
 	     	<tr>
@@ -110,7 +110,7 @@
      		</tr>
      	</table>
     </section>
-    <h5><u><strong>ADMISSION :</strong></u></h5>
+    <h5><u><b>ADMISSION :</b></u></h5>
     <section class="table tab">
      	<table>
 	     	<tr>
@@ -123,7 +123,7 @@
 	     	</tr>
 	     </table>
 	  </section>
-	  <h5><u><strong>SORTIE :</strong></u></h5>
+	  <h5><u><b>SORTIE :</b></u></h5>
     <section class="table tab">
      	<table>
 	     	<tr>

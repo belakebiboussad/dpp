@@ -25,10 +25,10 @@
 		</style>
 	</head>
 	<body>
-		<div><small><strong>Nom :</strong> {{ $hosp->patient->Nom }}</small></div>	
-		<div>	<small><strong>Prénom :</strong> {{ $hosp->patient->Prenom }}</small></div>
+		<div><small><b>Nom :</b> {{ $hosp->patient->Nom }}</small></div>	
+		<div>	<small><b>Prénom :</b> {{ $hosp->patient->Prenom }}</small></div>
 		<div>
-		  <small><strong>DDN :</strong> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small>
+		  <small><b>DDN :</b> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small>
 		</div>
 		<hr style="visibility: hidden;">
 		  <div>

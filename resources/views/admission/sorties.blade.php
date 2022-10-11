@@ -130,11 +130,10 @@
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left">Rechercher une sortie</div>
-		
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
-     			<div class="form-group"><label><strong>Etat :</strong></label>
+     			<div class="form-group"><label>Etat :</label>
          	  <select id='etat' class="form-control filter">
       				<option value="0">En cours</option>
 		          <option value="1">Validée</option>
@@ -188,9 +187,9 @@
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->full_name }}</td>
 							<td>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</td>
-							<td><span class ="text-danger"><strong>{{ $hosp->admission->date }}</strong></span></td>
+							<td><span class ="text-danger">{{ $hosp->admission->date }}</span></td>
 							<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
-							<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
+							<td><span class ="text-danger">{{ $hosp->Date_Sortie }}</span></td>
 							<td><span class="badge badge-info">
                 @if(isset($hosp->modeSortie))
                   {{ $hosp->modeSortie }}
