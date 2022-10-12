@@ -59,7 +59,8 @@
         </div>
       </div>
       <div class="panel-footer">
-        <button type="submit" class="btn btn-sm btn-primary statistique"><i class="fa fa-search"></i>Rechercher</button>
+        <button type="submit" class="btn btn-sm btn-primary statistique">
+            <i class="fa fa-search"></i>Rechercher</button>
       </div>
     </div>
   </div>

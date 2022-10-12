@@ -174,7 +174,6 @@ route::post('/storeprescriptionconstantes','HospitalisationController@store_pres
 Route::post('/admin/password/reset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
 route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
-Route::get('/etabExport', 'EtablissementControler@exportCsv');
-Route::get('/searchdate','StatistiqusController@seardate');
+Route::get('/etabExport', 'EtablissementControler@exportCsv');//Route::get('/searchdate','StatistiqusController@seardate');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');

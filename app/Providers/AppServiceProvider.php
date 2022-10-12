@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      Carbon::setLocale('fr_FR');
       Carbon::setWeekendDays([
           Carbon::FRIDAY,
           Carbon::SATURDAY,
