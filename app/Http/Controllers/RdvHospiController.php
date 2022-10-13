@@ -92,7 +92,7 @@ class RdvHospiController extends Controller
   public function edit(Request $request, $id)
   {
     if($request->ajax())
-      return  rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find($id);
+      return  rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')->find($id);
     else
     {
       $specialite = Auth::user()->employ->Service->Specialite;
@@ -130,8 +130,7 @@ class RdvHospiController extends Controller
   {   $specialite = Auth::user()->employ->Service->Specialite;
       $rdvHospi =  rdv_hospitalisation::find($id);  
       if(isset($rdvHospi->bedReservation))  
-        $rdvHospi->bedReservation()->delete();
-      /* $rdvHospi->demandeHospitalisation->etat =5;//"valide";  $rdvHospi->demandeHospitalisation->save();*/
+        $rdvHospi->bedReservation()->delete(); /* $rdvHospi->demandeHospitalisation->etat =5;//"valide";  $rdvHospi->demandeHospitalisation->save();*/
       $state = ($specialite->dhValid) ? 5: null;
       $rdvHospi->demandeHospitalisation->update(["etat"=>$state]);
       $rdvHospi->update(["etat"=>0]);//$rdvHospi->etat=0;$rdvHospi->save(); 

@@ -142,10 +142,9 @@ $(function(){
         type:'POST',
         data:formData,
         success: function (data) {
-               $("#demande" + formData['demande_id']).remove();
-               $('#bedAffectModal').trigger("reset");
-               $('#bedAffectModal').modal('hide');
-              
+           $("#demande" + formData['demande_id']).remove();
+           $('#bedAffectModal').trigger("reset");
+           $('#bedAffectModal').modal('hide');   
         }
    });
   });

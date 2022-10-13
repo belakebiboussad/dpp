@@ -7,10 +7,19 @@
     $.get('/rdvHospi/' + rdvid +'/edit  ', function (data) { 
       // $("#patName").text(data.demande_hospitalisation.consultation.patient.full_name)
       // $(".orange").text(data.date);// $(".red").text(time);  // $('#admValiForm').modal('show');
+        var content ='<br/><h6>Vous allez Confirmer l\'Admission du patient <b>"';
+            content += data.demande_hospitalisation.consultation.patient.full_name +' </b>"</h6><br>';
+         /*
         Swal.fire({ 
             title:'êtes-vous sûr ?',
-            type:'warning',
-            html: '<br/><h6>Vous allez Confirmer l\'Admission du patient <strong>"'+ data.demande_hospitalisation.consultation.patient.full_name +'</strong>"</h6><br/>',
+            type:'question',
+            icon: 'question',
+            input: 'text',
+            inputAttributes: {
+              placeholder :"Remarque...",
+              autocapitalize: 'off'
+            },
+            html:content ,
             showCancelButton: true,
             allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
@@ -18,19 +27,54 @@
             confirmButtonText: 'Oui',
             cancelButtonText: "Non",
             dangerMode: true,
-          
-            showCloseButton: true
+            showCloseButton: true,
+            progressSteps: ['1', '2']
           }).then((result) => {
               if(result.value)
               {
                 var formData = { _token: CSRF_TOKEN, "id_RDV": data.id, "demande_id" : data.id_demande };
-               
-                swal("Poof! Your imaginary file has been deleted!", {
-                   icon: "success",
+                var url = "{{ route('admission.store') }}"; 
+                $.ajax({
+                    type : 'POST',
+                    url :url,
+                    data:formData,
+                    success:function(data){ 
+                      $("#rdv-" + data.id).remove(); 
+                      // swal("Poof! Your imaginary file has been deleted!", {
+                      //   icon: "success",
+                      // });
+                    }
                 });
               }else
                 swal("Your imaginary file is safe!");
           });
+      */
+      //deb
+      swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Suivant',
+        showCancelButton: true,
+        progressSteps: ['1', '2', '3']
+      }).queue([
+        {
+          title: 'pièces adminstratifs',
+          text: 'CIN , permis'
+        },
+        'Imprimer BA & BS',
+        'Imprimer BA & BS'
+      ]).then((result) => {
+        if (result.value) {
+          swal({
+            title: 'All done!',
+            html:
+              'Your answers: <pre><code>' +
+                JSON.stringify(result.value) +
+              '</code></pre>',
+            confirmButtonText: 'Lovely!'
+          })
+        }
+      })
+      //fin
     });
   }
   function getAdmissions(field,value)
@@ -76,7 +120,7 @@
             // actions += rdv.demande_hospitalisation.consultation.patient.full_name+'</h3></p><p><h3>le &quot;<span class="orange">';
             // actions += rdv.date +'</span>&quot;&nbsp;à&nbsp;<span class="red">' + time + '</span></h3></p></div><form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">{{ csrf_field() }} <input type="hidden" name="id_RDV" value="';
             // actions += rdv.id+'">' + '<div class="modal-footer"><button type="submit" class="btn btn-success btn-xs"><i class="ace-icon fa fa-check "></i>Valider</button><button   type="button" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button></div></form></div></div></div>';
-            rows += '<tr id=""><td hidden>'+ rdv.id + '</td><td>';
+            rows += '<tr id="rdv-'+ rdv.id +'"><td hidden>'+ rdv.id + '</td><td>';
             rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
             rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="text-danger"><b>';
             rows +=  rdv.date + '</b></span></td><td>' + mode + '</td><td>' + bedAffect + '</td><td class="center">' + actions + '</td></tr>';    
