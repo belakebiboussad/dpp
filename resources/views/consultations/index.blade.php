@@ -41,11 +41,11 @@
                                           }
                                       },
                                       { data: null , title:'Specialite', "orderable":false,
-                                            "render": function(data,type,full,meta){
-                                                    if(data.medecin.specialite != null)
-                                                          return data.medecin.specialite.nom;
-                                                    else
-                                                            return data.medecin.service.specialite.nom;       
+                                        "render": function(data,type,full,meta){
+                                              if(data.medecin.specialite != null)
+                                                    return data.medecin.specialite.nom;
+                                              else
+                                                      return data.medecin.service.specialite.nom;       
                                           } 
                                       },
                                       { data: "medecin.full_name", title:'Medecin', "orderable":false },

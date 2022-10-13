@@ -96,7 +96,7 @@
                   return '<span class="badge badge-info">' + row.etat +'</span>';
               }
           },
-            { data:getAction , title:'<em class="fa fa-cog"></em>'}
+            { data: getAction , title:'<em class="fa fa-cog"></em>'}
           ],
           "columnDefs": [
               {"targets": 0 ,  className: "dt-head-center"},

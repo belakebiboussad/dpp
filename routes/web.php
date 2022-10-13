@@ -57,7 +57,6 @@ route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::resource('bedAffectation','AffectationsController');
 Route::resource('planning','PlanningController');
-
 route::resource('/allergie','AllergieController');
 Route::resource('maladies','CimController');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -76,9 +75,7 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('/getConsultations','ConsultationsController@getConsultations');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
-Route::get('/getRdvs','RdvHospiController@getRdvs');
+Route::get('/getConsultations','ConsultationsController@getConsultations');Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques','ColloqueController@index');

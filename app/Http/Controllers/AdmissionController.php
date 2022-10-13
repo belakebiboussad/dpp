@@ -60,18 +60,18 @@ class AdmissionController extends Controller
          $hospend =  \Carbon\Carbon::now()->addDay(2)->toDateString();
         if(isset($request->id_RDV ))
         {
-              $rdv= rdv_hospitalisation::find($request->id_RDV );
-             $demande = $rdv ->demandeHospitalisation;
+          $rdv= rdv_hospitalisation::find($request->id_RDV );
+          $demande = $rdv ->demandeHospitalisation;
         }
         else 
-                   $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
+          $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
         $adm=admission::create([     
             "id_rdvHosp"=> (isset($request->id_RDV)) ? $request->id_RDV : null,//$request->id_RDV,
             "demande_id"=> $demande->id, 
             "date"=>$now,        
             "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
         ]);
-       $hosp= hospitalisation::create([
+        $hosp= hospitalisation::create([
                 "date"=>$now->format('Y-m-d'),
                 "Date_Prevu_Sortie"=> (isset($request->id_RDV)) ? $rdv->date_Prevu_Sortie:$hospend ,//$request->Date_Prevu_Sortie,
                 "patient_id"=>$adm->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
