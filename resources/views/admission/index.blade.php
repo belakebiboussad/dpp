@@ -3,78 +3,79 @@
 <script type="text/javascript">
   var dt = new Date(),field ="date";
   var time = dt.getHours() + ":" + dt.getMinutes();  
+  
   function admValidfct(rdvid){
     $.get('/rdvHospi/' + rdvid +'/edit  ', function (data) { 
-      // $("#patName").text(data.demande_hospitalisation.consultation.patient.full_name)
-      // $(".orange").text(data.date);// $(".red").text(time);  // $('#admValiForm').modal('show');
-        var content ='<br/><h6>Vous allez Confirmer l\'Admission du patient <b>"';
-            content += data.demande_hospitalisation.consultation.patient.full_name +' </b>"</h6><br>';
-         /*
-        Swal.fire({ 
-            title:'êtes-vous sûr ?',
-            type:'question',
-            icon: 'question',
-            input: 'text',
-            inputAttributes: {
-              placeholder :"Remarque...",
-              autocapitalize: 'off'
-            },
-            html:content ,
-            showCancelButton: true,
-            allowOutsideClick: false,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Oui',
-            cancelButtonText: "Non",
-            dangerMode: true,
-            showCloseButton: true,
-            progressSteps: ['1', '2']
-          }).then((result) => {
-              if(result.value)
-              {
-                var formData = { _token: CSRF_TOKEN, "id_RDV": data.id, "demande_id" : data.id_demande };
-                var url = "{{--route('admission.store') --}}"; 
-                $.ajax({
-                    type : 'POST',
-                    url :url,
-                    data:formData,
-                    success:function(data){ 
-                      $("#rdv-" + data.id).remove(); 
-                      // swal("Poof! Your imaginary file has been deleted!", {
-                      //   icon: "success",
-                      // });
-                    }
-                });
-              }else
-                swal("Your imaginary file is safe!");
-          });
-      */
-      //deb
-      swal.mixin({
-        input: 'text',
-        confirmButtonText: 'Suivant',
-        showCancelButton: true,
-        progressSteps: ['1', '2', '3']
-      }).queue([
-        {
-          title: 'pièces adminstratifs',
-          text: 'CIN , permis'
-        },
-        'Imprimer BA & BS',
-        'Imprimer BA & BS'
-      ]).then((result) => {
-        if (result.value) {
-          swal({
-            title: 'All done!',
-            html:
-              'Your answers: <pre><code>' +
-                JSON.stringify(result.value) +
-              '</code></pre>',
-            confirmButtonText: 'Lovely!'
-          })
-        }
-      })
-      //fin
+      // $("#patName").text(data.demande_hospitalisation.consultation.patient.full_name);  // $(".orange").text(data.date);// $(".red").text(time);  // $('#admValiForm').modal('show');
+         var content ='<br/><h6>Vous allez Confirmer l\'Admission du patient <b>"';
+        content += data.demande_hospitalisation.consultation.patient.full_name +' </b>"</h6><br>';
+       var htmlChecBox=`<div class="form-check"><input class="form-check-input cards" type="checkbox" value="0" id="cni" >
+                       <label class="form-check-label" for="cni">CNI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> </div>
+                <div class="form-check">
+                      <input class="form-check-input cards" type="checkbox" value="1" id="permis">
+                      <label class="form-check-label" for="permis"> Permis </label>
+                </div>
+                <div class="form-check"><input class="form-check-input cards" type="checkbox" value="2" id="cp">
+                       <label class="form-check-label" for="cp">CP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>`;
+        var   BAPrintBtn =   '<a class="btn btn-md btn-default" target="_blank" href="reportprint/rdv_hospitalisation/'+ data.id+'/8'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
+        var   BSPrintBtn =   '<a class="btn btn-md btn-default" target="_blank" href="reportprint/rdv_hospitalisation/'+ data.id+'/9'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
+      //debut
+      (async function backAndForth() {
+             let currentStep =0;    const values = [];  const steps = ['1', '2', '3']; var cards = [];
+              swal.mixin({
+                      customClass: {
+                            confirmButton: 'btn btn-success',
+                              cancelButton: 'btn btn-danger'
+                      },
+                      confirmButtonText: 'Suivant',
+                       reverseButtons: true,
+                       showCancelButton: true,
+                       cancelButtonText: 'Annuler',
+                      progressSteps:steps
+               }).queue([
+               {
+                     title: 'pièces adminstratifs', 
+                    html:htmlChecBox ,
+                     preConfirm: function(value)
+                      {
+                              $('input.cards:checkbox:checked').each(function () {
+                                   cards.push($(this).val());
+                                });
+                      }
+              },{
+                      title: 'BULTTIN  ADMISSION', 
+                        html:BAPrintBtn ,
+              },{
+                      title: 'BILLET DE SALLE',
+                       html:BSPrintBtn ,
+              }
+              ]).then((result) => { 
+                       for (currentStep = 0; currentStep < steps.length;) {
+                            if (result.value) {
+                                     values[currentStep] = result.value;
+                                     currentStep++;
+                                    if(currentStep== 3){
+                                             var formData = { _token: CSRF_TOKEN, "id_RDV": data.id, "demande_id" : data.id_demande, "pieces": JSON.stringify(cards) };
+                                           $.each(formData, function(key, value){
+                                            alert(key + ":" +value);
+                                           })
+                                            var url = "{{ route('admission.store')  }}"; 
+                                            $.ajax({
+                                                    type : 'POST',
+                                                    url :url,
+                                                   data:formData,
+                                                   success:function(data){ 
+                                                           $("#rdv-" + data.id).remove(); 
+                                                   }
+                                          });/* Swal.fire(   'The answer',    'Your answers: <pre><code>' + JSON.stringify(cards) +   '</code></pre>', 'question'   )*/
+                                    }
+                              }else if (result.dismiss === Swal.DismissReason.cancel) { 
+                                return false;
+                              } 
+                      }
+              })
+        })();
+     //fin
     });
   }
   function getAdmissions(field,value)
@@ -113,21 +114,14 @@
               bedAffect += rdv.demande_hospitalisation.bed_affectation.lit.nom; 
               disabled ='';
             }
-            actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>&nbsp;';
-            actions +='<a data-toggle="modal" class ="btn btn-info btn-sm" onclick = "ImprimerEtat(1,\'rdv_hospitalisation\',' + rdv.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom" '+ disabled +'><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
-            // actions +='<div class="modal fade" role="dialog" aria-hidden="true" id="' + rdv.id +'">'+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-            // actions +='<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">confirmer l\'entrée du patient</h4></div><div class="modal-body"><p><h3>';
-            // actions += rdv.demande_hospitalisation.consultation.patient.full_name+'</h3></p><p><h3>le &quot;<span class="orange">';
-            // actions += rdv.date +'</span>&quot;&nbsp;à&nbsp;<span class="red">' + time + '</span></h3></p></div><form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">{{ csrf_field() }} <input type="hidden" name="id_RDV" value="';
-            // actions += rdv.id+'">' + '<div class="modal-footer"><button type="submit" class="btn btn-success btn-xs"><i class="ace-icon fa fa-check "></i>Valider</button><button   type="button" class="btn btn-warning btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button></div></form></div></div></div>';
+            actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>';
             rows += '<tr id="rdv-'+ rdv.id +'"><td hidden>'+ rdv.id + '</td><td>';
             rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
             rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="text-danger"><b>';
             rows +=  rdv.date + '</b></span></td><td>' + mode + '</td><td>' + bedAffect + '</td><td class="center">' + actions + '</td></tr>';    
           });
           $('#rdvs').html(rows); 
-        }  
-        //alert(result);
+        } 
       } //success
     }); //ajax programme // if((dt.setHours(0,0,0,0) == filter.setHours(0,0,0,0)) &&(field == 'date')) {
     if(areSameDate(dt, filter) && (field == 'date'))
