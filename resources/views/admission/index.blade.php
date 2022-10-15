@@ -33,7 +33,7 @@
               if(result.value)
               {
                 var formData = { _token: CSRF_TOKEN, "id_RDV": data.id, "demande_id" : data.id_demande };
-                var url = "{{ route('admission.store') }}"; 
+                var url = "{{--route('admission.store') --}}"; 
                 $.ajax({
                     type : 'POST',
                     url :url,
