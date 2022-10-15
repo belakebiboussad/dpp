@@ -29,7 +29,7 @@ class RdvHospiController extends Controller
       switch($request->field)
       {
         case "date":
-          $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+                $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                     ->whereHas('demandeHospitalisation', function($q){
                                             $q->where('etat', 1);
                                     })->where(trim($request->field),trim($request->value))->get();
@@ -50,12 +50,11 @@ class RdvHospiController extends Controller
       return $rdvs;
     }else
     {
-
-      $services = service::where('type','<>',2)->where('hebergement','1')->get();
-      $specialite = Auth::user()->employ->Service->Specialite;//tester si il y'à validation demandes etat 5 sinon etat 0 
-      $state = ($specialite->dhValid) ? 5: null;
-      $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('modeAdmission','<>',2)->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
-      return view('rdvHospi.index', compact('specialite','demandes','services'));
+            $services = service::where('type','<>',2)->where('hebergement','1')->get();
+            $specialite = Auth::user()->employ->Service->Specialite;//tester si il y'à validation demandes etat 5 sinon etat 0 
+              $state = ($specialite->dhValid) ? 5: null;
+              $demandes =DemandeHospitalisation::with('DemeandeColloque')->where('modeAdmission','<>',2)->where('etat',$state)->where('service',Auth::user()->employ->service_id)->get();
+              return view('rdvHospi.index', compact('specialite','demandes','services'));
     }
   }
   public function store(Request $request)

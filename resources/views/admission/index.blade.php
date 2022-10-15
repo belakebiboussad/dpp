@@ -19,7 +19,6 @@
                        <label class="form-check-label" for="cp">CP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>`;
         var   BAPrintBtn =   '<a class="btn btn-md btn-default" target="_blank" href="reportprint/rdv_hospitalisation/'+ data.id+'/8'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
         var   BSPrintBtn =   '<a class="btn btn-md btn-default" target="_blank" href="reportprint/rdv_hospitalisation/'+ data.id+'/9'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
-      //debut
       (async function backAndForth() {
              let currentStep =0;    const values = [];  const steps = ['1', '2', '3']; var cards = [];
               swal.mixin({
@@ -75,7 +74,6 @@
                       }
               })
         })();
-     //fin
     });
   }
   function getAdmissions(field,value)
@@ -159,12 +157,11 @@
   }
 	}
  	$(function(){
-    getAdmissions(field,$('#'+field).val().trim());
-    $(".admiSearch").click(function(e){    
-      getAdmissions(field,$('#'+field).val().trim());//if(field != "date") $('#'+field).val('');  
-    });
-    $('.admValid').bind('click', function() {
-      alert("fsfd");
+              getAdmissions(field,$('#'+field).val().trim());
+              $(".admiSearch").click(function(e){    
+                   getAdmissions(field,$('#'+field).val().trim());//if(field != "date") $('#'+field).val('');  
+              });
+              $('.admValid').bind('click', function() {
       //$('#admValidModal').modal('show');
     });
  	});
