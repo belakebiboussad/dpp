@@ -91,11 +91,11 @@
             e.preventDefault();  
         });
         $(".serviceHosp").change(function(){
-          if($(this ).val() != "")
+           if($(this ).val() != "")
           {
             var attr = $('.salle').attr('disabled');
             if($(".salle").prop('disabled') == true)
-              $(".salle" ).attr("disabled", false);/*  $('.lit_id option[value=""]').prop('selected', true);  $('.lit_id').attr('disabled', 'disabled');         */
+              $(".salle" ).attr("disabled", false);
             var formData = { 
                 ServiceID: $(this).val(), 
                 Affect :$('.affect').val(),
@@ -124,15 +124,13 @@
             });   
           }else
           {
-            $(".salle").prop("selectedIndex", 0);
-            $(".salle").trigger("change");
-            $(".salle" ).attr("disabled", true); 
+            $(".salle").prop("selectedIndex", 0);$(".salle").trigger("change"); $(".salle" ).attr("disabled", true);
           }               
         });
         $(".salle").change(function(){
           if($(this ).val() != "")
           { 
-            var attr = $('.lit_id').attr('disabled');/*if(typeof attr == typeof undefined && attr == false)$('.lit_id').attr('disabled', 'disabled'); */
+            var attr = $('.lit_id').attr('disabled');
             $('.lit_id').removeAttr("disabled");
             var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
             var formData = { 
@@ -150,7 +148,6 @@
                    type : 'GET',
                     data:formData,
                     success: function(data, textStatus, jqXHR){                  
-                      /*$.each(data[0], function(key, value){ alert(key + ":" + value); })*/
                       var selectLit = $('.lit_id').empty();                      
                       if(data.length != 0){
                         selectLit.append("<option value=''>Selectionnez un lit</option>");

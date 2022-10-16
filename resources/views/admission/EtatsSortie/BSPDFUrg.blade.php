@@ -16,7 +16,8 @@
     </style>
   </head>
   <body>
-   @include('partials.etatHeader')
+  @include('partials.etatHeader')
+   
       <br>
      <h3 class="text-uppercase center"><span style="font-size: xx-large;"><b><u>{{ $etat->nom}}</u></b></span></h3>
     <br><br> 

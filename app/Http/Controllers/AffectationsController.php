@@ -19,7 +19,7 @@ class AffectationsController extends Controller
   }
   public function create()
   {
-    $now = date("Y-m-d", strtotime('now'));
+    $now =  Carbon::today()->format('Y-m-d');
     $services = service::where('hebergement','1')->get();
     $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
                                 ->whereHas('demandeHospitalisation',function ($q){
@@ -36,12 +36,11 @@ class AffectationsController extends Controller
     $free = true;
     $demande= DemandeHospitalisation::find($request->demande_id); 
     $lit = lit::FindOrFail( $request->lit_id);
-    if($demande->getModeAdmissionID($demande->modeAdmission) !=2) 
+    if($demande->getModeAdmissionID($demande->modeAdmission) !=2) //non urgente
     { 
       $rdv = $demande->getInProgressMet(); 
       if($rdv->bedReservation()->exists())//if($rdv->bedReservation->id_lit != $request->lit_id)//lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
         $rdv->bedReservation()->delete();         
-      
       $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));
       if(!$free)
       {
@@ -67,14 +66,7 @@ class AffectationsController extends Controller
     $affect = bedAffectation::create($request->all());
     $lit->update([ "affectation" =>1 ]);
     return $affect;
-  }
-  //affeter lit pour demande d'urgence
-/*public function affecterLit(Request $request ){$demande= DemandeHospitalisation::find($request->demande_id);$lit = lit::FindOrFail( $request-
->lit_id);if($demande->getModeAdmissionID($demande->modeAdmission) !=2){$rdv = $demande->getInProgressMet(); if($rdv->has('bedReservation'))
-$rdv->bedReservation()->delete();    //$free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));  }else { 
-  $now = $today = Carbon::now()->toDateString();      $newDateTime = Carbon::now()->addDay(3)->toDateString();   //get reservation of this bed between this day
-    $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));      $demande->update([ 'etat' => 1 ]); //program    }      if(!$free)  $lit->bedReservation()->delete(); 
-   $affect = bedAffectation::create($request->all());    $lit->update([ "affectation" =>1 ]);    return $affect;  }*/
+  } 
   public function destroy($id)
   {     //$affect = bedAffectation::with('demandeHosp','Lit')->where('demande_id',$demande_id)->firstOrFail(); 
     $affect = bedAffectation::with('demandeHosp','Lit')->find($id); 
