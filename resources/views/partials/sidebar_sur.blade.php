@@ -101,16 +101,18 @@
                 Affect :$('.affect').val(),
                 demande_id: $('.demande_id').val(),
             };
-            if($('.affect').val() == '0')
+            if($('.affect').val() == "0")
             {
-              formData.StartDate =$('#dateEntree').val();
-              formData.EndDate = $("#dateSortiePre").val();
+              formData.StartDate =$(".date").val();
+              formData.EndDate = $(".date_end").val();
             }
             $.ajax({
               url : '/getsalles',
               type:'GET',
               data:formData,
-              success: function(data, textStatus, jqXHR){
+              success: function(data){
+                alert(data);
+                /*
                 var select = $('.salle').empty();
                 if(data.length != 0){
                       select.append('<option value="">Selectionnez une salle</option>');   
@@ -119,8 +121,8 @@
                      });
                 }else
                   select.append('<option value="" selected disabled>Pas de salle</option>');
+                  */
               },
-              
             });   
           }else
           {

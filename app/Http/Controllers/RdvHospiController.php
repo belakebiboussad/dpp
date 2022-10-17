@@ -75,8 +75,7 @@ class RdvHospiController extends Controller
           "id_lit" =>$request->lit,
       ]);           
     }
-    $demande= DemandeHospitalisation::find($request->demande_id);
-    $demande->update(['etat' =>1]); 
+    DemandeHospitalisation::whereId($request->demande_id)->update(['etat' =>1]);
     return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function getlisteRDVs()
@@ -127,15 +126,15 @@ class RdvHospiController extends Controller
         ]);
         return redirect()->action('RdvHospiController@getlisteRDVs');
   }
-  public function destroy($id)
-  {   $specialite = Auth::user()->employ->Service->Specialite;
-      $rdvHospi =  rdv_hospitalisation::find($id);  
-      if(isset($rdvHospi->bedReservation))  
-        $rdvHospi->bedReservation()->delete(); /* $rdvHospi->demandeHospitalisation->etat =5;//"valide";  $rdvHospi->demandeHospitalisation->save();*/
-      $state = ($specialite->dhValid) ? 5: null;
-      $rdvHospi->demandeHospitalisation->update(["etat"=>$state]);
-      $rdvHospi->update(["etat"=>0]);//$rdvHospi->etat=0;$rdvHospi->save(); 
-      return redirect()->action('RdvHospiController@getlisteRDVs');
+  public function destroy(rdv_hospitalisation $rdvHospi)
+  { 
+    $specialite = Auth::user()->employ->Service->Specialite;  
+    if(isset($rdvHospi->bedReservation))  
+      $rdvHospi->bedReservation()->delete(); 
+    $state = ($specialite->dhValid) ? 5: null;
+    $rdvHospi->demandeHospitalisation->update(["etat"=>$state]);
+    $rdvHospi->update(["etat"=>0]);
+    return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function print($id)
   { 

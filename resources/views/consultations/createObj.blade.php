@@ -384,47 +384,7 @@ $(function(){
             }
           }
       });
-    })
-/*var today = (new Date()).setHours(0, 0, 0, 0);
- $('.calendar').fullCalendar({header:{left: 'agendaWeek, basicWeek',center: 'title',right: 'month,agendaWeek,agendaDay'
-},defaultView: 'basicWeek',default: 'bootstrap',aspectRatio: 2,navLinks: true,eventLimit: true,editable: true,allDaySlot: false,
-selectable: true,lang: "fa",timezone: 'local',firstDay: 0,slotDuration: '00:15:00',minTime:'08:00:00',maxTime: '17:00:00',
-timeFormat:'H:mm',views:{agendaWeek:{buttonText:'agendaWeek'},basicWeek:{buttonText: 'basicWeek'}},
-,events: "{{-- route('rdv.index') --}}",events: [
-{{--@foreach($rdvs as $rdv){title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
-start : '{{ $rdv->date }}',end:   '{{ $rdv->fin }}',id :'{{ $rdv->id }}',idPatient:'{{$rdv->patient->id}}', tel:'{{$rdv->patient->tele_mobile1}}',
-age:'{{ $rdv->patient->age }}',specialite:'{{ $rdv->specialite_id }}',fixe:  '{{ $rdv->fixe }}',},@endforeach--}}],
-eventRender: function (event, element, webData){if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-element.css('background-color', '#D3D3D3');else{if(event.fixe>0)element.css('background-color', '#87CEFA');else
-element.css('background-color', '#378006');element.css("padding", "5px"); }element.popover({delay: { "show": 500, "hide": 100 },
-content:event.tel, //event.patient.tele_mobile1,trigger: 'hover',animation:true,placement: 'bottom',container: 'body',
-template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',});  
-},select: function(start, end,jsEvent, view) {var minutes = end.diff(start,"minutes"); if((minutes == 15) && (start > today)) {
-Swal.fire({title: 'Confimer vous  le Rendez-Vous ?',html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',input:'checkbox',inputPlaceholder: 'Redez-Vous Fixe',
-showCancelButton: true,confirmButtonColor:'#3085d6',cancelButtonColor: '#d33',confirmButtonText: 'Oui',cancelButtonText: "Non",
-allowOutsideClick: false,}).then((result) =>{if(!isEmpty(result.value))createRDVModal(start,end,'{{ $patient->id }}',result.value);})
-}else$('.calendar').fullCalendar('unselect');//calendar1},});$('#RDV').on('shown.bs.modal', function () {$(".calendar").fullCalendar('render');
-});$('#RDV').focus(function(){$('.fc-month-button').trigger('click');});//endteste $('.calendar12').fullCalendar({header: {
-left: 'prev,next today',center: 'title',//right: 'month,agendaWeek,agendaDay'},timeZone: 'local',defaultView: 'basicWeek',//basicWeek  //weekends: false,
-slotDuration: '00:15:00',timeFormat: 'H:mm',//axisFormat: 'H:mm',// testenavLinks: true, // can click day/week names to navigate views
-selectable: true,selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700eventColor  : '#87CEFA',
-editable: true,eventLimit: true, // allow "more" link when too many events // displayEventEnd: true,       
-hiddenDays: [ 5, 6 ],allDaySlot: false,defaultView : 'agendaWeek',//'agendaWeek',basicWeek height: 650,//teste
-showAgendaButton: true,timeFormat: 'H:mm',//axisFormat: 'H:mm',// testefirstDay: 0,slotDuration: '00:15:00',minTime:'08:00:00',maxTime: '17:00:00',
-navLinks: false, selectable: true,       selectHelper: true,eventColor  : '#87CEFA',editable: true,hiddenDays: [ 5, 6 ],weekNumberCalculation: 'ISO',
-aspectRatio: 2,eventLimit: false,allDaySlot: false, eventDurationEditable : false,//weekNumbers: true,views: {},
-events: [@foreach($employe->rdvs as $rdv){title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
-start : '{{ $rdv->date }}',end:   '{{ $rdv->fin }}',id :'{{ $rdv->id }}',idPatient:'{{$rdv->patient->id}}', 
-tel:'{{$rdv->patient->tele_mobile1}}',age:'{{ $rdv->patient->age }}',specialite:'{{ $rdv->specialite_id }}', fixe:  '{{ $rdv->fixe }}',},@endforeach],
-eventRender: function (event, element, webData) {if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-element.css('background-color', '#D3D3D3');else {if(event.fixe>0)element.css('background-color', '#87CEFA');else
-element.css('background-color', '#378006'); element.css("padding", "5px");}element.popover({delay: { "show": 500, "hide": 100 },  // title: event.title,
-content: event.tel,trigger: 'hover',animation:true,placement: 'bottom',container: 'body',template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',});},
-select: function(start, end,jsEvent, view) {var minutes = end.diff(start,"minutes");if((minutes == 15) && (start > today)) { Swal.fire({title: 'Confimer vous  le Rendez-Vous ?', 
-html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',input: 'checkbox',inputPlaceholder: 'Redez-Vous Fixe',showCancelButton: true,
-confirmButtonColor: '#3085d6',cancelButtonColor: '#d33',confirmButtonText: 'Oui',cancelButtonText: "Non",allowOutsideClick: false,
-}).then((result) => {if(!isEmpty(result.value))createRDVModal(start,end,'{{ $patient->id }}',result.value);})}else
-$('.calendar').fullCalendar('unselect');},eventAllow: function(dropLocation, draggedEvent) {  return false; },eventDrop: function(event, delta, revertFunc) { revertFunc(); }, eventDragStop: function (event, jsEvent, ui, view) {return false;}});$("#rdvadd").click(function(){$(".calendar").fullCalendar( 'refetchEvents' ); $('#RDV').modal("show");});*/     
+    }) 
 });
 </script>
 @endsection

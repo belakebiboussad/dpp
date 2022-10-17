@@ -140,13 +140,9 @@ $(function(){
         type:'POST',
         data:formData,
         success: function (data) {
-          alert(data);
-          /*
           $("#demande" + formData['demande_id']).remove();
           $('#bedAffectModal').trigger("reset");
           $('#bedAffectModal').modal('hide'); 
-          */
-
         }
    });
   });

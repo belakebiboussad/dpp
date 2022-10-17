@@ -35,11 +35,17 @@ class Lit extends Model
     }
     return $resrvs;   
   }
-  public function isFree($start , $end)//libre de reservation
+  // begin
+  // public function isFree($start , $end)//libre de reservations
+  // {
+  //   $now = Carbon::now()->setTime(0, 0, 0);
+  //   return $now;
+  // }
+  // end
+  public function isFree($start , $end)//libre de reservations
   {
-    $now = Carbon::now()->setTime(0, 0, 0);//  $now = \Carbon\Carbon::now();
-    $idlit = $this->id;
-    /*$lit =Lit::FindOrFail($idlit);if($lit->bloq == 1)return false;*/
+    $now = Carbon::now()->setTime(0, 0, 0);//$now = \Carbon\Carbon::now();
+    $idlit = $this->id;  /*$lit =Lit::FindOrFail($idlit);if($lit->bloq == 1)return false;*/
     if(isset($this->bloq))
       return false; 
     // je cherche les reservaaion future//not testé   

@@ -36,10 +36,12 @@ class AffectationsController extends Controller
     $free = true;
     $demande= DemandeHospitalisation::find($request->demande_id); 
     $lit = lit::FindOrFail( $request->lit_id);
+    /*teste */
+    /*end teste*/
     if($demande->getModeAdmissionID($demande->modeAdmission) !=2) //non urgente
     { 
       $rdv = $demande->getInProgressMet(); 
-      if($rdv->bedReservation()->exists())//if($rdv->bedReservation->id_lit != $request->lit_id)//lit est-il reservé entre ces dattes ?// $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)); 
+      if($rdv->bedReservation()->exists())
         $rdv->bedReservation()->delete();         
       $free = $lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie));
       if(!$free)
