@@ -149,8 +149,8 @@ class SalleController extends Controller
       $salles = $service->salles()->where('genre', $genre)->whereNull('etat')->get();//etat =1 bloqué
       if( $request->Affect == '0')//Affect = 0 => reserv, Affect = 1 => affectation  
       {
-        foreach ($salles as $salle) {
-          foreach ($salle->lits as $lit) {
+        foreach ($salles as $key1 => $salle) {
+          foreach ($salle->lits as $key => $lit) {
             $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
             if(! $free)
               $salle->lits->pull($key);
@@ -162,11 +162,11 @@ class SalleController extends Controller
         }
         }else{
           foreach ($salles as $key1 => $salle) {
-            foreach ($salle->lits as $key => $lit) {
-              $affect = $lit->isAffected($lit->id);
-              if($affect)
-                $salle->lits->pull($key);
-            }
+               foreach ($salle->lits as $key => $lit) {
+                    $affect = $lit->isAffected();
+                    if($affect)
+                      $salle->lits->pull($key);
+                }
           }
           foreach ($salles as $key => $salle) {
             if((count($salle->lits) == 0))

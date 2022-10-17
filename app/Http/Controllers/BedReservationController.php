@@ -54,29 +54,29 @@ class BedReservationController extends Controller
   */
   public function getNoResBeds(Request $request)
   {
-    $lits = [];
-    $salle =salle::FindOrFail($request->SalleId);
-    if( $request->Affect == "0")//pour une reservation ?
-    {
-      if(isset($request->rdvId))//edit hosp rdv
-      {     
-        $rdvHosp =  rdv_hospitalisation::with('bedReservation')->FindOrFail($request->rdvId);
-        if(isset($rdvHosp->bedReservation))
-          $rdvHosp->bedReservation()->delete();
-      }
-      foreach ($salle->lits as $key => $lit) {  
-        $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-        if(!($free))
-          $salle->lits->pull($key);//$lits->push($lit);    
-      }
+        $lits = [];
+        $salle =salle::FindOrFail($request->SalleId);
+        if( $request->Affect == "0")//pour une reservation ?
+        {
+          if(isset($request->rdvId))//edit hosp rdv
+          {     
+            $rdvHosp =  rdv_hospitalisation::with('bedReservation')->FindOrFail($request->rdvId);
+            if(isset($rdvHosp->bedReservation))
+              $rdvHosp->bedReservation()->delete();
+          }
+          foreach ($salle->lits as $key => $lit) {  
+            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+            if(!($free))
+              $salle->lits->pull($key);
+          }
     }else
     {//pour affectation
       return $salle->lits;
       foreach ($salle->lits as $key => $lit) {
-        $affect = $lit->isAffected($lit->id); 
-        if($affect)
-          $salle->lits->pull($key);
-      }
+          $affect = $lit->isAffected(); 
+          if($affect)
+            $salle->lits->pull($key);
+        }
     }    
     return $salle->lits;
   }
@@ -87,25 +87,24 @@ class BedReservationController extends Controller
     return $salle->lits;  
   }
   public function update(Request $request, $id)
-  { //$now = date("Y-m-d", strtotime('now'));//"2022-07-19"$now = \Carbon\Carbon::now();//object
-    //$start = $today =  \Carbon\Carbon::now()->toDateString();//"2022-07-19"
-    $resrvs = [];
-    $lit = lit::FindOrFail( $request->lit_id);
-    $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now "2022-09-2"
-    $end = Carbon::now()->addDay(3)->toDateString(); //get reservation of this bed between this day
-    $free = $lit->isFree(strtotime($start),strtotime($end));//1664060400
-    $reservs = $lit->getReservation(strtotime($start), strtotime($end));
-    $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($start){ 
-                   $q->where('date','>=',$start);
-          })->whereHas('lit',function($q) use($id){ 
-                   $q->where('id', $id);
-          })->get();      
-    foreach ($beds as $res) {
-    if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)) || ((strtotime($res->rdvHosp->date) >= 
-          $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))
-      ||((strtotime($res->rdvHosp->date)  < $start ) && (strtotime($res->rdvHosp->date_Prevu_Sortie) > $end)))
-            array_push($resrvs, $res);
-          $lit->bedReservation()->detach($res);
-        }
+  {
+        $resrvs = [];
+        $lit = lit::FindOrFail( $request->lit_id);
+        $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now "2022-09-2"
+        $end = Carbon::now()->addDay(3)->toDateString(); //get reservation of this bed between this day
+        $free = $lit->isFree(strtotime($start),strtotime($end));//1664060400
+        $reservs = $lit->getReservation(strtotime($start), strtotime($end));
+        $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($start){ 
+                       $q->where('date','>=',$start);
+              })->whereHas('lit',function($q) use($id){ 
+                       $q->where('id', $id);
+              })->get();      
+        foreach ($beds as $res) {
+        if(((strtotime($res->rdvHosp->date_Prevu_Sortie) > $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end)) || ((strtotime($res->rdvHosp->date) >= 
+              $start) && (strtotime($res->rdvHosp->date) < $end)) || ((strtotime($res->rdvHosp->date) >= $start) && (strtotime($res->rdvHosp->date_Prevu_Sortie) <= $end))
+          ||((strtotime($res->rdvHosp->date)  < $start ) && (strtotime($res->rdvHosp->date_Prevu_Sortie) > $end)))
+                array_push($resrvs, $res);
+              $lit->bedReservation()->detach($res);
+            }
   }
 }
