@@ -116,7 +116,7 @@ class SalleController extends Controller
       $salle->delete();
       return redirect()->route('salle.index');
     }
-    public function getsalles(Request $request)
+    public function getsallesTeste(Request $request)
     {
       $genre = 0;
       $service = service::FindOrFail($request->ServiceID);
@@ -139,7 +139,7 @@ class SalleController extends Controller
         return "affectation";
       }
     } 
-    public function getsallesOrg(Request $request)
+    public function getsalles(Request $request)
     {
       $genre = 0;//homme
       $service = service::FindOrFail($request->ServiceID);

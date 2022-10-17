@@ -111,8 +111,6 @@
               type:'GET',
               data:formData,
               success: function(data){
-                alert(data);
-                /*
                 var select = $('.salle').empty();
                 if(data.length != 0){
                       select.append('<option value="">Selectionnez une salle</option>');   
@@ -121,7 +119,6 @@
                      });
                 }else
                   select.append('<option value="" selected disabled>Pas de salle</option>');
-                  */
               },
             });   
           }else
