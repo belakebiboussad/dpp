@@ -22,166 +22,107 @@ use Carbon\CarbonPeriod;
 use DateTime;
 class StatistiqusController extends Controller
 { 
+  public $monthLabels = []; public $avHospStysub = [];
   protected function getAverhospStay($mthsub)
-  {
-    $jours = 0;
-    $results = [];
-    $firstDayofMonth = Carbon::now()->startOfMonth()->subMonth($mthsub);
-    $lastDayofMonth = Carbon::now()->subMonth($mthsub)->endOfMonth();
-    $dateRange = CarbonPeriod::create($firstDayofMonth, $lastDayofMonth);
-    foreach ($dateRange as $date) {
-      $hosps = hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
+  { 
+    $start =Carbon::now()->startOfMonth()->subMonth($mthsub);
+    $ldm = Carbon::now()->subMonth($mthsub)->endOfMonth();
+    if($mthsub >= 0 ){
+      $jours = 0;
+      $start =Carbon::now()->startOfMonth()->subMonth($mthsub);   
+      $results[0] = $start->format('M');
+      $ldm = Carbon::now()->subMonth($mthsub)->endOfMonth()->format('y-m-d');
+      foreach (CarbonPeriod::create($start, $ldm) as $date) {
+        $hosps = hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
                                             $q->where('specialite',Auth::user()->employ->specialite);
                                       })->where('date',$date->format('y-m-d'))->get(); 
-      $jours += $hosps->sum("nb_days");
+        $jours += $hosps->sum("nb_days"); 
+      }
+      $nbhosp  = hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                                    $q->where('specialite',Auth::user()->employ->specialite);
+                                })->whereBetween('date', [$start, $ldm])->count();
+      if($nbhosp !=0)
+        $results[1] = round( (float)$jours/$nbhosp, 1);
+      else
+         $results[1] = 20;
+      array_push($this->monthLabels, $results[0]);  
+      array_push($this->avHospStysub, $results[1]);
+      $this->getAverhospStay($mthsub - 1);    
     }
-    $nbhosp= hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
-                                      $q->where('specialite',Auth::user()->employ->specialite);
-                                 })->where('date','>=',$firstDayofMonth->format('y-m-d'))
-                                  ->where('date','<=',$lastDayofMonth->format('y-m-d'))->count();     
-    $results[0] = $firstDayofMonth->subMonth()->format('F');
-    if($nbhosp !=0)
-     $results[1] = round( (float)$jours/$nbhosp, 1);
-    else
-      $results[1] = 20;
-    return $results;
   } 
   public function index()
   {
-    $today = Carbon::today()->toDateString();
-    $datalit = [];
-     $dates =  [];
-      // $monthLabels [];
-    $jours = 0;
-    $frWeekbefore = (Carbon::now())->subWeek(4);
-    $datearr =  [$frWeekbefore->format('m-d')];
-    $services = service::all();
-    $medsCount = employ::whereHas('User', function($q){
-                    $q->where('role_id', 1);
-                })->where('service_id',Auth::user()->employ->service_id)->count();
-    $infsCount = employ::whereHas('User', function($q){
-                                                 $q->where('role_id', 3);
-                })->where('service_id', Auth::user()->employ->service_id)->count();
-    $hospCount = hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
-                    $q->where('specialite', Auth::user()->employ->specialite);
-                })->where('etat', null)->count();
-    $nbRequest = DemandeHospitalisation::where('specialite', Auth::user()->employ->specialite)
-                                        ->where('etat', null)->count();
-    $nbrdvs =rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
-                                            $q->where('etat', 1);//'0'
-                                })->where('date','>=', $today)->count();
-    $nbFreeBed = lit::whereHas('salle',function($q){
-            $q->where('service_id', Auth::user()->employ->service_id);
-    })->where('affectation',null)->where('bloq',null)->count();
-     $consultsNbr = consultation::whereHas('medecin',function($q){
-         $q->where('specialite', Auth::user()->employ->specialite);
-    })->where('date', $today)->count();
-     //statistique pour hospitalisation
-    $nbDays =  Carbon::now()->diffInDays(Carbon::now()->copy()->subMonth());
-    $start = Carbon::parse($frWeekbefore); 
-    $dateRange = CarbonPeriod::create($frWeekbefore, Carbon::now())->filter('isWeekday');
-    foreach ($dateRange as $date) {
-      $dates[] = $date->format('m-d');
-      $nbhosp []= hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
-                                            $q->where('specialite',Auth::user()->employ->specialite);
-                                      })->where('date',$date->format('y-m-d'))->count();
-      $nbcons [] = consultation::where('date', $date->format('y-m-d'))->count();
-      $hosps = hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
-                                            $q->where('specialite',Auth::user()->employ->specialite);
-                                      })->where('date',$date->format('y-m-d'))->get(); 
-      $jours += $hosps->sum("nb_days");
-    }
-    $nbjPerHosp =  $jours/array_sum($nbhosp);
-    // //delai d'hospitalisation de 6 dernier Mois
-     $monthLabels  = [$this->getAverhospStay(6)[0],$this->getAverhospStay(5)[0],$this->getAverhospStay(4)[0],
-                         $this->getAverhospStay(3)[0], $this->getAverhospStay(2)[0], $this->getAverhospStay(1)[0]];
-    $avHospStysub = [$this->getAverhospStay(6)[1],$this->getAverhospStay(5)[1],$this->getAverhospStay(4)[1],
-                         $this->getAverhospStay(3)[1], $this->getAverhospStay(2)[1], $this->getAverhospStay(1)[1]];                     
-    //lits
-    if(Auth::user()->role_id == 14)//chef de service
-      $salles = Auth::user()->employ->service->salles; //salle::where('service_id',Auth::user()->employ->service)->get();
+    if(Auth::user()->is(4))//admin
+      return view('stats.dashboard');
     else
-      $salles = salle::all();
-    $affectedBeds = 0; $blokedBeds = 0; $reservedBeds = 0;
-    foreach ($salles as $key1 => $salle) {
-      $affectedBeds += $salle->affectedBeds->count();
-      $blokedBeds += $salle->blockedBeds->count();
-      $now = Carbon::now()->setTime(0, 0, 0)->timestamp;
-      $enday = Carbon::now()->setTime(23, 59, 0)->timestamp; 
-      foreach($salle->lits as $lit)
-      {
-        if(!$lit->isFree($now,$enday))
-          $reservedBeds++;
-      }
-    }
-    $totaleBeds = $salles->sum('nb_beds');
-    $datalit  = array($totaleBeds-$affectedBeds-$reservedBeds-$blokedBeds,$affectedBeds,$reservedBeds,$blokedBeds); 
-    $nbcons = json_encode($nbcons); $nbhosp = json_encode($nbhosp);$dates = json_encode($dates);$datalit = json_encode($datalit);
-    $avHospStysub = json_encode($avHospStysub);
-    $monthLabels = json_encode($monthLabels);
-    return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed','consultsNbr','nbjPerHosp','dates','nbhosp','nbcons','totaleBeds','affectedBeds','blokedBeds','reservedBeds','datalit','avHospStysub','monthLabels'));
-  }
-  /////////////methode pour index recherche
-  public function seardate(Request $request)
-  {
-    $datenow = Carbon::now()->format('Y-m-d');// $tdate=request('Datfin');
-    $fdate = Carbon::createFromFormat('Y-m-d','2022-09-01');
-    $tdate = Carbon::now()->format('Y-m-d');
-    $af=0;  $somlit=0;  $somsl=0;
-    $datalit =array(); $lits =array();
-    if(Auth::user()->role_id == 14)
-    { 
-      $ServiceID = Auth::user()->employ->service;
-      $salles = salle::where('service_id',$ServiceID)->get();
-    }else
-      $salles = salle::all();
-    foreach ($salles as $key1 => $salle) {
-      $somlit=0;
-      foreach ($salle->lits as $key => $lit) {
-        $idLLit = $lit->id; 
-        $cr=0;
-        $reservations =  bedReservation::whereHas('lit',function($q) use($idLLit){
-                                            $q->where('id',$idLLit);
-                                     })->get();
-        $lit = lit::FindOrFail($idLLit);
-        foreach ($reservations as $key => $reservation) {
-          if (($datenow >= strtotime($reservation->rdvHosp->date_RDVh))|| ($datenow  <= strtotime($reservation->rdvHosp->date_Prevu_Sortie)))
-            $cr=1;
-          else
-            $cr=0;
-        }
-        $affect = $lit->isAffected($idLLit); 
-        if($affect)
-          $af++;
-        $somlit=$somlit + $cr;
-      }   
-      $somsl=$somsl + $somlit;        
-    }
-    $lit = lit::get()->count();
-    $libre= $lit-$somsl-$af;
-    array_push($datalit, $somsl);  array_push($datalit, $af);  array_push($datalit, $libre);     
-    //debut
-     $datearr =  [];
-    $start = Carbon::parse($fdate);
-    $end =  Carbon::parse($tdate);
-    $nbDays = $start->diffInDays($end);
-    $startt=$start->format('y-m-d');
-    array_push($datearr, $startt);
-    $d=$startt;
-    for ($j=0; $j<$nbDays; $j++)
-    { 
-      $cons[] = consultation::where('date', $d)->count();
-      $d = ($start->addDay())->format('y-m-d');
-      array_push($datearr, $d); 
-    }
-    //fin           
-    if($request->ajax())
     {
-      $i=0;       
-      return Response::json([ 'datalit'=>$datalit,'date'=>$datearr,'nbcons'=>$cons]);
+      $jours = 0;
+      $services = service::all();
+      $start = (Carbon::now())->subWeek(4);
+      $datearr =  [$start->format('m-d')];
+      $medsCount = employ::whereHas('User', function($q){
+                     $q->whereIn('role_id', [1,13,14]);
+                  })->where('service_id',Auth::user()->employ->service_id)->count();
+      $infsCount = employ::whereHas('User', function($q){
+                    $q->where('role_id', 3);
+                  })->where('service_id', Auth::user()->employ->service_id)->count();
+      $hospCount = hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                      $q->where('specialite', Auth::user()->employ->specialite);
+                  })->whereNull('etat')->count();
+      $nbRequest = DemandeHospitalisation::where('specialite', Auth::user()->employ->specialite)
+                                          ->whereNull('etat')->count();
+      $nbrdvs =rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
+                                              $q->where('etat', 1);//'0'
+                                  })->where('date','>=', Carbon::today())->count();
+      $nbFreeBed = lit::whereHas('salle',function($q){
+              $q->where('service_id', Auth::user()->employ->service_id);
+      })->whereNull('affectation')->whereNull('bloq')->count();
+      $consultsNbr = consultation::whereHas('medecin',function($q){
+           $q->where('specialite', Auth::user()->employ->specialite);
+      })->where('date', Carbon::today())->count();//statistique pour hospitalisation
+      $nbDays = Carbon::now()->daysInMonth;//$dateRange = CarbonPeriod::create($start, Carbon::now());//->filter('isWeekday')
+      foreach (CarbonPeriod::create($start, Carbon::now()) as $date) {
+        $d = $date->format('y-m-d'); $dates[] = $date->format('m-d');
+        $nbhosp []= hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
+                                              $q->where('specialite',Auth::user()->employ->specialite);
+                                        })->where('date',$d)->count();
+        $nbcons [] = consultation::where('date', $date->format('y-m-d'))->count();
+        $hosps = hospitalisation::whereHas('admission.demandeHospitalisation',function($q){
+                                              $q->where('specialite',Auth::user()->employ->specialite);
+                                        })->where('date',$date->format('y-m-d'))->get(); 
+        $jours += $hosps->sum("nb_days");
+      }
+      $nbjPerHosp = (array_sum($nbhosp) == 0 ? 0 : ($jours / array_sum($nbhosp)));
+      // //delai d'hospitalisation de 6 dernier Mois
+      $this->getAverhospStay(6); //bon 
+     
+       //lits
+      if(Auth::user()->role_id == 14)//chef de service
+        $salles = Auth::user()->employ->service->salles;
+      else
+        $salles = salle::all();
+      $affectedBeds = 0; $blokedBeds = 0; $reservedBeds = 0;
+      foreach ($salles as $key1 => $salle) {
+        $affectedBeds += $salle->affectedBeds->count();
+        $blokedBeds += $salle->blockedBeds->count();
+        $now = Carbon::now()->setTime(0, 0, 0)->timestamp;
+        $enday = Carbon::now()->setTime(23, 59, 0)->timestamp; 
+        foreach($salle->lits as $lit)
+        {
+          if(!$lit->isFree($now,$enday))
+            $reservedBeds++;
+        }
+      }
+      $totaleBeds = $salles->sum('nb_beds');
+      $datalit  = array($totaleBeds-$affectedBeds-$reservedBeds-$blokedBeds,$affectedBeds,$reservedBeds,$blokedBeds); 
+      $nbcons = json_encode($nbcons); $nbhosp = json_encode($nbhosp);$dates = json_encode($dates);
+      $datalit = json_encode($datalit);
+      $avHospStysub = json_encode($this->avHospStysub);
+      $monthLabels = json_encode($this->monthLabels);
+      return view('stats.index', compact('infsCount','medsCount','hospCount','nbRequest','nbrdvs','nbFreeBed','consultsNbr','nbjPerHosp','dates','nbhosp','nbcons','totaleBeds','affectedBeds','blokedBeds','reservedBeds','datalit','avHospStysub','monthLabels'));
     }
-  }
-  public function search($id)
+  }/////////////methode pour index recherche 
+ public function search($id)
   {
     $services = service::whereIn('type', [0,1])->get();
     if((in_array(Auth::user()->role->id,[4,8])))
@@ -194,8 +135,7 @@ class StatistiqusController extends Controller
   {
     $model_prefix="App\modeles\\";
     $dataArray = [];$dates = []; $className =""; $objNbr = 0;$nblits = 0;
-    $start = Carbon::parse($request->datDebut);
-    $end =  Carbon::parse($request->datFin);
+    $start = Carbon::parse($request->datDebut);$end =  Carbon::parse($request->datFin);
     $dateRange = CarbonPeriod::create($start, $end)->filter('isWeekday');
     switch($request->className)
     {
@@ -246,14 +186,9 @@ class StatistiqusController extends Controller
         {
           $sid = $request->service;
           if(isset($request->medecin))
-          {
             $mid = $request->medecin;
-          }
-        }else
-        {
         }
       }
-
       if($request->className != 3)
         $objNbr += $nbr;
       else

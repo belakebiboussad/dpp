@@ -164,46 +164,46 @@ $(function(){
               }
               switch(data.lien_par){
                 case "0":
-                      lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Conjoint(e)</b></span>';
                       break;
                 case "1":
-                       lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
+                       lien='<span class="label label-sm label-success"><b>Père</b></span>';
                       break;
                 case "2":
-                      lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Mère</b></span>';
                       break;
                 case "3":
-                      lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Frère</b></span>';
                        break;
                 case "4":
-                      lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Soeur</b></span>';
                       break;
                 case "5":
-                      lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Ascendant</b></span>';
                       break;
                 case "6":
-                      lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
+                      lien='<span class="label label-sm label-success"><b>Grand-parent</b></span>';
                       break; 
                 case "7":
-                       lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
+                       lien='<span class="label label-sm label-success"><b>Membre de famille</b></span>';
                       break;
                 case "8":
-                        lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
+                        lien=' <span class="label label-sm label-success"><b>Ami</b></span>';
                         break;              
                 case "9":
-                        lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
+                        lien='<span class="label label-sm label-success"><b>Collègue</b></span>';
                         break; 
                 case "10":
-                        lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
+                        lien='<span class="label label-sm label-success"><b>Employeur</b></span>';
                         break; 
                 case "11":
-                        lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
+                        lien='span class="label label-sm label-success"><b>Employé</b></span>';
                         break; 
                 case "12":
-                        lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
+                        lien='<span class="label label-sm label-success"><b>Tuteur</b></span>';
                         break; 
                 case "13":
-                        lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
+                        lien='<span class="label label-sm label-success"><b>Autre</b></span>';
                         break; 
                 default:
                         break;
@@ -211,13 +211,13 @@ $(function(){
               switch(data.type_piece)
               {
                   case "0":
-                         type='<span class="label label-sm label-success"><strong>Carte nationale d\'identité</strong></span>';
+                         type='<span class="label label-sm label-success"><b>Carte nationale d\'identité</b></span>';
                         break;
                    case "1":
-                        type='<span class="label label-sm label-success"><strong>Permis de Conduire</strong></span>';
+                        type='<span class="label label-sm label-success"><b>Permis de Conduire</b></span>';
                         break;
                    case "2":
-                        type='<span class="label label-sm label-success"><strong>Passeport</strong></span>';
+                        type='<span class="label label-sm label-success"><b>Passeport</b></span>';
                         break;
                   default:
                         break;
@@ -310,7 +310,7 @@ $(function(){
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-18">
 				<li class="active">
-					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Informations administratives</strong></a>
+					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><b>Informations administratives</b></a>
 				</li>
 				@if(in_array(Auth::user()->role_id,[1,13,14]))
 					@if( $patient->antecedants->count() >0)
@@ -371,7 +371,7 @@ $(function(){
 		<div class="modal-content">{{-- route('ticket.store')  <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
 		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter un ticket d'enregistrement</strong></h4>
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><b>Ajouter un ticket d'enregistrement</b></h4>
     		</div>
     		<div class="modal-body">
 	    		<div class="row">

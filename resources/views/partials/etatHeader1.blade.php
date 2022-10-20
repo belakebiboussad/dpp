@@ -13,13 +13,13 @@
 	</div>
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-6 tab"><strong>Médecin prescripteur :</strong> 
+	<div class="col-sm-6 tab"><b>Médecin prescripteur :</b> 
 	{{ $medecin->full_name }}</div><div class="col-sm-3"></div>	
-	<div class="col-sm-3 pull-right"><strong>Alger le :</strong>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>	
+	<div class="col-sm-3 pull-right"><b>Alger le :</b>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>	
 </div>
-<div class="row"><div class="col-sm-12 tab"><strong>Patient(e) :</strong></div></div>
+<div class="row"><div class="col-sm-12 tab"><b>Patient(e) :</b></div></div>
 <div class="row">
-	<div class="col-sm-2 tab"><strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span></div>
-	<div class="col-sm-3"><strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span></div>
-	<div class="col-sm-3"><strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span></div>
+	<div class="col-sm-2 tab"><b>Nom :&nbsp;</b><span>{{ $patient->Nom }}</span></div>
+	<div class="col-sm-3"><b>Prenom :&nbsp;</b><span>{{ $patient->Prenom }}</span></div>
+	<div class="col-sm-3"><b>Né(e) le :&nbsp;</b><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span></div>
 </div>

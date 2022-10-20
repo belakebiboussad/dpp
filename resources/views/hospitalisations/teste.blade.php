@@ -5,7 +5,7 @@
 <div class="pull-right">
    <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row"><div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div></div>
+<div class="row"><div class="col-sm-12"><h4> <b> Hospitalisation : suivi(e) du patient</b></h4></div></div>
 <div class="space-12"></div>
 <div class="tabbable"  class="user-profile">
   <ul class="nav nav-tabs" role="tablist">
@@ -19,64 +19,64 @@
   </ul>
   <div class="tab-content no-border padding-24">
     <div id="hospi" class="tab-pane in active">
-      <div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="ft16"><strong>Hospitalisation</strong></span></div></div>
+      <div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="ft16"><b>Hospitalisation</b></span></div></div>
       <div class="row">
         <div class="col-sm-12">
         <ul class="nav navbar-nav list-inline">
           <li class="list-inline-item" style="width:200px;">
-            <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+            <i class="ace-icon fa fa-caret-right blue"></i><b>Service :</b>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
           </li>
           <li class="list-inline-item" style="width:200px;">
-            <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+            <i class="ace-icon fa fa-caret-right blue"></i><b>Spécialité :</b>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
           </li>
           <li class="list-inline-item" style="width:300px;">
              <i class="ace-icon fa fa-caret-right blue"></i>
-            <strong>Mode d'admission:</strong>&nbsp;&nbsp;
+            <b>Mode d'admission:</b>&nbsp;&nbsp;
                <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
             </li>
             <li class="list-inline-item" style="width:300px;">
-              <i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
+              <i class="ace-icon fa fa-caret-right blue"></i><b>Médecin Traitant:</b>&nbsp;&nbsp;
             {{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}    
             </li>
             <li class="list-inline-item" style="width:270px;">
-             <i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->date }}
+             <i class="ace-icon fa fa-caret-right blue"></i><b>Date d'entrée:</b>&nbsp;&nbsp;{{ $hosp->date }}
             </li>
             <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
-             </i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}
+             </i><b>Date sortie prévue:</b>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}
             </li>
         </ul>
         </div>
       </div><div class="space-12"></div>
       <div class="row">
         <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-          <span class="ft16"><strong>Hébergement</strong></span>
+          <span class="ft16"><b>Hébergement</b></span>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
          <ul class="nav navbar-nav list-inline">
               <li class="list-inline-item" style="width: 300px;" >
-                  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
+                  <i class="ace-icon fa fa-caret-right blue"></i><b>Service :</b>&nbsp;&nbsp;
               {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}
               </li>
-              <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
-              <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
+              <li class="list-inline-item" style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><b>Salle :</b> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
+              <li class="list-inline-item"style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><b>Lit :</b> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
           </ul>
         </div>
       </div>
        @if(isset($hosp->garde_id)) 
       <div class="space-12"></div>
       <div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-      <span class="ft16"><strong>Garde malade</strong></span></div></div>
+      <span class="ft16"><b>Garde malade</b></span></div></div>
       <div class="row">
         <ul class="nav navbar-nav list-inline">
-          <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Nom & Prénom :</strong> {{ $hosp->garde->full_name}}</li>
-          <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Né(e) le :</strong> {{ $hosp->garde->date_naiss }}</li>          
+          <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Nom & Prénom :</b> {{ $hosp->garde->full_name}}</li>
+          <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Né(e) le :</b> {{ $hosp->garde->date_naiss }}</li>          
           <li>
-             <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Âge :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
+             <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Âge :</b> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
               </li>
-          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Relation :</strong> <span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
-                <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><strong>Téléphone :</strong> <span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
+          <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Relation :</b> <span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
+                <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Téléphone :</b> <span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
         </ul>
       </div>
       @endif   

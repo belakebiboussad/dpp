@@ -15,8 +15,11 @@
          </div>
     </div><!-- /.sidebar-shortcuts -->
     <ul class="nav nav-list">
-      <li class="">
+      <li>
         <a href="{{ route('home') }}"> <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a><b class="arrow"></b>
+      </li>
+      <li>
+        <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text">Gestion utilisateurs</span><b class="arrow fa fa-angle-down"></b></a>

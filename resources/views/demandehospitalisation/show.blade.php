@@ -9,14 +9,14 @@
 						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Détails :</h3>
 						<div class="widget-toolbar hidden-480">
 						@if( Auth::user()->role->id == 1)
-							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><strong>Liste des demandes</strong></a>
+							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><b>Liste des demandes</b></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;
 						@if(Auth::User()->employee_id == $demande->employ_id)
-							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><strong>Modifier</strong></a>
+							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><b>Modifier</b></a>
 								&nbsp;&nbsp;&nbsp;
 						@endif
-						<a href="#"><i class="ace-icon fa fa-print"></i><strong>Imprimer</strong></a>
+						<a href="#"><i class="ace-icon fa fa-print"></i><b>Imprimer</b></a>
 						</div>
 					</div>
 					<div class="widget-body">
@@ -27,22 +27,22 @@
 								<div>
 									<ul class="list-unstyled spaced">
 										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i><strong>Nom :</strong><b class="green">{{ $demande->consultation->patient->Nom }}</b>
+											<i class="ace-icon fa fa-caret-right blue"></i><b>Nom :</b><b class="green">{{ $demande->consultation->patient->Nom }}</b>
 										</li>
 										<li>
-										<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong><b class="green">{{ $demande->consultation->patient->Prenom }}</b>
+										<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b><b class="green">{{ $demande->consultation->patient->Prenom }}</b>
 										</li>
 										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i><strong>Date de naissance :</strong><b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
+											<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b><b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
 										</li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>
-											<strong>Genre :</strong><b class="green">{{ $demande->consultation->patient->Sexe == "F" ? "Féminin" : "Masculin" }}</b>
+											<b>Genre :</b><b class="green">{{ $demande->consultation->patient->Sexe == "F" ? "Féminin" : "Masculin" }}</b>
 									       </li>
 										<li class="divider"></li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>
-											<strong>Age :</strong><b class="green">{{ $demande->consultation->patient->age }} ans</b>
+											<b>Age :</b><b class="green">{{ $demande->consultation->patient->age }} ans</b>
 										</li>
 									</ul>
 								</div>
@@ -54,30 +54,30 @@
 								<div>
 								<ul class="list-unstyled  spaced">
 									<li>
-										<i class="ace-icon fa fa-caret-right green"></i><strong>Motif de consultation:</strong>
+										<i class="ace-icon fa fa-caret-right green"></i><b>Motif de consultation:</b>
 										<b class="blue">{{ $demande->consultation->motif }}</b>
 									</li>
 									<li>
-										<i class="ace-icon fa fa-caret-right green"></i><strong>Date de consultation :</strong>
+										<i class="ace-icon fa fa-caret-right green"></i><b>Date de consultation :</b>
 													<b class="blue">{{ $demande->consultation->date }}</b>
 												</li>
 												<li>
-													<i class="ace-icon fa fa-caret-right green"></i><strong>Service :</strong>
+													<i class="ace-icon fa fa-caret-right green"></i><b>Service :</b>
 													<b class="blue">{{ $demande->Service->nom }}</b>
 												</li>
 												<li>
-													<i class="ace-icon fa fa-caret-right green"></i><strong>Spécialité :</strong>
+													<i class="ace-icon fa fa-caret-right green"></i><b>Spécialité :</b>
 													<b class="blue">{{ $demande->Specialite->nom }}</b>
 												</li>
 												<li class="divider"></li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
-													<strong>Médecin traitant :</strong>
+													<b>Médecin traitant :</b>
 													<b class="blue">{{ $demande->consultation->medecin->full_name}}</b>
 												</li>
                         <li>
                           <i class="ace-icon fa fa-caret-right green"></i>
-                          <strong>Etat :</strong>
+                          <b>Etat :</b>
                           <b class="blue">{{ $demande->etat}}</b>
                         </li>
 											</ul>

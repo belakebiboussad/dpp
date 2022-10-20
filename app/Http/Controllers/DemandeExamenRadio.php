@@ -187,7 +187,6 @@ class DemandeExamenRadio extends Controller
      */
       public function edit($id) {
         $demande = demandeexr::FindOrFail($id);
-        //dd($demande->examensradios);
         $infossupp = infosupppertinentes::all();
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet

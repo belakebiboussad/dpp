@@ -35,46 +35,46 @@
             <td class ="center">
               @switch($hom->lien_par)
                 @case ("0")
-                  <span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>
+                  <span class="label label-sm label-success"><b>Conjoint(e)</b></span>
                   @break
                 @case ("1")
-                             <span class="label label-sm label-success"><strong>Père</strong></span>
+                             <span class="label label-sm label-success"><b>Père</b></span>
                           @break
                      @case ("2")
-                          <span class="label label-sm label-success"><strong>Mère</strong></span>
+                          <span class="label label-sm label-success"><b>Mère</b></span>
                           @break
                      @case ("3")
-                           <span class="label label-sm label-success"><strong>Frère</strong></span>                                             
+                           <span class="label label-sm label-success"><b>Frère</b></span>                                             
                            @break
                      @case ("4")
-                         <span class="label label-sm label-success"><strong>Soeur</strong></span> 
+                         <span class="label label-sm label-success"><b>Soeur</b></span> 
                           @break
                     @case ("5")
-                      <span class="label label-sm label-success"><strong>Ascendant</strong></span>
+                      <span class="label label-sm label-success"><b>Ascendant</b></span>
                            @break
                     @case ("6")
-                          <span class="label label-sm label-success"><strong>Grand-parent</strong></span>
+                          <span class="label label-sm label-success"><b>Grand-parent</b></span>
                           @break
                     @case ("7")
-                           <span class="label label-sm label-success"><strong>Membre de famille</strong></span>
+                           <span class="label label-sm label-success"><b>Membre de famille</b></span>
                          @break
                     @case ("8")
-                           <span class="label label-sm label-success"><strong>Ami(e)</strong></span>
+                           <span class="label label-sm label-success"><b>Ami(e)</b></span>
                           @break             
                     @case("9")
-                           <span class="label label-sm label-success"><strong>Collègue</strong></span>
+                           <span class="label label-sm label-success"><b>Collègue</b></span>
                             @break 
                     @case ("10")
-                      <span class="label label-sm label-success"><strong>Employeur</strong></span>
+                      <span class="label label-sm label-success"><b>Employeur</b></span>
                           @break 
                     @case ("11")
-                         <span class="label label-sm label-success"><strong>Employé</strong></span>
+                         <span class="label label-sm label-success"><b>Employé</b></span>
                           @break 
                     @case ("12")
-                           <span class="label label-sm label-success"><strong>Tuteur</strong></span>
+                           <span class="label label-sm label-success"><b>Tuteur</b></span>
                           @break
                    @case ("13")
-                            <span class="label label-sm label-success"><strong>Autre</strong></span>
+                            <span class="label label-sm label-success"><b>Autre</b></span>
                           @break 
                    @default
                           @break
@@ -83,13 +83,13 @@
             <td>
               @switch( $hom->type_piece)
                 @case ("0")
-                  <span class="label label-sm label-success"><strong>Carte nationale d'identité</strong></span>
+                  <span class="label label-sm label-success"><b>Carte nationale d'identité</b></span>
                   @break
                 @case ("1")
-                  <span class="label label-sm label-success"><strong>Permis de conduire</strong></span>
+                  <span class="label label-sm label-success"><b>Permis de conduire</b></span>
                   @break
                 @case ("2")
-                  <span class="label label-sm label-success"><strong>Passeport</strong></span>
+                  <span class="label label-sm label-success"><b>Passeport</b></span>
                   @break
                 @default
                   @break

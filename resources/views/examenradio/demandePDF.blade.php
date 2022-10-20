@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><strong>Demande d'examen(s) radiologique(s)</strong></title>
+  <title><b>Demande d'examen(s) radiologique(s)</b></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/styles.css">
@@ -16,7 +16,7 @@
   <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons"/></footer>
   <main>
 <br><br>
-  <div class="textCenter mtP40 ft16"><strong>Demande d'examen radiologique</strong></div>
+  <div class="textCenter mtP40 ft16"><b>Demande d'examen radiologique</b></div>
   <br>
   <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
         {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
@@ -37,7 +37,7 @@
       <div class="section">
         <div class="sec-gauche">
             <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br>
-            <strong>IPP :</strong>{{ $patient->IPP }}
+            <b>IPP :</b>{{ $patient->IPP }}
          </div>
       </div>
     </div>
@@ -78,8 +78,8 @@
                         <thead>
                           <tr>
                             <th class="center" width="10%">#</th>
-                            <th class="center"><strong>Nom</strong></th>
-                            <th class="center"><strong>Type</strong></th>
+                            <th class="center"><b>Nom</b></th>
+                            <th class="center"><b>Type</b></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -104,7 +104,7 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section"><div class="right"><span><strong> Docteur :</strong> {{ Auth::user()->employ->full_name }}</span></div></div>
+      <div class="section"><div class="right"><span><b> Docteur :</b> {{ Auth::user()->employ->full_name }}</span></div></div>
     </div>
   </div>
 </main>

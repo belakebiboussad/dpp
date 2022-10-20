@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h5 class="modal-title" id="myModalLabel"><strong>Ajouter un rendez-vous</strong></h5>
+        <h5 class="modal-title" id="myModalLabel"><b>Ajouter un rendez-vous</b></h5>
       </div>
       <div class="modal-body bodyodal">
         <div class="row">
@@ -12,8 +12,8 @@
               <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
               <div class="panel-body"><div class="calendar"></div> </div>
               <div class="panel-footer">
-                <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-                <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
+                <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV fixe</b></span>
+                <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV à fixer</b></span> 
               </div>
             </div>
           </div>
@@ -34,9 +34,9 @@
       <div class="modal-body"><div class="space-12"></div>
           <div class="row">
             <div class="col-sm-6">    
-              <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="green"></span>
+              <i class="fa fa-phone" aria-hidden="true"></i><b>Téléphone:&nbsp;</b><span id="patient_tel" class="green"></span>
             </div>
-            <div class="col-sm-6"><strong>Age:&nbsp;</strong><span id="agePatient" class="blue"></span><small>Ans</small></div>
+            <div class="col-sm-6"><b>Age:&nbsp;</b><span id="agePatient" class="blue"></span><small>Ans</small></div>
           </div>
           <div class="space-12"></div>
           <div class="row">   
@@ -47,13 +47,13 @@
             <div class="well">
             <div class="row">
               <div class="col-sm-6"> 
-                <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
+                <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><b> Date Rendez-Vous :</b></label>
                 <div class="input-group">
                  <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
                 </div>
               </div>
               <div class="col-sm-6">
-                <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Type Rendez-Vous :</strong></label>
+                <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><b> Type Rendez-Vous :</b></label>
                 <div class="input-group">
                   <label class="block"><input type="checkbox" class="ace" id="fixecbx" name="fixecbx"/><span class="lbl">Fixe </span></label>
                 </div> 

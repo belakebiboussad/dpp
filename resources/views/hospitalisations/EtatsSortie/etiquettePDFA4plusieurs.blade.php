@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title>CodeBarre</title>
-	<!-- 	<link rel="stylesheet" href="css/styles.css"> -->
 		<link rel="stylesheet" href="css/print.css">
 		<style>
 			body {
@@ -26,20 +25,16 @@
 		@for ($i = 0; $i <= 6; $i++)
     <div class="row">
 		  <div class="col-sm-12">
-		   	<div class="mt-20">
-		   		<small><strong>Nom :</strong> {{ $hosp->patient->Nom }}</small>
-		   	</div>
-		   </div>
+		   	<div class="mt-20"><small><b>Nom :</b> {{ $hosp->patient->Nom }}</small></div>
+		  </div>
 		</div>	
 		<div class="row">
 		 	<div class="col-sm-12">
-			<div class="mt-20">
-		  	<small><strong>Pré :</strong> {{ $hosp->patient->Prenom }}</small>
-		  </div>
-		 </div> 
+			<div class="mt-20"><small><b>Pré :</b> {{ $hosp->patient->Prenom }}</small></div>
+		</div> 
 		</div>
 		<div class="row">
-		  <div class="col-sm-12"><small><strong>DDN :</strong> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small></div>
+		  <div class="col-sm-12"><small><b>DDN :</b> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small></div>
 		</div>
 		<div class="row">
 		  <div class="col-sm-12 mt-1">

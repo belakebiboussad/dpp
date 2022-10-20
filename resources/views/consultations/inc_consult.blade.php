@@ -55,29 +55,29 @@ $('document').ready(function(){
 <div class="page-header mt-5"><h5>Résumé de la consulation :</h5></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-  <span class="ft16"><strong>Interrogatoire</strong></span></div>
+  <span class="ft16"><b>Interrogatoire</b></span></div>
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation  :</strong><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin de la consultation  :</strong>&nbsp;{{ $consultation->medecin->full_name }}</li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialite de la consultation  :</strong>&nbsp;
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Date de la consultation  :</b><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Medecin de la consultation  :</b>&nbsp;{{ $consultation->medecin->full_name }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Spécialite de la consultation  :</b>&nbsp;
     @if(isset($consultation->medecin->specialite))
       {{ $consultation->medecin->Specialite->nom }}
     @else
       {{ $consultation->medecin->Service->Specialite->nom }}
     @endif
     </li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>&nbsp;{{ $consultation->motif }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>&nbsp;{{ $consultation->histoire_maladie }}
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Motif de consultation :</b><span>&nbsp;{{ $consultation->motif }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Histoire de la maladie :</b><span>&nbsp;{{ $consultation->histoire_maladie }}
     </span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic :</strong><span>{{ $consultation->Diagnostic }}</span></li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Diagnostic :</b><span>{{ $consultation->Diagnostic }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Résumé :</b> </span>{{ $consultation->Resume_OBS }}</li>
   </ul>
 </div>
 @if(isset($consultation->examensCliniques))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens clinique</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Examens clinique</b></span></div>
 </div>
 <div class="row">
 <ul class="list-unstyled spaced">
@@ -86,21 +86,21 @@ $('document').ready(function(){
        @foreach(json_decode($specialite->consConst ,true) as $const)
       <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom?>
         @if($consultation->examensCliniques->consts[$obj->nom ] != null)
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>{{  $obj ->description }} :</strong>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><b>{{  $obj ->description }} :</b>
             <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span>({{$obj->unite }})</li>
              @endif
         @endforeach
     @endif
-    <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat général du patient :</strong><span>{{ $consultation->examensCliniques->etat  }}</span></li>
-    <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
-      <li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
+    <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Etat général du patient :</b><span>{{ $consultation->examensCliniques->etat  }}</span></li>
+    <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Peau et phanéres  :</b><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
+      <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Autre :</b>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
   @endif
 </ul>
 </div>
 @endif
 @if($consultation->examsAppareil->count() > 0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Examens Appareils</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Examens Appareils</b></span></div>
 </div>
 <div class="row">
   <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
@@ -121,7 +121,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen biologique</strong></span>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><b>Demande d'examen biologique</b></span>
   </div>
 </div>
 <div class="row">
@@ -133,8 +133,8 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th>
-                <th class="center"><strong>Etat</strong></th>
+                <th class="center"><b>Date</b></th>
+                <th class="center"><b>Etat</b></th>
                 <th class="center" width="19%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
@@ -168,7 +168,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandExmImg)) 
 <div class="row">
-  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'examen d'imagerie</strong></span>
+  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16"><b>Demande d'examen d'imagerie</b></span>
   </div>
 </div>
 <div class="row">
@@ -180,9 +180,8 @@ $('document').ready(function(){
         <table class="table table-striped table-bordered table-hover">
           <thead class="thin-border-bottom">
             <tr>
-              <th class="center"><strong>Date</strong></th>
-              <th class="center">
-              <strong>Etat</strong></th>
+              <th class="center">Date</th>
+              <th class="center">Etat</th>
               <th class="center" width="19%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
@@ -218,7 +217,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->ordonnances))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Ordonnance</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Ordonnance</b></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -229,7 +228,7 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Date</strong></th><th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center"><b>Date</b></th><th class="center"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
@@ -251,7 +250,7 @@ $('document').ready(function(){
 @endif
 @isset($consultation->demandeHospitalisation)
 <div class="row dh">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><strong>Demande d'hospitalisation</span></strong>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><b>Demande d'hospitalisation</span></b>
   </div>
 </div>
 <div class="row dh">
@@ -303,7 +302,7 @@ $('document').ready(function(){
 @endisset
 @if($consultation->lettreOrintation->count()>0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><strong>Lettres d'Orientation</strong></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Lettres d'Orientation</b></span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -314,7 +313,7 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><strong>Spécilalité</strong></th>
+                <th class="center"><b>Spécilalité</b></th>
                 <th class="center" width="12%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
@@ -336,7 +335,7 @@ $('document').ready(function(){
                       <div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
                         <div class="profile-user-info profile-user-info-striped">
                           <div class="profile-info-row">
-                            <div class="profile-info-name text-center"><strong>Motif:</strong></div>
+                            <div class="profile-info-name text-center"><b>Motif:</b></div>
                             <div class="profile-info-value">{{ $orient->motif }}</div>
                           </div>
                         </div>
@@ -346,7 +345,7 @@ $('document').ready(function(){
                       <div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
                         <div class="profile-user-info profile-user-info-striped">
                           <div class="profile-info-row">
-                            <div class="profile-info-name text-center"><strong>Examen:</strong></div>
+                            <div class="profile-info-name text-center"><b>Examen:</b></div>
                             <div class="profile-info-value">{{ $orient->examen }}</div>
                           </div>
                         </div>

@@ -67,13 +67,13 @@
 						<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
 			      	<thead class="thin-border-bottom">
 		       		<tr>
-							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Spécialité</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Date demande</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Mode admission</strong></h5></th>
-							<th class ="center" width="12%"><h5><strong>Médecin traitant</strong></h5></th>
-						  <th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
-							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
+							<th class ="center" width="11%">Patient</th>
+							<th class ="center" width="10%">Spécialité</th>
+							<th class ="center" width="10%">Date demande</th>
+							<th class ="center" width="10%">Mode admission</th>
+							<th class ="center" width="12%">Médecin traitant</th>
+						  <th width="10%" class ="center">Priorité</th>
+							<th class="font-weight-bold center">Observation</th>
 							<th class="detail-col center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>	
@@ -120,11 +120,11 @@
 											<div class="space visible-xs"></div>
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
-													<div class="profile-info-name center"><strong>Age:</strong></div>
+													<div class="profile-info-name center"><b>Age:</b></div>
 													<div class="profile-info-value"><span>{{ $demande->consultation->patient->age }} ans</span></div>
 												</div>
 												<div class="profile-info-row">
-													<div class="profile-info-name center"><strong>Groupe sanguin:</strong></div>
+													<div class="profile-info-name center"><b>Groupe sanguin:</b></div>
 													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
@@ -132,7 +132,7 @@
 										 		</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name center"><strong>Établi par Dr:</strong></div>
+												<div class="profile-info-name center"><b>Établi par Dr:</b></div>
 												<div class="profile-info-value">
 													<span>{{ $demande->consultation->medecin->full_name }}</span>
 												</div>
@@ -143,7 +143,7 @@
 										<div class="space visible-xs"></div>
 										<div class="profile-user-info profile-user-info-striped">
 											<div class="profile-info-row">
-												<div class="profile-info-name center"><strong>Mode d'admission:</strong></div>
+												<div class="profile-info-name center"><b>Mode d'admission:</b></div>
 												<div class="profile-info-value"><h4>
 												@switch( $demande->modeAdmission )
                           @case(0)
@@ -161,13 +161,13 @@
 												</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name center"><strong>Service:</strong></div>
+												<div class="profile-info-name center"><b>Service:</b></div>
 												<div class="profile-info-value">
 													<span class="label label-sm" resize="none" readonly>{{$demande->Service->nom}}</span>
 												</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name center"><strong>Etat:</strong></div>
+												<div class="profile-info-name center"><b>Etat:</b></div>
 												<div class="profile-info-value"><h4><span class = "label label-lg label-primary">{{ $demande->etat }}</span></h4></div>
 											</div>
 										</div>	

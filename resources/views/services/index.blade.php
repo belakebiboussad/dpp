@@ -133,7 +133,7 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4><strong>Services de l'hôpital</strong></h4></div>
+<div class="row"><h4><b>Services de l'hôpital</b></h4></div>
 <div class="row">
 	<div class="col-sm-7 col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-blue">

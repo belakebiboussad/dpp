@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h4><strong> Modifier le nom du rôle : </strong></h4></div>
+<div class="row"><h4><b> Modifier le nom du rôle : </b></h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="space-10"></div>

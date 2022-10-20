@@ -20,8 +20,8 @@
               <table class="table table-striped table-bordered">
                 <thead>
                      <tr>
-                          <th class="center">#</th><th  class="center"><strong>Nom</strong></th>
-                          <th  class="center"><strong>Dosage</strong></th> <th  class="center"><strong>Forme</strong></th>
+                          <th class="center">#</th><th  class="center">Nom</th>
+                          <th  class="center">Dosage</th> <th  class="center">Forme</th>
                           <th  class="center">Posologie</th>
                           <th class="center"><em class="fa fa-cog"></em></th>
                      </tr>

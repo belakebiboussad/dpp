@@ -48,7 +48,7 @@
 				     						<div class="col-xs-6 col-sm-6"><div class="space visible-xs"></div>
 													<div class="profile-user-info profile-user-info-striped">
 														<div class="profile-info-row">
-															<div class="profile-info-name center"><strong>Type:</strong></div>
+															<div class="profile-info-name center"><b>Type:</b></div>
 															<div class="profile-info-value"><span class="label label-lg label-inverse arrowed-in">{{ $atcd->stypeatcd }}</span>
 															</div>
 														</div>
@@ -58,21 +58,21 @@
 					     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
 													<div class="profile-user-info profile-user-info-striped">
 														<div class="profile-info-row">
-															<div class="profile-info-name center col-xs-1 col-sm-1"><strong>Tabac:</strong></div>
+															<div class="profile-info-name center col-xs-1 col-sm-1"><b>Tabac:</b></div>
 															<div class="profile-info-value col-xs-1 col-sm-1">
 															  <label>
 			            								<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled />
 			            								<span class="lbl" >&nbsp; &nbsp;tabac</span>
 			            							</label>&nbsp; &nbsp; &nbsp;
 															</div>
-															<div class="profile-info-name center col-xs-1 col-sm-1"><strong>ethylisme:</strong></div>
+															<div class="profile-info-name center col-xs-1 col-sm-1"><b>ethylisme:</b></div>
 															<div class="profile-info-value  col-xs-1 col-sm-1">
 														 		<label>
 								            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme" {{ ($atcd->ethylisme)? "checked" :"" }} disabled/>
 								            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
 							        					</label>
 															</div>
-															<div class="profile-info-name center col-xs-2 col-sm-2"><strong>Habitudes Alimentaires:</strong></div>
+															<div class="profile-info-name center col-xs-2 col-sm-2"><b>Habitudes Alimentaires:</b></div>
 															<div class="profile-info-value col-xs-6 col-sm-6">
 					         	 						<textearea>{{ $atcd->habitudeAlim }}</textearea>
 												 			</div>
@@ -106,7 +106,7 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class ="hidden"></th>
-							<th class="center" width="10%"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i><strong>&nbsp;<span style="font-size:14px;">Date</span></strong></th>
+							<th class="center" width="10%"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i><b>Date</b></th>
 							<th class="center" width="8%">Code CIM</th>
 							<th class="center">Description</th>
 							<th class="center" width="8%"><em class="fa fa-cog"></em></th>

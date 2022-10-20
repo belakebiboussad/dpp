@@ -9,19 +9,16 @@
 				<table class="display table-responsive tablist" id="hosptList"> <!-- table table-striped table-bordered table-hover -->
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center"><strong>Date d'entrée</strong></th>
-              <th class="center sorting_disabled">
-                <strong>Médecin traitant</strong></th>
-							<th class="center"><strong>Date(sort/Prév)</strong></th>				
-						  <th class="center sorting_disabled"><strong>Etat</strong></th><th class="center sorting_disabled"><em class="fa fa-cog"></em></th>				
+							<th class="center">Date d'entrée</th><th class="center sorting_disabled">Médecin traitant</th>
+              <th class="center">Date(sort/Prév)</th>				
+						  <th class="center sorting_disabled">Etat</th><th class="center sorting_disabled"><em class="fa fa-cog"></em></th>				
 						</tr>
 					</thead>
 					<tbody>
 					@if($patient->hospitalisations->count()>0)
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
-							<td>{{ $hosp->date }}</td>
-              <td>{{ $hosp->medecin->full_name }}</td>
+							<td>{{ $hosp->date }}</td><td>{{ $hosp->medecin->full_name }}</td>
 							<td>{{ ($hosp->etat_id == 1 ) ? $hosp->Date_Sortie : $hosp->Date_Prevu_Sortie }}</td>
 							<td>
                <span class="badge badge-{{ ( $hosp->etat_id == 1) ? 'primary':'success' }}">{{ $hosp->etat }}</span>

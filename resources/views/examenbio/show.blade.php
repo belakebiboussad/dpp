@@ -3,7 +3,7 @@
  <div class="row" width="100%">  @include('patient._patientInfo', $patient) </div>
  <div class="content">
     <div class="row">
-        <div class="col-sm-5"><h4><strong>Détails de la demande d'examen biologique</strong></h4></div>
+        <div class="col-sm-5"><h4><b>Détails de la demande d'examen biologique</b></h4></div>
         <div class="col-sm-7">
           @if( Auth::user()->role_id == 11)
             @if( $demande->etat =="En Cours" )
@@ -28,7 +28,7 @@
       <div class="row">
       <div class="col-xs-12">
         <div class="widget-box">
-          <div class="widget-header"><h5 class="widget-title"><strong>Détails de la demande :</strong></h5></div>
+          <div class="widget-header"><h5 class="widget-title"><b>Détails de la demande :</b></h5></div>
         <div class="widget-body">
           <div class="widget-main">
             <div class="user-profile row">
@@ -63,9 +63,9 @@
                   <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th class="center"><strong>#</strong></th>
-                        <th class="center"><strong>Nom examen</strong></th>
-                        <th class="center"><strong>Classe examen</strong></th>
+                        <th class="center">#</th>
+                        <th class="center">Nom examen</th>
+                        <th class="center">Classe examen</th>
                         <th class="center">Etat</th>
                         <th class="center"><em class="fa fa-cog"></em></th>
                       </tr>

@@ -98,7 +98,7 @@ $('document').ready(function(){
 				<hr/>
 				<div class="pull right">
 					<button id="ajoutercmd" class="btn btn-sm btn-success" disabled>
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i><strong>Ajouter</strong>
+						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i><b>Ajouter</b>
 					</button>
 				</div>
 			</div>

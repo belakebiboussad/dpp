@@ -51,8 +51,7 @@
 						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
 						<td class="center">
 							<button class="btn btn-xs btn-success addReserv" value ='{{ $rdv->id }}' title="Réserver un lit">
-							<!-- data-demande-id = "{{-- $rdv->demandeHospitalisation->id --}}" -->
-              	<i class="fa fa-bed" aria-hidden="true"></i>
+							 	<i class="fa fa-bed" aria-hidden="true"></i>
 							</button>
 						</td>
 					</tr>
@@ -72,9 +71,9 @@
     $(".addReserv").click(function(e){
       e.preventDefault();
       $('#rdv_id').val($(this).val());
-      $.get('/rdvHospi/' + $(this).val() + '/edit', function (data, status, xhr) { 
-        $("#dateEntree").val(data['date']);
-        $("#dateSortiePre").val(data['date_Prevu_Sortie']);
+      $.get('/rdvHospi/' + $(this).val() + '/edit', function (data) { 
+        $(".date").val(data['date']);
+        $(".date_end").val(data['date_Prevu_Sortie']);
         $('.demande_id').val(data['id_demande']);
         $('#bedReservModal').modal('show');
       });   
@@ -92,8 +91,7 @@
               $(".serviceHosp").prop("selectedIndex", 0).change();
               $('#bedReservModal').modal('hide');
             },
-      });
-      
+      }); 
     });
   })
 </script>

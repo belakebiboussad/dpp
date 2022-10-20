@@ -48,9 +48,9 @@
 					 	<thead class="thin-border-bottom">
 						  <tr style ="background-color: #eee;">
                   <th class ="hidden"></th>
-							    <th class ="center" class="nsort" style="color; white;"><strong>Examen du</strong></th>
+							    <th class ="center" class="nsort" style="color; white;">Examen du</th>
                    <th class ="hidden"></th>
-                  <th class ="center"><strong>Type d'examen</strong></th>
+                  <th class ="center">Type d'examen</th>
 								  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
 						  </tr>
 						</thead>

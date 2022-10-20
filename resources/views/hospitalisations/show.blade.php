@@ -4,7 +4,7 @@
 <div class="pull-right">
    <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row"><div class="col-sm-12"><h4><strong> Hospitalisation : suivi(e) du patient</strong></h4></div></div><div class="space-12"></div>
+<div class="row"><div class="col-sm-12"><h4><b> Hospitalisation : suivi(e) du patient</b></h4></div></div><div class="space-12"></div>
 <div class="tabbable"  class="user-profile">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>

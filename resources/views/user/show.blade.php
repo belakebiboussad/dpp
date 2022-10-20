@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h4> <strong>Détails : {{ $user->name }}</strong></h4>
+<div class="row"><h4> <b>Détails : {{ $user->name }}</b></h4>
 <div class="pull-right">
 	<a href="{{ route('users.edit',$user->id )}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="modifier">
 		<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>

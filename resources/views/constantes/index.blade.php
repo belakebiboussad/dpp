@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-{{($hosp->etat_id != 1) ? '8':'12' }}">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><strong>Patient : {{ $patient->full_name }}</strong></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Patient : {{ $patient->full_name }}</b></h5></div>
         <div class="widget-body">
           <div class="widget-main">
             @foreach(json_decode($specialite->hospConst ,true) as $const)
@@ -14,7 +14,7 @@
   @if($hosp->etat_id != 1)
   <div class="col-sm-4">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><strong>Nouvelle prise</strong></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Nouvelle prise</b></h5></div>
         <div class="widget-body">
           <div class="widget-main">
             @if($message = Session::get('succes'))

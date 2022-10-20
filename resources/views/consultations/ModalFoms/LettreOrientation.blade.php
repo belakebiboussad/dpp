@@ -29,11 +29,11 @@ td
                   <thead class="thin-border-bottom">
                     <tr>
                     <th class ="hidden"></th>
-                    <th class="center"><strong>Spécialité</strong></th>
+                    <th class="center">Spécialité</th>
                     <th class="center">
-                      <strong>Motif de consultation</strong>
+                      Motif de consultation
                     </th>
-                    <th class="center hidden-480"><strong>Examen général</strong></th>
+                    <th class="center hidden-480">Examen général</th>
                     <th class="center" width="12%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>

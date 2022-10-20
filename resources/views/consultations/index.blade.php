@@ -41,11 +41,11 @@
                                           }
                                       },
                                       { data: null , title:'Specialite', "orderable":false,
-                                            "render": function(data,type,full,meta){
-                                                    if(data.medecin.specialite != null)
-                                                          return data.medecin.specialite.nom;
-                                                    else
-                                                            return data.medecin.service.specialite.nom;       
+                                        "render": function(data,type,full,meta){
+                                              if(data.medecin.specialite != null)
+                                                    return data.medecin.specialite.nom;
+                                              else
+                                                      return data.medecin.service.specialite.nom;       
                                           } 
                                       },
                                       { data: "medecin.full_name", title:'Medecin', "orderable":false },
@@ -83,7 +83,7 @@
 @endsection
 @section('main-content')
 <div class="row">
-	<div class="col-sm-12 col-md-12"> <h4><strong>Rechercher une consultation</strong></h4>
+	<div class="col-sm-12 col-md-12"> <h4><b>Rechercher une consultation</b></h4>
   	<div class="panel panel-default"><div class="panel-heading">Rechercher par :</div>
     	<div class="panel-body">
       <div class="row filter-row">

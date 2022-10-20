@@ -3,25 +3,26 @@
     <div class="modal-content ">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel"><strong>Ajouter une ordonnance</strong></h4>
+        <h4 class="modal-title" id="myModalLabel"><b>Ajouter une ordonnance</b></h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-6 col-xs-12">
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
               <thead>
-                <tr> <th class="center"><strong>Médicament</strong></th><th class="center priority-3"><strong>Forme</strong></th>
-                <th class="center"><strong>Dosage</strong></th> <th class="center"><em class="fa fa-cog"></em></th></tr></thead>
+                <tr> <th class="center">Médicament</th><th class="center priority-3">Forme</th>
+                <th class="center">Dosage</th> <th class="center"><em class="fa fa-cog"></em></th></tr></thead>
             </table>
           </div>
           <div class="col-sm-6 col-xs-12">
              <div class="row">
              <div  class="col-sm-9 col-xs-12">
                    <input type="text" id="id_medicament" name="id_medicament" hidden>
-                   <label for="nommedic"><strong>Nom médicament :</strong></label><input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>  
+                   <label for="nommedic">Nom médicament :</label>
+                   <input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>  
              </div>
               <div class="col-sm-3 hidden-xs">
-                <label for="form-field-8"> <strong>Forme :</strong></label><input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
+                <label for="form-field-8">Forme :</label><input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
               </div>
             </div><div class="space-12 hidden-xs"></div>
             <div class="row">

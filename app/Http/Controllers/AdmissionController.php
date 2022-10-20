@@ -13,6 +13,7 @@ use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\hospitalisation;//use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;//use Response;
+use Carbon\Carbon;
 class AdmissionController extends Controller
 {
     /**
@@ -26,21 +27,17 @@ class AdmissionController extends Controller
      * @return \App\modeles\rdv_hospitalisation
      */
     public function __construct()
-      {
-          $this->middleware('auth');
-      }
-      public function index()
-      {
-        $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')
-                                    ->whereHas('demandeHospitalisation', function($q){
-                                           $q->where('etat', 1);
-                                    })->where('etat',null)->where('date',date("Y-m-d"))->get();
-        $demandesUrg = DemandeHospitalisation::with('bedAffectation')
-                                             ->whereHas('consultation', function($q){
-                                                $q->where('date', date("Y-m-d"));
-                                             })->where('modeAdmission',2)->where('etat',1)->get();
-        $etatsortie = Etatsortie::where('type','1')->get();
-        return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
+    {
+        $this->middleware('auth');
+    }
+    public function index()
+    {
+/* $rdvs  = rdv_hospitalisation::with(['bedReservation','demandeHospitalisation.bedAffectation','demandeHospitalisation' => function($q) {
+$q->where('etat', 1);}])->whereNull('etat')->where('date',date("Y-m-d"))->get();
+$demandesUrg = DemandeHospitalisation::with('bedAffectation')->whereHas('consultation', function($q){$q->where('date', date("Y-m-d"));
+})->where('modeAdmission',2)->whereNull('etat')->get();*/
+      $etatsortie = Etatsortie::where('type','1')->get();
+      return view('admission.index', compact('etatsortie'));//'rdvs','demandesUrg',
     }
     /**
      * Show the form for creating a new resource.
@@ -55,37 +52,31 @@ class AdmissionController extends Controller
      */
       public function store(Request $request)
       { 
-        $now = \Carbon\Carbon::now();
-         $hospend =  \Carbon\Carbon::now()->addDay(2)->toDateString();
-        if(isset($request->id_RDV ))
-        {
-              $rdv= rdv_hospitalisation::find($request->id_RDV );
-             $demande = $rdv ->demandeHospitalisation;
-        }
-        else 
-                   $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
-        $adm=admission::create([     
-            "id_rdvHosp"=> (isset($request->id_RDV)) ? $request->id_RDV : null,//$request->id_RDV,
-            "demande_id"=> $demande->id, 
-            "date"=>$now,        
-            "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
+        $now = Carbon::today();
+        $hospend =  Carbon::now()->addDay(2)->toDateString();
+        if(isset($request->id_RDV )) // {
+          $rdv = rdv_hospitalisation::find($request->id_RDV ); //$demande = $rdv ->demandeHospitalisation;}
+        else
+          $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
+        $adm = admission::create([     
+              "id_rdvHosp"=> (isset($request->id_RDV)) ? $request->id_RDV : null,//$request->id_RDV,
+              "demande_id"=> $request->demande_id, 
+              "pieces"=> $request->pieces, 
+              "date"=>$now, 
         ]);
-       $hosp= hospitalisation::create([
+        $hosp= hospitalisation::create([
                 "date"=>$now->format('Y-m-d'),
-                "Date_Prevu_Sortie"=> (isset($request->id_RDV)) ? $rdv->date_Prevu_Sortie:$hospend ,//$request->Date_Prevu_Sortie,
-                "patient_id"=>$adm->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
+                "Date_Prevu_Sortie"=> (isset($request->id_RDV)) ? $rdv->date_Prevu_Sortie:$hospend ,
+                "patient_id"=>$adm->demandeHospitalisation->consultation->patient->id,
                 "id_admission"=>$adm->id,
-                'medecin_id'=>$adm->demandeHospitalisation->consultation->medecin->id,//$request->medecin,
-                //"garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
-                "modeHosp_id"=>(isset($request->mode)) ? $request->mode : null //$request->mode,
+                'medecin_id'=>$adm->demandeHospitalisation->consultation->medecin->id,
+                "modeHosp_id"=>(isset($request->mode)) ? $request->mode : null 
         ]); 
         $adm->demandeHospitalisation->update(["etat" =>3]);
         if(isset($dmission->id_RDV))
-          $rdv->update([ "etat" =>1 ]);
-        return redirect()->action('AdmissionController@index');
-/*if(isset($request->id_RDV)){ $demande =  DemandeHospitalisation::find($request->demande_id);$adm=admission::create(["id_rdvHosp"=>$request->id_RDV,"demande_id"=>$request->demande_id,"date"=>$now,                    "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
-]);$adm->rdvHosp->demandeHospitalisation->update([ "etat" =>2  ]);$adm->rdvHosp->update([ "etat" => 1  ]);}else{$demande = DemandeHospitalisation::FindOrFail($request->demande_id); $adm=admission::create(["demande_id"=>$request->demande_id,"date"=>$now, "id_lit"=>$demande->bedAffectation->lit_id]);$demande->update([  "etat" =>2  ]);}return redirect()->action('AdmissionController@index');*/
-        }  
+              $rdv->update([ "etat" =>1 ]);
+        return $adm->demande_id; 
+      }  
     /**
      * Display the specified resource.
      *
@@ -134,7 +125,7 @@ class AdmissionController extends Controller
     public function sortir()
     {
       $hospitalistions = hospitalisation::with('admission.demandeHospitalisation')->whereHas('admission', function ($q) {
-                                            $q->where('etat',null);
+                                            $q->whereNull('etat');
                                         })->where('etat','1')->where('Date_Sortie' , date('Y-m-d'))->get();
       $etatsortie = Etatsortie::where('type','2')->get();//etets de sortie por hospital
       return view('admission.sorties', compact('hospitalistions','etatsortie')); 
@@ -160,7 +151,7 @@ class AdmissionController extends Controller
               $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                 ->whereHas('hospitalisation',function($q){
                                    $q->where('etat',1);
-                                })->where('etat',null)->get();
+                                })->whereNull('etat')->get();
           else
           {
             $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
@@ -171,10 +162,4 @@ class AdmissionController extends Controller
           return $adms;
         }
     }
-/*public function getDetails($id){ $nbr=0; $adm =  admission::find($id);$medecins = employ::where('service_id',Auth::user()->employ->service_id)->orderBy('nom')->get();
-$modesHosp = ModeHospitalisation::all(); $to = $from =  \Carbon\Carbon::now()->format('Y-m-d');if($adm->demandeHospitalisation->getModeAdmissionID($adm->demandeHospitalisation->modeAdmission) !=2)
-{$toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);$to =  \Carbon\Carbon::parse($toDate)->format('Y-m-d');
-$fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date);$from =  \Carbon\Carbon::parse($fromDate)->format('Y-m-d');
-$nbr = $toDate->diffInDays($fromDate);}$view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','from','nbr','to'))->render();
-return (['html'=>$view]);}*/
 }

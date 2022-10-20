@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h4><strong>Ajouter un nouveau service :</strong></h4></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h4><b>Ajouter un nouveau service :</b></h4></div><div class="space-12 hidden-xs"></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
-			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong></strong></h5></div>
+			<div class="widget-box widget-primary">
+				<div class="widget-header" bg="blue"></div>
 				<div class="widget-body">
 				<div class="widget-main">
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
@@ -64,8 +64,7 @@
 		</div>{{-- col-xs-6 --}}
 		<div class="col-sm-6 hidden-xs">
 			<div class="widget-box" id="widget-box-2">
-			
-           <div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Liste des services </strong></h5></div>
+           <div class="widget-header" bg="blue"><h5 class="widget-title"><b>Liste des services </b></h5></div>
 
 			<div class="widget-body">
 			<ol>

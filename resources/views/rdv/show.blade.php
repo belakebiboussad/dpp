@@ -17,14 +17,14 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="col-sm-11 label label-lg label-info arrowed-in arrowed-right">
-							<span class="invoice-info-label"><strong>Information du patient</strong></span>
+							<span class="invoice-info-label"><b>Information du patient</b></span>
 							</div>
 						</div>
 					</div>
 					<div  class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Nom :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Nom :</b>
 								<b class="blue">{{ $rdv->patient->Nom }}</b>
 							</li>
 						</ul>
@@ -32,7 +32,7 @@
 					<div  class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b>
 								<b class="blue">{{ $rdv->patient->Prenom }}</b>
 							</li>
 						</ul>
@@ -40,7 +40,7 @@
 					<div  class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Genre :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Genre :</b>
 								<b class="blue">{{ $rdv->patient->sexe =="M" ? "Masculin" : "Féminin" }}</b>
 							</li>
 						</ul>
@@ -48,7 +48,7 @@
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Date de naissance :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b>
 								<b class="blue">{{ $rdv->patient->Dat_Naissance }}</b>
 							</li>
 						</ul>
@@ -56,21 +56,20 @@
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Télephone:</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Télephone:</b>
 								<b class="blue">{{ $rdv->patient->tele_mobile1 }}</b>
 							</li>
 						</ul>
-					</div>
-					<div class="space-12"></div>
+					</div><div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-11 label label-lg label-success arrowed-in arrowed-right">
-						<span class="invoice-info-label">	<strong>Rendez-vous</strong></span>
+						<span class="invoice-info-label">	<b>Rendez-vous</b></span>
 						</div>
 					</div>
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Date RDV :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Date RDV :</b>
 								<b class="red">{{ $rdv->date->format('Y-m-d') }}</b>
 							</li>
 						</ul>
@@ -78,7 +77,7 @@
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Etat  :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><b>Etat  :</b>
 									@if(isset($rdv->etat))
 											@switch($rdv->etat)
 												@case(0)

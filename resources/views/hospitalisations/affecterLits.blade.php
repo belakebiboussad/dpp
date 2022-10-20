@@ -36,14 +36,14 @@
 			         	<tr>
 				     		<th hidden></th>
 						<th class="center" width="3%" ></th>
-						<th class="center" width="11%"><h5><strong>Patient</strong></h5></th>
-						<th class="center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-						<th class="center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
-						<th width="12%" class="center"><h5><strong>Date sortie prévue</strong></h5></th>
-						<th class="detail-col center"><h5><strong>Heure sortie prévue</strong></h5></th>
-						<th class="detail-col center"><h5><strong>Service</strong></h5></th>
-						<th class="detail-col center"><h5><strong>Salle</strong></h5></th>
-						<th class="detail-col center"><h5><strong>Lit</strong></h5></th>
+						<th class="center" width="11%">Patient</th>
+						<th class="center" width="15%">Date RDV</th>
+						<th class="center" width="10%">Heure RDV</th>
+						<th width="12%" class="center">Date sortie prévue</th>
+						<th class="detail-col center">Heure sortie prévue</th>
+						<th class="detail-col center">Service</th>
+						<th class="detail-col center">Salle</th>
+						<th class="detail-col center">Lit</th>
 						<th class="detail-col center"></th>
 		       			</tr>
 		      		</thead>
@@ -59,17 +59,17 @@
 					   		</label>
 						</td>
 					       <td> {{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
-						<td><strong>{{ $rdv->date }}</strong></td>
-						<td><strong>  {{ $rdv->heure }}</strong></td>
+						<td><b>{{ $rdv->date }}</b></td>
+						<td><b>  {{ $rdv->heure }}</b></td>
 					<td class="center">
-						<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
+						<b>{{ $rdv->date_Prevu_Sortie }}</b>
 					</td>
 					<td class="center">
-					  	<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
+					  	<b>{{ $rdv->heure_Prevu_Sortie }}</b>
 					</td>
-					<td><strong>{{ $rdv->bedReservation->lit->salle->service->nom }}</strong></td>
-					<td><strong>{{ $rdv->bedReservation->lit->salle->nom }}</strong></td>
-					<td><strong>{{ $rdv->bedReservation->lit->nom }}</strong></td>
+					<td><b>{{ $rdv->bedReservation->lit->salle->service->nom }}</b></td>
+					<td><b>{{ $rdv->bedReservation->lit->salle->nom }}</b></td>
+					<td><b>{{ $rdv->bedReservation->lit->nom }}</b></td>
 					<td class="center">
 						<a href="{{ route('hospitalisation.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Affecter un Lit" >
 							<i class="ace-icon fa fa-bed bigger-120"></i>affecter

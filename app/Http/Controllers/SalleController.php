@@ -116,45 +116,63 @@ class SalleController extends Controller
       $salle->delete();
       return redirect()->route('salle.index');
     }
+    public function getsallesTeste(Request $request)
+    {
+      $genre = 0;
+      $service = service::FindOrFail($request->ServiceID);
+      $demande = DemandeHospitalisation::with('consultation.patient')->FindOrFail($request->demande_id);
+      if($demande->consultation->patient->Sexe == "F")
+        $genre = 1;
+       $salles = $service->salles()->where('genre', $genre)->whereNull('etat')->get();
+      $outout = "";
+      if( $request->Affect == "0")
+      {     
+        foreach ($salles as $salle) {
+          foreach ($salle->lits as $lit) {   
+            $outout = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+            return $outout;
+          }
+        }
+     
+      }else
+      {
+        return "affectation";
+      }
+    } 
     public function getsalles(Request $request)
     {
-      if($request->ajax())
+      $genre = 0;//homme
+      $service = service::FindOrFail($request->ServiceID);
+      $demande = DemandeHospitalisation::with('consultation.patient')->FindOrFail($request->demande_id);
+      if($demande->consultation->patient->Sexe == "F")
+        $genre = 1;
+      $salles = $service->salles()->where('genre', $genre)->whereNull('etat')->get();//etat =1 bloqué
+      if( $request->Affect == '0')//Affect = 0 => reserv, Affect = 1 => affectation  
       {
-        $type = 0;
-        $service = service::FindOrFail($request->ServiceID);
-        $demande = DemandeHospitalisation::with('consultation.patient')->FindOrFail($request->demande_id);
-        if($demande->consultation->patient->Sexe == "M")
-          $type = 0;
-        elseif($demande->consultation->patient->Sexe == "F")
-          $type = 1;//$salles = salle::where('service_id',$request->ServiceID)->where('genre', $type)->where('etat',null)->get();
-        $salles = $service->salles()->where('genre', $type)->where('etat',null)->get();
-        if( $request->Affect == '0')  
-        {
+        foreach ($salles as $key1 => $salle) {
+          foreach ($salle->lits as $key => $lit) {
+            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+            if(! $free)
+              $salle->lits->pull($key);
+          }
+        }
+        foreach ($salles as $key => $salle) {
+          if((count($salle->lits) == 0))
+            $salles->pull($key);
+        }
+        }else{
           foreach ($salles as $key1 => $salle) {
-            foreach ($salle->lits as $key => $lit) {
-              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-              if(! $free)
-                $salle->lits->pull($key);
-            }
+               foreach ($salle->lits as $key => $lit) {
+                    $affect = $lit->isAffected();
+                    if($affect)
+                      $salle->lits->pull($key);
+                }
           }
           foreach ($salles as $key => $salle) {
             if((count($salle->lits) == 0))
               $salles->pull($key);
           }
-          }else{
-            foreach ($salles as $key1 => $salle) {
-              foreach ($salle->lits as $key => $lit) {
-                $affect = $lit->isAffected($lit->id);
-                if($affect)
-                  $salle->lits->pull($key);
-              }
-            }
-            foreach ($salles as $key => $salle) {
-              if((count($salle->lits) == 0))
-                $salles->pull($key);
-            }
-        }
-        return($salles);
       }
+      return($salles);
     }
 }

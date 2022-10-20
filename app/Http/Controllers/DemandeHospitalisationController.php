@@ -81,13 +81,20 @@ class DemandeHospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function edit($id)
+      public function edit(Request $request, $id)
       {
         $demande = DemandeHospitalisation::FindOrFail($id);
-        $services = service::all();
-        $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
-        return view('demandehospitalisation.edit', compact('demande','services','specialites'));
-    }
+        if($request->ajax())  
+        {
+          return $demande;
+        }else
+        {
+          
+          $services = service::all();
+          $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
+          return view('demandehospitalisation.edit', compact('demande','services','specialites'));
+          }
+      }
     /**
      * Update the specified resource in storage.
      *
@@ -146,10 +153,15 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
+      // etat 1 = programé à l'affectation du lit par le surv
+      $demandesUrg = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
                                                       ->whereHas('consultation',function($q) use($date){
                                                               $q->where('date', $date);
                                                       }) ->where('modeAdmission',2)->where('etat',1)->get();
-       return json_encode($demandehospitalisations);        
+      // $demandesUrg = DemandeHospitalisation::with('bedAffectation',)
+      //                                        ->whereHas('consultation', function($q){
+      //                                           $q->where('date', date("Y-m-d"));
+      //                                        })->where('modeAdmission',2)->whereNull('etat')->get();                                                  
+      return json_encode($demandesUrg);        
     }
 }

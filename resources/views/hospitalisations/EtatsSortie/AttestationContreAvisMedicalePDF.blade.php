@@ -36,42 +36,29 @@
       <main> 
         <hr class="h-1 mtp33"/>
         <div>
-         <h3 class="center rect"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3>
+         <h3 class="center rect"><span style="font-size: xx-large;"><b>{{ $etat->nom}}</b></span></h3>
         </div><br>
+        <section class="borderv"><h5 class="center"> <b>PARTIE A REMPLIR PAR LE PRATICIEN</b></h5></section>
         <section class="borderv">
-          <h5 class="center"> <strong>PARTIE A REMPLIR PAR LE PRATICIEN</strong></h5>
-        </section>
-        <section class="borderv">
-          <div class="tab">
-            Je soussigné(e),
-          </div>
+          <div class="tab">Je soussigné(e),</div>
           <div>
             Madame, Mademoiselle, Monsieur : <span>{{ $obj->medecin->full_name }}</span><br/><span>
             Docteur en Médecine et exerçant en tant que .................................au sein  de {{ $etab->nom }} ,
             Certifie avoir été informé que {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et 
             déclare vouloir quitter définitivement l'établissement le  {{ $date}}
               à :............................heures </span><br>
-            Le :  {{ $date }} <strong>J'ai personnellement informé de manière claire, précise et compréhensible le patient des risques médicaux qu'il encours et des alternatives thérapeutiques dégradées.</strong><br><br>
+            Le :  {{ $date }} <b>J'ai personnellement informé de manière claire, précise et compréhensible le patient des risques médicaux qu'il encours et des alternatives thérapeutiques dégradées.</b><br><br>
             <span>En conséquence, je déclare que ni mes responsabilités civiles et pénales et celles de l'établissement ne pourront être engagées si les risques exposés au patient se réalisaient.</span>
             <br><br>
             <table>
-              <tr>
-                <td>Fait à  $etab->acronyme, le {{ $date }}</td>
-                <td></td>
-                <td>Signature</td>
-              </tr>
-            </table>
-           <br><br>
+              <tr><td>Fait à  $etab->acronyme, le {{ $date }}</td><td></td><td>Signature</td></tr>            
+            </table><br><br>
           </div>
-        </section>
-        <br>
-        <section class="borderv">
-          <h5 class="center"><strong>PARTIE A REMPLIR PAR LE PATIENT</strong></h5>
-        </section>
+        </section><br>
+        
+        <section class="borderv"><h5 class="center"><b>PARTIE A REMPLIR PAR LE PATIENT</b></h5></section>
         <section class="borderv"> 
-        <div class="tab">
-          Je soussigné(e),
-        </div>
+        <div class="tab">Je soussigné(e),</div>
         <div>
           {{ $obj->patient->getCivilite() }} {{ $obj->patient->getCivilite()}} {{ $obj->patient->full_name }} actuellement hospitalisé(e) à l'Hôpital refuse les soins proposés et déclare vouloir 
           quitter définitivement l'établissement le  {{ $date }}
@@ -81,21 +68,16 @@
             dans l'établissement, des risques médicaux encourus du fait de ce refus de soins et de cette sortie contre
             avis médical. 
           </span><br>
-          <strong>
+          <b>
             Je reconnais que cette décision est prise selon ma propre volonté et qu'elle va à l'encontre de
             l'avis du Médecin. 
-          </strong><br>
+          </b><br>
           <span>En conséquence, je reconnais que ni les responsabilités civiles et pénales du Médecin et de l'établissement
                 ne pourront être engagées si les risques qui m'ont été exposés se réalisaient.
           </span><br>
-          <strong>Je maintiens néanmoins ma décision.</strong>
-          <br><br>
+          <b>Je maintiens néanmoins ma décision.</b><br><br>
           <table>
-            <tr>
-              <td>Fait à {{ $etab->acronyme}}, le {{ $date }}</td>
-              <td></td>
-              <td>Signature</td>
-            </tr>
+            <tr><td>Fait à {{ $etab->acronyme}}, le {{ $date }}</td><td></td><td>Signature</td></tr>
           </table>
           <br><br>
         </div>

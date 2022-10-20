@@ -16,8 +16,8 @@
             <table class="table  table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="center"><strong>Nom</strong></th><th class="center"><strong>Posologie</strong></th>
-                  <th class="center"><strong>Médecin prescripteur</strong></th><th class="center"><strong>Date prescription</strong></th>
+                  <th class="center">Nom</th><th class="center">Posologie</th>
+                  <th class="center">Médecin prescripteur</th><th class="center">Date prescription</th>
                   <th class="center"><em class="fa fa-cog"></em></th>
                 </tr>
               </thead>
@@ -54,10 +54,10 @@
             <table  class="table  table-bordered table-hover">
         <thead>
           <tr>
-            <th class="center"><strong>Denomination</strong></th>
-            <th class="center"><strong>Posologie</strong></th>
-            <th class="center"><strong>Médecin prescripteur</strong></th>
-            <th class="center"><strong>Date prescription</strong></th>
+            <th class="center">Denomination</th>
+            <th class="center">Posologie</th>
+            <th class="center">Médecin prescripteur</th>
+            <th class="center">Date prescription</th>
             <th class="center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
@@ -95,8 +95,8 @@
             <table  class="table  table-bordered table-hover">
               <thead>
               <tr>
-                <th class="center"><strong>Constante</strong></th>
-                <th class="center"><strong>Observation</strong></th>
+                <th class="center">Constante</th>
+                <th class="center">Observation</th>
                 <th class="center"><em class="fa fa-cog"></em></th>
               </tr>
               </thead>

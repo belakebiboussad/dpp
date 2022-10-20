@@ -595,7 +595,7 @@
           return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
         }
        function ImprimerEtat(type,className,objID)
-      {  /* // $("#className").val( className ); $("#objID").val(objID)*/
+      {  
              $("#etatsList").empty()
                $.ajax({
                       type: "GET",

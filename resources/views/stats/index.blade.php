@@ -319,7 +319,7 @@ $(function(){
           data: {
               labels: {!! $monthLabels !!} ,
               datasets: [{
-                  label: "DMO",
+                  label: "DMH",
                   data: {{ $avHospStysub }},
                   backgroundColor:'#49be25',
                   borderColor:'#46BFBD',

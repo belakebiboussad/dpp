@@ -42,7 +42,7 @@
 @section('main-content')
 <div class="container-fluid">
   <div>
-  	<h4><strong>Ajouter un nouveau patient</strong></h4>
+  	<h4><b>Ajouter un nouveau patient</b></h4>
   	<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un patient
@@ -67,9 +67,9 @@
 					</div>
 	   		 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			  	 	<li class="active">
-			   			<a data-toggle="tab" href="#Assure" class="jumbotron"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
+			   			<a data-toggle="tab" href="#Assure" class="jumbotron"><span class="bigger-130"><b>Assuré(e)</b></span></a>
 						</li>
-						<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
+						<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><b>Patient</b></span></a></li>
 			 		</ul>
 			 		<div class="tab-content">
 						<div id="Assure" class="tab-pane in active">@include("assurs.addAssure")</div>

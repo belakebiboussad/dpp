@@ -32,7 +32,7 @@
                        </div>
               </div>
               <div class="col-sm-1">
-              <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"> <strong>Inc</strong></span>
+              <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"><strong>Inc</strong></span>
               </div>
 	</div>
         <div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">

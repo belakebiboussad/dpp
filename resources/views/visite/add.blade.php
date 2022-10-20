@@ -289,10 +289,10 @@
 									  <th class ="center sorting_disabled">Acte</th>
 										<th class ="center sorting_disabled">Type</th>
 										<th class ="center sorting_disabled">Code NGAP</th>
-<!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>	<th scope="col" class ="center sorting_disabled" width="3%">Nombre de jours</th> -->
+<!-- <th scope="col" class ="center sorting_disabled">Périodes</th>	<th scope="col" class ="center sorting_disabled" width="3%">Nombre de jours</th> -->
 										<th class ="center sorting_disabled">Application</th>
 										<th class ="center sorting_disabled">Médecin prescripteur</th>											
-                                                                       <th class=" center nosort"><em class="fa fa-cog"></em></th>
+                    <th class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -330,7 +330,7 @@
 							</h5>
 							<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 								<div class="fa fa-plus-circle"></div>
-								<a href="#" id="btn-addTrait" class="btn-xs tooltip-link"><h5><strong>Traitement</strong></h5></a>	
+								<a href="#" id="btn-addTrait" class="btn-xs tooltip-link"><h5><b>Traitement</b></h5></a>	
 							</div>
 						</div>	
 						<div class="widget-body" id ="TraitementWidget">
@@ -340,7 +340,7 @@
 								<tr class ="center">
 									<th class ="hidden"></th>
 									<th class ="center sorting_disabled">Nom médicament</th>
-									<th class ="center sorting_disabled">Posologie</th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
+									<th class ="center sorting_disabled">Posologie</th><!--<th class ="center">Périodes</th><th class ="center" width="3%">Nombre de jours</th> -->	
 									<th class ="center sorting_disabled">Médecin prescripteur</th>											
 									<th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
 								</tr>

@@ -156,11 +156,11 @@ $(function(){
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">
-          <div class="panel-heading"><div class="left"> <strong>Rendez-vous</strong></div></div>
+          <div class="panel-heading"><div class="left"> <b>Rendez-vous</b></div></div>
           <div class="panel-body"><div class="calendar1"></div></div>
           <div class="panel-footer">
-          <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-          <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
+          <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV fixe</b></span>
+          <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV à fixer</b></span> 
         </div>
     </div>
   </div>

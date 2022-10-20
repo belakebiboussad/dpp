@@ -33,8 +33,8 @@
 					<tbody>
 					@foreach($rdvs as $rdv)
 					<tr id="{{ 'demande'.$rdv->demandeHospitalisation->id }}">
-						<td>{{$rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
-            <td>{{$rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
+						<td>{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}</td>
+            <td>{{ $rdv->demandeHospitalisation->consultation->patient->Sexe }}</td>
 						<td>
               <span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
                   {{ $rdv->demandeHospitalisation->modeAdmission }}
@@ -104,8 +104,6 @@
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 									</button>
-{{-- <a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-									</a> --}}
 								</td>
 							</tr>
 							@endforeach
@@ -142,10 +140,9 @@ $(function(){
         type:'POST',
         data:formData,
         success: function (data) {
-               $("#demande" + formData['demande_id']).remove();
-               $('#bedAffectModal').trigger("reset");
-               $('#bedAffectModal').modal('hide');
-              
+          $("#demande" + formData['demande_id']).remove();
+          $('#bedAffectModal').trigger("reset");
+          $('#bedAffectModal').modal('hide'); 
         }
    });
   });

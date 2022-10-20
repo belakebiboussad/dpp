@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><strong>Demande d'examen biologique</strong></title>
+  <title><b>Demande d'examen biologique</b></title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/styles.css">
   <style type="text/css">
@@ -20,7 +20,7 @@
 	  @include('partials.etatHeader')
     <div class="space-12"></div>
     <h5 class="mt-20 center">
-      <span style="font-size: xx-large;"><strong>Demande d'examen biologique</strong></span>
+      <span style="font-size: xx-large;"><b>Demande d'examen biologique</b></span>
     </h5> 
     <br><br>
     <div class="row">
@@ -45,7 +45,7 @@
       <div class="section">
         <div class="sec-gauche">
           <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br>
-          <strong>IPP :</strong> {{ $patient->IPP }}
+          <b>IPP :</b> {{ $patient->IPP }}
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
   </div>
     <div class="row foo">
     <div class="col-sm-12">
-      <div class="section"><div class="right"><span><strong> Docteur :</strong> {{ $medecin->full_name }}</span></div></div>
+      <div class="section"><div class="right"><span><b> Docteur :</b> {{ $medecin->full_name }}</span></div></div>
     </div>
   </div>
 </div>
