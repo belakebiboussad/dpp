@@ -27,9 +27,9 @@ class vaccinController extends Controller
   }
   public function store(Request $request)
   {
-        $patient = patient::findOrFail($request->pid);
-        $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
-        return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    $patient = patient::findOrFail($request->pid);
+    $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
+    return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
   }
   public function destroy(Request $request,$id)
   {
