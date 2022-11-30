@@ -259,13 +259,13 @@
 						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span>
 						</a>
 					</li>
-                                    @if (!empty(json_decode($specialite->hospConst, true))) 
-      					<li role= "presentation" class="col-md-4">
-      						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
-      						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
-      						</a>
-      					</li>
-                                    @endif
+          @if (!empty(json_decode($specialite->hospConst, true))) 
+					<li role= "presentation" class="col-md-4">
+						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
+						<span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
+						</a>
+					</li>
+          @endif
 				</ul>
 			</div>
 			<div class="row">
@@ -289,7 +289,6 @@
 									  <th class ="center sorting_disabled">Acte</th>
 										<th class ="center sorting_disabled">Type</th>
 										<th class ="center sorting_disabled">Code NGAP</th>
-<!-- <th scope="col" class ="center sorting_disabled">Périodes</th>	<th scope="col" class ="center sorting_disabled" width="3%">Nombre de jours</th> -->
 										<th class ="center sorting_disabled">Application</th>
 										<th class ="center sorting_disabled">Médecin prescripteur</th>											
                     <th class=" center nosort"><em class="fa fa-cog"></em></th>
@@ -386,10 +385,15 @@
                   <span class="lbl">{{ $const->nom }} </span>
 			           </label></div></div>
                 @endforeach
-              
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>
-										<textarea class="form-control" id="observation" name="observation" rows=5> @isset($lastVisite->prescreptionconstantes){{ $lastVisite->prescreptionconstantes->observation }}@endisset</textarea>
+									<textarea class="form-control" id="observation" name="observation" rows=5> 
+                  {{ @isset($lastVisite->prescreptionconstantes)
+                 
+                    {{ $lastVisite->prescreptionconstantes->observation }}
+                  @endisset }}
+                  
+                  </textarea>
                   </div>
 								</div>                           
 							</div>
