@@ -18,6 +18,7 @@ use PDF;
 use ToUtf;
 use Response;
 use Auth;
+use DNS1D;
 class DemandeExamenRadio extends Controller
 {
     public function __construct()
@@ -261,7 +262,12 @@ class DemandeExamenRadio extends Controller
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab'));
+      //teste
+      $barcode = new DNS1D($patient->IPP, 'C128');
+      //dd($barcode);
+//       dd("dsf");
+      //fin teste
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab','barcode'));
       return $pdf->stream($filename);
     }
 }

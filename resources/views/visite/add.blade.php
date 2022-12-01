@@ -388,10 +388,10 @@
 								<div class="col-xs-12"><br><br>
 									<div><label for="form-field-8">Observation</label>
 									<textarea class="form-control" id="observation" name="observation" rows=5> 
-                  {{ @isset($lastVisite->prescreptionconstantes)
+                 @isset($lastVisite->prescreptionconstantes)
                  
                     {{ $lastVisite->prescreptionconstantes->observation }}
-                  @endisset }}
+                  @endisset
                   
                   </textarea>
                   </div>

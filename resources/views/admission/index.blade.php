@@ -172,14 +172,14 @@
             }
           } // success
      }) //ajax
-  }
+    }
 	}
  	$(function(){
     getAdmissions(field,$('#'+field).val().trim());
     $(".admiSearch").click(function(e){    
         getAdmissions(field,$('#'+field).val().trim());
  	});
-	
+  });
 </script>
 @endsection
 @section('main-content')
