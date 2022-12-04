@@ -39,9 +39,7 @@
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
       <input type="hidden" name="demande_id" class="demande_id" value="{{ $rdv->demandeHospitalisation->id }}">
       <input type="hidden" class ="affect" value="0">
-      <div class="row">
-        <div class="col-sm-12"><h4 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h4></div>
-      </div>
+      <h4 class="header lighter block blue">Informations concernant la demande d'hospitalisation</h4>
       <div class="profile-user-info">
         <div class="row">
           <div class="col-sm-4 profile-info-row">
@@ -79,7 +77,7 @@
           </div>
          @endisset
         </div>
-      <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Admissions</h3></div></div>
+      <h4 class="header lighter block blue">Admissions</h4>
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
@@ -104,15 +102,14 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="space-12"></div>
+      </div><div class="space-12"></div>
       <div class="row">
         <div class="col-sm-12"> 
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateSortiePre">Date sortie prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input class="form-control date-picker date_end" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
-              <span class="input-group-addon" <i class="fa fa-calendar"></i> </span>    
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>    
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
@@ -124,7 +121,7 @@
           </div>
         </div>
       </div> 
-      <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div></div>
+      <h4 class="header lighter block blue">Hébergement</h4>
       <div class="space-12"></div>
       @if(isset($rdv->bedReservation->id_lit))
       <div class="row">

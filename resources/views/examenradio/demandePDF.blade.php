@@ -36,10 +36,7 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          {{-- <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" />--}}
-          {{  DNS1D::getBarcodePNG("4445645656", "PHARMA2T")}}
-<img src="data:image/png;base64,{{ $barcode->getBarcodePngData(40,40)}}" alt="barcode" />
-            <br><b>IPP :</b>{{ $patient->IPP }}
+          <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $patient->IPP }}
          </div>
       </div>
     </div>

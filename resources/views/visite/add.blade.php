@@ -269,7 +269,7 @@
 				</ul>
 			</div>
 			<div class="row">
-				<div class ="tab-content"  style = "border-style: none;" >
+				<div class ="tab-content no-border">
 				<div role="tabpanel" class ="tab-pane active " id="Actes"> 
 					<div class= "col-md-12 col-xs-12">
 					<div class= "widget-box widget-color-green">

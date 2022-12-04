@@ -87,12 +87,10 @@ function getUserdetail(id)
 @section('main-content')
 <div class="page-content">
 	<div class="row">
-	  {{--<div class="col-sm-12 center">--}}
 	  <div class ="pull-left">	
 			<h4>Bienvenu(e): <q class="blue">{{ Auth::User()->employ->full_name }}</q></h4>
 		</div>		
-	</div>	{{-- row --}}
-	<div class="space-12"></div>
+	</div><div class="space-12"></div>
 	<div class="row panel panel-default">
 		<div class="panel-heading left">
 			<b>Rechercher un utilisateur</b>

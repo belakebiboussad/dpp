@@ -1,15 +1,14 @@
 @extends('app')
 @section('main-content')
-<div class="row">
- 	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif><h1>Mon Profil</h1>
+ 	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif>
+    <h3>Mon Profil</h3>
 	</div>
-</div>
 <div class="row">
 @if($user->profile_image_url != '')
 	<img class="img-thumbnail img-responsive center-block" width="180" src="{{ route('profile/image', ['profile_image_url' => $user->profile_image_url]) }}">
 @endif
 </div>
-<div class="tabbable borderless" style ="border-style:none;">
+<div class="row tabs">
   <ul class="nav nav-pills nav-justified" id="tabMenu">
 	  <li  role= "presentation" class="col-md-4 active">
 	  	<a data-toggle="tab" href="#edit-basic" aria-controls="edit-basic" data-toggle="tab" class="btn btn-info" >
@@ -22,9 +21,9 @@
 	    </a>
 		</li>
 	</ul>
-  <div class="tab-content" style ="border-style:none;">
+  <div class="tab tab-content no-border">
 		<div role="tabpanel" class = "tab-pane active" id="edit-basic">
-		 	<div class="w3-teal"><h4 class="header blue bolder smaller">Géneral</h4></div>
+		 	<div class="w3-teal"><h4 class="header blue smaller">Géneral</h4></div>
      	<div class="row">
       	<div class="col-md-6 col-sm-6">
       		<ul class="list-unstyled spaced">
@@ -66,7 +65,7 @@
 			  </ul>
        	</div>
       </div>
-      <div class="w3-teal"><h4 class="header blue bolder smaller">Contact</h4></div>
+      <div class="w3-teal"><h4 class="header blue smaller">Contact</h4></div>
       <div class="row">
       		<div class="col-md-6 col-sm-6">
       			<ul class="list-unstyled spaced">
@@ -138,6 +137,5 @@
     </form>
     </div>	
   </div>
-  </div> 
-</div>
+</div> 
 @endsection

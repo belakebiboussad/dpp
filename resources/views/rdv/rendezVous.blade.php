@@ -81,8 +81,8 @@
       <a href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a>
       <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">  <i class="fa fa-trash" aria-hidden="true"></i> Annuler
       </a>
-      <button type="button" class="btn btn-sm btn-default" id ="btnclose" data-dismiss="modal"><!-- onclick="$('#updateRDV').addClass('invisible');" -->
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+      <button type="button" class="btn btn-sm btn-default" id ="btnclose" data-dismiss="modal">
+        <i class="fa fa-close" aria-hidden="true" ></i> Fermer
       </button>
      @endif
       </div>
