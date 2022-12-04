@@ -20,7 +20,7 @@
 </div>
 <div class="row">
 	<div class= "col-md-9 col-sm-9">
-		<div class="tab-content" style = "border-style: none;">
+		<div class="tab-content no-border">
 	 		<div class="tab-pane active examsBio" id="biologique"> 
 	      @if($specialite->exmsbio !== "null")
           @foreach ( json_decode($specialite->exmsbio, true) as $exbio)

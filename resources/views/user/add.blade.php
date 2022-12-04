@@ -8,7 +8,7 @@
 		<div class="widget-body">
 			<div class="widget-main">{{-- "{{route('users.store')}} --}}
 				{{ csrf_field() }}
-				<h4 class="header blue bolder smaller">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
+				<h4 class="header block blue">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
@@ -63,7 +63,7 @@
           </div>
 				</div>
 				<hr>
-				<h4 class="header blue bolder smaller">Contact</h4><div class="space-12 hidden-xs"></div>
+				<h4 class="header block blue">Contact</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
 					<div class="col-sm-5">
 						<label class="control-label col-sm-3 col-xs-3" for="adresse"> Adresse :</label>
@@ -93,7 +93,7 @@
             </div>
           </div>
 				</div>
-				<h4 class="header blue bolder smaller">Fonction</h4><div class="space-12 hidden-xs"></div>
+				<h4 class="header block blue">Fonction</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mat') ? "has-error" : "" }}">
@@ -136,7 +136,7 @@
 					</div>
 					
 				</div>
-					<h4 class="header blue bolder smaller">Informations de compte</h4><div class="space-12 hidden-xs"></div>
+					<h4 class="header block blue">Informations de compte</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('username') ? "has-error" : "" }}">

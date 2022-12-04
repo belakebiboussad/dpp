@@ -43,7 +43,7 @@ $(function(){
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<input type="hidden" name="id" value="{{ $user->employ->id }}">
-				<h4 class="header blue lighter smaller">Informations adminstratives</h4>
+        <h4 class="header lighter block blue">Informations adminstratives</h4>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
@@ -83,9 +83,8 @@ $(function(){
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-					<div>
 						<div class="col-sm-3 ml-auto align-top">
-							<label class="inline control-label pull-right" style="padding-top: 0px;">Genre :</label>
+							<label class="control-label pull-right mt-0">Genre :</label>
 						</div>
 						<div class="col-sm-9">
 								<label class="inline">
@@ -98,7 +97,6 @@ $(function(){
 								</label>
 						</div>
 					</div>
-					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('nss') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="nss">NSS :</label>
@@ -106,7 +104,7 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div></div>
+			  <h4 class="header lighter block blue">Contact</h4>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
@@ -135,7 +133,7 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div></div>
+				<h4 class="header lighter block blue">Information de poste</h4>
 				  <div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">

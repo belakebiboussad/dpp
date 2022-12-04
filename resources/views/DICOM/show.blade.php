@@ -53,7 +53,7 @@
   }
   $(document).ready(function(){
     var loaded = false;
-    $('body').on('click', '.open-modal', function () {
+    $('body').on('click', '.dicom_viewer', function () {
       jQuery('#dicom').show();
       _initCornerstone();
        const element = document.querySelector('#dicomImage');
@@ -64,7 +64,10 @@
       });
       cornerstone.enable(element);
       const toolName = 'Length';
-      var APP_URL = {!! json_encode(url('/')) !!} +'/storage/files/'+$(this).val();
+      //var APP_URL = {!! json_encode(url('/')) !!} +'/storage/files/'+$(this).val();
+      //var APP_URL = {!! json_encode(url('/')) !!} +'app/public/files/'+$(this).val();
+      var storagePath = {!! storage_path('files') !!};
+      alert(storagePath);
       var url = "wadouri:" + APP_URL;
       const imageIds = [  url  ];
       const stack = {

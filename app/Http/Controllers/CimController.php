@@ -17,9 +17,8 @@ class CimController extends Controller
     $chapitre = chapitre::FindOrFail($request->search);
     return $chapitre->schapitres;
   }
-  public function getdiseases(Request $request)
+  public function index(Request $request)
   {
-    $output="";
     $schapitre = sChapitre::FindOrFail($request->search);
     return $schapitre->maladies;
   }

@@ -81,7 +81,7 @@ class UsersController extends Controller
             "service_id"=>$request->service,
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
-      ]);/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
+      ]);
       $user = User::firstOrCreate([
         "name"=>$request->username,// "password"=>$request->password,
         "password"=> Hash::make($request['password']),
@@ -104,7 +104,6 @@ class UsersController extends Controller
       $specialites=specialite::all();
       return view('user.show',compact('user','roles','services','specialites'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -134,8 +133,9 @@ class UsersController extends Controller
             "role"=> "required",
       );
       $messages = [
-          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
-           "date"         => "Le champ :attribute n'est pas une date valide.",
+        "required"     => "Le champ :attribute est obligatoire.",
+        // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+         "date"         => "Le champ :attribute n'est pas une date valide.",
       ];
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
@@ -230,7 +230,7 @@ class UsersController extends Controller
           'newPassword' => 'required',
           'password_confirmation' => 'required|same:newPassword', 
           // |confirmed 
-      ], $messages); // dd($validator->getMessageBag()); 
+      ], $messages); 
       return $validator;
     }  
     public function changePassword(Request $request)
@@ -267,7 +267,7 @@ class UsersController extends Controller
     {
       $user = User::FindOrFail($id_user);
       return view('user.settings', compact('user'));
-    }//public function updatepro(Request $request) { dd($request); }
+    }
     public function search(Request $request)
     {
       $value = trim($request->value);
@@ -288,8 +288,6 @@ class UsersController extends Controller
         default:    
               break;          
       }
-/*if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
-$users = User::with('role')->where($request->field,$value)->get();else $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();*/
       return $users;
     }    
     public function AutoCompleteField(Request $request)
@@ -318,7 +316,7 @@ $users = User::with('role')->where($request->field,$value)->get();else $users = 
     {
      $user = User::FindOrFail($request->search);
      $employe = employ::FindOrFail($user->employee_id);
-     $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
+     $view = view("user.ajax_userdetail",compact('user','employe'))->render();
      return (['html'=>$view]);
     }
     public function passwordReset(Request $request)

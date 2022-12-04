@@ -75,18 +75,14 @@ function uploadFiles(examId)
      data: formData,
      enctype: 'multipart/form-data',
      contentType: false,
-     processData: false,
-     dataType : 'json', 
-     success: (data) => {    
+     processData: false, 
+     success: function(data) {    
       $("#btn-"+data['exId']).addClass("hidden");
       $("#exm-"+data['exId']).addClass("hidden");
       $("#cancel-"+data['exId']).addClass("hidden");
       $("#delet-"+data['exId']).removeClass("hidden"); 
-      url = '{{ URL::asset('storage/files') }}'+"/" +data['fileName'] ;/*if(data['isImg']) $('<img>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('src',url).attr('id',"preview-"+data["exId"]).attr('style','width:10%');   else*/
-       $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);   
-     },
-     error: function(data){
-           console.log(data);
+      url = '{{ URL::asset('storage/files') }}'+"/" +data['fileName'] ;
+      $('<span>').appendTo( $("tr#"+ data["exId"]+" td").eq(4)).attr('id',"preview-"+data["exId"]).html(data['fileName']);  
      }
   });
 }
@@ -108,46 +104,46 @@ $(function(){
         footer64Img = base64; 
       });    
       $(".start").click( function(e){
-        e.preventDefault(); //if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
-        var  id  = "#exm-"+$(this).val();
+        e.preventDefault();
+        var id  = "#exm-"+$(this).val();
         if ($(id)[0].files.length !== 0) 
-          uploadFiles($(this).val()); 
+          uploadFiles($(this).val());
         });
        $(".cancel").click( function(){
-             Swal.fire({
-                    title: 'Annulez vous  la demande d\'Examen ?',
-                    icon: 'warning',
-                    type:'warning',
-                    html: '<br/><h4><b>'+'Pourquoi?'+'</b></h4>',
-                    input: 'textarea',
-                    inputPlaceholder: 'la cause d\'annulation du l\'examen',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Oui',
-                    cancelButtonText: "Non",
-                    allowOutsideClick: false,
-                    showCloseButton: true
-             }).then((result) => {
-                         var formData = {
-                                _token: CSRF_TOKEN,
-                                 demande_id:'{{ $demande->id }}',
-                                 exmId:$(this).val(),
-                                observation: result.value,  
-                          };
-                          $.ajax({
-                                type:'POST',
-                                 url: "{{ url('cancel-exam') }}",
-                                data: formData,
-                                dataType : 'json',
-                                success: (data) => {
-                                  $('#'+data).remove();
-                                },
-                                error: function(data){
-                                  console.log(data);                
-                                }
-                          });
-              })
+         Swal.fire({
+            title: 'Annulez vous  la demande d\'Examen ?',
+            icon: 'warning',
+            type:'warning',
+            html: '<br/><h4><b>'+'Pourquoi?'+'</b></h4>',
+            input: 'textarea',
+            inputPlaceholder: 'la cause d\'annulation du l\'examen',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui',
+            cancelButtonText: "Non",
+            allowOutsideClick: false,
+            showCloseButton: true
+         }).then((result) => {
+                     var formData = {
+                            _token: CSRF_TOKEN,
+                             demande_id:'{{ $demande->id }}',
+                             exmId:$(this).val(),
+                            observation: result.value,  
+                      };
+                      $.ajax({
+                            type:'POST',
+                             url: "{{ url('cancel-exam') }}",
+                            data: formData,
+                            dataType : 'json',
+                            success: (data) => {
+                              $('#'+data).remove();
+                            },
+                            error: function(data){
+                              console.log(data);                
+                            }
+                      });
+          })
        });
       $(".open-AddCRRDialog").click(function () { 
         $('#examId').val($(this).val());

@@ -14,39 +14,35 @@ $(function(){
     <div class="col-sm-12">@include('patient._patientInfo')</div>
   </div>
   <div class="row">
-    <div class="col-sm-5"><h4><b>Détails de la demande d'examens radiologiques</b></h4></div>
+    <div class="col-sm-5"><h4>Détails de la demande d'examens radiologiques</h4></div>
     <div class="col-sm-7 pull-right btn-toolbar"> 
-      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i> Imprimer
       </a>
       @if((!$demande->hasResult()) && (( $obj->medecin->id == Auth::user()->employ->id)))
-       <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i>Modifier</a>
+       <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
        @endif
-      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+      <a href="{{ route('consultations.show',$obj->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     </div>
   </div><hr>
   <div class="row ">
-    <div class="col-sm-6">
-       @include('examenradio.partials._show')
-      <div class="space-12"></div>
+    <div class="col-sm-7">
+       @include('examenradio.partials._show')<div class="space-12"></div>
       <div class="row"> 
         <div class="col-sm-12">
         <div class="tabpanel">  
           <ul class = "nav nav-pills nav-justified list-group" role="tablist">
             <li class="active" role= "presentation">
-              <a href="#exams" role="tab" data-toggle="tab">
-            <i class="fa fa-image  fa-1x"></i>&nbsp;<b>Examens Radilogique</b>
+              <a href="#exams" role="tab" data-toggle="tab"><i class="fa fa-image" aria-hidden="true"></i> Examens Radilogique
             </a></li>
             @if($demande->hasCCR())
             <li  role="presentation">
-              <a href="#crr" role="tab" data-toggle="tab"><i class="fa fa-file fa-1x" aria-hidden="true"></i>&nbsp;
-                <b>Compte rendu radiologique </b>
+              <a href="#crr" role="tab" data-toggle="tab"><i class="fa fa-file" aria-hidden="true"></i> Compte rendu radiologique
               </a>
             </li>
             @endif
           </ul>
-          <div class="tab-content  no-border">
-            <div class="tab-pane noborders in active" id="exams">
-              <div class="col-xs-12 widget-container-col">
+          <div class="tab-content no-border">
+            <div class="tab-pane in active" id="exams">
                 <div class="widget-box widget-color-blue">
                   <div class="widget-header">
                     <h5 class="widget-title lighter pull-left"><i class="ace-icon fa fa-table"></i>Examens radiologique demandés</h5>
@@ -77,16 +73,14 @@ $(function(){
                                 @break
                               @case('Validé')
                                 @if((pathinfo($ex->resultat, PATHINFO_EXTENSION) == 'dcm')||(pathinfo($ex->resultat, PATHINFO_EXTENSION) == ""))
-                                <button type="button" class="btn btn-info btn-xs open-modal" value="{{ $ex->resultat }}" title="Voir le résultat">
-                                  <i class="ace-icon fa fa-eye-slash"></i>
-                                </button>
+                                <button type="button" class="btn btn-info btn-xs dicom_viewer" value="{{ $ex->resultat }}" title="Voir le résultat">
+                                  <i class="ace-icon fa fa-eye-slash"></i></button>
                                 @endif
                                 <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
                                 @break
                               @case('Rejeté')
                                 <span class="badge badge-danger">Annuler</span>
-                                <a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" >
-                                   <i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
+                                <a href="#" class="btn btn-xs show-details-btn green" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" ><i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>  
                                 </a>
                                 @break
                             @endswitch
@@ -117,7 +111,6 @@ $(function(){
                     </div>{{-- widget-maint --}}
                   </div>{{-- widget-body --}}
                 </div>{{-- widget-box --}}
-              </div>
             </div>{{-- exams --}}
             @if($demande->hasCCR())
             <div class="tab-pane" id="crr">
@@ -139,8 +132,8 @@ $(function(){
         </div>{{-- col-sm-12 --}}
         </div> 
       </div><!-- row -->
-    </div><!-- col-lg-6 -->
-    <div class="col-sm-6 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
+    </div><!-- col-lg-7 -->
+    <div class="col-sm-5 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
   </div><!-- row no-gutters -->
 </div><!-- container-fluid -->
 @endsection

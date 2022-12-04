@@ -18,6 +18,7 @@ use PDF;
 use ToUtf;
 use Response;
 use Auth;
+use DNS1D;
 class DemandeExamenRadio extends Controller
 {
     public function __construct()
@@ -52,18 +53,20 @@ class DemandeExamenRadio extends Controller
     }
     public function upload(Request $request)
     {
-      $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
       $filename= ""; $isImg = 0;
+      $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
       if($request->hasfile('resultat')){
+        
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME);
         if($ext == "")
           $filename = $filename.'_'.time();
         else
           $filename = $filename.'_'.time().'.'.$ext;
-        $request->file('resultat')->storeAs('public/files',$filename);  
+        //$request->file('resultat')->storeAs('public/files',$filename);  //$request->file('resultat')->storeAs('storage/files',$filename);   
+        $request->file('resultat')->storeAs('files', $filename);
       }
-      $ex->update([  "etat" =>1, "resultat"=>$filename]);/* $extension = request("resultat")->getClientOriginalExtension();if(in_array($extension, config('constants.imageExtensions')))   $isImg = 1;*/
+      $ex->update([  "etat" =>1, "resultat"=>$filename]);
       return(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
     }
     public function examCancel(Request $request)
@@ -149,13 +152,6 @@ class DemandeExamenRadio extends Controller
             $exam->exm_id = $acte->acteId;
             $exam->type_id = $acte->type;$exam->save();  
           }
-          /*
-          foreach ($examsImagerie as $key => $value) { 
-            //$demande->examensradios()->attach($value['acteId'], ['examsRelatif' => $value['type']]);
-            $demande->examensradios()->attach($value->acteId, ['type_id' => $value->type]);
-          }
-          */
-          /*$demande->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);*/
           return $demande;
         } 
       }
@@ -234,7 +230,7 @@ class DemandeExamenRadio extends Controller
     {
       $ex = Demandeexr_Examenradio::FindOrFail($request->examId);
       if(isset($ex->resultat))
-        Storage::delete('public/files/' . $ex->resultat);
+        Storage::delete('files/' . $ex->resultat);
       if(isset($ex->Crr))
         $ex->Crr->delete();
       $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
@@ -261,7 +257,12 @@ class DemandeExamenRadio extends Controller
         $date = $demande->visite->date;
       }
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab'));
+      //teste
+      $barcode = new DNS1D($patient->IPP, 'C128');
+      //dd($barcode);
+//       dd("dsf");
+      //fin teste
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab','barcode'));
       return $pdf->stream($filename);
     }
 }

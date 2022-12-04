@@ -1,6 +1,6 @@
  <!-- begin -->
  <div id="asdemogData">
- <div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Informations démographiques</h4></div></div>
+<h4 class="header lighter block blue">Informations démographiques</h4>
  <div class="row">
 	<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
@@ -79,7 +79,7 @@
 		</div>
 	</div>
 </div>
-<div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Contact</h4></div></div>	
+<h4 class="header lighter block blue">Contact</h4>
 <div class="row">
 	<div class="form-group col-sm-4">
 		<label class="control-label col-sm-4" for="adressef" >Adresse:</label>

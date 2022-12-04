@@ -1,4 +1,4 @@
-<div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Informations démographiques</h4></div></div>
+<h4 class="header lighter block blue">Informations démographiques</h4>
 <div class="row demograph">
 	<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
@@ -18,18 +18,18 @@
 <div class="row demograph">
 	<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
 		<div id ="dateExact">
-                     <label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
-                      <div class="col-sm-8">
-                            <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-                      </div>
-              </div>
-              <div id ="datePresume"  class="hidden">
-                      <label class="col-sm-3 control-label">Age :</strong></label>
-                      <div class="radio col-sm-8">
-                       <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
-                      <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
-                       <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
-                       </div>
+       <label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
+        <div class="col-sm-8">
+              <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+        </div>
+    </div>
+    <div id ="datePresume"  class="hidden">
+      <label class="col-sm-3 control-label">Age :</strong></label>
+      <div class="radio col-sm-8">
+       <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
+      <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
+       <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
+       </div>
               </div>
               <div class="col-sm-1">
               <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"><strong>Inc</strong></span>
@@ -96,7 +96,7 @@
 		</div>
 	</div>
 </div>
-<div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Contact</h4></div></div>
+<h4 class="header lighter block blue">Contact</h4>
 <div  class="row demograph">
 	<div class="form-group col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="adresse">Adresse:</label>

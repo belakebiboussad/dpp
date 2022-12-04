@@ -233,7 +233,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3">
-            <label>Etat :</label>
+            <label>Etat</label>
             <select id='etat' class="form-control filter">
               <option value=""></option>
               <option value="0" selected active>En cours</option>
@@ -241,9 +241,9 @@
             </select>
           </div>
           <div class="col-sm-3">
-             <label>Patient :</label><input type="text" id="Nom" class="form-control filter">
+             <label>Patient</label><input type="text" id="Nom" class="form-control filter">
           </div>
-          <div class="col-sm-3"><label>IPP :</label><input type="text" id="IPP" class="form-control filter"></div>
+          <div class="col-sm-3"><label>IPP</label><input type="text" id="IPP" class="form-control filter"></div>
            <div class="col-sm-3"><label>Date de sortie:</label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
