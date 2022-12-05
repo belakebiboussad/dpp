@@ -12,8 +12,8 @@
               <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
               <div class="panel-body"><div class="calendar"></div> </div>
               <div class="panel-footer">
-                <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV fixe</b></span>
-                <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV à fixer</b></span> 
+                <span class="badge label-info"><small>RDV fixe</small></span>
+                <span class="badge label-pink"><small>RDV à fixé</small></span>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
       <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
         <h5 class="modal-title" id="myModalLabel">
-          <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifier le rendez-vous du<q><a href="#" id="lien" style="color: inherit;"></a></q>
+          <span class="glyphicon glyphicon-bell"></span>Modifier le rendez-vous du<q><a href="#" id="lien"></a></q>
         </h5><hr>
       </div>
       <div class="modal-body"><div class="space-12"></div>

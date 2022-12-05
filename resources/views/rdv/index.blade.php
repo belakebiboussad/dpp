@@ -49,7 +49,7 @@ $(function(){
         maxTime: '17:00:00',
         navLinks: true,
         selectable: true,
-        selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
+        selectHelper: true,// eventColor: '#3A87AD',//contentHeight: 700,//700
         editable: true,
         eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
         hiddenDays: [ 5, 6 ],
@@ -102,9 +102,9 @@ $(function(){
                   else 
                   {
                     if(event.fixe)
-                           element.css('background-color', '#87CEFA'); 
+                           element.css('background-color', '#3A87AD'); 
                     else
-                            element.css('background-color', '#378006');   
+                            element.css('background-color', '#D6487E');   
                     element.css("padding", "5px");
                   }  
                   element.popover({
@@ -156,11 +156,11 @@ $(function(){
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">
-          <div class="panel-heading"><div class="left"> <b>Rendez-vous</b></div></div>
+          <div class="panel-heading">Rendez-vous</div>
           <div class="panel-body"><div class="calendar1"></div></div>
           <div class="panel-footer">
-          <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV fixe</b></span>
-          <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV à fixer</b></span> 
+          <span class="badge label-info"><small>RDV fixe</small></span>
+          <span class="badge label-pink"><small>RDV à fixé</small></span>
         </div>
     </div>
   </div>

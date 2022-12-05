@@ -5,7 +5,7 @@
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <title>@yield('title')</title>
     <meta name="description" content="{{ $html_description or ' Dossier Patient' }}" />
-    <meta name="csrf-token" content="{{csrf_token()}}">  {{--   <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet">  --}}
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />

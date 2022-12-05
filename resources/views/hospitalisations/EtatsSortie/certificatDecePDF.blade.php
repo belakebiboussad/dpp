@@ -16,7 +16,7 @@
       <main> 
         <hr class="h-1 mtP40"/>
         <div>
-         <h3 class="center rect"><span style="font-size: xx-large;"><b>{{ $etat->nom}}</b></span></h3>
+         <h2 class="center rect"><b>{{ $etat->nom}}</b></h2>
         </div><br>
         <section class="mtp20"> 
           <div class="tab">

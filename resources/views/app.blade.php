@@ -31,7 +31,7 @@
                     url :url,
                     data:formData,
                     success:function(data){         
-                      var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                      var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
                       $('.calendar').fullCalendar( 'renderEvent',  {
                               title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                               start: debut,

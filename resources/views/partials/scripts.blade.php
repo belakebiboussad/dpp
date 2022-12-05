@@ -584,7 +584,7 @@
               $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
               $("#datefinrdv").val(data.rdv.fin); 
             }
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
             $('#btnDelete').attr('value',data.rdv.id);
             $('#updateRDV').attr('value',data.rdv.id);
             $('#fullCalModal').modal({ show: 'true' });

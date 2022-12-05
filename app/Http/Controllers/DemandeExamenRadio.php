@@ -19,6 +19,7 @@ use ToUtf;
 use Response;
 use Auth;
 use DNS1D;
+use File;
 class DemandeExamenRadio extends Controller
 {
     public function __construct()
@@ -56,15 +57,13 @@ class DemandeExamenRadio extends Controller
       $filename= ""; $isImg = 0;
       $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
       if($request->hasfile('resultat')){
-        
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME);
         if($ext == "")
           $filename = $filename.'_'.time();
         else
           $filename = $filename.'_'.time().'.'.$ext;
-        //$request->file('resultat')->storeAs('public/files',$filename);  //$request->file('resultat')->storeAs('storage/files',$filename);   
-        $request->file('resultat')->storeAs('files', $filename);
+        $request->file('resultat')->move(public_path('files'), $filename);
       }
       $ex->update([  "etat" =>1, "resultat"=>$filename]);
       return(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
@@ -79,15 +78,21 @@ class DemandeExamenRadio extends Controller
     }
     public function update(Request $request, demandeexr $demande)
     { 
+      $state = true;
       $demande = demandeexr::FindOrFail($request->demande_id);  
       if(Auth::user()->is(12))//radiologe
       {
         foreach ($demande->examensradios as $key => $exam)
         {
-          if($exam->getEtatID($exam->etat) ==="")
-            return redirect()->action('DemandeExamenRadio@index');
+          if($state)
+            if($exam->getEtatID($exam->etat) ==="")
+              $state==false;
         } 
-        $demande->update([ "etat" => 1 ]);$demande->save();
+        if($state)
+        {
+          $demande->update([ "etat" => 1 ]);
+          $demande->save();
+        }
         return redirect()->action('DemandeExamenRadio@index');
       }else
       {
@@ -220,7 +225,7 @@ class DemandeExamenRadio extends Controller
         $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
                         ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);
-                        })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {//hospitalisation.
+                        })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
                                 $q->where('id', $serviceID);
                             })->get();
       }
@@ -230,7 +235,7 @@ class DemandeExamenRadio extends Controller
     {
       $ex = Demandeexr_Examenradio::FindOrFail($request->examId);
       if(isset($ex->resultat))
-        Storage::delete('files/' . $ex->resultat);
+        File::delete('files/'.$ex->resultat);
       if(isset($ex->Crr))
         $ex->Crr->delete();
       $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
@@ -240,7 +245,7 @@ class DemandeExamenRadio extends Controller
     {
       $ex = Demandeexr_Examenradio::FindOrFail($id);
       $ex->delete();
-      return $ex;// Response::json($ex);   
+      return $ex;
     }
     public function print($id)
     {
@@ -259,9 +264,6 @@ class DemandeExamenRadio extends Controller
       $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
       //teste
       $barcode = new DNS1D($patient->IPP, 'C128');
-      //dd($barcode);
-//       dd("dsf");
-      //fin teste
       $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab','barcode'));
       return $pdf->stream($filename);
     }

@@ -18,12 +18,12 @@
               slotDuration: '00:15:00',
               minTime:'08:00:00',
               maxTime: '17:00:00',
-              navLinks: true, // can click day/week names to navigate views
+              navLinks: true, 
               selectable: true,
-              selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
+              selectHelper: true,
               editable: true,
-              eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-              //hiddenDays: [ 5, 6 ],
+              eventLimit: true, 
+              hiddenDays: [ 5, 6 ],
               allDaySlot: false,
               weekNumberCalculation: 'ISO',
               aspectRatio: 1.5,
@@ -50,17 +50,17 @@
                 ],
                 eventRender: function (event, element, webData) {
       	         
-                  if(event.id == {{$Rdv->id}})
+                  if(event.id == {{$rdv->id}})
                     if(event.fixe)
-                      element.css('background-color', '#87CEFA'); 
+                      element.css('background-color', '#3A87AD'); 
                     else
-                      element.css('background-color', '#378006');   
+                      element.css('background-color', '#D6487E');   
                   else
                     element.css('background-color', '#D3D3D3');
                   element.css("padding", "5px");
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$Rdv->id}}))
+                    if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$rdv->id}}))
                     {      
                         if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today) //(calEvent.fixe) &&
                         {
@@ -74,7 +74,7 @@
                     }
                },
                 eventAllow: function(dropLocation, draggedEvent) {
-                       if (draggedEvent.id != {{$Rdv->id}} || (draggedEvent.start < today))  
+                       if (draggedEvent.id != {{$rdv->id}} || (draggedEvent.start < today))  
                              return false;
                  },
                 eventDrop: function(event, delta, revertFunc)
@@ -89,19 +89,17 @@
                select: function(start, end) {
                    $('.calendar1').fullCalendar('unselect');
                }, 	
-         }).fullCalendar('gotoDate','{{ $Rdv->date }}');
+         }).fullCalendar('gotoDate','{{ $rdv->date }}');
   });
 </script>
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1>Modifier le  rendez-vous du patient<i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
- 		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->full_name }}
-		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
- 	</h1>
+	<h4>Modifier le  rendez-vous du patient &quot;{{ $rdv->patient->getCivilite() }} {{ $rdv->patient->full_name }}&quot;
+ 	</h4>
     <div class="pull-right">
-      <a href="{{ route('patient.show',$Rdv->patient->id) }}" class="btn btn-white btn-info btn-bold">
-        <i class="ace-icon fa fa-hand-o-up"></i>&nbsp;Patient</a>
+      <a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-white btn-info btn-bold">
+        <i class="ace-icon fa fa-hand-o-up"></i> Patient</a>
       </a>
     </div>
 </div>
@@ -109,24 +107,15 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-      <div class="left">Modifier le rendez-vous du&nbsp;<span class= "red"><b>{{ $Rdv->date->format('Y-m-d') }}</b></span></div>
+      <div class="left">Modifier le rendez-vous du <span class= "blue">{{ $rdv->date->format('Y-m-d') }}</span></div>
       </div>
-	    <div class="panel-body">
-	    	<div class="calendar1"></div>
-	    </div>
-		    <div class="panel-footer">
-		      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV fixe</b></span>
-		      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><b>&nbsp;RDV à fixer</b></span> 
+	    <div class="panel-body"><div class="calendar1"></div></div>
+	    	<div class="panel-footer">
+          <span class="badge label-info"><small>RDV fixe</small></span>
+          <span class="badge label-pink"><small>RDV à fixé</small></span>
 		    </div>
 		</div>
   </div>
-</div>
-<div class="widget-footer widget-footer-large right">
-<div class="col-sm-12">
-	<a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-warning btn-bold">
-		<i class="ace-icon fa fa-close bigger-110"></i>Annuler
-       </a>
-</div>
 </div>
 <div class="row"> @include('rdv.ModalFoms.edit') </div>
 @endsection

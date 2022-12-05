@@ -164,28 +164,25 @@ $(function(){
          })
        });
        $(".deleteExam").click(function () { 
-              event.preventDefault();
-              var examId =  $(this).val();  
-              var formData = { _token: CSRF_TOKEN, examId : examId };
-              $.ajax({
-               type: "POST",
-               url: "{{ url('delete-res') }}",
-               data: formData,
-               dataType : 'json', 
-                success: function (data) {
-                  $("#btn-" + data.id).removeClass("hidden");
-                  $("#cancel-" + data.id).removeClass("hidden");
-                  $("#exm-" + data.id).removeClass("hidden");
-                  $("#delet-" + data.id).addClass("hidden");
-                  $('#crr-edit-' + data.id).val();
-                  $('#crr-edit-' + data.id).addClass("hidden");
-                  $('#crr-add-' + data.id).removeClass("hidden");
-                  $("tr#"+ data.id + " td").eq(4).html('');
-                },
-              error: function (data) {
-                  console.log('Error:', data);
-              }
-             }); 
+          event.preventDefault();
+          var examId =  $(this).val();  
+          var formData = { _token: CSRF_TOKEN, examId : examId };
+          $.ajax({
+           type: "POST",
+           url: "{{ url('delete-res') }}",
+           data: formData,
+           dataType : 'json', 
+            success: function (data) {
+              $("#btn-" + data.id).removeClass("hidden");
+              $("#cancel-" + data.id).removeClass("hidden");
+              $("#exm-" + data.id).removeClass("hidden");
+              $("#delet-" + data.id).addClass("hidden");
+              $('#crr-edit-' + data.id).val();
+              $('#crr-edit-' + data.id).addClass("hidden");
+              $('#crr-add-' + data.id).removeClass("hidden");
+              $("tr#"+ data.id + " td").eq(4).html('');
+            },
+         }); 
       })
   });
 </script>
@@ -275,16 +272,14 @@ $(function(){
   </div>
   <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div>
   <div class="space-12 hidden-xs"></div>
-  <div class="row" style="bottom:0px;">
-    <div class="col-sm-12">
+  <div class="row">
+    <div class="col-sm-12 center">
       <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
-        <input type="text" name="demande_id" value="{{ $demande->id }}" hidden>
-        <div class="col-md-offset-5 col-md-7">
-        <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
-        <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
-         </div>
+        <input type="hidden" name="demande_id" value="{{ $demande->id }}">
+         <button class="btn btn-info btn-xs" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+        <a class="btn btn-warning btn-xs" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo"></i> Annuler</a>
       </form>
     </div>
   </div>

@@ -25,7 +25,7 @@
 										  	<a>	&nbsp;{{$acte->fait}} </a>                 
 										  @else
 										    <i class="glyphicon glyphicon-remove" data-icon-hide="glyphicon glyphicon-remove" data-icon-show="glyphicon glyphicon-remove"></i>
-	              				<a >	&nbsp;<!-- {{ $acte->fait }} -->Non </a>
+	              				<span class="blue"> Non</span>
 	              			@endif
 
 										</div> 

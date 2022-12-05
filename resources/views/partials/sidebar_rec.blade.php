@@ -42,20 +42,7 @@
                 </li>
             </ul>
         </li>
-        <li>
-          <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-users"></i>  <span class="menu-text">Fonctionnaires </span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-              <li>
-                <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a>
-                <b class="arrow"></b>
-              </li>
-            </ul>
-        </li>
-       @if(Auth::user()->is(15))
+      @if(Auth::user()->is(15))
         <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-calendar-o"></i><span class="menu-text">Gestion RDV</span>
@@ -65,12 +52,12 @@
           <ul class="submenu">
              <li><a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV</a><b class="arrow"></b>  </li> 
             <li>
-              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a>  <b class="arrow"></b>
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b>
             </li>
               <li><a href=""><i class="fa fa-calendar-check"></i>Planning</a><b class="arrow"></b></li>
             </ul>
         </li>
-        @endif
+       @endif
     </ul>
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

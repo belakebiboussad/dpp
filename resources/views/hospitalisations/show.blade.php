@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
 <div class="row">@include('patient._patientInfo',['patient'=>$hosp->patient])</div>
+<page-header><h4>Hospitalisation : suivi(e) du patient</h4></page-header>
 <div class="pull-right">
-   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
+   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row"><div class="col-sm-12"><h4><b> Hospitalisation : suivi(e) du patient</b></h4></div></div><div class="space-12"></div>
 <div class="tabbable"  class="user-profile">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>

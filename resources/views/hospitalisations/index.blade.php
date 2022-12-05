@@ -225,10 +225,10 @@
 </script>
 @endsection
 @section('main-content')
+<div class="page-header"><h4>Rechercher une hospitalisation</h4></div>
+   
 <div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h4><b>Rechercher une hospitalisation</b></h4>
-    <div class="panel panel-default">
+  <div class="panel panel-default">
       <div class="panel-heading"><b>Rechercher</b></div>
       <div class="panel-body">
         <div class="row">
@@ -244,7 +244,7 @@
              <label>Patient</label><input type="text" id="Nom" class="form-control filter">
           </div>
           <div class="col-sm-3"><label>IPP</label><input type="text" id="IPP" class="form-control filter"></div>
-           <div class="col-sm-3"><label>Date de sortie:</label>
+           <div class="col-sm-3"><label>Date de sortie</label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
@@ -253,7 +253,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+        <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i> Rechercher</button>
       </div>
     </div>
   </div>
@@ -262,7 +262,7 @@
   <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent">
     <div class="widget-header"><h5 class="widget-title bigger lighter">
-      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span>
+      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5> <span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span>
     </div>
     <div class="widget-body">
       <div class="widget-main no-padding">

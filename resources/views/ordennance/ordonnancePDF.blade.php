@@ -31,9 +31,7 @@
             <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
           <b>IPP :</b>{{ $ordonnance->consultation->patient->IPP }}
       </div>
-      <div class="row">
-        <h6 class="center"><span style="font-size: xx-large;"><b>ORDONNANCE</b></span></h6>
-      </div><br><br>
+      <div class="row"><h6 class="center"><b>ORDONNANCE</b></h6></div><br><br>
       <div class="col-sm-12 ml-4"><br>
           <ol class="list">
             @foreach($ordonnance->medicamentes as $index => $med)

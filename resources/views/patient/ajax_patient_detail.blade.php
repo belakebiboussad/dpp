@@ -4,9 +4,9 @@
   <li class="nav-item"><a href="#assure" data-toggle="tab"><b>Assure</b></a></li>
   @endif
 </ul>
-<div class="tab-content" style="border:none">
-  <div class="tab-pane noborders  in active" id="patient">
-    <table class="table table-bordered table-condensed col-sm-12" width="100%"><!-- w-auto -->
+<div class="tab-content no-border">
+  <div class="tab-pane in active" id="patient">
+    <table class="table table-condensed col-sm-12" width="100%">
       <tbody>
         <tr>
           <td class ="noborders">nom:</td><td align="left">{{ $patient->Nom }}</td>
@@ -80,13 +80,13 @@
   </div> {{-- tabpane --}}
   @if(!(in_array($patient->Type,[5,6])))
   <div class="tab-pane" id="assure">
-    <table class="table table-bordered table-condensed col-sm-12 w-auto">
+    <table class="table table-condensed col-sm-12 w-auto">
       <tbody>
         <tr>
-              <td class ="noborders">Nom:</td><td colspan="1">{{ $patient->assure->Nom }}</td>
-              <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
+          <td class ="noborders">Nom:</td><td colspan="1">{{ $patient->assure->Nom }}</td>
+          <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
         </tr>
-       <tr>
+        <tr>
           <td class ="noborders text-nowrap">Né(e) le :</td> <td> {{ $patient->assure->Date_Naissance }}</td>
           <td class ="noborders">Né(e) a:</td>
           <td>{{ isset($patient->assure->lieunaissance) ? $patient->assure->lieuNaissance->nom_commune :'' }}
@@ -116,7 +116,7 @@
 </div> <!-- tab-content -->
 <div class= "center">
   @if( in_array(Auth::user()->role_id,[1,13,14]))
-    <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
   @endif
   <a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance))  disabled @endif>
     <i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous

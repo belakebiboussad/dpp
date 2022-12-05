@@ -71,7 +71,7 @@
           </li>
         <li>
           <a href="#" class="dropdown-toggle">
-          <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+          <i class="menu-icon fa fa-file-o fa-2x"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
             </a><b class="arrow"></b>
              <ul class="submenu">
                      <li>

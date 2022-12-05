@@ -54,7 +54,7 @@ function getPatient()
             "specialite":spec,
         },
         success: function(html) {
-          $("#livesearch").html(html).show();//document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+          $("#livesearch").html(html).show();
         },
         error: function() {
           console.log("can't connect to db");
@@ -105,7 +105,7 @@ $(function() {
         navLinks: true,
         selectable: true,
         selectHelper: true, 
-        eventColor: '#87CEFA',
+        eventColor: '#3A87AD',
         editable: true,
         eventLimit: true,     
         hiddenDays: [ 5, 6 ],
@@ -216,9 +216,9 @@ $(function() {
               else
               {
                       if(event.fixe>0)
-                              element.css('background-color', '#87CEFA'); //#378006
+                              element.css('background-color', '#3A87AD'); //#D6487E
                       else
-                              element.css('background-color', '#378006');
+                              element.css('background-color', '#D6487E');
 
                         element.css("padding", "5px");
               }
@@ -251,12 +251,11 @@ $(function() {
               formData.employ_id = $('#employ_id').val();
           }
           $.ajax({
-/*headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},*/
             type:"POST",
             url:url,
             data:formData,
             success:function(data){      
-                var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
                 $('.calendar').fullCalendar( 'renderEvent', {
                     title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
                     start: formData.date,
@@ -278,12 +277,13 @@ $(function() {
 </script>
 @endsection
 @section('main-content')
-  <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un rendez-vous</h4></div></div>
+  <page-header><h4>Ajouter un rendez-vous</h4></page-header>
   <div class="row"><div class="col-sm-12 calendar"></div></div>
+  <hr>
   <div class="row">
     <div class="col-sm-12 col-sm-12">
-      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV fixe</b></h7>
-      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV à fixer</b></h7>
+      <span class="badge label-info"><small>RDV fixe</small></span>
+      <span class="badge label-pink"><small>RDV à fixé</small></span>
     </div>
   </div>
   <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>

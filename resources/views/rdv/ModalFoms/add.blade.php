@@ -14,7 +14,7 @@
  			    <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
        	   	<div class="form-group">
-		         	<label class="col-form-label" for=""><strong>Spécialité :</strong></label>  
+		         	<label class="col-form-label blue" for="specialite">Spécialité :</label>  
 		          	<select class="form-control specialite" id="specialite" required>
                  	<option value="" selected disabled> Selectionner...</option>
                  	@foreach($specialites as $specialite)
@@ -27,10 +27,10 @@
         @isset($appointDoc)
         <div class="panel panel-default">
           <div class="panel-heading">
-          <i class="ace-icon fa  fa-user-md bigger-110"></i>&nbsp;<span>Selectionner une médecin</span></div>
+          <i class="ace-icon fa  fa-user-md bigger-110"></i><span> Selectionner une médecin</span></div>
           <div class="panel-body">
             <div class="form-group">
-              <label class="col-form-label"><strong>Médecin :</strong></label>  
+              <label class="col-form-label blue">Médecin :</label>  
                 <select class="form-control" id="employ_id" disabled>
                   <option value="" selected="selected">Selectionner...</option>
                 </select>
@@ -40,12 +40,12 @@
         @endisset
 	      @endif
         <div class="panel panel-default" id="patientPanel">
-      		<div class="panel-heading"><i class="ace-icon fa fa-user"></i>&nbsp;<span>Selectionner un patient</span></div>
+      		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span> Selectionner un patient</span></div>
         	<div class="panel-body">	
         		<div class="row">
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
-          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> 
+          		  	<label class="col-form-label blue" for="filtre">Filtre :</label> 
           		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
          		        <option value="" selected disabled="">Selectionner...	</option>
 	                 		<option value="Nom">Nom</option>
@@ -56,18 +56,17 @@
 	          	</div><div class="col-sm-1"></div>
 	          	<div class="col-sm-7">
 			          <div class="form-group">
-			          	<label class="col-form-label" for="patient"><strong>&nbsp;</strong></label>
-			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off">
-                    <div id="livesearch" class="list-unstyled"></div>
-                    </div>
+			          	<label class="col-form-label" for="patient">&nbsp;</label>
+			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off"><div id="livesearch" class="list-unstyled"></div>
+                </div>
 			          	</div>
 		          	</div>
 		          </div>
 		        </div>
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
-		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save"></i>&nbsp;Enregistrer</button>    
-			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
+		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save"></i> Enregistrer</button>    
+			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i> Annuler</button>
 		      </div>
       	</form>
   		</div>
@@ -114,7 +113,6 @@
     });
   $("#specialite" ).change(function() {
     getDoctors($(this).val(), '{{ $appointDoc }}');
-    
     if($(this).val() != '')
     {
       if('{{ $patient->id }}' != '' || ($('#pat_id').val() != ''))
@@ -124,15 +122,8 @@
       if($("#filtre").prop('disabled') == true)
         $("#filtre").prop('disabled',false);
     }  
-       /*
-      if('{{ $patient->id }}' == '' )
-      {
-        if($("#filtre").prop('disabled') == true)
-          $("#filtre").prop('disabled',false);
-      }else
-        $("#btnSave").removeAttr("disabled");  
-      */
-      
+/*if('{{ $patient->id }}' == '' ){if($("#filtre").prop('disabled') == true)
+$("#filtre").prop('disabled',false);}else $("#btnSave").removeAttr("disabled");*/ 
   });
   $( "#filtre" ).change(function() {
     resetPatient();

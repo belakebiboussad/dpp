@@ -68,15 +68,6 @@
         url = '{{ route("acte.update", ":slug") }}'; 
         url = url.replace(':slug', id);
       }
-      /*
-      var acte_id = jQuery('#acte_id').val();
-			var ajaxurl = $('#addActe').attr('action');
-			if (state == "update") {
-				type = "PUT";
-				ajaxurl = '/acte/' + acte_id;
-			}
-			*/
-
       $.ajax({
 				type:type,
 				url:url,
@@ -84,22 +75,17 @@
 				dataType:'json',
 				success: function (data) {
 					if($('.dataTables_empty').length > 0)
-					{
 						$('.dataTables_empty').remove();
-					}
 					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
 										+'</td><td>'+data.acte.code_ngap+'</td><td>'+data.acte.description+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td>';
-							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
+							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';    
 							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 					if (state == "add") {
 						$( "#listActes" ).append(acte);
 					}else{
 						$("#acte" + data.acte.id).replaceWith(acte);
 					}
-					$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");    
-				},         
-				error: function (data){
-						console.log('Error:', data);
+					$('#acteModal form')[0].reset(); 
 				}
 			});
 		});///edit acte
@@ -169,10 +155,8 @@
 			success: function (data) {	
 				if($('.dataTables_empty').length > 0)
 				  $('.dataTables_empty').remove();
-				/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
-				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
-									+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
-				trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
+trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';
 				trait += '<button type="button" class="btn btn-xs btn-danger delete-Trait" value="' + data.trait.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 				if (state == "add") {
 					$( "#listTraits" ).append(trait);
