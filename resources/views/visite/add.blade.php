@@ -239,9 +239,7 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 						</a>
 					</li>
 					<li role= "presentation" class="col-md-4">
-						<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger">
-						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span>
-						</a>
+						<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger"><span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span></a>
 					</li>
           @if (!empty(json_decode($specialite->hospConst, true))) 
 					<li role= "presentation" class="col-md-4">
@@ -258,7 +256,7 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 					<div class= "col-md-12 col-xs-12">
 					<div class= "widget-box widget-color-green">
 						<div class="widget-header" >
-						<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
+						<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i> Actes</h5>
 						<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 							<div class="fa fa-plus-circle"></div>
 							<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h5>Acte Médical</h5></a>	
