@@ -23,9 +23,6 @@
   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 <div class="row"><h4>Modifier l'hospitalisation</h4></div>  
-<!-- <div class="row">
-  <div class="col-sm-12"><h4 class="header  lighter blue"></h4></div>
-</div> -->
 <h4 class="header lighter block blue">Admission</h4>
 <div class="profile-user-info">
   <div class="row">
@@ -62,29 +59,27 @@
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="text" name="id" value="{{$hosp->id}}" hidden>
+      <h4 class="header lighter block blue">Entrée</h4>
       <div class="row">
-        <div class="col-sm-12"><h4 class="header  lighter blue">Entrée</h4></div>
-      </div>
-       <div class="row">
-          <div class="form-group col-xs-4">
-          	<label class="col-sm-4 control-label" for="date">Date :</label>
-            <div class="col-sm-8">
-              <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
-            </div> 
-        	</div>
-		      <div class="form-group col-xs-4">
-            <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
-            <div class="col-sm-8">   
-               <input id="heurEnt" class="col-xs-12 col-sm-12 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/>
-		        </div>
-        	</div>
-        	<div id = "numberofDays" class="form-group col-xs-4">
-          	<label class="col-sm-4 control-label">Durée :</label>
-           	<div class="col-sm-8">
-		          <input class="col-xs-10 col-sm-10 numberDays" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
-		           <label for=""><small>&nbsp;nuit(s)</small></label>
-		        </div>  
-        	</div>
+        <div class="form-group col-xs-4">
+        	<label class="col-sm-4 control-label" for="date">Date :</label>
+          <div class="col-sm-8">
+            <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
+          </div> 
+      	</div>
+	      <div class="form-group col-xs-4">
+          <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
+          <div class="col-sm-8">   
+             <input id="heurEnt" class="col-xs-12 col-sm-12 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/>
+	        </div>
+      	</div>
+      	<div id = "numberofDays" class="form-group col-xs-4">
+        	<label class="col-sm-4 control-label">Durée :</label>
+         	<div class="col-sm-8">
+	          <input class="col-xs-10 col-sm-10 numberDays" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+	           <label for=""><small>&nbsp;nuit(s)</small></label>
+	        </div>  
+      	</div>
         </div> <!-- row -->
         <div class="row"> <div class="col-sm-12"><h4 class="header  lighter blue">Sortie prévue</h4></div></div>
      	  <div class="row">
@@ -115,7 +110,7 @@
                     @endforeach
               </select>
             </div>
-               </div>
+          </div>
               <div class="form-group col-xs-4">
                       <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant  :</label>
                       <div class="input-group col-sm-7">

@@ -141,6 +141,7 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
   public function edit($id)
   {
     $hosp = hospitalisation::find($id);
+    //dd($hosp->admission->demandeHospitalisation->bedAffectation->Lit->nom);
     $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
       $q->whereIn('role_id', [1, 13, 14]);
     })->get();
