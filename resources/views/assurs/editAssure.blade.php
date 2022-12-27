@@ -1,4 +1,4 @@
-<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
+<h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -122,9 +122,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue">Contact</h5></div></div>
-	<div class="row">
+	</div><h4 class="header lighter block blue">Contact</h4>
+  <div class="row">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="control-label col-sm-3 col-xs-3" for="adressef">Adresse: </label>
@@ -157,11 +156,8 @@
 		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData col-sm-9 col-xs-9" readonly />
 		  @endif
 	  </div>
-  </div>
+  </div><h4 class="header lighter block blue">Fonction</h4>	
 	<div class="row">
-		<div class="col-sm-12"><h5 class="header smaller lighter blue">Fonction</h5>	</div>
-	</div>	
-	 <div class="row">
 	 	<div class="col-sm-4">
 			<div class="form-group">
 				<label class="col-sm-3 control-label " for="grade">Grade :</label>

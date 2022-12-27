@@ -1,4 +1,4 @@
-<div class="row"><div class="col-sm-12"><h5 class="header lighter blue">Informations administratives</h5></div></div>
+<h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
 	<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span  class="red">*</span></label>
@@ -6,7 +6,7 @@
 			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control col-xs-12 col-sm-12"  alpha required  />
 			{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 		</div>
-        </div>
+  </div>
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="prenom">Prénom :<span class="red">*</span></label>
 		<div class="col-sm-9">
@@ -112,7 +112,7 @@
         	</div>		
         </div>
 </div>
-<div class="row"><div class="col-sm-12"><h5 class="header  lighter blue">Contact</h5></div></div>
+<h4 class="header lighter block blue">Contact</h4>
 <div class="row">
 	<div class="form-group  col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="adresse">Adresse :</label>
