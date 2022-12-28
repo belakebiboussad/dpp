@@ -1,4 +1,4 @@
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Accouchement</h3></div></div>
+<h4 class="header smaller lighter blue">Accouchement</h4>
 <div class="row">
 	<div class= "widget-box widget-color-red">
 		<div class="widget-header">

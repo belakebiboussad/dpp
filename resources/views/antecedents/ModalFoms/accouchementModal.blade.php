@@ -1,5 +1,5 @@
 <div id="accouchementModal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 	<div class="modal-content custom-height-modal">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="accCrudModal">Information sur l'Accouchement</h4>
@@ -22,19 +22,19 @@
 			<div class="form-group">
 				<label  class="col-sm-3 control-label">Durée Ouverture de l'Oeuf :</label>
 				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="eggopenduration" type="number" placeholder="Durée Ouverture de l'Oeuf" min="0" max="24" value="0" required />
+					<input class="form-control" id="eggopenduration" type="number" placeholder="Durée Ouverture de l'Oeuf" min="0" max="24" value="0" required />
 					</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Durée du Travail :</label>
-				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="workduration" type="number" placeholder="Durée du Travail" min="0" max="24" value="0" required />
+				<label class="col-sm-4 control-label">Durée du Travail :</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="workduration" type="number" placeholder="Durée du Travail" min="0" max="24" value="0" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Durée du l'Expulsion :</label>
-				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="expulsduration" type="number" placeholder="Durée du l'Expulsion" min="0" max="50" value="0" required />
+				<label class="col-sm-4 control-label">Durée du l'Expulsion :</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="expulsduration" type="number" placeholder="Durée du l'Expulsion" min="0" max="50" value="0" required />
 				</div>
 			</div>
 			<div class="form-group">

@@ -13,7 +13,6 @@
       updateDureePrevue();
     })  
   });
-
 </script>
 @endsection
 @section('main-content')
@@ -57,37 +56,44 @@
       <form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
-        <input type="text" name="id" value="{{$hosp->id}}" hidden>
+        <input type="hidden" name="id" value="{{$hosp->id}}" >
+        <input type="hidden" class="affect" value="1">
+<input type="hidden" class="demande_id" value="{{ $hosp->admission->demandeHospitalisation->id }}">
         <h4 class="header lighter block blue">Entrée</h4>
         <div class="row">
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="date">Date :</label>
-            <div class="col-sm-8">
-              <input class="col-xs-12 col-sm-12 date-picker date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
+            <div class="input-group col-sm-8">
+              <input class="form-control date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly disabled/>
+               <span class="input-group-btn"><button class="btn btn-sm disabled" type="button">
+                <i class="ace-icon fa fa-calendar bigger-110"></i></button>
+              </span>
             </div> 
           </div>
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
             <div class="col-sm-8">   
-               <input id="heurEnt" class="col-xs-12 col-sm-12 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/>
+               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/>
             </div>
           </div>
           <div id = "numberofDays" class="form-group col-xs-4">
             <label class="col-sm-4 control-label">Durée :</label>
-            <div class="col-sm-8">
-              <input class="col-xs-10 col-sm-10 numberDays" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
-               <label for=""><small>&nbsp;nuit(s)</small></label>
+            <div class="input-group col-sm-8">
+              <input class="form-control numberDays input-sm" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+              <span class="input-group-addon"><small>nuit(s)</small></span>
             </div>  
           </div>
-        </div> <!-- row -->
-        <h4 class="header lighter block blue">Sortie prévue</h4>
+        </div> <h4 class="header lighter block blue">Sortie prévue</h4>
         <div class="row">
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
-            <div class="col-sm-8">
-              <input class="col-xs-10 col-sm-10 date-picker date_end" name="Date_Prevu_Sortie" type="text" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
-              <button class="btn btn-sm filelink" onclick="$('.date_end').focus();"><i class="fa fa-calendar"></i></button>            
+            <div class="input-group">
+              <input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
+              <span class="input-group-btn"><button class="btn btn-sm" type="button" onclick="$('.date_end').focus();">
+                <i class="ace-icon fa fa-calendar bigger-110"></i></button>
+              </span>
             </div>
+
           </div>
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Heure_Prevu_Sortie">Heure :</label>
@@ -100,46 +106,54 @@
         <h4 class="header lighter block blue">Hospitalisation</h4>
         <div class="row">
           <div class="form-group col-xs-4">
-            <label class="col-sm-5 control-label" for="mode">Mode:</label>
-            <div class="col-sm-7">
-              <select  name="modeHosp_id" class="col-xs-12 col-sm-12" required>
+            <label class="col-sm-4 control-label" for="modeHosp_id">Mode:</label>
+            <div class="col-sm-8">
+              @can('update-hosp')
+              <select  name="modeHosp_id" class="form-control" required>
                      <option value="">Selectionnez...</option>
                     @foreach($modesHosp as $mode)
                       <option value="{{ $mode->id }}" @if($hosp->modeHosp_id == $mode->id) selected @endif>{{ $mode->nom}}</option>
                     @endforeach
               </select>
+              @else
+              <input type="text" class="form-control" readonly value="{{ $hosp->modeHospi->nom }}"/>
+              @endcan
             </div>
           </div>
           <div class="form-group col-xs-4">
             <label class="col-sm-5 control-label" for="medecin_id">Médecin traitant  :</label>
             <div class="input-group col-sm-7">
-              <select name="medecin_id" id="medecin_id" class="col-sm-12" @if(!in_array(Auth::user()->role->id,[1,13])) disabled @endif>
-                    <option value="" disabled>Selectionnez...</option>
-                    @foreach( $employes as $empl)
-                    <option value="{{$empl->id}}" @if($empl->id == $hosp->admission->demandeHospitalisation->consultation->medecin->id ) selected @endif>{{$empl->full_name}}</option>
-                      @endforeach
+              @can('update-hosp')
+              <select name="medecin_id" id="medecin_id" class="form-control">
+                <option value="" disabled>Selectionnez...</option>
+                @foreach( $employes as $empl)
+                <option value="{{$empl->id}}" @if($empl->id == $hosp->admission->demandeHospitalisation->consultation->medecin->id ) selected @endif>{{$empl->full_name}}</option>
+                  @endforeach
               </select> 
+              @else
+              <input type="text" class="form-control" readonly value="{{ $hosp->medecin->full_name }}"/>
+              @endcan
            </div>
           </div>
            @if($hosp->patient->hommesConf->count() > 0)
            <div class="form-group col-xs-4">
-                  <label class="col-sm-5 control-label" for="garde_id">Garde malade :</label>
-                  <div class="input-group col-sm-7">
-                    <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
-                         <option value="" >Selectionnez le garde malade</option>
-                         @foreach( $hosp->patient->hommesConf as $homme)
-                          <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
-                          @endforeach
-                    </select>
-                  </div>
+            <label class="col-sm-5 control-label" for="garde_id">Garde malade :</label>
+            <div class="input-group col-sm-7">
+              <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
+                   <option value="" >Selectionnez le garde malade</option>
+                   @foreach( $hosp->patient->hommesConf as $homme)
+                    <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>
+                    @endforeach
+              </select>
+            </div>
            </div>
            @endif
         </div><h4 class="header lighter block blue">Hébergement</h4>
-        <div class="row form group">
-          <div class="col-xs-4">
+        <div class="row">
+          <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="serviceh">Service :</label>
             <div class="col-sm-8">
-              <select name="serviceh" class="selectpicker col-xs-12 col-sm-12 serviceHosp" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}/>
+              <select name="serviceh" class="selectpicker form-control serviceHosp" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}/>
                 <option value="" selected disabled>Selectionnez le service</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->id == $service->id) selected @endif>
@@ -149,21 +163,45 @@
               </select>
             </div>
           </div>
-          <div class="col-xs-4">
+          <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="salle">Salle :</label>
             <div class="col-sm-8">
-              <select id="salle" name="salle" class="selectpicker col-xs-12 col-sm-12" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}>
-                <option value="" selected disabled>Selectionnez la salle</option>      
+              @can('update-bedAffectation')
+              <select id="salle" name="salle" class="selectpicker form-control salle">
+                <option value="" disabled>Selectionnez la salle</option>      
                 @foreach($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->salles as $salle)
-                <option value="{{ $salle->id }}" >{{ $salle->nom }}</option>
+                <option value="{{ $salle->id }}" @if($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle_id == $salle->id) selected @endif>{{ $salle->nom }}</option>
                 @endforeach
               </select>
+              @else
+              <input type="text" class="form-control" readonly value="{{ $hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->nom }}"/>
+              @endcan
             </div>
           </div>
+          <div class="form-group col-xs-4">
+            <label class="col-sm-4 control-label" for="lit">Lit :</label>
+            <div class="col-sm-8">
+              @can('update-bedAffectation')
+              <select id="lit" name="lit" class="form-control selectpicker lit_id">
+                <option value="" disabled>Selectionnez le lit</option>
+                @foreach($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->lits as $lit)
+                <option value="{{ $lit->id }}" @if($hosp->admission->demandeHospitalisation->bedAffectation->lit_id == $lit->id) selected @endif>{{ $lit->nom }} </option>
+                @endforeach
+              </select>
+              @else
+              <input type="text" class="form-control" readonly value="{{ $hosp->admission->demandeHospitalisation->bedAffectation->Lit->nom }}"/>
+              @endcan
+            </div>
+          </div>
+        </div><div class="hr hr-dotted"></div>
+        <div class="row">
+          <div class="col-xs-12 center">
+          <button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
+          <button class="btn btn-xs btn-warning" type="reset"> <i class="ace-icon fa fa-undo"></i>Annuler</button>
         </div>
+      </div>
       </form>
     </div>
 </div>
 </div> 
-
 @endsection

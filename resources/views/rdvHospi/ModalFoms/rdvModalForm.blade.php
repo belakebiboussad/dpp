@@ -3,7 +3,7 @@
     <div  class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
+        <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i> Ajouter un Rendez-Vous</h4>
       </div>
       <form id"rdvHAddForm" method="POST" action="{{ route('rdvHospi.store') }}">
         {!! csrf_field() !!}

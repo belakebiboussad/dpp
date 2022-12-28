@@ -44,19 +44,19 @@ class HospitalisationController extends Controller
         if($request->ajax())  
         { 
           if(Auth::user()->role_id != 9) {
-                if($request->field != 'Nom' && ($request->field != 'IPP'))
-                {
-                      if($request->value != "0")
-                              $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin','garde')
-                                            ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                                    $q->where('id',Auth::user()->employ->service_id);
-                                                   })->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                      else
-                              $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin','garde')
-                                            ->whereHas('admission.demandeHospitalisation.Service',function($q){
-                                                      $q->where('id',Auth::user()->employ->service_id);
-                                                    })->where('etat',null)->get();                                   
-                } else//'admission.demandeHospitalisation.DemeandeColloque.medecin
+            if($request->field != 'Nom' && ($request->field != 'IPP'))
+            {
+              if($request->value != "0")
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin','garde')
+                              ->whereHas('admission.demandeHospitalisation.Service',function($q){
+                                      $q->where('id',Auth::user()->employ->service_id);
+                                     })->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+              else
+                $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin','garde')
+                              ->whereHas('admission.demandeHospitalisation.Service',function($q){
+                                        $q->where('id',Auth::user()->employ->service_id);
+                                      })->where('etat',null)->get();                                   
+                } else
                     $hosps = hospitalisation::with('admission.demandeHospitalisation.Service','patient','modeHospi','medecin','garde')
                             ->whereHas('patient',function($q) use ($request){
                                    $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
@@ -141,7 +141,6 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
   public function edit($id)
   {
     $hosp = hospitalisation::find($id);
-    //dd($hosp->admission->demandeHospitalisation->bedAffectation->Lit->nom);
     $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
       $q->whereIn('role_id', [1, 13, 14]);
     })->get();
@@ -161,19 +160,19 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
         $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
-                $input = $request->all();
-                $input['hosp_id'] = $hosp->id ;
-                $affect = $hosp->admission->demandeHospitalisation->bedAffectation->update(['state'=>1]);
-                $hosp->admission->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>null]);
-                if($request->modeSortie == "0")
-                  $transfert = Transfert::create($input);
-               if($request->modeSortie == "2")
-                {
-                      $dece = Dece::create($input);
-                      $hosp->patient->update([ "active"=>0]);//patient decede on, peut pas ajouter de consultation
-                }
-                $hosp->update($request->all());
-                return $hosp;
+          $input = $request->all();
+          $input['hosp_id'] = $hosp->id ;
+          $affect = $hosp->admission->demandeHospitalisation->bedAffectation->update(['state'=>1]);
+          $hosp->admission->demandeHospitalisation->bedAffectation->lit->update(['affectation'=>null]);
+          if($request->modeSortie == "0")
+            $transfert = Transfert::create($input);
+         if($request->modeSortie == "2")
+          {
+            $dece = Dece::create($input);
+            $hosp->patient->update([ "active"=>0]);//patient decede on, peut pas ajouter de consultation
+          }
+          $hosp->update($request->all());
+          return $hosp;
         }else
         {
           $hosp->update($request->all());

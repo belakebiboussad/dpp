@@ -168,7 +168,7 @@
         </div>
       </div> 
       @else
-      <div class="row form group">
+      <div class="row form-group">
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
           <div class="col-sm-8">

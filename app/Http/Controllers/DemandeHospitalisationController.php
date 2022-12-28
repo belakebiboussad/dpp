@@ -49,7 +49,7 @@ class DemandeHospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function create($id)   {    $consultation = consultation::FindOrFail($id);       $patient = patient::FindOrFail($consultation->pid);   return view('demandehospitalisation.create_demande', compact('patient','consultation'));   }*/
+    /*public function create($id){$consultation = consultation::FindOrFail($id);$patient = patient::FindOrFail($consultation->pid);return view('demandehospitalisation.create_demande', compact('patient','consultation'));}*/
     /**
      * Store a newly created resource in storage.
      *
@@ -89,10 +89,10 @@ class DemandeHospitalisationController extends Controller
           return $demande;
         }else
         {
-          
           $services = service::all();
-          $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
-          return view('demandehospitalisation.edit', compact('demande','services','specialites'));
+          $specialites = Specialite::all();
+          $modesAdmission =DemandeHospitalisation::MODESADMISSION;
+          return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
           }
       }
     /**

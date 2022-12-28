@@ -5,14 +5,14 @@
 	<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="asdemogData col-xs-12 col-sm-12"  value="{{ old('nomf') }}"/>
+			<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="asdemogData form-control" value="{{ old('nomf') }}"/>
 				{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>	
 	<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="asdemogData col-xs-12 col-sm-12"  value="{{ old('prenomf') }}"/>
+			<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="asdemogData form-control"  value="{{ old('prenomf') }}"/>
 			{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 	<div class="form-group {{ $errors->has('datenaissancef') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label text-nowrap" for="datenaissancef">Né(e) le :</label>
 		<div class="col-sm-9">
-			<input class="asdemogData col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
+			<input class="asdemogData form-control date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 			{!! $errors->first('datenaissancef', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à :</label>
 		<div class="col-sm-9">
 		  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-				<input type="text" id="lieunaissancef" class="autoCommune asdemogData col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+				<input type="text" id="lieunaissancef" class="autoCommune asdemogData form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 		 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 		</div>
 		<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus :<span class="red">*</span></label>
 		<div class="col-sm-3">
-			<select id="rhf" name="rhf" class="col-sm-12 rhesus asdemogData" disabled>
+			<select id="rhf" name="rhf" class="form-control rhesus asdemogData" disabled>
 				<option value="">------</option>
 				<option value="+">+</option>
 				<option value="-">-</option>
@@ -96,14 +96,14 @@
 	  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
 	</div>
 </div>
-</div><!-- / -->
+</div>
 <!-- end demog data-->
-<div class="row"><div class="col-sm-12"><h4 class="header  lighter blue">Fonction</h4></div></div>	{{-- row --}}
+<h4 class="header  lighter blue">Fonction</h4>
 <div class="row">
 	<div class="form-group col-sm-4">
 		<label class="col-sm-3 control-label" for="grade">Grade :</label>
 		<div class="col-sm-9">
-			<select id="grade" name="grade" class=" col-xs-12 col-sm-12 asProfData"/>
+			<select id="grade" name="grade" class="form-control asProfData"/>
 				<option value="">Sélectionner...</option>
 				@foreach ($grades as $key=>$grade)
 				<option value="{{ $grade->id }}">{{ $grade->nom }}</option>
@@ -114,7 +114,7 @@
       <div class="form-group col-sm-4" id="statut">
 		<label class="col-sm-3 control-label" for="Position">Position :<span class="red">*</span></label>		
 		<div class="col-sm-9">
-			<select name="Position" id="Position" class="col-sm-12">
+			<select name="Position" id="Position" class="form-control">
 				<option value="">Sélectionner...</option>
 				<option value="Activité">Activité</option>
 				<option value="Détachement">Détachement</option>
@@ -136,7 +136,7 @@
 	<div class="form-group col-sm-4" id ="serviceFonc">
 		<label class="col-sm-3 control-label no-padding-right" for="service">Service :</label>
 		<div class="col-sm-9">
-			<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" placeholder="Service du Fonctionnaire">
+			<input type="text" name="service" id="service" class="form-control" placeholder="Service du Fonctionnaire">
 		</div>
 	</div>
 </div>
@@ -145,20 +145,20 @@
 		<label class="control-label col-xs-12 col-sm-3" for="mat">Matricule :</label>
 			<div class="col-sm-9">
 			<div class="clearfix">
-				<input type="text" id="mat" name="mat" class="col-sm-12" placeholder="Matricule..." maxlength =5 minlength =5 />
+				<input type="text" id="mat" name="mat" class="form-control" placeholder="Matricule..." maxlength =5 minlength =5 />
 			</div>
 		</div>
 	</div>
       <div class="form-group col-sm-4">
 		<label class="control-label col-xs-12 col-sm-3" for="nss2">NSS :<span class="red">*</span></label>		
 		<div class="clearfix col-sm-9">
-			<input type="text" id="nss" name="nss" class="col-sm-12 nssform" placeholder="XXXXXXXXXXXX"/>
+			<input type="text" id="nss" name="nss" class="form-control nssform" placeholder="XXXXXXXXXXXX"/>
 		</div>
 	</div>
 	<div class="form-group col-sm-4">
 		<label class="control-label col-xs-12 col-sm-3" for="NMGSN">NMGSN :</label>
 		<div class="clearfix col-sm-9">
-			<input type="text" id="NMGSN" name="NMGSN" class="col-sm-12 nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" />
+			<input type="text" id="NMGSN" name="NMGSN" class="form-control nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" />
 		</div>
 	</div>
-</div>	{{-- row --}}
+</div>

@@ -91,7 +91,7 @@
             e.preventDefault();  
         });
         $(".serviceHosp").change(function(){
-           if($(this ).val() != "")
+          if($(this ).val() != "")
           {
             var attr = $('.salle').attr('disabled');
             if($(".salle").prop('disabled') == true)
@@ -143,20 +143,20 @@
               formData.rdvId   = rdvId;
             } 
             $.ajax({
-                   url : '/getNotResBeds',
-                   type : 'GET',
-                    data:formData,
-                    success: function(data, textStatus, jqXHR){                  
-                      var selectLit = $('.lit_id').empty();                      
-                      if(data.length != 0){
-                        selectLit.append("<option value=''>Selectionnez un lit</option>");
-                        $.each(data,function(){
-                          selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                        });
-                        $('#AffectSave').removeAttr("disabled");
-                      }else
-                        selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                    },
+              url : '/getNotResBeds',
+              type : 'GET',
+                data:formData,
+                success: function(data, textStatus, jqXHR){                  
+                  var selectLit = $('.lit_id').empty();                      
+                  if(data.length != 0){
+                    selectLit.append("<option value=''>Selectionnez un lit</option>");
+                    $.each(data,function(){
+                      selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                    });
+                    $('#AffectSave').removeAttr("disabled");
+                  }else
+                    selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                },
              });    
           }else
           {
