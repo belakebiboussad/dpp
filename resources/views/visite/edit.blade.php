@@ -87,7 +87,7 @@
 											<strong>Description:</strong>
 										</label>
 										<div class="col-sm-9">
-											<textarea class="col-xs-12" id="description" name="desc" placeholder="Description"></textarea>
+											<textarea class="form-control" id="description" name="desc" placeholder="Description"></textarea>
 										</div>
 									</div>
 								</div>
@@ -98,7 +98,7 @@
 											<strong>Observation:</strong>
 										</label>
 										<div class="col-sm-9">
-											<textarea class="col-xs-12" id="obs" name="obs" placeholder="Observation"></textarea>
+											<textarea class="form-control" id="obs" name="obs" placeholder="Observation"></textarea>
 										</div>
 									</div>	
 								</div>

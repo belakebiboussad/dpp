@@ -98,7 +98,7 @@ class RdvHospiController extends Controller
       $specialite = Auth::user()->employ->Service->Specialite;
       $services = service::where('type','<>',2)->where('hebergement','1')->get();
       $rdv =  rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.DemeandeColloque','bedReservation')->FindOrFail($id);
-      return view('rdvHospi.edit', compact('specialite','demande','services','rdv'));       
+      return view('rdvHospi.edit', compact('specialite','services','rdv'));       
     }  
   }
   public function update(Request $request,$id)

@@ -35,7 +35,7 @@
 				</div>
 				<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus:</label>
 				<div class="col-sm-3">
-					<select id="rh" name="rh" class="rhesus col-sm-12 col-xs-12" disabled>
+					<select id="rh" name="rh" class="rhesus form-control" disabled>
 						<option value="">------</option>
 						<option value="+">+</option>	<option value="-">-</option>
 					</select>

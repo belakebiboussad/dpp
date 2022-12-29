@@ -27,7 +27,7 @@
 	      		<div class="col-sm-4">
 	      			<div class="form-group">
 	      				<label class="control-label">Etat :</label>
-	         			<select  id="etat" class="selectpicker col-xs-12 col-sm-12 filter">
+	         			<select  id="etat" class="selectpicker form-control filter">
 		         			<option selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option>
 		         			<option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}
@@ -36,7 +36,7 @@
 	         	</div>
 	         	<div class="col-sm-4">
 	      			<div class="form-group"><label>Service :</label>
-		      			<select  id="service" class="selectpicker col-xs-11 col-sm-11 filter">
+		      			<select  id="service" class="selectpicker form-control filter">
 		      				<option value="">Selectionner...</option>	
 		      				@foreach ($services as $service)
 		      					<option value="{{ $service->id }}">{{ $service->nom}}</option>

@@ -3,14 +3,14 @@
 	<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12"  value="{{ old('nom') }}" alpha/>
+			<input type="text" id="nom" name="nom" placeholder="Nom..." class="form-control"  value="{{ old('nom') }}" alpha/>
 				{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>	
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="prenom">Prénom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-12 col-sm-12" value="{{ old('prenom') }}" />
+			<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control" value="{{ old('prenom') }}" />
 			{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 		<div id ="dateExact">
        <label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
         <div class="col-sm-8">
-              <input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+          <input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
         </div>
     </div>
     <div id ="datePresume"  class="hidden">
@@ -67,7 +67,7 @@
 		</div>
 		<label class="col-sm-3 control-label" for="rh">Rhésus :</label>
 		<div class="col-sm-3">
-			<select id="rh" name="rh" class="rhesus col-sm-12 col-xs-12" disabled>
+			<select id="rh" name="rh" class="form-control rhesus" disabled>
 				<option value="">------</option>
 				<option value="+">+</option>
 				<option value="-">-</option>
@@ -91,7 +91,7 @@
 	<div class="form-group col-sm-6" id="Div-nomjeuneFille" hidden>
 		<label class="col-sm-3 control-label text-nowrap" for="nom_jeune_fille">Nom  jeune fille:</label>
 		<div class="col-sm-9">
-			<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." autocomplete = "off" class="col-xs-12 col-sm-12" value="{{ old('nom_jeune_fille') }}" />
+			<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." autocomplete = "off" class="form-control" value="{{ old('nom_jeune_fille') }}" />
 			 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>
@@ -100,7 +100,7 @@
 <div  class="row demograph">
 	<div class="form-group col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="adresse">Adresse:</label>
-		<input type="text" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
+		<input type="text" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
 	</div> 
 	<div class="form-group col-sm-4">
 		<label class="control-label col-sm-4 col-xs-4" for="commune">Commune:</label>
@@ -115,7 +115,7 @@
 </div>
 <div class="row">
 	<div class="form-group col-sm-3"><!-- pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" -->
-    <label class="control-label col-xs-12 col-sm-4" for="tel">Mob1 :</label>
+    <label class="control-label col-sm-4 col-xs-4" for="tel">Mob1 :</label>
     <div class="col-xs-12 col-sm-8">
       <div class="input-group">
         <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
@@ -124,7 +124,7 @@
     </div>
 	</div>
 	<div class="form-group col-sm-3">
-			<label class="control-label col-xs-12 col-sm-4" for="mobile2">Mob2 :</label>
+			<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2 :</label>
 		  <div class="col-xs-12 col-sm-8">
       <div class="input-group">
         <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
@@ -149,7 +149,7 @@
 	</div>
 	<div class="form-group col-sm-3" id="foncform">
 		<label class="control-label col-sm-4 col-xs-4" for="nsspatient">NSS:</label>
-		<input type="text" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="col-xs-12 col-sm-6 nssform" maxlength =12 minlength =12/>
+		<input type="text" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="col-sm-8 col-xs-8 nssform" maxlength =12 minlength =12/>
 	</div>
 </div>
 <div class="row">
