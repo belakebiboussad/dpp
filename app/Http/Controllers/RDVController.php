@@ -67,7 +67,7 @@ class RDVController extends Controller
         $patient = patient::FindOrFail( $request->patient_id);
       else
         $patient = new patient;
-      if((in_array(Auth::user()->role->id,[1,13,14]))) 
+      if((in_array(Auth::user()->role_id,[1,13,14]))) 
       {  
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
         $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
@@ -175,10 +175,10 @@ class RDVController extends Controller
           "employ_id"=>$employ_id,
           "fixe"=>$request->fixe,
         ]); 
-        if($request->ajax())// return $rdv;
+        if($request->ajax())
           return $rdv;
         else
-          return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
+          return redirect()->route("rdv.index");
       }
     /**
      * Remove the specified resource from storage.
@@ -196,27 +196,26 @@ class RDVController extends Controller
       }
       public function print(Request $request,$id)
       { 
-            $rdv = rdv::findOrFail($id);
-            $etab = Etablissement::first();
-            $civilite = $civilite = $rdv->patient->civ;
-            $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
-            $pdf417 = new PDF417();
-            $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
-            $renderer = new ImageRenderer([
-                'format' => 'png',
-                'scale' => 1,//1
-                'ratio'=>3,//hauteur,largeur
-                'padding'=>0,//espace par rapport left
-                'format' =>'data-url'
-            ]);
-            $img = $renderer->render($data);
-            $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml($viewhtml);
-            $dompdf->setPaper('a6', 'landscape');
-            $dompdf->render();
-        
-            return $dompdf->stream($filename); 
+        $rdv = rdv::findOrFail($id);
+        $etab = Etablissement::first();
+        $civilite = $civilite = $rdv->patient->civ;
+        $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
+        $pdf417 = new PDF417();
+        $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
+        $renderer = new ImageRenderer([
+            'format' => 'png',
+            'scale' => 1,//1
+            'ratio'=>3,//hauteur,largeur
+            'padding'=>0,//espace par rapport left
+            'format' =>'data-url'
+        ]);
+        $img = $renderer->render($data);
+        $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($viewhtml);
+        $dompdf->setPaper('a6', 'landscape');
+        $dompdf->render();
+        return $dompdf->stream($filename); 
       }
       public function listeRdvs(Request $request)
       {

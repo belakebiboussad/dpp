@@ -231,8 +231,8 @@ $(function(){
                       <td class="center">{{ $index+1 }}</td>
                       <td>{{ $examen->Examen->nom }}</td>
                       <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
-                      <td class="center"> {{-- @if((Auth::user()->role->id == 12) && ($examen->getEtatID($examen->etat) == ""))@endif --}}
-                        <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role->id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
+                      <td class="center">
+                        <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role_id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
                       </td>
                       <td class="center" width="30%">
                         <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 

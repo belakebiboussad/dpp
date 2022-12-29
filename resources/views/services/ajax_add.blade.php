@@ -1,4 +1,4 @@
-<div class="page-header"><h4>Ajouter un nouveau service</h4></div>
+<div class="page-header"><h4>Ajouter un nouveau service </h4></div>
 <div class="row">
   <div class="col-xs-12">
     <div class="widget-box">
@@ -8,12 +8,12 @@
           <form class="form-horizontal" role="form" method="POST">
             <div class="form-group"><label class="col-sm-3 control-label" for="nom">Nom : </label>
               <div class="col-sm-9">
-                <input type="text" id="nom" placeholder="Nom du dervice" class="col-xs-12 col-sm-12"/>
+                <input type="text" id="nom" placeholder="Nom du dervice" class="form-control"/>
               </div>
             </div>
             <div class="form-group"><label class="col-sm-3 control-label" for="type">Type :</label>
               <div class="col-sm-9">
-                <select id="type" class="selectpicker show-menu-arrow col-xs-12 col-sm-12" required >
+                <select id="type" class="form-control selectpicker show-menu-arrow" required >
                   <option value="0">Médicale</option>
                   <option value="1">Chirurgical</option>
                   <option value="2">Paramédical</option>
@@ -24,7 +24,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label" for="responsable_id">Chef :</label>
               <div class="col-sm-9">
-                <select id="responsable_id" class="selectpicker col-xs-12">
+                <select id="responsable_id" class="form-control selectpicker">
                   <option value="" selected disabled>Selectionner le chef du service</option>
                   @foreach ($users as $user)
                   <option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>

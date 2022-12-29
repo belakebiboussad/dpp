@@ -11,13 +11,13 @@
             <div class="form-group">
               <label class="col-sm-3 control-label" for="nom"> Nom :</label>
               <div class="col-sm-9">
-                <input type="text" id="nom" name="nom" value="{{ $service->nom }}"  class="col-xs-12 col-sm-12" />
+                <input type="text" id="nom" name="nom" value="{{ $service->nom }}"  class="form-control" />
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label" for="type">Type :</label>
               <div class="col-sm-9">
-                <select id="type" name="type"  class="selectpicker col-xs-12 col-sm-12" required >
+                <select id="type" name="type"  class="selectpicker" required >
                   <option value="0" @if($service->type == 0) selected @endif>Médicale</option>
                   <option value="1" @if($service->type == 1) selected @endif>Chirurgical</option>
                   <option value="2" @if($service->type == 2) selected @endif>Paramédical</option>
@@ -28,7 +28,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label" for="type">Chef :</label>
               <div class="col-sm-9">
-                <select id="responsable_id" name="responsable_id"  class="selectpicker col-xs-12 col-sm-12">
+                <select id="responsable_id" name="responsable_id"  class="selectpicker">
                   <option value="" selected disabled>Selectionner le chef</option>
                   @foreach ($employs as $employ)
                     <option value="{{ $employ->id}}" @if((isset($service->responsable_id)) && ($service->responsable_id == $employ->id)) selected @endif> {{ $employ->full_name }}</option>

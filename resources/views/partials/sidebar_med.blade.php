@@ -20,7 +20,7 @@
         <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(in_array(Auth::user()->role->id,[13,14]))
+      @if(in_array(Auth::user()->role_id,[13,14]))
       <li class="">
         <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
@@ -95,8 +95,7 @@
         @if(Auth::user()->is(14))
         <li>
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
-            <b class="arrow fa fa-angle-down"></b>
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span><b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
           <ul class="submenu">
@@ -121,7 +120,7 @@
 
           </ul>
         </li>
-        @if(in_array(Auth::user()->role->id,[13,14]))
+        @if(in_array(Auth::user()->role_id,[13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>

@@ -8,20 +8,20 @@
 			<form id="modalFormAcc" class="form-horizontal">
 				<input type="hidden" id="acc_id" value="0">
 				<div class="form-group">
-					<label class="col-sm-3 control-label" >Lieu :</label>
-					<div class="col-sm-9">
+					<label class="col-sm-4 control-label" >Lieu :</label>
+					<div class="col-sm-8">
 						<input type="text" id="lieu" class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Presentation :</label>
-					<div class="col-sm-9">
+					<label class="col-sm-4 control-label">Presentation :</label>
+					<div class="col-sm-8">
 						<input type="text" id="presentation" class="form-control"/>
 					</div>
 				</div>
 			<div class="form-group">
-				<label  class="col-sm-3 control-label">Durée Ouverture de l'Oeuf :</label>
-				<div class="col-sm-9">
+				<label  class="col-sm-4 control-label">Durée Ouverture de l'Oeuf :</label>
+				<div class="col-sm-8">
 					<input class="form-control" id="eggopenduration" type="number" placeholder="Durée Ouverture de l'Oeuf" min="0" max="24" value="0" required />
 					</div>
 			</div>
@@ -38,14 +38,14 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" >Incidents :</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label" >Incidents :</label>
+				<div class="col-sm-8">
 					<textarea id="incident" class="form-control"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Type :</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label">Type :</label>
+				<div class="col-sm-8">
           <select id="type" class="form-control">
             @foreach(App\modeles\Accouchement::TYPES  as  $key=>$value)
             <option value="{{ $key}}" >{{ $value }}</option>

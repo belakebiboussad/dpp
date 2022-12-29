@@ -31,12 +31,55 @@ class DemandeExamenRadio extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $services =service::where('type','!=',"2")->get();
-      $demandesexr = demandeexr::with('consultation','visite')->where('etat',null)->get();
-      return view('examenradio.index', compact('demandesexr','services')); 
+      if($request->ajax())  
+      {
+        if($request->field != "service")  
+        {
+          if(isset($request->value))
+               $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+          else
+               $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
+        }else
+        {
+          $serviceID = $request->value;
+          $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
+                          ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
+                                  $q->where('id', $serviceID);
+                          })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
+                                  $q->where('id', $serviceID);
+                              })->get();
+        }
+        return $demandes;
+      }else
+      {
+
+        $services =service::where('type','!=',"2")->get();
+        $demandesexr = demandeexr::with('consultation','visite')->where('etat',null)->get();
+        return view('examenradio.index', compact('demandesexr','services')); 
+      }
     }
+    // public function search(Request $request)
+    // {
+    //   if($request->field != "service")  
+    //   {
+    //     if(isset($request->value))
+    //          $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+    //     else
+    //          $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
+    //   }else
+    //   {
+    //     $serviceID = $request->value;
+    //     $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
+    //                     ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
+    //                             $q->where('id', $serviceID);
+    //                     })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
+    //                             $q->where('id', $serviceID);
+    //                         })->get();
+    //   }
+    //   return $demandes;
+    // }
     public function details($id)
     {
       $demande = demandeexr::FindOrFail($id);
@@ -211,26 +254,7 @@ class DemandeExamenRadio extends Controller
       $demande = demandeexr::destroy($id);    
       return $demande;
     }
-     public function search(Request $request)
-    {
-      if($request->field != "service")  
-      {
-        if(isset($request->value))
-             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-        else
-             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
-      }else
-      {
-        $serviceID = $request->value;
-        $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                        ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
-                                $q->where('id', $serviceID);
-                        })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
-                                $q->where('id', $serviceID);
-                            })->get();
-      }
-      return $demandes;
-    }
+   
     public function delResult(Request $request)
     {
       $ex = Demandeexr_Examenradio::FindOrFail($request->examId);

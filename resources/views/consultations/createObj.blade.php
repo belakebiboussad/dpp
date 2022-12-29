@@ -444,7 +444,7 @@ $(function(){
 </div>
 @include('antecedents.AntecedantModal')@include('antecedents.AntecedantModalPhysio')
 @include('cim10.cimModalForm')@include('consultations.ModalFoms.DemadeHospitalisation')
-@include('rdv.rendezVous')@include('consultations.ModalFoms.LettreOrientation')
+@include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>

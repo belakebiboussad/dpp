@@ -50,19 +50,17 @@
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
 			  @if(isset($hosp))
-        <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12 requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
+        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
        	@else
-        <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12 requestPrint" value ="{{ $consult->id }}" data-field="id_consultation" disabled>
+        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $consult->id }}" data-field="id_consultation" disabled>
         @endif
-          <div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
+          <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>
 				</button>
 			</div><div class="space-12"></div>
-			<div>
-				@if(! isset( $hosp))
+			@if(! isset($hosp))
 					@include('consultations.actions')	
 				@endif
-			</div>
-	</div>
+		</div>
 </div>
 </div><div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>
 <script> 

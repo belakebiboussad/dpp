@@ -3,7 +3,7 @@
 @section('page-script')
  <script>
  	var field ="etat";
- 	var url = '{{ URL::to('searchImgRequests') }}';
+ 	var url = '{{ route("demandeexr.index") }}';
  	function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
     if(data.etat == "En Cours")

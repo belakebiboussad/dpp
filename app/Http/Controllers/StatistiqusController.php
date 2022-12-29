@@ -125,7 +125,7 @@ class StatistiqusController extends Controller
  public function search($id)
   {
     $services = service::whereIn('type', [0,1])->get();
-    if((in_array(Auth::user()->role->id,[4,8])))
+    if((in_array(Auth::user()->role_id,[4,8])))
       $medecins = employ::all();
     else 
       $medecins =Auth::user()->employ->Service->Medecins;

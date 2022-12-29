@@ -126,12 +126,12 @@ function errorMsg(msg, error) {
 			$('#patientDetail').html('');$(".numberResult").html('');
 			$.ajax({
 		        type : 'get',
-		        url : '{{URL::to('searchPatient')}}',
+		        url : '{{ route("patient.index") }}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
 			     		$('#'+field).val('');//field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			 	 	var table =   $("#liste_patients").DataTable ({
+     			 	  var table =   $("#liste_patients").DataTable ({
 	     					"processing": true,
 		  				 	"paging":   true,
 		  				  "destroy": true,

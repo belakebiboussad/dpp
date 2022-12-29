@@ -24,6 +24,6 @@
          
         </div>
 			</div>
-		</div><div class= "col-sm-3"><div>@include('consultations.actions')</div></div>
+		</div><div class= "col-md-3 col-sm-3">@include('consultations.actions')</div>
 	</div><!-- row -->
 </div>

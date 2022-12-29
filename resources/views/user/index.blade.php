@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$('#Controls').removeClass('hidden');
 	  $.ajax({
      		type : 'get',
-      	url : '{{URL::to('searchUser')}}',
+      	url : '{{ route("users.index") }}',
      		data:{'field':field,'value':($('#'+field).val())},
      		success:function(data,status, xhr){
      			$('#btnCreate').removeClass('hidden');
@@ -101,7 +101,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label">Nom</label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
+							<input type="text" class="form-control input-xs autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>
 	  	    </div>
@@ -110,7 +110,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label">Rôle</label>
 		  	    <div class="input-group col-sm-10">
-							<select class="col-xs-12 col-sm-12 input-xs filter" name="role_id" id="role_id">
+							<select class="form-control input-xs filter" name="role_id" id="role_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($roles as $role)
 									<option value="{{ $role->id }}">{{ $role->role }}</option>
@@ -123,7 +123,7 @@ function getUserdetail(id)
 		      <div class="form-group col-sm-12">
 		       	<label class="control-label">Service</label>
 						<div class="input-group col-sm-10">
-							<select class="form-control col-xs-12 col-sm-12 input-xs filter" name="service_id" id="service_id">
+							<select class="form-control input-xs filter" name="service_id" id="service_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>

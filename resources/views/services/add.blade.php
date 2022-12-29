@@ -13,24 +13,24 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom: </strong></label>
 							<div class="col-sm-9">
-								<input type="text" id="nom" name="nom" placeholder="Nom du Service" class="col-xs-12 col-sm-12" required/>
+								<input type="text" id="nom" name="nom" placeholder="Nom du Service" class="" required/>
 							</div>
 						</div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Type:</strong></label>
 							<div class="col-sm-9">
-								<select  name="type"  class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
+								<select  name="type"  class="selectpicker show-menu-arrow place_holde" required >
 									<option value="0">Médical</option>
 									<option value="1">Chirurgical</option>
 									<option value="2">Paramédical</option>
-                                                                  <option value="3">Administratif</option>
+                  <option value="3">Administratif</option>
 								</select>		
 							</div>
 						</div>
 				{{-- 		<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="responsable_id"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
-						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12">
+						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde form-control">
 									<option value="" selected disabled>Selectionner le chef de service</option>
 									@foreach ($users as $user)
 									<option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>

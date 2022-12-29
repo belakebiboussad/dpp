@@ -79,7 +79,7 @@
           <div id = "numberofDays" class="form-group col-xs-4">
             <label class="col-sm-4 control-label">Durée :</label>
             <div class="input-group col-sm-8">
-              <input class="form-control numberDays input-sm" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+              <input class="form-control numberDays input-sm" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role_id,[5])) disabled @endif/>
               <span class="input-group-addon"><small>nuit(s)</small></span>
             </div>  
           </div>
@@ -88,7 +88,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
             <div class="input-group">
-              <input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role->id,[5])) disabled @endif required/>
+              <input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role_id,[5])) disabled @endif required/>
               <span class="input-group-btn"><button class="btn btn-sm" type="button" onclick="$('.date_end').focus();">
                 <i class="ace-icon fa fa-calendar bigger-110"></i></button>
               </span>
@@ -98,7 +98,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Heure_Prevu_Sortie">Heure :</label>
             <div class="col-sm-8">   
-              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-10 col-sm-10 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-10 col-sm-10 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role_id,[5])) disabled @endif/>
               <button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button> 
             </div>
           </div>
@@ -139,7 +139,7 @@
            <div class="form-group col-xs-4">
             <label class="col-sm-5 control-label" for="garde_id">Garde malade :</label>
             <div class="input-group col-sm-7">
-              <select name="garde_id" id="garde_id" class="col-sm-12">{{-- @if(Auth::user()->role->id != 5) disabled @endif  --}}
+              <select name="garde_id" id="garde_id" class="col-sm-12">
                    <option value="" >Selectionnez le garde malade</option>
                    @foreach( $hosp->patient->hommesConf as $homme)
                     <option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->full_name }}</option>

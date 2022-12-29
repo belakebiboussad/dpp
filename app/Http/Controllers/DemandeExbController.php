@@ -23,16 +23,38 @@ class DemandeExbController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-        public function __construct()
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    public function index(Request $request) {
+      if($request->ajax())  
+      {
+        if($request->field != "service")  
         {
-          $this->middleware('auth');
-        }/*public function createexb($id){$specialites = specialite_exb::all();$consultation = consultation::FindOrFail($id);return view('examenbio.demande_exb', compact('specialites','consultation'));}*/
-        public function index() {
-          $services =service::where('type','!=',"2")->get();
-          $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
-          return view('examenbio.index', compact('demandesexb','services'));
+          if(isset($request->value))
+            $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+          else
+            $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
+        }else
+        {
+          $serviceID = $request->value;
+          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
+                                 ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
+                                      $q->where('id', $serviceID);
+                                  })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
+                                      $q->where('id', $serviceID);
+                                  })->get();
         }
-  /**
+        return Response::json($demandes);
+      }else
+      {
+        $services =service::where('type','!=',"2")->get();
+        $demandesexb = demandeexb::whereNull('etat')->get();
+        return view('examenbio.index', compact('demandesexb','services'));
+      }
+    }
+/**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
@@ -46,7 +68,6 @@ class DemandeExbController extends Controller
   */
   public function store(Request $request)//,$consultId
   {
-
     if($request->ajax())    
     { 
       if(isset($request->id_consultation))
@@ -152,26 +173,6 @@ class DemandeExbController extends Controller
       }  
       $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
       return  redirect()->action('DemandeExbController@index');
-    }
-    public function search(Request $request)
-    {
-      if($request->field != "service")  
-      {
-        if(isset($request->value))
-          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-        else
-          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
-      }else
-      {
-        $serviceID = $request->value;
-        $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                               ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
-                                    $q->where('id', $serviceID);
-                                })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
-                                    $q->where('id', $serviceID);
-                                })->get();
-      }
-      return Response::json($demandes);
     }
     public function print($id)
     {

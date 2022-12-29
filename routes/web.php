@@ -67,7 +67,6 @@ route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDem
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
 route::get('/products/list','demandeprodController@getProducts')->name('productsList');
-route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
@@ -89,7 +88,6 @@ Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name
 Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
-Route::get('/searchAssure','AssurController@search');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
@@ -122,11 +120,9 @@ Route::any('/profile/{userId}', [
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
-Route::get('/searchUser','UsersController@search');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::post('/patients/autoField','PatientController@AutoCompletePatientField')->name('patients.autoField');
 Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
@@ -140,7 +136,6 @@ Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 // end del
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
-route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::get('/details_exr/{id}','DemandeExamenRadio@details');
@@ -149,7 +144,6 @@ Route::post('delete-res', 'DemandeExamenRadio@delResult');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::get('/examRadioDel/{id}', 'DemandeExamenRadio@examDestroy')->name('examRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
-route::get('/searchImgRequests','DemandeExamenRadio@search');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
@@ -171,6 +165,6 @@ route::post('/storeprescriptionconstantes','HospitalisationController@store_pres
 Route::post('/admin/password/reset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
 route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
-Route::get('/etabExport', 'EtablissementControler@exportCsv');//Route::get('/searchdate','StatistiqusController@seardate');
+Route::get('/etabExport', 'EtablissementControler@exportCsv');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');

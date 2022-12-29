@@ -72,16 +72,13 @@
               </div>
             </div>
             <div class="modal-footer">
-              @if(in_array(Auth::user()->role->id,[1,13,14]))
+              @if(in_array(Auth::user()->role_id,[1,13,14]))
                <a  id="btnConsulter" class="btn btn-primary btn-xs"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
               @endif 
-              <a id="printRdv" href="" class="btn btn-xs btn-success"   aria-hidden="true" target="_blank">
-                <i class="ace-icon fa fa-print"></i>Imprimer
-              </a>
-              <a id="printTck" class="btn btn-info btn-xs hidden"  data-dismiss="modal"><i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
+              <a id="printRdv" href="" class="btn btn-xs btn-success"   aria-hidden="true" target="_blank"><i class="ace-icon fa fa-print"></i>Imprimer</a>
+              <a id="printTck" class="btn btn-info btn-xs hidden" data-dismiss="modal"><i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
               <button type="button" class="btn  btn-warning btn-xs" data-dismiss="modal" id ="btnclose" >
-                   <i class="fa fa-close" aria-hidden="true" ></i>&nbsp;Annuler
-              </button>
+                   <i class="fa fa-close" aria-hidden="true" ></i> Annuler</button>
             </div>
             </form>
         </div>

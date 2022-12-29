@@ -32,11 +32,35 @@ class UsersController extends Controller
     {
        $user = Auth::user();
     }
-    public function index()
+    public function index(Request $request)
     {
-      $roles = rol::all();
-      $services = service::all();
-      return view('user.index',compact('roles','services'));
+      if($request->ajax())  
+      {
+        $value = trim($request->value);
+        //$users = null;
+        switch($request->field)
+        {
+          case "role_id"  :
+                $users = User::with('role')->where($request->field,$value)->get(); 
+                break; 
+          case "name"  :
+                $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
+                break;
+          case "service_id"  :
+                $users = User::with('role')->whereHas('employ', function ($q) use ($value){
+                                               $q->where('service_id',$value);
+                                           })->get();
+                break; 
+          default:    
+                break;          
+        }
+        return $users;
+      }else
+      {
+        $roles = rol::all();
+        $services = service::all();
+        return view('user.index',compact('roles','services'));
+      }
     }
     /**
      * Show the form for creating a new resource.
@@ -50,7 +74,6 @@ class UsersController extends Controller
       $specialites = Specialite::all();
       return view('user.add', compact('roles','services','specialites'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -267,28 +290,6 @@ class UsersController extends Controller
     {
       $user = User::FindOrFail($id_user);
       return view('user.settings', compact('user'));
-    }
-    public function search(Request $request)
-    {
-      $value = trim($request->value);
-      $users = null;
-      switch($request->field)
-      {
-        case "role_id"  :
-              $users = User::with('role')->where($request->field,$value)->get(); 
-              break; 
-        case "name"  :
-              $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
-              break;
-        case "service_id"  :
-              $users = User::with('role')->whereHas('employ', function ($q) use ($value){
-                                             $q->where('service_id',$value);
-                                         })->get();
-              break; 
-        default:    
-              break;          
-      }
-      return $users;
     }    
     public function AutoCompleteField(Request $request)
     { 

@@ -39,9 +39,30 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
-      return view('patient.index');
+      if($request->ajax())  
+      {
+        $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d');
+        $sub65 = ($today->subYears(65))->format('Y-m-d');
+        switch(Auth::user()->employ->specialite)
+        {       
+            case 3 :
+                   $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '>', $sub17)->get();
+                   break;
+            case 5 :
+                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
+                  break;
+            case 8 :
+                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '<=', $sub65)->get();
+                   break;
+            default :
+                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->get();
+                  break;    
+          }
+          return $patients; 
+      } else
+        return view('patient.index');
     }
   /**
    * Show the form for creating a new resource.
@@ -262,7 +283,7 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
        public function show(patient $patient)
-       {  //c$patient = patient::FindOrFail($id);
+       {  
           $id = $patient->id ;
           $specialites = Specialite::all();
           $grades = grade::all(); 
@@ -296,7 +317,6 @@ class PatientController extends Controller
       {  
         $assure=null;
         $grades = grade::all(); 
-        //$patient = patient::FindOrFail($id);
         if(!in_array($patient->Type,[5,6]))
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','grades')); 
@@ -309,7 +329,9 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function update(Request $request, patient $patient)
-      { $assure = new assur;$ayants = array("1", "2", "3","4");$ayantsAssure = array("0","1", "2", "3","4");$derogAutre = array("5","6");
+      { 
+        $assure = new assur;$ayants = array("1", "2", "3","4");
+        $ayantsAssure = array("0","1", "2", "3","4");$derogAutre = array("5","6");
         $date = Date::Now();
         if(!in_array($request->type,$derogAutre ))
         {
@@ -380,7 +402,7 @@ class PatientController extends Controller
         return redirect(Route('patient.show',$patient->id));
     }
     public function updateP(Request $request, patient $patient) 
-    { //$patient = patient::FindOrFail($id);
+    { 
       $patient -> update([
                "Nom"=>$request->nom,
                "Prenom"=>$request->prenom,
@@ -446,29 +468,6 @@ class PatientController extends Controller
               $output.='<li onclick="Fill('.$pat->id.',\''.$pat->full_name.'\')">'.$pat->full_name.'</li>';   
             }
         return $output;
-    }
-  }
-  public function search(Request $request)
-  {
-    $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d'); $sub65 = ($today->subYears(65))->format('Y-m-d');
-    if($request->ajax())  
-    {
-      switch(Auth::user()->employ->specialite)
-      {       
-        case 3 :
-               $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '>', $sub17)->get();
-               break;
-        case 5 :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
-              break;
-        case 8 :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '<=', $sub65)->get();
-               break;
-        default :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->get();
-              break;    
-       }
-      return $patients;
     }
   }
   public function getPatientDetails($id)

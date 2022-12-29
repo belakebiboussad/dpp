@@ -18,8 +18,8 @@
  	}
  	function getProdsRequests(field,value)
 	{
-			$.ajax({
-					url : '{{ URL::to('searchProductsRequests') }}',
+		$.ajax({
+					url : '{{ route("demandeproduit.index") }}',
 			 		data: {    
 			      	"field":field,
 			      	"value":value,

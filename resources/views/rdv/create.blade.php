@@ -43,7 +43,7 @@ function reset_in(){
 }
 function getPatient()
 {
-  var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var spec ='{{  in_array(Auth::user()->role_id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();
   var ajaxurl = '{{ URL::to('getPatients') }}';
   $.ajax({
@@ -137,10 +137,10 @@ $(function() {
                 var minutes = end.diff(start,"minutes"); 
                 if( (minutes == 15) && (start >=today ))//CurrentDate
                 {
-                  if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+                  if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')                                
                   {
                     Swal.fire({
-                        title: 'Confimer vous  le Rendez-Vous ?',
+                        title: 'Confimer vous le Rendez-Vous?',
                         html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</b></h4>',
                         input: 'checkbox',
                         inputValue: 1,
@@ -167,7 +167,6 @@ $(function() {
                       createRDVModal(start,end,'{{ $patient->id }}',1);
                     else
                       createRDVModal(start,end,0,1);
-                    
                   }
                   resetPatient();
                 }else

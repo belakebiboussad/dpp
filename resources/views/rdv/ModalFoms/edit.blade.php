@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-6"><label class="blue">Âge :</label><span id="agePatient"></span><small>Ans</small></div>
       </div><div class="space-12"></div>
-      @if(Auth::user()->role->id == 15)
+      @if(Auth::user()->role_id == 15)
         <div class="panel panel-default">
         <div class="panel-heading"><span>Selectionner une spécialité</span></div>
         <div class="panel-body">
@@ -85,8 +85,7 @@
       <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>      
         <button  type="button" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</button>
         <a id="printRdv" class="btn btn-success btn-xs hidden"  aria-hidden="true" target="_blank"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-       <button type="button" class="btn btn-xs btn-warning" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
+       <button type="button" class="btn btn-xs btn-warning" data-dismiss="modal"  id ="btnclose" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
     </div>
   </form>  
   </div>{{-- modal-content --}}

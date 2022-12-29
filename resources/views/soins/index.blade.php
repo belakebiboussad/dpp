@@ -126,7 +126,7 @@
 </div>
 @include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')@include('constantes.scripts.functions')
 <script type="text/javascript">
-  function getActdetail(id){ // var url= '{{ route ("acteExec.index", ":slug") }}'; // url = url.replace(':slug',id);
+  function getActdetail(id){ 
    var url = '{{ route("acteExec.index") }}';
     $.ajax({
         url : url,

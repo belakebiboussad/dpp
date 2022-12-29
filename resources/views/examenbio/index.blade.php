@@ -3,7 +3,7 @@
 @section('page-script')
  <script>
  	field ="etat";
- 	var url = '{{ URL::to('searchBioRequests') }}';
+  var url = '{{ route("demandeexb.index") }}';
  	function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexb/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
     if(data.etat == "En Cours")

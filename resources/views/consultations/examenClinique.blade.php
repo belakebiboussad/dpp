@@ -28,7 +28,7 @@
       @endif
       </div>
     </div>
-    <div class= "col-md-3 col-sm-9"><div>@include('consultations.actions')</div></div>
+    <div class= "col-md-3 col-sm-3">@include('consultations.actions')</div>
   </div>
 </div>
 <script type="text/javascript" charset="utf-8" async defer>

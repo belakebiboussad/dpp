@@ -14,7 +14,7 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label" for="nom">Nom:</label>
 							<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12" type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
+							<input class="form-control" type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -22,7 +22,7 @@
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="prenom">Prénom :</label>
 						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
+						<input class="form-control" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -30,7 +30,7 @@
             <div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
             <label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
             <div class="col-sm-9">
-            <input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+            <input class="form-control date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
             </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à :</label>
 						<div class="col-sm-9">
-						  <input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
+						  <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
 						</div>
 						</div>
 					</div>

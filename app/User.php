@@ -36,9 +36,6 @@ class User extends Authenticatable
     ];
     public function is($role)
     {
-      if($role == $this->role_id)
-        return true;
-      else
-        return false;
+      return ($role == $this->role_id);
     }
 }
