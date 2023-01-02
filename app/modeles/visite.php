@@ -8,8 +8,11 @@ class visite extends Model
 {
     public $timestamps = false;
     protected $fillable  = ['date','heure','id_hosp','id_employe'];
-    //protected $appends = ['date_presc'];
-    /*public function getDatePrescAttribute(){return date('Y-m-d H:i', strtotime("$this->date $this->heure"));}*/
+    protected $dates = ['date'];
+    public function getDateFormatedAttribute()
+    {
+      return $this->date->format('Y-m-d');
+    }
     public function hospitalisation()
     {
     	return $this->belongsTo('App\modeles\hospitalisation','id_hosp');

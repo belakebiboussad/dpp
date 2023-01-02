@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-  <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$hosp->patient])</div></div><div class="space-12"></div>
+  <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$hosp->patient])</div></div>
   <div class="pull-right">
    <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
-  </div>
+  </div><div class="space-12"></div>
   <div class="row">
     <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
@@ -27,8 +27,7 @@
                     @if(!$acte->retire)
                     <tr id="acte-{{ $acte->id }}">
                       <td>{{ $acte->nom }}</td><td>{{ $acte->description }}</td>
-                      <td>{{ $acte->visite->medecin->full_name }}</td><td>{{ $acte->visite->date}}</td> 
-                      <td class="center">
+                      <td>{{ $acte->visite->medecin->full_name }}</td><td>{{ $acte->visite->date_formated}}</td><td class="center">
                         <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
                       </td> 
                     </tr>
@@ -43,6 +42,7 @@
     </div>
     <div class="col-md-6 col-sm-6 widget-box transparent" id="details"></div>       
   </div>
+  @if(! is_null($lastVisite))  
   <div class="row">
     <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
@@ -82,7 +82,8 @@
       </div>      
     </div>
   </div>
-  @if( (null != $lastVisite) && (null != $lastVisite->prescreptionconstantes)) 
+  @endif
+  @if( (! is_null($lastVisite)) && (! is_null($lastVisite->prescreptionconstantes)) ) 
   @if($lastVisite->prescreptionconstantes->constantes->count() > 0)
   <div class="row">
     <div class="col-sm-6 widget-container-col">
@@ -110,7 +111,7 @@
                   </td>
                   @endif
                   <td class="center">
-                    <button  style="cursor:pointer" class="btn btn-primary btn-xs setConst" data-toggle="tooltip" title="" value="{{ $const->id }}" data-unite="{{ $const->id }}"><i class="fa fa-eye fa-xs"></i></a></button>
+                    <button  style="cursor:pointer" class="btn btn-primary btn-xs setConst" data-toggle="tooltip"  value="{{ $const->id }}" data-unite="{{ $const->id }}"><i class="fa fa-eye fa-xs"></i></a></button>
                   </td>
                  </tr>
                 @endforeach

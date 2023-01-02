@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CertificatDescriptif;
 use App\modeles\Etablissement;
+use Carbon\Carbon;
 use PDF;
 use Response;
 use Storage;
-use File;// use Dompdf\Dompdf;
+use File;
 use View;
 class CertificatDescriptifController extends Controller
 {
@@ -40,10 +41,11 @@ class CertificatDescriptifController extends Controller
   }
   public function print($id)
   {
+    $today =  Carbon::today()->format('d/m/Y');
     $certif = CertificatDescriptif::FindOrFail($id);// dd($certif->consultation->patient);
     $etab = Etablissement::first();
-    $pdf = PDF::loadView('consultations\EtatsSortie.certifDescPDF', compact('certif','etab'));
-    $filename = $certif->consultation->patient->Nom . "-" . $certif->consultation->patient->Prenom . ".pdf"; //$filename ="a.pdf";
+    $pdf = PDF::loadView('consultations\EtatsSortie.certifDescPDF', compact('certif','etab','today'));
+    $filename = $certif->consultation->patient->Nom . "-" . $certif->consultation->patient->Prenom . ".pdf";
     Storage::put('public/pdf/'.$filename,$pdf->output());
     $file = storage_path() . "/app/public/pdf/" . $filename;
     if (File::isFile($file))

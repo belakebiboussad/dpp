@@ -24,7 +24,7 @@
 					 @foreach($hosp->visites as $visite)
 					<tr  role="row" class="even">
             <td>{{ $visite->medecin->full_name }}</td>
-						<td>{{ $visite->date }}</td>
+						<td>{{ $visite->date_formated }}</td>
 						<td class="center">
 					 		@isset($visite->demandeexmbio)
 							<span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">

@@ -8,7 +8,7 @@
     $('#numberDays').val(diff/1000/60/60/24);
     $( "#RDVForm" ).submit(function( event ) {  
       $("#dateSortiePre").prop('disabled', false);
-    }); //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    }); 
     $(".numberDays").on('click keyup', function() {
       if( ! isEmpty($('.serviceHosp').val()))
         $(".serviceHosp").prop("selectedIndex", 0).change();

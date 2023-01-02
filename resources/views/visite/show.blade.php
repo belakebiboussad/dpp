@@ -15,7 +15,7 @@
 		<div class="form-group">		
 			<label class="col-sm-1 control-label no-padding-right" for="service"><b>Date :</b></label>
 			<div class="col-sm-8 col-xs-8">
-				 <label class="blue">{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</label>
+				 <label class="blue">{{ $visite->date_formated }}</label>
 			</div>
 		</div>
 	</div>
@@ -130,7 +130,7 @@
 						<td class="center">{{ $index + 1 }}</td>
 						@if($loop->first)
 							<td  rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-							{{ $visite->date }}
+							{{ $visite->date_formated }}
 							</td>
 						@endif	
 						 <td>{{ $exm->nom }}</td>
@@ -171,7 +171,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</td>
+							<td>{{ $visite->date_formated }}</td>
 							<td>
 								{{-- @if($visite->demandExmImg->etat == null)
 											<span class="badge badge-warning"> En Attente</span>

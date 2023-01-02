@@ -185,11 +185,6 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function affecterLit()
-  {
-    $ServiceID = Auth::user()->employ->service_id;
-    return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
-  }
   public function detailHospXHR(Request $request)
   {
     $hosp = hospitalisation::FindOrFail($request->id);
@@ -198,7 +193,7 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
   }
   public function  codebarrePrint(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id); //$etab = Etablissement::first();// ,'img'=>$img// ,'etab'=>$etab
+    $hosp = hospitalisation::FindOrFail($request->id);//$etab = Etablissement::first();// ,'img'=>$img// ,'etab'=>$etab
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);//plusieure en foramt A4
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();

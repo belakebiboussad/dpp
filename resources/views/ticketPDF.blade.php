@@ -9,8 +9,8 @@
 	<div class="row mtp20"><h3 class="center"><u><b>Ticket d'enregistrement</b></u></h3></div> <br><br>
 	<table width="100%">
 		<tr>
-			<td class="col-md-4"><b> Patient :</b><span>{{ $ticket->Patient->full_name }} </span></td>
-			<td class="col-md-4"><b>Date :</b><span> {{ (\Carbon\Carbon::parse($ticket->date))->format('d/m/Y') }}</span></td>
+			<td class="col-md-4"><b> Patient :</b><span> {{ $ticket->Patient->full_name }} </span></td>
+			<td class="col-md-4"><b>Date :</b><span>{{ $ticket->date->format('d/m/Y') }}</span></td>
 		</tr>
 		<tr><td class="col-md-4"></td></tr><tr><td class="col-md-4">&nbsp;</td></tr>  
 		<tr>

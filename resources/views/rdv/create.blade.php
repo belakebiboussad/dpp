@@ -141,7 +141,7 @@ $(function() {
                   {
                     Swal.fire({
                         title: 'Confimer vous le Rendez-Vous?',
-                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</b></h4>',
+                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD/MM/YYYY')+'</b></h4>',
                         input: 'checkbox',
                         inputValue: 1,
                         inputPlaceholder: 'Redez-Vous Fixe',

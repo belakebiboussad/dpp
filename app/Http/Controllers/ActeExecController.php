@@ -11,7 +11,7 @@ class ActeExecController extends Controller
 {
   public function index(Request $request)
   {
-    $date= Carbon::now()->format('d/m/Y'); 
+    $date= Carbon::now()->format('Y-m-d'); 
     $acte = Acte::FindOrFail($request->id);
     $view = view("soins.ajax_acte_details",compact('acte','date'))->render();
     return($view);

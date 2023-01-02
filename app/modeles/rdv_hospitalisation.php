@@ -8,7 +8,16 @@ class rdv_hospitalisation extends Model
 {
     public $timestamps = false;
     protected $fillable  = ['id','date','heure','id_demande','etat','date_Prevu_Sortie','heure_Prevu_Sortie'];
+    protected $dates =['date'];
     protected $appends = ['date_ent','date_prevsor'];
+    public function getHeurFormattedAttribute()
+    {
+      return \Carbon\Carbon::parse($this->heure)->format('H:i');
+    }
+    public function getHeurPrevSortFormattedAttribute()
+    {
+      return \Carbon\Carbon::parse($this->heure_Prevu_Sortie)->format('H:i');
+    }
     public function getDateEntAttribute()
     {
       return date('Y-m-d H:i', strtotime("$this->date $this->heure"));

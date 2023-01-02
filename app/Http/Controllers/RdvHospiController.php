@@ -138,11 +138,11 @@ class RdvHospiController extends Controller
   }
   public function print($id)
   { 
-    $t = Carbon::now();
+    $today =  Carbon::today()->format('d/m/Y');
     $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
     $patient =  $rdv->demandeHospitalisation->consultation->patient;
     $etab = Etablissement::first();
-    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etab'))->setPaper('a4','landscape');
+    $pdf = PDF::loadView('rdvHospi.rdvPDF', compact('rdv','today','etab'))->setPaper('a4','landscape');
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
     return $pdf->stream($name);
   }
