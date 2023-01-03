@@ -20,7 +20,7 @@
           <div class="tab">
               Je soussigné(e) docteur {{ $dece->Medecin->full_name }},
            médecin en service  à l'hôpital l'{{ $etab->nom }} certifie le ou la nommé(e)
-           {{ $obj->patient->full_name}} né le {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} admis le  {{\Carbon\Carbon::parse($obj->date)->format('d/m/Y') }}
+           {{ $obj->patient->full_name}} né le {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} admis le  {{ $obj->date->format('d/m/Y') }}
            est décédé(e) le {{ \Carbon\Carbon::parse($dece->date)->format('d/m/Y') }} à {{ $dece->heure }}
            des suites de {{ $dece->cause }}
           </div>

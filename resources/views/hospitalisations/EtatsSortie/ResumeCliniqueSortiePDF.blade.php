@@ -41,42 +41,35 @@
                <span>{{ $obj->patient->assure->matricule }}</span>
               @endif
             </td>
-            <td colspan = 2><b>N° Dossier :</b>&nbsp;<span>{{ $obj->patient->IPP}}</span></td>
+            <td colspan = 2><b>N° Dossier :</b><span> {{ $obj->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">
-            <td ><b>Nom et Prénom :</b>&nbsp;<span>{{ $obj->patient->full_name }}</span></td>
-            <td><b>Date de naissance :<b>&nbsp;
-            <span>{{ (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}</span></td>
-            <td><b>Sexe :<b>&nbsp;<span>{{ $obj->patient->Sexe }}</span></td>
+            <td ><b>Nom et Prénom :</b><span> {{ $obj->patient->full_name }}</span></td>
+            <td><b>Date de naissance :</b>
+            <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }}</span></td>
+            <td><b>Sexe :</b><span> {{ $obj->patient->Sexe }}</span></td>
           </tr>
           <tr class="noBorder">
             <td>
               @if(isset($obj->patient->Adresse))
-              <b>Adresse :<b>&nbsp;
-              <span>{{ $obj->patient->Adresse }}</span>
+              <b>Adresse :</b><span> {{ $obj->patient->Adresse }}</span>
               @endif
             </td>
             <td>
               @if(isset($obj->patient->commune_res))
-                <b>Commune :<b>&nbsp;
-                <span>{{ $obj->patient->commune->nom_commune }}
+                <b>Commune :</b><span> {{ $obj->patient->commune->nom_commune }}
               @endif
             </td>
             <td>
               @if(isset($obj->patient->wilaya_res))
-              <b>Wilaya :<b>&nbsp;
-              <span>{{ $obj->patient->commune->daira->wilaya->nom }}</span>
+              <b>Wilaya :</b><span> {{ $obj->patient->commune->daira->wilaya->nom }}</span>
               @endif
             </td>
           </tr>
           <tr class="noBorder">
-            <td>
-              <b>Date d'hospitalisation :</b>&nbsp;
-              <span>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span>
-            </td>
-            <td>
-              <b>Mode d'entrée :</b>&nbsp;
-              <span>
+            <td><b>Date d'hospitalisation :</b><span> {{ $obj->date->format('d/m/Y') }}</span></td>
+            <td><b>Mode d'entrée :</b>
+              <span> 
                 @switch($obj->admission->demandeHospitalisation->modeAdmission)
                   @case("0")    
                     Programme
@@ -93,34 +86,30 @@
             <td></td>
           </tr>
           <tr class="noBorder">
-            <td><b>Service :</b><span> &nbsp;&nbsp;{{ $obj->admission->demandeHospitalisation->Service->nom }}</span></td>
+            <td><b>Service :</b><span> {{ $obj->admission->demandeHospitalisation->Service->nom }}</span></td>
             <td>
-              <b>Date d'entrée :</b>&nbsp;
-              <span>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span>
+              <b>Date d'entrée :</b><span> {{ $obj->date->format('d/m/Y') }}</span>
             </td>
-            <td>
-              <b>Date de Sortie :</b>&nbsp;
-              <span>{{ (\Carbon\Carbon::parse($obj->Date_Sortie))->format('d/m/Y') }}</span>
-            </td>
+            <td><b>Date de Sortie :</b><span> {{ $obj->Date_Sortie->format('d/m/Y') }}</span></td>
           </tr>
            <tr><td colspan="3"></td></tr>
                 <tr class="noBorder">
                       <td colspan="3"><b>Motif d'hospitalisation :</b><span>&nbsp;{{ $obj->admission->demandeHospitalisation->consultation->motif }}</span></td>
                 </tr>
                  <tr class="noBorder">
-                    <td colspan="3"><b>Bilan Bioloqique :</b><span> &nbsp;</span></td></td>
+                    <td colspan="3"><b>Bilan Bioloqique :</b><span></span></td></td>
                 </tr>
                 <tr class="noBorder">
-                    <td colspan="3"><b>Bilan Radiologique : </b> <span> &nbsp;</span></td>
+                    <td colspan="3"><b>Bilan Radiologique : </b><span> </span></td>
                     </tr>
                 <tr class="noBorder">
-                      <td colspan="3"><b>Autres Examens : </b>  <span> &nbsp;</span></td>
+                      <td colspan="3"><b>Autres Examens : </b><span> </span></td>
                 </tr>
                 <tr class="noBorder">
                       <td colspan="3"><b>Dianostic principal de sortie : </b> <span> &nbsp;{{ $obj->diagSortie }}</span> </td>
                 </tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><b>Dianostic associé : </b> <span> &nbsp;</span> </td>
+                      <td colspan="3" class="first"><b>Dianostic associé : </b> <span> </span></td>
               </tr>
           </tbody>
           </table>
@@ -139,12 +128,12 @@
                </td>
           </tr>
            <tr>  
-                <td class="first"><b>Traitements: </b>
-                 @foreach($obj->visites as $visite)
-                      @foreach($visite->traitements as $trait )
-                           |<span> {{ $trait->medicament->nom }}</span>
-                      @endforeach
-                @endforeach  
+            <td class="first"><b>Traitements: </b>
+             @foreach($obj->visites as $visite)
+                  @foreach($visite->traitements as $trait )
+                       |<span> {{ $trait->medicament->nom }}</span>
+                  @endforeach
+            @endforeach  
              </td>
           </tr>
         </tbody>

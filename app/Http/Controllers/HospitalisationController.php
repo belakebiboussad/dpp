@@ -24,6 +24,7 @@ use App\modeles\consts;
 use App\modeles\ModeHospitalisation;
 use Carbon\Carbon;
 use PDF;//use Dompdf\Dompdf;
+use Validator;
 use View;
 use Response;
 use Storage;
@@ -157,6 +158,16 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
    */
      public function update(Request $request, $id)
      {
+        $messages = array(
+          'diagSortie.max' => "Password can not be great than 255 characters.",
+        );
+        $rule = array(
+         'diagSortie'   => 'max:255'
+        );
+        $validator = Validator::make($request->all(),$rule,$messages); 
+        if ($validator->fails()) {
+          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+        }
         $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
@@ -170,8 +181,17 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
           {
             $dece = Dece::create($input);
             $hosp->patient->update([ "active"=>0]);//patient decede on, peut pas ajouter de consultation
-          }
-          $hosp->update($request->all());
+          }//$hosp->update($request->all());
+          $hosp->update([
+            "Date_Sortie"=>$request->Date_Sortie,
+            "Heure_sortie"=>$request->Heure_sortie,
+            "modeSortie"=>$request->modeSortie,
+            "resumeSortie"=>$request->resumeSortie,
+            "etatSortie"=>$request->etatSortie,
+            "diagSortie"=>$request->diagSortie,
+            "ccimdiagSortie"=>$request->ccimdiagSortie,
+            "etat"=>1,
+           ]);
           return $hosp;
         }else
         {
@@ -193,10 +213,12 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
   }
   public function  codebarrePrint(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id);//$etab = Etablissement::first();// ,'img'=>$img// ,'etab'=>$etab
+    $hosp = hospitalisation::FindOrFail($request->id);
     $filename="etiquette.pdf"; 
-    $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);//plusieure en foramt A4
+    $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));
+    //->setPaper($customPaper);//plusieure en foramt A4
     // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
-     return $pdf->download($filename);   
+    
+    return $pdf->download($filename);   
    }
 }

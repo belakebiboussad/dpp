@@ -18,20 +18,19 @@
       <img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/>
     </footer>
     <main>
-      <div class="right mtP10p"><b>Alger le :</b><span>{{ \Carbon\Carbon::parse($ordonnance->date)->format('d/m/Y') }}</span></div>
-      <br><br><br><br><br><br>
-      <div class="col-sm-6">
-        <b>Médecin prescripteur :</b>{{ $ordonnance->consultation->medecin->full_name}}
+      <div class="right mtp20"><b>Alger le :</b><span> {{ $ordonnance->Consultation->date->format('d/m/Y') }}</span></div>
+      <div class="mtP10p">
+        <b>Médecin prescripteur :</b> {{ $ordonnance->Consultation->medecin->full_name}}
       </div>
-      <div class="col-sm-12">
+      <div>
         <b>Patient(e) :</b> 
-        <b>{{ $ordonnance->consultation->patient->getCivilite() }} </b> 
-          {{ $ordonnance->consultation->patient->full_name }} ,
-          {{ $ordonnance->consultation->patient->age }} ans,{{ $ordonnance->consultation->patient->Sexe }}<br>
-            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
-          <b>IPP :</b>{{ $ordonnance->consultation->patient->IPP }}
+        <b>{{ $ordonnance->Consultation->patient->getCivilite() }} </b> 
+          {{ $ordonnance->Consultation->patient->full_name }} ,
+          {{ $ordonnance->Consultation->patient->age }} ans,{{ $ordonnance->Consultation->patient->Sexe }}<br>
+            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->Consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
+          <b>IPP :</b>{{ $ordonnance->Consultation->patient->IPP }}
       </div>
-      <div class="row"><h6 class="center"><b>ORDONNANCE</b></h6></div><br><br>
+      <div class="row"><h3 class="center"><b>ORDONNANCE</b></h3></div><br><br>
       <div class="col-sm-12 ml-4"><br>
           <ol class="list">
             @foreach($ordonnance->medicamentes as $index => $med)

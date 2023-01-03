@@ -221,12 +221,11 @@ class ConsultationsController extends Controller
       public function destroy(Request $request, $id)
       { 
         $consult = consultation::find($id);
-        $pid = $consult->pid;
         $consult->delete();
         if($request->ajax())  
-           return $consult;
+         return $consult;
         else
-          return redirect()->action('PatientController@show',$pid);
+          return redirect()->action('PatientController@show',$id); 
       }  
     /**
      * Show the form for editing the specified resource.

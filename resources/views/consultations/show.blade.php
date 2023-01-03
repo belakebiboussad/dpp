@@ -287,19 +287,21 @@ td
                 <div class="row">
                   <div class="col-xs-11 widget-container-col">
                     <div class="widget-box widget-color-blue">
-                      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5> </div>
+                      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5></div>
                         <div class="widget-body">
                           <div class="widget-main no-padding">
                             <table class="table table-striped table-bordered table-hover">
                               <thead class="thin-border-bottom">
                                 <tr>
-                                   <th class="center">Date</th>
+                                  <th class="center">Date</th>
+                                  <th class="center">Médecin prescripteur</th>
                                   <th class="center"><em class="fa fa-cog"></em></th>
                                </tr>
                                </thead>
                                <tbody>
                                 <tr>
                                   <td>{{ $consultation->ordonnances->date }}</td>
+                                   <td>{{ $consultation->medecin->full_name }}</td>
                                   <td class="center">
                                     <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                                     <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i>&nbsp;</a>

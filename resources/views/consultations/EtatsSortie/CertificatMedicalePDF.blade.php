@@ -28,7 +28,7 @@
         <p>
         certifie avoir examiné ce <b>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</b>
           <b> {{ $obj->patient->getCivilite() }} </b>
-          <b>{{ $obj->patient->full_name }}</b> né(e) le  <b> {{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }} </b>
+          <b>{{ $obj->patient->full_name }}</b> né(e) le <b> {{  $obj->patient->Dat_Naissance->format('d/m/Y') }} </b>
           et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
         </p>
       </div>

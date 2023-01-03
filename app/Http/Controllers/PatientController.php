@@ -48,17 +48,17 @@ class PatientController extends Controller
         switch(Auth::user()->employ->specialite)
         {       
             case 3 :
-                   $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '>', $sub17)->get();
-                   break;
+              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Dat_Naissance', '>', $sub17)->get();
+              break;
             case 5 :
-                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Sexe','F')->get();
+            $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Sexe','F')->get();
                   break;
             case 8 :
-                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->where('Dat_Naissance', '<=', $sub65)->get();
+              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Dat_Naissance', '<=', $sub65)->get();
                    break;
             default :
-                  $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active',1)->get();
-                  break;    
+              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->get();
+              break;    
           }
           return $patients; 
       } else
@@ -69,8 +69,6 @@ class PatientController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  /*public function create() {$grades = grade::all(); return view('patient.add',compact('grades')); }
-  */
     public function create( $NSS = null, $type = null, $nomprenom =  null)
     {
       if(isset($NSS))
@@ -124,12 +122,12 @@ class PatientController extends Controller
           break;
       }
     }else
-              $DOB  = $request->datenaissance;   
-        $rule = array(
-              "nom" => 'required',
-              "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
-              "nomf" => 'required_if:type,1,2,3,4',
-              "prenomf" => 'required_if:type,1,2,3,4'
+      $DOB  = $request->datenaissance;   
+    $rule = array(
+            "nom" => 'required',
+            "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
+            "nomf" => 'required_if:type,1,2,3,4',
+            "prenomf" => 'required_if:type,1,2,3,4'
 /*"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
 "npiece_id"=>'required_with:nom_homme_c',"mobile_homme_c"=>['required_with:nom_homme_c'],"operateur_h"=>'required_with:mobileA',"nss" => 'regex:/[0-9]{12}/',*/
 /*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',"NMGSN"=> 'required_if:type,Ayant_droit',
@@ -485,13 +483,13 @@ class PatientController extends Controller
     switch(Auth::user()->employ->specialite)
     {       
       case 3 ://ped
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Dat_Naissance', '>',$sub17)->limit(15)->get();  
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('Dat_Naissance', '>',$sub17)->limit(15)->get();  
         break;
       case 5 ://geneco
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Sexe','F')->limit(15)->get();
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('Sexe','F')->limit(15)->get();
         break;
       case 8 ://Geriatrie
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->where('active',1)->where('Dat_Naissance', '<=', $sub65)->limit(15)->get();
+        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('Dat_Naissance', '<=', $sub65)->limit(15)->get();
         break;
       default :
         $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get();
@@ -510,7 +508,7 @@ class PatientController extends Controller
      $patient2 = patient::FindOrFail($request->search[1]);    
      $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
      foreach ($patientResult->getFillable() as $field) {
-            $values = ArrayClass::pluck($patients, $field);   // var_dump($values);echo("<br>");     
+            $values = ArrayClass::pluck($patients, $field);    
             ArrayClass::removeValue("", $values);
             if (!count($values)) {
                   $statuses[$field] = "none";

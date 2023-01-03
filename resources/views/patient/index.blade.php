@@ -12,33 +12,33 @@
 	$(function(){
     try {
         stream =  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-  			  App.init();
-  		  	Quagga.onProcessed(function(result) {
-                              var drawingCtx = Quagga.canvas.ctx.overlay,
-                                drawingCanvas = Quagga.canvas.dom.overlay;
-                                if (result) {
-                                       if (result.boxes) {
-                                              drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                                              result.boxes.filter(function (box) {
-                                                  return box !== result.box;
-                                              }).forEach(function (box) {
-                                                  Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                                              });
-                                       }
-                                      if (result.box)
-                                          Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-                                      if (result.codeResult && result.codeResult.code)
-                                          Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-                               }
-                         });
-                       Quagga.onDetected(function(result) {
-                              if (result.codeResult.code){
-                                  $('#IPP').val(result.codeResult.code);
-                                  Quagga.stop();
-                                  App.init();  
-                                  setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
-                              }
-                        });	
+  			App.init();
+  		  Quagga.onProcessed(function(result) {
+          var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+            if (result) {
+                   if (result.boxes) {
+                          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                          result.boxes.filter(function (box) {
+                              return box !== result.box;
+                          }).forEach(function (box) {
+                              Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                          });
+                   }
+                  if (result.box)
+                      Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+                  if (result.codeResult && result.codeResult.code)
+                      Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+           }
+         });
+         Quagga.onDetected(function(result) {
+                if (result.codeResult.code){
+                    $('#IPP').val(result.codeResult.code);
+                    Quagga.stop();
+                    App.init();  
+                    setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
+                }
+          });	
   	    }).catch(function(error) {
   		    $("#scanButton").addClass('hidden');
   	    });
@@ -124,7 +124,7 @@ function errorMsg(msg, error) {
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
-			$.ajax({
+	    $.ajax({
 		        type : 'get',
 		        url : '{{ route("patient.index") }}',
 		        data:{'field':field,'value':($('#'+field).val())},
@@ -170,19 +170,16 @@ function errorMsg(msg, error) {
 									  }
 		  		   			],
 				   			"columnDefs": [
-				   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
-				   						{"targets": 3 ,  className: "dt-head-center priority-2" },
-				   						{"targets": 4 ,  className: "dt-head-center priority-3" },
-				   						{"targets": 5 ,  className: "dt-head-center priority-4" },//date
-				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sexe
-								 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//creele
-								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
+			   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
+			   						{"targets": 3 ,  className: "dt-head-center priority-2" },
+			   						{"targets": 4 ,  className: "dt-head-center priority-3" },
+			   						{"targets": 5 ,  className: "dt-head-center priority-4" },//dt
+			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sex
+							 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//cre le
+							 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"}
 						   	],
 	    				});
-     			},
-     			error:function(){
-     				console.log("error");
-     			},
+     			}
     		});
 	});
 });	

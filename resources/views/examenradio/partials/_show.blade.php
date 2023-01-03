@@ -10,7 +10,7 @@
                     <div class="profile-info-row">
                       <div class="profile-info-name col-sm-3">Date : </div>
                       <div class="profile-info-value col-sm-9">
-                        <span>{{  (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span>
+                        <span>{{ $obj->date->format('d/m/Y') }}</span>
                       </div>
                     </div>
                   </div><!-- striped -->

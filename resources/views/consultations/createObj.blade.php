@@ -352,7 +352,7 @@ $(function(){
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 60, 175);
+      pdf.addImage(jpegUrl, 'JPEG', 55, 165);
       generate(fileName,pdf,'ordPdf');
     });//teste
     $("#DHospadd").click(function(e){
@@ -433,9 +433,8 @@ $(function(){
      <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
-        <!-- id="send" -->
           <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
-          <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
+          <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
         </div>
       </div>
     </div>

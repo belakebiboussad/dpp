@@ -52,20 +52,21 @@ class CRRControler extends Controller
   }
   public function download($id)
   {
-          $crr = CRR::find($id);
-           $demande = $crr->examenRadio->Demande;
-          if(isset($demande->id_consultation))
-          {
-            $patient = $demande->consultation->patient;
-            $medecin = $demande->consultation->medecin;
-          }  
-          else
-          {
-            $patient = $demande->visite->hospitalisation->patient ;
-            $medecin = $demande->visite->medecin;
-          }
-          $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin'));
-          $filename = "cr-radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-          return $pdf->stream($filename);
+    $date=\Carbon\Carbon::today()->format('d/m/Y');
+    $crr = CRR::find($id);
+    $demande = $crr->examenRadio->Demande;
+    if(isset($demande->id_consultation))
+    {
+      $patient = $demande->consultation->patient;
+      $medecin = $demande->consultation->medecin;
+    }  
+    else
+    {
+      $patient = $demande->visite->hospitalisation->patient ;
+      $medecin = $demande->visite->medecin;
+    }
+    $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin','date'));
+    $filename = "CRR-".$patient->Nom."-".$patient->Prenom.".pdf";
+    return $pdf->stream($filename);
   }
 }

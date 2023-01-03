@@ -190,8 +190,7 @@
             resumeSortie       : $('#resumeSortie').val(),
             etatSortie         : $('#etatSortie').val(),
             diagSortie         : $("#diagSortie").val(),
-            ccimdiagSortie     : $("#ccimdiagSortie").val(),
-            etat               :  1,
+            ccimdiagSortie     : $("#ccimdiagSortie").val(),//etat               :  1,
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();

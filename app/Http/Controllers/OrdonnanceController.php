@@ -93,7 +93,7 @@ class OrdonnanceController extends Controller
       $ordonnance = ordonnance::FindOrFail($id);
       $etab = Etablissement::first();
       $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('ordonnance','etab'));
-      $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
+      $filename = $ordonnance->Consultation->patient->Nom . "-" . $ordonnance->Consultation->patient->Prenom . ".pdf";
       Storage::put('public/pdf/'.$filename,$pdf->output());
       $file = storage_path() . "/app/public/pdf/" . $filename;
       if (File::isFile($file))

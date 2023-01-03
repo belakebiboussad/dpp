@@ -1,5 +1,6 @@
 @extends('app')
 @section('page-script')
+  @include('examenradio.scripts.imgRequestdJS')
   <script type="text/javascript">
 	$(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
@@ -213,7 +214,7 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 			}	
 		});
 		$("#visiteForm").submit(function(e){
-			addExamsImg(this);//return false;
+			addExamsImg(this);
 		});
   });
   </script>

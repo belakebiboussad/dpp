@@ -35,7 +35,7 @@
 <div class="row" width="100%">@include('patient._patientInfo',['patient'=>$demande->consultation->patient])</div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-6"><h3><strong>Modifier la demande d'examen Radiologique :</strong></h3></div>
+    <div class="col-sm-6"><h3>Modifier la demande d'examen Radiologique :</h3></div>
     <div class="col-sm-6 pull-right">
       <a href="/drToPDF/{{ $demande->consultation->demandExmImg->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer

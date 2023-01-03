@@ -152,5 +152,4 @@
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div> </div>
 </div><!-- row -->
 <div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
-{{-- <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div> --}}
 @endsection

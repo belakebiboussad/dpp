@@ -3,7 +3,7 @@
     <div class="modal-content ">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel"><b>Ajouter une ordonnance</b></h4>
+        <h4 class="modal-title" id="myModalLabel">Ajouter une ordonnance</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -36,7 +36,7 @@
               </div>
             </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
              <div class="row">
-              <div class="col-xs-12"><!-- id="addliste" -->
+              <div class="col-xs-12">
                 <button type="button" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
                   Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
                 </button>
@@ -61,15 +61,15 @@
                   </thead>
                   <tbody ></tbody> 
                 </table>
-              </div>{{-- widget-body --}}
-            </div>{{-- widget-box --}}
-          </div>{{-- widget-container-col --}}
+              </div>
+            </div>
+          </div>
       </div><!-- /.row -->
     </div>
     <div class="modal-footer">
          <button type="button" class="btn btn-info btn-sm" onclick="storeord()" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
         <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
-          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+          <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
       </div>
   </div>
 </div>

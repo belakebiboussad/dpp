@@ -181,7 +181,6 @@ class HomeController extends Controller
                     break;
              case "10"://CERTIFICAT DECES
               $filename = "CERTDECE-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-              dd($obj);
               $dece = $obj->Dece;
               $pdf = PDF::loadView('hospitalisations.EtatsSortie.certificatDecePDF', compact('etat','obj','dece','date','etab'));
               break;

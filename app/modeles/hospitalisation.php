@@ -8,6 +8,7 @@ class hospitalisation extends Model
 {
     public $timestamps = false;//Date_entree
     protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
+    protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
     protected $appends = ['etat_id',"nb_days"];
     public const STATES = [
       ''=> 'en Cours',

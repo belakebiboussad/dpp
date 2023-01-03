@@ -17,12 +17,12 @@
     {{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}  
     </li>
     <li class="list-inline-item" style="width:270px;">
-     <i class="ace-icon fa fa-caret-right blue"></i>Date d'entrée:
-     {{ \Carbon\Carbon::parse($hosp->date)->format('d/m/Y') }}
+     <i class="ace-icon fa fa-caret-right blue"></i>Date d'entrée : {{ $hosp->date->format('Y-m-d') }}
+     
     </li>
     <li class="list-inline-item" style="width:270px;"><i class="ace-icon fa fa-caret-right blue">
-        </i>Date sortie prévue:
-        {{ \Carbon\Carbon::parse($hosp->Date_Prevu_Sortie)->format('d/m/Y') }}
+        </i>Date sortie prévue :
+        {{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}
       </li>
     <li><i class="ace-icon fa fa-caret-right blue"></i>Etat :
       <span class="badge badge-{{( $hosp->etat_id == 1 ) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
@@ -39,18 +39,14 @@
   <div class="col-sm-12">
   <ul class="nav navbar-nav list-inline">
     <li class="list-inline-item">
-      <i class="ace-icon fa fa-caret-right blue"></i>Date de sortie :
-      {{ \Carbon\Carbon::parse($hosp->Date_Sortie)->format('d/m/Y') }}
+      <i class="ace-icon fa fa-caret-right blue"></i>Date de sortie :{{ $hosp->Date_Sortie->format('y-m-d') }}
     </li>
-      <li class="list-inline-item">
-      <i class="ace-icon fa fa-caret-right blue"></i>heure de sortie :
-    {{ $hosp->Heure_sortie }}</li>
     <li class="list-inline-item">
-      <i class="ace-icon fa fa-caret-right blue"></i>Résumé de sortie :
-    {{ $hosp->resumeSortie }}</li>
+      <i class="ace-icon fa fa-caret-right blue"></i>heure de sortie :{{ $hosp->Heure_sortie }}</li>
     <li class="list-inline-item">
-      <i class="ace-icon fa fa-caret-right blue"></i>Etat à la sortie :
-    {{ $hosp->etatSortie }}</li> 
+      <i class="ace-icon fa fa-caret-right blue"></i>Résumé de sortie :{{ $hosp->resumeSortie }}</li>
+    <li class="list-inline-item">
+      <i class="ace-icon fa fa-caret-right blue"></i>Etat à la sortie : {{ $hosp->etatSortie }}</li> 
     <li class="list-inline-item">
       <i class="ace-icon fa fa-caret-right blue"></i>Mode de sortie :
       @if(!(isset($hosp->modeSortie)))
