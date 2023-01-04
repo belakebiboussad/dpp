@@ -71,10 +71,10 @@
 					</div>
 				</div>
 				@endif
-				@if(isset($patient->situation_familiale))
+				@if(isset($patient->sf))
 				<div class="profile-info-row"><div class="profile-info-name"> Civilité </div>
 					<div class="profile-info-value"><span>
-						@switch($patient->situation_familiale)
+						@switch($patient->sf)
 					           @case("C")
 						                Célibataire(e)
 						                @break
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				@endif
-				@if(($patient->Sexe =="F") && ($patient->situation_familiale == "M") &&(isset($patient->nom_jeune_fille)))
+				@if(($patient->Sexe =="F") && ($patient->sf == "M") &&(isset($patient->nom_jeune_fille)))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Nom Jeune Fille </div>
 					<div class="profile-info-value"><span>{{ $patient->nom_jeune_fille }}</span></div>
@@ -125,22 +125,15 @@
 					<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Rhésus</div>
-					<div class="profile-info-value"> {{-- $patient->Rihesus === "+" ? "Positif" : "Négatif" --}}
-						<span>
-							@if($patient->rhesus == "+")
-						 		Positif
-							@else
-								Négatif
-							@endif	
-						</span>
+					<div class="profile-info-name">Rhésus</div>
+					<div class="profile-info-value"><span> {{ $patient->rhesus === "+" ? "Positif" : "Négatif" }}</span>
 					</div>
 				</div>
 				@endif
 				<div class="profile-info-row">
 					<div class="profile-info-name">Date Création</div>
 					<div class="profile-info-value">
-          <span>{{ (\Carbon\Carbon::parse($patient->created_at))->format('Y-m-d') }}</span></div>
+          <span>{{ $patient->created_at->format('Y-m-d') }}</span></div>
 				</div>
 			</div><div class="hr hr-8 dotted"></div>
 			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))

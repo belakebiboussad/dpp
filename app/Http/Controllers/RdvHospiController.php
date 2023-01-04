@@ -24,7 +24,6 @@ class RdvHospiController extends Controller
   }
   public function index(Request $request)
   {
-
     if($request->ajax())
     {
       $rdvs = ""; 

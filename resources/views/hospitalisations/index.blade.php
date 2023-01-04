@@ -26,7 +26,7 @@
         $("#id").val(id);
         $('#sortieHosp').modal('show');
         $('#Heure_sortie').timepicker({ template: 'modal' });
-     }/*function getMedecin (data, type, dataToSet) {       return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom'];  }*/
+     }
      function codeBPrint(id)
      {
         event.preventDefault();
@@ -99,28 +99,40 @@
                 var color = (row.admission.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
                 return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
                }, title:"Mode Admission","orderable": false 
-              },//2
-              { data: "date" , title:'Date Entrée', "orderable": true},//3
-              { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
-              { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
-              { data: null, title:'Mode',"orderable": false,
-                       render: function(data, type, row){
-                              if(data.mode_hospi != null)
-                                     return data.mode_hospi.nom;
-                              else
-                                    return '';
-                       }
+            },//2
+            { data: null,
+                render: function ( data, type, row ) {
+                  return moment(row.date).format('YYYY-MM-DD');
+                },title:'Date Entrée'
+            },//3
+            { data: null,
+                render: function ( data, type, row ) {
+                  return moment(row.Date_Prevu_Sortie).format('YYYY-MM-DD');
+                },title:'Date Sortie Prévue', "orderable": true
+            },//4
+            { data: null,
+                render: function ( data, type, row ) {
+                  return moment(row.Date_Sortie).format('YYYY-MM-DD');
+                },title:'Date Sortie', "orderable": true
+            },
+            { data: null, title:'Mode',"orderable": false,
+                 render: function(data, type, row){
+                        if(data.mode_hospi != null)
+                               return data.mode_hospi.nom;
+                        else
+                              return '';
+                 }
                },//6
               { data: "admission.demande_hospitalisation.service.nom" ,title:'Service',"orderable": false  
               },//7 
               { data: "medecin.full_name" , title:'Medecin',"orderable": false },//8
               { data:  null , title:'Garde malade',"orderable": false,
-                      render: function(data, type, row){
-                               if(data.garde != null)
-                                     return data.garde.full_name;
-                              else
-                                    return '';
-                      }  
+                render: function(data, type, row){
+                         if(data.garde != null)
+                               return data.garde.full_name;
+                        else
+                              return '';
+                }  
                },
               { data: "etat" ,
                       render: function(data, type, row){
@@ -283,8 +295,8 @@
                       <td class="priority-4">
                       <span class="badge badge-{{($hosp->admission->demandeHospitalisation->getModeAdmissionID($hosp->admission->demandeHospitalisation->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</span>
                     </td>
-                    <td>{{  $hosp->date}}</td>
-                    <td  class="priority-6">{{ $hosp->Date_Prevu_Sortie}}</td>
+                    <td>{{  $hosp->date->format('Y-m-d')}}</td>
+                    <td  class="priority-6">{{ $hosp->Date_Prevu_Sortie->format('Y-m-d')}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie }}</td>
                     <td class="priority-5">{{ (isset($hosp->modeHospi)) ? $hosp->modeHospi->nom : '' }}</td>
                     <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>

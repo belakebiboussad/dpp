@@ -189,7 +189,7 @@ $(function() {
                       (data.employe != null) ?$('#medecinName').val(data.employe.full_name):'';
                       (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                       $('#civiliteCode').val(calEvent.civ);
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id)); // $('#printRdv').attr("data-id",calEvent.id); 
+                      $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
                       $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id));      
               });
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )

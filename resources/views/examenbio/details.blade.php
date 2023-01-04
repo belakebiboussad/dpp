@@ -72,7 +72,7 @@
                   <div class="profile-info-name">Date : </div>
                   <div class="profile-info-value"><span class="editable">
                   @if(isset($demande->consultation))
-                    {{  (\Carbon\Carbon::parse($demande->consultation->date))->format('d/m/Y') }}
+                    {{ $demande->consultation->date->format('d/m/Y') }}
                   @else
                     {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
                   @endif 

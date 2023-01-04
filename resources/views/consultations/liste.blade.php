@@ -23,7 +23,7 @@
 					<tbody>
 					@foreach($patient->Consultations as $consult)
 					<tr id ="{{ $consult->id }}">
-					   <td width="12%">{{ \Carbon\Carbon::parse($consult->date)->format('d/m/y') }}</td>
+					   <td width="12%">{{ $consult->date->format('d/m/y') }}</td>
 						 <td width="30%">{{ $consult->medecin->full_name }}</td>
              <td><small>{{ $consult->motif }}</small></td>
 						<td class="center" width="14%">

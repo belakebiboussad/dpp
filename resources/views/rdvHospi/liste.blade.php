@@ -45,7 +45,7 @@
           <td><span class="badge badge-{{( $rdv->demandeHospitalisation->getModeAdmissionID($rdv->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
              {{ $rdv->demandeHospitalisation->modeAdmission }}</span>
           </td>
-          <td class ="text-danger">{{ $rdv->date }}</td>
+          <td class ="text-danger">{{ $rdv->date->format('y-m-d') }}</td>
           <td>{{ $rdv->heur_formatted }}</td>
           <td class="center text-danger">{{ $rdv->date_Prevu_Sortie }}</td>
           <td class="center text-danger">{{ $rdv->heur_prev_sort_formatted}}</td>

@@ -37,8 +37,7 @@
       <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
       <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
       <main> 
-        <br><br>
-        <hr class="h-1"/>
+        <br><hr class="h-1"/>
         <div>
           <h3 class="center rect"><span style="font-size: xx-large;"><b>{{ $etat->nom}}</b></span></h3>
         </div>
@@ -64,7 +63,7 @@
                     <span> {{ $obj->patient->assure->matricule }}</span>
                   @endif
                 </h5>&nbsp;&nbsp;&nbsp;&nbsp;
-                <h5 class="rect"><b>&nbsp;&nbsp;N° Dossier :<span> {{ $obj->patient->IPP}}</span></b></h5>
+                <h5 class="rect"><b>&nbsp;&nbsp;N° Dossier :</b><span> {{ $obj->patient->IPP}}</span></h5>
                 <b>Nom et Prénoms : </b><span> {{ $obj->patient->full_name }}</span><br>
                 <b>Date de naissance(âge) :</b>
                 <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} ({{ $obj->patient->age }} ans)</span>
@@ -80,11 +79,11 @@
                   @endif
                   <br>
                   <b>Date d'admisston a l'hôpital :</b>
-                  <span> {{ (\Carbon\Carbon::parse($obj->admission->hospitalisation->date))->format('d/m/Y') }}</span>
+                  <span> {{ hospitalisation->date->format('d/m/Y') }}</span>
                   <hr class="hr-1"/>
                     <h4 class="center mt-2"><b>Dernier Service d'Hospitalisation</b></h4>
                   <hr class="hr-1 mt-2"/>
-                  <b>Date d'entrée au service :</b><span> {{ $obj->date }}</span><br>
+                  <b>Date d'entrée au service :</b><span> {{ $obj->date->format('d/m/y') }}</span><br>
                   <b>Médecin traitant :</b>
                   <span> {{ $obj->admission->hospitalisation->medecin->full_name }}</span><br>
                   <b>Mode de Sortie :</b>&nbsp;
@@ -108,7 +107,7 @@
                     @endswitch  
                   </span><br>
                   <b>Date de sortie de l'Hôpital :</b>
-                  <span> {{ $obj->Date_Sortie }}</span>
+                  <span> {{ $obj->Date_Sortie->format('d/m/y') }}</span>
               </td>
               <td>
                 <h5><b>CODE COMMUNDE </b></h5>

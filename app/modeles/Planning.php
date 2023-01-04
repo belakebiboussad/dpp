@@ -25,6 +25,7 @@ class Planning extends Model
     protected $fillable = [
         'employee_id', 'date', 'heure','date_end','heure_end', 'type','desc','state'
     ];
+    protected $dates =['date','date_end'];
     public function getStateAttribute()
     {
      return self::STATES[ $this->attributes['state'] ];

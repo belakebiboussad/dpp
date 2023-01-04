@@ -155,9 +155,18 @@ function errorMsg(msg, error) {
 											{ data: 'Nom', title:'Nom' },
 		       						{ data: 'Prenom', title:'Prenom' },
 		       						{ data: 'IPP', title:'IPP'},
-		       			  		{ data: 'Dat_Naissance', title:'Né(e) le' },
+		       			  		{ data: null,
+                        render: function ( data, type, row ) {
+                          return moment(row.Dat_Naissance).format('YYYY-MM-DD');
+                        },title:'Né(e) le'
+                      },
 										  { data: 'Sexe', title:'Sexe'},
-									    { data: 'created_at', title:'Créer le'},
+									    { data: null,
+                        render: function ( data, type, row ) {
+                          return moment(row.created_at).format('YYYY-MM-DD');
+                        },title:'Créer le'
+                      },
+
 									    { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
 									  	"render": function(data,type,full,meta){
 										    if ( type === 'display' ) {

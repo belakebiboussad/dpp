@@ -5,7 +5,7 @@ use Carbon\Carbon;
 class patient extends Model
 {
 	public $timestamps = true;
-	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
+	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
   protected $dates =['Dat_Naissance'];
   protected $appends = ['full_name','age','civ','allergs'];
   public function scopeActive($q)
@@ -105,7 +105,7 @@ class patient extends Model
  			if($this->age >16)
  			{
 	 			if($this->Sexe == "F")
- 					if($this->situation_familiale== "celibataire")
+ 					if($this->sf== "celibataire")
  						return "Mlle.";
  					else
  						return "Mme.";

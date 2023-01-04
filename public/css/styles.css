@@ -195,11 +195,15 @@ p.pageCenter {
   text-align : justify;
   padding-right: 10%;
 }
-.logo { 
-         /*background: url("/img/logo1.jpg") no-repeat; */
+.logo { /*background: url("/img/logo1.jpg") no-repeat; */
          width: 20%; 
          height: 20%; 
          display: block; 
          border-radius: 50%;
          text-indent: -9999px;
+}
+.plh {
+  padding-left:5px;
+  height:40px;
+  overflow:hidden;
 }

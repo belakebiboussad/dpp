@@ -72,19 +72,19 @@
 		           <td><input  type="radio" name="choixSexe" onclick="setField('Sexe', '{{ $patient1->Sexe }}');" checked>{{ $patient1->Sexe }}</td>
 		           <td><input type="radio" name="choixSexe" onclick="setField('Sexe','{{ $patient2->Sexe }}');">{{ $patient2->Sexe }}</td>
 		</tr>
-		<tr class="{{ $statuses['situation_familiale'] }}">
+		<tr class="{{ $statuses['sf'] }}">
 			<td align="center"><b>Civilité</b></td>
 			<td>
 				<select  id ="situation_familiale" name="sf">
 					<option value="">------</option>
-					<option value="celibataire" @if($patientResult->situation_familiale =="celibataire")  selected @endif>Célibataire(e)</option>
-					<option value="marie" @if($patient1->situation_familiale =="marie")  selected @endif>Marié(e)</option>
-					<option value="divorce" @if($patient1->situation_familiale =="divorce")  selected @endif>Divorcé(e)</option>
-					<option value="veuf" @if($patient1->situation_familiale =="veuf")  selected @endif>Veuf(veuve)</option>
+					<option value="celibataire" @if($patientResult->sf =="celibataire")  selected @endif>Célibataire(e)</option>
+					<option value="marie" @if($patient1->sf =="marie")  selected @endif>Marié(e)</option>
+					<option value="divorce" @if($patient1->sf =="divorce")  selected @endif>Divorcé(e)</option>
+					<option value="veuf" @if($patient1->sf =="veuf")  selected @endif>Veuf(veuve)</option>
 				</select>
 			</td>
-		           <td><input  type="radio" name="choixCivilite" onclick="setField('situation_familiale', '{{ $patient1->situation_familiale }}');" checked>{{ $patientResult->situation_familiale }}</td>
-		           <td><input type="radio" name="choixCivilite" onclick="setField('situation_familiale','{{ $patient2->situation_familiale }}');">{{ $patient2->situation_familiale }}</td>
+		           <td><input  type="radio" name="choixCivilite" onclick="setField('situation_familiale', '{{ $patient1->sf }}');" checked>{{ $patientResult->sf }}</td>
+		           <td><input type="radio" name="choixCivilite" onclick="setField('situation_familiale','{{ $patient2->sf }}');">{{ $patient2->sf }}</td>
 		</tr>
 		<tr class="{{ $statuses['Adresse'] }}">
 			<td align="center"><b>Adresse</b></td>

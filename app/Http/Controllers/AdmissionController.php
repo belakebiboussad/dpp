@@ -32,10 +32,6 @@ class AdmissionController extends Controller
     }
     public function index()
     {
-/* $rdvs  = rdv_hospitalisation::with(['bedReservation','demandeHospitalisation.bedAffectation','demandeHospitalisation' => function($q) {
-$q->where('etat', 1);}])->whereNull('etat')->where('date',date("Y-m-d"))->get();
-$demandesUrg = DemandeHospitalisation::with('bedAffectation')->whereHas('consultation', function($q){$q->where('date', date("Y-m-d"));
-})->where('modeAdmission',2)->whereNull('etat')->get();*/
       $etatsortie = Etatsortie::where('type','1')->get();
       return view('admission.index', compact('etatsortie'));//'rdvs','demandesUrg',
     }

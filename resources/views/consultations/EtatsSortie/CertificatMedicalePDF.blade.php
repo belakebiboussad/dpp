@@ -26,7 +26,7 @@
          Docteur en {{ (isset($obj->medecin->specialite))  ? $obj->medecin->Specialite->nom :  $obj->medecin->Service->Specialite->nom }} ,
         </p>
         <p>
-        certifie avoir examiné ce <b>{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</b>
+        certifie avoir examiné ce <b>{{ $obj->date->format('d/m/Y') }}</b>
           <b> {{ $obj->patient->getCivilite() }} </b>
           <b>{{ $obj->patient->full_name }}</b> né(e) le <b> {{  $obj->patient->Dat_Naissance->format('d/m/Y') }} </b>
           et avoir constaté, Ce jour {{ $obj->Resume_OBS }}

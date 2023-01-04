@@ -34,13 +34,13 @@
         <div class="form-group row">
             <label for="date" class="col-sm-2 col-form-label">Date début</label>
             <div class="col-sm-10">
-                <input type="text" class="date-picker form-control date" name="date" value="{{ \Carbon\Carbon::parse($demande->date)->format('Y-m-d') }}">
+              <input type="text" class="date-picker form-control date" name="date" value="{{ $demande->date->format('Y-m-d') }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="date_end" class="col-sm-2 col-form-label">Date fin</label>
             <div class="col-sm-10">
-                <input type="text" class="date-picker form-control date" name="date_end" value="{{ \Carbon\Carbon::parse($demande->date_end)->format('Y-m-d') }}">
+              <input type="text" class="date-picker form-control date" name="date_end" value="{{ $demande->date_end->format('Y-m-d') }}">
             </div>
         </div>
          <div class="form-group row">

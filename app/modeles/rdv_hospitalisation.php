@@ -19,8 +19,8 @@ class rdv_hospitalisation extends Model
       return \Carbon\Carbon::parse($this->heure_Prevu_Sortie)->format('H:i');
     }
     public function getDateEntAttribute()
-    {
-      return date('Y-m-d H:i', strtotime("$this->date $this->heure"));
+    {  //return date('Y-m-d H:i', strtotime("$this->date $this->heure"));
+      return($this->date->format('y-m-d') . ' '.$this->heur_prev_sort_formatted);
     }
     public function getDatePrevsorAttribute()
     {

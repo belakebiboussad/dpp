@@ -3,7 +3,7 @@
  <script >
   function getConsultations(field,value)
   {
-  	$.ajax({
+   	$.ajax({
          	url : '{{ URL::to('getConsultations') }}',
           data: {    
                 "field":field,
@@ -21,38 +21,42 @@
                         "searching":false,
                         "info" : false,
                         "responsive": true,
-                         "language":{"url": '/localisation/fr_FR.json'},
+                        "language":{"url": '/localisation/fr_FR.json'},
                         "data" : data,// "scrollX": true,
                         "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                             $(nRow).attr('id',"consult"+aData.id);
                         },
-                            "columns": [
-                                      { data: "date" , title:'Date' },
-                                      { data: null,
-                                        render: function ( data, type, row ) {
-                                          var url = '{{ route("patient.show", ":slug") }}'; 
-                                          url = url.replace(':slug',row.patient.id);
-                                          return '<a href="'+ url +'" title="voir patient">'+ row.patient.full_name + '</a>';
-                                        }, title:'Patient',"orderable": false
-                                      },
-                                      { data: null , title:'Motif', "orderable":false,  
-                                          "render": function(data,type,full,meta){
-                                             return '<small>'+data.motif+'</small>';
-                                          }
-                                      },
-                                      { data: null , title:'Specialite', "orderable":false,
-                                        "render": function(data,type,full,meta){
-                                              if(data.medecin.specialite != null)
-                                                    return data.medecin.specialite.nom;
-                                              else
-                                                      return data.medecin.service.specialite.nom;       
-                                          } 
-                                      },
-                                      { data: "medecin.full_name", title:'Medecin', "orderable":false },
-                                      { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
-                             ],
+                        "columns": [
+                                { data: null,
+                                  render: function ( data, type, row ) {
+                                    return moment(row.date).format('YYYY-MM-DD');
+                                  },title:'Date'
+                                },
+                                { data: null,
+                                  render: function ( data, type, row ) {
+                                    var url = '{{ route("patient.show", ":slug") }}'; 
+                                    url = url.replace(':slug',row.patient.id);
+                                    return '<a href="'+ url +'" title="voir patient">'+ row.patient.full_name + '</a>';
+                                  }, title:'Patient',"orderable": false
+                                },
+                                { data: null , title:'Motif', "orderable":false,  
+                                    "render": function(data,type,full,meta){
+                                       return '<small>'+data.motif+'</small>';
+                                    }
+                                },
+                                { data: null , title:'Specialite', "orderable":false,
+                                  "render": function(data,type,full,meta){
+                                        if(data.medecin.specialite != null)
+                                              return data.medecin.specialite.nom;
+                                        else
+                                                return data.medecin.service.specialite.nom;       
+                                    } 
+                                },
+                                { data: "medecin.full_name", title:'Medecin', "orderable":false },
+                                { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+                       ],
             "columnDefs": [
-              {"targets": 0 ,  className: "dt-head-center" },
+              {"targets": 0 ,  className: "dt-head-center"},
               {"targets": 1 ,  className: "dt-head-center" },
               {"targets": 2 ,  className: "dt-head-center" },
               {"targets": 3 ,  className: "dt-head-center" },
@@ -73,7 +77,7 @@
  	$('document').ready(function(){
    	field= "date"; 
     getConsultations(field,'<?= date("Y-m-j") ?>');
-    $(document).on('click','.findconsult',function(event){	//var value = $('#'+field).val().trim();
+    $(document).on('click','.findconsult',function(event){
       getConsultations(field,$('#'+field).val().trim());
     	if(field != "date")
     		$('#'+field).val('');	

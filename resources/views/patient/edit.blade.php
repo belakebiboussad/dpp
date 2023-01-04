@@ -83,7 +83,7 @@
 @endsection
 @section('main-content')
 	<div class="page-header">
-		<h4>Modification des données du patient : <q class="blue">{{ $patient->getCivilite() }} {{ $patient->full_name }}</q></h4>
+		<h4>Modification des données du patient : <q class="blue"> {{ $patient->getCivilite() }} {{ $patient->full_name }} </q></h4>
 		<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left  blue"></i> Rechercher un Patient
@@ -124,8 +124,8 @@
 		<div id="Patient" class="tab-pane">@include('patient.editPatient')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">
-		<div class="center"><br>
-			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+		<div class="center">
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
 			<button class="btn btn-warning btn-sm" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
 	</div>

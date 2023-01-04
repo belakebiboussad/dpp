@@ -52,7 +52,7 @@
 		</div>
 	  <div class="row">
 	   	<div class="col-sm-12">
-		 	  <b> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</b><u> {{ Carbon\Carbon::parse($rdv->date)->format('d-m-Y') }}</u>
+		 	  <b> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</b><u> {{ $rdv->date->format('d/m/Y') }}</u>
 	   	</div>
 	  </div>
 		<div class="row"><div class="col-sm-12"><b>Nom : </b><span>{{ $rdv->patient->Nom}}</span></div></div>

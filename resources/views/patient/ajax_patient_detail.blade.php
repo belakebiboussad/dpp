@@ -22,7 +22,7 @@
           <td class ="noborders">Genre :</td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
           <td  class ="noborders">Civilité:</td>
           <td align="left">
-             @switch($patient->situation_familiale)
+             @switch($patient->sf)
                      @case("C")
                           <span class="label label-sm label-success">Célibataire(e)
                           @break

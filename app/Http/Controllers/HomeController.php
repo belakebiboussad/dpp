@@ -155,12 +155,12 @@ class HomeController extends Controller
               $pdf = PDF::loadView('consultations.EtatsSortie.lettreOrientationMedicalePDF', compact('etat','obj','date','etab'));
               break;
             case "8"://Bulltin Admission
-                  if($className == "rdv_hospitalisation")
-                  { 
-                    $rdv=rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find( $objId);
-                    $patient = $obj->demandeHospitalisation->consultation->patient;
-                    $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','rdv','date','etab'));
-                  }else
+              if($className == "rdv_hospitalisation")
+              { 
+                  $rdv=rdv_hospitalisation::with('demandeHospitalisation.consultation.patient')->find( $objId);
+                  $patient = $obj->demandeHospitalisation->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','rdv','date','etab'));
+              }else
                   {
                     $patient = $obj->consultation->patient;
                     $pdf = PDF::loadView('admission.EtatsSortie.BAPDFUrg', compact('patient','etat','obj','date','etab')); 
@@ -169,11 +169,11 @@ class HomeController extends Controller
                   break;
             case "9"://Billet de salle
                       if($className == "rdv_hospitalisation")
-                      { 
+                      {
                         $patient = $obj->demandeHospitalisation->consultation->patient;
                         $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etab'));
                       }else
-                      {
+                      {// obj =dh
                         $patient = $obj->consultation->patient;
                         $pdf = PDF::loadView('admission.EtatsSortie.BSPDFUrg', compact('patient','etat','obj','date','etab')); 
                       }

@@ -1,10 +1,10 @@
 @extends('app_sur')
 @section('main-content')
-<div class="page-header"><h1>Affecter un lit</h1></div>
+<div class="page-header"><h2>Affecter un lit</h2></div>
 <div class="row">
 	<div class="col-sm-12 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
-		<div class="widget-header"><h5 class="widget-tit le bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
+		<div class="widget-header"><h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -54,8 +54,7 @@
 						<td>{{ $rdv->date_ent }}</td><td>{{ $rdv->date_prevsor }}</td>
             @if($rdv->bedReservation)
             <td>{{ $rdv->bedReservation->lit->salle->service->nom }}</td>
-            <td>{{ $rdv->bedReservation->lit->salle->nom }}</td>
-            <td>{{ $rdv->bedReservation->lit->nom }}</td>
+            <td>{{ $rdv->bedReservation->lit->salle->nom }}</td><td>{{ $rdv->bedReservation->lit->nom }}</td>
             @else
               <td></td><td></td><td></td>
             @endif
@@ -77,16 +76,16 @@
 <div class="row">
 	<div class="col-sm-12 col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-red">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes d'hospitalisations urgentes</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i> Demandes d'hospitalisations urgentes</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="center">Patient</th> <th class="center">Genre</th>
-               						<th class="center">Mode d'admission</th><th class="center">Date entrée</th>
-							        <th class="center">Service</th><th class="center">Spécialité</th>
-                                                          <th class="center">Médecin traitant</th>
+               	<th class="center">Mode d'admission</th><th class="center">Date entrée</th>
+							  <th class="center">Service</th><th class="center">Spécialité</th>
+                <th class="center">Médecin traitant</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -94,16 +93,14 @@
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->full_name }}</td>
-                                                            <td>{{ $demande->consultation->patient->Sexe }}</td>
-                                            		<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
-                                                            <td>{{ $demande->consultation->date }}</td>
-                                                            <td>{{ $demande->Service->nom }}</td>
-                                                            <td>{{ $demande->Specialite->nom }}</td>
-                                                            <td>{{ $demande->consultation->medecin->full_name }}</td>  
+                <td>{{ $demande->consultation->patient->Sexe }}</td>
+            		<td><span class="label label-sm label-warning">{{ $demande->modeAdmission }}</span></td>
+                <td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
+                <td>{{ $demande->Service->nom }}</td>
+                <td>{{ $demande->Specialite->nom }}</td>
+                <td>{{ $demande->consultation->medecin->full_name }}</td>  
 								<td class="center">
-									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
-										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
-									</button>
+									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></button>
 								</td>
 							</tr>
 							@endforeach

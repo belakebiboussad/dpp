@@ -101,7 +101,7 @@
         <ul class="nav navbar-nav list-inline">
           <li class="list-inline-item">
             <i class="ace-icon fa fa-caret-right blue"></i>Date décès :
-              {{ \Carbon\Carbon::parse($hosp->Dece->date)->format('d/m/Y') }}
+              {{ $hosp->Dece->date->format('d/m/Y') }}
           </li>
           <li class="list-inline-item">
             <i class="ace-icon fa fa-caret-right blue"></i>Heure décès :

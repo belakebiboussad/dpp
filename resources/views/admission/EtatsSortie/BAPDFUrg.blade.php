@@ -1,4 +1,3 @@
-
 <html>
  	<head>
  	  <meta charset="utf-8">
@@ -13,12 +12,13 @@
       	margin: 0 auto;
       	border: 0px red solid;
     	}
-    	.solid {border-style: solid;}
     </style>
   </head>
   <body>
   <div class="container-fluid">
-  	<div class="row mt-12 center"><img src='img/entete2.png' alt="Entete" width="98%"/></div><br>
+  	<div class="mt-12 center"><!--   <img src='img/entete2.png' alt="Entete" width="98%"/> -->
+    @include('partials.etatHeader')
+    </div><br>
   	<div class="center mt-10">
 	 		<h3 class="text-uppercase"><b><u>{{ $etat->nom}}</u></b></h3>
 	 		<h4 class="text-uppercase">(BILLET DE SALLE)</h4>
@@ -26,55 +26,50 @@
   	<section class="table solid"> 
     	<table>
     	<tr>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Admission N° :&nbsp;</b><span>&nbsp;{{ $obj->id }}</span></td>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Date :</b><span>&nbsp;{{ $date }}</span></td>
-        <td style="padding-left:5px; height:40px; overflow:hidden; "><b>Heure :</b><span>&nbsp;{{ Date("H:i") }}</span></td>
+        <td class="plh"><b>Admission N° :</b><span> {{ $obj->id }}</span></td>
+        <td class="plh"><b>Date :</b><span> {{ $date }}</span></td>
+        <td class="plh"><b>Heure :</b><span> {{ Date("H:i") }}</span></td>
       </tr>
     </table>
     </section>
+    @isset($patient->Assurs_ID_Assure)
     <h5><u><b>ASSURE :</b></u></h5>
     <section class="table tab">
      	<table>
       	<tr>
-     			<td><span>Qualité :&nbsp;</span><span>{{ $patient->assure->Position }}</span></td>
-     			<td><span>Détail :</span></td>
+     			<td><b>Qualité :</b><span> {{ isset( $patient->assure) ? $patient->assure->Position : '' }}</span>
+          </td><td><b>Détail :</b></td>
      		</tr>
      		<tr>
-     			<td><span>Nom :&nbsp;</span><span>{{ $patient->assure->Nom }}</span></td>
-     			<td><span>Prénom :&nbsp;</span><span>{{ $patient->assure->Prenom }}</span></td>
-     			<td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->assure->Date_Naissance)->format('d/m/Y') }}</span></td>
+     			<td><b>Nom :</b><span> {{ $patient->assure->Nom }}</span></td>
+     			<td><b>Prénom :</b><span> {{ $patient->assure->Prenom }}</span></td>
+     			<td><b>Né(e) le :</b><span> {{ $patient->assure->Date_Naissance->format('d/m/Y') }}</span></td>
      		</tr>
      		<tr>
-     			<td><span>Adresse :&nbsp;</span><span>{{ $patient->assure->adresse }},
-            @isset($patient->assure->commune_res)
+     			<td><b>Adresse :</b><span> {{ $patient->assure->adresse }},
             {{ $patient->assure->commune->nom_commune }},{{ $patient->assure->commune->daira->wilaya->nom }}
-             @endisset
           </span></td>
      		</tr>
      		<tr>
-     			<td><span>Tél :&nbsp;</span><span>{{ $patient->tele_mobile1 }}</span></td>
+     			<td><b>Tél :</b><span> {{ $patient->tele_mobile1 }}</span></td>
      		</tr>
      		<tr>
-     			<td><span>Matricule :&nbsp;</span><span>{{ $patient->assure->matricule }}</span></td>
-     			<td><span>Grade :&nbsp;</span><span>
-            {{-- $patient->assure->grade->nom --}}
-             @isset( $patient->assure->grade)
-              {{ $patient->assure->grade->nom }}
-            @endisset
-          </span></td>
-     			<td><span>Service :&nbsp;</span><span>{{ $patient->assure->Service }}</span></td>
+     			<td><b>Matricule :</b><span> {{ $patient->assure->matricule }}</span></td>
+     			<td><b>Grade :</b><span> {{ $patient->assure->grade->nom }}</span></td>          
+          <td><b>Service :</b><span> {{ $patient->assure->Service }}</span></td>
      		</tr>
      		<tr>
-     			<td><span>N° SS:&nbsp;</span><span>{{ $patient->assure->NSS }}</span></td>
-     			<td><span>MGSN:&nbsp;</span><span>{{ $patient->assure->NMGSN }}</span></td>
+     			<td><b>N° SS :</b><span> {{ $patient->assure->NSS }}</span></td>
+     			<td><b>MGSN :</b><span> {{ $patient->assure->NMGSN }}</span></td>
      		</tr>
       </table>
     </section>
+    @endisset
     <h5><u><b>MALADE :</b></u></h5>
     <section class="table tab" >
      	<table>
 	     	<tr>
-	   			<td><span>Qualité :&nbsp;</span>
+	   			<td><b>Qualité :</b>
    					<span>
    							@switch($patient->Type)
  					    	@case(0)
@@ -101,12 +96,12 @@
 								@endswitch
    					</span>
 	   			</td>
-	   			<td><span>Détail :</span></td>
+	   			<td><b>Détail :</b></td>
 	     	</tr>
 	     	<tr>
-     			<td><span>Nom :&nbsp;</span><span>{{ $patient->Nom }}</span></td>
-     			<td><span>Prénom :&nbsp;</span><span>{{ $patient->Prenom }}</span></td>
-     			<td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->Date_Naissance)->format('d/m/Y') }}</span></td>
+     			<td><b>Nom :</b><span> {{ $patient->Nom }}</span></td>
+     			<td><b>Prénom :</b><span> {{ $patient->Prenom }}</span></td>
+     			<td><b>Né(e) le :</b><span> {{ $patient->Dat_Naissance->format('d/m/Y') }}</span></td>
      		</tr>
      	</table>
     </section>
@@ -114,12 +109,12 @@
     <section class="table tab">
      	<table>
 	     	<tr>
-	     	 <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->Service->nom }}</span></td>
-	     	 <td><span>&nbsp;Spécialité:</span><span>&nbsp;{{ $obj->consultation->medecin->Specialite->nom }}</span></td>
+	     	 <td><b>Service :</b><span> {{ $obj->Service->nom }}</span></td>
+	     	 <td><b>Spécialité :</b><span> {{ $obj->consultation->medecin->Specialite->nom }}</span></td>
 	     	</tr>
-	     	<tr><td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $obj->consultation->medecin->full_name }} </span></td></tr>
+	     	<tr><td><b>Admis par Dr/SF :</b><span> {{ $obj->consultation->medecin->full_name }} </span></td></tr>
 	     	<tr>
-	     		<td><span>&nbsp;Chargé des admissions :</span><span> {{ Auth::user()->employ->Service->responsable->full_name }} </span></td>
+	     		<td><b>Chargé des admissions :</b><span> {{ Auth::user()->employ->Service->responsable->full_name }} </span></td>
 	     	</tr>
 	     </table>
 	  </section>
@@ -127,24 +122,17 @@
     <section class="table tab">
      	<table>
 	     	<tr>
-	     		<td><span>Date :&nbsp;</span><span></span></td>
-     			<td><span>Heure :&nbsp;</span><span></span></td>
-     			<td></td>
+	     		<td><b>Date :</b><span></span></td><td><b>Heure :</b><span></span></td><td></td>
      		</tr>
-     		<tr>
-	     		<td><span>Sortie par le médecin :&nbsp;</span><span></span></td>
-	     	</tr>
-	     	<tr>
-	     		<td><span>Motif de sortie :&nbsp;</span><span></span></td>
-	     	</tr>
-	   	</table>
+     		<tr><td><b>Sortie par le médecin :</b><span></span></td></tr>
+	     	<tr><td><b>Motif de sortie :</b><span></span></td></tr>
+	     </table>
 	  </section><br>
 	  <div class="row">
       <div class="right">
-    		<div>Alger le:  {{ $date }}</div>
-     		<div>{{  Auth::user()->employ->Service->nom }}</div>
+    		<div>Alger le :  {{ $date }}</div><div>{{  Auth::user()->employ->Service->nom }}</div>
     </div>
+    <div class="row text-center footer">@include('partials.etatFooter')</div>
   </div><!-- fluid -->
   </body>
 </html> 
- 

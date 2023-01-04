@@ -3,7 +3,6 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-// use MaddHatter\LaravelFullcalendar\Event;// use MaddHatter\LaravelFullcalendar\IdentifiableEvent;//use Calendar;
 class rdv extends Model// implements IdentifiableEvent
 {
   public const STATES = [

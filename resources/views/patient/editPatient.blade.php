@@ -20,7 +20,7 @@
 		<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			@if(isset($patient->Dat_Naissance)) 
-				<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
+				<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance->format('Y-m-d')}}" required/>
 				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			@else
 			<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
@@ -97,14 +97,14 @@
         	<label class="col-sm-3 control-label" for="sf">Civilité :</label>
         	<div class="col-sm-9">
         		<select class="form-control civilite" id="sf" name="sf">
-        			<option value="C" @if( $patient->situation_familiale =='C') selected @endif >Célibataire(e)</option>
-        			<option value="M" @if( $patient->situation_familiale =='M') selected @endif>Marié(e)</option>
-        			<option value="D" @if( $patient->situation_familiale =="D") selected @endif >Divorcé(e)</option>
-        			<option value="V" @if( $patient->situation_familiale =="V") selected @endif  >Veuf(ve)</option>
+        			<option value="C" @if( $patient->sf =='C') selected @endif >Célibataire(e)</option>
+        			<option value="M" @if( $patient->sf =='M') selected @endif>Marié(e)</option>
+        			<option value="D" @if( $patient->sf =="D") selected @endif >Divorcé(e)</option>
+        			<option value="V" @if( $patient->sf =="V") selected @endif  >Veuf(ve)</option>
         		</select>
         	</div>
       </div>
-	<div class="form-group col-sm-6 " id="Div-nomjeuneFille"  @if(($patient->Sexe != "M") || (in_array($patient->situation_familiale, ["C","D"]))) hidden @endif>	
+<div class="form-group col-sm-6 " id="Div-nomjeuneFille"  @if(($patient->Sexe == "M") || (in_array($patient->sf, ["C","D"]))) hidden @endif >	
         	<label class="col-sm-3 control-label" for="nom_jeune_fille">Nom jeune fille:</label>
         	<div class="col-sm-9">
         		<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" class="form-control"/>

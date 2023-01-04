@@ -8,6 +8,7 @@ class admission extends Model
 {
     public $timestamps = false;//     
     protected $fillable  = ['id','demande_id','id_rdvHosp','date','pieces','etat'];//id_lit
+    protected $dates =['date'];
     public function demandeHospitalisation()
     {
       return $this->belongsTo('App\modeles\DemandeHospitalisation','demande_id');
