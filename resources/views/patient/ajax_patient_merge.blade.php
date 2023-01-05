@@ -37,8 +37,8 @@
 		<tr class="{{ $statuses['Dat_Naissance'] }}">
 			<td align="center"><b>Né(e) le</b></td>
 		      <td><input type="text" id ="Dat_Naissance" name="datenaissance" value=" {{ $patientResult->Dat_Naissance }}"/></td>
-		       <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance }}</td>
-		      <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance }}</td>
+		       <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance->format('Y-m-d') }}</td>
+		      <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance->format('Y-m-d') }}</td>
 		</tr>
 		<tr class="{{ $statuses['Lieu_Naissance'] }}">
 			<td align="center"><b>à</b></td>

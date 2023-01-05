@@ -165,7 +165,7 @@ class ConsultationsController extends Controller
         }
         if($request->liste != null)//save Ordonnance
         {
-          $ord = new ordonnance;$ord->date = Date::Now();
+          $ord = new ordonnance;$ord->id_consultation = $consult->id;
           $consult->ordonnances()->save($ord);
           foreach (json_decode($request->liste) as $key => $trait) {
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     

@@ -25,7 +25,7 @@
 							<td>{{ $demande->consultation->patient->full_name }}</td>
 							<td><span class="badge badge-{{ $demande->consultation->patient->age < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->age }}</span>
 							</td>
-							<td>{{ $demande->consultation->date }}</td>
+							<td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
 							<td><span class="badge badge-{{($demande->getModeAdmissionID($demande->modeAdmission) ==  2)  ? 'warning':'primary' }}">{{ $demande->modeAdmission }}</span></td>
 							<td>{{ $demande->Specialite->nom }}</td>
 							<td>{{ $demande->Service->nom }}</td>

@@ -42,7 +42,7 @@
        	dataType: "json",
        	success: function(data) {
 			 	$(".numberResult").html(data.length);
-			  	var oTable =$("#liste_sorties").DataTable ({
+			  var oTable =$("#liste_sorties").DataTable ({
 	        			"processing": true,
 		          	"paging":   true,
 		          	"destroy": true,
@@ -53,63 +53,67 @@
 			          "data" : data,
 			          "fnCreatedRow": function( nRow, aData, iDataIndex ) {
 			                 $(nRow).attr('id',"adm"+aData.id);
-			          	},
-			          	"columns": [
-			          	    {  data: "hospitalisation.patient.Nom",
-	                        		render: function ( data, type, row ) {
-	                               		  return row.demande_hospitalisation.consultation.patient.Nom + ' ' + row.demande_hospitalisation.consultation.patient.Prenom;
-	                            	},
-	                  		      title:'Patient',"orderable": true
-	                    		},
-		                     { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
-		                     { data : "hospitalisation.date" ,title:'Date Entrée',"orderable": true},
-		                      { data: "admission.demande_hospitalisation.modeAdmission", 
-                                              render: function ( data, type, row ) {    // var mode;
-                                                switch(row.demande_hospitalisation.modeAdmission)
-                                                {
-                                                  case 0: 
-                                                    mode ="Programme";
-                                                    break;
-                                                  case 1: 
-                                                   mode ="Ambulatoire";
-                                                    break;
-                                                  case 2:
-                                                   mode ="Urgence";
-                                                    break; 
-                                                }
-                                                var color = (row.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
-                                                return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
-                                            },  title:"Mode Admission","orderable": false 
-                                    },
-		                      { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
-		                      { data : "hospitalisation.modeSortie" ,
-		                    		render: function ( data, type, row ) {  //var mode;
-                                                   switch(row.hospitalisation.modeSortie)
-                                                    {
-                                                           case 0: 
-                                                                  mode ="Transfert";
-                                                                  break;
-                                                          case 1: 
-                                                                 mode ="Contre avis médical";
-                                                                 break;
-                                                          case 2:
-                                                                 mode ="Décès";
-                                                                  break;
-                                                           case 2:
-                                                                   mode ="Reporter";
-                                                                    break;
-                                                           default :
-                                                                   mode ="Domicile";
-                                                                  break;
-                                                    }
-                                		         return '<span class="badge badge-info">' + mode  +'</span>';
-                              		 },
-		                    		title:'Mode Sortie',"orderable": false
+			          },
+			          "columns": [
+			          	    { data: "hospitalisation.patient.Nom",
+                      		render: function ( data, type, row ) {
+                            return row.demande_hospitalisation.consultation.patient.full_name;
+                          },title:'Patient',"orderable": true
+	                    },
+		                  { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
+		                  { data : "hospitalisation.date",
+                          render : function(data, type, row){
+                             return moment(row.date).format('YYYY-MM-DD');
+                          },title:'Date Entrée',"orderable": true},
+		                  { data: "admission.demande_hospitalisation.modeAdmission", 
+                        render: function ( data, type, row ) { 
+                          switch(row.demande_hospitalisation.modeAdmission)
+                          {
+                            case 0: 
+                              mode ="Programme";
+                              break;
+                            case 1: 
+                             mode ="Ambulatoire";
+                              break;
+                            case 2:
+                             mode ="Urgence";
+                              break; 
+                          }
+                          var color = (row.demande_hospitalisation.modeAdmission ===  2)  ? 'warning':'primary';
+                          return '<span class="badge badge-pill badge-'+color+'">' + mode +'</span>';
+                        },  title:"Mode Admission","orderable": false 
+                      },
+                      { data : "hospitalisation.Date_Sortie", 
+                          render : function(data, type, row){
+                             return moment(row.hospitalisation.Date_Sortie).format('YYYY-MM-DD');
+                          }, title:'Date Sortie',"orderable": true},
+                      { data : "hospitalisation.modeSortie" ,
+                    		render: function ( data, type, row ) {  //var mode;
+                          switch(row.hospitalisation.modeSortie)
+                          {
+                            case 0: 
+                                    mode ="Transfert";
+                                    break;
+                            case 1: 
+                                   mode ="Contre avis médical";
+                                   break;
+                            case 2:
+                                   mode ="Décès";
+                                    break;
+                             case 3:
+                                     mode ="Reporter";
+                                      break;
+                             default :
+                                     mode ="Domicile";
+                                    break;
+                          }
+            		            return '<span class="badge badge-info">' + mode  +'</span>';
+                          		 }, title:'Mode Sortie',"orderable": false
 		                    	},
-      		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},
-      		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.nom" ,title:'Salle',"orderable": false},
-      		                     { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
-      		                      { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
+		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},
+		                     { data : "demande_hospitalisation.bed_affectation.lit.salle.nom" ,title:'Salle',"orderable": false},
+		                     { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
+		                      { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
 			         	],
 			         	"columnDefs": [
 			   						{"targets": 9 ,  className: "dt-head-center dt-body-center" },
@@ -119,11 +123,11 @@
     });
 	}	
   	var field ="etat";  
-       $(function(){
-             $(document).on('click','.outAdmsFind',function(event){
-                    getSorties(field,$('#'+field).val().trim());
-            });
-       })
+  $(function(){
+   $(document).on('click','.outAdmsFind',function(event){
+          getSorties(field,$('#'+field).val().trim());
+    });
+ })
 </script>
 @endsection
 @section('main-content')
@@ -158,8 +162,8 @@
 	<div class="row">
 		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
-					Liste des sorties <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($hospitalistions) }}</span></b>
+				<h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>
+					Liste des sorties <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($hosps) }}</span></b>
 				</h5>
 			</div>
 			<div class="widget-body">
@@ -172,27 +176,42 @@
 					          <th rowspan="2" class="center">Date Entrée</th>
 					          <th rowspan="2" class="center">Mode Entrée</th>
 					          <th rowspan="2" class="center">Date Sortie</th>
-					          <th rowspan="2" class="center"><h5>Mode Sortie</h5></th>
-					          <th colspan="3" scope="colgroup" class="center"><h5>Hébergement</h5></th> <!-- merge four columns -->
+					          <th rowspan="2" class="center">Mode Sortie</th>
+					          <th colspan="3" scope="colgroup" class="center">Hébergement</th>
 					          <th rowspan="2" class="center"><em class="fa fa-cog"></em></th>	
 				      	</tr>
 				      	<tr>
-				          <th scope="col" class="center">Service</th>
-									<th scope="col" class="center">Salle</th>
+				          <th scope="col" class="center">Service</th><th scope="col" class="center">Salle</th>
 									<th scope="col" class="center">Lit</th>							
 				      		</tr>
 	  				</thead>
 	  				<tbody>
-	  				@foreach($hospitalistions as $hosp)
+	  				@foreach($hosps as $hosp)
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->full_name }}</td>
 							<td>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</td>
-							<td><span class ="text-danger">{{ $hosp->admission->date }}</span></td>
+							<td><span class ="text-danger">{{ $hosp->date->format('Y-m-d') }}</span></td>
 							<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
-							<td><span class ="text-danger">{{ $hosp->Date_Sortie }}</span></td>
+							<td><span class ="text-danger">{{ $hosp->Date_Sortie->format('Y-m-d') }}</span></td>
 							<td><span class="badge badge-info">
                 @if(isset($hosp->modeSortie))
-                  {{ $hosp->modeSortie }}
+                  @switch($hosp->modeSortie)
+                    @case(0)
+                      Transfert
+                      @break
+                    @case(1) 
+                      Contre avis médical
+                      @break
+                    @case(2)
+                      Décès
+                      @break
+                    @case(3)
+                      Reporter
+                      @break
+                    @default 
+                      Domicile
+                      @break
+                  @endswitch
                 @else
                   Domicile
                 @endif
@@ -206,8 +225,7 @@
 							<td></td><td></td><td></td>
 							@endif
 							<td class="center">
-								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie">
-								<i class="fa fa-sign-out" aria-hidden="false"></i></button>
+								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie"><i class="fa fa-sign-out" aria-hidden="false"></i></button>
 							</td>
 						</tr>
 	  				@endforeach

@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class hospitalisation extends Model
 {
-    public $timestamps = false;//Date_entree
+    public $timestamps = false;
     protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
+    //modeSorie =[''=>Domicile, '0'=>Transfert, '1'=>,Contre avis médical '2'=>Décès, '3'=>Reporter]
     protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
     protected $appends = ['etat_id',"nb_days"];
     public const STATES = [
@@ -26,7 +27,7 @@ class hospitalisation extends Model
         $this->attributes['etat'] = (int) $value;
     }
     public  function getEtatIdAttribute($state) {//getEtatID
-         return array_search($this->etat, self::STATES); 
+      return array_search($this->etat, self::STATES); 
     }
     public function getNbDaysAttribute()
     {

@@ -3,8 +3,7 @@
 <script type="text/javascript">
   var nowDate = new Date();
   var dEntree = $('.date').datepicker('getDate'); 
-  $(function(){  
-    $('.filelink' ).click( function( e ) { e.preventDefault(); });
+  $(function(){// $('.filelink' ).click( function( e ) { e.preventDefault(); });
     updateDureePrevue();
     $('.numberDays').on('click keyup', function() {
       addDays();
@@ -64,7 +63,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="date">Date :</label>
             <div class="input-group col-sm-8">
-              <input class="form-control date" type="text" value = "{{ $hosp->date }}" data-date-format="yyyy-mm-dd" readonly disabled/>
+              <input class="form-control date" type="text" value = "{{ $hosp->date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" readonly disabled/>
                <span class="input-group-btn"><button class="btn btn-sm disabled" type="button">
                 <i class="ace-icon fa fa-calendar bigger-110"></i></button>
               </span>
@@ -72,8 +71,8 @@
           </div>
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
-            <div class="col-sm-8">   
-               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/>
+            <div class="input-group col-sm-8">   
+               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
             </div>
           </div>
           <div id = "numberofDays" class="form-group col-xs-4">
@@ -88,19 +87,19 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
             <div class="input-group">
-              <input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value = "{{ $hosp->Date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role_id,[5])) disabled @endif required/>
+<input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value ="{{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role_id,[5])) disabled @endif required/>
               <span class="input-group-btn"><button class="btn btn-sm" type="button" onclick="$('.date_end').focus();">
                 <i class="ace-icon fa fa-calendar bigger-110"></i></button>
               </span>
             </div>
-
           </div>
-          <div class="form-group col-xs-4">
-            <label class="col-sm-4 control-label" for="Heure_Prevu_Sortie">Heure :</label>
-            <div class="col-sm-8">   
-              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-10 col-sm-10 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role_id,[5])) disabled @endif/>
-              <button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button> 
+          <div class="form-group col-sm-4 col-xs-4">
+            <label class="col-sm-4 control-label" for="heure">Heure :</label>
+            <div class="input-group col-sm-8 col-xs-8">
+              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="form-control timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role_id,[5])) disabled @endif />
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
             </div>
+           {{-- <button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>  --}}
           </div>
         </div>
         <h4 class="header lighter block blue">Hospitalisation</h4>

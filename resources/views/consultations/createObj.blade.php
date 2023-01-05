@@ -39,14 +39,14 @@ function drugRemove(id)
 }
 function storeord()
 {
-    var arrayLignes = document.getElementById("ordonnance").rows;
-    var longueur = arrayLignes.length; var ordonnance = []; 
-    for(var i=1; i<longueur; i++)
-    {
-      ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
-    }
-    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-    champ.appendTo('#consultForm');
+  var arrayLignes = document.getElementById("ordonnance").rows;
+  var longueur = arrayLignes.length; var ordonnance = []; 
+  for(var i=1; i<longueur; i++)
+  {
+    ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+  }
+  var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+  champ.appendTo('#consultForm');
 }
 function resetField()
 {

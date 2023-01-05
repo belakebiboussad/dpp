@@ -84,7 +84,7 @@
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->full_name }}</td>	
 		  				<td>{{ $demande->Specialite->nom }} {{ $demande->id }}</td>
-		  				<td>{{$demande->consultation->date }}</td>
+		  				<td>{{$demande->consultation->date->format('Y-m-d') }}</td>
 						  <td>{{ $demande->modeAdmission }}</span></td>
 							<td>
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">

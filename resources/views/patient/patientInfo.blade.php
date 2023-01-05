@@ -57,7 +57,7 @@
 				</div>
 				@if(isset($patient->Dat_Naissance))
 				<div class="profile-info-row">
-					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
+					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance->format('Y-m-d') }}</span></div>
 				</div>
 				<div class="profile-info-row"><div class="profile-info-name"> Âge </div>
 					<div class="numberCircle">{{ $patient->age }}</div> <span class="blue">Ans</span>

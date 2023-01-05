@@ -147,7 +147,7 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
     })->get();
     $modesHosp = ModeHospitalisation::where('selected',1)->get(); 
     $services =service::where('hebergement',1)->get();
-    return view('hospitalisations.edit',compact('hosp','services','employes','modesHosp'));//->with('hosp', $hosp)->with('services',$services);
+    return view('hospitalisations.edit',compact('hosp','services','employes','modesHosp'));
   }
   /**
    * Update the specified resource in storage.
@@ -181,7 +181,7 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
           {
             $dece = Dece::create($input);
             $hosp->patient->update([ "active"=>0]);//patient decede on, peut pas ajouter de consultation
-          }//$hosp->update($request->all());
+          }
           $hosp->update([
             "Date_Sortie"=>$request->Date_Sortie,
             "Heure_sortie"=>$request->Heure_sortie,
@@ -195,7 +195,13 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
           return $hosp;
         }else
         {
-          $hosp->update($request->all());
+          $hosp->update([
+            "Date_Prevu_Sortie"=> Carbon::createFromFormat('Y-m-d', $request->Date_Prevu_Sortie),
+            "Heure_Prevu_Sortie"=>$request->Heure_Prevu_Sortie,
+            "modeHosp_id"=>$request->modeHosp_id,
+            "medecin_id"=>$request->medecin_id,
+            "garde_id"=>$request->garde_id,
+          ]);
           return redirect()->action('HospitalisationController@index');  
         }
     }

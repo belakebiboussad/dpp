@@ -59,7 +59,7 @@ $('document').ready(function(){
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Date de la consultation  :</b><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date }}</span></li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i><b>Date de la consultation  :</b><span class="badge badge-pill badge-success">&nbsp;{{ $consultation->date->format('Y-m-d') }}</span></li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><b>Medecin de la consultation  :</b>&nbsp;{{ $consultation->medecin->full_name }}</li>
     <li><i class="ace-icon fa fa-caret-right blue"></i><b>Spécialite de la consultation  :</b>&nbsp;
     @if(isset($consultation->medecin->specialite))
@@ -140,7 +140,7 @@ $('document').ready(function(){
             </thead>
             <tbody>
               <tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
-                <td>{{ $consultation->date }}</td>
+                <td>{{ $consultation->date->format('Y-m-d') }}</td>
                 <td class="center">
                 <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
                 {{ $consultation->demandeexmbio->etat }}</span>
@@ -187,7 +187,7 @@ $('document').ready(function(){
           </thead>
           <tbody>
             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
-              <td>{{ $consultation->date }}</td>
+              <td>{{ $consultation->date->format('Y-m-d') }}</td>
               <td class="center">
               <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
               {{ $consultation->demandExmImg->etat }}

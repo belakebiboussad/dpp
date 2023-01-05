@@ -18,15 +18,12 @@
 <body>
 	<div class="container-fluid">
 	  @include('partials.etatHeader')
-    <div class="space-12"></div>
-    <h5 class="mt-20 center">
-      <span style="font-size: xx-large;"><b>Demande d'examen biologique</b></span>
-    </h5> 
+    <h3 class="mt-20 center">Demande d'examen biologique</h3> 
     <br><br>
     <div class="row">
       <div class="col-sm-12">
         <div class="section">
-          <div class="right"><b><u>Fait le:</u></b> {{ $date  }}.</div>
+          <div class="right"><b><u>Fait le:</u></b> {{ $date->format('Y-m-d')  }}.</div>
         </div>
       </div>
     </div><br><br>
@@ -34,7 +31,7 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-                <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  {{ $patient->full_name }},&nbsp; {{ $patient->age }} ans,{{ $patient->Sexe }}  
+          <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  {{ $patient->full_name }}, {{ $patient->age }} ans,{{ $patient->Sexe }}        
         </div>
       </div>
     </div>
@@ -49,8 +46,7 @@
         </div>
       </div>
     </div>
-  </div>
-	<br><br><br><br>
+  </div><br><br><br><br>
 	<div class="row">
     <div class="col-sm-12">
       <label><b> Liste des examens :</b></label><br>
@@ -61,10 +57,8 @@
       </ol>
     </div>
   </div>
-    <div class="row foo">
-    <div class="col-sm-12">
-      <div class="section"><div class="right"><span><b> Docteur :</b> {{ $medecin->full_name }}</span></div></div>
-    </div>
+  <div class="foo">
+    <div class="section"><div class="right"><span><b> Docteur :</b> {{ $medecin->full_name }}</span></div></div>
   </div>
 </div>
 </body>

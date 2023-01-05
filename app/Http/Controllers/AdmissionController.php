@@ -120,11 +120,11 @@ class AdmissionController extends Controller
    } 
     public function sortir()
     {
-      $hospitalistions = hospitalisation::with('admission.demandeHospitalisation')->whereHas('admission', function ($q) {
-                                            $q->whereNull('etat');
-                                        })->where('etat','1')->where('Date_Sortie' , date('Y-m-d'))->get();
+      $hosps = hospitalisation::with('admission.demandeHospitalisation')->whereHas('admission', function ($q) {
+                                  $q->whereNull('etat');
+                                })->where('etat','1')->where('Date_Sortie' , date('Y-m-d'))->get();
       $etatsortie = Etatsortie::where('type','2')->get();//etets de sortie por hospital
-      return view('admission.sorties', compact('hospitalistions','etatsortie')); 
+      return view('admission.sorties', compact('hosps','etatsortie')); 
     }
     public function updateAdm(Request $request, $id)
     {

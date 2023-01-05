@@ -10,7 +10,6 @@ class ordonnance extends Model
     {
       return $this->belongsToMany('App\modeles\medicament', 'ordonnance_medicaments', 'id_ordenannce', 'id_medicament')->withPivot('posologie');       
     }
-
     public function Consultation()
     {
        return $this->belongsTo('App\modeles\consultation','id_consultation');

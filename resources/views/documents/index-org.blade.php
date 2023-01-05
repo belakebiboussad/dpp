@@ -18,7 +18,7 @@
             @if(isset($demande->consultation)) 
             <span class="smaller-80">( Consultation du {{ $demande->consultation->date->format('d/m/Y') }})</span>
             @else
-            <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
+            <span class="smaller-80">( Visite du {{ $demande->visite->date->format('d/m/Y') }})</span>
             @endif
           </li>
           @endif
@@ -52,7 +52,7 @@
               @if(isset($demande->consultation))
               <span class="smaller-80">( Consultation du {{ $demande->consultation->date->format('d/m/Y') }})</span>
               @else
-              <span class="smaller-80">( Visite du {{ \Carbon\Carbon::parse($demande->visite->date)->format('d/m/Y') }})</span>
+              <span class="smaller-80">( Visite du {{ $demande->visite->date->format('d/m/Y') }})</span>
               @endif
             </li>
              @endif

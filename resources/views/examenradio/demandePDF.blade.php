@@ -19,16 +19,15 @@
   <div class="textCenter mtP40 ft16"><b>Demande d'examen radiologique</b></div>
   <br>
   <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
-        {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
+        {{ $date->format('d/m/Y') }}</div></div></div>
   </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
-            <div class="sec-gauche">
-                  <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
-                  {{ $patient->full_name }},&nbsp;
-                  {{ $patient->age }} ans,{{ $patient->Sexe }}
-            </div>
+        <div class="sec-gauche">
+              <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
+              {{ $patient->full_name }}, {{ $patient->age }} ans, {{ $patient->Sexe }}     
+        </div>
       </div>
     </div>
   </div><br>
@@ -77,8 +76,8 @@
                         <thead>
                           <tr>
                             <th class="center" width="10%">#</th>
-                            <th class="center"><b>Nom</b></th>
-                            <th class="center"><b>Type</b></th>
+                            <th class="center">Nom</th>
+                            <th class="center">Type</th>
                           </tr>
                         </thead>
                         <tbody>

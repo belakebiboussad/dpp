@@ -80,7 +80,7 @@
                            <input type="checkbox" class="editor-active check"  value="{{ $demande->id }}" /><span class="lbl"></span>            
                         </td>
 											@if(isset($demande->consultation))
-												<td>{{ $demande->consultation->date }}</td>
+												<td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
 												<td>{{ $demande->consultation->medecin->Service->nom }}</td>
 												<td>{{ $demande->consultation->medecin->full_name }} </td>
 												<td>{{ $demande->consultation->patient->full_name}}<small class="text-primary">(Consultation)</small></td>

@@ -49,7 +49,7 @@
                   @foreach( $colloque->demandes as $dem)
                   <tr>
                     <td>{{ $dem->consultation->patient->full_name }}</td>
-                    <td>{{ $dem->consultation->date }}</td>
+                    <td>{{ $dem->consultation->date->format('Y-m-d') }}</td>
                     <td>{{ $dem->consultation->motif }}</td>
                     <td><small>{{ $dem->DemeandeColloque->observation }}</small></td>
                   </tr>

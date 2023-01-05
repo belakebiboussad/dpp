@@ -19,7 +19,7 @@
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
 							<td>{{ $hosp->date->format('y-m-d') }}</td><td>{{ $hosp->medecin->full_name }}</td>
-							<td>{{ ($hosp->etat_id == 1 ) ? $hosp->Date_Sortie->format('Y-m-d') : $hosp->Date_Prevu_Sortie->format('Y-m-d') }}</td>
+							<td>{{ ($hosp->etat_id === 1 ) ? $hosp->Date_Sortie->format('Y-m-d') : $hosp->Date_Prevu_Sortie->format('Y-m-d') }}</td>
 							<td>
                <span class="badge badge-{{ ( $hosp->etat_id == 1) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
               </td>

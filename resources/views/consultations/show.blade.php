@@ -61,7 +61,7 @@ td
  <div class="pull-right">
       <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div><div class="space-12"></div>
-<div class="row"><h4>Détails de la Consultation du {{ $consultation->date}} :</h4></div> 
+<div class="row"><h4>Détails de la Consultation du &quot; {{ $consultation->date->format('Y-m-d')}} &quot;</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-24">
       <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
@@ -85,7 +85,6 @@ td
       <div id="Intero" class="tab-pane in active">
         <div class="row">
           <ul class="list-unstyled spaced">
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->date }}</span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Spécialite de la consultation :</span>
              <span class="badge badge-pill badge-success">
               @if(isset($consultation->medecin->specialite))
@@ -215,7 +214,7 @@ td
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td>{{ $consultation->date }}</td>
+                                    <td>{{ $consultation->date->format('Y-m-d') }}</td>
                                     <td>
                                         <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}"> {{ $consultation->demandeexmbio->etat }}</span>
                                     </td>
@@ -259,7 +258,7 @@ td
                                 </thead>
                                 <tbody>
                                 <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
-                                <td>{{ $consultation->date }}</td>
+                                <td>{{ $consultation->date->format('Y-m-d') }}</td>
                                 <td>
                                   <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->demandExmImg->etat }}</span>
                                 </td>

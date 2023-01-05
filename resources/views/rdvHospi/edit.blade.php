@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
-    var debut = new Date($('#dateEntree').val());//var dateRDV = $('#dateEntree').val();//var datefinRDV =$('#dateSortie').val();
+    var debut = new Date($('#dateEntree').val());
     var fin = new Date($('#dateSortiePre').val());
     var diff = new Date(fin - debut);
     $('#numberDays').val(diff/1000/60/60/24);
@@ -83,7 +83,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
+              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $rdv->date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>

@@ -33,7 +33,7 @@
         <div><br><br><br>
           <b>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</b><span>{{ $obj->patient->full_name }}</span>.
         </div>
-        <div><b>Né le :</b><span>{{ $obj->patient->Dat_Naissance }}</span></div>
+        <div><b>Né le :</b><span>{{ $obj->patient->Dat_Naissance->format('Y-m-d') }}</span></div>
         <div>
           <b>Motif d’hospitalisation :</b>
           <span>

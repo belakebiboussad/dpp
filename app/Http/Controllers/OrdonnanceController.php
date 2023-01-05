@@ -45,9 +45,8 @@ class OrdonnanceController extends Controller
     public function store(Request $request,$id_consultation)
     {
       $date = Date::now();
-      $ordonnance = ordonnance::FirstOrCreate([
-            "date" => $date,
-            "id_consultation" => $id_consultation,   
+      $ordonnance = ordonnance::FirstOrCreate([//"date" => $date,
+        "id_consultation" => $id_consultation,   
       ]);
       $listes = json_decode($request->liste);
       for ($i=0; $i < count($listes); $i++) { 

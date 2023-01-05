@@ -26,7 +26,7 @@
             <div class="col-sm-3 col-xs-3">
               <label class="col-sm-3 col-xs-3 control-label no-padding-right text-right">Date:</label>
               <div class="col-sm-9 col-xs-9">
-                <input type="text" value="{{ $demande->consultation->date }}" class="form-control" disabled/>
+                <input type="text" value="{{ $demande->consultation->date->format('Y-m-d') }}" class="form-control" disabled/>
               </div>
             </div>
             <div class="col-sm-3 col-xs-3">

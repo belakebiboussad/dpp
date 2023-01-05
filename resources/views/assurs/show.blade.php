@@ -182,7 +182,7 @@
 								<td>{{$j++}}</td>
 								<td>{{ $patient->Nom}}</td>
 								<td> {{ $patient->Prenom}}</td>
-								<td> {{ $patient->Dat_Naissance }}</td>
+								<td> {{ $patient->Dat_Naissance->format('Y-m-d') }}</td>
 								<td>
 								 	@switch($patient->Type)
 								 			@case("0")

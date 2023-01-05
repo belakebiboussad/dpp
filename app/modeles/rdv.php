@@ -12,7 +12,7 @@ class rdv extends Model// implements IdentifiableEvent
   ];
 	public $timestamps = false;
 	protected $fillable =['date','fin','fixe','patient_id','employ_id','specialite_id','etat'];
-	protected $dates = ['date', 'fin'];//,'Temp_rdv'
+	protected $dates = ['date', 'fin'];
 	protected $appends = ['title'];
   public function getStartAttribute()
   {

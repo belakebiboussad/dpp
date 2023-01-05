@@ -74,22 +74,21 @@
                   @if(isset($demande->consultation))
                     {{ $demande->consultation->date->format('d/m/Y') }}
                   @else
-                    {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
+                    {{ $demande->visite->date->format('d/m/Y') }}
                   @endif 
                   </span></div>
                 </div>
               </div><!-- striped -->
               <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                <div class="profile-info-name">Etat :</div>
+                <div class="profile-info-row"><div class="profile-info-name">Etat :</div>
                   <div class="profile-info-value">
                     <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
                   </div>
                 </div>
               </div><!-- striped   -->
               <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                  <div class="profile-info-name"> Demandeur : </div>
+                <div class="profile-info-row"><div class="profile-info-name"> Demandeur :</div>
+                  
                   <div class="profile-info-value"><span class="editable" id="username">{{ $medecin->full_name }}</span></div>
                 </div>
               </div><!-- striped   -->
