@@ -100,7 +100,7 @@ $(function(){
   });
   imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
      footer64Img = base64; 
-  });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
+  });//var date = new Date('{{-- $patient->Dat_Naissance --}}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
   /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
   $("#isOriented").change(function() {
     if( $("#hidden_fields").hasClass('hidden'))
@@ -109,8 +109,7 @@ $(function(){
       $("#hidden_fields").addClass('hidden');
       $("#lettreorientaioncontent").val("");
     }
-  });/*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
-/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*//*$("#btnCalc").click(function(event){event.preventDefault(); });*/
+  });
   $('#medc_table').DataTable({
       processing: true,
       serverSide: true,

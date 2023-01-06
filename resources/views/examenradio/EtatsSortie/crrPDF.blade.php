@@ -6,8 +6,7 @@
   <title>Compte rendu radiologique </title>
 </head>
     <body>
-      <div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>		
-       <!-- <hr class="mt-6 hr-1"> -->
+      <div><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></div>
  	 	  <div class="right"><b>Alger le :</b><span>{{ $date }}</span></div><br> 
   		<div class="sec-gauche mtp20"><b>Médecin prescripteur :</b><span> {{ $medecin->full_name }}</span></div>
  	 	 <div class="mtP40">

@@ -34,11 +34,10 @@
           <b>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</b><span>{{ $obj->patient->full_name }}</span>.
         </div>
         <div><b>Né le :</b><span>{{ $obj->patient->Dat_Naissance->format('Y-m-d') }}</span></div>
-        <div>
-          <b>Motif d’hospitalisation :</b>
+        <div><b>Motif d’hospitalisation :</b>
           <span>
-          @if(isset($obj->admission->id_rdvHosp))
-            {{ $obj->admission->demandeHospitalisation->DemeandeColloque->observation }}
+          @if(isset($obj->admission->id_rdvHosp)) {{-- $obj->admission->demandeHospitalisation->DemeandeColloque->observation --}}
+            {{ $obj->admission->demandeHospitalisation->consultation->motif }}
           @else
             {{ $obj->admission->demandeHospitalisation->consultation->motif }}
           @endif

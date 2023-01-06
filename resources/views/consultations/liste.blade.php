@@ -8,27 +8,27 @@
 				<a href="/consultations/create/{{ $patient->id }}" class="align-middle">
           <i class="fa fa-plus-circle bigger-180"></i></a>
       </div>
-		</div><!-- widget-header -->
+		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-			<table class="display table-responsive tablist" id=""> <!-- consultList -->
+			<table class="display table-responsive tablist" id=""> 
 					<thead >
 						<tr>
-							<th class="center" width="12%">Date</th>	
-							<th class ="center sorting_disabled" width="30%">Médecin Consultant</th>
-              <th class ="center sorting_disabled">Motif</th>
-							<th class ="center sorting_disabled" width="14%"><em class="fa fa-cog"></em></th>
+							<th class="center" width="17%"><small>Date</small></th>	
+							<th class ="center sorting_disabled" width="30%"><small>Médecin Consultant</small></th>
+                        <th class ="center sorting_disabled"><small>Motif</small></th>
+							<th class ="center sorting_disabled" width="15%"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($patient->Consultations as $consult)
 					<tr id ="{{ $consult->id }}">
-					   <td width="12%">{{ $consult->date->format('d/m/y') }}</td>
+					   <td width="17%">{{ $consult->date->format('y-m-d') }}</td>
 						 <td width="30%">{{ $consult->medecin->full_name }}</td>
-             <td><small>{{ $consult->motif }}</small></td>
-						<td class="center" width="14%">
-              <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="ace-icon fa fa-eye-slash fa-xs"></i></button>
-              <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir consultation"><i class="ace-icon fa fa-hand-o-up fa-xs fa-2xs"></i></a>
+                    <td><small>{{ $consult->motif }}</small></td>
+				    	<td class="center" width="15%">
+                    <button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-eye-slash fa-2xs"></i></button>
+                   <a href = "{{ route('consultations.show',$consult->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir consultation"><i class="fa fa-hand-o-up fa-xs fa-2xs"></i></a>
             </td>	
 					</tr>
 					@endforeach

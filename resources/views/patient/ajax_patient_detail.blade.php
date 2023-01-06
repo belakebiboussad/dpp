@@ -118,7 +118,7 @@
   @if( in_array(Auth::user()->role_id,[1,13,14]))
     <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
   @endif
-  <a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance->format('Y-m-d')))  disabled @endif>
+  <a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance))  disabled @endif>
     <i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous
   </a>
 </div>

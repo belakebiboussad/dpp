@@ -20,7 +20,7 @@
 				@if($rdvs->count() > 0)
 					@foreach($rdvs as $rdv)
 					<tr>
-						<td>{{ $rdv->date->format('Y-m-d') }} {{ $rdv->id}}</td>
+						<td>{{ $rdv->date->format('Y-m-d') }}</td>
 						<td>{{ $rdv->fixe ? 'Oui' : 'Non' }}</td>
 						<td>{{$rdv->specialite->nom }}</td>
             <td>{{ isset($rdv->employ_id) ? $rdv->employe->full_name :'' }}</td> 
