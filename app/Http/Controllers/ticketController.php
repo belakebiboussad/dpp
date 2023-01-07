@@ -10,7 +10,6 @@ use PDF;
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
 use BigFish\PDF417\Renderers\SvgRenderer;
-use Carbon\Carbon;
 class ticketController extends Controller
 {
     /**

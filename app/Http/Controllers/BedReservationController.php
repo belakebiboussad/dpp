@@ -90,9 +90,9 @@ class BedReservationController extends Controller
   {
         $resrvs = [];
         $lit = lit::FindOrFail( $request->lit_id);
-        $start = $today = Carbon::now()->toDateString();// $start = Carbon::now();//egale now "2022-09-2"
-        $end = Carbon::now()->addDay(3)->toDateString(); //get reservation of this bed between this day
-        $free = $lit->isFree(strtotime($start),strtotime($end));//1664060400
+        $start = $today = Carbon::now()->toDateString();
+        $end = Carbon::now()->addDay(3)->toDateString();
+        $free = $lit->isFree(strtotime($start),strtotime($end));
         $reservs = $lit->getReservation(strtotime($start), strtotime($end));
         $beds = BedReservation::with('rdvHosp')->whereHas('rdvHosp',function($q) use($start){ 
                        $q->where('date','>=',$start);
