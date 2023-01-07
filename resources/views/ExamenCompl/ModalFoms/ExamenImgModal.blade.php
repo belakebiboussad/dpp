@@ -27,7 +27,7 @@
 				</div>
 			  </div>
 				<div class="modal-footer" width = "100%">
-			  	<button type="button" class="btn btn-success btn-sm disabledElem" id="btn-addImgExam"value="add">
+			  	<button type="button" class="btn btn-success btn-sm" id="btn-addImgExam" value="add" disabled>
 		      	<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 		      <button type="reset" class="btn btn-warning btn-sm" id="btnclose" data-dismiss="modal">
             <i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>

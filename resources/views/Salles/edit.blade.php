@@ -1,7 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h4>Modifier les données de la chambre "{{ $salle->nom }}" :</strong></h4>
-	</div>
+	<div class="page-header"><h1>Modifier les données de la chambre "{{ $salle->nom }}" :</h1></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box">

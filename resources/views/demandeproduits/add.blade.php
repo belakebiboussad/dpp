@@ -19,28 +19,20 @@ $('document').ready(function(){
  		if($('#gamme').val() == "1")
 			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
 		else
-		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
-		$('#produit').val('<option value="0">Sélectionner...</option>');
-		$("#quantite").val(1);
-		$('#gamme').val('0');
-		$('#specialite').val('0');
+		  $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
+    $('#produit').val('');$("#quantite").val(1);$('#gamme').val('');$('#specialite').val('');
 		$("#ajoutercmd").prop('disabled', true);
-  	});	
+  });	
 	$("#savedmd").click(function(){
-
 		var arrayLignes = document.getElementById("cmd").rows;
 		var longueur = arrayLignes.length;   
 		var produits = [];
-
 		for(var i=1; i<longueur; i++)
 		{
 			produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, unite: arrayLignes[i].cells[6].innerHTML}
 		}
-
 		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-
 		champ.appendTo('#demandform');
-		
 		$('#demandform').submit();
 	});
 });
@@ -61,45 +53,44 @@ $('document').ready(function(){
 							<input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
 						</form>
 					<div>
-					<label for="gamme"><b>Gamme</b></label>
+					<label for="gamme" class="control-label">Gamme :</label>
 					<select class="form-control" id="gamme">
-						<option value="0">Sélectionner...</option>
+						<option value="" disabled>Sélectionner...</option>
 						@foreach($gammes as $gamme)
-							<option value="{{ $gamme->id }}">{{ $gamme->nom }}</option>
+							<option value="{{ $gamme->id }}" {{($gamme->id == 1) ? 'slected' :'' }}>{{ $gamme->nom }}</option>
 						@endforeach	
 					</select>
 					<hr/>
 				</div>
 				<div id = "specialiteDiv">
-					<label for="specPrd"><b>Spécialité</b></label>
-					<select class="form-control" id="specPrd" disabled><option value="0">Sélectionner...</option>
-						<option value="0">Sélectionner...</option>
-						@foreach($specialites as $specialite)
-							<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
+					<label for="specPrd" class="control-label">Spécialité :</label>
+					<select class="form-control" id="specPrd">
+						<option value="" slected disabled>Sélectionner...</option>
+						@foreach($specialites as $spec)
+							<option value="{{ $spec->id }}">{{ $spec->nom }}</option>
 						@endforeach	
 					</select>
 					<hr/>	
 				</div>
 				<div>
-					<label for="produit"><b>Produit</b></label>
-					<select class="form-control" id="produit" disabled>
-						<option value="0">Sélectionner...</option>
+					<label for="produit" class="control-label">Produit :</label>
+					<select class="form-control" id="produit">
+						<option value="" selected disabled>Sélectionner...</option>
 					</select>
 				</div><hr/>
 				<div>
-					<label for="quantite"><b>Quantité</b></label>
+					<label for="quantite" class="control-label">Quantité :</label>
 					<input type="number" class="form-control" id="quantite" name="quantite" min="1">
 				</div>
 				<hr/>
 				<div>
-					<label for="unite"><b>Unité</b></label>
+					<label for="unite" class="control-label">Unité :</label>
 					<input type="text" class="form-control" id="unite" name="unite" palceholder="Unité">
 				</div>
 				<hr/>
 				<div class="pull right">
 					<button id="ajoutercmd" class="btn btn-sm btn-success" disabled>
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i><b>Ajouter</b>
-					</button>
+						<i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i>Ajouter</button>
 				</div>
 			</div>
 		</div>

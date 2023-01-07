@@ -201,7 +201,7 @@ class RDVController extends Controller
           $civilite = $civilite = $rdv->patient->civ;
           $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
           $pdf417 = new PDF417();
-          $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.Carbon::parse($rdv->date)->format('dmy'));
+          $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.$rdv->date->format('dmy'));
           $renderer = new ImageRenderer([
               'format' => 'png',
               'scale' => 1,//1

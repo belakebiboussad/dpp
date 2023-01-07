@@ -83,7 +83,7 @@
 @endsection
 @section('main-content')
 	<div class="page-header">
-		<h4>Modification des données du patient : <q class="blue"> {{ $patient->getCivilite() }} {{ $patient->full_name }} </q></h4>
+		<h1>Modification des données du patient : <q class="blue"> {{ $patient->getCivilite() }} {{ $patient->full_name }} </q></h1>
 		<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left  blue"></i> Rechercher un Patient

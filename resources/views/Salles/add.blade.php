@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h4>Ajouter une nouvelle chambre :</h4>
+	<div class="page-header"><h1>Ajouter une nouvelle chambre :</h1>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">

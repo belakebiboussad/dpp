@@ -35,7 +35,7 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Modification de : {{ $user->name }}</h4></div>
+<div class="page-header"><h1>Modification de : {{ $user->name }}</h1></div>
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">

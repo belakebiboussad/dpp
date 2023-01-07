@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h4>Réservations</h4></div>
+<div class="page-header"><h1>Réservations</h1></div>
 <div class="col-sm-6">
   <form method="POST" class="form-horizontal" role="form" action ="{{ route('reservation.update',1)}}">
     {{ csrf_field() }}

@@ -56,9 +56,10 @@ function addmidifun()
 {
   var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
   med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-  med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+  med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
   $("#ordonnance").append(med);
-  $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+  $("#posologie_medic").attr("disabled", true);
+  $("#addDrugBtn").attr("disabled", true);
   $("#nommedic").val('');$("#forme").val('');$("#dosage").val('');$("#posologie_medic").val('');
 }
 function editMedicm(med)
@@ -70,11 +71,11 @@ function editMedicm(med)
       success: function (result)
       {
         $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
-        $("#dosage").val(result.Dosage);$("#id_medicament").val(result['id']);
-        $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+        $("#dosage").val(result.Dosage); $("#id_medicament").val(result['id']);
+        $("#posologie_medic").attr("disabled", false);$("#addDrugBtn").attr("disabled", false); 
       }
     });
-}/*function rowDelete(id){  $("#"+id).remove();}*/
+}
 function warning()
 {
   return "dzd"; //U can write any custom message here.

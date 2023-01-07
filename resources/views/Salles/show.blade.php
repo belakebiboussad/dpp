@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h4>Détails de la chambre "{{ $salle->nom }}"</h4></div>
+	<div class="page-header"><h1>Détails de la chambre "{{ $salle->nom }}"</h1></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="widget-box">

@@ -30,7 +30,7 @@ $('document').ready(function(){
     exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';    
     $('#ExamsImg').append(exam);
     $('#examensradio').val('').trigger('change');
-    $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+    $("#btn-addImgExam").attr("disabled", true);
     if($(".requestPrint").prop('disabled') == true)
       $(".requestPrint").removeAttr("disabled");
   });

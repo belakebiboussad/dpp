@@ -22,7 +22,7 @@
 </script>
 @endsection
 @section('main-content')
-  <div class="page-header"><h4>Ajouter un nouveau lit</h4></div>
+  <div class="page-header"><h1>Ajouter un nouveau lit</h1></div>
   <div class="row">
     <div class="col-xs-12">
     <div class="widget-box">

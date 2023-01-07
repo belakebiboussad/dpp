@@ -18,7 +18,7 @@
  </script>
  @endsection
 @section('main-content')
-<div class="page-header"><h4>Rechercher une demande d'examen radiologique</h4></div>
+<div class="page-header"><h1>Rechercher une demande d'examen radiologique</h1></div>
 <div class="row">
   	<div class="panel panel-default">
     		<div class="panel-heading">Rechercher</div>

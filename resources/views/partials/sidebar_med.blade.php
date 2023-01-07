@@ -323,20 +323,22 @@
       $(document).ready(function () {
           $('.select2').css('width','50%').select2({allowClear:true});
           $('#examensradio').on('select2:select', function (e) { 
-              if($("input[name='exmns']").is(":checked"))
-                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+            if($("input[name='exmns']").is(":checked"))
+             $("#btn-addImgExam").attr("disabled", false);
           });
           $('#examensradio').on('select2:unselecting', function(event) {
-             $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            $("#btn-addImgExam").attr("disabled", true);
           });
           $('input[type=radio][name=exmns]').change(function() {
             if(! isEmpty($('#examensradio').val()))
-               $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+              $("#btn-addImgExam").attr("disabled", false);
             else
-            $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+              $("#btn-addImgExam").attr("disabled", true);
           });
           $('#btnclose').click(function(){
-           $("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            $("#examensradio").select2("val", "");
+            if(!$("#btn-addImgExam").prop('disabled'))
+              $("#btn-addImgExam").attr("disabled", true);
           })
           $('input[type=radio][name=sexe]').change(function(){
             if(this.value == "M")

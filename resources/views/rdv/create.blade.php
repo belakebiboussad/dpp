@@ -276,7 +276,7 @@ $(function() {
 </script>
 @endsection
 @section('main-content')
-  <page-header><h4>Ajouter un rendez-vous</h4></page-header>
+  <page-header><h1>Ajouter un rendez-vous</h1></page-header>
   <div class="row"><div class="col-sm-12 col-xs-12 calendar"></div></div>
   <hr>
   <div class="row">

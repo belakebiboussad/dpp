@@ -32,13 +32,13 @@
             </div><div class="space-12 hidden-xs"></div>
             <div class="row">
               <div class="col-xs-12">
-                <label for="posologie_medic">Posologie:</label><input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
+                <label for="posologie_medic">Posologie:</label><input type="text" class="form-control" id="posologie_medic" placeholder="Posologie..." disabled>
               </div>
             </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
              <div class="row">
               <div class="col-xs-12">
-                <button type="button" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
-                  Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
+                <button type="button" class="btn btn-primary btn-xs pull-right" id="addDrugBtn" onclick="addmidifun()" disabled>
+                  Ajouter <i class="fa fa-arrow-down" ></i>
                 </button>
               </div>
             </div>
@@ -47,7 +47,7 @@
        <div class="row">
           <div class="col-sm-12 col-xs-12 widget-container-col">
             <div class="widget-box widget-color-warning"> 
-              <div class="widget-body"><!-- tablebody -->
+              <div class="widget-body">
                 <table id="ordonnance" class="table table-striped"> 
                   <thead>
                     <tr>

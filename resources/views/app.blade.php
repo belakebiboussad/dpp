@@ -66,27 +66,17 @@
           $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
           $("#foncform").addClass('hidden'); 
           if ($("#gs option:selected").val() === ""){
-            $(gsf).attr("disabled", false);
+            $("#gsf").attr("disabled", false);
             $("#rhf" ).attr("disabled", false);
           }
           else{
             $("#gsf").val($("#gs option:selected").val());
             $("#rhf").val($("#rh option:selected").val());
-            $(gsf).attr("disabled", true);
+            $("#gsf").attr("disabled", true);
             $("#rhf" ).attr("disabled", true);     
           }
         }
-        function emptyPatient(){ 
-          $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
-          $('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");
-          $("#gsf").val("");
-          $("#rhf").val("");
-          if($("#gsf").prop('disabled') == true)
-            $('#gsf').attr("disabled", false);
-          if($("#gsf").prop('disabled') == true)
-            $("#rhf" ).attr("disabled", false);
-          $('.asdemogData').attr('disabled', '');
-        }
+/*function emptyPatient(){$("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");$('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");$("#gsf").val("");$("#rhf").val("");if($("#gsf").prop('disabled') == true) $('#gsf').attr("disabled", false);if($("#gsf").prop('disabled') == true)$("#rhf" ).attr("disabled", false);     $('.asdemogData').attr('disabled', '');}*/
         function checkPatient()
         {
           var erreur =true;
@@ -202,52 +192,36 @@
         });
        $(function(){
          $('#gamme').change(function(){
-              switch($(this).val())
-              {
-                case "0":
-                  $('#specPrd').val(0);
-                  $('#specPrd').prop('disabled', 'disabled');
-                  $('#produit').val(0);
-                  $('#produit').prop('disabled', 'disabled');
-                  break
-                case "1":
-                  if($("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").show();
-                    $("#specPrd").removeAttr("disabled");
-                    $("#produit").removeAttr("disabled");
-                    break;
-                case "2":
-                    if(!$("#specialiteDiv").is(":hidden"))
-                      $("#specialiteDiv").hide();
-                      $("#produit").removeAttr("disabled");
-                      getProducts(2);
-                    break;
-                case "3":
+            switch($(this).val())
+            {
+              case "1":
+                if($("#specialiteDiv").is(":hidden"))
+                  $("#specialiteDiv").show();
+                  break;
+              case "2":
                   if(!$("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").hide();
-                    getProducts(3);
-                    break;
-                case "4":
-                  $("#specialiteDiv").hide();
-                  $("#produit").removeAttr("disabled");
-                  getProducts(4);
+                    if($("#produit").prop('disabled') == true)
+                      $("#produit").prop('disabled',false);
+                    getProducts(2);
                   break;
-                default:
-                  break; 
-              }
+              case "3":
+                if(!$("#specialiteDiv").is(":hidden"))
+                  $("#specialiteDiv").hide();
+                  getProducts(3);
+                  break;
+              case "4":
+                $("#specialiteDiv").hide();
+                if($("#produit").prop('disabled') == true)
+                      $("#produit").prop('disabled',false);
+                getProducts(4);
+                break;
+              default:
+                break; 
+            }
           });
          $('#specPrd').change(function(){
-             if($(this).val() != "0" )
-             {
-                $("#produit").removeAttr("disabled");
-                var id_gamme = $('#gamme').val();
-                var id_spec = $(this).val();
-                getProducts(id_gamme,id_spec);
-              }else
-              {
-                $("#produit").val(0);
-                $("#produit").prop('disabled', 'disabled');
-              }
+            getProducts($('#gamme').val(),$(this).val());
           });
           $('#produit').change(function(){
              $("#ajoutercmd").removeAttr("disabled");

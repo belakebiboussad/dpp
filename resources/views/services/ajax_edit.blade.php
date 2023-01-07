@@ -1,4 +1,4 @@
-<div class="page-header"><h4>Modifier le  service "{{ $service->nom }}"</h4></div>
+<div class="page-header"><h1>Modifier le  service "{{ $service->nom }}"</h1></div>
 <div class="row">
   <div class="col-xs-12">
     <div class="widget-box">

@@ -236,8 +236,7 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Rechercher une hospitalisation</h4></div>
-   
+<div class="page-header"><h1>Rechercher une hospitalisation</h1></div>
 <div class="row">
   <div class="panel panel-default">
       <div class="panel-heading"><b>Rechercher</b></div>

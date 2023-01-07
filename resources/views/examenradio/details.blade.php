@@ -191,37 +191,32 @@ $(function(){
 <div class="container-fluid">
   <div class="row" width="100%"> @include('patient._patientInfo')</div>
   <div class="row">
-      <div class="col-md-5 col-sm-5"><h4> <b>Demande d'examen radiologique</b></h4></div>
+      <div class="col-md-5 col-sm-5"><h4>Demande d'examen radiologique</h4></div>
       <div class="col-md-7 col-sm-7 btn-toolbar">
         <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
-          <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
+          <i class="ace-icon fa fa-print"></i> Imprimer</a>&nbsp;&nbsp;
           @if(Auth::user()->role_id  == 12)
-           <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+           <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
           @else
-           <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+           <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
           @endif
       </div>
-  </div><hr> <div class="space-12 hidden-xs"></div>
+  </div><hr>
   <div class="row">
-    <div class="col-xs-12">
-       @include('examenradio.partials._show')
-    </div>
+    <div class="col-xs-12">@include('examenradio.partials._show')</div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-xs-12 widget-container-col">
       <div class="widget-box">
-        <div class="widget-header"><h5 class="widget-title"><b>Examens radiologique demadés</b></h5></div>
+        <div class="widget-header"><h5 class="widget-title">Examens radiologique demadés</h5></div>
         <div class="widget-body">
           <div class="widget-main">
            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th class="center" width="10%">N°</th>
-                  <th>Nom</th>
-                  <th class="center">Type</th>
-                  <th class="center">Attacher le résultat</th>
-                  <th class="center">Résultat</th>
-                  <td class="center" width="18%"><em class="fa fa-cog"></em></td>
+                  <th class="center" width="10%">N°</th><th>Nom</th>
+                  <th class="center">Type</th><th class="center">Attacher le résultat</th>
+                  <th class="center">Résultat</th><td class="center" width="18%"><em class="fa fa-cog"></em></td>
                 </tr>
               </thead>
               <tbody>
@@ -232,7 +227,7 @@ $(function(){
                       <td>{{ $examen->Examen->nom }}</td>
                       <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
                       <td class="center">
-                        <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role_id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
+                <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role_id !== 12) || ($examen->getEtatID($examen->etat) !== ""))? 'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
                       </td>
                       <td class="center" width="30%">
                         <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 

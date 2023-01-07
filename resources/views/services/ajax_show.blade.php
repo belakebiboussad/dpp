@@ -1,4 +1,4 @@
-<div class="page-header"><h4>Détails du service :</h4></div>
+<div class="page-header"><h1>Détails du service :</h1></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">

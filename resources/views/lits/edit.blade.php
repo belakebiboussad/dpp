@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h4>Modifier le lit </h4></div>
+	<div class="page-header"><h1>Modifier le lit </h1></div>
 	<div class="row">
 		<div class="col-xs-12">
 		<div class="widget-box">

@@ -152,7 +152,7 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4 >Liste des rendez-vous:</h4></div>
+<div class="page-header"><h1>Liste des rendez-vous:</h1></div>
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">

@@ -9,7 +9,7 @@ function bedShow(id){
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Liste des lits :</h4></div>
+<div class="page-header"><h1>Liste des lits</h1></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue">

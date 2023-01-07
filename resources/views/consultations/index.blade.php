@@ -87,7 +87,7 @@
 @endsection
 @section('main-content')
 <div class="row">
-	<div class="col-md-12 col-sm-12"> <h4><b>Rechercher une consultation</b></h4>
+	<div class="col-md-12 col-sm-12"> <h4>Rechercher une consultation</h4>
   	<div class="panel panel-default"><div class="panel-heading">Rechercher par :</div>
     	<div class="panel-body">
       <div class="row filter-row">
@@ -108,7 +108,7 @@
       	</div>
     	</div>
     	<div class="panel-footer">
-    		<button type="submit" class="btn btn-success btn-sm findconsult"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+    		<button type="submit" class="btn btn-primary btn-sm findconsult"><i class="fa fa-search"></i> Rechercher</button>
     	</div>
   	</div>
 	</div>

@@ -16,7 +16,7 @@ function getRoomBeds(id)
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Liste des chambres</h4></div>
+<div class="page-header"><h1>Liste des chambres</h1></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue" >
