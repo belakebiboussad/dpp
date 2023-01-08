@@ -40,19 +40,20 @@ class ColloqueController extends Controller
       }
       public function index(Request $request)
       {
+        $field = $request->field; $q = $request->value;
         $service = service::findOrFail(Auth::user()->employ->service_id);
         if($request->ajax())  
         { 
-          if($request->value == '')
+          if($q == '')
           
-            $colloques = colloque::with('employs','Service')->where(trim($request->field), null)
-                                ->where('service_id', $service->id)->get();
+            $colloques = colloque::with('employs','Service')
+                          ->whereNull($field)->where('service_id', $service->id)->get();
           else
-            $colloques = colloque::with('employs','Service')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+            $colloques = colloque::with('employs','Service')->where($field,'LIKE',"%$q%")
                                 ->where('service_id', $service->id)->get();
           return Response::json($colloques);
         }else
-        $colloques=colloque::with('employs','Service')->whereNull('etat')->where('service_id', $service->id)->get();                                   
+          $colloques=colloque::with('employs','Service')->whereNull('etat')->where('service_id', $service->id)->get();                                   
         return view('colloques.index', compact('colloques','service'));
       }
     /**
@@ -129,7 +130,7 @@ class ColloqueController extends Controller
       $medecins = employ::whereHas('User', function($q){
                           $q->whereIn('role_id', [1,13,14]);
                         })->where('service_id', $colloque->service_id)->orderBy('nom')->get();
-      $demandes = DemandeHospitalisation::where('service',$colloque->service_id)->where('etat',null)->where('modeAdmission','<>','2')->get();
+      $demandes = DemandeHospitalisation::where('service',$colloque->service_id)->whereNull('etat')->where('modeAdmission','<>','2')->get();
       return view('colloques.run', compact('demandes','medecins','colloque'));
     }
     public function save(Request $request ,$id)

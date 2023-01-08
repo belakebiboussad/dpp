@@ -44,20 +44,24 @@ class PatientController extends Controller
       if($request->ajax())  
       {
         $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d');
-        $sub65 = ($today->subYears(65))->format('Y-m-d');
+        $sub65 = ($today->subYears(65))->format('Y-m-d');$q = $request->value;
+        $field= $request->field;
         switch(Auth::user()->employ->specialite)
         {       
-            case 3 :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Dat_Naissance', '>', $sub17)->get();
-              break;
-            case 5 :
-            $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Sexe','F')->get();
-                  break;
-            case 8 :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->where('Dat_Naissance', '<=', $sub65)->get();
+          case 3 :
+            $patients = patient::where($field,'LIKE', "$q%")->active()
+                            ->where('Dat_Naissance', '>', $sub17)->get();
+            break;
+          case 5 :
+            $patients = patient::where($field,'LIKE', "$q%")->active()
+                                ->where('Sexe','F')->get();
+            break;
+          case 8 :
+            $patients = patient::where($field,'LIKE', "$q%")->active()
+                               ->where('Dat_Naissance', '<=', $sub65)->get();
                    break;
-            default :
-              $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->active()->get();
+          default :
+            $patients = patient::where($field,'LIKE', "$q%")->active()->get();
               break;    
           }
           return $patients; 

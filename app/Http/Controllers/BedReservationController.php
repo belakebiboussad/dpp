@@ -31,7 +31,7 @@ class BedReservationController extends Controller
     $specialite = Auth::user()->employ->Service->Specialite;
     $rdvs = rdv_hospitalisation::doesntHave('bedReservation')->whereHas('demandeHospitalisation',function ($q){
                                       $q->doesntHave('bedAffectation')->where('service',Auth::user()->employ->service_id);    
-                                    })->where('date','>=',$tomorrow)->where('etat',null)->get();
+                                    })->where('date','>=',$tomorrow)->whereNull('etat')->get();
     return view('reservations.create', compact('rdvs','services','specialite'));
   }
 	public function store(Request $request)

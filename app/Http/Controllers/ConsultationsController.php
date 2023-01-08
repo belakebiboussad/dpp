@@ -49,8 +49,7 @@ class ConsultationsController extends Controller
     }
     public function index()
     {
-      $etatsortie = Etatsortie::where('type',null)->get();
-      return view('consultations.index', compact('etatsortie'));
+      return view('consultations.index');
     }
     public function detailcons($id_cons)
     { 
@@ -250,19 +249,20 @@ class ConsultationsController extends Controller
       {
         $service_id = Auth::user()->employ->service_id;
         if($request->ajax())  
-        {         
-          if($request->field == 'date')
+        {    
+          $field= $request->field; $v= $request->value;      
+          if($field == 'date')
             $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
-                                    ->whereHas('medecin.Service',function($q) use($service_id){ 
-                                               $q->where('id',$service_id);
-                                    })->where(trim($request->field), trim($request->value))->get();
+                            ->whereHas('medecin.Service',function($q) use($service_id){ 
+                                  $q->where('id',$service_id);
+                            })->where($field, $v)->get();
           else
             $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
-                                    ->whereHas('medecin.Service',function($q) use($service_id){ 
-                                               $q->where('id',$service_id);
-                                    })->whereHas('patient',function($q) use ($request){
-                                        $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                                    })->get();
+                            ->whereHas('medecin.Service',function($q) use($service_id){ 
+                                $q->where('id',$service_id);
+                            })->whereHas('patient',function($q) use ($request){
+                                $q->where($request->field,'LIKE', "%$request->value%");  
+                            })->get();
             return $consults;
         }
        }

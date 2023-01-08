@@ -53,25 +53,26 @@ class demandeprodController extends Controller
     {
       if($request->ajax())  
       {
+        $v = $request->value;  $field= $request->field;
         if(Auth::user()->role_id != 10) 
         {
           $ServiceId = Auth()->user()->employ->service_id;    
-          if(isset($request->value))
+          if(isset($v))
               $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId){
                                        $q->where('id', $ServiceId);
-                         })->where($request->field,'LIKE', trim($request->value)."%")->get();
+                         })->where($field,'LIKE', "$v%")->get();
           else
               $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
                               $q->where('id', $ServiceId);
-                         })->where($request->field, null)->get();
+                         })->whereNull($field)->get();
         }else
         {
-          if($request->field != "service")  
+          if($field != "service")  
           {
-              if(isset($request->value))
-                $demandes = demand_produits::with('demandeur.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-              else
-                $demandes = demand_produits::with('demandeur.Service')->where($request->field, null)->get();
+            if(isset($request->value))
+              $demandes = demand_produits::with('demandeur.Service')->where($field,'LIKE', "$v%")->get();
+            else
+              $demandes = demand_produits::with('demandeur.Service')->whereNull($field)->get();
           }else
           {
             $serviceID = $request->value;
