@@ -176,7 +176,7 @@ class StatistiqusController extends Controller
              $nb2 = hospitalisation::whereHas('medecin', function($q) use ($sid) {
                                                       $q->where('service_id', $sid);
                                                   })->where('date','<=', $date)
-                                                  ->where('Date_Sortie',null)->count();                                      
+                                                  ->whereNull('Date_Sortie')->count();                                      
             $dataArray[]  = $nb1 + $nb2;
           } 
         } 

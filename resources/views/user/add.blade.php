@@ -153,8 +153,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="hr hr-dotted"></div>
+	</div><div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="col-sm12 center"><br>
 			<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer	</button>

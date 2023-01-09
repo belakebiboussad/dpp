@@ -13,7 +13,6 @@ use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
 use App\modeles\Specialite;
-use App\modeles\grade;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
@@ -93,12 +92,8 @@ class PatientController extends Controller
         }
         return view('patient.addP',compact('assure','NSS','type','nom','prenom')); 
       }
-      else
-      {
-        $grades = grade::all();
-        return view('patient.add',compact('grades'));
-      }
-       
+      else 
+        return view('patient.add');
     }
   /**
    * Store a newly created resource in storage.
@@ -134,7 +129,7 @@ class PatientController extends Controller
             "prenomf" => 'required_if:type,1,2,3,4'
 /*"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
 "npiece_id"=>'required_with:nom_homme_c',"mobile_homme_c"=>['required_with:nom_homme_c'],"operateur_h"=>'required_with:mobileA',"nss" => 'regex:/[0-9]{12}/',*/
-/*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',"NMGSN"=> 'required_if:type,Ayant_droit',
+/*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',
 "idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'], //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',            
 // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/',"Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',               */
     );  
@@ -143,7 +138,7 @@ class PatientController extends Controller
       "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
     $validator = Validator::make($request->all(),$rule,$messages);   
-    if ($validator->fails()) { //$grades = grade::all();//$errors = $validator->errors();//return view('patient.add',compact('grades'))->withInput()->withErrors($validator->errors());
+    if ($validator->fails()) { //$errors = $validator->errors();//return 
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
     }
     if(!in_array($request->type,[5,6])) 
@@ -158,15 +153,13 @@ class PatientController extends Controller
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,      
-          "commune_res"=>$request->idcommunef,// "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
+          "commune_res"=>$request->idcommunef,
           'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
-          "Grade"=>$request->grade,
           "Position"=>$request->Position,
-          "NSS"=>$request->nss,
-          "NMGSN"=>$request->NMGSN, 
+          "NSS"=>$request->nss
         ]);          
       }else
       {
@@ -179,14 +172,12 @@ class PatientController extends Controller
           'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,
           "commune_res"=>$request->idcommunef,
-          "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556','wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
+          "wilaya_res"=>$request->idwilayaf,
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
-          "Grade"=>$request->grade,
           "Position"=>$request->Position,
-          "NSS"=>$request->nss,
-          "NMGSN"=>$request->NMGSN, 
+          "NSS"=>$request->nss
         ]);           
       }
      }  
@@ -288,7 +279,6 @@ class PatientController extends Controller
        {  
           $id = $patient->id ;
           $specialites = Specialite::all();
-          $grades = grade::all(); 
           $employe=Auth::user()->employ;
           $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $patient->id)->where("etat_hc", "actuel")->get();
@@ -307,7 +297,7 @@ class PatientController extends Controller
           $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);
                                     })->get();
-         return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades','demandesExB','demandesExR','ordonnances'));
+      return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR','ordonnances'));
         }
     /**
      * Show the form for editing the specified resource.
@@ -318,10 +308,9 @@ class PatientController extends Controller
       public function edit(patient $patient,$asure_id =null)
       {  
         $assure=null;
-        $grades = grade::all(); 
         if(!in_array($patient->Type,[5,6]))
           $assure =  $patient->assure;
-        return view('patient.edit',compact('patient','assure','grades')); 
+        return view('patient.edit',compact('patient','assure')); 
       }
     /**
      * Update the specified resource in storage.
@@ -354,9 +343,7 @@ class PatientController extends Controller
               "Matricule"=>$request->matf, 
               "Service"=>$request->service,
               "Position"=>$request->Position,
-              "Grade"=>$request->grade,
-              "NMGSN"=>$request->NMGSN,
-              "NSS"=>$request->nss,
+              "NSS"=>$request->nss
             ]);
           }else{  
             if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array($request->type, $ayants) && ($patient->Type =="0")) ||((in_array($patient->Type,$derogAutre )) && (in_array($request->type, $ayantsAssure))))
@@ -374,9 +361,7 @@ class PatientController extends Controller
                 "Matricule"=>$request->matf, 
                 "Service"=>$request->service,
                 "Position"=>$request->Position,
-                "Grade"=>$request->grade,
-                "NMGSN"=>$request->NMGSN,
-                "NSS"=>$request->nss,
+                "NSS"=>$request->nss
               ]);
             }
           }

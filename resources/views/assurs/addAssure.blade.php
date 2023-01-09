@@ -100,39 +100,8 @@
 <!-- end demog data-->
 <h4 class="header  lighter blue">Fonction</h4>
 <div class="row">
-	<div class="form-group col-sm-4">
-		<label class="col-sm-3 control-label" for="grade">Grade :</label>
-		<div class="col-sm-9">
-			<select id="grade" name="grade" class="form-control asProfData"/>
-				<option value="">Sélectionner...</option>
-				@foreach ($grades as $key=>$grade)
-				<option value="{{ $grade->id }}">{{ $grade->nom }}</option>
-				@endforeach
-			</select>
-		</div>
-	</div>
-      <div class="form-group col-sm-4" id="statut">
-		<label class="col-sm-3 control-label" for="Position">Position :<span class="red">*</span></label>		
-		<div class="col-sm-9">
-			<select name="Position" id="Position" class="form-control">
-				<option value="">Sélectionner...</option>
-				<option value="Activité">Activité</option>
-				<option value="Détachement">Détachement</option>
-				<option value="Mise en Disponibilité">Mise en disponibilité</option>
-				<option value="Licencié">Licencié</option>
-				<option value="Démission">Démission</option>
-				<option value="Congé non rémunéré">Congé non rémunéré</option>
-				<option value="Retraite">Retraite</option>
-				<option value="Congé Longue Durée">Congé longue durée</option>
-				<option value="Assurance Invalidité">Assurance invaliditéé</option>
-				<option value="Décédé">Décédé</option>
-				<option value="Service National">Service national</option>
-				<option value="Contrat résilié">Contrat résilié</option>
-				<option value="Congé Maladie" >Congé Maladie</option>
-				<option value="Révoqué">Révoqué</option>
-			</select>
-		</div>
-	</div>
+	<div class="form-group col-sm-4"></div>
+	<div class="form-group col-sm-4" id="statut"></div>
 	<div class="form-group col-sm-4" id ="serviceFonc">
 		<label class="col-sm-3 control-label no-padding-right" for="service">Service :</label>
 		<div class="col-sm-9">
@@ -153,12 +122,6 @@
 		<label class="control-label col-xs-12 col-sm-3" for="nss2">NSS :<span class="red">*</span></label>		
 		<div class="clearfix col-sm-9">
 			<input type="text" id="nss" name="nss" class="form-control nssform" placeholder="XXXXXXXXXXXX"/>
-		</div>
-	</div>
-	<div class="form-group col-sm-4">
-		<label class="control-label col-xs-12 col-sm-3" for="NMGSN">NMGSN :</label>
-		<div class="clearfix col-sm-9">
-			<input type="text" id="NMGSN" name="NMGSN" class="form-control nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" />
 		</div>
 	</div>
 </div>

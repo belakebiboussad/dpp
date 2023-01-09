@@ -30,26 +30,26 @@ class DemandeExbController extends Controller
     public function index(Request $request) {
       if($request->ajax())  
       {
+        $v = $request->value;
         if($request->field != "service")  
         {
           if(isset($request->value))
-            $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', "$v%")->get();
           else
-            $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
+            $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->whereNull($request->field)->get();
         }else
         {
-          $serviceID = $request->value;
           $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                                 ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
-                                      $q->where('id', $serviceID);
-                                  })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
-                                      $q->where('id', $serviceID);
+                                 ->whereHas('consultation.medecin.Service', function($q) use ($v) {
+                                      $q->where('id', $v);
+                                  })->orWhereHas('visite.medecin.Service', function($q) use ($v) {
+                                      $q->where('id', $v);
                                   })->get();
         }
         return Response::json($demandes);
       }else
       {
-        $services =service::where('type','!=',"2")->get();
+        $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexb = demandeexb::whereNull('etat')->get();
         return view('examenbio.index', compact('demandesexb','services'));
       }

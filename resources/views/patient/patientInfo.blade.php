@@ -166,10 +166,7 @@
 										<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 								</div>
-								<div class="col-sm-3">
-								<label class="inline">	<span><b>Position :</b></span><span class="lbl blue">{{ $patient->assure->Position }}</span>
-								</label>
-								</div>
+								<div class="col-sm-3"></div>
 								<div class="col-sm-6">
 								<label class="inline"><span><b>Service :</b></span><span class="lbl blue">{{ $patient->assure->Service }}</span>
 								</label>
@@ -180,13 +177,7 @@
 									<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->matricule }}</span>
 								</label>
 							</div>
-							<div class="col-sm-3">
-								<label class="inline">
-								@isset($patient->assure->Grade)
-									<span><b>Grade :</b></span><span class="lbl blue"> {{ $patient->assure->grade->nom }}</span>
-								@endisset
-								</label>
-							</div>
+							<div class="col-sm-3"></div>
 							<div class="col-sm-6">
 								<label class="inline">
 									<span><b>N° sécurité sociale :</b></span>

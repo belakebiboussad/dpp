@@ -27,7 +27,7 @@
     var value = {{ $patient->Type}};
     switch(value){
       case 0:
-        if(i == 0)// if ($('ul#menuPatient li:eq(0)').hasClass("hide"))assureShow();
+        if(i == 0)
         {   
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
@@ -41,7 +41,6 @@
             $('#nsspatient').attr('disabled', false);
           }else
             patTypeChange($('#type').val());
-            
           break;
       case 5: case 6:
           if(i == 0)
@@ -111,12 +110,12 @@
 		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class="active" role="presentation">
 			<a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
-				<span class="bigger-130"><strong>Assuré(e)</strong></span>
+				<h4>Assuré(e)</h4>
 	    </a>
  		</li>
 	 	<li role="presentation">
 	 	<a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
-	   	<span class="bigger-130"><strong>Patient</strong></span></a>
+	   	<h4>Patient(e)</h4></a>
 	  </li>
 	</ul>
 	<div class="tab-content">

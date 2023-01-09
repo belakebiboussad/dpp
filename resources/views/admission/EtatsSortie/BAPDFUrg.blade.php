@@ -37,8 +37,7 @@
     <section class="table tab">
      	<table>
       	<tr>
-     			<td><b>Qualité :</b><span> {{ isset( $patient->assure) ? $patient->assure->Position : '' }}</span>
-          </td><td><b>Détail :</b></td>
+     			<td></td><td><b>Détail :</b></td>
      		</tr>
      		<tr>
      			<td><b>Nom :</b><span> {{ $patient->assure->Nom }}</span></td>
@@ -55,14 +54,11 @@
      		</tr>
      		<tr>
      			<td><b>Matricule :</b><span> {{ $patient->assure->matricule }}</span></td>
-     			<td><b>Grade :</b><span> {{ $patient->assure->grade->nom }}</span></td>          
+     			<td></td>          
           <td><b>Service :</b><span> {{ $patient->assure->Service }}</span></td>
      		</tr>
-     		<tr>
-     			<td><b>N° SS :</b><span> {{ $patient->assure->NSS }}</span></td>
-     			<td><b>MGSN :</b><span> {{ $patient->assure->NMGSN }}</span></td>
-     		</tr>
-      </table>
+     		<tr><td><b>N° SS :</b><span> {{ $patient->assure->NSS }}</span></td></tr>
+     	</table>
     </section>
     @endisset
     <h5><u><b>MALADE :</b></u></h5>

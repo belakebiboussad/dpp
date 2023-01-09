@@ -14,7 +14,7 @@
 			{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
-</div><div class="spce-12"></div>
+</div>
 <div class="row demograph">
 	<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
 		<div id ="dateExact">
@@ -136,7 +136,7 @@
 		<label class="control-label col-sm-4 col-xs-4" for="type">Type :<span class="text-danger">*</span></label>
 		<div class="col-sm-8 col-xs-8">
 			<select class="form-control" id="type" name="type" onchange="showTypeAdd(this.value,1);">
-				<option value="" disabled selected>-- Selectionner --</option>
+				<option value="" disabled selected>Selectionner...</option>
 				<option value="0">Assure</option>
 				<option value="1">Conjoint(e)</option>
 				<option value="2">Pere</option>

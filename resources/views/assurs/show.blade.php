@@ -119,14 +119,6 @@
 			@endif
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Grade </div>
-						<div class="profile-info-value">
-							<span class="label label-sm label-primary arrowed arrowed-right">{{ $assure->grade->nom  }}</span>
-						</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
 					<div class="profile-info-name"> Matricule </div>
 						<div class="profile-info-value">
 							<span class="label label-sm label-primary arrowed arrowed-right">{{ $assure->matricule  }}</span>
@@ -138,14 +130,6 @@
 					<div class="profile-info-name"> Sécurité sociale </div>
 					<div class="profile-info-value">
 						<span class="editable" id="nom">{{ $assure->NSS }}</span>
-					</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> NMGSN </div>
-					<div class="profile-info-value">
-						<span class="editable" id="nom">{{ $assure->NMGSN }}</span>
 					</div>
 				</div>
 			</div>

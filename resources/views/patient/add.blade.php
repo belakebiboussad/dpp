@@ -3,9 +3,14 @@
 @section('page-script')
  <script>
   $(function(){
- 	$('#type').change(function(){
-    $('#patientSave').removeAttr('disabled');
-    	showTypeAdd(this.value,1);
+    $('ul#menuPatient li').click(function(e) 
+    { 
+      if(($(this).index() == 1) && ($("#type").val() == 0))
+       copyPatient();
+    });
+ 	  $('#type').change(function(){
+      $('#patientSave').removeAttr('disabled');
+    	 showTypeAdd(this.value,1);
     });
     $( "#addPatientForm" ).submit(function( event ) {
     	if( ! checkPatient() )
@@ -65,22 +70,22 @@
 					</div>
 	   		 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			  	 	<li class="active">
-			   			<a data-toggle="tab" href="#Assure" class="jumbotron"><span class="bigger-130"><b>Patient(e)</b></span></a>
+			   			<a data-toggle="tab" href="#Patient" class="jumbotron"><h4>Patient(e)</h4></a>
 						</li>
-						<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><b>Assuré(e)</b></span></a></li>
+						<li ><a class="jumbotron" data-toggle="tab" href="#Assure"><h4>Assuré(e)</h4></a></li>
 			 		</ul>
 			 		<div class="tab-content">
-						<div id="Assure" class="tab-pane in active">@include("patient.addPatient")</div>
-						<div id="Patient" class="tab-pane fade">@include('assurs.addAssure')</div>
-					</div><div class="hr hr-dotted"></div>
-					<div class="row">
-						<div class="col-sm-12 center">
-							<button class="btn btn-primary btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp;
-							<button class="btn btn-warning btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
-						</div>
-					</div>	
-		  	</div>	<!-- col-sm-12 -->
-			</div><!-- row -->
+						<div id="Patient" class="tab-pane in active">@include('patient.addPatient')</div>
+            <div id="Assure" class="tab-pane  fade">@include("assurs.addAssure")</div>
+					</div>
+			  </div>
+      </div><div class="hr hr-dotted"></div><!-- row -->
+      <div class="row">
+        <div class="col-sm-12 center">
+          <button class="btn btn-primary btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>
+          <button class="btn btn-warning btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
+        </div>
+      </div>  
 		</form>
 	</div>
 </div>

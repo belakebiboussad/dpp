@@ -158,41 +158,8 @@
 	  </div>
   </div><h4 class="header lighter block blue">Fonction</h4>	
 	<div class="row">
-	 	<div class="col-sm-4">
-			<div class="form-group">
-				<label class="col-sm-3 control-label " for="grade">Grade :</label>
-				<div class="col-sm-9">
-					<select id="grade" name="grade" class=" col-xs-12 col-sm-12 asProfData"/>
-					<option value="">Sélectionner...</option>
-						@foreach ($grades as $key=>$grade)
-						<option value="{{ $grade->id }}" {{((isset($assure)) && ($assure->Grade === $grade->id)) ? "selected":"" }} >{{ $grade->nom }}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
-    <div class="col-sm-4" id="statut">
-			<div class="form-group">
-				<label class="col-sm-3 control-label" for="Position">Position :<span class="text-danger">*</span></label>
-					<div class="col-sm-9">
-					 <select name="Position" id="Position" class="col-xs-12 col-sm-12 asProfData">
-						<option value="">Sélectionner...</option>
-						<option value="Activité" {{ (isset($assure)) && ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
-						<option value="Détachement" {{ (isset($assure)) && ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
-						<option value="Mise en Disponibilité" {{ (isset($assure)) &&($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
-						<option value="Licencié" {{ (isset($assure)) && ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
-						<option value="Démission" {{ (isset($assure)) && ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
-						<option value="Retraite" {{(isset($assure)) && ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="Congé Longue Durée" {{(isset($assure)) && ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
-						<option value="Assurance Invaliditéé" {{(isset($assure)) && ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
-						<option value="Décédé" {{ (isset($assure)) && ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
-						<option value="Service National" {{(isset($assure)) && ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
-						<option value="Contrat résilié" {{ (isset($assure)) &&($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
-						<option value="Congé Maladie" {{ (isset($assure)) &&($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
-						<option value="Révoqué" {{ (isset($assure)) && ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>	
-					</select>
-				</div>
-			</div>
+	 	<div class="col-sm-4"><div class="form-group"></div></div>
+		<div class="col-sm-4" id="statut">
 		</div>
 		<div class="col-sm-4" id ="serviceFonc">
 			<div class="form-group">
@@ -237,18 +204,4 @@
 				</div>
 			</div>
 		</div>	
-		<div class="col-sm-4">
-			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="NMGSN">NMGSN :</label>
-				<div class="col-sm-9">
-					<div class="clearfix">
-					@if(isset($assure))
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->NMGSN }}" maxlength =12 minlength =12/>
-					@else
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" maxlength =12 minlength =12/>
-					@endif
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>

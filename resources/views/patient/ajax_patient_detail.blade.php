@@ -98,17 +98,10 @@
         </tr>
        <tr>
           <td class ="noborders">NSS :</td><td>{{ $patient->assure->NSS }}</td>
-          <td class ="noborders">NMGSN:</td><td>{{ $patient->assure->NMGSN }}</td>
        </tr>
         <tr>
-          <td colspan="1" class ="noborders nowrap">Grade :</td>
-          <td>{{ isset($patient->Lieu_Naissance) ? $patient->lieuNaissance->nom_commune :''}}
-                     @if(isset($patient->assure->Grade))
-                    {{ $patient->assure->grade->nom }}
-                  @endif
-                  </td>
-                 <td class ="noborders blue">Etat:</td><td>{{ $patient->assure->Position }}</td>
-          </tr>
+          <td></td><td></td>
+        </tr>
       </tbody>
      </table>
   </div> {{-- tabpane --}}

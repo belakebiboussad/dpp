@@ -196,22 +196,11 @@
       if(theEvent.preventDefault) theEvent.preventDefault();
     }
   }
-  function addRequiredAttr()
-  { 
-    var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-    $.each(classList, function(index, item){
-      if (item === 'hidden') { 
-        $( "ul#menuPatient li:eq(0)" ).removeClass( item );
-      }
-    });             
-    if($('ul#menuPatient li:eq(0)').css('display') == 'none')
-    {
-      $('ul#menuPatient li:eq(0)').css('display', '');
-    }
-    $(".starthidden").hide(250);
-    if($("#type").val() != 0)
-       $('.asdemogData').attr('disabled', 'disabled');
-  }
+  /*
+function addRequiredAttr(){var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+$.each(classList, function(index, item){if (item === 'hidden'){$( "ul#menuPatient li:eq(0)" ).removeClass( item );}}); 
+if($('ul#menuPatient li:eq(0)').css('display') == 'none'){$('ul#menuPatient li:eq(0)').css('display', '');
+}$(".starthidden").hide(250); if($("#type").val() != 0)$('.asdemogData').attr('disabled', 'disabled'); }*/
   function assurHide()
   {
     var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
@@ -225,10 +214,9 @@
   }
   function assureShow()
   {
-    $('.nav-pills li').eq(0).removeClass('hide');
+    $('.nav-pills li').eq(1).removeClass('hide');
     $("div#Assure").removeClass('hide');
-    $(".starthidden").hide(250);
-    $('#description').val('');
+    $(".starthidden").hide(250);$('#description').val('');
     $('#nsspatient').attr('disabled', false);  
   }
   function resetAsInp()
@@ -240,19 +228,18 @@
   { 
     switch(type){
       case "0":
-        if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
-        copyPatient(); // if(!($("#asdemogData").hasClass("hide")))//   $("#asdemogData").addClass("hide");
+        copyPatient();
         $('.asdemogData').prop('disabled', true);
         if(i !=0)
           $(".asProfData").val('');
           break;
       case "1": case "2": case "3": case "4":
-        if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
         if($("#foncform").is(":hidden"))
-          $("#foncform").removeClass('hidden');// if($("#asdemogData").hasClass("hide"))//$("#asdemogData").removeClass("hide");
-        
+          $("#foncform").removeClass('hidden');
         if($('.asdemogData').is('[disabled="disabled"]'))
         {
           $('.asdemogData').prop('disabled', false);

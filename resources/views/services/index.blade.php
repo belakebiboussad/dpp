@@ -22,8 +22,6 @@ function getActions(data){
   return actions;            
 }
 $(function(){
-  /*  $('body').on('change', '#type', function (e) {    if($(this).val() == 2)   { if(!($( ".medChirservice" ).hasClass( "hidden" )))
-        $('.medChirservice').addClass("hidden");  }else   if($( ".medChirservice" ).hasClass( "hidden" ))    $('.medChirservice').removeClass("hidden"); }); */
   $('body').on('click', '#serv-add', function (e) {
       e.preventDefault();
       var formData = {
@@ -133,7 +131,8 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4><b>Services de l'hôpital</b></h4></div>
+<page-header><h1>Services de l'hôpital</h1>
+</page-header>
 <div class="row">
 	<div class="col-sm-7 col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-blue">
@@ -149,11 +148,11 @@ $(function(){
 					<thead>
 						<tr>
 							<th class ="center">Nom</th>
-							<th class ="center">Type</th>
+							<th class ="center" width="7%">Type</th>
 							<th class ="center">Chef de service</th>
-							<th class ="center">Hébergement</th>
-							<th class ="center  priority-4">Service d'urgence</th>
-							<th class ="center"><em class="fa fa-cog"></em></th>
+							<th class ="center" width="5%">Hébergement</th>
+							<th class ="center  priority-4" width="5%">Service d'urgence</th>
+							<th class ="center" width="20%"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -166,21 +165,21 @@ $(function(){
 								{{ $service->nom }}
 							@endif
 						</td>
-						<td>{{ $service->type }} </td>  
+						<td width="7%">{{ $service->type }} </td>  
 						<td>
 							@isset($service->responsable)
 								{{ $service->responsable->full_name }}
 							@endisset	
 							</td>
-						<td class="priority-4"> {{($service->hebergement) ?'Oui':'Non' }}</td>
-						<td class="priority-4"> {{($service->urgence) ?'Oui':'Non' }}</td>
-						<td class ="center">
+						<td class="priority-4" width="5%"> {{($service->hebergement) ?'Oui':'Non' }}</td>
+						<td class="priority-4" width="5%"> {{($service->urgence) ?'Oui':'Non' }}</td>
+						<td class ="center" width="20%">
               <button type="button" class="btn btn-xs btn-success serv-show" value="{{$service->id}}"><i class="fa fa-hand-o-up fa-xs"></i></button>
               <button type="button" class="btn btn-xs btn-info serv-edit" value="{{$service->id}}">
                 <i class="ace-icon fa fa-pencil fa-xs"></i></button>
 							@if($service->hebergement)
-             	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey" title="Ajouter une chambre">
-								<i class="ace-icon fa fa-plus fa-xs"></i>
+             	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey" title="Ajouter une chambre"><i class="ace-icon fa fa-plus fa-xs"></i>
+
 							</a>
 							@endif
 							<button type="button" class="btn btn-xs btn-danger serv-delete" value="{{ $service->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
