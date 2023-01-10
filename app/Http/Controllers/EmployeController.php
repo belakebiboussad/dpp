@@ -90,7 +90,7 @@ class EmployeController extends Controller
                 "tele_mobile"=>$request->mobile,
                 "specialite"=>$request->specialite,
                 "service_id"=>$request->service,
-                "Matricule_dgsn"=>$request->mat,
+                "matricule"=>$request->mat,
                 "NSS"=>$request->nss,
         ]);
         return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));

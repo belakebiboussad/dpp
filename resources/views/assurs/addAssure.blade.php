@@ -1,5 +1,4 @@
- <!-- begin -->
- <div id="asdemogData">
+<div id="asdemogData">
 <h4 class="header lighter block blue">Informations démographiques</h4>
  <div class="row">
 	<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }} col-sm-6">
@@ -83,7 +82,7 @@
 <div class="row">
 	<div class="form-group col-sm-4">
 		<label class="control-label col-sm-4" for="adressef" >Adresse:</label>
-		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="asdemogData col-sm-8"/>
+		<input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="asdemogData col-sm-8"/>
 	</div>
 	<div class="form-group  col-sm-4">
 		<label class="control-label col-sm-4" for="communef">Commune:</label>
@@ -96,32 +95,21 @@
 	  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
 	</div>
 </div>
+</div><!-- end demog data-->
+<h4 class="header  lighter blue">Assurance</h4>
+<div class="row">
+  <div class="form-group col-sm-4">
+    <label class="control-label col-xs-3 col-sm-3" for="nss2">NSS :<span class="red">*</span></label>    
+    <div class="clearfix col-sm-9">
+      <input type="text" id="nss" name="nss" class="form-control nssform asProfData" placeholder="XXXXXXXXXXXX"/>
+    </div>
+  </div>
+  <div class="form-group col-sm-4">
+    <label class="control-label col-xs-12 col-sm-3" for="mat"></label>
+    <div class="col-sm-9"><div class="clearfix"></div></div>
+  </div>
 </div>
-<!-- end demog data-->
-<h4 class="header  lighter blue">Fonction</h4>
 <div class="row">
 	<div class="form-group col-sm-4"></div>
-	<div class="form-group col-sm-4" id="statut"></div>
-	<div class="form-group col-sm-4" id ="serviceFonc">
-		<label class="col-sm-3 control-label no-padding-right" for="service">Service :</label>
-		<div class="col-sm-9">
-			<input type="text" name="service" id="service" class="form-control" placeholder="Service du Fonctionnaire">
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="form-group col-sm-4">
-		<label class="control-label col-xs-12 col-sm-3" for="mat">Matricule :</label>
-			<div class="col-sm-9">
-			<div class="clearfix">
-				<input type="text" id="mat" name="mat" class="form-control" placeholder="Matricule..." maxlength =5 minlength =5 />
-			</div>
-		</div>
-	</div>
-      <div class="form-group col-sm-4">
-		<label class="control-label col-xs-12 col-sm-3" for="nss2">NSS :<span class="red">*</span></label>		
-		<div class="clearfix col-sm-9">
-			<input type="text" id="nss" name="nss" class="form-control nssform" placeholder="XXXXXXXXXXXX"/>
-		</div>
-	</div>
+	<div class="form-group col-sm-4"></div><div class="form-group col-sm-4"></div>
 </div>

@@ -2,42 +2,15 @@
 @section('title','Ajouter un patient')
 @section('page-script')
 <script>
-		function checkFormAddPAtient()
-	 	{        
-  		if( ! checkPatient() )
-   			return false;
-   		else{
-   		 	$('input:disabled').removeAttr('disabled');    
-		   	return true;
-   		}
+	function checkFormAddPAtient()
+ 	{        
+		if( ! checkPatient() )
+ 			return false;
+ 		else{
+ 		 	$('input:disabled').removeAttr('disabled');    
+	   	return true;
  		}
-		function copyAssure(){
-			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
-			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
-			$('#sf option[value="' + '{{ $assure->SituationFamille}}' + '"]').attr("selected", "selected"); 	
-			$("#idwilaya").val('{{ $assure->wilaya_res}}');$("#wilaya").val('{{ $assure->wilaya->nom}}');
-			$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
-			$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-			$("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });	
-		}
-  	$( document ).ready(function() {
-			if({{ $type }} == 0)
-			{	
-				copyAssure();
-	  		$("#foncform").addClass('hide');
-	  		$(".starthidden").hide(250);
-			}
-			if($('#type').val() =='2')
-			{
-				$("input[name=sexe][value='M']").prop('checked', true);
-				$("input[name=sexe]").prop('disabled',true);
-			}
-			else if(($('#type').val() =='3') || ($('#type').val() =='1'))
-			{
-				$("input[name=sexe][value='F']").prop('checked', true);
-				$("input[name=sexe]").prop('disabled',true);
-			}
-  });
+	}
 </script>
 @endsection
 @section('main-content')

@@ -54,7 +54,7 @@
                 <label class="blue">{{ isset(Auth::User()->employ->specialite) ? Auth::User()->employ->Specialite->nom : '' }}</label>
 			      </li>
 						<li>
-			        <i class="ace-icon fa fa-caret-right blue"></i><b>Matricule :</b><label class="blue">{{ $employe->Matricule_dgsn }}</label>
+			       <i class="ace-icon fa fa-caret-right blue"></i><b>Matricule :</b><label class="blue">{{ $employe->matricule }}</label>
 			      </li>
 						<li>
 			       	<i class="ace-icon fa fa-caret-right blue"></i><b>Username :</b><label class="blue">{{ $user->name }}</label>

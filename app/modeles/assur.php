@@ -9,7 +9,7 @@ class assur extends Model
 	public $timestamps = false;
 	protected $primaryKey = 'NSS';
 	public $incrementing = false;
-	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','SituationFamille', 'Sexe','Matricule','adresse','commune_res','wilaya_res','grp_sang','NSS', 'Service'];
+	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','sf', 'Sexe','adresse','commune_res','wilaya_res','grp_sang','NSS'];
 	protected $appends = ['full_name'];
   public function getFullNameAttribute()
   {

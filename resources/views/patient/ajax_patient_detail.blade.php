@@ -94,7 +94,7 @@
        </tr>
         <tr>
           <td class ="noborders nowrap">Genre :</td><td>@if ( $patient->assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-          <td class ="noborders">Matricule:</td><td>{{ $patient->assure->matricule }}</td> 
+          <td class ="noborders"></td><td></td> 
         </tr>
        <tr>
           <td class ="noborders">NSS :</td><td>{{ $patient->assure->NSS }}</td>

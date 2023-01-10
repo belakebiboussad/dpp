@@ -88,45 +88,6 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Position</div>
-					<div class="profile-info-value">
-						<span class="label label-purple arrowed-in-right">
-							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
-							@switch($assure->Etat)
-   					    	@case(0)
-     									Activité
-        							@break
-    							@case(1)
-       								Retraite
-        						 @break
-        					@case(3)
-        							Congé Maladie
-        							@break
-        					@default
-        						  Révoqué
-        							@break
-									@endswitch
-						</span>
-						</div>
-					</div>
-			</div>
-			@if($assure->Eta == "En exercice")
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Service </div><div class="profile-info-value"><span class="editable" id="nom">{{ $assure->Service  }}</span></div>
-				</div>
-			</div>
-			@endif
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Matricule </div>
-						<div class="profile-info-value">
-							<span class="label label-sm label-primary arrowed arrowed-right">{{ $assure->matricule  }}</span>
-						</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
 					<div class="profile-info-name"> Sécurité sociale </div>
 					<div class="profile-info-value">
 						<span class="editable" id="nom">{{ $assure->NSS }}</span>

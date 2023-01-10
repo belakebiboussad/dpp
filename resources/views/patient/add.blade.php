@@ -3,17 +3,15 @@
 @section('page-script')
  <script>
   $(function(){
-    $('ul#menuPatient li').click(function(e) 
-    { 
-      if(($(this).index() == 1) && ($("#type").val() == 0))
-       copyPatient();
-    });
- 	  $('#type').change(function(){
-      $('#patientSave').removeAttr('disabled');
-    	 showTypeAdd(this.value,1);
+    var i =0;
+    $('#type').change(function(){
+      if($("#patientSave").prop('disabled') == true)
+         $('#patientSave').removeAttr('disabled');
+      showTypeAdd(this.value,i);
+      i = (i == 0 ) ? ++i : i; 
     });
     $( "#addPatientForm" ).submit(function( event ) {
-    	if( ! checkPatient() )
+      if( ! checkPatient() )
       {
 		 	  activaTab("Patient");
 	  	    event.preventDefault();
@@ -28,7 +26,7 @@
               event.preventDefault();
             }
           } 
-      }
+      }     
  	});
   $('#unkDate').click(function() {
     if ($(this).is(':checked')) {
@@ -79,7 +77,7 @@
             <div id="Assure" class="tab-pane  fade">@include("assurs.addAssure")</div>
 					</div>
 			  </div>
-      </div><div class="hr hr-dotted"></div><!-- row -->
+      </div><div class="hr hr-dotted"></div>
       <div class="row">
         <div class="col-sm-12 center">
           <button class="btn btn-primary btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>

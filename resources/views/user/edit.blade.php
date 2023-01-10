@@ -139,7 +139,7 @@ $(function(){
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label" for="mat">Matricule :</label>
 							<div class="col-sm-7">
-							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->Matricule_dgsn }}"  maxlength =5 minlength =5>
+							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->matricule }}"  maxlength =5 minlength =5>
 							</div>	
 						</div>
 					</div>

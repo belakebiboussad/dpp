@@ -101,18 +101,8 @@
 							<input type="text" class="col-sm-8 col-xs-8" name="mat" placeholder="Matricule..." maxlength =5 minlength =5>
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-3"></div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
-							<label for="service" class="control-label col-sm-43 col-xs-4">Service :</label>
-							<select class="col-sm-8 col-xs-8" name="service">
-								<option value="" selected disabled>Sélectionner...</option>
-								@foreach($services as $service)
-								<option value="{{ $service->id }}">{{ $service->nom }}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-            <div class="col-xs-12 col-sm-3">
             <div class="{{ $errors->has('role') ? "has-error" : "" }}">
               <label for="role" class="control-label col-sm-4 col-xs-4">Rôle:</label>
               <select id="role" name="role" class="col-sm-8 col-xs-8" required>

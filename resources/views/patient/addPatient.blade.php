@@ -39,7 +39,7 @@
 		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à :</label>
 		<div class="col-sm-9">
 		  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-				<input type="text" id = "lieunaissance" class="autoCommune col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+				<input type="text" id = "lieunaissance" class="autoCommune form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 		 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 		</div>
 	</div>
@@ -98,19 +98,25 @@
 </div>
 <h4 class="header lighter block blue">Contact</h4>
 <div  class="row demograph">
-	<div class="form-group col-sm-4">
-		<label class="control-label col-sm-4 col-xs-4" for="adresse">Adresse:</label>
-		<input type="text" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
+	<div class="form-group col-sm-6">
+		<label class="control-label col-sm-2 col-xs-2" for="adresse">Adresse:</label>
+		<div class="col-sm-10 col-xs-10">
+      <input type="text" id="adresse" name="adresse" placeholder="Adresse..." class="form-control"/>
+    </div>
 	</div> 
-	<div class="form-group col-sm-4">
+	<div class="form-group col-sm-3">
 		<label class="control-label col-sm-4 col-xs-4" for="commune">Commune:</label>
-		<input type="hidden" name="idcommune" id="idcommune">
-	 	<input type="text" value="" id="commune" placeholder="commune résidance" class="autoCommune col-sm-8 col-xs-8"/>
+		<div class="col-sm-8 col-xs-8">
+    <input type="hidden" name="idcommune" id="idcommune">
+	 	<input type="text" value="" id="commune" placeholder="commune résidance" class="form-control autoCommune"/>
+   </div>
 	</div>
-	<div class="form-group col-sm-4">
+	<div class="form-group col-sm-3">
 		<label class="control-label col-sm-4 col-xs-4">Wilaya :</label>
-		<input type="hidden" name="idwilaya" id="idwilaya">
-		<input type="text" value="" id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
+		<div class="col-sm-8 col-xs-8">
+    <input type="hidden" name="idwilaya" id="idwilaya">
+		<input type="text" value="" id="wilaya" placeholder="wilaya résidance" class=" text-nowrap form-control" readonly/>
+    </div>
 	</div>
 </div>
 <div class="row">
@@ -133,9 +139,9 @@
     </div>
 	</div>
 	<div class="form-group col-sm-3">
-		<label class="control-label col-sm-4 col-xs-4" for="type">Type :<span class="text-danger">*</span></label>
-		<div class="col-sm-8 col-xs-8">
-			<select class="form-control" id="type" name="type" onchange="showTypeAdd(this.value,1);">
+		<label class="control-label col-sm-5 col-xs-5" for="type">Type :<span class="text-danger">*</span></label>
+		<div class="col-sm-7 col-xs-7">
+			<select class="form-control" id="type" name="type">
 				<option value="" disabled selected>Selectionner...</option>
 				<option value="0">Assure</option>
 				<option value="1">Conjoint(e)</option>
@@ -149,13 +155,15 @@
 	</div>
 	<div class="form-group col-sm-3" id="foncform">
 		<label class="control-label col-sm-4 col-xs-4" for="nsspatient">NSS:</label>
-		<input type="text" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="col-sm-8 col-xs-8 nssform" maxlength =12 minlength =12/>
+		<div class="col-sm-7 col-xs-7">
+    <input type="text" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="nssform form-control" maxlength =12 minlength =12/>
+  </div>
 	</div>
 </div>
 <div class="row">
-	<div class="form-group col-sm-6 starthidden">
-		<label class="control-label col-sm-3" for="description">Autre information :</label>
-		<div class="col-sm-8 col-xs-8">
+	<div class="form-group col-sm-6 hidden" id="otherPat">
+		<label class="control-label col-sm-3" for="description">Information :</label>
+		<div class="col-sm-9 col-xs-9">
 			<textarea class="form-control" id="description" rows="1" name="description" placeholder="Description du la dérogation"></textarea>
 		</div>	
 	</div>

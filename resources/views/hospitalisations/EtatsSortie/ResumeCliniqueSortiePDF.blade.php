@@ -36,11 +36,7 @@
           <table class="head" style="width:100%;">
           <tbody>
           <tr>
-            <td><b>N° Matricule:</b>
-              @if($obj->patient->Type != 5 )
-               <span>{{ $obj->patient->assure->matricule }}</span>
-              @endif
-            </td>
+            <td></td>
             <td colspan = 2><b>N° Dossier :</b><span> {{ $obj->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">

@@ -6,24 +6,23 @@
    {
       switch(value){
         case "0":
-          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
-            assureShow();
-          copyPatient();
+          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
+            assureShow();//copyPatient();
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
           break;
         case  "1": case "2": case "3": case "4":
+          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
+            assureShow();
           $("#foncform").removeClass('hide');
-          $('#nsspatient').attr('disabled', false);
-          $('.asdemogData').prop('disabled', false);
+          $('#nsspatient').prop('disabled', false);$('.asdemogData').prop('disabled', false);
           break;
         case "5": case "6":
-          assurHide();
-          resetAsInp();
-          break;    
+          assurHide(); resetAsInp();
+         break;    
       }
    } 
-	 function showTypeEdit(i){//edition patient
+	 function showTypeEdit(i){
     var value = {{ $patient->Type}};
     switch(value){
       case 0:
@@ -45,8 +44,7 @@
       case 5: case 6:
           if(i == 0)
           {   
-            assurHide();
-            resetAsInp();
+            assurHide(); resetAsInp();
           }else
             patTypeChange($('#type').val()); 
           break;
@@ -108,19 +106,19 @@
 			</div>
 		</div>
 		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li class="active" role="presentation">
-			<a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
+		  <li class="active" role="presentation">
+        <a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
+          <h4>Patient(e)</h4></a>
+      </li>
+      <li role="presentation">
+			 <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
 				<h4>Assuré(e)</h4>
 	    </a>
  		</li>
-	 	<li role="presentation">
-	 	<a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
-	   	<h4>Patient(e)</h4></a>
-	  </li>
 	</ul>
 	<div class="tab-content">
-  	<div id="Assure" class="tab-pane active">@include('assurs.editAssure')</div>
-		<div id="Patient" class="tab-pane">@include('patient.editPatient')</div>
+    <div id="Patient" class="tab-pane active">@include('patient.editPatient')</div>
+  	<div id="Assure" class="tab-pane">@include('assurs.editAssure')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">
 		<div class="center">

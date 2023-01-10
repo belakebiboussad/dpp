@@ -48,8 +48,7 @@
         </tr>
         <tr><td><b>Tél :</b><span> {{ $patient->tele_mobile1 }}</span></td></tr>
         <tr>
-          <td><b>Matricule :</b><span> {{ $patient->assure->matricule }}</span></td>
-          <td></td>
+          <td></td><td></td>
           <td><b>Service :</b><span> {{ $patient->assure->Service }}</span></td>
         </tr>
         <tr><td><b>N° SS :</b><span> {{ $patient->assure->NSS }}</span></td></tr>

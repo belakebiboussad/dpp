@@ -166,18 +166,9 @@
 										<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 								</div>
-								<div class="col-sm-3"></div>
-								<div class="col-sm-6">
-								<label class="inline"><span><b>Service :</b></span><span class="lbl blue">{{ $patient->assure->Service }}</span>
-								</label>
-								</div>
+								<div class="col-sm-3"></div><div class="col-sm-6"></div>
 							</div>
-							<div class="col-sm-3">
-								<label class="inline">
-									<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->matricule }}</span>
-								</label>
-							</div>
-							<div class="col-sm-3"></div>
+							<div class="col-sm-3"></div><div class="col-sm-3"></div>
 							<div class="col-sm-6">
 								<label class="inline">
 									<span><b>N° sécurité sociale :</b></span>

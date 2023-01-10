@@ -44,7 +44,6 @@ class AssurController extends Controller
         "commune_res"=>$request->idcommunef,
         "wilaya_res"=>$request->idwilayaf,
         "grp_sang"=>$request->gsf.$request->rhf,
-        "Matricule"=>$request->mat,
         "Service"=>$request->service,
         "Etat"=>$request->etatf,
         "NSS"=>$request->nss
@@ -58,13 +57,10 @@ class AssurController extends Controller
     {
       $assure = new assur;
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-      $assure->Date_Naissance = $date;
-      $assure->Sexe = $obj->Genre;
-      $assure->SituationFamille =$sf;
-      $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
+      $assure->Date_Naissance = $date;$assure->Sexe = $obj->Genre;
+      $assure->sf =$sf; $assure->adresse = utf8_encode($obj->Adresse);
       $assure->wilaya_res =  $obj->WilayaResidence;
       $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
-      $assure->Position = utf8_encode($obj->Position);
       $assure->Service =utf8_encode($obj->Service);
       $assure->save();
     }
@@ -100,23 +96,20 @@ class AssurController extends Controller
               "commune_res"=>$request->idcommunef,
               "wilaya_res"=>$request->idwilayaf,
               "grp_sang"=>$request->gsf.$request->rhf,
-              "Matricule"=>$request->matf, 
               "Service"=>$request->service,
               "Etat"=>$request->etatf,
               "NSS"=>$request->nss
       ] );
       return redirect(Route('assur.show',$assure->id));
     }
-    public function  updateAssure($situationFamille, $matricule, $adresse,$wilayaResid, $service ,$position, $NSS)
+    public function  updateAssure($situationFamille,  $adresse,$wilayaResid, $service , $NSS)
     {
       $assure = assur::find($NSS);
       $assure->update([
-                  "SituationFamille"=>$situationFamille,
-                  "adresse"=>$adresse,
-                   "wilaya_res"=>$wilayaResid,
-                  "Matricule"=>$matricule, 
-                  "Service"=>$service,
-                  "Position"=>$position
-      ] );
+          "sf"=>$situationFamille,
+          "adresse"=>$adresse,
+          "wilaya_res"=>$wilayaResid,
+          "Service"=>$service
+      ]);
     }
   }

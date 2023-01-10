@@ -103,6 +103,7 @@ class PatientController extends Controller
    */
   public function store(Request $request)
   {
+    dd($request->all());
     $DOB="";
     static $assurObj;
     $date = Date::Now();
@@ -127,11 +128,6 @@ class PatientController extends Controller
             "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
             "nomf" => 'required_if:type,1,2,3,4',
             "prenomf" => 'required_if:type,1,2,3,4'
-/*"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
-"npiece_id"=>'required_with:nom_homme_c',"mobile_homme_c"=>['required_with:nom_homme_c'],"operateur_h"=>'required_with:mobileA',"nss" => 'regex:/[0-9]{12}/',*/
-/*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',
-"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'], //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',            
-// , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/',"Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',               */
     );  
     $messages = [
       "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
@@ -141,26 +137,43 @@ class PatientController extends Controller
     if ($validator->fails()) { //$errors = $validator->errors();//return 
         return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
     }
+
     if(!in_array($request->type,[5,6])) 
     {  
       $assure = assur::where('NSS', $request->nss)->first(); 
       if ($assure === null) {
-        $assurObj = assur::firstOrCreate([
-          "Nom"=>$request->nomf,
-          "Prenom"=>$request->prenomf,
-          "Date_Naissance"=>$request->datenaissancef,
-          "lieunaissance"=>$request->idlieunaissancef,
-          "Sexe"=>$request->sexef,
-          'SituationFamille'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,      
-          "commune_res"=>$request->idcommunef,
-          'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
-          "grp_sang"=>$request->gsf.$request->rhf,
-          "Matricule"=>$request->mat,
-          "Service"=>$request->service,
-          "Position"=>$request->Position,
-          "NSS"=>$request->nss
-        ]);          
+        if($request->type == 0)
+        {
+          $assurObj = assur::firstOrCreate([
+            "Nom"=>$request->nom,
+            "Prenom"=>$request->prenom,
+            "Date_Naissance"=>$request->datenaissance,
+            "lieunaissance"=>$request->idlieunaissance,
+            "Sexe"=>$request->sexe,
+            'sf'=>$request->sf,
+            "adresse"=>$request->adresse,      
+            "commune_res"=>$request->idcommune,
+            'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
+            "grp_sang"=>$request->gs.$request->rh,
+            "NSS"=>$request->nss
+          ]);
+        }else
+        {
+          $assurObj = assur::firstOrCreate([
+            "Nom"=>$request->nomf,
+            "Prenom"=>$request->prenomf,
+            "Date_Naissance"=>$request->datenaissancef,
+            "lieunaissance"=>$request->idlieunaissancef,
+            "Sexe"=>$request->sexef,
+            'sf'=>$request->SituationFamille,
+            "adresse"=>$request->adressef,      
+            "commune_res"=>$request->idcommunef,
+            'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
+            "grp_sang"=>$request->gsf.$request->rhf,
+            "Service"=>$request->service,
+            "NSS"=>$request->nss
+          ]);
+        }          
       }else
       {
         $assurObj = $assure->update([
@@ -169,18 +182,16 @@ class PatientController extends Controller
           "Date_Naissance"=>$request->datenaissancef,
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
-          'SituationFamille'=>$request->SituationFamille,
+          'sf'=>$request->SituationFamille,
           "adresse"=>$request->adressef,
           "commune_res"=>$request->idcommunef,
           "wilaya_res"=>$request->idwilayaf,
           "grp_sang"=>$request->gsf.$request->rhf,
-          "Matricule"=>$request->mat,
           "Service"=>$request->service,
-          "Position"=>$request->Position,
           "NSS"=>$request->nss
         ]);           
       }
-     }  
+    }  
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,
@@ -335,14 +346,12 @@ class PatientController extends Controller
               "Date_Naissance"=>$request->datenaissancef,
               "lieunaissance"=>$request->idlieunaissancef,
               "Sexe"=>$request->sexef,
-              'SituationFamille'=>$request->SituationFamille,
+              'sf'=>$request->SituationFamille,
               "adresse"=>$request->adressef,
               "commune_res"=>$request->idcommunef,
               "wilaya_res"=>$request->idwilayaf,
               "grp_sang"=>$request->gsf.$request->rhf,
-              "Matricule"=>$request->matf, 
               "Service"=>$request->service,
-              "Position"=>$request->Position,
               "NSS"=>$request->nss
             ]);
           }else{  
@@ -358,9 +367,7 @@ class PatientController extends Controller
                 "commune_res"=>$request->idcommunef,
                 "wilaya_res"=>$request->idwilayaf,
                 "grp_sang"=>$request->gsf.$request->rhf,
-                "Matricule"=>$request->matf, 
                 "Service"=>$request->service,
-                "Position"=>$request->Position,
                 "NSS"=>$request->nss
               ]);
             }

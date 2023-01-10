@@ -69,8 +69,7 @@
     }
   }
   $(document).ready(function(){
-/* $('.timepicker').timepicker({timeFormat: 'HH:mm',minuteStep: 60,//minTime: '08', maxTime: '17',defaultTime: '08:00', startTime: '08:00',dynamic: true,dropdown: true,scrollbar: true,showMeridian: false});*/   
-      $('.timepicker1').timepicker({
+    $('.timepicker1').timepicker({
               minuteStep:15,
               minTime: '08',
               maxTime: '18',
@@ -144,7 +143,7 @@
             field =event['target']['id'];
           }
     });
-        $( ".autoUserfield" ).autocomplete({
+    $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {
           $.ajax({
                 url:"{{route('users.autoField')}}",
@@ -165,7 +164,14 @@
           $(this).val(ui.item.label);
           field =event['target']['id'];
         }
-    });  /*$(function() {  var checkbox = $("#hommeConf"); checkbox.change(function() { if(checkbox.is(":checked"))  $("#hommelink").removeClass('invisible'); else$("#hommelink").addClass('invisible');  })  });*/
+    });  
+    $('ul#menuPatient li').click(function(e) 
+    { 
+      if(($(this).index() == 1) && ($("#type").val() == 0))
+      {
+        copyPatient();
+      }
+    });
 });
 </script>
 <script type="text/javascript">
@@ -186,28 +192,13 @@
                 });
 </script>   
 <script type="text/javascript">
-  function isNumeric (evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode (key);
-    var regex = /[0-9]|\./;
-    if ( !regex.test(key) ) {
-      theEvent.returnValue = false;
-      if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-  }
-  /*
-function addRequiredAttr(){var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-$.each(classList, function(index, item){if (item === 'hidden'){$( "ul#menuPatient li:eq(0)" ).removeClass( item );}}); 
-if($('ul#menuPatient li:eq(0)').css('display') == 'none'){$('ul#menuPatient li:eq(0)').css('display', '');
-}$(".starthidden").hide(250); if($("#type").val() != 0)$('.asdemogData').attr('disabled', 'disabled'); }*/
   function assurHide()
   {
     var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
     $('#menuPatient a[href="#Assure"]').parent().addClass('hide');
     $(active_tab_selector).removeClass('active').addClass('hide');
     $('.nav-pills a[href="#Patient"]').tab('show');
-    $(".starthidden").show();
+    $("#otherPat").removeClass('hidden');
     if(!$("#foncform").is(":hidden"))
       $("#foncform").addClass('hidden');
     $('#nsspatient').attr('disabled', true);
@@ -216,7 +207,8 @@ if($('ul#menuPatient li:eq(0)').css('display') == 'none'){$('ul#menuPatient li:e
   {
     $('.nav-pills li').eq(1).removeClass('hide');
     $("div#Assure").removeClass('hide');
-    $(".starthidden").hide(250);$('#description').val('');
+    $("#otherPat").addClass('hidden');
+    $('#description').val('');
     $('#nsspatient').attr('disabled', false);  
   }
   function resetAsInp()
@@ -224,29 +216,30 @@ if($('ul#menuPatient li:eq(0)').css('display') == 'none'){$('ul#menuPatient li:e
     $('#Assure').find('input').val('');
     $('#Assure').find("select").prop("selectedIndex",0);
   }
-  function showTypeAdd(type, i)//ajout patient
+  function showTypeAdd(type, i)
   { 
     switch(type){
       case "0":
         if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
         copyPatient();
-        $('.asdemogData').prop('disabled', true);
         if(i !=0)
           $(".asProfData").val('');
-          break;
+        break;
       case "1": case "2": case "3": case "4":
         if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
+        if($("#asdemogData").is(":hidden")) 
+          $("#asdemogData").removeClass('hidden'); 
         if($("#foncform").is(":hidden"))
           $("#foncform").removeClass('hidden');
-        if($('.asdemogData').is('[disabled="disabled"]'))
-        {
-          $('.asdemogData').prop('disabled', false);
-          $('.asdemogData').val('');
-        }
-        if(i !=0)
+        if(i != 0)
           $(".asProfData").val('');
+        if(type == "1")
+        {
+            $("#sf").prop("selectedIndex", 2).change();
+            $("#SituationFamille").prop("selectedIndex", 2).change();
+        }
         break;
       case "5": case "6":
         assurHide();

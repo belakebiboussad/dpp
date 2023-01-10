@@ -57,6 +57,7 @@
               showRdvModal(debut,fin,0,fixe); 
         }
         function copyPatient(){ 
+          /*
           $("#nomf").val($("#nom").val());
           $("#prenomf").val($("#prenom").val());
           $("#datenaissancef").val($("#datenaissance").val());
@@ -69,6 +70,9 @@
           $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
           $("#foncform").addClass('hidden');$("#gsf").val($("#gs option:selected").val()); 
           $("#rhf").val($("#rh option:selected").val());
+          */
+          $("#asdemogData").addClass('hidden');
+          $("#foncform").addClass('hidden');
         }
         function checkPatient()
         {
@@ -91,26 +95,46 @@
          });
          return erreur;
         }
-        function checkAssure()
+        function checkAssureOrg()
         {
-          var erreur =true;//var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
-          var nomf = $('#nomf').val();
-          var prenomf = $('#prenomf').val();//var datenaissance = $('#datenaissancef').val(); 
-          var gs = $('#gsf').val();
-          var rh = $('#rhf').val();
+          var erreur =true;
           var nss = $('#nss').val();
-          var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-          var inputAssVal = new Array(nss,position,rh,gs,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
-          var inputMessage = new Array("Numèro de Secruté Social","position","Rhésus","Groupe Sanguin","Prenom","Nom");
+          var prenomf = $('#prenomf').val();
+          var nomf = $('#nomf').val();
+          inputAssVal = new Array(nss,prenomf,nomf);
+          inputMessage.push("Numèro de Secruté Social", "Prénom","Nom");
           $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
           jQuery.each( inputAssVal, function( i, val ) {
             if(val =="" )
             {
-               erreur =false;
-               $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+              erreur =false;
+              $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
             }
-         });
+          });
          return erreur;
+        }
+        function checkAssure()
+        {
+          var erreur =true;
+          var nss = $('#nss').val();
+          var inputAssVal = new Array(nss);
+          var inputMessage = new Array("Numèro de Secruté Social");
+          if($("#type").val() != 0)
+          {
+            var prenomf = $('#prenomf').val();
+            var nomf = $('#nomf').val();
+            inputAssVal.push(prenomf,nomf);
+            inputMessage.push("Prenom","Nom");
+          }
+          $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+          jQuery.each( inputAssVal, function( i, val ) {
+            if(val =="" )
+            {
+              erreur =false;
+              $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+            }
+          });
+          return erreur;
         }
         function  checkHomme(){
             var erreur =true;
@@ -173,16 +197,6 @@
             $(".date_end").datepicker("setDate", $('.date').datepicker('getDate'));
           $('.numberDays').val(iDaysDelta ); 
         }
-        $(function () {
-          $( "#Position" ).change(function() {
-                if($(this).val() != "Activité")
-                {
-                    $('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);
-                }
-                else
-                  $('#serviceFonc').removeClass('invisible');   
-          });
-        });
        $(function(){
          $('#gamme').change(function(){
             switch($(this).val())
@@ -248,10 +262,7 @@
                 $("select#gs").val(''); 
               else
                  $("select#gsf").val('');             
-        });
-        if($("#Position").val() != "Activité" )
-          $('#serviceFonc').addClass('invisible');
-      /* with button*/
+        });/* with button*/    
        $(document).on('click', '.selctetat', function(event){
            var data = '';
         $.ajax({
