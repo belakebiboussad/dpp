@@ -24,13 +24,13 @@
         </div>
     </div>
     <div id ="datePresume"  class="hidden">
-      <label class="col-sm-3 control-label">Age :</strong></label>
+      <label class="col-sm-3 control-label">Age :</label>
       <div class="radio col-sm-8">
        <label><input name="presume" class=" ace" type="radio" value="1" checked ><span class="lbl"> Mineur</span></label>
       <label> <input name="presume" class=" ace" type="radio" value="2" > <span class="lbl">17< age< 65 </span></label>
        <label><input name="presume" class=" ace" type="radio" value="3"><span class="lbl">age >= 65  </span></label>
        </div>
-              </div>
+      </div>
               <div class="col-sm-1">
               <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"><strong>Inc</strong></span>
               </div>
