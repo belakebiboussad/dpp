@@ -101,5 +101,4 @@ class EmployeController extends Controller
      * @param  \App\modeles\employ  $employ
      * @return \Illuminate\Http\Response
      */
-    /*public function searchBySpececialite(Request $request){   $doctors =  (specialite::FindOrFail($request->specialite))->employes; return $doctors; }*/
 }
