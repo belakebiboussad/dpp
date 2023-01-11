@@ -53,48 +53,47 @@ class demandeprodController extends Controller
     {
       if($request->ajax())  
       {
-        $v = $request->value;  $field= $request->field;
+        $q = $request->value;  $field= $request->field;
         if(Auth::user()->role_id != 10) 
         {
           $ServiceId = Auth()->user()->employ->service_id;    
-          if(isset($v))
-              $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId){
-                                       $q->where('id', $ServiceId);
-                         })->where($field,'LIKE', "$v%")->get();
+          if(isset($q))
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use( $ServiceId){
+                                       $query->where('id', $ServiceId);
+                         })->where($field,'LIKE', "$q%")->get();
           else
-              $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
-                              $q->where('id', $ServiceId);
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use( $ServiceId) {
+                              $query->where('id', $ServiceId);
                          })->whereNull($field)->get();
         }else
         {
           if($field != "service")  
           {
             if(isset($request->value))
-              $demandes = demand_produits::with('demandeur.Service')->where($field,'LIKE', "$v%")->get();
+              return $demandes = demand_produits::with('demandeur.Service')->where($field,'LIKE', "$q%")->get();
             else
-              $demandes = demand_produits::with('demandeur.Service')->whereNull($field)->get();
+              return $demandes = demand_produits::with('demandeur.Service')->whereNull($field)->get();
           }else
           {
             $serviceID = $request->value;
-            $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
-                                          $q->where('id', $serviceID);
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
+                              $query->where('id', $serviceID);
                                         })->get();
           }
         }
-        return Response::json($demandes);
       } else
       {
-        if(Auth::user()->role_id == 10)
+        if(Auth::user()->role_id == 10)//pharm
         {
           $services =service::where('id','!=',14)->get();
-          $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
+          $demandes = demand_produits::whereNull('Etat')->orderBy('Date', 'desc')->get();
           return view('demandeproduits.index', compact('demandes','services'));
         }
         else
         {
           $serviceID =Auth::user()->employ->service;
-          $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
-                $q->where('id',$serviceID); 
+          $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
+                $query->where('id',$serviceID); 
           })->orderBy('Date', 'desc')->get();
           return view('demandeproduits.index', compact('demandes'));     
         }

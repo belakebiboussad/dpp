@@ -25,15 +25,14 @@ class CRRControler extends Controller
   }
  	public function edit($id)
  	{
- 		$crr= CRR::find($id);
-    return Response::json($crr);
- 	}
+ 		return $crr = CRR::find($id);
+  }
  	public function update(Request $request, $id)
   {
     $crr = CRR::find($id);
     $crr->update($request->all()); 
     $crr->save();
-    return Response::json($crr);  
+    return $crr;
   }
   public function print(Request $request)
   {

@@ -29,17 +29,22 @@ class DemandeHospitalisationController extends Controller
       }
       public function index()
       {
+        $specialiteID = (employ::findOrFail(Auth::user()->employee_id))->Service->specialite_id;
         if(Auth::user()->role_id == 6)
-        {
-          $specialiteID = (employ::findOrFail(Auth::user()->employee_id))->Service->specialite_id;
-          $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->where('etat',null)->get();  
-        }
+          $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->whereNull('etat')->get();  
         else
         {
-          $employeID= employ::where("id",Auth::user()->employee_id)->first()->id ;           
-          $demandes = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
-                        $q->where('id',$employeID);
-          })->get();  
+          if(in_array(Auth::user()->role_id,[14])) 
+          {
+            $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->get();  
+          }
+          else
+          {
+            $employeID = Auth::user()->employee_id;
+            $demandes = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
+                                                  $q->where('id',$employeID);
+                                              })->get();  
+          }    
         }
         return view('demandehospitalisation.index',compact('demandes'));
       }
@@ -49,7 +54,6 @@ class DemandeHospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function create($id){$consultation = consultation::FindOrFail($id);$patient = patient::FindOrFail($consultation->pid);return view('demandehospitalisation.create_demande', compact('patient','consultation'));}*/
     /**
      * Store a newly created resource in storage.
      *
@@ -116,7 +120,6 @@ class DemandeHospitalisationController extends Controller
         return redirect()->action('DemandeHospitalisationController@index');
       }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -125,16 +128,11 @@ class DemandeHospitalisationController extends Controller
      */
       public function destroy(Request $request,$id)
       {
-        if($request->ajax())
-        {
-          $demande = DemandeHospitalisation::destroy($id);
-          return Response::json($demande);
-        }
+        $demande = DemandeHospitalisation::destroy($id);
+        if($request->ajax())        
+          return $demande;//return Response::json($demande);
         else
-        {
-           $demande = DemandeHospitalisation::destroy($id);
-          return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
-        } 
+          return redirect()->action('DemandeHospitalisationController@index'); 
       }
       public function valider(Request $request)
       {
@@ -158,10 +156,6 @@ class DemandeHospitalisationController extends Controller
                                                       ->whereHas('consultation',function($q) use($date){
                                                               $q->where('date', $date);
                                                       }) ->where('modeAdmission',2)->where('etat',1)->get();
-      // $demandesUrg = DemandeHospitalisation::with('bedAffectation',)
-      //                                        ->whereHas('consultation', function($q){
-      //                                           $q->where('date', date("Y-m-d"));
-      //                                        })->where('modeAdmission',2)->whereNull('etat')->get();                                                  
       return json_encode($demandesUrg);        
     }
 }

@@ -250,20 +250,20 @@ class ConsultationsController extends Controller
         $service_id = Auth::user()->employ->service_id;
         if($request->ajax())  
         {    
-          $field= $request->field; $v= $request->value;      
+          $field= $request->field; $q= $request->value;      
           if($field == 'date')
-            $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
-                            ->whereHas('medecin.Service',function($q) use($service_id){ 
-                                  $q->where('id',$service_id);
-                            })->where($field, $v)->get();
+           return $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
+                            ->whereHas('medecin.Service',function($query) use($service_id){ 
+                                  $query->where('id',$service_id);
+                            })->where($field, $q)->get();
           else
-            $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
-                            ->whereHas('medecin.Service',function($q) use($service_id){ 
-                                $q->where('id',$service_id);
-                            })->whereHas('patient',function($q) use ($request){
-                                $q->where($request->field,'LIKE', "%$request->value%");  
+            return $consults =consultation::with('patient','medecin.Specialite','medecin.Service.Specialite')
+                            ->whereHas('medecin.Service',function($query) use($service_id){ 
+                                $query->where('id',$service_id);
+                            })->whereHas('patient',function($query) use ($request){
+                                $query->where($request->field,'LIKE', "%$request->value%");  
                             })->get();
-            return $consults;
+            //return $consults;
         }
        }
 }

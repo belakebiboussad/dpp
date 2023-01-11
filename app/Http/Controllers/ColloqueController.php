@@ -46,15 +46,13 @@ class ColloqueController extends Controller
         { 
           if($q == '')
           
-            $colloques = colloque::with('employs','Service')
+            return $colloques = colloque::with('employs','Service')
                           ->whereNull($field)->where('service_id', $service->id)->get();
           else
-            $colloques = colloque::with('employs','Service')->where($field,'LIKE',"%$q%")
+            return $colloques = colloque::with('employs','Service')->where($field,'LIKE',"%$q%")
                                 ->where('service_id', $service->id)->get();
-          return Response::json($colloques);
         }else
-          $colloques=colloque::with('employs','Service')->whereNull('etat')->where('service_id', $service->id)->get();                                   
-        return view('colloques.index', compact('colloques','service'));
+          $colloques=colloque::with('employs','Service')->whereNull('etat')->where('service_id', $service->id)->get();  return view('colloques.index', compact('colloques','service'));
       }
     /**
      * Show the form for creating a new resource.

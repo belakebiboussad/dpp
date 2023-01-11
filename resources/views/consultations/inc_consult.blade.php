@@ -1,3 +1,4 @@
+@include('consultations.scripts.functions')
 <script type="text/javascript">
 $('document').ready(function(){
   $("#accordion" ).accordion({
@@ -55,7 +56,7 @@ $('document').ready(function(){
 <div class="page-header mt-5"><h5>Résumé de la consulation :</h5></div>
 <div class="row">
   <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-  <span class="ft16"><b>Interrogatoire</b></span></div>
+  <span class="ft16">Interrogatoire</span></div>
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
@@ -77,7 +78,7 @@ $('document').ready(function(){
 </div>
 @if(isset($consultation->examensCliniques))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Examens clinique</b></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16">Examens clinique</span></div>
 </div>
 <div class="row">
 <ul class="list-unstyled spaced">
@@ -100,7 +101,7 @@ $('document').ready(function(){
 @endif
 @if($consultation->examsAppareil->count() > 0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Examens Appareils</b></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16">Examens Appareils</span></div>
 </div>
 <div class="row">
   <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
@@ -121,7 +122,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><b>Demande d'examen biologique</b></span>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'examen biologique</span>
   </div>
 </div>
 <div class="row">
@@ -133,9 +134,8 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><b>Date</b></th>
-                <th class="center"><b>Etat</b></th>
-                <th class="center" width="19%"><em class="fa fa-cog"></em></th>
+                <th class="center">Date</th><th class="center">Etat</th>
+                <th class="center" width="30%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
@@ -145,10 +145,8 @@ $('document').ready(function(){
                 <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
                 {{ $consultation->demandeexmbio->etat }}</span>
                 </td>
-                <td class="center">{{-- @if($consultation->medecin->id == Auth::user()->employ->id)@endif --}}
-                    <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs">
-                      <i class="fa fa-hand-o-up fa-xs"></i>
-                    </a>
+                <td class="center" width="30%">
+                    <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"> <i class="fa fa-hand-o-up fa-xs"></i></a>
                     @if($consultation->medecin->id == Auth::user()->employ->id)
                     @if($consultation->demandeexmbio->etat == "En Cours")
                     <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
@@ -168,7 +166,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandExmImg)) 
 <div class="row">
-  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16"><b>Demande d'examen d'imagerie</b></span>
+  <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><span class="ft16">Demande d'examen d'imagerie</span>
   </div>
 </div>
 <div class="row">
@@ -182,7 +180,7 @@ $('document').ready(function(){
             <tr>
               <th class="center">Date</th>
               <th class="center">Etat</th>
-              <th class="center" width="19%"><em class="fa fa-cog"></em></th>
+              <th class="center" width="30%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
@@ -193,14 +191,11 @@ $('document').ready(function(){
               {{ $consultation->demandExmImg->etat }}
               </span>
               </td>
-              <td class="center">
-                <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs">
-                <i class="fa fa-hand-o-up fa-xs"></i></a>
+              <td class="center" width="30%">
+                <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                 @if($consultation->medecin->id == Auth::user()->employ->id)
                 @if(!$consultation->demandExmImg->hasResult())
-                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs btn-primary">
-                    <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
-                  </a> 
+                  <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id ) }}" class="btn btn-xs btn-primary"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a> 
                   <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 @endif
                 @endif
@@ -217,7 +212,7 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->ordonnances))
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Ordonnance</b></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16">Ordonnance</span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -228,12 +223,12 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><b>Date</b></th><th class="center"><em class="fa fa-cog"></em></th>
+                <th class="center">Date</th><th class="center"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr id="{{ 'ordonnace'.$consultation->ordonnances->id }}">
-                <td>{{ $consultation->ordonnances->date }}</td>
+                <td>{{ $consultation->date->format('Y-m-d') }}</td>
                 <td class="center">
                   <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye-slash"></i></a>
                   <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
@@ -249,11 +244,11 @@ $('document').ready(function(){
 </div>  
 @endif
 @isset($consultation->demandeHospitalisation)
-<div class="row dh">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16"><b>Demande d'hospitalisation</span></b>
+<div class="row">
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'hospitalisation</span>
   </div>
 </div>
-<div class="row dh">
+<div class="row">
   <div class="col-xs-11 widget-container-col">
     <div class="widget-box widget-color-blue">
       <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
@@ -271,7 +266,7 @@ $('document').ready(function(){
                 @endif
               </tr>
             </thead>
-            <tr>
+            <tr id="{{ 'dh-'.$consultation->demandeHospitalisation->id }}">
               <td>
                <span class="badge badge-{{( $consultation->demandeHospitalisation->getModeAdmissionID($consultation->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
                   {{ $consultation->demandeHospitalisation->modeAdmission }}

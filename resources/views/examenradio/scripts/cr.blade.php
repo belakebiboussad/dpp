@@ -32,9 +32,9 @@ function getRequests(url,field,value)
             { data: null,
                         render: function ( data, type, row ) {
                             if(data.id_consultation != null)
-                              return  row.consultation.date;
+                              return moment(row.consultation.date).format('YYYY-MM-DD');
                             else
-                              return row.visite.date;
+                              return moment(row.visite.date).format('YYYY-MM-DD');
                             return data;  
                         },title:'Date',"orderable": true,
             },

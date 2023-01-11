@@ -10,11 +10,8 @@ class AllergieController extends Controller
 {
   public function index(Request $request)
   {
-    if($request->ajax())  
-    {
-      $allergies = Allergie::all();
-      return Response::json($allergies);
-    }
+    $allergies = Allergie::all();
+    return $allergies;
   }
   public function store(Request $request)
   {
@@ -22,7 +19,7 @@ class AllergieController extends Controller
     $patient->Allergies()->attach($request->allergie_id);
     return $request->allergie_id;
   }
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request,$id) 
   {
     $patient = patient::findOrFail($request->pid);
     $all = $patient->Allergies()->detach($id);

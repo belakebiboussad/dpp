@@ -35,20 +35,20 @@ class DemandeExamenRadio extends Controller
     {
       if($request->ajax())  
       {
-        $v = $request->value ; $field = $request->field;
+        $q = $request->value ; $field = $request->field;
         if($request->field != "service")  
         {
           if(isset($request->value))
-            $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($field,'LIKE', "$v%")->get();
+            $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($field,'LIKE', "$q%")->get();
           else
             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->whereNull($field)->get();
         }else
         {
           $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                          ->whereHas('consultation.medecin.Service', function($q) use ($v) {
-                                  $q->where('id', $v);
-                          })->orWhereHas('visite.medecin.Service', function($q) use ($v) {
-                                  $q->where('id', $v);
+                          ->whereHas('consultation.medecin.Service', function($query) use ($q) {
+                                  $query->where('id', $q);
+                          })->orWhereHas('visite.medecin.Service', function($query) use ($q) {
+                                  $query->where('id', $q);
                               })->get();
         }
         return $demandes;

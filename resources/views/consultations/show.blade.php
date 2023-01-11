@@ -1,67 +1,22 @@
 @extends('app')
 @section('style')
 <style type="text/css" >
-td
-{
- max-width: 100px;
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
-}
+  td
+  {
+     max-width: 100px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+  }
 </style>
 @endsection
-@section('page-script')
-<script>
-  $(function(){
-    $('body').on('click', '.orient-delete', function (e) {  
-      event.preventDefault();
-      var id = $(this).val(); 
-      $.ajaxSetup({
-        headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
-      });
-      $.ajax({
-        type: "DELETE",
-        url: '/orientLetter/' + id,
-        dataType: 'json',
-        success: function (data) {
-          $("#orient-" + data.id).remove(); 
-        },
-        error: function (data) {
-          console.log('Error:', data); 
-        } 
-      }); 
-    });
-    $('body').on('click', '.open-orient', function (event) {
-      event.preventDefault();
-      var id = $(this).val();
-      $.get('/orientLetter/' + id, function (data) { 
-        alert(data.id);
-        /*
-        $('#acc_id').val(data.id);
-        $('#lieu').val(data.etablisement);
-        $('#terme').val(data.terme);
-        $('#presentation').val(data.presentation);
-        $('#eggopenduration').val(data.eggopenduration);
-        $('#workduration').val(data.workduration);
-        $('#expulsduration').val(data.expulsduration);
-        $('#incident').val(data.incident);
-        $('#type').val(data.typeId).change();
-        $('#motiftype').val(data.motif);
-        $('#accouchSave').val("update");
-        $('#accouchementModal').modal('show');
-        */
-      }); 
-    });
-  })
- </script>
-@endsection 
 @section('main-content')
  <div class="container-fluid">
 <div class="row"><div class="col-sm-12"> @include('patient._patientInfo',['patient'=>$consultation->patient])</div></div>
  <div class="pull-right">
       <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div><div class="space-12"></div>
-<div class="row"><h4>Détails de la Consultation du &quot; {{ $consultation->date->format('Y-m-d')}} &quot;</h4></div> 
+<div class="page-header"><h1>Détails de la Consultation du &quot; {{ $consultation->date->format('Y-m-d')}}&quot;</h1></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-24">
       <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
@@ -96,8 +51,8 @@ td
              </li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
             <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16 ">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
           </ul>
         </div>
       </div>{{-- Intero --}}
@@ -105,8 +60,7 @@ td
       <div id="DH" class="tab-pane">
        <div class="row">
           <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-            <b><span style="font-size:18px;">Demande d'hospitalisation</span></b>
-          </div>
+            <span class="ft16">Demande d'hospitalisation</span></div>
         </div>
         <div class="row">
         <div class="col-xs-11 widget-container-col" >
@@ -126,7 +80,8 @@ td
                 @endif
               </tr>
             </thead>
-            <tr>
+            <tbody>
+            <tr id="{{ 'dh-'.$consultation->demandeHospitalisation->id }}">
               <td>
        <span class="badge badge-{{( $consultation->demandeHospitalisation->getModeAdmissionID($consultation->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
           {{ $consultation->demandeHospitalisation->modeAdmission }}
@@ -140,14 +95,14 @@ td
       @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
       <td class="center">
         <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
-          <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i>
-        </a>
+          <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
         <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
           <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
         </a>
         <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
       </td>
       @endif
+      </tbody>
   </table>
                        </div>
                       </div>
@@ -173,7 +128,7 @@ td
                 @endif
               <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
-                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span>&nbsp;</li>
+                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span></li>
                </ul>
             </div>
           </div>{{-- ExamClin --}}
@@ -196,7 +151,7 @@ td
             @if(isset($consultation->demandeexmbio))
             <div class="row">
               <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                <b><span style="font-size:18px;">Demande d'examen biologique</span></b>
+                <span class="ft16">Demande d'examen biologique</span>
               </div>
             </div>
                 <div class="row">
@@ -225,7 +180,7 @@ td
                                         <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
                                         <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
                                         @endif
-                                      <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a> 
+                                      <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
                                       @endif
                                     </td>
                                 </tbody>
@@ -237,10 +192,8 @@ td
                 </div><div class="space-12"></div>{{-- biologique --}}  
                 @endif
                 @if(isset($consultation->demandExmImg))
-                <div class="row">
-                      <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
-                          <b><span style="font-size:18px;">Demande d'examen d'imagerie</span></b>
-                      </div>
+                <div class="row"><div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
+                  <span class="ft16">Demande d'examen d'imagerie</span></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-11 widget-container-col">
@@ -250,11 +203,10 @@ td
                                <div class="widget-main no-padding">
                                 <table class="table table-striped table-bordered table-hover">
                                 <thead class="thin-border-bottom">
-                                      <tr>
-                                        <th class="center">Date</th><th class="center">Etat</th>
-                                            
-                                            <th class="center"><em class="fa fa-cog"></em></th>
-                                      </tr>
+                                  <tr>
+                                    <th class="center">Date</th><th class="center">Etat</th>
+                                    <th class="center"><em class="fa fa-cog"></em></th>
+                                  </tr>
                                 </thead>
                                 <tbody>
                                 <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
@@ -268,7 +220,7 @@ td
                                     <a href="{{ route('demandeexr.edit', $consultation->demandExmImg->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
                                     <button type="button" class="btn btn-xs btn-danger delete-demandeRad" value="{{ $consultation->demandExmImg->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                                     @endif
-                                    <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a>
+                                    <a href="/drToPDF/{{ $consultation->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
                                 </td>
                                </tr>
                                 </tbody>
@@ -280,8 +232,8 @@ td
                 </div><div class="space-12"></div>{{-- radiologique --}}
                 @endif
                 @if(isset($consultation->ordonnances))
-                <div class="row">
-                     <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b><span style="font-size:18px;">Ordonnance</span></b></div>
+                <div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
+                  <span class="ft16">Ordonnance</span></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-11 widget-container-col">
@@ -362,5 +314,49 @@ td
 <div class="row">@include('consultations.ModalFoms.LettreOrientationAdd',['patient'=>$consultation->patient])</div>
 @endsection
 @section('page-script')
+@include('consultations.scripts.functions')
 @include('examenradio.scripts.imgRequestdJS')
+<script>
+  $(function(){
+    $('body').on('click', '.orient-delete', function (e) {  
+      event.preventDefault();
+      var id = $(this).val(); 
+      $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
+      });
+      $.ajax({
+        type: "DELETE",
+        url: '/orientLetter/' + id,
+        dataType: 'json',
+        success: function (data) {
+          $("#orient-" + data.id).remove(); 
+        },
+        error: function (data) {
+          console.log('Error:', data); 
+        } 
+      }); 
+    });
+    $('body').on('click', '.open-orient', function (event) {
+      event.preventDefault();
+      var id = $(this).val();
+      $.get('/orientLetter/' + id, function (data) { 
+        alert(data.id);
+        /*
+        $('#acc_id').val(data.id);
+        $('#lieu').val(data.etablisement);
+        $('#terme').val(data.terme);
+        $('#presentation').val(data.presentation);
+        $('#eggopenduration').val(data.eggopenduration);
+        $('#workduration').val(data.workduration);
+        $('#expulsduration').val(data.expulsduration);
+        $('#incident').val(data.incident);
+        $('#type').val(data.typeId).change();
+        $('#motiftype').val(data.motif);
+        $('#accouchSave').val("update");
+        $('#accouchementModal').modal('show');
+        */
+      }); 
+    });
+  })
+ </script>
 @endsection
