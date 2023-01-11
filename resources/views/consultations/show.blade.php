@@ -14,9 +14,9 @@
  <div class="container-fluid">
 <div class="row"><div class="col-sm-12"> @include('patient._patientInfo',['patient'=>$consultation->patient])</div></div>
  <div class="pull-right">
-      <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
+      <a href="{{route('consultations.index')}}" class="btn btn-white btn-info"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div><div class="space-12"></div>
-<div class="page-header"><h1>Détails de la Consultation du &quot; {{ $consultation->date->format('Y-m-d')}}&quot;</h1></div> 
+<div class="page-header"><h1>Détails de la Consultation du &quot;{{ $consultation->date->format('Y-m-d')}}&quot;</h1></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-24">
       <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
@@ -40,7 +40,7 @@
       <div id="Intero" class="tab-pane in active">
         <div class="row">
           <ul class="list-unstyled spaced">
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Spécialite de la consultation :</span>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Spécialite de la consultation :</span>
              <span class="badge badge-pill badge-success">
               @if(isset($consultation->medecin->specialite))
               {{ $consultation->medecin->Specialite->nom }}
@@ -49,18 +49,17 @@
               @endif
              </span>
              </li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span  class="ft16">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span class="ft16">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
+            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
           </ul>
         </div>
       </div>{{-- Intero --}}
        @isset($consultation->demandeHospitalisation) 
       <div id="DH" class="tab-pane">
        <div class="row">
-          <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-            <span class="ft16">Demande d'hospitalisation</span></div>
+          <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right"> <span class="ft16">Demande d'hospitalisation</span></div>
         </div>
         <div class="row">
         <div class="col-xs-11 widget-container-col" >
@@ -71,13 +70,12 @@
             <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
-                <th class="center">Mode Admission</th>
-                <th class="center">Spécialité</th>
-                <th class="center">Service</th>
-                <th class="center">Etat</th>
-                @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-                <th class="center"><em class="fa fa-cog"></em></th>
-                @endif
+                    <th class="center">Mode Admission</th> <th class="center">Spécialité</th>
+                    <th class="center">Service</th>
+                    <th class="center">Etat</th>
+                    @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+                        <th class="center"><em class="fa fa-cog"></em></th>
+                    @endif
               </tr>
             </thead>
             <tbody>
@@ -92,16 +90,16 @@
       <td>
         <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
       </td>
+       <td class="center">
       @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-      <td class="center">
         <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
           <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
         <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
           <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
         </a>
         <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
-      </td>
       @endif
+      </td>
       </tbody>
   </table>
                        </div>
@@ -119,16 +117,16 @@
                 @if(isset($consultation->examensCliniques->consts))
                        @foreach(json_decode($specialite->consConst ,true) as $const)
                        <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom   ?>
-                      @if($consultation->examensCliniques->consts[$obj->nom ] != null)  
-                              <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">{{  $obj ->description }}</span>
-                                     <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->Consts->$nom }}</span>&nbsp;({{$obj ->unite }})
-                              </li>
+                      @if(! is_null($consultation->examensCliniques->consts[$obj->nom ]))  
+                           <li><i class="ace-icon fa fa-caret-right blue"></i><span>{{  $obj ->description }}</span>
+                                 <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->Consts->$nom }}</span> ({{$obj ->unite }})
+                          </li>
                        @endif
                      @endforeach
                 @endif
-              <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
-                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
-                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span></li>
+              <li><i class="ace-icon fa fa-caret-right blue"></i><span>Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i><span>Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span></li>
+                 <li><i class="ace-icon fa fa-caret-right blue"></i><span>Autre : {{ $consultation->examensCliniques->autre  }}</span></li>
                </ul>
             </div>
           </div>{{-- ExamClin --}}
@@ -140,7 +138,7 @@
              <ul class="list-unstyled spaced">
               @foreach($consultation->examsAppareil as $examAppareil)
                 <li><i class="ace-icon fa fa-caret-right blue"></i>
-                <span  class="ft16">Appareil {{ $examAppareil->nom }} : <blockquote>{{ $examAppareil->pivot->description}}</blockquote></span></li>
+                <span>Appareil {{ $examAppareil->nom }} : <blockquote>{{ $examAppareil->pivot->description}}</blockquote></span></li>
               @endforeach
              </ul>
             </div>
@@ -150,9 +148,7 @@
           <div id="ExamCompl" class="tab-pane"><div class="space-12 hidden-xs"></div> 
             @if(isset($consultation->demandeexmbio))
             <div class="row">
-              <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                <span class="ft16">Demande d'examen biologique</span>
-              </div>
+              <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'examen biologique</span> </div>
             </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" >

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\service;
 use App\modeles\medcamte;
@@ -91,11 +90,12 @@ class demandeprodController extends Controller
         }
         else
         {
-          $serviceID =Auth::user()->employ->service;
-          $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
-                $query->where('id',$serviceID); 
-          })->orderBy('Date', 'desc')->get();
-          return view('demandeproduits.index', compact('demandes'));     
+             $serviceID =Auth::user()->employ->service;
+              $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
+                 $query->where('id',$serviceID);  
+             })->orderBy('Date', 'desc')->get();
+             dd($demandes);  
+             return view('demandeproduits.index', compact('demandes'));     
         }
       }
     }
@@ -248,19 +248,19 @@ class demandeprodController extends Controller
       }
       public function destroy(Request $request ,$id)
       {
-        if($request->ajax())  
-        {
-          $demande = demand_produits::destroy($id);
-          return Response::json($demande); 
-        }
+          if($request->ajax())  
+          {
+                $demande = demand_produits::destroy($id);
+                return Response::json($demande); 
+          }
         else
         {
-          $demande = demand_produits::FindOrFail($id);
-          $demande->medicaments()->detach();
-          $demande->dispositifs()->detach();
-          $demande->reactifs()->detach();
-          $demande = demand_produits::destroy($id);
-          return redirect()->action('demandeprodController@index');
+            $demande = demand_produits::FindOrFail($id);
+            $demande->medicaments()->detach();
+            $demande->dispositifs()->detach();
+            $demande->reactifs()->detach();
+            $demande = demand_produits::destroy($id);
+            return redirect()->action('demandeprodController@index');
         } 
       }
 }

@@ -88,13 +88,13 @@ $('document').ready(function(){
       <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom?>
         @if($consultation->examensCliniques->consts[$obj->nom ] != null)
             <li><i class="message-star ace-icon fa fa-star orange2"></i><b>{{  $obj ->description }} :</b>
-            <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span>({{$obj->unite }})</li>
+            <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span> ({{$obj->unite }})</li>
              @endif
         @endforeach
     @endif
     <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Etat général du patient :</b><span>{{ $consultation->examensCliniques->etat  }}</span></li>
     <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Peau et phanéres  :</b><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
-      <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Autre :</b>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
+      <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Autre :</b>{{ $consultation->examensCliniques->autre  }}</li>
   @endif
 </ul>
 </div>
