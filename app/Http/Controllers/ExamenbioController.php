@@ -87,9 +87,8 @@ class ExamenbioController extends Controller
     /*public function destroy($examid, $demandeid){dd($examid);// dd($id); }*/
     public function destroy(Request $request, $id)
     {
-      $ex = demandeexb_examenbio::where('id_examenbio',$id)->where('id_demandeexb', $request->demande_id)->first();
-      $ex->delete();
-      return $ex;
+          $ex = demandeexb_examenbio::where('id_examenbio',$id)->where('id_demandeexb', $request->demande_id)->first();
+          $ex->delete();
+          return $ex;
     }
-   /* public function examDestroy($id){ $ex = demandeexb_examenbio::FindOrFail($id);$ex->delete();return Response::json($ex); }*/
 }
