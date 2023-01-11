@@ -8,8 +8,8 @@ class demand_produits extends Model
 {
 	public $table ="demande_produits";
 	public $timestamps = false;
-  protected $fillable  = ['Date','etat','id_employe','motif'];
-
+  protected $fillable  = ['date','etat','id_employe','motif'];
+  protected $dates =['date'];
   public function medicaments()
   {
 		return $this->belongsToMany('App\modeles\medcamte', 'demande_medicaments', 'id_demande', 'id_medicaments')->withPivot('qte','qteDonne','unite');   	

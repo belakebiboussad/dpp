@@ -3,7 +3,7 @@
     <div class="profile-user-info profile-user-info-striped">
       <div class="profile-info-row">
         <div class="profile-info-name col-sm-3">Date </div>
-        <div class="profile-info-value col-sm-9"><span class="editable">{{ $demande->date->format('d/m/Y') }}</span></div>
+        <div class="profile-info-value col-sm-9"><span class="editable">{{ $demande->date->format('Y-m-d') }}</span></div>
       </div>
       </div>
       <div class="profile-user-info profile-user-info-striped">

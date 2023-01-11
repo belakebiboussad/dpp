@@ -45,7 +45,7 @@ class ConsultationsController extends Controller
     protected $DemandeHospCTRL;
     public function __construct(LettreOrientationController $LettreOrientationCtrl)
     {
-      $this->middleware('auth'); //$this->LettreOrientationCTRL = $LettreOrientationCtrl;
+      $this->middleware('auth');
     }
     public function index()
     {

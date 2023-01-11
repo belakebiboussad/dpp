@@ -2,11 +2,11 @@
 @section('title','Détails demande')
 @section('main-content')
 <div class="page-header">
-	<h4 >Détails de la demande du &quot;{{ $demande->Date}}&quot;</h4>
+	<h1>Détails de la demande du &quot;{{ $demande->date->format('Y-m-d')}}&quot;</h1>
 	<div class="pull-right">
-		<a href="{{route('demandeproduit.index')}}" class="btn btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
+		<a href="{{route('demandeproduit.index')}}" class="btn btn-info"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
 		@if(!isset($demande->etat) &&( $demande->demandeur->service == Auth::user()->employ->service))
-		<a href="{{route('demandeproduit.destroy',$demande->id)}}" class="btn btn-danger btn-bold" title="Supprimer Demande" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+		<a href="{{route('demandeproduit.destroy',$demande->id)}}" class="btn btn-danger" title="Supprimer Demande" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 			<i class="ace-icon fa fa-trash-o orange"></i>Supprimer
 		</a>
 		@endif
@@ -19,8 +19,7 @@
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">
-							<div class="col-xs-12">
-             	@include("demandeproduits.partials._show")	
+							<div class="col-xs-12">@include("demandeproduits.partials._show")  
               <div class="space-12"></div>
 							<div>
 								<table class="table table-striped table-bordered">
