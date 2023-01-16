@@ -1,6 +1,6 @@
 @extends('app')
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/print.css') }}" />  
+<link rel="stylesheet" href="{{ asset('css/print.css') }}" />
 <style>
   .modaldialog {
     width:92%;
@@ -11,7 +11,7 @@
       border: 0;
       position:relative;
       z-index:999;
-  }/*.b{ height:20px !important;  }*/
+  }
   #content {
     background: white;
     width: 98%;
@@ -352,7 +352,7 @@ $(function(){
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 55, 165);
+      pdf.addImage(jpegUrl, 'JPEG', 53, 180);//165
       generate(fileName,pdf,'ordPdf');
     });//teste
     $("#DHospadd").click(function(e){
@@ -450,5 +450,5 @@ $(function(){
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
 <div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterPDF')</div>
-<div id="certificatDescrPdf" class="hidden">@include('consultations.EtatsSortie.certifDescripPDF')</div>
+{{-- <div id="certificatDescrPdf">@include('consultations.EtatsSortie.certifDescripPDF')</div> --}}
 @endsection

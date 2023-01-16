@@ -7,8 +7,7 @@
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-info"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
 		@if(!isset($demande->etat) &&( $demande->demandeur->service == Auth::user()->employ->service))
 		<a href="{{route('demandeproduit.destroy',$demande->id)}}" class="btn btn-danger" title="Supprimer Demande" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-			<i class="ace-icon fa fa-trash-o orange"></i>Supprimer
-		</a>
+			<i class="ace-icon fa fa-trash-o orange"></i> Supprimer</a>
 		@endif
 	</div>
 </div><div class="space-12"></div>
@@ -39,9 +38,7 @@
 										<tbody>
 											@foreach($demande->dispositifs as $dispositif)
 												<tr>
-													<td>{{ $dispositif->code}}</td>
-													<td>{{ $dispositif->nom}}</td>
-													<td>/</td>
+													<td>{{ $dispositif->code}}</td><td>{{ $dispositif->nom}}</td><td>/</td>
 													<td>DISPOSITIFS MEDICAUX</td>
 													<td  class="center">{{ $dispositif->pivot->qte }}</td>
 													@if($demande->etat == "1")
@@ -52,10 +49,8 @@
 											@endforeach
 											@foreach($demande->medicaments as $medicament)
 												<tr>
-													<td>{{ $medicament->code_produit }}</td>
-													<td>{{ $medicament->nom }}</td>
-													<td>{{ $medicament->specialite->nom }}</td>
-													<td><span>MEDICAMENTS</span></td>
+													<td>{{ $medicament->code_produit }}</td><td>{{ $medicament->nom }}</td>
+													<td>{{ $medicament->specialite->nom }}</td><td><span>MEDICAMENTS</span></td>
 													<td  class="center">{{ $medicament->pivot->qte }}</td>
 													@if($demande->etat == "1")
 													<td  class="center">{{ $medicament->pivot->qteDonne }}</td>
@@ -65,9 +60,7 @@
 											@endforeach
 											@foreach($demande->reactifs as $reactif)
 												<tr>
-													<td>{{ $reactif->code }}</td>
-													<td>{{ $reactif->nom }}</td>
-													<td>/</td>
+													<td>{{ $reactif->code }}</td><td>{{ $reactif->nom }}</td><td>/</td>
 													<td><span>Réactifs chimiques et dentaires</span></td>
 													<td class="center">{{ $reactif->pivot->qte }}</td>
 													@if($demande->etat == "1")
@@ -78,9 +71,7 @@
 											@endforeach
 											@foreach($demande->consomables as $consomable)
 												<tr>
-													<td>{{ $consomable->code }}</td>
-													<td>{{ $consomable->nom }}</td>
-													<td>/</td>
+													<td>{{ $consomable->code }}</td><td>{{ $consomable->nom }}</td><td>/</td>
 													<td>Produits consommables de Labo</td>
 													<td class="center">{{ $consomable->pivot->qte }}</td>
 													@if($demande->etat == "1")

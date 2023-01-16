@@ -9,9 +9,9 @@
 	    <div class="modal-body">
        	<input type="hidden" id="date"><input type="hidden" id="fin">
         <input type="hidden" id="fixe"><input type="hidden" id="pat_id">
-        @if(Auth::user()->role_id == 15)
+        @if(Auth::user()->is(15))
 			  <div class="panel panel-default">
- 			    <div class="panel-heading">&nbsp;<span>Selectionner une spécialité</span></div>
+ 			    <div class="panel-heading"> <span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
        	   	<div class="form-group">
 		         	<label class="col-form-label blue" for="specialite">Spécialité :</label>  
@@ -27,7 +27,7 @@
         @isset($appointDoc)
         <div class="panel panel-default">
           <div class="panel-heading">
-          <i class="ace-icon fa  fa-user-md bigger-110"></i><span> Selectionner une médecin</span></div>
+          <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une médecin</span></div>
           <div class="panel-body">
             <div class="form-group">
               <label class="col-form-label blue">Médecin :</label>  
@@ -46,7 +46,7 @@
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
           		  	<label class="col-form-label blue" for="filtre">Filtre :</label> 
-          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+          	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
          		        <option value="" selected disabled="">Selectionner...	</option>
 	                 		<option value="Nom">Nom</option>
 	                  	<option value="Prenom">Prenom</option>
@@ -56,7 +56,7 @@
 	          	</div><div class="col-sm-1"></div>
 	          	<div class="col-sm-7">
 			          <div class="form-group">
-			          	<label class="col-form-label" for="patient">&nbsp;</label>
+			          	<label class="col-form-label" for="patient">&nbsp; </label>
 			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off"><div id="livesearch" class="list-unstyled"></div>
                 </div>
 			          	</div>
@@ -66,7 +66,7 @@
 	        </div><!-- modal-body -->
 	        <div class="modal-footer">
 		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save"></i> Enregistrer</button>    
-			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"></i> Annuler</button>
+			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
 		      </div>
       	</form>
   		</div>

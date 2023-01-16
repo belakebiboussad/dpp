@@ -6,7 +6,7 @@
 			  <form action="#" method="POST">
         <input type="hidden" id="dh_id" value="">
 			    <div class="row">
-			      <div class="col-xs-12"><label for="modeAdmissionHospi"><strong>Mode d'admission  :</strong></label>
+			      <div class="col-xs-12"><label for="modeAdmissionHospi">Mode d'admission :</label>
 			     	  <select class="form-control" id="modeAdmissionHospi">
 				       	<option value="" selected disabled>Sélectionner...</option>
 				        @foreach($modesAdmission as $mode =>$value)
@@ -17,7 +17,7 @@
 			    </div><div class="space-12"></div>
         	<div class="row">
 			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi"><b>Spécialité :</b></label>
+			     		<label for="specialiteHospi">Spécialité :</label>
 					   	<select class="form-control" id="specialiteHospi">
 						    @foreach($specialites as $specialite)
 						   	<option value="{{ $specialite->id}}" @if( $employe->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
@@ -28,7 +28,7 @@
 			    </div>
 			    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label for="serviceHospi"><b>Service:</b></label>
+			     	 	<label for="serviceHospi">Service :</label>
 					    <select class="form-control" id="serviceHospi">
 							  @foreach($services as $service)
 							  <option value="{{ $service->id }}" @if( $employe->service_id == $service->id) selected @endif>{{ $service->nom }}</option>
@@ -40,7 +40,7 @@
 			</div>
 		  <div class="modal-footer">
         <button type="button" class="btn btn-success btn-sm" id="DHospadd"  data-dismiss="modal" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
+        <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}

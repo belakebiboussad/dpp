@@ -41,7 +41,7 @@
           <input type="text" class="form-control" id="unite" palceholder="Unité">
         </div><div class="hr hr-dotted"></div>
         <div class="pull right">
-          <button id="ajoutercmd" class="btn btn-sm btn-success" disabled>
+          <button id="ajoutercmd" class="btn btn-sm btn-primary" disabled>
             <i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i> Ajouter</button>
         </div>
       </div>

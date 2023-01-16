@@ -456,9 +456,9 @@
       $('.date-picker').datepicker({
               autoclose: true,
               todayHighlight: true,
-              dateFormat: 'MM/DD/YYYY',//dateFormat: 'yy-mm-dd',
+              dateFormat: 'MM/DD/YYYY',
               flat: true,
-              calendars: 1,//language: 'fr',
+              calendars: 1,
               changeYear: true,
               yearRange: "-120:+80"
       }).on('click', function(e) {

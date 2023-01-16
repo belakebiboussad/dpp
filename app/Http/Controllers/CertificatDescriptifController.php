@@ -42,7 +42,7 @@ class CertificatDescriptifController extends Controller
   public function print($id)
   {
     $today =  Carbon::today()->format('d/m/Y');
-    $certif = CertificatDescriptif::FindOrFail($id);// dd($certif->consultation->patient);
+    $certif = CertificatDescriptif::FindOrFail($id);
     $etab = Etablissement::first();
     $pdf = PDF::loadView('consultations\EtatsSortie.certifDescPDF', compact('certif','etab','today'));
     $filename = $certif->consultation->patient->Nom . "-" . $certif->consultation->patient->Prenom . ".pdf";

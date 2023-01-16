@@ -20,15 +20,7 @@
         background: #fff;
         font-weight: bold;
         margin: 0 auto;
-      }
-      input.larger {
-        transform: scale(2);
-        margin: 30px;
-      }
-      [type="checkbox"]
-      {
-          vertical-align:middle;
-      }
+      }/*input.larger{transform:scale(2);margin: 30px;}*/
     </style>
   </head>
   <body>
@@ -53,11 +45,7 @@
     je soussigné(e), Docteur {{ $certif->consultation->medecin->full_name }}, avoir examiné le sus nommé qui présente :
     </div><br>
     <div>{{$certif->examen}}</div><br>
-    <div> 
-        <label>
-          <input type="checkbox" id="iscronic" class=""/>Il s'agit d'une maladie chronique.
-        </label>
-    </div>
+    <div><span>{{ ($certif->isChronic) ? "Il s'agit d'une maladie chronique." :''}}</span></div>
     <div class="footer"><div class="textCenter">Certificat établit pour servir et valoir ce que de droit.</div>
     </div>
   </div>

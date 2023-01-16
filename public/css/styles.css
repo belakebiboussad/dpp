@@ -43,7 +43,7 @@
 .mt-40 { margin-top:-40px; }
 .mt-50 { margin-top:-50px; }
 /*teste*/
-..mtp10 {  margin-top: +10px !important; }
+.mtp10 {  margin-top: +10px !important; }
 .mtp20 {  margin-top: +20px !important; }
 .mtp33 {  margin-top: +33px !important; }
 /*teste*/
@@ -181,7 +181,7 @@ ol { list-style: none; counter-reset: li }
 .espace{ margin-left:6em }
 .tab{ margin-left:3em;}
 .tab-space40{ margin-left:40em;}
-.tab-space42{ margin-left:42em;}
+.ml-46{ margin-left:46em;}
 .textCenter {  text-align: center;}
 .brd-0 { border:0px; }
 .brd-2 { border:3px solid black; }
