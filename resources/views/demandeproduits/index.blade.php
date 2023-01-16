@@ -8,8 +8,7 @@
  	  if(data.etat == null)
       if({{ (Auth::user()->role_id) }} == 14 )
  		  {
-      
-   	    actions +=' <a href="/demandeproduit/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Demande"><i class="fa fa-edit fa-xs"></i></a>';
+        actions +=' <a href="/demandeproduit/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Demande"><i class="fa fa-edit fa-xs"></i></a>';
    	   	actions += '<button class="btn btn-xs btn-danger deletedemande" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';   
    	  } else
         actions +=' <a href="/demandeproduit/run/'+data.id+'" class="btn btn-info btn-xs" title="Traiter Demande"><i class="ace-icon fa fa-cog  bigger-110"></i>';
