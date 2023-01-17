@@ -70,7 +70,7 @@ td
       </div>{{-- modal-body --}}
 		  <div class="modal-footer">
           <div class="col-sm-12">
-			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="OrientationSave()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</button>
 				  <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>
@@ -99,7 +99,7 @@ td
           $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
           jQuery('#LettreOrientationAdd').modal('show');
       });
-      $('#orientationSave').click(function (e) {//save Orientation
+      $('#orientationSave').click(function (e) {
          e.preventDefault();
         var formData = {
            _token          : CSRF_TOKEN,
@@ -121,7 +121,7 @@ td
             url: url,
             data: formData,
             success: function (data) {
-              var orientation ='<tr id="'+ data.id + '"><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
+              var orientation ='<tr id="'+ data.id + '"><td class="hidden">'+data.specialite.id+'</td><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
               orientation +='<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit"></i></button>';
               orientation +=' <button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>';
               orientation +=' <button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -133,20 +133,20 @@ td
             }
         });
     });
-    $('body').on('click', '.open-Orient', function (event) {
-      event.preventDefault();
-      var id = $(this).val();
-      $.get('/orientLetter/'+id+'/edit', function (data) {
-         $('#orient_id').val(data.id);
-        $("#specialiteOrient").val(data.specialite.id).change();
-        $("#motifC").val(data.motif);
-        $("#motifOrient").val(data.examen);
-        $('#orientationSave').val("update");
-        $('#orientationSave').attr('data-id',data.id);
-        $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
-        $('#LettreOrientationAdd').modal('show');
-      }); 
-    });
+    // $('body').on('click', '.open-Orient', function (event) {
+    //   event.preventDefault();
+    //   var id = $(this).val();
+    //   $.get('/orientLetter/'+id+'/edit', function (data) {
+    //      $('#orient_id').val(data.id);
+    //     $("#specialiteOrient").val(data.specialite.id).change();
+    //     $("#motifC").val(data.motif);
+    //     $("#motifOrient").val(data.examen);
+    //     $('#orientationSave').val("update");
+    //     $('#orientationSave').attr('data-id',data.id);
+    //     $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
+    //     $('#LettreOrientationAdd').modal('show');
+    //   }); 
+    // });
     $('body').on('click', '#orientationPrint', function (event) {
         var fileName ='orientLetter-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
         var tr = document.getElementById($(this).val());
@@ -165,26 +165,13 @@ td
         });
         var canvas = document.getElementById('barcode');
         var jpegUrl = canvas.toDataURL("image/jpeg");
-        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        pdf.addImage(jpegUrl, 'JPEG', 25, 185);
         pdf.setFontSize(12);//pdf.text(120,30, 'Cher confrére');
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
-    $('body').on('click', '.delete-orient', function (event) {
-      event.preventDefault();
-      var formData = {_token: CSRF_TOKEN };
-      var id =$(this).val();
-      $.ajax({
-          type: "DELETE",
-          url: '/orientLetter/' + id,
-          data: formData,
-          success: function (data) {
-            $("#"+id).remove();
-          }
-      });
-    });
     $('#certifDescrip-add').click(function (e) {
-      $('#decriptifSave').val("add");   $('#modalFormDescript').trigger("reset");$('#CertifDescrAdd').modal('show');
+      $('#decriptifSave').val("add");  $('#modalFormDescript').trigger("reset");$('#CertifDescrAdd').modal('show');
     });
     $('#decriptifSave').click(function (e) {//ADD Orientation
       e.preventDefault();

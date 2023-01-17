@@ -297,7 +297,7 @@ $('document').ready(function(){
 @endisset
 @if($consultation->lettreOrintation->count()>0)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16"><b>Lettres d'Orientation</b></span></div>
+  <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16">Lettres d'Orientation</span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -308,19 +308,21 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead class="thin-border-bottom">
               <tr>
-                <th class="center"><b>Spécilalité</b></th>
-                <th class="center" width="12%"><em class="fa fa-cog"></em></th>
+                <th class="center">Spécilalité</th>
+                <th class="center">Motif</th>
+                <th class="center" width="15%"><em class="fa fa-cog"></em></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 @foreach($consultation->lettreOrintation as $orient)
                 <td>{{ $orient->Specialite->nom }}</td>
-                <td class="center">
-                  <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".{{ $orient->id }}collapsed">
+                <td><small>{{ $orient->motif }}</small></td>
+                <td class="center" width="15%">
+                  <a href="#" class="btn btn-success btn-xs show-details-btn" title="Afficher Details" data-toggle="collapse" data-target=".{{ $orient->id }}collapsed">
                     <i class="ace-icon fa fa-eye-slash fa-xs"></i><span class="sr-only">Details</span>
                   </a>
-                  <a href="{{route("orientLetToPDF",$orient->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
+                  <a href="{{route('orientLetToPDF',$orient->id)}}" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-print"></i></a>
                 </td>
               </tr>
               <tr class="collapse out budgets {{ $orient->id }}collapsed">

@@ -57,20 +57,11 @@
               showRdvModal(debut,fin,0,fixe); 
         }
         function copyPatient(){ 
-          /*
-          $("#nomf").val($("#nom").val());
-          $("#prenomf").val($("#prenom").val());
-          $("#datenaissancef").val($("#datenaissance").val());
-          $("#lieunaissancef").val($("#lieunaissance").val()); 
-          $("#idlieunaissancef").val($("#idlieunaissance").val());
-          var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
-          $('#adressef').val($('#adresse').val());
-          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());
-          $('#idwilayaf').val( $('#idwilaya').val()); 
-          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-          $("#foncform").addClass('hidden');$("#gsf").val($("#gs option:selected").val()); 
-          $("#rhf").val($("#rh option:selected").val());
-          */
+/*$("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());         
+$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
+$("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);$('#adressef').val($('#adresse').val());
+$('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());
+$('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val()); $("#foncform").addClass('hidden');$("#gsf").val($("#gs option:selected").val());$("#rhf").val($("#rh option:selected").val());*/
           $("#asdemogData").addClass('hidden');
           $("#foncform").addClass('hidden');
         }

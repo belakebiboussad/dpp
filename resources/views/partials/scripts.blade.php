@@ -683,6 +683,6 @@
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
             pdf.save(fileName);
           }, 
-         margins);/*iframe =document.getElementById('ipdf'); iframe.src = pdf.output('datauristring');$("#crrModal").modal();*/
+         margins);/*iframe =document.getElementById('ipdf');iframe.src =pdf.output('datauristring');$("#crrModal").modal();*/ 
       }
 </script>

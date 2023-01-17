@@ -17,7 +17,7 @@
 				  	</select>
           </div>
 		      <div class="form-group">  
-			  		<label for="motif">Motif de consultation :</label>     
+			  		<label for="motif">Motif d'orientation :</label>     
 						<textarea class="form-control" id="motifC" cols="10" rows="3"></textarea>
           </div>
           <div class="form-group">  
@@ -28,7 +28,7 @@
 			</div>
 		  <div class="modal-footer">
           <div class="col-sm-12">
-			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="orientationSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="orientationSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</button>
           <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
 			  </div>
       </div>
@@ -45,3 +45,34 @@
 		</div>
 	</div>
 </div>
+<script>
+$(function(){
+  $('body').on('click', '.open-Orient', function (event) {
+    event.preventDefault();
+    var id = $(this).val();
+    $.get('/orientLetter/'+id+'/edit', function (data) {
+      $('#orient_id').val(data.id);
+      $("#specialiteOrient").val(data.specialite.id).change();
+      $("#motifC").val(data.motif);
+      $("#motifOrient").val(data.examen);
+      $('#orientationSave').val("update");
+      $('#orientationSave').attr('data-id',data.id);
+      $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
+      $('#LettreOrientationAdd').modal('show');
+    }); 
+  });
+  $('body').on('click', '.delete-orient', function (event) {
+    event.preventDefault();
+    var formData = {_token: CSRF_TOKEN };
+    var id =$(this).val();
+    $.ajax({
+          type: "DELETE",
+          url: '/orientLetter/' + id,
+          data: formData,
+          success: function (data) {
+            $("#"+id).remove();
+          }
+      });
+    });
+});
+</script>

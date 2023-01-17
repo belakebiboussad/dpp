@@ -302,17 +302,6 @@
           $("#interpretation").attr("value", "Obésité III (morbide)");  
           }
       }
-      //save input modal to input form
-      function OrientationSave() {//$('#specialite').val($('#specialiteOrient').val());$('#motifOr').val($('#motifOrient').val()); // $('#medecin').val($('#medecinOrient').val());
-        var orientations = document.getElementById("orientationsList").rows;
-        var longueur = orientations.length; var orientationliste = []; 
-        for(var i=1; i<longueur; i++)
-        {
-          orientationliste[i-1] = { specialite: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
-        }
-        var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
-        champ.appendTo('#consultForm');
-      }
       function selectFill(id,options,field1,field2)
       {
         var select = $('#'+id).empty();

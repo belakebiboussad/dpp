@@ -114,11 +114,11 @@ class ConsultationsController extends Controller
         ]);
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
-          $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
                 'motif' => 'required',
                 'resume' => 'required',
          ]);
-         if($validator->fails())
+        if($validator->fails())
            return redirect()->back()->withErrors($validator)->withInput();
         if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
               $specialite = Auth::user()->employ->Specialite;
@@ -156,12 +156,7 @@ class ConsultationsController extends Controller
           Constantes::create($constvalue->toArray());
           $consult->examensCliniques()->save($exam);
         }
-        if(json_decode($request->orients) !== null) {
-          foreach (json_decode($request->orients, true) as $key => $orient) {
-            $orient['consultation_id'] = $consult->id ;
-            LettreOrientation::create($orient);
-          }
-        }
+/*if(json_decode($request->orients) !== null) {foreach (json_decode($request->orients, true) as $key => $orient) {$orient['consultation_id'] = $consult->id ;LettreOrientation::create($orient);}}*/
         if($request->liste != null)//save Ordonnance
         {
           $ord = new ordonnance;$ord->id_consultation = $consult->id;
@@ -176,8 +171,7 @@ class ConsultationsController extends Controller
           $consult->demandeexmbio()->save($demandeExamBio);
           foreach($request->exmsbio as $id_exb) {//$demandeExamBio->examensbios()->attach($id_exb);
             $exam = new demandeexb_examenbio;
-            $exam->id_demandeexb = $demandeExamBio->id;
-            $exam->id_examenbio = $id_exb;
+            $exam->id_demandeexb = $demandeExamBio->id; $exam->id_examenbio = $id_exb;
             $exam->save();
           }
         }

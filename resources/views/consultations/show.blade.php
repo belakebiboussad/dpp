@@ -18,7 +18,7 @@
 </div><div class="space-12"></div>
 <div class="page-header"><h1>Détails de la Consultation du &quot;{{ $consultation->date->format('Y-m-d')}}&quot;</h1></div> 
   <div class="tabbable"  class="user-profile">
-    <ul class="nav nav-tabs padding-24">
+    <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
         @isset($consultation->demandeHospitalisation) 
         <li ><a data-toggle="tab" href="#DH">Demande d'hospitalisation</a> </li>
@@ -36,11 +36,11 @@
           <li ><a data-toggle="tab" href="#Orients">Lettres d'orientations</a></li> 
         @endif
     </ul>
-    <div class="tab-content no-border padding-24">
+    <div class="tab-content no-border">
       <div id="Intero" class="tab-pane in active">
         <div class="row">
           <ul class="list-unstyled spaced">
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Spécialite de la consultation :</span>
+            <li><i class="ace-icon fa fa-caret-right"></i><span>Spécialite de la consultation :</span>
              <span class="badge badge-pill badge-success">
               @if(isset($consultation->medecin->specialite))
               {{ $consultation->medecin->Specialite->nom }}
@@ -49,20 +49,20 @@
               @endif
              </span>
              </li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
-            <li><i class="ace-icon fa fa-caret-right blue"></i><span>Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
+            <li><i class="ace-icon fa fa-caret-right"></i><span>Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
+            <li><i class="ace-icon fa fa-caret-right"></i><span>Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
+            <li><i class="ace-icon fa fa-caret-right"></i><span>Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
+            <li><i class="ace-icon fa fa-caret-right"></i><span>Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
           </ul>
         </div>
       </div>{{-- Intero --}}
        @isset($consultation->demandeHospitalisation) 
       <div id="DH" class="tab-pane">
        <div class="row">
-          <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right"> <span class="ft16">Demande d'hospitalisation</span></div>
+          <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right"><span class="ft16">Demande d'hospitalisation</span></div>
         </div>
         <div class="row">
-        <div class="col-xs-11 widget-container-col" >
+        <div class="col-xs-12 widget-container-col" >
         <div class="widget-box widget-color-blue">
           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
             <div class="widget-body">
@@ -70,12 +70,11 @@
             <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
-                    <th class="center">Mode Admission</th> <th class="center">Spécialité</th>
-                    <th class="center">Service</th>
-                    <th class="center">Etat</th>
-                    @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-                        <th class="center"><em class="fa fa-cog"></em></th>
-                    @endif
+                <th class="center">Mode Admission</th><th class="center">Spécialité</th>
+                <th class="center">Service</th><th class="center">Etat</th>
+                  @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+                      <th class="center"><em class="fa fa-cog"></em></th>
+                  @endif
               </tr>
             </thead>
             <tbody>
@@ -150,41 +149,41 @@
             <div class="row">
               <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'examen biologique</span> </div>
             </div>
-                <div class="row">
-                     <div class="col-xs-11 widget-container-col" >
-                          <div class="widget-box widget-color-blue">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
-                          <div class="widget-body">
-                               <div class="widget-main no-padding">
-                               <table class="table table-striped table-bordered table-hover">
-                               <thead class="thin-border-bottom">
-                                  <tr>
-                                    <th class="center">Date</th><th class="center">Etat</th>
-                                    <th class="center"><em class="fa fa-cog"></em></th>
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                                    <td>
-                                        <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}"> {{ $consultation->demandeexmbio->etat }}</span>
-                                    </td>
-                                    <td class="center">
-                                      <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                      @if($consultation->medecin->id == Auth::user()->employ->id)
-                                        @if($consultation->demandeexmbio->etat == "En Cours")
-                                        <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                        <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
-                                        @endif
-                                      <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
-                                      @endif
-                                    </td>
-                                </tbody>
-                              </table>
-                               </div>  
-                          </div>
-                          </div>
-                     </div>
+            <div class="row">
+              <div class="col-xs-12 widget-container-col" >
+                  <div class="widget-box widget-color-blue">
+                  <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
+                  <div class="widget-body">
+                       <div class="widget-main no-padding">
+                       <table class="table table-striped table-bordered table-hover">
+                       <thead class="thin-border-bottom">
+                          <tr>
+                            <th class="center">Date</th><th class="center">Etat</th>
+                            <th class="center"><em class="fa fa-cog"></em></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ $consultation->date->format('Y-m-d') }}</td>
+                            <td>
+                                <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}"> {{ $consultation->demandeexmbio->etat }}</span>
+                            </td>
+                            <td class="center">
+                              <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                              @if($consultation->medecin->id == Auth::user()->employ->id)
+                                @if($consultation->demandeexmbio->etat == "En Cours")
+                                <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
+                                <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
+                                @endif
+                              <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
+                              @endif
+                            </td>
+                        </tbody>
+                      </table>
+                       </div>  
+                  </div>
+                  </div>
+                  </div>
                 </div><div class="space-12"></div>{{-- biologique --}}  
                 @endif
                 @if(isset($consultation->demandExmImg))
@@ -192,7 +191,7 @@
                   <span class="ft16">Demande d'examen d'imagerie</span></div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-11 widget-container-col">
+                  <div class="col-xs-12 widget-container-col">
                     <div class="widget-box widget-color-pink">
                           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
                           <div class="widget-body">
@@ -232,7 +231,7 @@
                   <span class="ft16">Ordonnance</span></div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-11 widget-container-col">
+                  <div class="col-xs-12 widget-container-col">
                     <div class="widget-box widget-color-blue">
                       <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5></div>
                         <div class="widget-body">
@@ -267,7 +266,7 @@
           @isset($consultation->lettreOrintation)
           <div id="Orients" class="tab-pane">
             <div class="row">
-              <div class="col-xs-11 widget-container-col">
+              <div class="col-xs-12 widget-container-col">
                 <div class="widget-box widget-color-blue">
                   <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5> </div>
                   <div class="widget-body">
@@ -275,8 +274,7 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead class="thin-border-bottom">
                           <tr>
-                            <th class="center">Spécialité</th>
-                            <th class="center">Motif</th>
+                            <th class="center">Spécialité</th>  <th class="center">Motif</th>
                             <th class="center">Examen</th>
                             <th class="center"><em class="fa fa-cog"></em></th>
                           </tr>
@@ -288,9 +286,8 @@
                           <td>{{ $orient->motif }}</td>
                           <td>{{ $orient->examen }}</td>
                           <td class="center">
-                          <a href="{{ route('orientLetter.edit', $orient->id) }}" class="btn btn-xs btn-success open-orient" data-toggle="tooltip" title="Modifier la lettre" data-placement="bottom">
-                            <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
-                          </a>
+                          <button class="btn btn-xs btn-success open-orient" data-toggle="tooltip" title="Modifier la lettre" data-placement="bottom" value='{{ $orient->id }}'><i class="ace-icon fa fa-pencil" aria-hidden="true"></i> 
+                          </button>
                           <button type="button" class="orient-delete btn btn-xs btn-danger" value='{{ $orient->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
                           </td>
                         </tr>   
@@ -303,11 +300,11 @@
               </div>
             </div>
           </div><!-- orients -->
+          <div class="row">@include('consultations.ModalFoms.LettreOrientationAdd',['patient'=>$consultation->patient])</div>
           @endisset
          </div>{{-- tab-content  --}}
     </div>  {{-- tabbable --}}
 </div>    {{-- container-fluid --}}
-<div class="row">@include('consultations.ModalFoms.LettreOrientationAdd',['patient'=>$consultation->patient])</div>
 @endsection
 @section('page-script')
 @include('consultations.scripts.functions')
@@ -330,27 +327,6 @@
         error: function (data) {
           console.log('Error:', data); 
         } 
-      }); 
-    });
-    $('body').on('click', '.open-orient', function (event) {
-      event.preventDefault();
-      var id = $(this).val();
-      $.get('/orientLetter/' + id, function (data) { 
-        alert(data.id);
-        /*
-        $('#acc_id').val(data.id);
-        $('#lieu').val(data.etablisement);
-        $('#terme').val(data.terme);
-        $('#presentation').val(data.presentation);
-        $('#eggopenduration').val(data.eggopenduration);
-        $('#workduration').val(data.workduration);
-        $('#expulsduration').val(data.expulsduration);
-        $('#incident').val(data.incident);
-        $('#type').val(data.typeId).change();
-        $('#motiftype').val(data.motif);
-        $('#accouchSave').val("update");
-        $('#accouchementModal').modal('show');
-        */
       }); 
     });
   })

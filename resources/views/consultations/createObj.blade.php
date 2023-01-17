@@ -105,7 +105,7 @@ $(function(){
   /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
   $("#isOriented").change(function() {
     if( $("#hidden_fields").hasClass('hidden'))
-      $("#hidden_fields").removeClass('hidden');//show();
+      $("#hidden_fields").removeClass('hidden');
     else {
       $("#hidden_fields").addClass('hidden');
       $("#lettreorientaioncontent").val("");
@@ -312,8 +312,7 @@ $(function(){
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Oui',
-            cancelButtonText: "Non",
-            //closeOnConfirm: true, //timer: 2000, //icon: 'warning',
+            cancelButtonText: "Non",//closeOnConfirm: true, //timer: 2000, //icon: 'warning',
             showCloseButton: true
           }).then((result) => {
               if(result.value)
@@ -337,8 +336,7 @@ $(function(){
       ol.innerHTML = '';
       $("#ordonnance tbody tr").each(function(key,value){
         $("ol").append('<li><h4>'+(key+1)+'- '+ $(this).find('td:eq(1)').text() 
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(3)').text()
+                + '  '+ $(this).find('td:eq(2)').text() + '  '+ $(this).find('td:eq(3)').text()
                 +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
       }); 
       var pdf = new jsPDF('p', 'pt', 'a4');
@@ -352,7 +350,7 @@ $(function(){
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 53, 180);//165
+      pdf.addImage(jpegUrl, 'JPEG', 53, 180);
       generate(fileName,pdf,'ordPdf');
     });//teste
     $("#DHospadd").click(function(e){
