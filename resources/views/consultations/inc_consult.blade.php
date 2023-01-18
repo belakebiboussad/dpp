@@ -34,7 +34,7 @@ $('document').ready(function(){
   });
   jQuery('body').on('click', '.delete-ordonnance', function (e) {
       event.preventDefault();
-      var ord_id = $(this).val();
+      var id = $(this).val();
       $.ajaxSetup({
             headers: {
              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -42,9 +42,9 @@ $('document').ready(function(){
       });
       $.ajax({
           type: "DELETE",
-          url: '/ordonnace/' + ord_id,
+          url: '/ordonnace/' + id,
           success: function (data) {
-            $("#ordonnace" + ord_id).remove();
+            $("#ordonnace" + id).remove();
           },
           error: function (data) {
             console.log('Error:', data);

@@ -15,14 +15,14 @@ class MedicamentsController extends Controller
       }
     public function getmed($id)
     {
-         $med = medicament::FindOrFail($id);
-        return json_encode($med);
+      $med = medicament::FindOrFail($id);
+      return json_encode($med);
     }
     public function getmedicaments()
     {
        $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']); 
        return Datatables::of($medicaments)
-              ->addColumn('action', function ($medicament) {//<div class="btn-group">hidden-sm hidden-xs 
+              ->addColumn('action', function ($medicament) {
                      return '<button class="btn btn-xs btn-primary" onclick="editMedicm('.$medicament->id.')"><i class="ace-icon  fa fa-plus-circle"></i></button>';
       }) ->make(true);
     }

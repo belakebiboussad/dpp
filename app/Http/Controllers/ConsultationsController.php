@@ -120,10 +120,10 @@ class ConsultationsController extends Controller
          ]);
         if($validator->fails())
            return redirect()->back()->withErrors($validator)->withInput();
-        if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
-              $specialite = Auth::user()->employ->Specialite;
+        if(isset(Auth::user()->employ->specialite) && (!is_null(Auth::user()->employ->specialite)))
+          $specialite = Auth::user()->employ->Specialite;
         else
-              $specialite = Auth::user()->employ->Service->Specialite;
+          $specialite = Auth::user()->employ->Service->Specialite;
         $consult = consultation::FindOrFail($request->id);
         $consult -> update([
               "motif"=>$request->motif,
@@ -139,41 +139,40 @@ class ConsultationsController extends Controller
           if( $rdv->date->format('Y-m-d')  == $consult->date)
             $rdv->update(['etat'=>1]);
         }
-        if($specialite->consConst != "null" ) {
+        if(!is_null($specialite->consConst)) 
+        {
           foreach(json_decode($specialite->consConst) as $const)
           {
             $c = Constante::FindOrFail($const);
-            if( $c->normale  !=  $request->input($c->nom)  && ($c->min  !=  $request->input($c->nom)) && ($request->input($c->nom)) != null)
+            if( $c->normale  !=  $request->input($c->nom)  && ($c->min !=  $request->input($c->nom)) && (! is_null($request->input($c->nom))))
               $constvalue->put($c->nom, $request->input($c->nom));
           }
         }
         if($constvalue->count()>0)
         {
-          $input = $request->all();
-          $input['id_consultation'] = $consult->id ;
-          $exam = examen_cliniqu::create($input);
-          $constvalue['examCl_id'] = $exam->id ;
-          Constantes::create($constvalue->toArray());
-          $consult->examensCliniques()->save($exam);
+          $exam = $consult->examensCliniques()->create($request->all());
+          $cst = $exam->Consts()->create($constvalue->toArray());
         }
-/*if(json_decode($request->orients) !== null) {foreach (json_decode($request->orients, true) as $key => $orient) {$orient['consultation_id'] = $consult->id ;LettreOrientation::create($orient);}}*/
-        if($request->liste != null)//save Ordonnance
+        if(!is_null($request->listMeds))//save Ordonnance
         {
-          $ord = new ordonnance;$ord->id_consultation = $consult->id;
-          $consult->ordonnances()->save($ord);
-          foreach (json_decode($request->liste) as $key => $trait) {
+          $ord =$consult->ordonnances()->create();
+          foreach (json_decode($request->listMeds) as $key => $trait) {
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-        if((!isset($consult->demandeexmbio)) && ( $request->exmsbio  != null) && (count($request->exmsbio) >0 ))
+        if((is_null($consult->demandeexmbio)) && (!is_null($request->exmsbio)))
         {
-          $demandeExamBio = new demandeexb;
-          $consult->demandeexmbio()->save($demandeExamBio);
-          foreach($request->exmsbio as $id_exb) {//$demandeExamBio->examensbios()->attach($id_exb);
-            $exam = new demandeexb_examenbio;
-            $exam->id_demandeexb = $demandeExamBio->id; $exam->id_examenbio = $id_exb;
-            $exam->save();
+          $db = $consult->demandeexmbio()->create();
+          //dd($request->exmsbio);
+          foreach($request->exmsbio as $id_exb) {
+            dd($id_exb);
+            $db->examensbios()->create([
+              'id_examenbio' =>$id_exb
+            ]);
+/*$exam = new demandeexb_examenbio;$exam->id_demandeexb = $demandeExamBio->id; $exam->id_examenbio = $id_exb;
+$exam->save();*/
           }
+          dd($consult->demandeexmbio()->examensbios);
         }
         if((!isset($consult->demandExmImg)) && (!empty($request->ExamsImg)))
         { 

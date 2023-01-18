@@ -106,7 +106,6 @@ class OrdonnanceController extends Controller
     }
     public function destroy($id)
     {
-          $ord = ordonnance::destroy($id);
-          return Response::json($ord);
+      return ordonnance::destroy($id);
     }
 }

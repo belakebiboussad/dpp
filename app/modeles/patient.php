@@ -7,7 +7,7 @@ class patient extends Model
 	public $timestamps = true;
 	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
   protected $dates =['Dat_Naissance'];
-  protected $appends = ['full_name','age','civ','allergs'];
+  protected $appends = ['full_name','age','civ'];
   public function scopeActive($q)
   {
     return $q->where('active',1);
@@ -40,10 +40,6 @@ class patient extends Model
           return 1;
           break;     
     }
-  }
-  public function getAllergsAttribute()
-  {
-    return $this->Allergies->pluck('id')->toArray();
   }
   public function lieuNaissance()
 	{

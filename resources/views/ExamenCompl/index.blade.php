@@ -169,13 +169,13 @@
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-                examsBioSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+          examsBioSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
                 break;
         case 1:
-                examsImgSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+          examsImgSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
                 break;
-         default :
-                break;
+        default :
+          break;
       }
     })
   })

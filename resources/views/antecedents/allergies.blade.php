@@ -4,7 +4,7 @@
   <div class="col-xs-4 col-sm-2">
     <div class="checkbox">
       <label>
-        <input name="exmsbio[]" type="checkbox" class="ace allerg" value="{{ $al->id }}" {{  (in_array($al->id, $patient->allergs))? 'checked' : '' }} />
+        <input name="exmsbio[]" type="checkbox" class="ace allerg" value="{{ $al->id }}" {{  (in_array($al->id, $patient->Allergies->pluck('id')->toArray()))? 'checked' : '' }} />
         <span class="lbl"> {{ $al->nom }} </span> 
       </label>
        </div>
