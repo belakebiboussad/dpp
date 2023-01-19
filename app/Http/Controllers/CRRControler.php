@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CRR;
 use App\modeles\demandeexr;
-use App\modeles\Demandeexr_Examenradio;
+use App\modeles\Demande_Examenradio;
 use App\modeles\Etablissement;
 use Response;
 use PDF;
@@ -18,7 +18,7 @@ class CRRControler extends Controller
   }
   public function store(Request $request)
   {
-    $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
+    $ex = Demande_Examenradio::FindOrFail($request->exam_id); 
     $crr = CRR::create($request->all());
     $ex->update(["etat" =>1,'crr_id'=>$crr->id]);
     return ['exId'=>$ex->id,'crrId'=>$crr->id];

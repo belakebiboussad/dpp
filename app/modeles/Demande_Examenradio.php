@@ -4,10 +4,10 @@ namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Demandeexr_Examenradio extends Model
+class Demande_Examenradio extends Model
 {
   public $timestamps = false;
-  protected $table = "demandeexr_examenradio";
+  protected $table = "demande_examenradio";
   protected $fillable = ['demande_id','exm_id','type_id','resultat','etat','observation','crr_id'];
   public const ETATS = [
     ''=> 'En Cours',

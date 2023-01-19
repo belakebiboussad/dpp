@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
-use App\modeles\demandeexb_examenbio;
 use Illuminate\Support\Facades\Auth;
 use Response;
 class ExamenbioController extends Controller
@@ -84,11 +83,9 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($examid, $demandeid){dd($examid);// dd($id); }*/
     public function destroy(Request $request, $id)
     {
-          $ex = demandeexb_examenbio::where('id_examenbio',$id)->where('id_demandeexb', $request->demande_id)->first();
-          $ex->delete();
-          return $ex;
+      $demande = demandeexb::FindOrFail($request->demande_id);
+      return $demande->examensbios()->detach($id);
     }
 }

@@ -13,8 +13,7 @@ use App\modeles\Etablissement;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\examenbiologique;
 use App\modeles\examenimagrie;
-use App\modeles\demandeexb_examenbio;
-use App\modeles\Demandeexr_Examenradio;
+use App\modeles\Demande_Examenradio;
 use App\modeles\examenanapath;
 use App\modeles\hospitalisation;
 use App\modeles\service;
@@ -153,7 +152,7 @@ class ConsultationsController extends Controller
           $exam = $consult->examensCliniques()->create($request->all());
           $cst = $exam->Consts()->create($constvalue->toArray());
         }
-        if(!is_null($request->listMeds))//save Ordonnance
+        if(!is_null($request->listMeds))
         {
           $ord =$consult->ordonnances()->create();
           foreach (json_decode($request->listMeds) as $key => $trait) {
@@ -163,35 +162,23 @@ class ConsultationsController extends Controller
         if((is_null($consult->demandeexmbio)) && (!is_null($request->exmsbio)))
         {
           $db = $consult->demandeexmbio()->create();
-          //dd($request->exmsbio);
-          foreach($request->exmsbio as $id_exb) {
-            dd($id_exb);
-            $db->examensbios()->create([
-              'id_examenbio' =>$id_exb
-            ]);
-/*$exam = new demandeexb_examenbio;$exam->id_demandeexb = $demandeExamBio->id; $exam->id_examenbio = $id_exb;
-$exam->save();*/
-          }
-          dd($consult->demandeexmbio()->examensbios);
+          $db->examensbios()->attach($request->exmsbio);
         }
-        if((!isset($consult->demandExmImg)) && (!empty($request->ExamsImg)))
+        if((is_null($consult->demandExmImg)) && (!empty($request->ExamsImg)))
         { 
-          $demandeExImg = new demandeexr;
-          $demandeExImg->InfosCliniques = $request->infosc;
-          $demandeExImg->Explecations = $request->explication;
-          $demandeExImg->id_consultation = $consult->id;
-          $demandeExImg->save();
+          $dr = $consult->demandExmImg()->create([
+              'InfosCliniques'=>$request->infosc,
+              'Explecations'  =>$request->explication,
+          ]);
           if(isset($request->infos))
+            $dr->infossuppdemande()->attach($request->infos);
+          foreach (json_decode ($request->ExamsImg) as $key => $id)
           {
-            foreach ($request->infos as $id_info) {
-              $demandeExImg->infossuppdemande()->attach($id_info);
-            }
-          }
-          foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
-            $exam = new Demandeexr_Examenradio;
-            $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
-            $exam->type_id = $acte->type;$exam->save();  
-          }
+            $dr->examensradios()->create([
+              'exm_id' =>$id,
+              'type_id' => (json_decode ($request->types))[$key]
+            ]);
+          }     
         }
         return redirect(Route('patient.show',$request->patient_id));
        }
@@ -202,7 +189,7 @@ $exam->save();*/
      * @return \Illuminate\Http\Response
      */
       public function show(consultation $consultation)
-      { //$consultation = consultation::with('patient','medecin','examensCliniques.Consts')->FindOrFail($id);
+      { 
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
                   $specialite = Auth::user()->employ->Specialite;

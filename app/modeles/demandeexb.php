@@ -20,9 +20,9 @@ class demandeexb extends Model
     return array_search($etat, self::ETATS); 
   }
   public function examensbios()
-  { //return $this->hasMany('App\modeles\demandeexb_examenbio', 'id_demandeexb');
-    return $this->belongsToMany('App\modeles\examenbiologique','demandeexb_examenbio', 'id_demandeexb','id_examenbio');
-  }
+  { 
+    return $this->belongsToMany('App\modeles\examenbiologique','demande_examenbio','demande_id','exam_id');
+  } 
   public function consultation()
   {
     return $this->belongsTo('App\modeles\consultation','id_consultation');

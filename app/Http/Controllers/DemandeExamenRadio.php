@@ -8,7 +8,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
-use App\modeles\Demandeexr_Examenradio;
+use App\modeles\Demande_Examenradio;
 use App\modeles\Etablissement;
 use App\modeles\service;
 use App\modeles\Specialite;
@@ -79,7 +79,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
     public function upload(Request $request)
     {
       $filename= ""; $isImg = 0;
-      $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id);
+      $ex = Demande_Examenradio::FindOrFail($request->exam_id);
       if($request->hasfile('resultat')){
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME);
@@ -94,7 +94,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
     }
     public function examCancel(Request $request)
     {
-      $ex = Demandeexr_Examenradio::FindOrFail($request->exmId);
+      $ex = Demande_Examenradio::FindOrFail($request->exmId);
       if($ex->Crr)
         $ex->Crr()->delete();
       $ex->update(['observation'=>$request->observation,"etat"=>0]);
@@ -131,14 +131,14 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
             $examsInp[]=$exam->acteId;
             $typeExamsInp[]=$exam->type;
           }
-          Demandeexr_Examenradio::where('demande_id', $demande->id)->whereNotIn('exm_id', $examsInp)->delete();
+          Demande_Examenradio::where('demande_id', $demande->id)->whereNotIn('exm_id', $examsInp)->delete();
           $demExam = $demande->examensradios()->pluck('exm_id')->toArray();//dd($demExam);//[16,7,8]
           $examsIds = array_diff($examsInp, $demExam); /*dd($examsIds);//diif 28*/
           if (!empty($examsIds))
           {
             foreach ($examsIds as $index => $id)
             {
-              $exam = new Demandeexr_Examenradio;
+              $exam = new Demande_Examenradio;
               $exam->demande_id = $demande->id; $exam->exm_id = $id;
               $exam->type_id = $typeExamsInp[$index];$exam->save();
             }
@@ -162,26 +162,24 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
       public function store(Request $request){
         if($request->ajax())    
         {
-          $demande = demandeexr::FirstOrCreate([
+          $dr = demandeexr::FirstOrCreate([
             "InfosCliniques" => $request->infosc,
             "Explecations" => $request->explication
           ]);
           if(isset($request->id_consultation))
-            $demande->update([ "id_consultation" => $request->id_consultation]);
+            $dr->update([ "id_consultation" => $request->id_consultation]);
           else
-            $demande->update([ "visite_id" => $request->visite_id]);
-          if(isset($request->infos)){
-            $infos = json_decode($request->infos);
-            $demande->infossuppdemande()->attach($infos);
-          }
-          $examsImagerie = json_decode ($request->ExamsImg);
-          foreach (json_decode ($request->ExamsImg) as $key => $acte) {       
-            $exam = new Demandeexr_Examenradio;
-            $exam->demande_id = $demande->id;
-            $exam->exm_id = $acte->acteId;
-            $exam->type_id = $acte->type;$exam->save();  
-          }
-          return $demande;
+            $dr->update([ "visite_id" => $request->visite_id]);
+          if(isset($request->infos))
+            $dr->infossuppdemande()->attach(json_decode($request->infos));
+          foreach (json_decode ($request->ExamsImg) as $key => $id)
+          {
+            $dr->examensradios()->create([
+              'exm_id' =>$id,
+              'type_id' => (json_decode ($request->types))[$key]
+            ]);
+          }   
+          return $dr;
         } 
       }
     /**
@@ -238,7 +236,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
    
     public function delResult(Request $request)
     {
-      $ex = Demandeexr_Examenradio::FindOrFail($request->examId);
+      $ex = Demande_Examenradio::FindOrFail($request->examId);
       if(isset($ex->resultat))
         File::delete('files/'.$ex->resultat);
       if(isset($ex->Crr))
@@ -248,7 +246,7 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
     }
     public function examDestroy($id)
     {
-      $ex = Demandeexr_Examenradio::FindOrFail($id);
+      $ex = Demande_Examenradio::FindOrFail($id);
       $ex->delete();
       return $ex;
     }

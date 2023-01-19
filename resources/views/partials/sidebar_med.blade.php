@@ -253,15 +253,17 @@
   }
   function addExamsImg(form)
   {
-    var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
+    var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [], types = [];
     if(arrayLignes.length > 0)
     {
       for(var i=0; i< arrayLignes.length ; i++)
       {
-        ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
+        ExamsImg[i] = arrayLignes[i].cells[0].innerHTML;
+        types [i] = arrayLignes[i].cells[2].innerHTML;   
       }
       var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-      champ.appendTo(form);
+      var champType = $("<input type='text' name ='types' value='"+JSON.stringify(types)+"' hidden>");
+      champ.appendTo(form);champType.appendTo(form);
     }
   }
     function IMC1(){

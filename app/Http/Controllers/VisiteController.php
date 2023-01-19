@@ -14,9 +14,8 @@ use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
 use App\modeles\TypeExam;
 use App\modeles\demandeexb;
-use App\modeles\demandeexb_examenbio;
 use App\modeles\demandeexr;
-use App\modeles\Demandeexr_Examenradio;
+use App\modeles\Demande_Examenradio;
 use App\modeles\Etablissement;
 use App\modeles\prescription_constantes;
 use App\modeles\Constontes;
@@ -89,16 +88,10 @@ class VisiteController extends Controller
     public function store(Request $request)
     { 
       $visite = visite::find($request->id); 
-      if((!isset($visite->demandeexmbio)) && ($request->exmsbio  != null))//Enregistrer Examen Complentaire
+      if((!isset($visite->demandeexmbio)) && (! is_null($request->exmsbio)))
       {
-        $demandeExamBio = new demandeexb;
-        $visite->demandeexmbio()->save($demandeExamBio);
-        foreach($request->exmsbio as $id_exb) {//$demandeExamBio->examensbios()->attach($id_exb);
-          $exam = new demandeexb_examenbio;
-          $exam->id_demandeexb = $demandeExamBio->id;
-          $exam->id_examenbio = $id_exb;
-          $exam->save();
-        }
+        $db = $visite->demandeexmbio()->create();
+        $db->examensbios()->attach($request->exmsbio);
       }
       if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
       {
@@ -115,7 +108,7 @@ class VisiteController extends Controller
 
         foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
           //$demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-          $exam = new Demandeexr_Examenradio;
+          $exam = new Demande_Examenradio;
           $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
           $exam->type_id = $acte->type; $exam->save();   
         }

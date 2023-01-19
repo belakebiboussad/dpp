@@ -2,28 +2,28 @@
 @section('page-script')
 @include('examenradio.scripts.imgRequestdJS')
 <script>
- $(function(){
+  $(function(){
     $('body').on('click', '.exam-Delete', function (e) {  
-            event.preventDefault();
-            var exam_id = $(this).val(); 
-             $.ajaxSetup({
-                    headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
-             });
-            url='{{ route("examRad.destroy",":slug") }}';
-            url = url.replace(':slug',exam_id);
-           $.ajax({
-                type: "GET",
-                 url : url,
-                   dataType: 'json',
-                    success: function (data) {
-                           $("#exm-" + data.id).remove(); 
-                    },
-                    error: function (data) {
-                           console.log('Error:', data); 
-                     } 
-            });
+      event.preventDefault();
+      var exam_id = $(this).val(); 
+       $.ajaxSetup({
+              headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
+       });
+      url='{{ route("examRad.destroy",":slug") }}';
+      url = url.replace(':slug',exam_id);
+     $.ajax({
+          type: "GET",
+           url : url,
+             dataType: 'json',
+              success: function (data) {
+                     $("#exm-" + data.id).remove(); 
+              },
+              error: function (data) {
+                     console.log('Error:', data); 
+               } 
+      });
     });
-    $("#requestImgEdit").submit(function(e){//event.preventDefault();
+    $("#requestImgEdit").submit(function(e){
       var arrayLignes = document.getElementById("ExamsImg").rows;
       addExamsImg(this);
       $("#requestImgEdit").submit();
@@ -37,17 +37,15 @@
   <div class="row">
     <div class="col-sm-6"><h3>Modifier la demande d'examen Radiologique :</h3></div>
     <div class="col-sm-6 pull-right">
-      <a href="/drToPDF/{{ $demande->consultation->demandExmImg->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
-       <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
-      </a>&nbsp;&nbsp;
-      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+      <a href="/drToPDF/{{ $demande->consultation->demandExmImg->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     </div>
   </div><hr>
   	<div class="row">
-	<div class="col-xs-12 widget-container-col" id="consultation">
+	<div class="col-xs-12 widget-container-col">
 		<div class="widget-box" id="infopatient">
-			<div class="widget-header"><h5 class="widget-title"><b><strong>Demande d'examen radiologique :</strong></b></h5> </div>
-	        </div><!-- widget-box -->
+			<div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique </b></h5> </div>
+	  </div><!-- widget-box -->
 		<div class="widget-body">
     <form class="form-horizontal" id="requestImgEdit" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" > 
                       {{ csrf_field() }}
@@ -69,18 +67,18 @@
 	      		</div>
 	        </div><div class="space-12 hidden-xs"></div>
 	        <div class="row">
-	             <div class="col-xs-12">
-	      	 	        <label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
-				@foreach($infossupp as $info)
-				<div class="col-sm-2 col-xs-6">
-				        <div class="checkbox col-xs-12">
-					 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}"   {{ (in_array($info->id, $demande->infos))? 'checked' : '' }} /> <span class="lbl">{{ $info->nom }}</span></label>
-                                    </div>
-				</div>
-				@endforeach
-			</div>
+	          <div class="col-xs-12">
+	      	  <label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
+      				@foreach($infossupp as $info)
+      				<div class="col-sm-2 col-xs-6">
+      				  <div class="checkbox col-xs-12">
+      					 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}"   {{ (in_array($info->id, $demande->infos))? 'checked' : '' }} /> <span class="lbl">{{ $info->nom }}</span></label>
+                </div>
+      				</div>
+      				@endforeach
+			      </div>
       		</div>
-       	      <div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>  <div class="space-12"></div>
+       	  <div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>  <div class="space-12"></div>
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">
 			 <div class="widget-header" >

@@ -65,38 +65,37 @@
 </div><div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>
 <script> 
   function examsImgSave(patientName, ipp, med,fieldName, fieldValue){ 
-      var infos = [] , exams = [];
-      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-        infos.push($(this).val());
-      });
-      var arrayLignes = document.getElementById("ExamsImg").rows;
-      for(var i=0; i< arrayLignes.length ; i++)
-      {
-        ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
+    var infos = [] , ExamsImg = [], types = [];
+    $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+      infos.push($(this).val());
+    });
+    var arrayLignes = document.getElementById("ExamsImg").rows;
+    for(var i=0; i< arrayLignes.length ; i++)
+    {   
+      ExamsImg[i] = arrayLignes[i].cells[0].innerHTML;
+      types [i] = arrayLignes[i].cells[2].innerHTML;  
+    }
+    var formData = {
+      _token         : CSRF_TOKEN,
+      infosc : $("#infosc").val(),
+      explication   : $("#explication").val(),
+      infos          : JSON.stringify(infos),
+      ExamsImg          : JSON.stringify(ExamsImg),
+      types          : JSON.stringify(types),
+    };
+    formData[fieldName] = fieldValue;
+    var type = "POST";
+    url ="{{ route('demandeexr.store') }}";
+    $.ajax({
+      type: type,
+      url: url,
+      data: formData,
+      success: function (data) {
+        examsImgprint(patientName, ipp, med);
       }
-      var formData = {
-        _token         : CSRF_TOKEN,
-        infosc : $("#infosc").val(),
-        explication   : $("#explication").val(),
-        infos          : JSON.stringify(infos),
-        ExamsImg       : JSON.stringify(ExamsImg),
-      };
-      formData[fieldName] = fieldValue;
-      var type = "POST";
-      url ="{{ route('demandeexr.store') }}";
-      $.ajax({
-            type: type,
-            url: url,
-            data: formData,
-            success: function (data) {
-              examsImgprint(patientName, ipp, med);
-            },
-            error : function(data){
-              console.log("data");
-            }
-      });  
+    });  
   }
-   function examsImgprint(patientName,ipp,med)
+  function examsImgprint(patientName,ipp,med)
   {
     var fileName ='examsImg-' + patientName +'.pdf'; 
     $("#infoSupPertinante").text('');

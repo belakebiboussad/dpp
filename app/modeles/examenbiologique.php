@@ -13,6 +13,6 @@ class examenbiologique extends Model
   }
   public function Demande()
   {
-    return $this->belongsToMany('App\modeles\demandeexb','demandeexb_examenbio', 'id_demandeexb','id_examenbio');
+    return $this->belongsToMany('App\modeles\demandeexb','demande_examenbio', 'exam_id', 'demande_id');
   }
 }
