@@ -53,9 +53,7 @@ class demandeexr extends Model
     foreach($this->examensradios as $examen)
     {
       if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
-      {
         return true;       
-      }
     }  
     return false;
   }

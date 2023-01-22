@@ -18,21 +18,21 @@
 <br><br>
   <div class="textCenter mtP40 ft16"><b>Demande d'examen radiologique</b></div>
   <br>
-  <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
-        {{ $date->format('d/m/Y') }}</div></div></div>
+  <div class="row"><div class="section"><div class="right"><b><u>Fait le:</u></b>
+        {{ $date->format('d/m/Y') }}</div></div>
   </div>
   <div class="row">
-    <div class="col-sm-12">
+    <div>
       <div class="section">
         <div class="sec-gauche">
-              <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
-              {{ $patient->full_name }}, {{ $patient->age }} ans, {{ $patient->Sexe }}     
+          <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
+          {{ $patient->full_name }}, {{ $patient->age }} ans, {{ $patient->Sexe }}     
         </div>
       </div>
     </div>
   </div><br>
   <div class="row">
-    <div class="col-sm-12">
+    <div>
       <div class="section">
         <div class="sec-gauche">
           <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $patient->IPP }}
@@ -44,13 +44,13 @@
   <div class="content">
     <div class="col-sm-12">
       <div class="col-xs-12 widget-container-col">
-        <div class="widget-box" id="infopatient">
+        <div class="widget-box">
           <div class="widget-body">
             <div class="widget-main">
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentes :</b> </label>
+                    <label for="infosc"><b>Informations cliniques pertinentes :</b></label>
                     <p>{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
@@ -59,14 +59,11 @@
                     <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>
-                  <div>
-                      <label><b>Informations supplémentaires pertinentes</b></label>
-                      <div>
-                        <ul class="list-inline">
-                            @foreach($demande->infossuppdemande as $index => $info)
-                                <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                            @endforeach
-                        </ul>    
+                  <div><label><b>Informations supplémentaires pertinentes</b></label>
+                    <div>
+                      @foreach($demande->infossuppdemande as $index => $info)
+                        <span>{{ $info->nom }}{{(! $loop->last) ? ', ' : '' }}</span>
+                      @endforeach
                       </div>
                   </div>
                   <div>
@@ -75,8 +72,7 @@
                       <table class="table table-borderless">
                         <thead>
                           <tr>
-                            <th class="center" width="10%">#</th>
-                            <th class="center">Nom</th>
+                            <th class="center" width="10%">#</th><th class="center">Nom</th>
                             <th class="center">Type</th>
                           </tr>
                         </thead>
@@ -84,8 +80,7 @@
                           @foreach($demande->examensradios as $index => $examen)
                           <tr>
                             <td class="center">{{ $index + 1 }}</td>
-                            <td>{{ $examen->Examen->nom }}</td>
-                            <td class="center">{{ $examen->Type->nom }}</td>
+                            <td>{{ $examen->Examen->nom }}</td><td class="center">{{ $examen->Type->nom }}</td>
                           </tr>
                          @endforeach
                         </tbody>

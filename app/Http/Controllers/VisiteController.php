@@ -56,27 +56,27 @@ class VisiteController extends Controller
         $date = Carbon\Carbon::now();
         $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
-        if(isset($employe->specialite))
-               $specialite = $employe->Specialite;
-        else
-               $specialite =$employe->Service->Specialite;
+$specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
         $hosp = hospitalisation::FindOrFail($id_hosp);
         $lastVisite = $hosp->getlastVisite();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-        $visite =new visite;
-        $visite->date=$date;
-        $visite->heure=$date->format("H:i");
-        $visite->id_hosp=$id_hosp;
-        $visite->id_employe=Auth::User()->employee_id;
+        $visite = visite::create([
+          'date'=>$date,
+          'heure'=>$date->format("H:i"),
+          'id_hosp'=>$id_hosp,
+          'date'=>$date,
+          'id_employe'=>$employe->id
+        ]);
         $specialitesProd = specialite_produit::all();
         $specialitesExamBiolo = specialite_exb::all();
         $infossupp = infosupppertinentes::all();
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();
         $codesNgap = NGAP::all();
-        $visite->save();
+        dd($lastVisite->prescreptionconstantes);
+        
+        
         $consts = consts::all();
-        // ,'consult'
         return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**

@@ -63,6 +63,13 @@ class hospitalisation extends Model
     {/*foreach($this->visites as $v) { if(isset($v->prescreptionconstantes)) return $v;    }*/
       return $this->visites->first();
     } 
+    public function getConstPresc()
+    {
+      // foreach($this->visites as $v) { 
+      //   if(isset($v->prescreptionconstantes))
+      //    return $v;    
+    }
+    }
     public function Transfert()
     {
       return $this->hasOne('App\modeles\Transfert','hosp_id');

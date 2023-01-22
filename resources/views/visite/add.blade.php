@@ -225,7 +225,8 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 <div class="content">
 	<form  class="form-horizontal" id ="visiteForm" action="{{ route('visites.store') }}" method="POST" role="form">
 		{{ csrf_field() }}
-		<input type="hidden" name="id" value="{{$id}}"><div id="prompt"></div>
+		<input type="hidden" name="id" value="{{$id}}">
+    <input type="hidden" name="id_hosp" value="{{ $hosp->id }}"><div id="prompt"></div>
 		<div class="tabpanel mb-3">
 		  <div class="row">
 				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
@@ -245,8 +246,7 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
           @if (!empty(json_decode($specialite->hospConst, true))) 
 					<li role= "presentation" class="col-md-4">
 						<a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
-						<span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
-						</a>
+						<span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span></a>
 					</li>
           @endif
 				</ul>
@@ -268,13 +268,12 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 							<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listActes">
 							<thead class="thin-border-bottom">
 								<tr class ="center">
-								        <th class ="hidden"></th>
-									  <th class ="center sorting_disabled">Acte</th>
-										<th class ="center sorting_disabled">Type</th>
-										<th class ="center sorting_disabled">Code NGAP</th>
-										<th class ="center sorting_disabled">Application</th>
-										<th class ="center sorting_disabled">Médecin prescripteur</th>											
-                    <th class=" center nosort"><em class="fa fa-cog"></em></th>
+								  <th class ="hidden"></th><th class ="center sorting_disabled">Acte</th>
+									<th class ="center sorting_disabled">Type</th>
+									<th class ="center sorting_disabled">Code NGAP</th>
+									<th class ="center sorting_disabled">Application</th>
+									<th class ="center sorting_disabled">Médecin prescripteur</th>											
+                  <th class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -350,48 +349,32 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 				</div>
 				</div><!-- tab-pane Trait-->
 				<div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
-			  @if (!empty(json_decode($specialite->hospConst, true))) 
+			  @if (!isEmpty(json_decode($specialite->hospConst, true))) 
       	<div role="tabpanel" class ="tab-pane" id="constantes"> 
-					<div class= "col-sm-12 col-xs-12">
-						<div class="widget-main padding-6 no-padding-left no-padding-right">
-							<div class="space-12"></div>
-							<div class="row">	
-								<input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
-                @foreach( json_decode($specialite->hospConst ,true) as $const)
+			  	<div class="widget-main padding-6 no-padding-left">
+						<div class="row">	
+						   @foreach( json_decode($specialite->hospConst ,true) as $const)
                 <?php $const = App\modeles\Constante::FindOrFail($const) ?>
-		            <div class="col-xs-3"><div class="checkbox">  <label>
-                  @if( (null !== $lastVisite) &&(null !== $lastVisite->prescreptionconstantes ))
-                  <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
-		              @else
+                <div class="col-xs-3"><div class="checkbox"><label>
+                  @if((!isEmpty($lastVisite)) &&(!isEmpty($lastVisite->prescreptionconstantes)))
+                   <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->ConstIds->toArray()) ) checked="checked" @endif/>
+                  @else
                   <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
                   @endif
-                  <span class="lbl">{{ $const->nom }} </span>
-			           </label></div></div>
+                  <span class="lbl"> {{ $const->nom }}</span>
+                </label></div></div>
                 @endforeach
-								<div class="col-xs-12"><br><br>
-									<div><label for="form-field-8">Observation</label>
-									<textarea class="form-control" id="observation" name="observation" rows=5> 
-                 @isset($lastVisite->prescreptionconstantes)
-                 
-                    {{ $lastVisite->prescreptionconstantes->observation }}
-                  @endisset
-                  
-                  </textarea>
-                  </div>
-								</div>                           
-							</div>
 						</div>
 					</div>
 				</div>
 			  @endif
       </div><!-- tab-content -->
 			</div>
-		</div><div class="hr hr-dotted"></div><div class="space-12 hidden-xs"></div><!-- tabpanel -->
+		</div><div class="hr hr-dotted"></div><div class="space-12 hidden-xs"></div>
 		<div class="row">
 			<div class="center">
-				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-		      <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" class="btn btn-sm btn-warning">
-              <i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> 
+		      <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>    
       </div>
 		</div>	
 	</form>

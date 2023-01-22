@@ -69,13 +69,12 @@
 	        <div class="row">
 	          <div class="col-xs-12">
 	      	  <label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
-      				@foreach($infossupp as $info)
-      				<div class="col-sm-2 col-xs-6">
-      				  <div class="checkbox col-xs-12">
-      					 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}"   {{ (in_array($info->id, $demande->infos))? 'checked' : '' }} /> <span class="lbl">{{ $info->nom }}</span></label>
-                </div>
-      				</div>
-      				@endforeach
+            @foreach($infossupp as $info)
+            <div class="checkbox col-sm-2 col-xs-6 ">
+           <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" {{ in_array($info->id, $demande->infossuppdemande->pluck('id')->toArray()) ? 'checked' : ''}}
+              /><span class="lbl">{{ $info->nom }}</span></label>
+            </div>
+            @endforeach
 			      </div>
       		</div>
        	  <div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>  <div class="space-12"></div>
@@ -94,11 +93,9 @@
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ExamsImgtab">
 				 	  <thead class="thin-border-bottom">
 						 <tr>
-                <th class ="hidden"></th>
-						    <th class ="center" class="nsort"><strong>Examen du</strong></th>
-							  <th class ="hidden"></th>
-                <th class ="center"><strong>Type d'examen</strong></th>
-							  <th class="center" width="5%"><em class="fa fa-cog"></em></th>
+                <th class ="hidden"></th><th class ="center" class="nsort">Examen du</th>
+						    <th class ="hidden"></th><th class ="center">Type d'examen</th>
+                <th class="center" width="5%"><em class="fa fa-cog"></em></th>
 					    </tr>
 						</thead>
 						  <tbody id="ExamsImg">
@@ -109,7 +106,7 @@
                     <td hidden id="types">{{ $ex->Type->id }}</td>  
                     <td>{{ $ex->Type->nom }}</td>
                     <td class="center">
-                     <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"> <i class="ace-icon fa fa-trash-o"></i></button> 
+                     <button  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger exam-Delete" value="{{ $ex->id }}"><i class="ace-icon fa fa-trash-o"></i></button> 
                    </td>
                 </tr>
                 @endforeach   
@@ -123,7 +120,7 @@
       <div class="row">
         <div class="col-sm12">
           <div class="center" style="bottom:0px;">
-            <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+            <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</button>
          </div>
           </div>
         </div>

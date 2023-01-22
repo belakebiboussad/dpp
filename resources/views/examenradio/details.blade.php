@@ -194,7 +194,7 @@ $(function(){
       <div class="col-md-5 col-sm-5"><h4>Demande d'examen radiologique</h4></div>
       <div class="col-md-7 col-sm-7 btn-toolbar">
         <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
-          <i class="ace-icon fa fa-print"></i> Imprimer</a>&nbsp;&nbsp;
+          <i class="ace-icon fa fa-print"></i> Imprimer</a> 
           @if(Auth::user()->role_id  == 12)
            <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
           @else
@@ -265,8 +265,7 @@ $(function(){
       </div><!-- box -->
     </div>
   </div>
-  <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div>
-  <div class="space-12 hidden-xs"></div>
+  <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div><div class="space-12 hidden-xs"></div>
   <div class="row">
     <div class="col-sm-12 center">
       <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 

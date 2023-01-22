@@ -103,10 +103,10 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
     public function update(Request $request, demandeexr $demande)
     { 
       $state = true;
-      $demande = demandeexr::FindOrFail($request->demande_id);  
+      $dr = demandeexr::FindOrFail($request->demande_id);  
       if(Auth::user()->is(12))//radiologe
       {
-        foreach ($demande->examensradios as $key => $exam)
+        foreach ($dr->examensradios as $key => $exam)
         {
           if($state)
             if($exam->getEtatID($exam->etat) ==="")
@@ -114,38 +114,33 @@ $demandes = demandeexr::with('consultation.patient','consultation.medecin.Servic
         } 
         if($state)
         {
-          $demande->update([ "etat" => 1 ]);
-          $demande->save();
+          $dr->update([ "etat" => 1 ]);
+          $dr->save();
         }
         return redirect()->action('DemandeExamenRadio@index');
       }else
       {
         if (!empty($request->ExamsImg))
         {
-          $demande->infossuppdemande()->sync($request->infos); 
-          $demande->update([
+          $dr->infossuppdemande()->sync($request->infos); 
+          $dr->update([
             'InfosCliniques' =>$request->infosc,
             'Explecations' =>$request->explication
           ]);
-          foreach(json_decode($request->ExamsImg) as $exam){
-            $examsInp[]=$exam->acteId;
-            $typeExamsInp[]=$exam->type;
-          }
-          Demande_Examenradio::where('demande_id', $demande->id)->whereNotIn('exm_id', $examsInp)->delete();
-          $demExam = $demande->examensradios()->pluck('exm_id')->toArray();//dd($demExam);//[16,7,8]
-          $examsIds = array_diff($examsInp, $demExam); /*dd($examsIds);//diif 28*/
+          $examsIds = array_diff(json_decode ($request->ExamsImg), $dr->examensradios()->pluck('exm_id')->toArray());
           if (!empty($examsIds))
           {
-            foreach ($examsIds as $index => $id)
+            foreach ($examsIds as $key => $id)
             {
-              $exam = new Demande_Examenradio;
-              $exam->demande_id = $demande->id; $exam->exm_id = $id;
-              $exam->type_id = $typeExamsInp[$index];$exam->save();
+              $dr->examensradios()->create([
+                 'exm_id' =>$id,
+                'type_id' => (json_decode ($request->types))[$key]
+              ]);
             }
           }
         }else
-        $demande->delete();
-        return redirect(Route('consultations.show',$demande->id_consultation));   
+        $dr->delete();
+        return redirect(Route('consultations.show',$dr->id_consultation));   
       }  
     }
     /**
