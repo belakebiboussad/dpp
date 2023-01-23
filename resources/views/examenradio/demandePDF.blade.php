@@ -14,12 +14,10 @@
 <div class="container-fluid">{{-- @include('partials.etatHeader') --}}
   <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
   <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons"/></footer>
-  <main>
-<br><br>
-  <div class="textCenter mtP40 ft16"><b>Demande d'examen radiologique</b></div>
-  <br>
+  <main><br><br>
+  <div class="center mtP40 ft20">Demande d'examen radiologique</div><br>
   <div class="row"><div class="section"><div class="right"><b><u>Fait le:</u></b>
-        {{ $date->format('d/m/Y') }}</div></div>
+    {{ $date->format('d/m/Y') }}</div></div>
   </div>
   <div class="row">
     <div>
@@ -50,12 +48,12 @@
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentes :</b></label>
+                    <label><b>Informations cliniques pertinentes :</b></label>
                     <p>{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Explication de la demande de diagnostic :</b></label>
+                    <label><b>Explication de la demande de diagnostic :</b></label>
                     <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>
@@ -66,10 +64,10 @@
                       @endforeach
                       </div>
                   </div>
-                  <div>
-                    <label><b>Examen(s) proposé(s)</b></label>
+                  <div><label><b>Examen(s) proposé(s)</b></label>
+                    
                     <div>
-                      <table class="table table-borderless">
+                      <table class="table">
                         <thead>
                           <tr>
                             <th class="center" width="10%">#</th><th class="center">Nom</th>
@@ -95,11 +93,9 @@
   </div>
   </div>
   </div>
-  <div class="row foo">
-    <div class="col-sm-12">
-      <div class="section"><div class="right"><span><b> Docteur :</b> {{ Auth::user()->employ->full_name }}</span></div></div>
-    </div>
-  </div>
+  <div class="foo"><div>
+    <div class="section"><div class="right"><span><b> Docteur :</b> {{ Auth::user()->employ->full_name }}</span></div></div>
+  </div></div>
 </main>
 </div>
 </body>

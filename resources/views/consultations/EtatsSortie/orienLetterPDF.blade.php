@@ -1,4 +1,4 @@
-<div class="textCenter mtP40 ft20" ><b>LETTRE D'ORIENTATION MEDICALE</b></div>
+<div class="center mtP40 ft20">LETTRE D'ORIENTATION MEDICALE</div>
 <div class="ml-46 mtp20"><b>Alger le</b> : {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
 <div class="ml-06"><span> <b>Docteur</b> : {{ $employe->full_name}}</span>
 <span> <b>Specialité</b> : {{ $specialite->nom}}</span></div>

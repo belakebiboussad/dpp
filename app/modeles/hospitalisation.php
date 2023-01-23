@@ -41,11 +41,11 @@ class hospitalisation extends Model
     }
     public function visites()
     {
-        return $this->hasMany('App\modeles\visite','id_hosp')->orderBy('date','DESC')->orderBy('heure','DESC');
+      return$this->hasMany('App\modeles\visite','id_hosp');//->orderBy('date','DESC')->orderBy('heure','DESC')
     }
     public function garde()
     {
-        return $this->belongsTo('App\modeles\homme_conf','garde_id');
+      return $this->belongsTo('App\modeles\homme_conf','garde_id');
     }
     public function patient()
     {
@@ -59,16 +59,9 @@ class hospitalisation extends Model
     {
       return $this->belongsTo('App\modeles\employ','medecin_id');
     }
-    public function getlastVisite()
-    {/*foreach($this->visites as $v) { if(isset($v->prescreptionconstantes)) return $v;    }*/
-      return $this->visites->first();
-    } 
-    public function getConstPresc()
-    {
-      // foreach($this->visites as $v) { 
-      //   if(isset($v->prescreptionconstantes))
-      //    return $v;    
-    }
+    public function getlastVisiteWitCstPresc()
+    { 
+      return visite::with('prescreptionconstantes.constantes')->has('prescreptionconstantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
     }
     public function Transfert()
     {

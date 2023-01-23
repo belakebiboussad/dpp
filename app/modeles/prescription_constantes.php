@@ -17,8 +17,4 @@ class prescription_constantes extends Model
   {
         return $this->belongsToMany('App\modeles\Constante', 'pres_cons', 'prescription_id', 'cons_id');
   }
-  // public function getConstIdsAttribute()
-  // {
-  //   return $this->constantes->pluck('id');
-  // }
 }

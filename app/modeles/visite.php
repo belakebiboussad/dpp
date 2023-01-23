@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class visite extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable  = ['date','heure','id_hosp','id_employe'];
     protected $dates = ['date'];
     public function getDateFormatedAttribute()
@@ -31,7 +31,7 @@ class visite extends Model
     }
     public function demandExmImg()
     {
-          return $this->hasOne('App\modeles\demandeexr','visite_id');
+      return $this->hasOne('App\modeles\demandeexr','visite_id');
     }
     public function medecin(){
           return $this->belongsTo('App\modeles\employ','id_employe');

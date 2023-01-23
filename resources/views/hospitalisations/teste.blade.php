@@ -19,7 +19,7 @@
   </ul>
   <div class="tab-content no-border padding-24">
     <div id="hospi" class="tab-pane in active">
-      <div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="ft16"><b>Hospitalisation</b></span></div></div>
+      <div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><span class="ft16">Hospitalisation</span></div></div>
       <div class="row">
         <div class="col-sm-12">
         <ul class="nav navbar-nav list-inline">
@@ -49,7 +49,7 @@
       </div><div class="space-12"></div>
       <div class="row">
         <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-          <span class="ft16"><b>Hébergement</b></span>
+          <span class="ft16">Hébergement</span>
         </div>
       </div>
       <div class="row">
@@ -67,7 +67,7 @@
        @if(isset($hosp->garde_id)) 
       <div class="space-12"></div>
       <div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-      <span class="ft16"><b>Garde malade</b></span></div></div>
+      <span class="ft16">Garde malade</span></div></div>
       <div class="row">
         <ul class="nav navbar-nav list-inline">
           <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i><b>Nom & Prénom :</b> {{ $hosp->garde->full_name}}</li>

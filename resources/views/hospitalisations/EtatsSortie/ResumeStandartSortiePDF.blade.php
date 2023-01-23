@@ -47,24 +47,23 @@
              <div><b>Chef de Service</b>  : <span> {{ $obj->admission->demandeHospitalisation->Service->responsable->full_name }}</span>
              </div>
               </td>
-              <td><div class="mt-5"><b>Réservé au Bureau des Entrées</b><hr class="hr-1"/></div><div><b>Code Sce</b> :</div>
-              <hr class="hr-1"/></td>
+              <td><div class="mt-5"><b>Réservé au Bureau des Entrées</b><hr class="hr-1"/></div><div><b>Code Sce</b> :</div><hr class="hr-1"/></td>
             </tr>
             <tr>
               <td>
-                    <h5 class="rect textCenter"><b>Matricule</b> : {{ is_null($obj->patient->NSS) ?  '' : $obj->patient->NSS  }}</h5>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h5 class="rect textCenter"><b>N° Dossier</b> : <span> {{ $obj->patient->IPP}}</span></h5>
-                    <div><b>Nom et Prénoms</b> : <span> {{ $obj->patient->full_name }}</span></div>
-                    <div><b>Date de naissance(âge)</b> : <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} ({{ $obj->patient->age }} ans)
-                    </span></div>
-                    <div><b class=""> Sexe</b> : <span> {{ $obj->patient->Sexe }}</span></div>
-                    <div><b>Lieu de Naissance</b>  :  <span> {{ is_null($obj->patient->Lieu_Naissance) ? '' :  $obj->patient->lieuNaissance->nom_commune }}</span></div>
-                    <div><b>Lieu de résidence(Wilaya)</b> : {{ is_null($obj->patient->commune_res) ? '' :  $obj->patient->commune->daira->wilaya->nom }} </div>
-                    <div><b>Date d'admisston a l'hôpital</b> : <span> {{ $obj->admission->hospitalisation->date->format('d/m/Y') }}</span></div>
-                  <hr class="hr-1"/><h4 class="center mt-2"><b>Dernier Service d'Hospitalisation</b></h4><hr class="hr-1 mt-2"/>
-                    <div><b>Date d'entrée au service</b> : <span> {{ $obj->date->format('d/m/y') }}</span> </div>
-                    <div><b>Médecin traitant</b> : <span> {{ $obj->admission->hospitalisation->medecin->full_name }}</span></div>
-                    <div><b>Mode de Sortie</b> :
+                <h5 class="rect center"><b>Matricule</b> : {{ is_null($obj->patient->NSS) ?  '' : $obj->patient->NSS  }}</h5>&nbsp;&nbsp;&nbsp;&nbsp;
+                <h5 class="rect center"><b>N° Dossier</b> : <span> {{ $obj->patient->IPP}}</span></h5>
+                <div><b>Nom et Prénoms</b> : <span> {{ $obj->patient->full_name }}</span></div>
+                <div><b>Date de naissance(âge)</b> : <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} ({{ $obj->patient->age }} ans)
+                </span></div>
+                <div><b class=""> Sexe</b> : <span> {{ $obj->patient->Sexe }}</span></div>
+                <div><b>Lieu de Naissance</b>  :  <span> {{ is_null($obj->patient->Lieu_Naissance) ? '' :  $obj->patient->lieuNaissance->nom_commune }}</span></div>
+                <div><b>Lieu de résidence(Wilaya)</b> : {{ is_null($obj->patient->commune_res) ? '' :  $obj->patient->commune->daira->wilaya->nom }} </div>
+                <div><b>Date d'admisston a l'hôpital</b> : <span> {{ $obj->admission->hospitalisation->date->format('d/m/Y') }}</span></div>
+              <hr class="hr-1"/><h4 class="center mt-2"><b>Dernier Service d'Hospitalisation</b></h4><hr class="hr-1 mt-2"/>
+                <div><b>Date d'entrée au service</b> : <span> {{ $obj->date->format('d/m/y') }}</span> </div>
+                <div><b>Médecin traitant</b> : <span> {{ $obj->admission->hospitalisation->medecin->full_name }}</span></div>
+                <div><b>Mode de Sortie</b> :
                   <span>
                     @switch($obj->modeSortie)
                       @case(0)

@@ -27,7 +27,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use App\modeles\Specialite;
-use App\Utils\ArrayClass;//use DB;
 use Carbon;
 class VisiteController extends Controller
 {
@@ -56,9 +55,9 @@ class VisiteController extends Controller
         $date = Carbon\Carbon::now();
         $etab = Etablissement::first(); 
         $employe = Auth::user()->employ;
-$specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
+        $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
         $hosp = hospitalisation::FindOrFail($id_hosp);
-        $lastVisite = $hosp->getlastVisite();
+        $lastVisite = $hosp->getlastVisiteWitCstPresc();
         $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
         $visite = visite::create([
           'date'=>$date,
@@ -67,17 +66,13 @@ $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specia
           'date'=>$date,
           'id_employe'=>$employe->id
         ]);
-        $specialitesProd = specialite_produit::all();
-        $specialitesExamBiolo = specialite_exb::all();
+        $specialitesProd = specialite_produit::all();//trait
         $infossupp = infosupppertinentes::all();
         $examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();
         $codesNgap = NGAP::all();
-        dd($lastVisite->prescreptionconstantes);
-        
-        
         $consts = consts::all();
-        return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
+        return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -105,7 +100,6 @@ $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specia
             $demandeExImg->infossuppdemande()->attach($id_info);
           }
         }
-
         foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
           //$demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
           $exam = new Demande_Examenradio;
@@ -113,14 +107,10 @@ $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specia
           $exam->type_id = $acte->type; $exam->save();   
         }
       }// si(observ change et constante change) on crée une prescription
-      if(isset($request->consts))
-      {
-        $prescription_constantes = prescription_constantes::FirstOrCreate([
-            "visite_id" => $visite->id,
-          "observation" => $request->observation
-        ]);
-         $prescription_constantes->constantes()->attach($request->consts);
-      }
+      $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
+      $reqintArray = array_map('intval', $request->consts);
+      if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
+        $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

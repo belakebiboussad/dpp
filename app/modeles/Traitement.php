@@ -11,7 +11,7 @@ class Traitement extends Model
     protected $casts = ['periodes' => 'array'];
     protected $appends = ['execs'];
     public function getExecsAttribute()
-    {//->where('does',1)
+    {
       return TraitExec::whereDate('created_at',  Carbon::today())->where('trait_id',$this->id)->get()->pluck('ordre')->toArray();
     }
     public function medicament()

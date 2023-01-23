@@ -9,11 +9,9 @@ class Acte extends Model
    	public $timestamps = false;
   	protected $fillable  = ['nom','id_visite','description','type','code_ngap','periodes','nbrFJ','duree','retire'];
     protected $appends = ['execs'];
-    public  $casts = [
-       'periodes' => 'array'
-    ];
+    public  $casts = ['periodes' => 'array'];
     public function getExecsAttribute()
-    { // ->where('does',1)
+    { 
       return ActeExec::whereDate('created_at',  Carbon::today())->where('acte_id',$this->id)->get()->pluck('ordre')->toArray();
     }
 		public function visite()

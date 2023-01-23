@@ -9,7 +9,7 @@ class SoinsController extends Controller
   function index(Request $request)
   {
     $hosp = hospitalisation::FindOrFail($request->id);
-    $lastVisite = $hosp->getlastVisite(); //dd($lastVisite->prescreptionconstantes);
+    $lastVisite = $hosp->getlastVisiteWitCstPresc();
     return view('soins.index', compact('hosp','lastVisite')); 
   }
   public function show(Request $request)
