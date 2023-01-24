@@ -25,19 +25,9 @@
 					<tr  role="row" class="even">
             <td>{{ $visite->medecin->full_name }}</td>
 						<td>{{ $visite->date_formated }}</td>
-						<td class="center">
-					 		@isset($visite->demandeexmbio)
-							<span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $visite->demandeexmbio->etat }}</span>
-						  @endisset  
-						</td>
-						<td>
-					   	@isset($visite->demandExmImg)
-  <span class="badge badge-{{( $visite->demandExmImg->getEtatID($visite->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $visite->demandExmImg->etat }}</span>
-					 	  @endisset 
-						</td>
-						<td class="center"><a href="{{ route('visites.show', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a></td>
+						<td class="center">{!! format_stat($visite->demandeexmbio) !!}</td>
+            <td>{!! format_stat($visite->demandExmImg) !!}</td>
+					  <td class="center"><a href="{{ route('visites.show', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a></td>
 					</tr>
 					@endforeach 
 					</tbody>
@@ -45,7 +35,4 @@
 			</div>
 		</div><!-- widget-body -->
 	</div>
-</div>
-<div class="col-sm-7" id="consultDetail">
-
-</div>
+</div><div class="col-sm-7" id="consultDetail"></div>

@@ -90,22 +90,29 @@ class VisiteController extends Controller
       }
       if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
       {
-        $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
-        $demandeExImg->Explecations = $request->explication;
-        $demandeExImg->visite_id = $request->id;
-        $visite->demandExmImg()->save($demandeExImg);
+        $dr = new demandeexr;  $dr->InfosCliniques = $request->infosc;
+        $dr->Explecations = $request->explication;
+        $dr->visite_id = $request->id;
+        $visite->demandExmImg()->save($dr);
         if(isset($request->infos))
         {
           foreach ($request->infos as $id_info) {
-            $demandeExImg->infossuppdemande()->attach($id_info);
+            $dr->infossuppdemande()->attach($id_info);
           }
         }
-        foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
+        foreach (json_decode ($request->ExamsImg) as $key => $id)
+        {
+          $dr->examensradios()->create([
+            'exm_id' =>$id,
+            'type_id' => (json_decode ($request->types))[$key]
+          ]);
+        }  
+       /* foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
           //$demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
           $exam = new Demande_Examenradio;
           $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
           $exam->type_id = $acte->type; $exam->save();   
-        }
+        }*/
       }// si(observ change et constante change) on crée une prescription
       $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
       $reqintArray = array_map('intval', $request->consts);

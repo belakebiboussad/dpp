@@ -39,11 +39,11 @@ class DemandeExbController extends Controller
            return $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->whereNull($request->field)->get();
         }else
           return $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                                 ->whereHas('consultation.medecin.Service', function($query) use ($q) {
-                                      $query->where('id', $q);
-                                  })->orWhereHas('visite.medecin.Service', function($query) use ($q) {
-                                      $query->where('id', $q);
-                                  })->get();
+                       ->whereHas('consultation.medecin.Service', function($query) use ($q) {
+                            $query->where('id', $q);
+                        })->orWhereHas('visite.medecin.Service', function($query) use ($q) {
+                            $query->where('id', $q);
+                        })->get();
       }else
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
@@ -157,9 +157,11 @@ class DemandeExbController extends Controller
     }
     public function uploadresultat(Request $request)
     {
-      $request->validate([
-          'resultat' => 'required',
+      $request->validate(
+        ['resultat' => 'required|mimes:png,JPG,jpeg,csv,txt,pdf'
       ]);
+      //
+      //dd($request->resultat);  
       $filename= "";
       $demande = demandeexb::FindOrFail($request->id_demande);
       if($request->hasfile('resultat')){
@@ -167,7 +169,9 @@ class DemandeExbController extends Controller
         $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
         $file = file_get_contents($request->file('resultat')->getRealPath());
         $request->file('resultat')->storeAs('public/files',$filename);  
-      }  
+      }
+      else 
+      dd("Non");  
       $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
       return  redirect()->action('DemandeExbController@index');
     }

@@ -7,7 +7,7 @@
  	function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>';
     if(data.etat == "En Cours")
-      actions +='&nbsp;<a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';            
+      actions +=' <a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';            
      return actions;
   } 
   $(function(){
@@ -86,10 +86,7 @@
 												<td>{{ $demande->visite->medecin->full_name }}</td>
 												<td>{{ $demande->visite->hospitalisation->patient->full_name }}<small class="text-warning">(Hospitalisation)</small></td>
 											@endif
-												<td class="center">
-												  <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
-													</span>
-												</td>
+											 <td class="center">{!! format_stat($demande) !!}</td>
 												<td class="center">
 												 	<a href="{{ route('demandeexr.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
 			              				<a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>

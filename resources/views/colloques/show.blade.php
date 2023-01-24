@@ -39,10 +39,8 @@
               <table  class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th class="center">Patient</th>
-                  <th class="center">date</th>
-                  <th class="center">Motif</th>
-                  <th class="center">observation</th>
+                  <th class="center">Patient</th><th class="center">date</th>
+                  <th class="center">Motif</th><th class="center">observation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,9 +61,9 @@
         </div>
       </div>
       <div class="center form-actions">
-              <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
+        <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
         </div>
     </form>
-  </div>  <!-- cpl-s-12    -->
+  </div>
 </div>  
 @endsection

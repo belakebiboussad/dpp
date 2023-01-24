@@ -72,9 +72,8 @@
               <tr>
                 <th class="center">Mode Admission</th><th class="center">Spécialité</th>
                 <th class="center">Service</th><th class="center">Etat</th>
-                  @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-                      <th class="center"><em class="fa fa-cog"></em></th>
-                  @endif
+                <th class="center"><em class="fa fa-cog"></em></th>
+                  
               </tr>
             </thead>
             <tbody>
@@ -89,13 +88,12 @@
       <td>
         <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
       </td>
-       <td class="center">
-      @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-        <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
+      <td class="center">
+         <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
           <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
+      @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
         <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
-          <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
-        </a>
+          <i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
         <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
       @endif
       </td>
@@ -165,11 +163,9 @@
                         <tbody>
                           <tr>
                             <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                            <td>
-                                <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}"> {{ $consultation->demandeexmbio->etat }}</span>
-                            </td>
+                            <td>{!! format_stat($consultation->demandeexmbio) !!}</td>
                             <td class="center">
-                              <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                            <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                               @if($consultation->medecin->id == Auth::user()->employ->id)
                                 @if($consultation->demandeexmbio->etat == "En Cours")
                                 <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
@@ -187,8 +183,7 @@
                 </div><div class="space-12"></div>{{-- biologique --}}  
                 @endif
                 @if(isset($consultation->demandExmImg))
-                <div class="row"><div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
-                  <span class="ft16">Demande d'examen d'imagerie</span></div>
+                <div class="row"><div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"> <span class="ft16">Demande d'examen d'imagerie</span></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-12 widget-container-col">
@@ -206,9 +201,7 @@
                                 <tbody>
                                 <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
                                 <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                                <td>
-                                  <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">{{ $consultation->demandExmImg->etat }}</span>
-                                </td>
+                                <td>{!! format_stat($consultation->demandExmImg) !!}</td>
                                 <td class="center">
                                     <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                                     @if(!$consultation->demandExmImg->hasResult())

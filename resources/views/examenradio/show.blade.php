@@ -49,21 +49,15 @@ $(function(){
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
-                            <th class="center" width="5%">N°</th> <th class="center" width="30%">Nom</th>
-                            <th class="center" width="7%">Type</th><th class="center" width="7%">Etat</th>
-                            <th class="center" width="20%"><em class="fa fa-cog"></em></th>
+                            <th class="center" width="5%">N°</th><th class="center" width="30%">Nom</th>
+                            <th class="center" width="7%">Type</th><th class="center" width="7%">Etat</th><th class="center" width="20%"><em class="fa fa-cog"></em></th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($demande->examensradios as $index => $ex)
                         <tr id = "{{ $ex->id }}">
-                          <td class="center" width="5%">{{ $index }}</td>
-                          <td>{{ $ex->Examen->nom }}</td>
-                          <td>{{ $ex->Type->nom }}</td>
-                          <td>
-                            <span class="badge badge-{{(($ex->getEtatID($ex->etat)== 0) && ($ex->getEtatID($ex->etat) !== "") )  ? 'warning':'primary' }}">
-                            {{ $ex->etat }}</span>
-                          </td>
+                          <td class="center" width="5%">{{ $index }}</td><td>{{ $ex->Examen->nom }}</td>
+                          <td>{{ $ex->Type->nom }}</td><td>{!! format_stat($ex) !!}</td>
                           <td class="center" width="20%">
                             @switch($ex->etat)
                               @case('En Cours')
@@ -76,7 +70,6 @@ $(function(){
                                 <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
                                 @break
                               @case('Rejeté')
-                                <span class="badge badge-danger">Annuler</span>
                                 <a href="#" class="btn btn-xs show-details-btn green" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" ><i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>  
                                 </a>
                                 @break

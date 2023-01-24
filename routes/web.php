@@ -137,7 +137,7 @@ Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
-route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::post('/uploadresultat','DemandeExbController@uploadresultat')->name('uploadBioRes');
 route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-res', 'DemandeExamenRadio@upload');
 Route::post('delete-res', 'DemandeExamenRadio@delResult');

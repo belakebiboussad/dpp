@@ -93,7 +93,6 @@
 							<tr>
 								<td>{{ $trait->medicament->nom }}</td>
 								<td>{{ $trait->medicament->specialite->nom }}</td>
-
 								specialite
 								<td>{{ $trait->posologie }}</td>
 								<td></td>
@@ -117,11 +116,8 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center">#</th>
-							<th class="center"><b>Date</b></th>
-							<th class="center"><b>Nom</b></th>
-							<th><b>Etat</b></th>
-							<th class="center"><em class="fa fa-cog"></em></th>
+							<th class="center">#</th><th class="center">Date</th><th class="center">Nom</th>
+							<th>Etat</th><th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,21 +125,17 @@
 					<tr>
 						<td class="center">{{ $index + 1 }}</td>
 						@if($loop->first)
-							<td  rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-							{{ $visite->date_formated }}
+							<td  rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">{{ $visite->date_formated }}
 							</td>
 						@endif	
 						 <td>{{ $exm->nom }}</td>
 						@if($loop->first)
-            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-                <span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $visite->demandeexmbio->etat }}</span>
-            	</td>
+            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">{!! format_stat($visite->demandeexmbio) !!}</td>
             @endif 
 						@if($loop->first)
-			            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-			            	<a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
-			            	</td>
+			        <td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
+			         <a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
+			        </td>
 				          @endif   	
 		      </tr>
 		      @endforeach   
@@ -159,31 +151,20 @@
 	<div id="examImg" class="tab-pane row">
 		<div class="col-xs-12 widget-container-col row">
 			<div class="widget-box widget-color-red">
-			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
+			<div class="widget-header"><h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center"><b>Date</b></th><th class="center"><b>Etat</b></th>
+							<th class="center">Date></th><th class="center">Etat</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>{{ $visite->date_formated }}</td>
-							<td>
-								{{-- @if($visite->demandExmImg->etat == null)
-											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($visite->demandExmImg->etat == 1)
-											Validé
-								@else
-										 <span class="badge badge-danger">Rejeté</span>
-								 @endif --}}
-                <span class="badge badge-{{( $visite->demandExmImg->getEtatID($visite->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
-              {{ $visite->demandExmImg->etat }}
-              </span>
-							</td>
+							<td class="center">{!! format_stat($visite->demandExmImg) !!}</td>
 							<td class="center">
 								<a href="{{ route('demandeexr.show', $visite->demandExmImg->id) }}"><i class="fa fa-eye"></i></a>
 								<a href="/drToPDF/{{ $visite->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>

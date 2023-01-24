@@ -46,55 +46,52 @@
 @endsection
 @section('main-content')
 <div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
-<div class="row">
-  <div class="col-md-5 col-sm-5"><h3>Demande d'examen biologique</h3></div>
-  <div class="col-md-7 col-sm-7">
-    <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
-    @if('Auth::user()->role_id ' == 11)
-    <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+<div class="page-header">
+  <h1>Demande d'examen biologique</h1>
+  <div class="pull-right">
+    <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+    @if(Auth::user()->is(11))
+    <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     @else
-    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     @endif
   </div>
 </div><hr>
 <div class="row">
-       <div class="col-xs-11">
-            <div class="widget-box">
-                   <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
-                  <div class="widget-body">
-                   <div class="widget-main">
-                          <div class="row">
-                                 <div class="col-xs-12">
-                                    <div class="user-profile row">
-                                      <div class="col-xs-12 col-sm-8 center">
-                                      <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                  <div class="profile-info-name">Date : </div>
-                  <div class="profile-info-value"><span class="editable">
-                  @if(isset($demande->consultation))
-                    {{ $demande->consultation->date->format('d/m/Y') }}
-                  @else
-                    {{ $demande->visite->date->format('d/m/Y') }}
-                  @endif 
-                  </span></div>
-                </div>
-              </div><!-- striped -->
+ <div class="col-xs-11">
+  <div class="widget-box">
+    <div class="widget-header"><h4 class="widget-title">Détails de la demande</h4></div>
+    <div class="widget-body">
+      <div class="widget-main">
+        <div class="row">
+         <div class="col-xs-12">
+            <div class="user-profile row">
+              <div class="col-xs-12 col-sm-8 center">
               <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row"><div class="profile-info-name">Etat :</div>
-                  <div class="profile-info-value">
-                    <span class="badge badge-{{ ( $demande->getEtatID($demande->etat) == "0" ) ? 'warning':'primary' }}">{{ $demande->etat }}</span>
-                  </div>
-                </div>
-              </div><!-- striped   -->
-              <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row"><div class="profile-info-name"> Demandeur :</div>
-                  
-                  <div class="profile-info-value"><span class="editable" id="username">{{ $medecin->full_name }}</span></div>
-                </div>
-              </div><!-- striped   -->
+      <div class="profile-info-row">
+        <div class="profile-info-name">Date </div>
+        <div class="profile-info-value"><span class="editable">
+        @if(isset($demande->consultation))
+          {{ $demande->consultation->date->format('d/m/Y') }}
+        @else
+          {{ $demande->visite->date->format('d/m/Y') }}
+        @endif 
+        </span></div>
+      </div>
+        </div><!-- striped -->
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row"><div class="profile-info-name">Etat </div>
+              <div class="profile-info-value">{!! format_stat($demande) !!}</div>
+            </div>
+          </div><!-- striped   -->
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row"><div class="profile-info-name"> Demandeur </div>
+              <div class="profile-info-value"><span class="editable" id="username">{{ $medecin->full_name }}</span></div>
+            </div>
+          </div><!-- striped   -->
             </div><!-- col-xs-12 col-sm-3 center   -->
             </div><br/><!-- user-profile row -->
-            <form class="form-horizontal" id ="cerbForm" method="POST" action="/uploadresultat" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('uploadBioRes') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
             <input type="hidden" name="crb" id ="crb"> 
@@ -103,8 +100,7 @@
                 <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th class="center" width="5%">#</th>
-                    <th class="center" width="30%">Nom examen</th>
+                    <th class="center" width="5%">#</th><th class="center" width="30%">Nom examen</th>
                     <th class="center" width="15%">Classe examen</th>
                     <th class="center" width="40%">Attacher le Résultat:</th>
                     <th class="center" width="10%"><em class="fa fa-cog"></em></th>
@@ -113,8 +109,7 @@
                 <tbody>
                   @foreach($demande->examensbios as $index => $exm)
                   <tr>
-                    <td class="center">{{ $index + 1 }}</td>
-                    <td>{{ $exm->nom }}</td>
+                    <td class="center">{{ $index + 1 }}</td><td>{{ $exm->nom }}</td>
                     <td>{{ $exm->Specialite->nom }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">

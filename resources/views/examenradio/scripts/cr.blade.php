@@ -62,17 +62,18 @@ function getRequests(url,field,value)
                           },title:'Médecin demandeur',"orderable": false,
             },
             { data: null,
-                          render: function ( data, type, row ) {
-                              if(data.id_consultation != null)
-                                return  row.consultation.patient.full_name +' <small class="text-primary">(Consultation)</small>';
-                              else
-                                return row.visite.hospitalisation.patient.full_name +' <small class="text-warning">(Hospitalisation)</small>';
-                              return data;  
-                          },title:'Patient',"orderable": true,
+              render: function ( data, type, row ) {
+                  if(data.id_consultation != null)
+                    return  row.consultation.patient.full_name +' <small class="text-primary">(Consultation)</small>';
+                  else
+                    return row.visite.hospitalisation.patient.full_name +' <small class="text-warning">(Hospitalisation)</small>';
+                  return data;  
+              },title:'Patient',"orderable": true,
             },
             { data: 'etat', title:'Etat',
                   render: function ( data, type, row ) {
-                    return '<span class="badge badge-info">' + row.etat +'</span>';
+                    classe = (row.etat == 'Validée') ? 'warning' : 'primary';
+                    return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>';
                   }
               },
               { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}

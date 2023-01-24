@@ -128,7 +128,7 @@ $('document').ready(function(){
 <div class="row">
   <div class="col-xs-11 widget-container-col">
     <div class="widget-box widget-color-blue">
-      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen biologique</h5></div>
+      <div class="widget-header"><h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen biologique</h5></div>
       <div class="widget-body">
         <div class="widget-main no-padding">
           <table class="table table-striped table-bordered table-hover">
@@ -141,10 +141,7 @@ $('document').ready(function(){
             <tbody>
               <tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
                 <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                <td class="center">
-                <span class="badge badge-{{( $consultation->demandeexmbio->getEtatID($consultation->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $consultation->demandeexmbio->etat }}</span>
-                </td>
+                <td class="center">{!! format_stat($consultation->demandeexmbio) !!}</td>
                 <td class="center" width="30%">
                     <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"> <i class="fa fa-hand-o-up fa-xs"></i></a>
                     @if($consultation->medecin->id == Auth::user()->employ->id)
@@ -153,8 +150,7 @@ $('document').ready(function(){
                      <button type="button" class="btn btn-xs btn-danger delete-demandeBio" value="{{ $consultation->demandeexmbio->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                     @endif
                     @endif
-                     <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a> 
-                  
+                     <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a>
                 </td>
             </tbody>
           </table>
@@ -178,19 +174,14 @@ $('document').ready(function(){
         <table class="table table-striped table-bordered table-hover">
           <thead class="thin-border-bottom">
             <tr>
-              <th class="center">Date</th>
-              <th class="center">Etat</th>
+              <th class="center">Date</th> <th class="center">Etat</th>
               <th class="center" width="30%"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
               <td>{{ $consultation->date->format('Y-m-d') }}</td>
-              <td class="center">
-              <span class="badge badge-{{( $consultation->demandExmImg->getEtatID($consultation->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
-              {{ $consultation->demandExmImg->etat }}
-              </span>
-              </td>
+              <td class="center">{!! format_stat($consultation->demandExmImg) !!}</td>
               <td class="center" width="30%">
                 <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                 @if($consultation->medecin->id == Auth::user()->employ->id)
@@ -245,8 +236,7 @@ $('document').ready(function(){
 @endif
 @isset($consultation->demandeHospitalisation)
 <div class="row">
-  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'hospitalisation</span>
-  </div>
+  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Demande d'hospitalisation</span></div>
 </div>
 <div class="row">
   <div class="col-xs-11 widget-container-col">
@@ -257,13 +247,9 @@ $('document').ready(function(){
           <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
-                <th class="center">Mode Admission</th>
-                <th class="center">Spécialité</th>
-                <th class="center">Service</th>
-                <th class="center">Etat</th>
-                @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+                <th class="center">Mode Admission</th><th class="center">Spécialité</th>
+                <th class="center">Service</th><th class="center">Etat</th>
                 <th class="center"><em class="fa fa-cog"></em></th>
-                @endif
               </tr>
             </thead>
             <tr id="{{ 'dh-'.$consultation->demandeHospitalisation->id }}">
@@ -277,17 +263,13 @@ $('document').ready(function(){
               <td class="center">
                 <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
               </td>
-              @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-              <td class="center">
-                <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
-                  <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i>
-                </a>
-                <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
-                  <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
-                </a>
+              <td class="center">   
+               <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
+                @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
+                <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
                 <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
+                 @endif
               </td>
-              @endif
           </table>
         </div>  
       </div>

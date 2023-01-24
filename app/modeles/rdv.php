@@ -10,7 +10,7 @@ class rdv extends Model// implements IdentifiableEvent
     0 => 'Annule',
     1 => 'valide',
   ];
-	public $timestamps = false;
+ 	public $timestamps = false;
 	protected $fillable =['date','fin','fixe','patient_id','employ_id','specialite_id','etat'];
 	protected $dates = ['date', 'fin'];
 	protected $appends = ['title'];
@@ -51,7 +51,7 @@ class rdv extends Model// implements IdentifiableEvent
 	public function getEnd()
 	{
 	  return $this->date;
-	}/*public function getTime(){      return $this->Temp_rdv;}*/
+	}
 	public function patient()
 	{
 		return $this->belongsTo('App\modeles\Patient','patient_id','id');
