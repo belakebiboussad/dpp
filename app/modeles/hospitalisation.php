@@ -8,7 +8,7 @@ class hospitalisation extends Model
 {
     public $timestamps = false;
     protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
-    //modeSorie =[''=>Domicile, '0'=>Transfert, '1'=>,Contre avis médical '2'=>Décès, '3'=>Reporter]
+    //modeSorie =[''=>Dom, '0'=>Trans, '1'=>,Contreaviméd, '2'=>Déc,'3'=>Repor]
     protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
     protected $appends = ['etat_id',"nb_days"];
     public const STATES = [

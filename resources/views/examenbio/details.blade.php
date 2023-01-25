@@ -118,11 +118,10 @@
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                      @if($demande->etat == "En Cours")
-                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{ $demande->id }}" id ="crb-add" @if( isset($exm->pivot->crb)) hidden @endif" disabled>
+            <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{ $demande->id }}" id ="crb-add"  disabled>
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>
-                      @endif
+                    
                     </td>
                     @endif 
                   </tr>

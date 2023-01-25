@@ -64,7 +64,7 @@
         <div class="row">
         <div class="col-xs-12 widget-container-col" >
         <div class="widget-box widget-color-blue">
-          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
+          <div class="widget-header"><h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
             <div class="widget-body">
             <div class="widget-main no-padding">
             <table class="table table-striped table-bordered table-hover">
@@ -78,25 +78,16 @@
             </thead>
             <tbody>
             <tr id="{{ 'dh-'.$consultation->demandeHospitalisation->id }}">
-              <td>
-       <span class="badge badge-{{( $consultation->demandeHospitalisation->getModeAdmissionID($consultation->demandeHospitalisation->modeAdmission)) == 2 ? 'warning':'primary' }}">
-          {{ $consultation->demandeHospitalisation->modeAdmission }}
-      </span>
-      </td>
-      <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
-      <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
-      <td>
-        <span class="badge badge-pill badge-primary">{{ $consultation->demandeHospitalisation->etat }}</span>
-      </td>
-      <td class="center">
+            <td>{{ $consultation->demandeHospitalisation->modeAdmission }}</td>
+            <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
+            <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
+            <td class="center">{!! format_stat($consultation->demandeHospitalisation) !!}</td>
+            <td class="center">
          <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
           <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
-      @if($consultation->demandeHospitalisation->getEtatID($consultation->demandeHospitalisation->etat) == null)
-        <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
-          <i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
-        <button type="button" class="dh-delete btn btn-xs btn-danger" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
-      @endif
-      </td>
+        <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success{!! isInprog($consultation->demandeHospitalisation) !!}" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom"><i class="ace-icon fa fa-pencil"></i></a>
+<button type="button" class="dh-delete btn btn-xs btn-danger{!! isInprog($consultation->demandeHospitalisation) !!}" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
+    </td>
       </tbody>
   </table>
                        </div>
@@ -150,7 +141,7 @@
             <div class="row">
               <div class="col-xs-12 widget-container-col" >
                   <div class="widget-box widget-color-blue">
-                  <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
+                  <div class="widget-header"><h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
                   <div class="widget-body">
                        <div class="widget-main no-padding">
                        <table class="table table-striped table-bordered table-hover">
@@ -166,12 +157,10 @@
                             <td>{!! format_stat($consultation->demandeexmbio) !!}</td>
                             <td class="center">
                             <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                              @if($consultation->medecin->id == Auth::user()->employ->id)
-                                @if($consultation->demandeexmbio->etat == "En Cours")
-                                <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
-                                @endif
-                              <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
+                            @if(($consultation->medecin->id) === (Auth::user()->employ->id))
+                            <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs{!!isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-pencil"></i></a>
+                            <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs{!!isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-trash-o"></i></a>
+                            <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
                               @endif
                             </td>
                         </tbody>
@@ -220,10 +209,8 @@
                 </div><div class="space-12"></div>{{-- radiologique --}}
                 @endif
                 @if(isset($consultation->ordonnances))
-                <div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-                  <span class="ft16">Ordonnance</span></div>
-                </div>
-                <div class="row">
+                <div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><span class="ft16">Ordonnance</span></div></div>
+                 <div class="row">
                   <div class="col-xs-12 widget-container-col">
                     <div class="widget-box widget-color-blue">
                       <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5></div>

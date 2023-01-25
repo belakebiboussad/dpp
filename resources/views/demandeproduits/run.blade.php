@@ -85,18 +85,15 @@ $('document').ready(function(){
 								</thead>
 								<tbody>
 								@foreach($demande->dispositifs as $dispositif)
-									<tr>
-										<td hidden>{{ $dispositif->id }} </td>
-										<td>{{ $dispositif->nom }}</td>
-										<td>{{ $dispositif->code }}</td>
-										<td>DISPOSITIFS MEDICAUX</td>
-										<td>/</td>
-										<td class="center">{{ $dispositif->pivot->qte }}</td>
-										<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
-										<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count() + $demande->consomables->count() }}">
-											<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
-										</td>
-									</tr>
+								<tr>
+									<td hidden>{{ $dispositif->id }}</td><td>{{ $dispositif->nom }}</td>
+									<td>{{ $dispositif->code }}</td><td>DISPOSITIFS MEDICAUX</td>
+									<td>/</td><td class="center">{{ $dispositif->pivot->qte }}</td>
+									<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
+									<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count() + $demande->consomables->count() }}">
+										<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
+									</td>
+								</tr>
 								@endforeach
 								@foreach($demande->medicaments as $medicament)
 									<tr>

@@ -195,17 +195,15 @@ $(function(){
       <div class="col-md-7 col-sm-7 btn-toolbar">
         <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
           <i class="ace-icon fa fa-print"></i> Imprimer</a> 
-          @if(Auth::user()->role_id  == 12)
-           <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
-          @else
-           <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+        @if(Auth::user()->role_id  == 12)
+        <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
+        @else
+        <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
           @endif
       </div>
   </div><hr>
-  <div class="row">
-    <div class="col-xs-12">@include('examenradio.partials._show')</div>
-  </div>
-  <div class="row">
+  <div class="row"><div class="col-xs-12">@include('examenradio.partials._show')</div></div>
+   <div class="row">
     <div class="col-sm-12 col-xs-12 widget-container-col">
       <div class="widget-box">
         <div class="widget-header"><h5 class="widget-title">Examens radiologique demadés</h5></div>

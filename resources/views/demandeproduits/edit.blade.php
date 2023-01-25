@@ -81,49 +81,40 @@ $('document').ready(function(){
 							</thead>
 							<tbody >
 							@foreach($demande->medicaments as $key=>$medicament)
-  							<tr>
-  								<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-  								<td hidden>{{ $medicament->id }}</td><td>{{ $medicament->nom }}</td>
-  								<td> MEDICAMENTS</td><td>{{ $medicament->specialite->nom }}</td>
-  								<td><input type="number" id="quantite" class="form-control" value="{{ $medicament->pivot->qte }}" min=1></td>
-                  <td><input type="text" id="unite" class="form-control" value="{{ $medicament->pivot->unite }}" ></td>
-  							</tr>
-  									@endforeach
-  										@foreach($demande->dispositifs as $dispositif)
-  											<tr>
-  												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-  												<td hidden>{{ $dispositif->id }}</td>
-  												<td>{{ $dispositif->nom }}</td>
-  												<td>DISPOSITIFS MEDICAUX</td>
-  												<td>/</td>
-  												<td><input type="number" id="quantite" class="form-control" value="{{ $dispositif->pivot->qte }}"></td>
-                                                                                        <td><input type="text" id="unite" class="form-control" value="{{ $dispositif->pivot->unite }}" ></td>
-  											</tr>
-  										@endforeach
-  										@foreach($demande->reactifs as $reactif)
-  											<tr>
-  												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-  												<td hidden>{{ $reactif->id }}</td>
-  												<td>{{ $reactif->nom }}</td>
-  												<td>Réactifs chimiques et dentaires</td>
-  												<td>/</td>
-  												<td><input type="number" id="quantite"class="form-control" value="{{ $reactif->pivot->qte }}"></td>
-                          <td><input type="text" id="unite" class="form-control" value="{{ $reactif->pivot->unite }}" ></td>
-  											</tr>
-  										@endforeach
-                            @foreach($demande->consomables as $consom)
-                              <tr>
-                                <td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-                                <td hidden>{{ $consom->id }}</td>
-                                <td>{{ $consom->nom }}</td>
-                                <td>Produits consommables de Labo</td>
-                                <td>/</td>
-                                <td><input type="number" id="quantite"class="form-control" value="{{ $consom->pivot->qte }}"></td>
-                                  <td><input type="text" id="unite" class="form-control" value="{{ $consom->pivot->unite }}" ></td>
-                              </tr>
-                            @endforeach
-  									</tbody>
-  								</table>
+							<tr>
+								<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+								<td hidden>{{ $medicament->id }}</td><td>{{ $medicament->nom }}</td>
+								<td> MEDICAMENTS</td><td>{{ $medicament->specialite->nom }}</td>
+								<td><input type="number" id="quantite" class="form-control" value="{{ $medicament->pivot->qte }}" min=1></td>
+                <td><input type="text" id="unite" class="form-control" value="{{ $medicament->pivot->unite }}" ></td>
+  						</tr>
+  						@endforeach
+							@foreach($demande->dispositifs as $dispositif)
+							<tr>
+								<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>{{ $dispositif->id }}</td><td>{{ $dispositif->nom }}</td>
+								<td>DISPOSITIFS MEDICAUX</td><td>/</td>
+								<td><input type="number" id="quantite" class="form-control" value="{{ $dispositif->pivot->qte }}"></td>
+                <td><input type="text" id="unite" class="form-control" value="{{ $dispositif->pivot->unite }}" ></td>
+							</tr>
+							@endforeach
+							@foreach($demande->reactifs as $reactif)
+							<tr>
+								<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>{{ $reactif->id }}</td><td>{{ $reactif->nom }}</td>
+								<td>Réactifs chimiques et dentaires</td><td>/</td>
+								<td><input type="number" id="quantite"class="form-control" value="{{ $reactif->pivot->qte }}"></td>
+                <td><input type="text" id="unite" class="form-control" value="{{ $reactif->pivot->unite }}" ></td>
+							</tr>
+							@endforeach
+              @foreach($demande->consomables as $consom)
+                <tr>
+                  <td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>{{ $consom->id }}</td><td>{{ $consom->nom }}</td>
+                  <td>Produits consommables de Labo</td><td>/</td>
+                  <td><input type="number" id="quantite"class="form-control" value="{{ $consom->pivot->qte }}"></td>
+                    <td><input type="text" id="unite" class="form-control" value="{{ $consom->pivot->unite }}" ></td>
+                </tr>
+              @endforeach
+							</tbody>
+						</table>
 							</div>
 							<div class="hr hr8 hr-double hr-dotted"></div>
 							<div class="pull right">

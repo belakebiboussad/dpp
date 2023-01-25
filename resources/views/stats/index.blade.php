@@ -47,23 +47,19 @@
         </div>
         <div class="col-lg-3 col-md-6 col-xs-12">
             <div class="widget">
-                <div class="widget-body">
-                    <div class="widget-icon green pull-left">
-                      <i class="fa fa-cogs bigger-180"></i>
-                    </div>
-                    <div class="widget-content pull-left">
-                        <div class="title">&nbsp; {{ $hospCount }}</div>
-                        <div class="comment">Hospitalisation En cours</div>
-                    </div><div class="clearfix"></div>
+              <div class="widget-body">
+                <div class="widget-icon green pull-left"><i class="fa fa-cogs bigger-180"></i></div>
+                <div class="widget-content pull-left">
+                  <div class="title"> {{ $hospCount }}</div>
+                  <div class="comment">Hospitalisation En cours</div>
+                </div><div class="clearfix"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-xs-12">
           <div class="widget">
             <div class="widget-body">
-              <div class="widget-icon blue pull-left">
-                  <i class="fa fa-spinner bigger-180"></i>
-              </div>
+              <div class="widget-icon blue pull-left"><i class="fa fa-spinner bigger-180"></i></div>
               <div class="widget-content pull-left">
                 <div class="title">&nbsp;{{ $nbRequest}}</div>
                 <div class="comment">Hospitalisation En attente</div>

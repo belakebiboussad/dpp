@@ -300,10 +300,8 @@
                     <td class="priority-5">{{ (isset($hosp->modeHospi)) ? $hosp->modeHospi->nom : '' }}</td>
                     <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>
                     <td class="priority-6">{{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}</td>
-                       <td class="priority-6">{{ (isset($hosp->garde)) ? $hosp->garde->full_name : ''  }}</td>
-                     <td class="priority-6" >
-                         <span class="badge badge-pill badge-primary">{{  isset($hosp->etat)  ?  $hosp->etat : 'En Cours'}}</span>
-                     </td>
+                    <td class="priority-6">{{ (isset($hosp->garde)) ? $hosp->garde->full_name : ''  }}</td>
+                    <td class="priority-6" ><span class="badge badge-pill badge-primary">{{is_null($hosp->etat) ? 'En Cours': $hosp->etat}}</span>
                     <td class ="center"  width="12%">
                       <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
                       @if(in_array(Auth::user()->role_id,[1,5,13,14]))

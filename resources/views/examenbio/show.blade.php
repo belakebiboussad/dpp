@@ -1,23 +1,19 @@
  @extends('app')
 @section('main-content')
- <div class="row" width="100%">  @include('patient._patientInfo', $patient) </div>
- <div class="content">
-    <div class="page-header">
-        <h1>Détails de la demande d'examen biologique</h1>
-        <div class="pull-right">
-          @if($medecin->id == Auth::user()->employ->id)
-            <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
-             @if( $demande->etat =="En Cours" )
-            <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
-          @endif
-          @endif
-          <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
-          @if( Auth::user()->is(11))
-          @if( $demande->etat =="En Cours" )
-        <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
-          @endif
-          @endif
-        </div>
+<div class="row" width="100%">  @include('patient._patientInfo', $patient) </div>
+  <div class="content">
+  <div class="page-header"><h1>Détails de la demande d'examen biologique</h1>
+    <div class=" pull-right">
+    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
+    @if($medecin->id == Auth::user()->employ->id)
+      <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+     <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
+      @endif
+      @if( Auth::user()->is(11))
+  <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info{!! isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
+      @endif
+    </div>
+    </div>
     </div>
       <div class="row">
       <div class="col-xs-12">
@@ -95,7 +91,7 @@
           </div>{{-- col-xs-12 --}}
           </div><br> {{-- row --}}
           @if($demande->crb != null)
-      <div class="row"><div class="col-sm-12"><label class="">Compte rendu biologique :</label></div></div>
+      <div class="row"><div class="col-sm-12"><label>Compte rendu biologique :</label></div></div>
        <div class="row">   
             <div class="col-sm-12"><textarea class="form-control" disabled rows="4" style="resize:none">{{ $demande->crb}}</textarea></div>
          </div>

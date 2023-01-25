@@ -6,7 +6,7 @@ use App\modeles\patient;
 use App\modeles\Vaccin;
 use Response;
 use DB;
-class vaccinController extends Controller
+class VaccinController extends Controller
 {
   public function show(Request $request,$id)
   {
@@ -27,9 +27,9 @@ class vaccinController extends Controller
   }
   public function store(Request $request)
   {
-        $patient = patient::findOrFail($request->pid);
-        $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
-        return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    $patient = patient::findOrFail($request->pid);
+    $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
+    return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
   }
   public function destroy(Request $request,$id)
   {

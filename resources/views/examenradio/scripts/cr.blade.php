@@ -22,14 +22,14 @@ function getRequests(url,field,value)
                 "data" : data,
                 "columns": [
                   { data:null,title:'#', searchable: false,
-                render: function ( data, type, row ) {
-                          if ( type === 'display' ) {
-                              return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" /><span class="lbl"></span>';
-                          }
-                          return data;
+                    render: function ( data, type, row ) {
+                      if ( type === 'display' ) {
+                        return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" /><span class="lbl"></span>';
+                      }
+                      return data;
                     }, className: "dt-body-center","orderable":false, 
-            },
-            { data: null,
+                  },
+                  { data: null,
                         render: function ( data, type, row ) {
                             if(data.id_consultation != null)
                               return moment(row.consultation.date).format('YYYY-MM-DD');
@@ -72,7 +72,7 @@ function getRequests(url,field,value)
             },
             { data: 'etat', title:'Etat',
                   render: function ( data, type, row ) {
-                    classe = (row.etat == 'Validée') ? 'warning' : 'primary';
+                    classe = (row.etat == 'Validée') ? 'success' : 'primary';
                     return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>';
                   }
               },
