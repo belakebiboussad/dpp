@@ -6,12 +6,15 @@ class service extends Model
 {
 	public $timestamps = false;
 	protected $fillable = ['nom','type','specialite_id','responsable_id','hebergement','urgence'];
-        public const TYPE = [
-          0 => 'Médical',
-          1 => 'Chirurgical',
-          2 => 'Paramédical',
-          3 => 'Administratif',
-        ];
+  public const TYPE = [
+    0 => 'Médical',
+    1 => 'Chirurgical',
+    2 => 'Paramédical',
+    3 => 'Administratif',
+  ];
+  protected $casts = [
+    'hebergement' => 'boolean',
+  ];
   public function getTypeAttribute()
  {
         return self::TYPE[ $this->attributes['type'] ];

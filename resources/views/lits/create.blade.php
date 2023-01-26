@@ -34,9 +34,9 @@
       </div>  
       <div class="widget-body">
         <div class="widget-main">
-              <form class="form-horizontal" role="form" method="POST" action="{{ route('lit.store') }}">
-                      {{ csrf_field() }}
-                       <div class="form-group">
+        <form role="form" method="POST" action="{{ route('lit.store') }}">
+          {{ csrf_field() }}
+          <div class="form-group">
                               <label class="col-sm-3 control-label" for="service">Service :</label>
                               <div class="col-sm-9">
                                  <select class="col-xs-10 col-sm-5" id="service" name="service" required>

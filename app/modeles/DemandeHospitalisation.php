@@ -31,8 +31,8 @@ class DemandeHospitalisation extends Model
     else
       $this->attributes['etat'] = (int) $value;
   }
-  public static function getEtatID($state) {
-    return array_search($state, self::STATES); 
+  public function getEtatID() {
+    return array_search($this->etat, self::STATES); 
   }
   public function getModeAdmissionAttribute()
   {

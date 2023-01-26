@@ -8,7 +8,7 @@
 			<div class="widget-header"><h5 class="widget-title">Ajouter une chambre :</h5></div>
 			<div class="widget-body">
 			<div class="widget-main">
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('salle.store') }}">
+			<form role="form" method="POST" action="{{ route('salle.store') }}">
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="service">Service :</label>

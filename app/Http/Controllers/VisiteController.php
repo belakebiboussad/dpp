@@ -25,7 +25,6 @@ use App\modeles\NGAP;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use App\modeles\Specialite;
 use Carbon;
 class VisiteController extends Controller

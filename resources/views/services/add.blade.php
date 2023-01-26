@@ -7,7 +7,7 @@
 				<div class="widget-header" bg="blue"></div>
 				<div class="widget-body">
 				<div class="widget-main">
-					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
+					<form role="form" method="POST" action="{{ route('service.store') }}">
 						{{ csrf_field() }}
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">

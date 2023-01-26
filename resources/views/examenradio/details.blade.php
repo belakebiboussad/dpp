@@ -228,12 +228,12 @@ $(function(){
                       <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result{!! isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
                       <td class="center" width="30%">
                         <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
-                        @if($examen->getEtatID($examen->etat) ===1)
+                        @if($examen->getEtatID() ===1)
                         <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
                        @endif      
                       </td>
                       <td class="center" width="18%">
-                      @if($examen->getEtatID($examen->etat) !==0)<!-- non rejete -->
+                      @if($examen->getEtatID() !==0)<!-- non rejete -->
                       <button  type="button" class="btn btn-sm btn-info start{!! isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
                       </button>
                       <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
@@ -241,8 +241,8 @@ $(function(){
                       </button>
                       <button type="button" class="btn btn-sm btn-primary open-editCRRDialog{{ (isset($examen->crr_id)) ? ' ' : ' hidden' }}" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le compte rendu" value="{{ $examen->crr_id }}"><i class="glyphicon glyphicon-edit glyphicon"></i>
                       </button>
-                      <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID($examen->etat) === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID($examen->etat) === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
+                      <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID() === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID() === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
                         <i class="glyphicon glyphicon-trash glyphicon"></i>
                       </button>
                       @else
@@ -262,7 +262,7 @@ $(function(){
   <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div><div class="space-12 hidden-xs"></div>
   <div class="row">
     <div class="col-sm-12 center">
-      <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
+      <form method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type="hidden" name="demande_id" value="{{ $demande->id }}">

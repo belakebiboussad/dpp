@@ -7,14 +7,15 @@ use Carbon\Carbon;
 class hospitalisation extends Model
 {
     public $timestamps = false;
-    protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
+  protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','HeurEnt', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
     //modeSorie =[''=>Dom, '0'=>Trans, '1'=>,Contreaviméd, '2'=>Déc,'3'=>Repor]
     protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
-    protected $appends = ['etat_id',"nb_days"];
-    public const STATES = [
-      ''=> 'en Cours',
-      1 => 'Cloturée',
-    ];
+    protected $appends = ['nb_days'];
+    public const STATES = [''=> 'en Cours', 1 => 'Cloturée'];
+    public function getHeurSorFormattedAttribute()
+    {
+      return \Carbon\Carbon::parse($this->Heure_sortie)->format('H:i');
+    }
     public function getEtatAttribute()
     {
        return self::STATES[ $this->attributes['etat'] ];
@@ -26,7 +27,8 @@ class hospitalisation extends Model
       else
         $this->attributes['etat'] = (int) $value;
     }
-    public  function getEtatIdAttribute($state) {//getEtatID
+    public function getEtatID()
+    {
       return array_search($this->etat, self::STATES); 
     }
     public function getNbDaysAttribute()

@@ -51,9 +51,9 @@
 </script>
 @endsection
 @section('main-content')
-<div  class="row"><h4><strong>Déroulement du colloque du service &quot; {{ $colloque->Service->nom }}&quot;  de la semaine du </strong> <strong>&quot;<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong></h4>
+<div  class="row"><h4><strong>Déroulement du colloque du service &quot; {{ $colloque->Service->nom }}&quot;  de la semaine du </strong><strong>&quot;<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong></h4>
 </div>
-<form id="detail_coll" class="form-horizontal" method="GET" action="/endcolloque/{{ $colloque->id }}"> {{--return redirect()->action('ColloqueController@index');--}}
+<form id="detail_coll" method="GET" action="/endcolloque/{{ $colloque->id }}"> {{--return redirect()->action('ColloqueController@index');--}}
 	{{ csrf_field() }}
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 widget-container-col">

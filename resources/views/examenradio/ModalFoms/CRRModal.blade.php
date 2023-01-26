@@ -5,7 +5,7 @@
 				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un compte rendue radiologique </h4>
 			</div>
 			<div class="modal-body">
-			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
+			  <form id="CRRForm" action="" method="POST">
 			    <input type="hidden" name=""  id="examId" value="">
 			     <input type="hidden" name=""  id="crrId" value="">
      		    <div class="row">

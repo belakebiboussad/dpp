@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 	<div class="page-header"><h3>Modifier l'établissement</h3></div><div class="space-12 hidden-xs"></div>
-		<form id ="editEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.update', $etab->id) }}" enctype="multipart/form-data">
+		<form id ="editEtab" role="form" method="POST" action="{{ route('etablissement.update', $etab->id) }}" enctype="multipart/form-data">
 		<div class="row">
 			<input type="hidden" name="id" value="{{ $etab->id }}">
 			{{ csrf_field() }}

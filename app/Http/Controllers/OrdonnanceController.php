@@ -8,7 +8,6 @@ use App\modeles\employ;
 use App\modeles\ordonnance;
 use App\modeles\medicament;
 use App\modeles\Etablissement;
-use Jenssegers\Date\Date;
 use PDF;
 use Response;
 use Storage;

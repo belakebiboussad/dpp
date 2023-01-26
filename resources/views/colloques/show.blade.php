@@ -8,7 +8,7 @@
 </div>
 <div class="row"> 
   <div class="col-sm-12">
-    <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.index')}}">
+    <form id="creat_col" role="form" method="POST" action="{{route('colloque.index')}}">
       <div class="row">      
         <div class="col-xs-5">
           <div class="widget-box">
@@ -29,7 +29,7 @@
             </div>     
         </div>
         <div class="col-sm-7">
-          @if($colloque->getEtatID($colloque->etat))
+          @if($colloque->getEtatID())
           <div class="widget-box">
             <div class="widget-header widget-header-flat widget-header-small">
               <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demandes traités </h5><label><span class="badge badge-info numberResult"></span></label>

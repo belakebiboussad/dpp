@@ -16,7 +16,7 @@
 @section('main-content')
 <div class="container-fluid">
   <h4>Ajouter un Patient</h4>
-  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
+  <form id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $NSS }}"><input type="hidden" name="typePatient" value="{{$type}}">
 		<div class="row">

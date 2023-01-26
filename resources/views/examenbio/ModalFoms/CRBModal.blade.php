@@ -5,7 +5,7 @@
 				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un compte-rendue biologique </h4>
 			</div>
 			<div class="modal-body">
-			  <form id="CRBForm" action="" method="POST" class="form-horizontal">
+			  <form id="CRBForm" action="" method="POST">
 			    <input type="hidden" name=""  id="crbId" value="">
 			    <div class="row">
 			      <div class="col-xs-12"><label for="crbm"></label>

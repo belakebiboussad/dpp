@@ -9,7 +9,7 @@
       <div class="widget-main padding-8">
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
           @foreach($demandesExB as $demande)
-            @if($demande->getEtatID($demande->etat) ===1)
+            @if($demande->getEtatID() ===1)
           <li>
             <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $demande->resultat }}</a>
             @isset($res->crb)    
@@ -42,7 +42,7 @@
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
          @foreach($demandesExR as $demande)
             @foreach($demande->examensradios as $ex)
-            @if($ex->getEtatID($ex->etat) ===1) 
+            @if($ex->getEtatID() ===1) 
             <li>
               <a href="/storage/files/{{ $ex->resultat }}" title="téléchager le résultat {{ $ex->Type->nom }}" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $ex->resultat }}</a>
               @isset($ex->crr_id) 

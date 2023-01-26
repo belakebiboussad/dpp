@@ -39,7 +39,7 @@ $(function(){
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">
-			<form class="form-horizontal" role="form" action="{{  route('employs.update', $user->employ->id) }}" method="POST">
+			<form role="form" action="{{  route('employs.update', $user->employ->id) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<input type="hidden" name="id" value="{{ $user->employ->id }}">
@@ -178,7 +178,7 @@ $(function(){
 	</div><!-- col-sm-8 -->
 	<div class="col-sm-3 col-xs-12 well well-sm">
 		<div class="w-120 p-3 mb-2" ><h4 class="center">Informations d'authentification</h4></div>
-		<form class="form-horizontal" action="{{route('users.update',$user->id)}}" method="POST">
+		<form action="{{route('users.update',$user->id)}}" method="POST">
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}
   		<div class="form-group">

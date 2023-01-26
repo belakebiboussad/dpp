@@ -14,7 +14,6 @@ use App\modeles\codesim;
 use App\modeles\employ;
 use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use View;
 use Response;
 use Carbon\Carbon;

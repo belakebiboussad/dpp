@@ -4,12 +4,10 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box">
-			<div class="widget-header">
-				<h5 class="widget-title">Modifier les données d'une chambre :</h5>
-			</div>
+			<div class="widget-header"><h5 class="widget-title">Modifier les données d'une chambre :</h5></div>
 			<div class="widget-body">
 			<div class="widget-main">
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('salle.update', $salle->id) }}">
+			<form role="form" method="POST" action="{{ route('salle.update', $salle->id) }}">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">

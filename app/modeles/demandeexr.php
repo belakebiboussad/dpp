@@ -18,8 +18,8 @@ class demandeexr extends Model
   {
     return self::ETATS[ $this->attributes['etat'] ];
   }
-  public static function getEtatID($etat) {
-     return array_search($etat, self::ETATS); 
+  public function getEtatID() {
+    return array_search($this->etat, self::ETATS); 
   }
   public function examensradios()
   { 
@@ -52,7 +52,7 @@ class demandeexr extends Model
   {
     foreach($this->examensradios as $examen)
     {
-      if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
+      if((isset($examen->crr_id)) || ($examen->getEtatID() != ""))
         return true;       
     }  
     return false;

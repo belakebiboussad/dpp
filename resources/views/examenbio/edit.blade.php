@@ -60,7 +60,7 @@
   <div class="row">
     <div class="col-sm12">
       <div class="center" style="bottom:0px;">
-      <form class="form-horizontal" method="POST" action="{{ route('demandeexb.update',$demande->id) }}" > 
+      <form  method="POST" action="{{ route('demandeexb.update',$demande->id) }}" > 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type="hidden" name="demande_id" value="{{ $demande->id }}" >

@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 	<div class="row"><h3>Ajouter Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
-		<form id ="addEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
+		<form id ="addEtab" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
 		<div class="row">
 			{{ csrf_field() }}
 		<div class="col-sm-9 col-xs-12">

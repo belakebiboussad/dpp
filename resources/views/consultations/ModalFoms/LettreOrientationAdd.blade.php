@@ -5,7 +5,7 @@
         &times;</button><h4 class="modal-title" id="orientCrudModal">Ajouter une Lettre d'orientation</h4>
       </div>
 			<div class="modal-body">
-			  <form id="modalFormDataOroient" method="POST" class="form-horizontal">
+			  <form id="modalFormDataOroient" method="POST">
           <input type="hidden" id="orient_id">
 				 	<div class="form-group">	
             <label for="specialiteOrient">Spécialité :</label>

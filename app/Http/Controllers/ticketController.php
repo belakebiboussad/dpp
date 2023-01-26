@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Jenssegers\Date\Date;
 use App\modeles\ticket;
 use App\modeles\Etablissement;
 use PDF;

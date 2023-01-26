@@ -33,7 +33,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-      <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
+      <form id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">

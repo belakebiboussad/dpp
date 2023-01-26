@@ -8,7 +8,7 @@
       <div class="modal-body">
       	<p class="center">êtes-vous sûr de vouloir merger les deux patients ?</p>
 				<p> <span  class="text-danger">mergé les patient est permanent et ne  peut pas  étre refait !!</span></p>
-   			<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
+   			<form id="form-merge" role="form" method="POST" action="{{ url('/patient/merge') }}">	
       	  {{ csrf_field() }}
 	      	<div id="tablePatientToMerge"></div>
 	        <div class="modal-footer">

@@ -13,7 +13,6 @@ use App\modeles\colloque;
 use App\modeles\service;
 use App\modeles\Specialite;
 use Auth;
-use Jenssegers\Date\Date;
 use Response;
 
 class DemandeHospitalisationController extends Controller

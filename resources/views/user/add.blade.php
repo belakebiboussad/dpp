@@ -3,10 +3,10 @@
 @section('main-content')
 	<div class="container-fluid">
 	<div class="row"><h4>Ajouter un nouveau utilisateur</h4></div>
-	<form  id="userAdd" class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
-	<div class="widget-box" id="widget-box-1">
+	<form  id="userAdd" action="{{ url('/users/store') }}" method="POST">
+	<div class="widget-box">
 		<div class="widget-body">
-			<div class="widget-main">{{-- "{{route('users.store')}} --}}
+			<div class="widget-main">
 				{{ csrf_field() }}
 				<h4 class="header block blue">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">

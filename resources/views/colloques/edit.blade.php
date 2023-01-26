@@ -26,7 +26,7 @@
 <div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
-    <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return myFunction()">
+    <form id="creat_col" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return myFunction()">
       {{ csrf_field() }} 
       {{ method_field('PUT') }}
       <div class="row">

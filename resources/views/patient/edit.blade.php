@@ -87,7 +87,7 @@
 			</a>
 		</div>
 	</div>
-	<form class="form-horizontal" id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<div class="row">

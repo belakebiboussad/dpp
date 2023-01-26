@@ -15,7 +15,6 @@ use App\modeles\Transfert;
 use App\modeles\Dece;
 use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
-use Jenssegers\Date\Date;
 use App\modeles\Specialite;
 use App\modeles\etablissement;
 use App\modeles\prescription_constantes;
@@ -23,7 +22,7 @@ use App\modeles\Constantes;
 use App\modeles\consts;
 use App\modeles\ModeHospitalisation;
 use Carbon\Carbon;
-use PDF;//use Dompdf\Dompdf;
+use PDF;
 use Validator;
 use View;
 use Response;
@@ -101,13 +100,6 @@ class HospitalisationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-/*public function create(){$serviceID = Auth::user()->employ->service_id;$adms = admission::with('lit','demandeHospitalisation.DemeandeColloque','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-->whereHas('rdvHosp', function($q){$q->where('date', date("Y-m-d"));})->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-$q->where('service', $serviceID)->where('etat',2);})->get(); //admission d'urgenes
-$admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.hommesConf','demandeHospitalisation.consultation.medecin','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation','demandeHospitalisation.Service')
-->whereHas('demandeHospitalisation.consultation', function($q){$q->where('date',date("Y-m-d"));
-})->whereHas('demandeHospitalisation',function($q) use ($serviceID) {$q->where('service', $serviceID)->where('modeAdmission',2)->where('etat',2);                                      })->get();                                                    
-        return view('hospitalisations.create', compact('adms','admsUrg'));}*/
   /**
    * Store a newly created resource in storage.
    *
@@ -125,11 +117,8 @@ $admsUrg = admission::with('lit','demandeHospitalisation.consultation.patient.ho
    */
   public function show($id)//
   {
-    $hosp = hospitalisation::find($id);
-    if(isset(Auth::user()->employ->specialite))
-      $specialite = Auth::user()->employ->Specialite;
-    else
-      $specialite = Auth::user()->employ->Service->Specialite;
+    $hosp = hospitalisation::find($id);$employ= Auth::user()->employ;
+    $specialite=(is_null($employ->specialite))? $employ->Service->Specialite : $employ->Specialite;
     $consts = consts::all();  
     return view('hospitalisations.show',compact('hosp','consts','specialite'));
   }

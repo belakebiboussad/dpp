@@ -5,7 +5,7 @@
         &times;</button> <h4 class="modal-title" id="DescripCrudModal">Ajouter un Certificat descriptf</h4>
       </div>
       <div class="modal-body">
-        <form id="modalFormDescript" method="POST" class="form-horizontal">
+        <form id="modalFormDescript" method="POST">
           <input type="hidden" id="decript_id">
           <div class="form-group">
             <label for="description">Examen clinque :</label>

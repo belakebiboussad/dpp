@@ -6,7 +6,7 @@
   <div class="col-sm-12">
     <div class="widget"><div class="widget-title"></div>
       <div class="widget-body">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('home') }}">
+        <form role="form" method="POST" action="{{ route('home') }}">
           {{ csrf_field() }}
           @foreach(Auth::user()->role->Parameters  as $param)
           <div class="form-group">

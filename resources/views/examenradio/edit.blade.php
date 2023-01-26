@@ -47,7 +47,7 @@
 			<div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique </b></h5> </div>
 	  </div><!-- widget-box -->
 		<div class="widget-body">
-    <form class="form-horizontal" id="requestImgEdit" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" > 
+    <form id="requestImgEdit" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" > 
                       {{ csrf_field() }}
                       {{ method_field('PUT') }}
                       <input type="hidden" name="demande_id" value="{{ $demande->id }}" >

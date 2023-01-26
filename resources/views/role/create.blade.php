@@ -4,8 +4,7 @@
 <div class="page-header"><h1>Ajouter un nouveau rôle :</h1></div>
 <div class="row">
 	<div class="col-sm-12">
-		<!-- <div class="space-10"></div> -->
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('role.store') }}">
+			<form role="form" method="POST" action="{{ route('role.store') }}">
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="rolename">Nom :</label>

@@ -5,7 +5,7 @@
 		  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="accCrudModal">Information sur l'Accouchement</h4>
 		</div>
 		<div class="modal-body">
-			<form id="modalFormAcc" class="form-horizontal">
+			<form id="modalFormAcc">
 				<input type="hidden" id="acc_id" value="0">
 				<div class="form-group">
 					<label class="col-sm-4 control-label" >Lieu :</label>

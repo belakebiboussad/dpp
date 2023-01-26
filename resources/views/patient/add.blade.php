@@ -51,7 +51,7 @@
 		</div>
   </div>
   <div class="row tabs">
-		<form class="form-horizontal" id ="addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
+		<form id ="addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	    {{ csrf_field() }}
 	    <div class="row">
 				<div class="col-sm-12">

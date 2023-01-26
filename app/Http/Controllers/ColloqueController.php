@@ -14,7 +14,6 @@ use App\modeles\fonction;
 use App\modeles\medecin_traitant;
 use App\User;
 use Auth;
-use Jenssegers\Date\Date;
 use Response;
 class ColloqueController extends Controller
 {    

@@ -12,13 +12,11 @@
      {{ (is_null($hosp->medecin)) ? '' : $hosp->medecin->full_name  }}</li> 
     <li><i class="ace-icon fa fa-caret-right blue"></i>Date d'entrée : {{$hosp->date->format('Y-m-d') }}</li>     
     <li><i class="ace-icon fa fa-caret-right blue"></i>Date sortie prévue : {{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}</li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i>Etat :
-      <span class="badge badge-{{( $hosp->etat_id == 1 )?'success':'primary'}}">{{ $hosp->etat }}</span>
-    </li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i>Etat : {!! format_stat($hosp) !!}</li>
   </ul>
   </div>
 </div>
-@if($hosp->etat_id == 1)
+@if(!empty($hosp->getEtatID()))
 <div class="row">
   <div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right">
     <span class="ft16">Sortie d'hospitalisation</span></div>
@@ -27,7 +25,7 @@
   <div class="col-sm-12">
   <ul class="list-unstyled spaced">
     <li><i class="ace-icon fa fa-caret-right blue"></i>Date de sortie :{{ $hosp->Date_Sortie->format('y-m-d') }}</li>
-    <li><i class="ace-icon fa fa-caret-right blue"></i>heure de sortie : {{ $hosp->Heure_sortie }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i>heure de sortie : {{ $hosp->heur_sor_formatted }}</li>
     <li><i class="ace-icon fa fa-caret-right blue"></i>Résumé de sortie : {{ $hosp->resumeSortie }}</li>
     <li><i class="ace-icon fa fa-caret-right blue"></i>Etat à la sortie : {{ $hosp->etatSortie }}</li> 
     <li><i class="ace-icon fa fa-caret-right blue"></i>Mode de sortie :
@@ -56,7 +54,7 @@
   </ul>
 </div>
 </div>
-@isset($hosp->modeSortie)
+@if(!is_null($hosp->modeSortie))
 @switch($hosp->modeSortie)
   @case(0)
     <div class="row">
@@ -77,8 +75,8 @@
     <div class="row">
     <div class="col-sm-12">
       <ul class="list-unstyled spaced">
-        <li><i class="ace-icon fa fa-caret-right blue"></i>Date décès :{{ $hosp->Dece->date->format('d/m/Y') }}</li>
-        <li><i class="ace-icon fa fa-caret-right blue"></i>Heure décès :{{ $hosp->Dece->heure }}</li>
+<li><i class="ace-icon fa fa-caret-right blue"></i>Date décès : {{ $hosp->Dece->date->format('Y-m-d') }}</li>
+        <li><i class="ace-icon fa fa-caret-right blue"></i>Heure décès : {{ $hosp->Dece->heur_formatted }}</li>
         <li><i class="ace-icon fa fa-caret-right blue"></i>Médecin constatant décès :
         {{ $hosp->Dece->Medecin->full_name }}</li>
         <li> <i class="ace-icon fa fa-caret-right blue"></i>Cause décès : {{$hosp->Dece->cause}}</li>
@@ -89,21 +87,19 @@
   @default
     @break
 @endswitch
-@endisset
 @endif
-@isset($hosp->garde_id)
+@endif
+@if(!is_null($hosp->garde_id))
 <div class="row">
 <div class="col-xs-12 label label-lg label-warning arrowed-in arrowed-right"><span class="ft16">Garde Malade</span></div>
 </div>
 <div class="row">
   <ul class="list-unstyled spaced">
-    <li><i class="ace-icon fa fa-caret-right blue"></i>Nom & Prénom :{{ $hosp->garde->full_name}}</li>
-      <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i>Né(e) le : {{ $hosp->garde->date_naiss }}</li>          
-      <li>
-         <i class="ace-icon fa fa-caret-right blue list-inline-item"></i>Âge :<span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
-          </li>
-      <li> <i class="ace-icon fa fa-caret-right blue list-inline-item"></i>Qualité :<span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
-            <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i>Téléphone :<span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
+    <li><i class="ace-icon fa fa-caret-right blue"></i>Nom & Prénom : {{ $hosp->garde->full_name}}</li>
+    <li><i class="ace-icon fa fa-caret-right blue list-inline-item"></i>Né(e) le : {{ $hosp->garde->date_naiss }}</li>          
+    <li><i class="ace-icon fa fa-caret-right blue"></i>Âge : <span class="badge badge-info">{{ $hosp->garde->age }} ans</span></li>
+    <li> <i class="ace-icon fa fa-caret-right blue"></i>Qualité :<span class="badge badge-success">{{ $hosp->garde->lienP }}</li>
+    <li><i class="ace-icon fa fa-caret-right blue"></i>Téléphone :<span class="badge badge-danger">{{ $hosp->garde->mob }}</li>   
     </ul>
 </div>
-@endisset
+@endif

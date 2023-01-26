@@ -390,7 +390,7 @@ $(function(){
 <div class="container-fluid">
   <div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
   <div class="row">
-    <form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
+    <form id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
     {{ csrf_field() }}
     <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
      <input type="hidden" name= "id" id= "id" value="{{ $consult->id }}">

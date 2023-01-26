@@ -43,7 +43,7 @@
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-      if( data.etat_id != 1)                    
+      if(data.etat == "En Cours")                
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
          actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
@@ -135,9 +135,10 @@
                 }  
                },
               { data: "etat" ,
-                      render: function(data, type, row){
-                               return '<span class="badge badge-pill badge-'+(row.etat_id == 1 ? 'success':'primary')+'">'+row.etat+'</span>';
-                      },title:'Etat', "orderable":false 
+                render: function(data, type, row){
+                      classe = (row.etat == 'Cloturée') ? 'success' : 'primary';
+                      return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>'; 
+                },title:'Etat', "orderable":false 
               },//9
              { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
           ],

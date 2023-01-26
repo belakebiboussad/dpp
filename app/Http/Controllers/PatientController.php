@@ -3,7 +3,6 @@ namespace App\Http\Controllers;//use DB;
 use App\modeles\patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use Yajra\DataTables\Facades\DataTables;
 use App\Utils\ArrayClass;
 use App\modeles\assur;

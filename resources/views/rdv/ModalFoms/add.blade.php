@@ -5,7 +5,7 @@
     		<button type="button" class="close" data-dismiss="modal">&times;</button>
     		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
   	</div>
-  	<form  id ="addRdv" role="form" class="form-horizontal"> 
+  	<form  id ="addRdv" role="form"> 
 	    <div class="modal-body">
        	<input type="hidden" id="date"><input type="hidden" id="fin">
         <input type="hidden" id="fixe"><input type="hidden" id="pat_id">

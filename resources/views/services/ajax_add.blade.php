@@ -5,7 +5,7 @@
       <div class="widget-header"><h5 class="widget-title">Service </h5></div>
       <div class="widget-body">
         <div class="widget-main">
-          <form class="form-horizontal" role="form" method="POST">
+          <form role="form" method="POST">
             <div class="form-group"><label class="col-sm-3 control-label" for="nom">Nom : </label>
               <div class="col-sm-9">
                 <input type="text" id="nom" placeholder="Nom du dervice" class="form-control"/>

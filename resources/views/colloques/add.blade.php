@@ -25,7 +25,7 @@
 <div class="row"><h4><strong>Ajouter un  nouveau colloque</strong></h4></div><div class="space-12 hidden-xs"></div>
 <div class="row"> 
   <div class="col-sm-12">
-    <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.store')}}" onsubmit="return myFunction()">
+    <form id="creat_col" role="form" method="POST" action="{{route('colloque.store')}}" onsubmit="return myFunction()">
       {{ csrf_field() }} 
       <div class="row">
         <div class="col-sm-5 col-xs-5">

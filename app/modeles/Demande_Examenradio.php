@@ -18,8 +18,8 @@ class Demande_Examenradio extends Model
   {
     return self::ETATS[ $this->attributes['etat'] ];
   }
-  public static function getEtatID($etat) {
-    return array_search($etat, self::ETATS); 
+  public function getEtatID() {
+    return array_search($this->etat, self::ETATS); 
   }
   public function Demande()
   {

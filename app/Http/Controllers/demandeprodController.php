@@ -13,7 +13,6 @@ use App\modeles\demande_dispositif;
 use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\Consommable;
-//use Jenssegers\Date\Date;
 use Carbon\Carbon;
 use Response;
 class demandeprodController extends Controller

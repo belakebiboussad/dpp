@@ -6,7 +6,7 @@
         <h4 class="modal-title"  id="CoresCrudModal">Ajouter un correspondant(e)</h4> 
       </div>
       <div class="modal-body">
-        <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}" class="form-horizontal">
+        <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
           <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">

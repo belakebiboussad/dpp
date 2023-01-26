@@ -13,7 +13,6 @@ use App\modeles\Etablissement;
 use App\modeles\service;
 use App\modeles\Specialite;
 use Illuminate\Support\Facades\Storage;
-use Jenssegers\Date\Date;
 use PDF;
 use ToUtf;
 use Response;
@@ -107,7 +106,7 @@ class DemandeExamenRadio extends Controller
         foreach ($dr->examensradios as $key => $exam)
         {
           if($state)
-            if($exam->getEtatID($exam->etat) ==="")
+            if($exam->getEtatID() ==="")
               $state==false;
         } 
         if($state)

@@ -13,7 +13,6 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "intercom/intercom-php": "^4.4",
-        "jenssegers/date": "^3.2",
         "laracasts/utilities": "^3.0",
         "laravel-validation-rules/phone": "^1.0",
         "laravel/framework": "5.5.*",

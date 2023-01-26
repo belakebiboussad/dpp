@@ -19,11 +19,8 @@
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
 							<td>{{ $hosp->date->format('y-m-d') }}</td><td>{{ $hosp->medecin->full_name }}</td>
-							<td>{{ ($hosp->etat_id === 1 ) ? $hosp->Date_Sortie->format('Y-m-d') : $hosp->Date_Prevu_Sortie->format('Y-m-d') }}</td>
-							<td>
-               <span class="badge badge-{{ ( $hosp->etat_id == 1) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
-              </td>
-							<td>
+					<td>{{ empty($hosp->getEtatID()) ? format_date($hosp->Date_Prevu_Sortie) : format_date($hosp->Date_Sortie) }}</td><td>{!! format_stat($hosp) !!}</td>
+              <td>
                 <button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});">
                  <i class="ace-icon fa fa-eye-slash fa-2xs"></i></button>
                 <a href = "{{ route('hospitalisation.show',$hosp->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir hospitalisation"><i class="ace-icon fa fa-hand-o-up fa-2xs"></i></a>

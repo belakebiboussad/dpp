@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Reset password</div>F
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+                    <form method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
                         <input type="hidden" name="token" value="{{ $token }}">
 

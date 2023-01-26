@@ -3,7 +3,7 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-class rdv extends Model// implements IdentifiableEvent
+class rdv extends Model
 {
   public const STATES = [
     ''=> 'en Cours',
@@ -37,8 +37,9 @@ class rdv extends Model// implements IdentifiableEvent
     else
       $this->attributes['etat'] = (int) $value;
   }
-  public static function getEtatID($state) {
-    return array_search($state, self::STATES); 
+  public function getEtatID()
+  {
+    return array_search($this->etat, self::STATES); 
   }
   public function isAllDay()
 	{

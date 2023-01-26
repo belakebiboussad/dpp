@@ -7,9 +7,9 @@
 				<div class="widget-header"><h5 class="widget-title"><b>Information du service</b></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
-						<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update', $service->id) }}">
-							{{ csrf_field() }}
-							{{ method_field('PUT') }}
+					<form role="form" method="POST" action="{{ route('service.update', $service->id) }}">
+						{{ csrf_field() }}
+						{{ method_field('PUT') }}
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom : </strong></label>
 								<div class="col-sm-9">

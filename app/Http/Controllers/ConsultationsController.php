@@ -8,7 +8,6 @@ use App\modeles\constante;
 use App\modeles\antecedant;//use App\modeles\codesim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use App\modeles\Etablissement;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\examenbiologique;

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\specialite_exb;
 use App\modeles\consultation;
-use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
 use App\modeles\Etablissement;
 use App\modeles\patient;

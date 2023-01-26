@@ -12,7 +12,7 @@
 		</div>
 		<div class="widget-body">
 		<div class="widget-main">
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('lit.update', $lit->id) }}">
+			<form role="form" method="POST" action="{{ route('lit.update', $lit->id) }}">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">

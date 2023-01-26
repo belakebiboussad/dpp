@@ -5,9 +5,9 @@
 			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecPhysCrudModal">Ajouter un antécédent</h4>
 		</div>
 		<div class="modal-body">
-			<form id="modalFormDataPhysio" method="POST" class="form-horizontal" novalidate="">
+			<form id="modalFormDataPhysio" method="POST" novalidate="">
 			{!! csrf_field() !!}
-				<input type="hidden" id="atcdPhys_id" value="0"><!-- <input type="hidden" id="typeAntecedantPhys" value="Physiologiques"> -->
+				<input type="hidden" id="atcdPhys_id" value="0">
 				<div id="PhysiologieANTC"  class="form-group">
 					<label for="habitudeAlim" class="col-sm-2 control-label">Habitudes Alimentaires:</label>
 					<div class="col-sm-10">

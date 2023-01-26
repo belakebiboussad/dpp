@@ -52,7 +52,7 @@
   @endisset
   <div class="row">
     <div class="col-xs-12">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
+      <form role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type="hidden" name="id" value="{{$hosp->id}}" >
@@ -70,9 +70,9 @@
             </div> 
           </div>
           <div class="form-group col-xs-4">
-            <label class="col-sm-4 control-label" for="heure_entrée">Heure :</label>
+            <label class="col-sm-4 control-label" for="HeurEnt">Heure :</label>
             <div class="input-group col-sm-8">   
-               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
+               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->HeurEnt }}" disabled/> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
             </div>
           </div>
           <div id = "numberofDays" class="form-group col-xs-4">
