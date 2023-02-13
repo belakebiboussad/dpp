@@ -1,5 +1,5 @@
 <script src="{{ asset('/js/Dicom/hammer.min.js') }}"></script>
-<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script><!-- include the cornerstone library -->
+<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>  
