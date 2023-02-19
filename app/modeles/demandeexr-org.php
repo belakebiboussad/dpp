@@ -3,12 +3,12 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+
 class demandeexr extends Model
 {
   public $timestamps = false;
   protected $table = "demandeexr";
-  protected $fillable = ['InfosCliniques', 'Explecations', 'etat','imageable_id','imageable_type'];
+  protected $fillable = ['InfosCliniques', 'Explecations', 'etat','id_consultation','visite_id'];
   public const ETATS = [
       ''=> 'En Cours',
       0 => 'Rejetée',  
@@ -29,21 +29,24 @@ class demandeexr extends Model
   {
     return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
   }
-  public function imageable(): MorphTo
+  public function consultation()
   {
-    return $this->morphTo();
+     return $this->belongsTo('App\modeles\consultation','id_consultation');
   }
-  /*  public function consultation()  { return $this->belongsTo('App\modeles\consultation','id_consultation');
-  }  public function visite()  {    return $this->belongsTo('App\modeles\visite','visite_id');  }
-  */
+  public function visite()
+  {
+    return $this->belongsTo('App\modeles\visite','visite_id');
+  }
   public function hasCCR()
   {
-    foreach($this->examensradios as $examen)
-    {
-      if(isset($examen->crr_id))
-        return true;       
-    }  
-    return false;
+   foreach($this->examensradios as $examen)
+      {
+        if(isset($examen->crr_id))
+        {
+          return true;       
+        }
+      }  
+      return false;
   }
   public function hasResult()
   {
