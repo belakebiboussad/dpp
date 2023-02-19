@@ -83,7 +83,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $rdv->date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" required />
+              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ format_date($rdv->date) }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>

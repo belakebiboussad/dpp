@@ -63,8 +63,7 @@
 						<tbody>
 						<?php $d=Date::Now().' monday next week' ?>
 						@foreach($demandes as $demande)
-	           {{--@if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) --}}
-							<tr>
+	        		<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
                 <td>{{ $demande->consultation->patient->Sexe }} </td>
 								<td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
