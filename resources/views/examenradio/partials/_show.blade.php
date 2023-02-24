@@ -9,7 +9,7 @@
                   <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                       <div class="profile-info-name col-sm-3">Date </div>
-                      <div class="profile-info-value col-sm-9"><span>{{ $obj->date->format('d/m/Y') }}</span>
+                      <div class="profile-info-value col-sm-9"><span>{{ $demande->imageable->date->format('d/m/Y') }}</span>
                       </div>
                     </div>
                   </div><!-- striped -->
@@ -22,7 +22,7 @@
                   <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                       <div class="profile-info-name col-sm-3">Médecin demandeur </div>
-                      <div class="profile-info-value col-sm-9"><span>{{ $obj->medecin->full_name }}</span></div>
+                      <div class="profile-info-value col-sm-9"><span>{{ $demande->imageable->medecin->full_name }}</span></div>
                     </div>
                   </div><!-- striped   -->
                   <div class="profile-user-info profile-user-info-striped">

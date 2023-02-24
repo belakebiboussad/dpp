@@ -14,11 +14,11 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label" for="nom">Nom:</label>
 							<div class="col-sm-9">
-							<input class="form-control" type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
+							<input class="form-control " type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4">
+         	<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="prenom">Prénom :</label>
 						<div class="col-sm-9">
@@ -34,7 +34,7 @@
             </div>
             </div>
           </div>
-				</div>	
+				</div><div class="space-12"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">

@@ -15,10 +15,10 @@ $(function(){
     <div class="col-sm-5"><h4>Détails de la demande d'examens radiologiques</h4></div>
     <div class="col-sm-7 pull-right btn-toolbar"> 
       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
-      @if((!$demande->hasResult()) && (( $obj->medecin->id == Auth::user()->employ->id)))
+      @if((!$demande->hasResult()) && (( $demande->imageable->medecin->id == Auth::user()->employ->id)))
        <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
        @endif
-      <a href="{{ route('consultations.show',$obj->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+      <a href="{{ route('consultations.show',$demande->imageable->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     </div>
   </div><hr>
   <div class="row ">

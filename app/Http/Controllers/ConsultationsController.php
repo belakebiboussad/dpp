@@ -242,7 +242,6 @@ class ConsultationsController extends Controller
                             })->whereHas('patient',function($query) use ($request){
                                 $query->where($request->field,'LIKE', "%$request->value%");  
                             })->get();
-            //return $consults;
         }
        }
 }

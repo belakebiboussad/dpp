@@ -52,7 +52,7 @@
       if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
         $('#acteModal').modal('toggle'); //$("input[name='p[]']:checked").each(function() {periodes.push($(this).attr('value'));  });
       var formData = {
-                                    _token: CSRF_TOKEN,
+          _token: CSRF_TOKEN,
           id_visite: $('#id_visite').val(),
           nom:$("#acte").val(),
           type:$('#type').val(),

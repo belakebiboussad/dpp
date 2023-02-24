@@ -50,7 +50,6 @@
 									</div>	
 								</div>
 								<div class="space-12"></div>
-								<div class="space-12"></div>
 								<div class="row">
 									<div class="form-group">
 									  <label class="col-sm-3 control-label no-padding-right" for="motifcons">
@@ -58,15 +57,12 @@
 										</label>
 										<div class="col-sm-9">
 											<div class="input-group bootstrap-timepicker">
-												<input id="timepicker1" name="heuresur" type="text" class="form-control" />
-												<span class="input-group-addon">
-													<i class="fa fa-clock-o bigger-110"></i>
-												</span>
+											<input id="timepicker1" name="heuresur" type="text" class="form-control" />
+												<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
 											</div>
 										</div>
 								  </div>
-								</div>
-								<div class="space-12"></div>
+								</div><div class="space-12"></div>
 								<div class="row">
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="motifcons">
@@ -79,8 +75,7 @@
 	                    <label for="non">Non</label>
 									  </div>
 								  </div>
-								</div>
-								<div class="space-12"></div>
+								</div><div class="space-12"></div>
 								<div class="row">
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="description">
@@ -90,8 +85,7 @@
 											<textarea class="form-control" id="description" name="desc" placeholder="Description"></textarea>
 										</div>
 									</div>
-								</div>
-								<div class="space-12"></div>
+								</div><div class="space-12"></div>
 								<div class="row">
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="description">

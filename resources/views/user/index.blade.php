@@ -92,9 +92,7 @@ function getUserdetail(id)
 		</div>		
 	</div><div class="space-12"></div>
 	<div class="row panel panel-default">
-		<div class="panel-heading left">
-			<b>Rechercher un utilisateur</b>
-		</div>
+		<div class="panel-heading left">Rechercher un utilisateur</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">

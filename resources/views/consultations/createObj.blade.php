@@ -76,10 +76,7 @@ function editMedicm(med)
       }
     });
 }
-function warning()
-{
-  return "dzd"; //U can write any custom message here.
-}
+/*function warning(){  return "dzd";}*/
 $(function(){ 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { //ajax delete consult
     var consult_id = '{{ $consult->id }}'-1;
@@ -101,8 +98,7 @@ $(function(){
   });
   imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
      footer64Img = base64; 
-  });//var date = new Date('{{-- $patient->Dat_Naissance --}}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
-  /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
+  });
   $("#isOriented").change(function() {
     if( $("#hidden_fields").hasClass('hidden'))
       $("#hidden_fields").removeClass('hidden');

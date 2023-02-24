@@ -100,7 +100,7 @@ class HomeController extends Controller
                   return redirect()->action('DemandeExbController@index');
                   break;   
           case 12://radiologue
-                   return redirect()->action('DemandeExamenRadio@index');
+                  return redirect()->action('DemandeExamenRadio@index');
               break;
           case 13://med chef
               return view('patient.index');

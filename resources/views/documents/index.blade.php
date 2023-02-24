@@ -30,7 +30,7 @@
   </div>
 </div>
 @endif
- @if($demandesExR->count() > 0)
+@if($demandesExR->count() > 0)
 <div class="row">
   <div class="col-sm-7">
   <div class="widget-box widget-color-blue">

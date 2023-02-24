@@ -10,17 +10,26 @@ function getRequests(url,field,value)
       dataType: "json",
       success: function(data) {
         $(".numberResult").html(data.length);
+        var table = $('#demandes_table').DataTable();
+        var rows = table.rows().remove().draw();
+        /*
+        $.each(data, function(key1, obj){
+          $.each(obj.imageable.medecin, function(key, value){
+              alert(key + ":" + value);
+            });
+        });
+        */
         $("#demandes_table").DataTable ({ 
             "processing": true,
-                "paging":   true,
-                "destroy": true,
-                "ordering": true,
-                "searching":false,
-                "info" : false,
-                "responsive": true,
-                "language":{"url": '/localisation/fr_FR.json'},
-                "data" : data,
-                "columns": [
+            "paging":   true,
+            "destroy": true,
+            "ordering": true,
+            "searching":false,
+            "info" : false,
+            "responsive": true,
+            "language":{"url": '/localisation/fr_FR.json'},
+            "data" : data,
+            "columns": [
                   { data:null,title:'#', searchable: false,
                     render: function ( data, type, row ) {
                       if ( type === 'display' ) {
@@ -31,37 +40,41 @@ function getRequests(url,field,value)
                   },
                   { data: null,
                         render: function ( data, type, row ) {
-                            if(data.id_consultation != null)
-                              return moment(row.consultation.date).format('YYYY-MM-DD');
-                            else
-                              return moment(row.visite.date).format('YYYY-MM-DD');
-                            return data;  
+                          return moment(row.imageable.date).format('YYYY-MM-DD');
                         },title:'Date',"orderable": true,
-            },
-            { data: null,
+                  },
+                  { data: null,
                         render: function ( data, type, row ) {
-                          if(data.id_consultation != null)
-                          {
-                            if(row.consultation.medecin.service != null)
-                              return row.consultation.medecin.service.nom ;
-                          }else
-                          {
-                            if(row.visite.medecin.service != null)
-                              return  row.visite.medecin.service.nom;
-                          }
-                          return data;  
+                          if(row.imageable.medecin.service != null)
+                            return row.imageable.medecin.service.nom ; 
                         },title:'Service',"orderable": true,
-            },
-            { data: null,
+                  },
+                  { data: null,
                           render: function ( data, type, row ) {
-                            if(data.id_consultation != null)
-                               return row.consultation.medecin.full_name ;
-                            else
-                              return row.visite.medecin.full_name;
-                            return data;  
+                            return row.imageable.medecin.full_name ;
                           },title:'Médecin demandeur',"orderable": false,
-            },
-            { data: null,
+                  },
+                  { data: null,
+                      render: function ( data, type, row ) {
+                       
+                          return  row.imageable.patient.full_name +' <small class="text-primary">(Consultation)</small>';
+                     },title:'Patient',"orderable": true,
+                  },
+                  {
+                    data: 'etat', title:'Etat',
+                      render: function ( data, type, row ) {
+                        classe = (row.etat == 'Validée') ? 'success' : 'primary';
+                        return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>';
+                      }
+                  },
+                  { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+            ]
+          });
+        /*
+        $("#demandes_table").DataTable ({ 
+            
+                "columns": [
+              { data: null,
               render: function ( data, type, row ) {
                   if(data.id_consultation != null)
                     return  row.consultation.patient.full_name +' <small class="text-primary">(Consultation)</small>';
@@ -70,19 +83,13 @@ function getRequests(url,field,value)
                   return data;  
               },title:'Patient',"orderable": true,
             },
-            { data: 'etat', title:'Etat',
-                  render: function ( data, type, row ) {
-                    classe = (row.etat == 'Validée') ? 'success' : 'primary';
-                    return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>';
-                  }
-              },
-              { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
           ],
           "columnDefs": [
             {"targets": 5 , "orderable": false, className: "dt-head-center dt-body-center" },
             {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
           ] 
         });// datatable
+        */
       }
     });
   }

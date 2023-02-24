@@ -61,8 +61,8 @@ $(function(){
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div><div class="space-12"></div>
+        <div class="row">
 						<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
@@ -80,8 +80,8 @@ $(function(){
 							</div>	
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div><div class="space-12"></div>
+        <div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="col-sm-3 ml-auto align-top">
 							<label class="control-label pull-right mt-0">Genre :</label>

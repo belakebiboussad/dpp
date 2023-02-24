@@ -36,12 +36,9 @@ class ServiceController extends Controller
       $users = User::whereHas( 'role', function($q){
                       $q->whereIn('id',[1,5,6,10,11,12,13,14]);
                   })->get();
-      if($request->ajax())
-      {
-        $view = view("services.ajax_add",compact('users','services'))->render();
-        return($view);
-      }else
-        return view('services.add',compact('users','services'));
+      
+      $view = view("services.ajax_add",compact('users','services'))->render();
+      return($view);
     }
 
     /**

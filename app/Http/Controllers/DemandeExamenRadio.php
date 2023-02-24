@@ -39,22 +39,29 @@ class DemandeExamenRadio extends Controller
         {
           if(isset($request->value))
             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($field,'LIKE', "$q%")->get();
-          else
-            $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->whereNull($field)->get();
-        }else
+          else // ,'imageable.hospitalisation.patient' //cas visite
+            $demandes = demandeexr::with('imageable.medecin.Service')->whereNull($field)->get();
+          
+        } else
         {
+         /*
           $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
                           ->whereHas('consultation.medecin.Service', function($query) use ($q) {
                                   $query->where('id', $q);
                           })->orWhereHas('visite.medecin.Service', function($query) use ($q) {
                                   $query->where('id', $q);
-                              })->get();
+                          })->get();
+          */
+          $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
+                                ->whereHas('consultation.medecin', function($query) use ($q) {
+                                    $query->where('service_id', $q);
+                                })->get();               
         }
         return $demandes;
       }else
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
-        $demandesexr = demandeexr::with('consultation','visite')->whereNull('etat')->get();
+        $demandesexr = demandeexr::whereNull('etat')->get();
         return view('examenradio.index', compact('demandesexr','services')); 
       }
     }
@@ -62,16 +69,11 @@ class DemandeExamenRadio extends Controller
     {
       $demande = demandeexr::FindOrFail($id);
       $etab = Etablissement::first();
-      if(isset($demande->id_consultation))
-      {
-          $obj = $demande->consultation;
-          $patient = $demande->consultation->patient;
-      }else
-      {
-        $obj = $demande->visite;
-         $patient = $demande->visite->hospitalisation->patient;
-      }
-      return view('examenradio.details', compact('demande','obj','patient','etab'));   
+      if($demande->imageable_type === 'App\modeles\consultation')
+        $patient = $demande->imageable->patient;
+      else
+        $patient = $demande->imageable->hospitalisation->patient;
+      return view('examenradio.details', compact('demande', 'patient', 'etab'));   
     }
     public function upload(Request $request)
     {
@@ -183,16 +185,11 @@ class DemandeExamenRadio extends Controller
       public function show($id)
       {
         $demande = demandeexr::FindOrFail($id);
-        if(isset($demande->consultation))
-        {
-          $patient = $demande->consultation->patient;
-          $obj = $demande->consultation;
-        } else
-        {
-            $patient = $demande->visite->hospitalisation->patient;
-            $obj = $demande->visite;
-        }
-        return view('examenradio.show', compact('demande','obj','patient'));
+        if($demande->imageable_type === 'App\modeles\consultation')
+          $patient = $demande->imageable->patient;
+        else
+          $patient = $demande->imageable->hospitalisation->patient;
+        return view('examenradio.show', compact('demande','patient'));
       }
     /**
      * Show the form for editing the specified resource.

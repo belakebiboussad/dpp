@@ -87,36 +87,33 @@ class VisiteController extends Controller
         $db = $visite->demandeexmbio()->create();
         $db->examensbios()->attach($request->exmsbio);
       }
-      if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+      //if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+      if((is_null($visite->demandExmImg)) && (!empty($request->ExamsImg)))
       {
-        $dr = new demandeexr;  $dr->InfosCliniques = $request->infosc;
-        $dr->Explecations = $request->explication;
-        $dr->visite_id = $request->id;
-        $visite->demandExmImg()->save($dr);
+        $dr = $visite->demandExmImg()->create([
+              'InfosCliniques'=>$request->infosc,
+              'Explecations'  =>$request->explication,
+        ]);
         if(isset($request->infos))
-        {
-          foreach ($request->infos as $id_info) {
-            $dr->infossuppdemande()->attach($id_info);
-          }
-        }
-        foreach (json_decode ($request->ExamsImg) as $key => $id)
+            $dr->infossuppdemande()->attach($request->infos);
+       foreach (json_decode ($request->ExamsImg) as $key => $id)
         {
           $dr->examensradios()->create([
             'exm_id' =>$id,
             'type_id' => (json_decode ($request->types))[$key]
           ]);
         }  
-       /* foreach (json_decode ($request->ExamsImg) as $key => $acte) {      
-          //$demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-          $exam = new Demande_Examenradio;
-          $exam->demande_id = $demandeExImg->id;$exam->exm_id = $acte->acteId;
-          $exam->type_id = $acte->type; $exam->save();   
-        }*/
-      }// si(observ change et constante change) on crée une prescription
-      $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
-      $reqintArray = array_map('intval', $request->consts);
+      }
+      // à revoire
+      // si(observ change et constante change) on crée une prescription
+      if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
+        $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
+      if(!is_null($request->consts))
+      {     
+        $reqintArray = array_map('intval', $request->consts);
       if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
         $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
+      }
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

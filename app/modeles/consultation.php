@@ -3,7 +3,6 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 class consultation extends Model
 {
     public $timestamps = false;
@@ -30,11 +29,10 @@ class consultation extends Model
     {// consultation
       return $this->belongsToMany('App\modeles\appareil','examen_appareil','cons_id','appareil_id')->withPivot('description');
     }
-    public function demandExmImg(): MorphOne
+    public function demandExmImg()
     {
-        //return $this->hasOne('App\modeles\demandeexr','id_consultation');
-        return $this->morphOne('App\modeles\demandeexr', 'imageable');
-   }
+      return $this->morphOne('App\modeles\demandeexr', 'imageable');
+    }
     public function examenAnapath()
     {
         return $this->hasOne('App\modeles\examenanapath','id_consultation');

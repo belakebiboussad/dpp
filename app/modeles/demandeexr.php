@@ -3,7 +3,6 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 class demandeexr extends Model
 {
   public $timestamps = false;
@@ -29,13 +28,20 @@ class demandeexr extends Model
   {
     return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
   }
-  public function imageable(): MorphTo
+  public function imageable()
   {
     return $this->morphTo();
   }
-  /*  public function consultation()  { return $this->belongsTo('App\modeles\consultation','id_consultation');
-  }  public function visite()  {    return $this->belongsTo('App\modeles\visite','visite_id');  }
-  */
+  public function consultation()  {
+    return $this->belongsTo('App\modeles\consultation', 'imageable_id')
+        ->where('demandeexr.imageable_type','App\modeles\consultation');
+  } 
+  public function visite()  
+  {
+    return $this->belongsTo('App\modeles\visite', 'imageable_id')
+                ->where('demandeexr.imageable_type','App\modeles\visite');
+  }
+  
   public function hasCCR()
   {
     foreach($this->examensradios as $examen)

@@ -291,19 +291,24 @@ class PatientController extends Controller
           $specialites = Specialite::all();
           $employe=Auth::user()->employ;
           $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-          $correspondants = homme_conf::where("id_patient", $patient->id)->where("etat_hc", "actuel")->get();
+          $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
           $demandesExB = demandeexb::with('consultation')->where('etat',1)
                                     ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);
                                     })->orWhereHas('visite.hospitalisation',function($q) use($id){
                                       $q->where('patient_id', $id);   
                                     })->get();
-          $demandesExR = demandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
-                                    ->whereHas('consultation',function($q) use($id){
+/*$demandesExR = emandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
+                          ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);
                                     })->orWhereHas('visite.hospitalisation',function($q) use($id){
                                       $q->where('patient_id', $id);   
                                     })->get();
+          */ 
+        
+          $demandesExR= demandeexr::whereHas('consultation', function($query) use($id){
+              $query->where('pid', $id);
+          })->get();
           $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);
                                     })->get();
