@@ -40,7 +40,9 @@ class DemandeExamenRadio extends Controller
           if(isset($request->value))
             $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($field,'LIKE', "$q%")->get();
           else // ,'imageable.hospitalisation.patient' //cas visite
-            $demandes = demandeexr::with('imageable.medecin.Service')->whereNull($field)->get();
+         {
+              $demandes = demandeexr::with('imageable.medecin.Service')->whereNull($field)->get();
+         }
           
         } else
         {

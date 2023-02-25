@@ -16,6 +16,11 @@ class visite extends Model
     {
     	return $this->belongsTo('App\modeles\hospitalisation','id_hosp');
     }
+    public function patient()
+    {
+      //return $this->hospitalisation()->patient;
+      Owner::has('hospitalisation.patient')->get();
+    }
     public function actes()
     {
     	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);
