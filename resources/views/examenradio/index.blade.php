@@ -65,8 +65,7 @@
                     <tr>
                       <th class="center">#</th><th class="hidden-480 center">Date</th>
                       <th class="center">Service</th><th class="center">Médecin demandeur</th>
-                      <th class="center">Patient</th><th class="center">Etat</th>
-                      <th class="center"><em class="fa fa-cog"></em></th>
+                      <th class="center">Patient</th><th class="center">Etat</th><th class="center"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -85,7 +84,7 @@
                         {{ $demande->imageable->hospitalisation->patient->full_name}}<small class="text-warning"> (Hospitalisation) }}    
                           @endif
                         </td>
-                        <td class="center">{!! format_stat($demande) !!}</td>
+                        <td class="center"> {!! format_stat($demande) !!}</td>
                         <td class="center">
                           <a href="{{ route('demandeexr.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
                             <a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info"> <i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>

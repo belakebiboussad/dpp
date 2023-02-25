@@ -56,7 +56,6 @@ function getRequests(url,field,value)
                   },
                   { data: null,
                       render: function ( data, type, row ) {
-                       
                           return  row.imageable.patient.full_name +' <small class="text-primary">(Consultation)</small>';
                      },title:'Patient',"orderable": true,
                   },
