@@ -65,7 +65,7 @@
 			</div>
 		</div>
 		<div class="col-xs-5">
-			<div class="widget-box" id="widget-box-2">
+			<div class="widget-box">
 				<div class="widget-header">
 				{{--<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span>Chambres</span></h5>--}}
 				<div><h5 class="widget-title"><b>Chambres</b></h5></div>

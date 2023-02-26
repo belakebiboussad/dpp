@@ -46,7 +46,7 @@ class DemandeExbController extends Controller
       }else
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
-        $demandesexb = demandeexb::whereNull('etat')->get();
+        $demandesexb = demandeexb::with('imageable')->whereNull('etat')->get();
         return view('examenbio.index', compact('demandesexb','services'));
       }
     }

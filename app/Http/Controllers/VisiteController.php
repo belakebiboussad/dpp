@@ -62,6 +62,7 @@ class VisiteController extends Controller
           'date'=>$date,
           'heure'=>$date->format("H:i"),
           'id_hosp'=>$id_hosp,
+          'pid'=>$patient->id,
           'date'=>$date,
           'id_employe'=>$employe->id
         ]);
@@ -87,12 +88,11 @@ class VisiteController extends Controller
         $db = $visite->demandeexmbio()->create();
         $db->examensbios()->attach($request->exmsbio);
       }
-      //if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
       if((is_null($visite->demandExmImg)) && (!empty($request->ExamsImg)))
       {
         $dr = $visite->demandExmImg()->create([
               'InfosCliniques'=>$request->infosc,
-              'Explecations'  =>$request->explication,
+              'Explecations'  =>$request->explication,  
         ]);
         if(isset($request->infos))
             $dr->infossuppdemande()->attach($request->infos);
@@ -128,7 +128,7 @@ class VisiteController extends Controller
     }
     public function show($id)
     {
-      $visite = visite::with('actes','traitements')->FindOrFail($id);
+      $visite = visite::with('actes','traitements','patient')->FindOrFail($id);
       return view('visite.show', compact('visite'));
     }
 }

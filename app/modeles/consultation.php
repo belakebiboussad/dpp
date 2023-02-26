@@ -17,10 +17,6 @@ class consultation extends Model
     {
         return $this->belongsTo('App\modeles\patient','pid');
     }
-    public function demandeexmbio()
-    {
-        return $this->hasOne('App\modeles\demandeexb','id_consultation');
-    }
     public function examensCliniques()
     {
       return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
@@ -28,6 +24,11 @@ class consultation extends Model
     public function examsAppareil()
     {// consultation
       return $this->belongsToMany('App\modeles\appareil','examen_appareil','cons_id','appareil_id')->withPivot('description');
+    }
+    public function demandeexmbio()
+    {
+      //return $this->hasOne('App\modeles\demandeexb','id_consultation');
+      return $this->morphOne('App\modeles\demandeexb', 'imageable');
     }
     public function demandExmImg()
     {

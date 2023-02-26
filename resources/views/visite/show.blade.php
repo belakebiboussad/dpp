@@ -1,27 +1,24 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-	<div class="row">
-    <div class="col-sm-12">
-      @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])
-    </div>
-  </div>
-	<div class="panel-heading left">
-	  	<h4><b>Détails de la visite :</b></h4>
-	  	<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+	<div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
+<div class="row">
+  <div class="col-sm-12"><h4>Détails de la visite</h4>
+    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
 	  	 </div>
+  </div>
 	</div>	
 	<div class="row">
 		<div class="form-group">		
-			<label class="col-sm-1 control-label no-padding-right" for="service"><b>Date :</b></label>
+			<span class="col-sm-1 control-label no-padding-right" for="service">Date</span>
 			<div class="col-sm-8 col-xs-8">
 				 <label class="blue">{{ $visite->date_formated }}</label>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-1 no-padding-right"><label>Médecin :</label></div>
-		<div class="form-group col-sm-6"><label class="blue">{{ $visite->medecin->full_name }}</label></div>
+		<div class="col-sm-1 no-padding-right"><span>Médecin</span></div>
+		<div class="form-group col-sm-6"><span class="blue">{{ $visite->medecin->full_name }}</span></div>
 	</div>
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist">
@@ -49,19 +46,16 @@
 						<table class="table table-striped table-bordered table-hover">
 							<thead class="thin-border-bottom">
 								<tr>
-									<th class="center">Nom</th>
-									<th class="center">Type</th>
-									<th class="center">Description</th>
+									<th class="center">Nom</th>  <th class="center">Type</th>
+								  <th class="center">Description</th>
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
 							@foreach($visite->actes as $acte)
 								<tr>
-									<td>{{ $acte->nom }}</td>
-									<td>{{ $acte->type }}</td>
-									<td>{{ $acte->description }}</td>
-									<td></td>
+									<td>{{ $acte->nom }}</td><td>{{ $acte->type }}</td>
+									<td>{{ $acte->description }}</td><td></td>
 								</tr>
 							@endforeach
 							</tbody>
@@ -82,8 +76,7 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center">Nom</th>
-								<th class="center">Type</th>
+								<th class="center">Nom</th><th class="center">Type</th>
 								<th class="center">Posologie</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
@@ -157,7 +150,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center">Date></th><th class="center">Etat</th>
+							<th class="center">Date</th><th class="center">Etat</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>

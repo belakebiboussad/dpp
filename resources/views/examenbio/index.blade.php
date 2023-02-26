@@ -29,8 +29,8 @@
 	      				<label>Etat</label>
 	         			<select  id="etat" class="form-control selectpicker show-menu-arrow  filter">
 		         			<option val="" selected disabled>Selectionner...</option>
-		         			<option value="">En Cours</option>
-		         			<option value="1">Validé</option>
+		         			<option value="">En Cours</option><option value="1">Validée</option>
+		         			
 	         	    </select>
 	         		</div>
 	         	</div>
@@ -76,18 +76,12 @@
 								<td class="center">
                   <input type="checkbox" class="editor-active check"  value="{{ $demande->id }}" /><span class="lbl"></span>            
                 </td>
-								@if(isset($demande->consultation))
-                <td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
-                <td>{{ $demande->consultation->medecin->Service->nom }} </td>
-                <td>{{ $demande->consultation->medecin->full_name }}</td>
-                <td>{{ $demande->consultation->patient->full_name }}<small class="text-primary">(Consultation externe)</small></td>
-                @else
-                <td>{{ $demande->visite->date->format('Y-m-d') }}</td>
-                <td>{{ $demande->visite->medecin->Service->nom }}</td>
-                <td>{{ $demande->visite->medecin->full_name }}</td>
-                <td>{{ $demande->visite->hospitalisation->patient->full_name}}<small class="text-warning">(Hospitalisation)</small></td>
-                @endif
-								<td>{!! format_stat($demande) !!}</td>
+                <td>{{ $demande->imageable->date->format('Y-m-d') }}</td>
+								<td>{{ $demande->imageable->medecin->Service->nom }}</td> 
+                <td>{{ $demande->imageable->medecin->full_name }}</td> 
+                <td>{{ $demande->imageable->patient->full_name }}<small class="text-primary"> ({{ ($demande->imageable_type === 'App\modeles\visite')?'Hospitalisation':'Consultation' }})</small>
+                </td>
+              	<td>{!! format_stat($demande) !!}</td>
 								<td class="center">
 								  <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
 		    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>

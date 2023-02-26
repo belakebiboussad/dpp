@@ -7,7 +7,7 @@
   function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>';
     if(data.etat == "En Cours")
-      actions +=' <a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';            
+      actions +=' <a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';          
      return actions;
   } 
   $(function(){
@@ -29,7 +29,7 @@
             <select  id="etat" class="selectpicker form-control filter">
               <option selected disabled>Selectionner...</option>
               <option value="">En Cours</option>
-              <option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}
+              <option value="1">Validée</option>{{-- <option value="0">Rejeté</option> --}}
             </select>
           </div>
         </div>
@@ -78,11 +78,7 @@
                         <td>{{ $demande->imageable->medecin->Service->nom }}</td> 
                         <td>{{ $demande->imageable->medecin->full_name }}</td> 
                         <td>                    
-                        @if($demande->imageable_type === 'App\modeles\consultation')
-                       {{ $demande->imageable->patient->full_name}}<small class="text-primary"> (Consultation) }}    
-                          @else
-                        {{ $demande->imageable->hospitalisation->patient->full_name}}<small class="text-warning"> (Hospitalisation) }}    
-                          @endif
+                         {{ $demande->imageable->patient->full_name }} <small class="text-primary"> ({{ ($demande->imageable_type === 'App\modeles\visite')?'Hospitalisation':'Consultation' }})</small>
                         </td>
                         <td class="center"> {!! format_stat($demande) !!}</td>
                         <td class="center">

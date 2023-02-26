@@ -47,13 +47,10 @@
               <a href="/storage/files/{{ $ex->resultat }}" title="téléchager le résultat {{ $ex->Type->nom }}" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $ex->resultat }}</a>
               @isset($ex->crr_id) 
                 &nbsp;&nbsp;<a href="{{ route('crrs.download',$ex->crr_id )}}" title="télécharger le compte rendu" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
-              @endisset   
-              @if(isset($demande->consultation))
-              <span class="smaller-80">( Consultation du {{ $demande->consultation->date->format('d/m/Y') }})</span>
-              @else
-              <span class="smaller-80">( Visite du {{ $demande->visite->date->format('d/m/Y') }})</span>
-              @endif
-            </li>
+              @endisset 
+              <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
+                {{ $demande->imageable->date->format('d/m/Y') }}) </span>  
+             </li>
              @endif
             @endforeach
           @endforeach

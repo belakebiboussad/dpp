@@ -17,14 +17,14 @@
   <main><br><br>
   <div class="center mtP40 ft20">Demande d'examen radiologique</div><br>
   <div class="row"><div class="section"><div class="right"><b><u>Fait le:</u></b>
-    {{ $date->format('d/m/Y') }}</div></div>
+    {{ $demande->imageable->date->format('d/m/Y') }}</div></div>
   </div>
   <div class="row">
     <div>
       <div class="section">
         <div class="sec-gauche">
-          <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
-          {{ $patient->full_name }}, {{ $patient->age }} ans, {{ $patient->Sexe }}     
+          <b><u>Patient(e) :</u></b><b> {{$demande->imageable->patient->getCivilite() }} </b> 
+          {{ $demande->imageable->patient->full_name }}, {{ $demande->imageable->age }} ans, {{ $demande->imageable->Sexe }}     
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
     <div>
       <div class="section">
         <div class="sec-gauche">
-          <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $patient->IPP }}
+          <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($demande->imageable->patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $demande->imageable->patient->IPP }}
          </div>
       </div>
     </div>
@@ -65,7 +65,6 @@
                       </div>
                   </div>
                   <div><label><b>Examen(s) proposé(s)</b></label>
-                    
                     <div>
                       <table class="table">
                         <thead>

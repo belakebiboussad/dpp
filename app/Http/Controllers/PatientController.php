@@ -246,8 +246,8 @@ class PatientController extends Controller
         "sf"=>$request->sf,
         "nom_jeune_fille"=>$request->nom_jeune_fille, 
         "Adresse"=>$request->adresse,
-        'commune_res'=>$request->idcommune,//'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
-        'wilaya_res'=>$request->idwilaya,//'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
+        'commune_res'=>$request->idcommune,
+        'wilaya_res'=>$request->idwilaya,
         "tele_mobile1"=>$request->mobile1,
         "tele_mobile2"=>$request->mobile2,
         "group_sang"=>$request->gs,
@@ -292,23 +292,25 @@ class PatientController extends Controller
           $employe=Auth::user()->employ;
           $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+          /*
           $demandesExB = demandeexb::with('consultation')->where('etat',1)
                                     ->whereHas('consultation',function($q) use($id){
                                          $q->where('pid', $id);
                                     })->orWhereHas('visite.hospitalisation',function($q) use($id){
                                       $q->where('patient_id', $id);   
                                     })->get();
-/*$demandesExR = emandeexr::with('consultation','visite.hospitalisation','examensradios')->where('etat',1)
-                          ->whereHas('consultation',function($q) use($id){
-                                         $q->where('pid', $id);
-                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                      $q->where('patient_id', $id);   
-                                    })->get();
-          */ 
-        
-          $demandesExR= demandeexr::whereHas('consultation', function($query) use($id){
-              $query->where('pid', $id);
-          })->get();
+          */                          
+          $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
+                                      $query->where('pid', $id);
+                                   })->orWhereHas('consultation',function($q) use($id){
+                                      $q->where('pid', $id);   
+                                  })->get();
+          $demandesExR= demandeexr::whereHas('visite', function($query) use($id){
+                                      $query->where('pid', $id);
+                                  })->orWhereHas('consultation',function($q) use($id){
+                                      $q->where('pid', $id);   
+                                  })->get();
+          //dd(demandeexb);
           $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);
                                     })->get();

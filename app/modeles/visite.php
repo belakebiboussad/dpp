@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class visite extends Model
 {
     public $timestamps = true;
-    protected $fillable  = ['date','heure','id_hosp','id_employe'];
+    protected $fillable  = ['date','heure','id_hosp','pid','id_employe'];
     protected $dates = ['date'];
     public function getDateFormatedAttribute()
     {
@@ -18,8 +18,7 @@ class visite extends Model
     }
     public function patient()
     {
-      //return $this->hospitalisation()->patient;
-      Owner::has('hospitalisation.patient')->get();
+      return $this->belongsTo('App\modeles\patient','pid');
     }
     public function actes()
     {

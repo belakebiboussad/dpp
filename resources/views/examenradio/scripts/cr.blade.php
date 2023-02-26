@@ -55,9 +55,10 @@ function getRequests(url,field,value)
                           },title:'Médecin demandeur',"orderable": false,
                   },
                   { data: null,
-                      render: function ( data, type, row ) {
-                          return  row.imageable.patient.full_name +' <small class="text-primary">(Consultation)</small>';
-                     },title:'Patient',"orderable": true,
+                    render: function ( data, type, row ) {
+                      var lieu =  (row.imageable_type == 'App\\modeles\\visite') ? 'Hospitalisation':'Consultation';
+                      return row.imageable.patient.full_name +' <small class="text-primary">('+ lieu +')</small>';
+                    },title:'Patient',"orderable": true,
                   },
                   {
                     data: 'etat', title:'Etat',
@@ -67,8 +68,13 @@ function getRequests(url,field,value)
                       }
                   },
                   { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
-            ]
+            ],
+              "columnDefs": [
+                {"targets": 5 , "orderable": false, className: "dt-head-center dt-body-center" },
+                {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
+              ] 
           });
+        
         /*
         $("#demandes_table").DataTable ({ 
             
@@ -82,11 +88,7 @@ function getRequests(url,field,value)
                   return data;  
               },title:'Patient',"orderable": true,
             },
-          ],
-          "columnDefs": [
-            {"targets": 5 , "orderable": false, className: "dt-head-center dt-body-center" },
-            {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
-          ] 
+          ]
         });// datatable
         */
       }

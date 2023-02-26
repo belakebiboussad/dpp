@@ -37,28 +37,18 @@ class DemandeExamenRadio extends Controller
         $q = $request->value ; $field = $request->field;
         if($request->field != "service")  
         {
-          //'imageable.patient', 'imageable.hospitalisation.patient'
           if(isset($request->value))
-            $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($field,'LIKE', "$q%")->get();
-          else // ,'imageable.hospitalisation.patient' //cas visite
-         {
-              $demandes = demandeexr::with('imageable.medecin.Service')->whereNull($field)->get();
-         }
-          
+            $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')->where($field,'LIKE', "$q%")->get();
+          else 
+            $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')->whereNull($field)->get();
         } else
         {
-         /*
-          $demandes = demandeexr::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                          ->whereHas('consultation.medecin.Service', function($query) use ($q) {
-                                  $query->where('id', $q);
-                          })->orWhereHas('visite.medecin.Service', function($query) use ($q) {
-                                  $query->where('id', $q);
-                          })->get();
-          */
-          $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
+           $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
                                 ->whereHas('consultation.medecin', function($query) use ($q) {
                                     $query->where('service_id', $q);
-                                })->get();               
+                                  })->orWhereHas('visite.medecin', function($query) use ($q) {
+                                    $query->where('service_id', $q);
+                                  })->get();
         }
         return $demandes;
       }else
@@ -142,7 +132,7 @@ class DemandeExamenRadio extends Controller
           }
         }else
         $dr->delete();
-        return redirect(Route('consultations.show',$dr->id_consultation));   
+        return redirect(Route('consultations.show',$dr->imageable_id));   
       }  
     }
     /**
@@ -246,20 +236,9 @@ class DemandeExamenRadio extends Controller
     {
       $demande = demandeexr::FindOrFail($id); 
       $etab = Etablissement::first();
-      if(isset($demande->consultation))
-      {
-        $patient = $demande->consultation->patient;
-        $date = $demande->consultation->date;
-      }
-      else
-      {
-        $patient = $demande->visite->hospitalisation->patient;
-        $date = $demande->visite->date;
-      }
-      $filename = "Demande-Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      //teste
-      $barcode = new DNS1D($patient->IPP, 'C128');
-      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','patient','date','etab','barcode'));
+      $filename = "Demande-Examens-Radio-".$demande->imageable->patient->Nom."-".$demande->imageable->patient->Prenom.".pdf";
+      $barcode = new DNS1D($demande->imageable->IPP, 'C128');
+      $pdf = PDF::loadView('examenradio.demandePDF', compact('demande','etab','barcode'));
       return $pdf->stream($filename);
     }
 }
