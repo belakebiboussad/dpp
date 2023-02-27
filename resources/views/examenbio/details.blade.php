@@ -8,7 +8,7 @@
   function CRBPrint()
   {
     CRBSave();
-    var fileName ='compteRendBiolog-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+    var fileName ='compteRendBiolog-'+'{{ $demande->imageable->patient->Nom}}'+'-'+'{{ $demande->imageable->patient->Prenom}}'+'.pdf';
     $("#crbPDF").text($("#crbm").val());
     var pdf = new jsPDF('p', 'pt', 'a4');
     generate(fileName,pdf,'pdfContent'); 
@@ -27,11 +27,9 @@
   })
   $('document').ready(function(){
      $("button").click(function (event) {
-        which = '';
-        str ='send';
+        which = '';str ='send';
         which = $(this).attr("id");
-        var which = $.trim(which);
-        var str = $.trim(str);
+        var which = $.trim(which);var str = $.trim(str);
         if(which==str){
          return true;
         }
@@ -45,9 +43,8 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
-<div class="page-header">
-  <h1>Demande d'examen biologique</h1>
+<div class="row">@include('patient._patientInfo',['patient'=>$demande->imageable->patient]) </div>
+<div class="page-header"><h1>Demande d'examen biologique</h1>
   <div class="pull-right">
     <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
     @if(Auth::user()->is(11))
@@ -70,30 +67,24 @@
               <div class="profile-user-info profile-user-info-striped">
       <div class="profile-info-row">
         <div class="profile-info-name">Date </div>
-        <div class="profile-info-value"><span class="editable">
-        @if(isset($demande->consultation))
-          {{ $demande->consultation->date->format('d/m/Y') }}
-        @else
-          {{ $demande->visite->date->format('d/m/Y') }}
-        @endif 
-        </span></div>
-      </div>
-        </div><!-- striped -->
+        <div class="profile-info-value"><span>{{ $demande->imageable->date->format('d/m/Y') }}</span></div>
+       </div>
+        </div>
           <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row"><div class="profile-info-name">Etat </div>
               <div class="profile-info-value">{!! format_stat($demande) !!}</div>
             </div>
-          </div><!-- striped   -->
+          </div>
           <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row"><div class="profile-info-name"> Demandeur </div>
-              <div class="profile-info-value"><span class="editable" id="username">{{ $medecin->full_name }}</span></div>
+              <div class="profile-info-value"><span class="editable" id="username">{{ $demande->imageable->medecin->full_name }}</span></div>
             </div>
-          </div><!-- striped   -->
+          </div>
             </div><!-- col-xs-12 col-sm-3 center   -->
             </div><br/><!-- user-profile row -->
             <form method="POST" action="{{ route('uploadBioRes') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+            <input type="text" name="id" value="{{ $demande->id }}" hidden>
             <input type="hidden" name="crb" id ="crb"> 
             <div class="user-profile row">
               <div class="col-xs-12 col-sm-12 center">
@@ -121,7 +112,6 @@
             <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{ $demande->id }}" id ="crb-add"  disabled>
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>
-                    
                     </td>
                     @endif 
                   </tr>

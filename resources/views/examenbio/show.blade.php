@@ -1,11 +1,11 @@
  @extends('app')
 @section('main-content')
-<div class="row" width="100%">  @include('patient._patientInfo', $patient) </div>
+<div class="row">  @include('patient._patientInfo',['patient'=>$demande->imageable->patient])</div>
   <div class="content">
   <div class="page-header"><h1>Détails de la demande d'examen biologique</h1>
     <div class=" pull-right">
     <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
-    @if($medecin->id == Auth::user()->employ->id)
+    @if($demande->imageable->medecin->id == Auth::user()->employ->id)
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
      <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
       @endif
@@ -26,23 +26,17 @@
                 <div class="profile-user-info profile-user-info-striped">
                   <div class="profile-info-row">
                     <div class="profile-info-name">Date </div>
-                      <div class="profile-info-value"><span class="editable">
-                        @if(isset($demande->consultation))
-                          {{ $demande->consultation->date->format('d/m/Y') }}
-                        @else
-                          {{  $demande->visite->date->format('d/m/Y') }}
-                        @endif 
-                        </span>
+                      <div class="profile-info-value"><span>{{ $demande->imageable->date->format('d/m/Y') }}</span>
                       </div>
                     </div>
                     <div class="profile-info-row"><div class="profile-info-name">Etat</div>
                       <div class="profile-info-value">{!! format_stat($demande) !!}</div>
                     </div>
                     <div class="profile-info-row"><div class="profile-info-name">Demandeur</div>
-                      <div class="profile-info-value"><span class="editable">{{ $medecin->full_name }}</span></div>
+                      <div class="profile-info-value"><span class="editable">{{ $demande->imageable->medecin->full_name }}</span></div>
                    </div>
-                </div> {{-- profile-user-info   profile-user-info-striped--}}
-              </div> {{-- col-sm-5 --}}
+                </div>
+              </div>
               </div><br/>{{-- user-profile row  --}}
                 <div class="user-profile row">
                  <div class="col-xs-12 col-sm-12">
