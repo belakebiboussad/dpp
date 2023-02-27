@@ -83,7 +83,7 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {/* $request->validate(["daterdv"=> 'required',]);$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); */
+      {/* $request->validate(["daterdv"=> 'required',]);*/
         if($request->ajax())
         { 
           $patient = patient::find($request->pid);
@@ -99,7 +99,7 @@ class RDVController extends Controller
           if(Auth::user()->role_id ==15)
             $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
           else
-            $employ_id = Auth::user()->employee_id;
+            $employ_id = Auth::user()->employe_id;
           $rdv = rdv::firstOrCreate([
             "date"=>new DateTime($request->date),
             "fin" =>new DateTime($request->fin),
@@ -167,7 +167,7 @@ class RDVController extends Controller
         if(Auth::user()->role_id ==2)
           $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
         else
-            $employ_id = Auth::user()->employee_id;
+            $employ_id = Auth::user()->employe_id;
         $rdv->update([
           "date"=>$date,
           "fin"=>$fin,

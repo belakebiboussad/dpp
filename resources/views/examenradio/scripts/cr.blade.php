@@ -12,13 +12,6 @@ function getRequests(url,field,value)
         $(".numberResult").html(data.length);
         var table = $('#demandes_table').DataTable();
         var rows = table.rows().remove().draw();
-        /*
-        $.each(data, function(key1, obj){
-          $.each(obj.imageable.medecin, function(key, value){
-              alert(key + ":" + value);
-            });
-        });
-        */
         $("#demandes_table").DataTable ({ 
             "processing": true,
             "paging":   true,
@@ -74,23 +67,6 @@ function getRequests(url,field,value)
                 {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
               ] 
           });
-        
-        /*
-        $("#demandes_table").DataTable ({ 
-            
-                "columns": [
-              { data: null,
-              render: function ( data, type, row ) {
-                  if(data.id_consultation != null)
-                    return  row.consultation.patient.full_name +' <small class="text-primary">(Consultation)</small>';
-                  else
-                    return row.visite.hospitalisation.patient.full_name +' <small class="text-warning">(Hospitalisation)</small>';
-                  return data;  
-              },title:'Patient',"orderable": true,
-            },
-          ]
-        });// datatable
-        */
       }
     });
   }

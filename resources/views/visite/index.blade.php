@@ -27,7 +27,12 @@
 						<td>{{ $visite->date_formated }}</td>
 						<td class="center">{!! format_stat($visite->demandeexmbio) !!}</td>
             <td>{!! format_stat($visite->demandExmImg) !!}</td>
-					  <td class="center"><a href="{{ route('visites.show', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a></td>
+					  <td class="center">
+  <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+             @if(Auth::user()->employ->isServHead(Auth::user()->employ->service_id) || $visite->id_employe == Auth::user()->employe_id )
+<a href="{{ route('visites.edit', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit fa-xs"></i></a>
+            @endif
+            </td>
 					</tr>
 					@endforeach 
 					</tbody>

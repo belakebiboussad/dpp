@@ -28,7 +28,7 @@ class DemandeHospitalisationController extends Controller
       }
       public function index()
       {
-        $specialiteID = (employ::findOrFail(Auth::user()->employee_id))->Service->specialite_id;
+        $specialiteID = (employ::findOrFail(Auth::user()->employe_id))->Service->specialite_id;
         if(Auth::user()->role_id == 6)
           $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->whereNull('etat')->get();  
         else
@@ -39,7 +39,7 @@ class DemandeHospitalisationController extends Controller
           }
           else
           {
-            $employeID = Auth::user()->employee_id;
+            $employeID = Auth::user()->employe_id;
             $demandes = DemandeHospitalisation::whereHas('consultation.medecin', function ($q) use ($employeID) {
                                                   $q->where('id',$employeID);
                                               })->get();  

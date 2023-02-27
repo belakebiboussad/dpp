@@ -28,9 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use App\modeles\Specialite;
 use Carbon;
 class VisiteController extends Controller
-{
-    //
-	    /**
+{   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -48,31 +46,31 @@ class VisiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-      public function create($id_hosp)
-      {
-        $prescredconst = [];
-        $date = Carbon\Carbon::now();
-        $etab = Etablissement::first(); 
-        $employe = Auth::user()->employ;
-        $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
-        $hosp = hospitalisation::FindOrFail($id_hosp);
-        $lastVisite = $hosp->getlastVisiteWitCstPresc();
-        $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-        $visite = visite::create([
-          'date'=>$date,
-          'heure'=>$date->format("H:i"),
-          'id_hosp'=>$id_hosp,
-          'pid'=>$patient->id,
-          'date'=>$date,
-          'id_employe'=>$employe->id
-        ]);
-        $specialitesProd = specialite_produit::all();//trait
-        $infossupp = infosupppertinentes::all();
-        $examens = TypeExam::all();//CT,RMN
-        $examensradio = examenradiologique::all();
-        $codesNgap = NGAP::all();
-        $consts = consts::all();
-        return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
+    public function create($id_hosp)
+    {
+      $prescredconst = [];
+      $date = Carbon\Carbon::now();
+      $etab = Etablissement::first(); 
+      $employe = Auth::user()->employ;
+      $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
+      $hosp = hospitalisation::FindOrFail($id_hosp);
+      $lastVisite = $hosp->getlastVisiteWitCstPresc();
+      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
+      $visite = visite::create([
+        'date'=>$date,
+        'heure'=>$date->format("H:i"),
+        'id_hosp'=>$id_hosp,
+        'pid'=>$patient->id,
+        'date'=>$date,
+        'id_employe'=>$employe->id
+      ]);
+      $specialitesProd = specialite_produit::all();//trait
+      $infossupp = infosupppertinentes::all();
+      $examens = TypeExam::all();//CT,RMN
+      $examensradio = examenradiologique::all();
+      $codesNgap = NGAP::all();
+      $consts = consts::all();
+      return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

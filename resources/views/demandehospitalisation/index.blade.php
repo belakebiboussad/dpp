@@ -36,12 +36,12 @@
 								<a href="{{route('demandehosp.show', $demande->id)}}" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 									<i class="ace-icon fa fa-hand-o-up" aria-hidden="true"></i>
 								</a>
-                @if(Auth::User()->employee_id == $demande->consultation->employ_id)
+                @if(Auth::User()->employe_id == $demande->consultation->employ_id)
                   <a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success{!! isInprog($demande) !!}" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
                     <i class="ace-icon fa fa-pencil" aria-hidden="true"></i>
                   </a>
                   @endif
-								  @if(Auth::User()->employee_id == $demande->consultation->employ_id || (Auth::User()->role_id == 6))
+								  @if(Auth::User()->employe_id == $demande->consultation->employ_id || (Auth::User()->role_id == 6))
   								 <a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger{!! isInprog($demande) !!}"><i class="ace-icon fa fa-trash-o"></i></a>
   							  @endif
 							</td>

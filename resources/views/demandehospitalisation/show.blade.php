@@ -12,7 +12,7 @@
 							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><b>Liste des demandes</b></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;
-						@if(Auth::User()->employee_id == $demande->employ_id)
+						@if(Auth::User()->employe_id == $demande->employ_id)
 							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><b>Modifier</b></a>
 								&nbsp;&nbsp;&nbsp;
 						@endif

@@ -20,17 +20,15 @@
 @section('main-content')
 <div class="page-header"><h1>Rechercher une demande d'examen biologique</h1></div>
 <div class="row">
-  	<div class="panel panel-default">
-    		<div class="panel-heading">Rechercher</div>
-    		<div class="panel-body">
-	  	 <div class="row">
-	      		<div class="col-sm-4">
-	      			<div class="form-group">
-	      				<label>Etat</label>
-	         			<select  id="etat" class="form-control selectpicker show-menu-arrow  filter">
+  <div class="panel panel-default">
+    <div class="panel-heading">Rechercher</div>
+    	<div class="panel-body">
+	  	  <div class="row">
+	      	<div class="col-sm-4">
+	      			<div class="form-group"><label>Etat</label>
+	      				<select  id="etat" class="form-control selectpicker show-menu-arrow  filter">
 		         			<option val="" selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option><option value="1">Validée</option>
-		         			
 	         	    </select>
 	         		</div>
 	         	</div>

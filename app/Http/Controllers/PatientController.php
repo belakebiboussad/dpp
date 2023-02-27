@@ -274,7 +274,7 @@ class PatientController extends Controller
                  "date_deliv"=>$request->date_piece_id,
                  "adresse"=>$request->adresseA,
                  "mob"=>$request->operateur_h.$request->mobile_homme_c,
-                "created_by"=>Auth::user()->employee_id,
+                "created_by"=>Auth::user()->employe_id,
       ]);
     }
     return redirect(Route('patient.show',$patient->id));
@@ -292,14 +292,6 @@ class PatientController extends Controller
           $employe=Auth::user()->employ;
           $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-          /*
-          $demandesExB = demandeexb::with('consultation')->where('etat',1)
-                                    ->whereHas('consultation',function($q) use($id){
-                                         $q->where('pid', $id);
-                                    })->orWhereHas('visite.hospitalisation',function($q) use($id){
-                                      $q->where('patient_id', $id);   
-                                    })->get();
-          */                          
           $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
                                       $query->where('pid', $id);
                                    })->orWhereHas('consultation',function($q) use($id){
@@ -310,8 +302,7 @@ class PatientController extends Controller
                                   })->orWhereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);   
                                   })->get();
-          //dd(demandeexb);
-          $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
+           $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
                                       $q->where('pid', $id);
                                     })->get();
       return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR','ordonnances'));

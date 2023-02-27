@@ -30,7 +30,8 @@ class visite extends Model
     }
     public function demandeexmbio()
     {
-          return $this->hasOne('App\modeles\demandeexb','visite_id');
+      //return $this->hasOne('App\modeles\demandeexb','visite_id');
+      return $this->morphOne('App\modeles\demandeexb', 'imageable');
     }
     public function demandExmImg()
     { 

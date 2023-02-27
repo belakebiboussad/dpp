@@ -43,7 +43,7 @@ class DemandeExamenRadio extends Controller
             $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')->whereNull($field)->get();
         } else
         {
-           $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
+          $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
                                 ->whereHas('consultation.medecin', function($query) use ($q) {
                                     $query->where('service_id', $q);
                                   })->orWhereHas('visite.medecin', function($query) use ($q) {
@@ -146,29 +146,29 @@ class DemandeExamenRadio extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-      public function store(Request $request){
-        if($request->ajax())    
-        {
-          $dr = demandeexr::FirstOrCreate([
-            "InfosCliniques" => $request->infosc,
-            "Explecations" => $request->explication
+  public function store(Request $request){
+    if($request->ajax())    
+    {
+       if(isset($request->consultation_id))
+        $obj = consultation::findOrFail($request->consultation_id);
+      else
+        $obj = visite::findOrFail($request->visite_id);
+      $dr = $obj->demandExmImg()->create([
+            'InfosCliniques'=>$request->infosc,
+            'Explecations'  =>$request->explication,
           ]);
-          if(isset($request->id_consultation))
-            $dr->update([ "id_consultation" => $request->id_consultation]);
-          else
-            $dr->update([ "visite_id" => $request->visite_id]);
-          if(isset($request->infos))
-            $dr->infossuppdemande()->attach(json_decode($request->infos));
-          foreach (json_decode ($request->ExamsImg) as $key => $id)
-          {
-            $dr->examensradios()->create([
-              'exm_id' =>$id,
-              'type_id' => (json_decode ($request->types))[$key]
-            ]);
-          }   
-          return $dr;
-        } 
-      }
+      if(isset($request->infos))
+        $dr->infossuppdemande()->attach(json_decode($request->infos));
+      foreach (json_decode ($request->ExamsImg) as $key => $id)
+      {
+        $dr->examensradios()->create([
+          'exm_id' =>$id,
+          'type_id' => (json_decode ($request->types))[$key]
+        ]);
+      }  
+      return $dr;
+    } 
+  }
     /**
      * Display the specified resource.
      *
@@ -215,7 +215,6 @@ class DemandeExamenRadio extends Controller
       $demande = demandeexr::destroy($id);    
       return $demande;
     }
-   
     public function delResult(Request $request)
     {
       $ex = Demande_Examenradio::FindOrFail($request->examId);

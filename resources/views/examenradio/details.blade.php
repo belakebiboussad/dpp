@@ -189,7 +189,7 @@ $(function(){
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div class="row" width="100%"> @include('patient._patientInfo')</div>
+  <div class="page-header"> @include('patient._patientInfo')</div>
   <div class="row">
       <div class="col-md-5 col-sm-5"><h4>Demande d'examen radiologique</h4></div>
       <div class="col-md-7 col-sm-7 btn-toolbar">

@@ -20,7 +20,7 @@
   <div class="tab-content no-border padding-24">
     <div id="hospi" class="tab-pane in active">@include('hospitalisations.inc_hosp')</div>
     @if(in_array(Auth::user()->role_id,[1,13,14]) && ($hosp->visites->count()>0))
-    <div id="visites" class="tab-pane">@include('visite.liste')</div>
+    <div id="visites" class="tab-pane">@include('visite.index')</div>
     @endif
     @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
       @if (!empty(json_decode($specialite->hospConst, true))) 

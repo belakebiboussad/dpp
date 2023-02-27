@@ -10,17 +10,14 @@
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
           @foreach($demandesExB as $demande)
             @if($demande->getEtatID() ===1)
-          <li>
-            <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $demande->resultat }}</a>
-            @isset($res->crb)    
-            <a href="{{ route('crbs.download',$demande->id )}}" title=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
-            @endisset
-            @if(isset($demande->consultation))
-            <small>( Consultation du {{ $demande->consultation->date->format('d/m/Y') }})</small>
-            @else
-            <small>( Visite du {{ $demande->visite->date->format('d/m/Y') }})</small>
-            @endif
-          </li>
+            <li>
+              <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>&nbsp; {{ $demande->resultat }}</a>
+              @isset($demande->crb)    
+              <a href="{{ route('crbs.download',$demande->id )}}" title=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
+              @endisset
+               <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
+                  {{ $demande->imageable->date->format('d/m/Y') }}) </span>  
+            </li>
           @endif
           @endforeach
         </ul>
@@ -54,7 +51,7 @@
              @endif
             @endforeach
           @endforeach
-        </ul><!-- / -->
+        </ul>
       </div>
     </div>
   </div>

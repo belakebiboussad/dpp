@@ -159,7 +159,7 @@ Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download'
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
-Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', function () {   return view('errors.404'); });*/
+Route::get('/soins/index/{id}','SoinsController@index');
 route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');

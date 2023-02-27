@@ -120,7 +120,7 @@ class demandeprodController extends Controller
         $date = Carbon::today();
         $demande = demand_produits::Create([
           "date" => $date,
-          "id_employe" => Auth::user()->employee_id,
+          "id_employe" => Auth::user()->employe_id,
         ]);
         $listes = json_decode($request->liste);
         for ($i=1; $i < count($listes); $i++) { 

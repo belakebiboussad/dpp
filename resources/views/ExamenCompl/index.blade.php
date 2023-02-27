@@ -52,7 +52,7 @@
 			  @if(isset($hosp))
         <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
        	@else
-        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $consult->id }}" data-field="id_consultation" disabled>
+        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $consult->id }}" data-field="consultation_id" disabled>
         @endif
           <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>
 				</button>
@@ -65,7 +65,7 @@
 </div><div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>
 <script> 
   function examsImgSave(patientName, ipp, med,fieldName, fieldValue){ 
-    var infos = [] , ExamsImg = [], types = [];
+   var infos = [] , ExamsImg = [], types = [];
     $('.infosup input.ace:checkbox:checked').each(function(index, value) {
       infos.push($(this).val());
     });

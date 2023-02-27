@@ -27,7 +27,6 @@ class consultation extends Model
     }
     public function demandeexmbio()
     {
-      //return $this->hasOne('App\modeles\demandeexb','id_consultation');
       return $this->morphOne('App\modeles\demandeexb', 'imageable');
     }
     public function demandExmImg()

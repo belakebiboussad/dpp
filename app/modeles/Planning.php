@@ -23,7 +23,7 @@ class Planning extends Model
       1 => 'Valide'
     ];
     protected $fillable = [
-        'employee_id', 'date', 'heure','date_end','heure_end', 'type','desc','state'
+        'employe_id', 'date', 'heure','date_end','heure_end', 'type','desc','state'
     ];
     protected $dates =['date','date_end'];
     public function getStateAttribute()

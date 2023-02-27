@@ -109,7 +109,7 @@ class UsersController extends Controller
         "name"=>$request->username,// "password"=>$request->password,
         "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
-        "employee_id"=>$employe->id,
+        "employe_id"=>$employe->id,
         "role_id"=>$request->role,
       ]);//return redirect(Route('employs.show',$employe->id)); 
       return redirect(Route('users.show',$user->id));                 
@@ -177,7 +177,7 @@ class UsersController extends Controller
               'name'=>$request->username,
               "password"=>$user->password,
               "email"=>$request->email,
-              "employee_id"=>$user->employee_id,
+              "employe_id"=>$user->employe_id,
               "role_id"=>$request->role,
               "active"=>$activer,   
      ]);  
@@ -207,7 +207,7 @@ class UsersController extends Controller
     }
     public function getAddEditRemoveColumnData()
     {
-      $users = User::select(['id', 'name', 'email', 'employee_id','role_id']);
+      $users = User::select(['id', 'name', 'email', 'employe_id','role_id']);
       return Datatables::of($users)
           ->addColumn('action2', function ($user) {
               return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
@@ -230,10 +230,10 @@ class UsersController extends Controller
         $user = null;      
         if($userId != null) {
             $user = User::find($userId);
-            $employe = employ::FindOrFail($user->employee_id);
+            $employe = employ::FindOrFail($user->employe_id);
         } else {
             $user = User::find(Auth::user()->id);
-            $employe = employ::FindOrFail($user->employee_id);
+            $employe = employ::FindOrFail($user->employe_id);
         }
         return view('user/profile', [
             'user' => $user,
@@ -316,7 +316,7 @@ class UsersController extends Controller
     public function getUserDetails(Request $request)
     {
      $user = User::FindOrFail($request->search);
-     $employe = employ::FindOrFail($user->employee_id);
+     $employe = employ::FindOrFail($user->employe_id);
      $view = view("user.ajax_userdetail",compact('user','employe'))->render();
      return (['html'=>$view]);
     }

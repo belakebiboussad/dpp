@@ -9,7 +9,7 @@
         <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
-          <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
+          <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employe_id}}">
            <input type="hidden" id="hom_id" name="hom_id" value="0">
           <hr>
           <div class="form-group">

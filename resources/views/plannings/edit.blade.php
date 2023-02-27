@@ -26,7 +26,7 @@
         <div class="form-group row">
             <label for="employe" class="col-sm-2 col-form-label">Employé</label>
             <div class="col-sm-10">
-                <select class="form-control" id="employe" name="employee_id">
+                <select class="form-control" id="employe" name="employe_id">
                   <option value="{{ $employe->id }}" selected disabled>{{ $employe->full_name }}</option>
                 </select>
             </div>

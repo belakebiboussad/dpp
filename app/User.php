@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     public $table ="utilisateurs";
     public $timestamps = false;
-    protected $fillable = ['name', 'email', 'password','employee_id','role_id','active'];
+    protected $fillable = ['name', 'email', 'password','employe_id','role_id','active'];
      /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,7 +29,7 @@ class User extends Authenticatable
     }
     public function employ()
     {
-        return $this->belongsTo('App\modeles\employ','employee_id');   
+        return $this->belongsTo('App\modeles\employ','employe_id');   
     }
     protected $casts = [
         'active' => 'boolean',

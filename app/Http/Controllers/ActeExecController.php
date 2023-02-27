@@ -19,7 +19,7 @@ class ActeExecController extends Controller
   public function store(Request $request)
   {
     $input = $request->all();
-    $input['employ_id'] = Auth::user()->employee_id ;
+    $input['employ_id'] = Auth::user()->employe_id ;
     $exec =ActeExec::create($input);    
     return $exec;
   } 

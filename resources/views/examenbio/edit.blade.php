@@ -26,12 +26,12 @@
   </script>
 @endsection
 @section('main-content')
-<div class="row" width="100%">@include('patient._patientInfo',['patient'=>$demande->consultation->patient])</div>
+<div class="row" width="100%">@include('patient._patientInfo',['patient'=>$demande->imageable->patient])</div>
 <div class="content">
   <div class="page-header"><h1>Modifier la demande d'examen biologique</h1>
     <div class="pull-right">
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
-        <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+        <a href="{{ route('consultations.show',$demande->imageable_id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     </div>
   </div><div class="space-12"></div>
    <div class="row">
@@ -63,7 +63,7 @@
       <form  method="POST" action="{{ route('demandeexb.update',$demande->id) }}" > 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
-        <input type="hidden" name="demande_id" value="{{ $demande->id }}" >
+        <input type="hidden" name="id" value="{{ $demande->id }}" >
          <button class="btn btn-sm btn-primary" type="submit"><i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</button>
       </form>
       </div>

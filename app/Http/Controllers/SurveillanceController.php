@@ -19,7 +19,7 @@ class SurveillanceController extends Controller
     $s->app=$request->ap;
     $s->description=$request->desc;
     $s->observation=$request->obs;
-    $s->id_employe=Auth::User()->employee_id;
+    $s->id_employe=Auth::User()->employe_id;
     $s->save();          
     return back()->with('message','Surveillance ajoutée avec succès!');
 

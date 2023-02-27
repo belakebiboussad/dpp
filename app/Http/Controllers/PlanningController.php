@@ -10,7 +10,7 @@ class PlanningController extends Controller
 {
   public function index()
   {
-    $plannings = Planning::where('employee_id',Auth::user()->employee_id)->get();
+    $plannings = Planning::where('employe_id',Auth::user()->employe_id)->get();
     return view('plannings.index', compact('plannings'));
   }
   public function create()
@@ -26,10 +26,10 @@ class PlanningController extends Controller
   public function store(Request $request)
   {
     $input = $request->all();
-    $input['employee_id'] = Auth::user()->employee_id ;
+    $input['employe_id'] = Auth::user()->employe_id ;
     $planning = Planning::create($input);
-    $planning->employee()->associate($request->get('employee_id'));
-    $plannings = Planning::where('employee_id',Auth::user()->employee_id)->get();
+    $planning->employe()->associate($request->get('employe_id'));
+    $plannings = Planning::where('employe_id',Auth::user()->employe_id)->get();
     Session::flash('message','demande  crée avec succès'); 
     return view('plannings.index',compact('plannings'));
   }
@@ -45,8 +45,8 @@ class PlanningController extends Controller
   {
     $dem = Planning::find($id);
     $dem->delete();
-    $plannings = Planning::where('employee_id',Auth::user()->employee_id)->get();
+    $plannings = Planning::where('employe_id',Auth::user()->employe_id)->get();
     Session::flash('message','Demande supprimé avec succès');
-    return view('plannings.index',compact('$plannings'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
+    return view('plannings.index',compact('$plannings'));  // return redirect(
   }
 }

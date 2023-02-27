@@ -202,7 +202,7 @@
       }
       function addCIMCode(code,field)
       {
-            $("#"+field).val(code);
+          $("#"+field).val(code);
           $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
           $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
@@ -224,9 +224,6 @@
             data: formData,
             success: function (data) {
               examsBioprint(patientName, ipp, med);
-            },
-            error : function(data){
-              console.log("data");
             }
       });
     }

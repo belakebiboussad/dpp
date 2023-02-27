@@ -65,12 +65,12 @@ class HomeController extends Controller
       }
       switch (Auth::user()->role_id) {
           case 1://medecin & medChef
-                     return view('patient.index');
-                       break;
+                return view('patient.index');
+                 break;
           case 15:        
-                case 2://rec
-                      return view('patient.index');
-                      break;
+          case 2://rec
+                return view('patient.index');
+                break;
           case 3://inf                    
                 return redirect()->action('HospitalisationController@index');
                 break;
