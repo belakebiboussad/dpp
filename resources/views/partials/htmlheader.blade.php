@@ -8,6 +8,7 @@
 <meta name="csrf-token" content="{{csrf_token()}}">
 <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/css/ui.jqgrid.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace.css') }}" class="ace-main-stylesheet" id="main-ace-style" />
 <link rel="stylesheet" href="{{ asset('/css/ace-skins.min.css') }}"/>

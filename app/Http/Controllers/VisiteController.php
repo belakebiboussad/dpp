@@ -118,7 +118,7 @@ class VisiteController extends Controller
     {//$hosp = hospitalisation::find($id);
       $visite = visite::find($id);
       $actes = $visite->actes->toJson();
-      return view('visite.a2',compact('visite','actes'));  
+      return view('visite.edit1',compact('visite','actes'));  
     }
     public function destroy($id)
     {
