@@ -5,6 +5,8 @@
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script> 
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
+<script src="{{asset('/js/jquery.jqGrid.min.js')}}"></script>{{-- ajouter --}}
+<script src="{{asset('/js/grid.locale-en.js')}}"></script>{{-- ajouter --}}
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.min.js')}}"></script>

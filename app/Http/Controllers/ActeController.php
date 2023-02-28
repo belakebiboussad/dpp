@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;//use App\modeles\consigne;
 use App\modeles\Acte;
+use App\modeles\visite;
 use App\modeles\ActeExec;// use Validator;
 class ActeController extends Controller
 {
@@ -19,8 +20,13 @@ class ActeController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
+    public function index($visId = null)
+    {
+      $visite = visite::find($visId);
+      return $visite->actes;
+    }
     public function edit(Acte $acte )
-    { //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+    { //  $consignes = consigne::FindOrFail($id); // return   view('consigne.edit_consigne',compact('consignes'));
       return $acte;
     }
     public function show($id)

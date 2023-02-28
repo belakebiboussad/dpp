@@ -115,9 +115,10 @@ class VisiteController extends Controller
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
-    {
-      $hosp = hospitalisation::find($id);
-      return view('visite.edit',compact('hosp'));  
+    {//$hosp = hospitalisation::find($id);
+      $visite = visite::find($id);
+      $actes = $visite->actes->toJson();
+      return view('visite.a2',compact('visite','actes'));  
     }
     public function destroy($id)
     {
