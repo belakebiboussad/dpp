@@ -137,7 +137,7 @@
     <!-- page specific plugin scripts -->
     <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
    <script src="{{asset('/js/jquery.jqGrid.min.js')}}"></script><!-- ajouter -->
-   <script src="{{asset('/js/grid.locale-en.js')}}"></script>
+   <script src="{{asset('/js/grid.locale-fr.js')}}"></script>
 
     <!-- ace scripts -->
     <script src="{{asset('/js/ace-elements.min.js')}}"></script>
@@ -204,25 +204,6 @@
             }, 20);
           }
           })
-        
-        //if your grid is inside another element, for example a tab pane, you should use its parent's width:
-        /**
-        $(window).on('resize.jqGrid', function () {
-          var parent_width = $(grid_selector).closest('.tab-pane').width();
-          $(grid_selector).jqGrid( 'setGridWidth', parent_width );
-        })
-        //and also set width when tab pane becomes visible
-        $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-          if($(e.target).attr('href') == '#mygrid') {
-          var parent_width = $(grid_selector).closest('.tab-pane').width();
-          $(grid_selector).jqGrid( 'setGridWidth', parent_width );
-          }
-        })
-        */
-        
-        
-      
-      
       
         jQuery(grid_selector).jqGrid({
           //direction: "rtl",
@@ -236,23 +217,7 @@
             minusicon  : "ace-icon fa fa-minus center bigger-110 blue",
             openicon : "ace-icon fa fa-chevron-right center orange"
           },
-          //for this example we are using local data
-          subGridRowExpanded: function (subgridDivId, rowId) {
-            var subgridTableId = subgridDivId + "_t";
-            $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-            $("#" + subgridTableId).jqGrid({
-              datatype: 'local',
-              data: subgrid_data,
-              colNames: ['No','Item Name','Qty'],
-              colModel: [
-                { name: 'id', width: 50 },
-                { name: 'name', width: 150 },
-                { name: 'qty', width: 50 }
-              ]
-            });
-          },
-          
-      
+              
       
           data: grid_data,
           datatype: "local",

@@ -139,7 +139,6 @@
             var table = this;
             setTimeout(function(){
               styleCheckbox(table);
-              
               updateActionIcons(table);
               updatePagerIcons(table);
               enableTooltips(table);

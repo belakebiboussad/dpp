@@ -118,7 +118,14 @@ class VisiteController extends Controller
     {//$hosp = hospitalisation::find($id);
       $visite = visite::find($id);
       $actes = $visite->actes->toJson();
-      return view('visite.edit1',compact('visite','actes'));  
+      $codesNgap = NGAP::all();
+      $ngaps='';
+      foreach( $codesNgap as $ngap)
+      {
+        $ngaps.= $ngap->code . ':' . $ngap->libelle . ";";
+      }
+      $ngaps=  addslashes($ngaps);
+      return view('visite.edit1',compact('visite','actes','ngaps'));  
     }
     public function destroy($id)
     {

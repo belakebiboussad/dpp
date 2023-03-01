@@ -15,6 +15,88 @@
 @endsection
 @section('page-script')
 <script type="text/javascript">
+  function updateActionIcons(table) {
+    /***/
+    var replacement = 
+    {
+      'ui-ace-icon fa fa-pencil' : 'ace-icon fa fa-pencil blue',
+      'ui-ace-icon fa fa-trash-o' : 'ace-icon fa fa-trash-o red',
+      'ui-icon-disk' : 'ace-icon fa fa-check green',
+      'ui-icon-cancel' : 'ace-icon fa fa-times red'
+      };
+      $(table).find('.ui-pg-div span.ui-icon').each(function(){
+        var icon = $(this);
+        var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+        if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+          })      
+  }
+  //replace icons with FontAwesome icons like above
+  function updatePagerIcons(table) {
+          var replacement = 
+          {
+            'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+            'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+            'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+            'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+          };
+          $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+            var icon = $(this);
+            var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+            
+            if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+          })
+  }
+  function beforeDeleteCallback(e) {
+    var form = $(e[0]);
+    if(form.data('styled')) return false;
+    
+    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+    style_delete_form(form);
+    
+    form.data('styled', true);
+  }
+  function style_edit_form(form) {
+      //update buttons classes
+    var buttons = form.next().find('.EditButton .fm-button');
+    buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
+    buttons.eq(0).addClass('btn-primary').prepend('<i class="ace-icon fa fa-check"></i>');
+    buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
+    
+    buttons = form.next().find('.navButton a');
+    buttons.find('.ui-icon').hide();
+    buttons.eq(0).append('<i class="ace-icon fa fa-chevron-left"></i>');
+    buttons.eq(1).append('<i class="ace-icon fa fa-chevron-right"></i>');   
+  }
+   function style_delete_form(form) {
+      var buttons = form.next().find('.EditButton .fm-button');
+      buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]').hide();//ui-icon, s-icon
+      buttons.eq(0).addClass('btn-danger').prepend('<i class="ace-icon fa fa-trash-o"></i>');
+      buttons.eq(1).addClass('btn-default').prepend('<i class="ace-icon fa fa-times"></i>')
+  }
+  function beforeEditCallback(e) {
+    var form = $(e[0]);
+    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+    style_edit_form(form);
+  }
+  function beforeDeleteCallback(e) {
+    var form = $(e[0]);
+    if(form.data('styled')) return false;
+    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+    style_delete_form(form);
+    form.data('styled', true);
+  }
+  function enableTooltips(table) {
+    $('.navtable .ui-pg-button').tooltip({container:'body'});
+    $(table).find('.ui-pg-div').tooltip({container:'body'});
+  }
+  function typeSelect()
+  {
+    return "paramedicale:paramédicale;medicale:médicale";
+  }
+  function NgapSelect()
+  {
+    return '{!! $ngaps !!}';
+  }
   $(function(){
     var grid_selector = "#grid-table";
     $("#actes-table").jqGrid({
@@ -22,12 +104,38 @@
         mtype: "GET",
         datatype: "json",
         colModel: [
-          {  label: 'ID', name: 'id', "key":true, width: 30, "hidden":true},
-          { label: 'Nom', name: 'nom', width: 90 },
-          { label: 'Description', name: 'description', width: 130 },
-          { label: 'Type', name: 'type', width: 60 },
-          { label: 'NGAP', name: 'code_ngap', width: 40 },
-          { label: 'fois/j', name: 'nbrFJ', width: 40 }  
+          { label: 'ID', name: 'id', "key":true, width: 30, editable: true, "hidden":true},
+          { label: 'Nom', name: 'nom', editable: true,editoptions:{size:"20",maxlength:"30"}, width: 130},
+          { label: 'Description', name: 'description', editable: true, width: 130 },
+          { label: 'Type', name: 'type', width: 60 , editable: true, edittype:'select',
+             editoptions: { value: typeSelect(), editrules: { required: true },
+             dataEvents: [{
+                 type: 'change', fn: function(e) {
+                     var thisval = $(e.target).val();
+                     $("#targetsel").html(targetSelect(thisval))
+                 } }]
+             }
+          },
+          { label: 'NGAP', name: 'code_ngap',editable: true, edittype:'select',
+            editoptions: { value: NgapSelect() , editrules: { required: false }},
+           width: 40 },
+          { label: 'fois/j', name: 'nbrFJ', editable: true, width: 20 },
+          { label:'<em class="fa fa-cog"></em>',name:' ', width:80, fixed:true, sortable:false, resize:false,
+              formatter:'actions', 
+              formatoptions:{ 
+                keys:true,
+                delbutton: true,//disable delete button
+                delOptions:{
+                  recreateForm: true,
+                  beforeShowForm:beforeDeleteCallback
+                },
+                editformbutton:true,
+                editOptions:{
+                  recreateForm: true,
+                  beforeShowForm:beforeEditCallback
+                }
+              }
+          }   
         ],
         viewrecords: true,
         width: 1146,
@@ -35,38 +143,20 @@
         rowNum: 20,
         gridview: true,
         altRows: true,
-        multiselect: true,
         pager: "#jqGridPager",
-        caption: "Actes"
-      });
-    // .jqGrid('navGrid','#pager1',{edit:true,add:true,del:true});
-      // $('#grid-table').navGrid('#jqGridPager', { edit: true, add: true, del: true, search: false, refresh: false, view: false, position: "left", cloneToTop: false }, // options for the Edit Dialog
-      //   {
-      //       editCaption: "The Edit Dialog",
-      //       recreateForm: true,
-      //       checkOnUpdate : true,
-      //       checkOnSubmit : true,
-      //       closeAfterEdit: true,
-      //       errorTextFormat: function (data) {
-      //           return 'Error: ' + data.responseText
-      //       }
-      //   },
-      //   // options for the Add Dialog
-      //   {
-      //       closeAfterAdd: true,
-      //       recreateForm: true,
-      //       errorTextFormat: function (data) {
-      //           return 'Error: ' + data.responseText
-      //       }
-      //   },
-      //   // options for the Delete Dailog
-      //   {
-      //       errorTextFormat: function (data) {
-      //           return 'Error: ' + data.responseText
-      //       }
-      //   }
-      //   );
+        caption: "Actes",
+        viewsortcols: true,
+        loadComplete : function() {
+          var table = this;
+          setTimeout(function(){
+            updateActionIcons(table);
+            updatePagerIcons(table);
+            enableTooltips(table);
+          });
+        }
 
+        //editurl: "./dummy.php",
+      });
   });
 </script>
 @endsection

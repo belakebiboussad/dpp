@@ -242,9 +242,15 @@
           data: grid_data,
           datatype: "local",
           height: 250,
-          colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
+          colNames:['ID','Last Sales','Name', 'Stock', 'Ship via','Notes',' '],
           colModel:[
-            {name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
+            {name:'id',index:'id', width:60, sorttype:"int", editable: true},
+            {name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
+            {name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
+            {name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
+            {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
+            {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}},
+              {name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
               formatter:'actions', 
               formatoptions:{ 
                 keys:true,
@@ -253,15 +259,8 @@
                 delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback},
                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
               }
-            },
-            {name:'id',index:'id', width:60, sorttype:"int", editable: true},
-            {name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
-            {name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
-            {name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
-            {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
-            {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}} 
+            } 
           ], 
-      
           viewrecords : true,
           rowNum:10,
           rowList:[10,20,30],
