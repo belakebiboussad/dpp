@@ -37,7 +37,7 @@
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
         </div>
          <div class=" form-group">
-            <label  class="control-label" for="dureeT">Nombre d'application/jour :</label>
+            <label  class="control-label" for="dureeT">Fois/Jour :</label>
             <input type="number" id="nbrFJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/><!-- <label for="dureeT">Durée(jour):</label>
       <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/> -->
         </div>

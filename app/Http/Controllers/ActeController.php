@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;//use App\modeles\consigne;
 use App\modeles\Acte;
 use App\modeles\visite;
+//use App\modeles\consigne;
 use App\modeles\ActeExec;// use Validator;
 class ActeController extends Controller
 {
@@ -31,13 +32,27 @@ class ActeController extends Controller
     }
     public function show($id)
     {
-      $consigne = consigne::FindOrFail($id);
-      return view('consigne.show_consigne',compact('consigne'));
+      // $consigne = consigne::FindOrFail($id);
+      // return view('consigne.show_consigne',compact('consigne'));
     }
-    public function update(Request $request, Acte $acte)
+    public function update(Request $request, $id )//Acte $acte
     { 
-      $acte->update($request->all());
-      return(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]);
+      $acte = Acte::find($request->id);
+      if($request->ajax())
+      {
+        $acte->update([
+          'nom'=>$request->nom,
+          'type'=>$request->type,
+          'code_ngap'=>$request->code_ngap,     
+          'description'=>$request->description,
+          'nbrFJ'=>$request->nbrFJ,
+        ]);
+        return $acte;
+      }else
+      {
+        $acte->update($request->all());
+        return(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]);
+      }
     }
     public function store(Request $request)
     { 

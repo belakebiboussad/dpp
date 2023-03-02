@@ -125,7 +125,7 @@ class VisiteController extends Controller
         $ngaps.= $ngap->code . ':' . $ngap->libelle . ";";
       }
       $ngaps=  addslashes($ngaps);
-      return view('visite.edit1',compact('visite','actes','ngaps'));  
+      return view('visite.edit4',compact('visite','actes','ngaps'));  
     }
     public function destroy($id)
     {

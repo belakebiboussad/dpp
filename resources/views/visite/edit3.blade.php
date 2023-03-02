@@ -97,12 +97,9 @@
   {
     return '{!! $ngaps !!}';
   }
-  function onSaveSuccess(xhr){
-    response = xhr.responseText;
-    if(response == 1) return true; return false;
-  }
-  function save174Expense(id) {
-    alert(id);
+  function aftersavefunc()
+  {
+    alert("daved");
   }
   $(function(){
     var MemNo = "";
@@ -113,7 +110,7 @@
         mtype: "GET",
         datatype: "json",
         colModel: [
-          { label: 'ID', name: 'id', "key":true, width: 30, editable: true, "hidden":true},
+          { label: 'ID', name: 'id', "key":true, type: 'int', width: 30, editable: true, "hidden":true},
           { label: 'Nom', name: 'nom', editable: true,editoptions:{size:"20",maxlength:"30"}, width: 130},
           { label: 'Description', name: 'description', editable: true, width: 130 },
           { label: 'Type', name: 'type', width: 60 , editable: true, edittype:'select',
@@ -148,16 +145,16 @@
         ],
         viewrecords: true,
         width: 1146,
-        height: 250,
+        height: "auto",
         rowNum: 20,
         gridview: true,
         altRows: true,
         multiselect: true,
-         multiboxonly: true,
         pager: "#jqGridPager",
         caption: "Actes",
         viewsortcols: true,
-        editURL : '/acte/'+ MemNo +'/edit',
+        editURL : '/acte/'+ 96 +'/edit',
+        //editURL :'',
         loadComplete : function() {
           var table = this;
           setTimeout(function(){
@@ -167,11 +164,10 @@
           });
         },
         onSelectRow: function(acteId){
-       
+        //$("#table_actes").jqGrid('editRow',acteId,true, oneditfunc, null, null, null, aftersavefunc);
         },
         gridComplete: function(){
-        var id = $("#table_actes").jqGrid('getDataIDs'); 
-        var savefunc = "save174Expense(\"" + id + "\")";
+     
         },
       });
     jQuery("#actes-table").jqGrid('navGrid','#jqGridPager',{
@@ -184,27 +180,25 @@
         height: 400,
         width: 500,
         reloadAfterSubmit: true,
-        beforeSubmit:function(row){
-          MemNo = row.id ;
-          return MemNo; 
-        },
+        // beforeSubmit:function(row,postdata, formid){
+        //     //MemNo = row.id;
+
+        //  },
         onclickSubmit: function(params) {
-         //  alert("wmemno="+MemNo);
-          var gsr = $("#table_actes").getGridParam('selrow');
-          var sdata = $("#table_actes").getRowData(gsr);
-           alert(sdata); 
-        
-        }
+          params.url = '{{ route("acte.update",96)}}';
+        },
+        afterSubmit:function(){
+           
+         },
     }).navButtonAdd("#jqGridPager",{
-        caption:"",
-        buttonicon:"",
-        onClickButton:function(){
-          var datarow = {nom: "terre", description: "gsdgs", type:"paramedicale", code_ngap: "", nbrFJ: "4"};
-          var su=jQuery("#id_grid").addRowData("X",datarow,"first");
-          if(su) { jQuery("#actes-table").setSelection('X') }
-        }   
+        // caption:"",
+        // buttonicon:"",
+        // onClickButton:function(){
+         
+        // }   
 
     });
+    //$("#table_actes").jqGrid('footerData', 'set', { "ShipName":"Total:"}, true);
   });
 </script>
 @endsection
