@@ -77,15 +77,11 @@
         success: function (data) {
           if($('.dataTables_empty').length > 0)
             $('.dataTables_empty').remove();
-          var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
-                    +'</td><td>'+data.acte.code_ngap+'</td><td>'+data.acte.description+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td>';
-              acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';    
-              acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
-          if (state == "add") {
+          var acte = '<tr id="acte'+data.id+'"><td hidden>' + data.id_visite + '</td><td>'+data.nom + '</td><td>' +data.type + '</td><td>' + data.code_ngap + '</td><td>' + data.description + '</td><td>' + data.visite.medecin.full_name +'</td><td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id+'"><i class="fa fa-edit fa-xs"></i></button><button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id +'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>' ;
+          if (state == "add")
             $( "#listActes" ).append(acte);
-          }else{
+          else
             $("#acte" + data.acte.id).replaceWith(acte);
-          }
           $('#acteModal form')[0].reset(); 
         }
       });
@@ -101,7 +97,7 @@
        jQuery('#acteModal').modal('show');
       });
     });
-    jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
+    jQuery('body').on('click', '.delete-acte', function () {
         var id = $(this).val();
         $.ajaxSetup({
           headers: {

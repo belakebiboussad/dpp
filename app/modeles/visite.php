@@ -22,7 +22,7 @@ class visite extends Model
     }
     public function actes()
     {
-    	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);
+    	return $this->hasMany('App\modeles\Acte','id_visite');
     }
     public function traitements()
     {

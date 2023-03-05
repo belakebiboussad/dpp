@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\Traitement;
+use App\modeles\visite;
 use Carbon\Carbon;
 class TraitementController extends Controller
 {
+    public function index($visId)
+    {
+      $visite = visite::find($visId);
+      return $visite->traitements;
+    }
     public function edit($id)
-    {//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+    {//  $consignes = consigne::FindOrFail($id);//return view('consigne.edit_consigne',compact('consignes'));
       $trait = Traitement::FindOrFail($id);
       return $trait->load('medicament');
     }

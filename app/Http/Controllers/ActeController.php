@@ -21,13 +21,13 @@ class ActeController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function index($visId = null)
+    public function index($visId)
     {
       $visite = visite::find($visId);
-      return $visite->actes;
+      return $visite->actes()->active()->get();
     }
     public function edit(Acte $acte )
-    { //  $consignes = consigne::FindOrFail($id); // return   view('consigne.edit_consigne',compact('consignes'));
+    { //  $consignes = consigne::FindOrFail($id); // return      view('consigne.edit_consigne',compact('consignes'));
       return $acte;
     }
     public function show($id)
@@ -60,13 +60,15 @@ class ActeController extends Controller
         'nom'=> 'required|string|max:225',
         'id_visite'=> 'required',// 'duree'=> 'required','description'=> 'required|string|max:225','periodes'=> 'required'
       ]);
-      $acte =Acte::create($request->all());
-      return(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]);    
+      $visite = visite::find($request->id_visite); 
+      $acte = $visite->actes()->create($request->all());
+      return $acte->load('visite.medecin');
     }
-    public function destroy(Acte $acte)
+    public function destroy($id)
     { 
+      $acte = Acte::find($id);
       $acte -> update([ "retire"=>1]);
-      return $acte;
+     return $acte;
     }
     public function run($id)
     {

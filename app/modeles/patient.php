@@ -12,7 +12,6 @@ class patient extends Model
   {
     return $q->where('active',1);
   }
-
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;

@@ -115,17 +115,17 @@ class VisiteController extends Controller
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
-    {//$hosp = hospitalisation::find($id);
-      $visite = visite::find($id);
-      $actes = $visite->actes->toJson();
+    {//
+      $visite = visite::with('actes')->find($id); //$actes = $visite->actes()->active()->get()->toJson()
+     ; $ngaps='';
+      //dd($visite->traitements->toJson());
       $codesNgap = NGAP::all();
-      $ngaps='';
       foreach( $codesNgap as $ngap)
       {
-        $ngaps.= $ngap->code . ':' . $ngap->libelle . ";";
+        $ngaps.= $ngap->code . ':' . $ngap->code . ";";
       }
       $ngaps=  addslashes($ngaps);
-      return view('visite.edit4',compact('visite','actes','ngaps'));  
+      return view('visite.edit5',compact('visite','ngaps'));  
     }
     public function destroy($id)
     {

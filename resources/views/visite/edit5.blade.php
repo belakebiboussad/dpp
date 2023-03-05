@@ -15,6 +15,7 @@
    <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
+        <button id="getBtn" class="brl btn-primary">get</button>
         <table id="traits-table"></table>
         <div id="traitPager"></div>
       </div>
@@ -36,16 +37,16 @@
     return "Error Occured during Operation. Please try again";
   }
   $(document).ready(function(){
-  $("#traits-table").jqGrid({
+    $('#getBtn').click(function(){
+      alert("fdsf");
+    })
+    $("#traits-table").jqGrid({
         url: '/visiteTraits/{{ $visite->id }}',
         mtype: "GET",
         datatype: "json",
-        colNames:['ID', 'Médicament','Posologie','Médecin'],
+        colNames:['ID'],
         colModel:[
-          {name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
-          {name:'med_id',index:'med_id',editable: true, width:130, editoptions: {size:67}},
-          {name:'posologie',index:'posologie', editable: true, width:150 },
-          {name:'nbrPJ',index:'nbrPJ', editable: true, width:150 },
+          {name:'id',index:'id',editable: false, width:20, hidden:false, editable: true}
         ],
         width: 1146,
         height: "auto",
