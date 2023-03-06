@@ -10,7 +10,6 @@ use App\modeles\visite;
 use App\modeles\ActeExec;// use Validator;
 class ActeController extends Controller
 {
-    //
     public function __construct()
     {
       $this->middleware('auth');
@@ -21,13 +20,13 @@ class ActeController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function index($visId)
+    public function index($visId = null)
     {
       $visite = visite::find($visId);
       return $visite->actes()->active()->get();
     }
     public function edit(Acte $acte )
-    { //  $consignes = consigne::FindOrFail($id); // return      view('consigne.edit_consigne',compact('consignes'));
+    { 
       return $acte;
     }
     public function show($id)

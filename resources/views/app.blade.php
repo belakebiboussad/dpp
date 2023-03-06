@@ -22,7 +22,7 @@
             var fin = moment(fin).format('YYYY-MM-DD HH:mm');
             if(pid !== 0)
             {
-              if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}') 
+              if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')
               {
                 var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
                 var url = "{{ route('rdv.store') }}"; 

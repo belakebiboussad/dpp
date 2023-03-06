@@ -15,7 +15,6 @@
    <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
-        <button id="getBtn" class="brl btn-primary">get</button>
         <table id="traits-table"></table>
         <div id="traitPager"></div>
       </div>
@@ -37,17 +36,26 @@
     return "Error Occured during Operation. Please try again";
   }
   $(document).ready(function(){
-    $('#getBtn').click(function(){
-      alert("fdsf");
-    })
     $("#traits-table").jqGrid({
-        url: '/visiteTraits/{{ $visite->id }}',
+        url : '{{ route("traitement.index", ["visId"=>$visite->id])}}',
         mtype: "GET",
         datatype: "json",
-        colNames:['ID'],
+        colNames:['ID','Medicament','posologie','medecin'],
         colModel:[
-          {name:'id',index:'id',editable: false, width:20, hidden:false, editable: true}
-        ],
+          { name:'id',index:'id',editable: false, width:20, hidden:false, editable: true },
+          { name: 'medicament', index: 'medicament',
+            formatter: function (cellvalue, options, rowObject) 
+                      {
+                         return rowObject.medicament.nom;
+                      }
+          },
+          { name:'posologie', index:'posologie',editable: true, width:50, hidden:false, editable: true },
+          { name: 'medecin', index: 'medecin',
+            formatter: function (cellvalue, options, rowObject) 
+                      {
+                        return rowObject.visite.medecin.full_name;
+                      }
+          }],
         width: 1146,
         height: "auto",
         rowNum:10,
@@ -62,6 +70,16 @@
         caption:"Traitements",
         emptyrecords: "0 records found",
         editable: true
+    });
+    $("#traits-table").jqGrid('navGrid','#traitPager',
+    {
+        edit:true, edittitle: "Edit Acte",
+        add:true, addtitle: "Add Acte",
+        del:true,
+        refresh: false,
+        view:true,
+        viewicon : 'ace-icon fa fa-search-plus grey',
+        addicon : 'ace-icon fa fa-plus-circle purple',
     });
 });
  </script>

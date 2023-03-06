@@ -8,13 +8,13 @@ use App\modeles\visite;
 use Carbon\Carbon;
 class TraitementController extends Controller
 {
-    public function index($visId)
+    public function index(Request $request)
     {
-      $visite = visite::find($visId);
-      return $visite->traitements;
+      $visite = visite::find($request->visId);//with('medecin')->
+      return $visite->traitements->load('medicament','visite.medecin');
     }
     public function edit($id)
-    {//  $consignes = consigne::FindOrFail($id);//return view('consigne.edit_consigne',compact('consignes'));
+    {
       $trait = Traitement::FindOrFail($id);
       return $trait->load('medicament');
     }

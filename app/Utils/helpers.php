@@ -20,3 +20,14 @@ if(!function_exists('format_date')){
     return $date->format('Y-m-d');
   }
 }
+if(!function_exists('format_string')){
+  function format_string($collection, $col1, $col2)
+  {
+    $str= "";
+    foreach( $collection as $obj)
+    {
+      $str.= $obj->$col1 . ':' . $obj->$col2 . ";";
+    }
+    return $str;
+  }
+}

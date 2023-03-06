@@ -51,6 +51,9 @@
   function addActe(params)
   {
     url = '{{ route("acte.store") }}'; 
+    $.each(params, function(key, value){
+      alert(key + ":" + value);
+    })
     params['_token'] =CSRF_TOKEN;
     params['id_visite'] ='{{ $visite->id}}';
     params['editurl'] =url;
@@ -79,19 +82,27 @@
     }) 
   }
   $(document).ready(function(){
-   // var acteUrl = "{{-- route('acte.index', ["visId"=>$visite->id]) --}}";
    $("#actes-table").jqGrid({
         url: '/visteActes/{{ $visite->id }}',
         mtype: "GET",
         datatype: "json",
-        colNames:['ID', 'Acte','Type','NGAP','Application','Fois/Jour'],
+        colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
         colModel:[
           {name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
-          {name:'nom',index:'nom',editable: true, width:150,editoptions: {size:67}},
-          {name:'type',index:'type', editable: true, edittype:'select',editoptions: {value: typeSelect(), editrules: { required: true }}},
-          {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select",width:40,edittype:'select', editoptions: {value: NgapSelect() , editrules: { required: false }}},
-          {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},
-          {name:'nbrFJ',index:'nbrFJ', width:20,editable: true, sortable:false, edittype:"number"}        
+          {name:'nom',index:'nom',editable: true, width:130,editoptions: {size:67}},
+          {name:'type',index:'type', editable: true, width:60, edittype:'select',editoptions: {value: typeSelect(), editrules: { required: true }}},
+          {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: NgapSelect() , editrules: { required: false }}},
+          {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},       
+          {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text", width:17,editoptions:{ size: 15, maxlengh: 10,
+                          dataInit: function(element) {
+                            $(element).keyup(function(){
+                              var val1 = element.value;
+                              var num = new Number(val1);
+                              if(isNaN(num))
+                                {alert("S'il vous plait, entrez un nombre valide");}
+                            })
+                          }
+                        }},
         ],
         width: 1146,
         height: "auto",
@@ -119,52 +130,73 @@
         addicon : 'ace-icon fa fa-plus-circle purple',
     },
     {
-        closeOnEscape: true, 
-        closeAfterEdit: true, 
-        savekey: [true, 13], 
-        errorTextFormat: commonError, 
-        width: "600", 
-        reloadAfterSubmit: true, 
-        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
-        top: "60",left: "5", right: "5",
-        onclickSubmit: function (response, actedata) {
-          EditActe(actedata);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        }
+      closeOnEscape: true, 
+      closeAfterEdit: true, 
+      savekey: [true, 13], 
+      errorTextFormat: commonError, 
+      width: "600", 
+      reloadAfterSubmit: true, 
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      top: "60",left: "5", right: "5",
+      onclickSubmit: function (response, actedata) {
+        EditActe(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
     },// options for the Add Dialog
-      {
-        width: "600", 
-        closeOnEscape: true, 
-        closeAfterAdd: true,
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        onclickSubmit: function (response, actedata) {
-          addActe(actedata);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        }
-      },
-      {
-        closeOnEscape: true, 
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        onclickSubmit: function (response, actedata) {
-          deleteActe(actedata);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        }
-      });  //$('.ui-jqgrid-titlebar-close','#actes_table').remove();
+    {
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, actedata) {
+        addActe(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    },
+    {
+      closeOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, actedata) {
+        deleteActe(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });  //$('.ui-jqgrid-titlebar-close','#actes_table').remove();
      $("#traits-table").jqGrid({
-        url: '/visiteTraits/{{ $visite->id }}',
+        url : '{{ route("traitement.index", ["visId"=>$visite->id])}}',
         mtype: "GET",
         datatype: "json",
-        colNames:['ID', 'Médicament','Posologie','Médecin'],
+        colNames:['ID', 'Médicament','Posologie','P/Jour','Médecin'],
         colModel:[
-          {name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
-          {name:'med_id',index:'med_id',editable: true, width:130, editoptions: {size:67}},
-          {name:'posologie',index:'posologie', editable: true, width:150 },
-          {name:'nbrPJ',index:'nbrPJ', editable: true, width:150 },
-        ],
+          { name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
+          { name: 'medicament', index: 'medicament',editable: true,edittype:'select',
+           editoptions: {size:50}, formatter: function (cellvalue, options, rowObject) 
+                          {
+                            return rowObject.medicament.nom;
+                          }
+          },
+          { name:'posologie', index:'posologie',editable: true, width:100, editable: true, editoptions: {size:50} },
+          { name:'nbrPJ', index:'nbrPJ',editable: true, width:17, editable: true,
+            editoptions:{ size: 15, maxlengh: 10,
+                          dataInit: function(element) {
+                            $(element).keyup(function(){
+                              var val1 = element.value;
+                              var num = new Number(val1);
+                              if(isNaN(num))
+                                {alert("S'il vous plait, entrez un nombre valide");}
+                            })
+                          }
+            }
+          },
+          { name: 'medecin', index: 'medecin',width:60,
+            formatter: function (cellvalue, options, rowObject) 
+                      {
+                        return rowObject.visite.medecin.full_name;
+                      }
+          }],
         width: 1146,
         height: "auto",
         rowNum:10,
@@ -202,8 +234,17 @@
         onclickSubmit: function (response, actedata) {
           $(this).jqGrid("setGridParam", { datatype: "json" });
         }
-    }
-    )
+    });
+    $("#traits-table").jqGrid('navGrid','#traitPager',
+    {
+        edit:true, edittitle: "Edit Acte",
+        add:true, addtitle: "Add Acte",
+        del:true,
+        refresh: false,
+        view:true,
+        viewicon : 'ace-icon fa fa-search-plus grey',
+        addicon : 'ace-icon fa fa-plus-circle purple',
+    });
 });
  </script>
 @endsection

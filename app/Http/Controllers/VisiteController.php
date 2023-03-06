@@ -9,6 +9,7 @@ use App\modeles\periodeconsigne;
 use App\modeles\surveillance;
 use App\modeles\consultations;
 use App\modeles\specialite_produit;
+use App\modeles\medcamte;
 use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
@@ -102,8 +103,7 @@ class VisiteController extends Controller
           ]);
         }  
       }
-      // à revoire
-      // si(observ change et constante change) on crée une prescription
+      //à revoire si(observ change et constante change) on crée une prescription
       if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
         $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
       if(!is_null($request->consts))
@@ -115,17 +115,18 @@ class VisiteController extends Controller
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
-    {//
-      $visite = visite::with('actes')->find($id); //$actes = $visite->actes()->active()->get()->toJson()
-     ; $ngaps='';
-      //dd($visite->traitements->toJson());
+    {//$actes$visite->actes()->active()->get()->toJson(); 
+      $visite = visite::with('actes')->find($id); $ngaps='';
       $codesNgap = NGAP::all();
-      foreach( $codesNgap as $ngap)
-      {
-        $ngaps.= $ngap->code . ':' . $ngap->code . ";";
-      }
+      $meds = medcamte::all();
+      $ngaps = format_string($codesNgap,'code','code');
+      dd( $ngaps);  
+      // foreach( $codesNgap as $ngap)
+      // {
+      //   $ngaps.= $ngap->code . ':' . $ngap->code . ";";
+      // }
       $ngaps=  addslashes($ngaps);
-      return view('visite.edit5',compact('visite','ngaps'));  
+      return view('visite.edit4',compact('visite','ngaps'));  
     }
     public function destroy($id)
     {
