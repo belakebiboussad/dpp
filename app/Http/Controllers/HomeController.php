@@ -51,7 +51,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $ServiceID = Auth::user()->employ->service_id;
+       $ServiceID = Auth::user()->employ->service_id;
       $etab = Etablissement::first(); 
       if(isset($etab))
       {

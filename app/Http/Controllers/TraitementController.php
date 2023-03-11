@@ -11,7 +11,7 @@ class TraitementController extends Controller
     public function index(Request $request)
     {
       $visite = visite::find($request->visId);//with('medecin')->
-      return $visite->traitements->load('medicament','visite.medecin');
+      return $visite->traitements->load('medicament','medicament.specialite','visite.medecin');
     }
     public function edit($id)
     {

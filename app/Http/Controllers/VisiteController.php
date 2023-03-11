@@ -102,8 +102,7 @@ class VisiteController extends Controller
             'type_id' => (json_decode ($request->types))[$key]
           ]);
         }  
-      }
-      //à revoire si(observ change et constante change) on crée une prescription
+      }      //à revoire si(observ change et constante change) on crée une prescription
       if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
         $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
       if(!is_null($request->consts))
@@ -116,17 +115,14 @@ class VisiteController extends Controller
     }
     public function edit($id)
     {//$actes$visite->actes()->active()->get()->toJson(); 
-      $visite = visite::with('actes')->find($id); $ngaps='';
-      $codesNgap = NGAP::all();
-      $meds = medcamte::all();
+      $ngaps='';  $specs='';
+      $visite = visite::with('actes')->find($id); 
+      $codesNgap = NGAP::all(); //$meds = medcamte::all();
+       $specialitesProd = specialite_produit::all();
       $ngaps = format_string($codesNgap,'code','code');
-      dd( $ngaps);  
-      // foreach( $codesNgap as $ngap)
-      // {
-      //   $ngaps.= $ngap->code . ':' . $ngap->code . ";";
-      // }
+      $specs = format_string($specialitesProd,'id_gamme','nom');
       $ngaps=  addslashes($ngaps);
-      return view('visite.edit4',compact('visite','ngaps'));  
+      return view('visite.edit5',compact('visite','ngaps','specs'));  
     }
     public function destroy($id)
     {

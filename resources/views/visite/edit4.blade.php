@@ -7,8 +7,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
-        <table id="actes-table"></table>
-        <div id="actesPager"></div>
+        <table id="actes-table"></table>    <div id="actesPager"></div>
       </div>
     </div>
   </div>
@@ -30,10 +29,10 @@
   }
   function NgapSelect()
   {
-    return '{!! $ngaps !!}';
+        return '{!! $ngaps !!}';
   }
   function commonError(data) {
-    return "Error Occured during Operation. Please try again";
+       return "Error Occured during Operation. Please try again";
   }
   function EditActe(params) {
     url = '{{ route("acte.update", ":slug") }}'; 
