@@ -80,20 +80,33 @@
       success: function (data) { }
     }) 
   }
-function geSpecialiteValue(elem, oper, value) {
+function geSpecialiteValue() 
+{
       return '{!! $specs !!}';
 }
-  $(document).ready(function(){
-   $("#actes-table").jqGrid({
-        url: '/visteActes/{{ $visite->id }}',
-        mtype: "GET",
-        datatype: "json",
-        colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
-        colModel:[
-          {name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
+function myelem (value, options) {
+  alert(value);
+  var el = document.createElement("input");
+  el.type="text";
+  el.value = value;
+  return el;
+}
+function geMedicamentValue(rowid, value, cmName)
+{
+      alert(value);  
+        return $(elem).val();
+}
+ $(document).ready(function(){
+       $("#actes-table").jqGrid({
+              url: '/visteActes/{{ $visite->id }}',
+              mtype: "GET",
+             datatype: "json",
+              colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
+              colModel:[
+              { name:'id', index:'id', editable: false, width:20, hidden:true, editable: true},
           {name:'nom',index:'nom',editable: true, width:130,editoptions: {size:67}},
-          {name:'type',index:'type', editable: true, width:60, edittype:'select',editoptions: {value: typeSelect(), editrules: { required: true }}},
-          {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: NgapSelect() , editrules: { required: false }}},
+          {name:'type',index:'type', editable: true, width:60, edittype:'select',editoptions: {value: typeSelect, editrules: { required: true }}},
+          {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: NgapSelect , editrules: { required: false }}},
           {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},       
           {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text", width:17,editoptions:{ size: 15, maxlengh: 10,
                           dataInit: function(element) {
@@ -174,16 +187,23 @@ $("#traits-table").jqGrid({
        colNames:['ID', 'Spécialite','Médicament','Posologie','P/Jour','Médecin'],
        colModel:[
              { name:'id',index:'id',editable: false, width:20, hidden:true, editable: true},
-             {  name: 'specialite', index: 'specialite',hidden:true,editable: true,edittype:'select', width:60,
+             {  name: 'specialite', index: 'specialite',hidden:true,editable: true,edittype:'select', width:80,
                    editoptions: { value: geSpecialiteValue },
                     formatter: function (cellvalue, options, rowObject) 
                     {
                            return rowObject.medicament.specialite.nom;
                    }, editrules : { edithidden : true }
              },
-//  {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: NgapSelect() , editrules: { required: false }}},
-             { name: 'medicament', index: 'medicament',editable: true,edittype:'select',
-                   editoptions: {size:50}, formatter: function (cellvalue, options, rowObject) 
+             { name: 'medicament', index: 'medicament',editable: true, edittype:'select',
+                   editoptions: {   
+                          dataInit: function (element)
+                           {
+                            var grid = jQuery("#traits-table");
+                            var v = grid.setColProp('medicament');
+                            alert(v);
+                           }
+                    }, //value: geMedicamentValue 
+                   formatter: function (cellvalue, options, rowObject) 
                    {
                          return rowObject.medicament.nom;
                    }

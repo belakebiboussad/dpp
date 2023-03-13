@@ -118,7 +118,7 @@ class VisiteController extends Controller
       $ngaps='';  $specs='';
       $visite = visite::with('actes')->find($id); 
       $codesNgap = NGAP::all(); //$meds = medcamte::all();
-       $specialitesProd = specialite_produit::all();
+       $specialitesProd = specialite_produit::with('drugs')->get();//all();
       $ngaps = format_string($codesNgap,'code','code');
       $specs = format_string($specialitesProd,'id_gamme','nom');
       $ngaps=  addslashes($ngaps);
