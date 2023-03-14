@@ -226,27 +226,27 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
           });
        });
       $(document).ready(function(){
-             $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
-             if($(this).children("option:selected").val() !=="")
-              {
-                     if($(this).attr('name') === "gs")
-                            $("#rh" ).attr("disabled", false);
-                      else
-                      $("#rhf" ).attr("disabled", false);  
-          }else
+          $("select.groupeSanguin").change(function(){//var gs = 
+          if($(this).children("option:selected").val() !=="")
           {
-            if($(this).attr('name') === "gs")
-            {
-              $("#rh" ).attr("disabled", true);
-              $("select#rh").val(''); 
-            }
+           if($(this).attr('name') === "gs")
+                  $("#rh" ).attr("disabled", false);
             else
-            {
-              $("#rhf" ).attr("disabled", true);
-              $("select#rhf").val(''); 
-            }
+            $("#rhf" ).attr("disabled", false);  
+        }else
+        {
+          if($(this).attr('name') === "gs")
+          {
+            $("#rh" ).attr("disabled", true);
+            $("select#rh").val(''); 
           }
-        });
+          else
+          {
+            $("#rhf" ).attr("disabled", true);
+            $("select#rhf").val(''); 
+          }
+        }
+      });
         $("select.rhesus").change(function(){
             if($(this).children("option:selected").val() =="")
                if($(this).attr('name') === "rh")
@@ -255,7 +255,7 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
                  $("select#gsf").val('');             
         });/* with button*/    
        $(document).on('click', '.selctetat', function(event){
-           var data = '';
+        var data = '';
         $.ajax({
             type: 'GET',
             url: '/pdf/generate',

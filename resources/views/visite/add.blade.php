@@ -1,6 +1,7 @@
 @extends('app')
 @section('page-script')
   @include('examenradio.scripts.imgRequestdJS')
+  @include('visite.scripts.scripts')
   <script type="text/javascript">
   $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
@@ -50,13 +51,13 @@
     $("#EnregistrerActe").click(function (e) {
       e.preventDefault();//var periodes = [];
       if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
-        $('#acteModal').modal('toggle'); //$("input[name='p[]']:checked").each(function() {periodes.push($(this).attr('value'));  });
+        $('#acteModal').modal('toggle'); 
       var formData = {
           _token: CSRF_TOKEN,
           id_visite: $('#id_visite').val(),
           nom:$("#acte").val(),
           type:$('#type').val(),
-          code_ngap:$('#code_ngap').val(),//periodes :periodes,
+          code_ngap:$('#code_ngap').val(),
           description:$('#description').val(),
           nbrFJ : $('#nbrFJ').val()
       };
@@ -196,19 +197,9 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
       error: function (data) {
        console.log('Error:', data);
       }
-  });
-  }); //////////Traitement
-    $('body').on('change', '#specialiteProd', function () {
-      if($(this).val() != "0" )
-      {
-        $("#produit").removeAttr("disabled");
-        var id_spec = $(this).val();
-        getProducts(1,id_spec);
-      }else
-      {
-        $("#produit").val(0);$("#produit").prop('disabled', 'disabled');
-      } 
     });
+  }); //////////Traitement
+    
     $("#visiteForm").submit(function(e){
       addExamsImg(this);
     });

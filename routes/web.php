@@ -164,9 +164,8 @@ route::get('/getconst','ConstanteController@getConstData')->name('getConstData')
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print');
-route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
+Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
 Route::get('/etabExport', 'EtablissementControler@exportCsv');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');
-route::get('/visteActes/{id}','ActeController@index');
-// route::get('/visteTraits/{id}','TraitementController@index');
+Route::get('/visteActes/{id}','ActeController@index');

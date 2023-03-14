@@ -20,7 +20,7 @@
               </select>
         </div>
         <div class="form-group">
-              <label class="control-label" for="specialiteProd">Médicament :</label>
+              <label class="control-label" for="produit">Médicament :</label>
               <select id="produit" data-placeholder="selectionnez le Médicament" class="selectpicker  form-control" disabled></select>
         </div>
         <div class="form-group">

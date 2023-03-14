@@ -13,9 +13,6 @@ $('document').ready(function(){
           url: '/demandeexr/' + demande_id,
           success: function (data) {
             $("#demandeRad" + demande_id).remove();
-          },
-          error: function (data) {
-            console.log('Error:', data);
           }
       });
   });
