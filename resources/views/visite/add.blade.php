@@ -54,7 +54,7 @@
         $('#acteModal').modal('toggle'); 
       var formData = {
           _token: CSRF_TOKEN,
-          id_visite: $('#id_visite').val(),
+          id_visite: $('#id').val(),
           nom:$("#acte").val(),
           type:$('#type').val(),
           code_ngap:$('#code_ngap').val(),
@@ -65,10 +65,11 @@
       var url ='{{ route("acte.store") }}';
       var state = jQuery('#EnregistrerActe').val();
       if (state == "update") {
+       
         type = "PUT";
-        var id = jQuery('#acte_id').val();
+        //var id = jQuery('#acte_id').val();
         url = '{{ route("acte.update", ":slug") }}'; 
-        url = url.replace(':slug', id);
+        url = url.replace(':slug', $('#acte_id').val());
       }
       $.ajax({
         type:type,
@@ -93,7 +94,7 @@
         $('#id_hosp').val(data.id_hosp);$('#acte_id').val(data.id);$('#acte').val(data.nom);
         $('#type').val(data.type).change();$('#code_ngap').val(data.code_ngap).change();
         $('#nbrFJ').val(data.nbrFJ).change();
-        $('#description').val(data.description);//alert(data.nbrFJ);
+        $('#description').val(data.description);
         jQuery('#EnregistrerActe').val("update");   
        jQuery('#acteModal').modal('show');
       });
@@ -127,15 +128,15 @@
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
     var periodes = [];
-   if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
+    if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
       $('#traitModal').modal('toggle');
     var formData = {
-                              _token: CSRF_TOKEN,
-        visite_id: $('#id_visiteT').val(),
-        med_id:$("#produit").val(),
-        posologie:$("#posologie").val(),/*periodes :periodes,*/
-                            nbrPJ : $('#nbrPJ').val(),
-                              duree : $('#dureeT').val()
+      _token: CSRF_TOKEN,
+      visite_id: $('#id').val(),
+      med_id:$("#produit").val(),
+      posologie:$("#posologie").val(),/*periodes :periodes,*/
+      nbrPJ : $('#nbrPJ').val(),
+      duree : $('#dureeT').val()
     };
     var state = jQuery('#EnregistrerTrait').val();
     var type = "POST", url='{{ route("traitement.store") }}';
@@ -153,18 +154,12 @@
       success: function (data) {  
         if($('.dataTables_empty').length > 0)
           $('.dataTables_empty').remove();
-        var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
-trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';
-        trait += '<button type="button" class="btn btn-xs btn-danger delete-Trait" value="' + data.trait.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+        var trait = '<tr id="trait'+data.id+'"><td hidden>'+data.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.posologie+'</td><td>'+data.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
         if (state == "add") {
           $( "#listTraits" ).append(trait);
-        }else{
+        }else
           $("#trait" + data.trait.id).replaceWith(trait);
-        }
         $('#traitModal form')[0].reset();
-      },         
-      error: function (data){
-          console.log('Error:', data);
       }
     });
   });
@@ -173,7 +168,7 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
             getProducts(1,data.medicament.id_specialite,data.med_id);
             $('#trait_id').val(data.id);
              $("#produit").removeAttr("disabled");
-            $('#TraitCrudModal').html("Editer un Traitement Médical");    
+            $('#TraitCrudModal').html("Modifier le Traitement Médical");    
             $('#specialiteProd').val(data.medicament.id_specialite);
             $('#posologie').val(data.posologie);
             $('#nbrPJ').val(data.nbrPJ);
@@ -212,8 +207,9 @@ trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info e
 <div class="content">
   <form id ="visiteForm" action="{{ route('visites.store') }}" method="POST" role="form">
      {{ csrf_field() }}
-    <input type="hidden" name="id" value="{{$id}}">
-    <input type="hidden" name="id_hosp" value="{{ $hosp->id }}"><div id="prompt"></div>
+    <input type="hidden" name="id" id="id" value="{{$id}}">
+    <input type="hidden" name="id_hosp" value="{{ $hosp->id }}">
+    <div id="prompt"></div>
     <div class="tabpanel mb-3">
       <div class="row">
         <ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">

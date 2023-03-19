@@ -13,7 +13,7 @@ class ActeController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-    }//	  public function choixhospconsigne() {    return view('consigne.choix_patient_consigne');   }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -30,13 +30,11 @@ class ActeController extends Controller
       return $acte;
     }
     public function show($id)
-    {
-      // $consigne = consigne::FindOrFail($id);
-      // return view('consigne.show_consigne',compact('consigne'));
+    {// $consigne = consigne::FindOrFail($id);return view('consigne.show_consigne',compact('consigne'));
     }
     public function update(Request $request, $id )//Acte $acte
-    { 
-      $acte = Acte::find($request->id);
+    {
+      $acte = Acte::find($id);
       if($request->ajax())
       {
         $acte->update([
@@ -46,7 +44,7 @@ class ActeController extends Controller
           'description'=>$request->description,
           'nbrFJ'=>$request->nbrFJ,
         ]);
-        return $acte;
+        return $acte->load('visite.medecin');
       }else
       {
         $acte->update($request->all());

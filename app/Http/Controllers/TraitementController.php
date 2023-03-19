@@ -28,8 +28,12 @@ class TraitementController extends Controller
     public function store(Request $request)
     { 
       $this->validate($request, ['med_id'=> 'required|string|max:225','visite_id'=> 'required']);
-      $trait =Traitement::create($request->all());//return Response::json($tait);    
+      $visite = visite::find($request->visite_id);
+      $trait = $visite->traitements()->create($request->all());
+      return $trait->load('medicament','visite.medecin');
+      /*
       return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
+      */
     }
     public function update(Request $request,$id)
     {
