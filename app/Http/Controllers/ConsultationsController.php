@@ -92,11 +92,14 @@ class ConsultationsController extends Controller
         $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-        $consult =new consultation;$consult->date=$date;
-        $consult->employ_id=Auth::User()->employe_id;$consult->pid = $pid; 
-        $consult->id_lieu =$etab->id;$consult->save();
+        $obj = $patient->Consultations()->create([
+          'date'=>$date,
+          'employ_id'=>Auth::User()->employe_id,
+          'id_lieu'=>$etab->id,
+        ]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
-        return view('consultations.createObj',compact('consult','patient','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
+        // 'patient',
+        return view('consultations.createObj',compact('obj','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
       }
     /**
      * Store a newly created resource in storage.

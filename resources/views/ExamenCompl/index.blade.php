@@ -49,11 +49,10 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-			  @if(isset($hosp))
-        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
-       	@else
-        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $consult->id }}" data-field="consultation_id" disabled>
-        @endif
+{{-- @if(isset($id))<button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
+       	@else @endif --}}
+        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $obj->id }}" data-field="consultation_id" disabled>
+       
           <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>
 				</button>
 			</div><div class="space-12"></div>
@@ -168,11 +167,11 @@
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-          examsBioSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
-                break;
+          examsBioSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+            break;
         case 1:
-          examsImgSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
-                break;
+          examsImgSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+            break;
         default :
           break;
       }

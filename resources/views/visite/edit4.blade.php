@@ -50,9 +50,6 @@
   function addActe(params)
   {
     url = '{{ route("acte.store") }}'; 
-    $.each(params, function(key, value){
-      alert(key + ":" + value);
-    })
     params['_token'] =CSRF_TOKEN;
     params['id_visite'] ='{{ $visite->id}}';
     params['editurl'] =url;
@@ -93,15 +90,15 @@
           {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: NgapSelect() , editrules: { required: false }}},
           {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},       
           {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text", width:17,editoptions:{ size: 15, maxlengh: 10,
-                          dataInit: function(element) {
-                            $(element).keyup(function(){
-                              var val1 = element.value;
-                              var num = new Number(val1);
-                              if(isNaN(num))
-                                {alert("S'il vous plait, entrez un nombre valide");}
-                            })
-                          }
-                        }},
+            dataInit: function(element) {
+              $(element).keyup(function(){
+                var val1 = element.value;
+                var num = new Number(val1);
+                if(isNaN(num))
+                  {alert("S'il vous plait, entrez un nombre valide");}
+                })
+            }
+          }},
         ],
         width: 1146,
         height: "auto",

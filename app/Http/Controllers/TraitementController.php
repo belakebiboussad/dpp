@@ -15,8 +15,7 @@ class TraitementController extends Controller
     }
     public function edit($id)
     {
-      $trait = Traitement::FindOrFail($id);
-      return $trait->load('medicament');
+      return Traitement::with('medicament')->FindOrFail($id);
     }
     public function show($id)
     {
@@ -27,19 +26,22 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-      $this->validate($request, ['med_id'=> 'required|string|max:225','visite_id'=> 'required']);
-      $visite = visite::find($request->visite_id);
+      $this->validate($request, ['med_id'=> 'required|string|max:225','id_visite'=> 'required']);
+      $visite = visite::find($request->id_visite);
       $trait = $visite->traitements()->create($request->all());
       return $trait->load('medicament','visite.medecin');
-      /*
-      return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
-      */
     }
     public function update(Request $request,$id)
     {
       $trait = Traitement::FindOrFail($id);
-      $trait->update($request->all());
-      return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
+      $trait->update([
+        'visite_id'=>$request->visite_id,
+        'med_id'=>$request->med_id,
+        'posologie'=>$request->posologie,
+        'nbrPJ'=>$request->nbrPJ,
+      ]);
+      return $trait->load('medicament','visite.medecin');
+      // return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
     }
     public function destroy($id)
     {

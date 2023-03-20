@@ -18,8 +18,8 @@
               </select>
         </div>
         <div class="form-group">
-              <label class="control-label" for="produit">Médicament :</label>
-              <select id="produit" data-placeholder="selectionnez le Médicament" class="selectpicker  form-control" disabled></select>
+              <label class="control-label" for="med_id">Médicament :</label>
+              <select id="med_id" data-placeholder="selectionnez le Médicament" class="selectpicker  form-control" disabled></select>
         </div>
         <div class="form-group">
             <label  class="control-label" for="posologie">Posologie :</label>

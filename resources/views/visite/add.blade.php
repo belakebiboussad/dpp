@@ -83,7 +83,7 @@
           if (state == "add")
             $( "#listActes" ).append(acte);
           else
-            $("#acte" + data.acte.id).replaceWith(acte);
+            $("#acte" + data.id).replaceWith(acte);
           $('#acteModal form')[0].reset(); 
         }
       });
@@ -91,7 +91,7 @@
     $('body').on('click', '.open-modal', function () {
       $.get('/acte/'+ $(this).val() +'/edit', function (data) {
         $('#EnregistrerActe').val("update");$('#acteCrudModal').html("Editer un Acte Médical");
-        $('#id_hosp').val(data.id_hosp);$('#acte_id').val(data.id);$('#acte').val(data.nom);
+        $('#acte_id').val(data.id); $('#acte').val(data.nom);
         $('#type').val(data.type).change();$('#code_ngap').val(data.code_ngap).change();
         $('#nbrFJ').val(data.nbrFJ).change();
         $('#description').val(data.description);
@@ -128,12 +128,12 @@
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
     var periodes = [];
-    if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
+    if(! isEmpty($("#med_id").val()) || ($("#med_id$").val() == 0) )
       $('#traitModal').modal('toggle');
-    var formData = {
+     var formData = {
       _token: CSRF_TOKEN,
       visite_id: $('#id').val(),
-      med_id:$("#produit").val(),
+      med_id:$("#med_id").val(),
       posologie:$("#posologie").val(),/*periodes :periodes,*/
       nbrPJ : $('#nbrPJ').val(),
       duree : $('#dureeT').val()
@@ -155,10 +155,10 @@
         if($('.dataTables_empty').length > 0)
           $('.dataTables_empty').remove();
         var trait = '<tr id="trait'+data.id+'"><td hidden>'+data.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.posologie+'</td><td>'+data.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
-        if (state == "add") {
+        if (state == "add")
           $( "#listTraits" ).append(trait);
-        }else
-          $("#trait" + data.trait.id).replaceWith(trait);
+        else
+          $("#trait" + data.id).replaceWith(trait);
         $('#traitModal form')[0].reset();
       }
     });
@@ -167,7 +167,7 @@
         $.get('/traitement/' +$(this).val()+ '/edit', function (data) {
             getProducts(1,data.medicament.id_specialite,data.med_id);
             $('#trait_id').val(data.id);
-             $("#produit").removeAttr("disabled");
+            $("#med_id").removeAttr("disabled");
             $('#TraitCrudModal').html("Modifier le Traitement Médical");    
             $('#specialiteProd').val(data.medicament.id_specialite);
             $('#posologie').val(data.posologie);
@@ -203,12 +203,11 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
-<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
+<div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$obj->patient])</div></div>
 <div class="content">
   <form id ="visiteForm" action="{{ route('visites.store') }}" method="POST" role="form">
      {{ csrf_field() }}
-    <input type="hidden" name="id" id="id" value="{{$id}}">
-    <input type="hidden" name="id_hosp" value="{{ $hosp->id }}">
+    <input type="hidden" name="id" id="id" value="{{$obj->id}}">
     <div id="prompt"></div>
     <div class="tabpanel mb-3">
       <div class="row">
@@ -259,7 +258,7 @@
                 </tr>
               </thead>
               <tbody>
-              @foreach($hosp->visites as $visite)
+              @foreach($obj->hospitalisation->visites as $visite)
                 @foreach($visite->actes as $acte )
                 @if(!$acte->retire)
                 <tr id="{{ 'acte'.$acte->id }}">
@@ -296,12 +295,12 @@
                     <th class ="hidden"></th>
                     <th class ="center sorting_disabled">Nom médicament</th>
                     <th class ="center sorting_disabled">Posologie</th> 
-                    <th class ="center sorting_disabled">Médecin prescripteur</th>                      
+                    <th class ="center sorting_disabled">Médecin prescripteur</th> 
                     <th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
                   </tr>
                 </thead>
                 <tbody>
-                @foreach($hosp->visites as $visite)
+                @foreach($obj->hospitalisation->visites as $visite)
                   @foreach($visite->traitements as $trait)
                   <tr id="{{ 'trait'.$trait->id }}">
                     <td hidden> {{ $trait->visite_id }}</td><td>{{ $trait->medicament['nom'] }}</td> 
@@ -349,7 +348,7 @@
     <div class="row">
       <div class="center">
         <button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> 
-          <a href="{{ route('visites.destroy',$id) }}" data-method="DELETE" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>    
+          <a href="{{ route('visites.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>    
       </div>
     </div>  
     </div><!-- tabpanel -->

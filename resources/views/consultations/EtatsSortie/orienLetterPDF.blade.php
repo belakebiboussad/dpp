@@ -3,19 +3,19 @@
 <div class="ml-06"><span> <b>Docteur</b> : {{ $employe->full_name}}</span>
 <span> <b>Specialité</b> : {{ $specialite->nom}}</span></div>
 <div class="ml-06">
-<b>Patient(e)</b> : {{ $patient->getCivilite() }}{{ $patient->full_name }}, {{ $patient->age }}ans
+<b>Patient(e)</b> : {{ $obj->patient->getCivilite() }}{{ $obj->patient->full_name }}, {{ $obj->patient->age }}ans
 </div>
 <div class="ml-06"><canvas id="barcode"></canvas></div>
 <div class="ml-4"><h5 class="mte7"> Cher confrère,</h5></div>
 <div class="ml-4 ">
   <p class="espace mtp33">
-      Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $patient->full_name }}
-        âgé(e) de {{ $patient->age }} ans,
+      Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), {{ $obj->patient->full_name }}
+        âgé(e) de {{ $obj->patient->age }} ans,
     </p>
-    @if($patient->antecedants->count() > 0 )
+    @if($obj->patient->antecedants->count() > 0 )
     <p class="pageCenter">
     aux Antcd de 
-      @foreach($patient->antecedants as $atcd)
+      @foreach($obj->patient->antecedants as $atcd)
         {{ $atcd->description }},
       @endforeach
     @endif

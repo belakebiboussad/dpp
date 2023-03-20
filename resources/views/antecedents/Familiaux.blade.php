@@ -20,7 +20,7 @@
 						  </tr>
 					</thead>
 					<tbody>
-					 @foreach($patient->antecedants as $antcd)
+					 @foreach($obj->patient->antecedants as $antcd)
 						 @if($antcd->Antecedant == "Familiaux") 
 						<tr id="{{ 'atcd'.$antcd->id }}">
 							<td>{{ $antcd->date }}</td>

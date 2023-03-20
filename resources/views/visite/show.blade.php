@@ -4,7 +4,7 @@
 	<div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
 <div class="row">
   <div class="col-sm-12"><h4>Détails de la visite</h4>
-    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
 	  	 </div>
   </div>
 	</div>	

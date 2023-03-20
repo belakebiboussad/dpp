@@ -79,7 +79,7 @@ $(function() {
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       var state = $(this).val();
       var formData = {
-          cons_id:'{{ $consult->id }}',
+          cons_id:'{{ $obj->id }}',
           appareil_id:$(this).data('id'),
           description:$("#"+ $(this).data('id')).text()
       };
@@ -107,7 +107,7 @@ $(function() {
     e.preventDefault();
     var formData = {
         appareil_id  : $(this).val(),
-        cons_id : '{{ $consult->id }}',
+        cons_id : '{{ $obj->id }}',
     };
     url='{{ route("appreilExamClin.destroy",":slug") }}';
     url = url.replace(':slug',$(this).val());

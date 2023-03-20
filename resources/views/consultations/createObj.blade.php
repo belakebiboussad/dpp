@@ -30,7 +30,7 @@
 <script>
 function print()
 {
-  document.title = 'ordonnance-'+'{{ $patient->Nom }}'+'-'+'{{ $patient->Prenom}}';
+  document.title = 'ordonnance-'+'{{ $obj->patient->Nom }}'+'-'+'{{ $obj->patient->Prenom}}';
   $('#iframe-pdf').get(0).contentWindow.print();document.title = 'Nouvelle Consultation';
 }
 function drugRemove(id)
@@ -78,8 +78,8 @@ function editMedicm(med)
 }
 /*function warning(){  return "dzd";}*/
 $(function(){ 
-  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { //ajax delete consult
-    var consult_id = '{{ $consult->id }}'-1;
+  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { 
+    var consult_id = '{{ $obj->id }}'-1;
     var formData = {_token: CSRF_TOKEN };
     $.ajax({
           type: "DELETE",
@@ -143,7 +143,7 @@ $(function(){
       var tabName = "antsTab";
       var formData = {
          _token: CSRF_TOKEN,
-        pid      : '{{ $patient->id }}',
+        pid      : '{{ $obj->patient->id }}',
         Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
         typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
         stypeatcd            : jQuery('#sstypeatcdc').val(),
@@ -156,7 +156,7 @@ $(function(){
       var tabName = "antsFamTab";
       var formData = {
         _token: CSRF_TOKEN,
-        pid   : '{{ $patient->id }}',
+        pid   : '{{ $obj->patient->id }}',
         Antecedant         : 'Familiaux',
         date               : $('#dateAntcd').val(),
         cim_code           : $('#cim_code').val(),
@@ -229,7 +229,7 @@ $(function(){
       var habitudeAlim = null; var tabac=null ; var ethylisme = null;
       var formData = {
         _token: CSRF_TOKEN,
-        pid                  : '{{ $patient->id }}',
+        pid                  : '{{ $obj->patient->id }}',
         Antecedant           : 'Personnels',//$('#Antecedant').val()
         typeAntecedant       : '1',//$('#typeAntecedant').val(),
         date                 : $('#dateAntcdPhys').val(),
@@ -327,7 +327,7 @@ $(function(){
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
     $("#drugsPrint").click(function(){
       storeord();
-      var fileName ='Ordonnance-' + '{{ $patient->full_name }}' +'.pdf'; 
+      var fileName ='Ordonnance-' + '{{ $obj->patient->full_name }}' +'.pdf'; 
       ol = document.getElementById('listMeds');
       ol.innerHTML = '';
       $("#ordonnance tbody tr").each(function(key,value){
@@ -336,13 +336,13 @@ $(function(){
                 +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
       }); 
       var pdf = new jsPDF('p', 'pt', 'a4');
-      JsBarcode("#barcode",'{{ $patient->IPP }}' ,{
+      JsBarcode("#barcode",'{{ $obj->patient->IPP }}' ,{
           format: "CODE128",
           width: 2,
           height: 30,
           textAlign: "left",
           fontSize: 12, 
-          text: "IPP: " + '{{ $patient->IPP }}' 
+          text: "IPP: " + '{{ $obj->patient->IPP }}' 
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
@@ -353,7 +353,7 @@ $(function(){
       e.preventDefault();
       var formData = {
          _token             : CSRF_TOKEN,
-        id_consultation     : '{{ $consult->id }}',
+        id_consultation     : '{{ $obj->id }}',
         modeAdmission       : $('#modeAdmissionHospi').val(), 
         specialite          : $('#specialiteHospi').val(),
         service             : $('#serviceHospi').val()
@@ -384,12 +384,12 @@ $(function(){
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
+  <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$obj->patient])</div></div>
   <div class="row">
     <form id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
     {{ csrf_field() }}
-    <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
-     <input type="hidden" name= "id" id= "id" value="{{ $consult->id }}">
+    <input type="hidden" name="patient_id" id="patient_id" value="{{ $obj->patient->id }}">
+     <input type="hidden" name= "id" id= "id" value="{{ $obj->id }}">
     <div class="form-group" id="error" aria-live="polite">
     @if (count($errors) > 0)
       <div class="alert alert-danger">
@@ -428,7 +428,7 @@ $(function(){
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
           <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
-          <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
+          <a href="{{ route('consultations.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
         </div>
       </div>
     </div>

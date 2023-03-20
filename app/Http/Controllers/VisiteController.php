@@ -54,24 +54,22 @@ class VisiteController extends Controller
       $etab = Etablissement::first(); 
       $employe = Auth::user()->employ;
       $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
-      $hosp = hospitalisation::FindOrFail($id_hosp);
+      $hosp = hospitalisation::with('patient')->FindOrFail($id_hosp);
       $lastVisite = $hosp->getlastVisiteWitCstPresc();
-      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-      $visite = visite::create([
-        'date'=>$date,
+      $obj = $hosp->visites()->create([
+         'date'=>$date,
         'heure'=>$date->format("H:i"),
-        'id_hosp'=>$id_hosp,
-        'pid'=>$patient->id,
+        'pid'=>$hosp->patient->id,
         'date'=>$date,
         'id_employe'=>$employe->id
-      ]);
+       ]); 
       $specialitesProd = specialite_produit::all();//trait
       $infossupp = infosupppertinentes::all();
       $examens = TypeExam::all();//CT,RMN
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
-      $consts = consts::all();
-      return view('visite.add',compact('consts', 'hosp' ,'patient', 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'))->with('id',$visite->id);
+      $consts = consts::all();//'patient',
+      return view('visite.add',compact('consts', 'obj' , 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));//->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

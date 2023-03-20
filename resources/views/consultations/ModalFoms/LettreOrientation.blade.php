@@ -103,7 +103,7 @@ td
          e.preventDefault();
         var formData = {
            _token          : CSRF_TOKEN,
-          consultation_id  : '{{ $consult->id }}',
+          consultation_id  : '{{ $obj->id }}',
           specialite       : $("#specialiteOrient").val(),
           motif            : $("#motifC").val(), 
           examen           : $("#motifOrient").val(),
@@ -133,26 +133,18 @@ td
             }
         });
     });
-    // $('body').on('click', '.open-Orient', function (event) {
-    //   event.preventDefault();
-    //   var id = $(this).val();
-    //   $.get('/orientLetter/'+id+'/edit', function (data) {
-    //      $('#orient_id').val(data.id);
-    //     $("#specialiteOrient").val(data.specialite.id).change();
-    //     $("#motifC").val(data.motif);
-    //     $("#motifOrient").val(data.examen);
-    //     $('#orientationSave').val("update");
-    //     $('#orientationSave').attr('data-id',data.id);
-    //     $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
-    //     $('#LettreOrientationAdd').modal('show');
-    //   }); 
-    // });
-    $('body').on('click', '#orientationPrint', function (event) {
-        var fileName ='orientLetter-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+/*$('body').on('click', '.open-Orient', function (event) {
+event.preventDefault();var id = $(this).val();
+$.get('/orientLetter/'+id+'/edit', function (data) {
+$('#orient_id').val(data.id);$("#specialiteOrient").val(data.specialite.id).change();
+$("#motifC").val(data.motif);$("#motifOrient").val(data.examen);
+$('#orientationSave').val("update");$('#orientationSave').attr('data-id',data.id);     $('#orientCrudModal').html("Modifier la  lettre d'orientation")$('#LettreOrientationAdd').modal('show');});});*/ 
+$('body').on('click', '#orientationPrint', function (event) {
+        var fileName ='orientLetter-'+'{{ $obj->patient->Nom}}'+'-'+'{{ $obj->patient->Prenom}}'+'.pdf';
         var tr = document.getElementById($(this).val());
         $("#motifCons").text(tr.cells[1].innerHTML);
         $("#motifO").text(tr.cells[2].innerHTML);
-        var ipp = '{{ $patient->IPP }}';
+        var ipp = '{{ $obj->patient->IPP }}';
         var pdf = new jsPDF('p', 'pt', 'a4');
         JsBarcode("#barcode",ipp,{
           format: "CODE128",
@@ -177,7 +169,7 @@ td
       e.preventDefault();
       var formData = {
         _token          : CSRF_TOKEN,
-        consultation_id  : '{{ $consult->id }}',
+        consultation_id  : '{{ $obj->id }}',
         examen           : $("#examClin").val(),
         isChronic : $("#isChronic").is(":checked") ? 1:0,
       };
@@ -220,9 +212,7 @@ td
         $('#decriptifSave').val("update"); 
         $('#CertifDescrAdd').modal('show');
       });
-    });/*$('body').on('click', '#descriptPrint', function (event) { var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
-var tr = document.getElementById("descript-" + $(this).val());$("#examen").text(tr.cells[0].innerHTML);$("#motifO").text(tr.cells[2].innerHTML);
-pdf.setFontSize(12); pdf.text(320,730, 'Respectueusement');generate(fileName,pdf,'certificatDescrPdf');});*/     
+    });
     $('body').on('click', '.delete-Desc', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };

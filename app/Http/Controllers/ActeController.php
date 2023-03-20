@@ -29,9 +29,7 @@ class ActeController extends Controller
     { 
       return $acte;
     }
-    public function show($id)
-    {// $consigne = consigne::FindOrFail($id);return view('consigne.show_consigne',compact('consigne'));
-    }
+/*public function show($id)  {$consigne = consigne::FindOrFail($id);return view('consigne.show_consigne',compact('consigne')); }*/
     public function update(Request $request, $id )//Acte $acte
     {
       $acte = Acte::find($id);
@@ -65,7 +63,7 @@ class ActeController extends Controller
     { 
       $acte = Acte::find($id);
       $acte -> update([ "retire"=>1]);
-     return $acte;
+      return $acte;
     }
     public function run($id)
     {

@@ -1,9 +1,12 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-<div class="container-fluid">
-  <div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])
+  <div class="page-header">@include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
+  <div class="row">
+  <div class="col-sm-12"><h4>Modifier la visite</h4>
+  <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
   </div>
+</div>
   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
@@ -72,7 +75,8 @@
   function geMedicamentValue(rowid, value, name)
   {
     var IdCell = $('#traits-table').getRowData(rowid);
-    return '/getproduits/1/'+ IdCell.spec_id;
+    var spec_id =  (isEmpty(IdCell.spec_id)) ? 1 : IdCell.spec_id;
+    return '/getproduits/1/'+ spec_id;
   }
   function UpdateTrait(params)
   {
@@ -80,6 +84,7 @@
     url = url.replace(':slug', params.id);
     params['_token'] =CSRF_TOKEN;
     params['editurl'] =url;
+    params['visite_id'] = '{{ $visite->id }}';
     $.ajax({
         type:"PUT",
         url:url,
@@ -87,6 +92,36 @@
         dataType:'json',
         success: function (data) {} 
     })
+  }
+  function addTrait(params)
+  {
+    url = '{{ route("traitement.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['id_visite'] ='{{ $visite->id}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {}
+    })
+  }
+  function deleteTrait(id) 
+  {
+    var url = '{{ route("traitement.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    $.ajax({
+      type:"DELETE",
+      url:url,
+      dataType:'json',
+      success: function (data) { }
+    }) 
   }
 $(document).ready(function(){
   $("#actes-table").jqGrid({
@@ -139,8 +174,7 @@ $(document).ready(function(){
     },
     {
       closeOnEscape: true, 
-      closeAfterEdit: true, 
-      savekey: [true, 13], 
+      closeAfterEdit: true,//savekey: [true, 13],  
       errorTextFormat: commonError, 
       width: "600", 
       reloadAfterSubmit: true, 
@@ -191,38 +225,39 @@ $("#traits-table").jqGrid({
                 {
                   return rowObject.medicament.specialite.nom;
                 }, editrules : { edithidden : true }
-             },
-             { name:'produit', index:'produit',editable: true, edittype:'select', editoptions: {
+            },
+            { name:'med_id', index:'med_id',editable: true, edittype:'select', editoptions: {
                   dataUrl: geMedicamentValue,
                   datatype: "json",
                   aysnc: false,
+                  defaultValue:1,
                   buildSelect: function (data) {
                     var response = jQuery.parseJSON(data);
                     var s = '<select>';
                     $.each(response, function () {
                      s += '<option value="' + this.id + '">' + this.nom + '</option>';
                     });
-                    return s + '</select>';
+                    return s + '</select>' ;
                   }
-                },
-                formatter: function (cellvalue, options, rowObject) 
-                {
-                  return rowObject.medicament.nom;
-                }
               },
-              { name:'posologie', index:'posologie',editable: true, width:100, editable: true, editoptions: {size:50} },
-              { name:'nbrPJ', index:'nbrPJ',editable: true, width:17, editable: true,
-                editoptions:{ size: 15, maxlengh: 10,
-                  dataInit: function(element) {
-                    $(element).keyup(function(){
-                      var val1 = element.value;
-                      var num = new Number(val1);
-                      if(isNaN(num))
-                        {alert("S'il vous plait, entrez un nombre valide");}
-                    })
-                  }
+              formatter: function (cellvalue, options, rowObject) 
+              {
+                return rowObject.medicament.nom;
+              }
+            },
+            { name:'posologie', index:'posologie',editable: true, width:100, editable: true, editoptions: {size:50} },
+            { name:'nbrPJ', index:'nbrPJ',editable: true, width:17, editable: true,
+              editoptions:{ size: 15, maxlengh: 10,
+                dataInit: function(element) {
+                  $(element).keyup(function(){
+                    var val1 = element.value;
+                    var num = new Number(val1);
+                    if(isNaN(num))
+                      {alert("S'il vous plait, entrez un nombre valide");}
+                  })
                 }
-              },
+              }
+            },
             { name: 'medecin', index: 'medecin',width:60,
             formatter: function (cellvalue, options, rowObject) 
             {
@@ -267,7 +302,32 @@ $("#traits-table").jqGrid({
          UpdateTrait(actedata);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
-
+    },
+    {
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, actedata) {
+        addTrait(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      },
+      beforeShowForm: function() {
+        $("#specialiteProd").val('1');
+      }
+    },
+    {
+      closeOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, actedata) {
+        deleteTrait(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
     });
     $("#traits-table").jqGrid('navGrid','#traitPager',
     {

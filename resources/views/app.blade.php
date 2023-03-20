@@ -150,7 +150,7 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
         }
         function getProducts(id_gamme, id_spec=0,med_id = 0)
         {
-          var html = '<option value="">Sélectionner...</option>';
+          var html = '<option value="" selected disabled>Sélectionner...</option>';
           $.ajax({
               url : '/getproduits/'+id_gamme+'/'+id_spec,
               type : 'GET',
@@ -159,12 +159,9 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
                   $.each(data, function(){
                     html += "<option value='"+this.id+"'>"+this.nom+"</option>";
                   });
-                  $('#produit').html(html);
+                  $('#med_id').html(html);
                   if(med_id != 0)
-                    $('#produit').val(med_id);
-              },
-              error : function(){
-                  console.log('error');
+                    $('#med_id').val(med_id);
               }
           });
         }
@@ -199,8 +196,8 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
               case "2":
                   if(!$("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").hide();
-                    if($("#produit").prop('disabled') == true)
-                      $("#produit").prop('disabled',false);
+                    if($("#med_id").prop('disabled') == true)
+                      $("#med_id").prop('disabled',false);
                     getProducts(2);
                   break;
               case "3":
@@ -210,8 +207,8 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
                   break;
               case "4":
                 $("#specialiteDiv").hide();
-                if($("#produit").prop('disabled') == true)
-                      $("#produit").prop('disabled',false);
+                if($("#med_id").prop('disabled') == true)
+                      $("#med_id").prop('disabled',false);
                 getProducts(4);
                 break;
               default:
@@ -221,7 +218,7 @@ $('#idwilayaf').val( $('#idwilaya').val());$('#wilayaf').val($('#wilaya').val())
          $('#specPrd').change(function(){
             getProducts($('#gamme').val(),$(this).val());
           });
-          $('#produit').change(function(){
+          $('#med_id').change(function(){
              $("#ajoutercmd").removeAttr("disabled");
           });
        });

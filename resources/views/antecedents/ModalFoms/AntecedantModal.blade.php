@@ -107,7 +107,7 @@
 			{
 				var tabName = "antsTab";
 				var formData = {
-					Patient_ID_Patient   : '{{ $patient->id }}',
+					Patient_ID_Patient   : '{{ $obj->patient->id }}',
 					Antecedant           : 'Personnels',//$('#Antecedant').val()
 					typeAntecedant       : '0',//$('#typeAntecedant').val(),
 					stypeatcd            : $('#sstypeatcdc').val(),
@@ -119,7 +119,7 @@
 			{
 				var tabName = "antsFamTab";
 				var formData = {
-					Patient_ID_Patient   : '{{ $patient->id }}',
+					Patient_ID_Patient   : '{{ $obj->patient->id }}',
 					Antecedant         : 'Familiaux',
 					date               : $('#dateAntcd').val(),
 					cim_code					 : $('#cim_code').val(),
