@@ -416,14 +416,10 @@
           $('body').on('click', '.delete-atcd', function (e) {
             event.preventDefault();
             var atcd_id = $(this).val();
-            $.ajaxSetup({
-              headers: {
-               'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
-            });
             $.ajax({
               type: "DELETE",
-                url: '/atcd/' + atcd_id,
+              url: '/atcd/' + atcd_id,
+              data: { _token: CSRF_TOKEN } ,
               success: function (data) {
                     $("#atcd" + atcd_id).remove();
                  },

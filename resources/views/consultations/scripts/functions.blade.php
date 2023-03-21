@@ -3,14 +3,10 @@ $('document').ready(function(){
   $('body').on('click', '.dh-delete', function (e) {
       event.preventDefault();
       var id = $(this).val();
-      $.ajaxSetup({
-          headers: {
-           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-      });
       $.ajax({
         type: "DELETE",
         url: '/demandehosp/' + id,
+        data: { _token: CSRF_TOKEN },
         success: function (data) {
           $("#dh-" + id).remove();
         }

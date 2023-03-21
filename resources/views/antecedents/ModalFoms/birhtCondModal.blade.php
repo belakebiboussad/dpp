@@ -94,6 +94,7 @@
 		$("#stateSave").click(function (e) {
 			e.preventDefault();
 		  var formData = {
+        data: { _token: CSRF_TOKEN },
 				pid    	  : '{{ $patient->id }}',
 				month       : $('#month').val(),
 				apgar : $("#apgar").val(),
@@ -110,11 +111,6 @@
 				type = "PUT";
 				ajaxurl = '/birthCond/' + $("#cond_id").val();
 			}
-			$.ajaxSetup({
-				headers: {
-					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
 			$.ajax({
 			    type: type,
 			    url: ajaxurl,
@@ -144,14 +140,10 @@
 		$('body').on('click', '.delete-BCond', function (e) {
 	    event.preventDefault();
 	    var cond_id = $(this).val();
-	    $.ajaxSetup({
-	    	headers: {
-	      	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    	}
-	    });
 	    $.ajax({
 	          type: "DELETE",
 	          url: '/birthCond/' + cond_id,
+            data: { _token: CSRF_TOKEN },
 	          success: function (data) {
 	            $("#bcond" + cond_id).remove();
 	           	if($( "#condAdd" ).hasClass( "hidden" ))

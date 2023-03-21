@@ -3,14 +3,10 @@ $('document').ready(function(){
   jQuery('body').on('click', '.delete-demandeRad', function (e) {
       event.preventDefault();
       var demande_id = $(this).val();
-      $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-      });
       $.ajax({
           type: "DELETE",
           url: '/demandeexr/' + demande_id,
+          data: { _token: CSRF_TOKEN } ,
           success: function (data) {
             $("#demandeRad" + demande_id).remove();
           }

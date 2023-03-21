@@ -11,8 +11,10 @@ use App\modeles\Etablissement;
 use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\service;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use DB;
 use ToUtf;
 use Response;
 //use View;
@@ -48,7 +50,7 @@ class DemandeExbController extends Controller
       }else
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
-        $demandesexb = demandeexb::with('imageable')->whereNull('etat')->get();
+        $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
         return view('examenbio.index', compact('demandesexb','services'));
       }
     }
@@ -57,8 +59,7 @@ class DemandeExbController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create() {  }
-  /**
+   /**
   * Store a newly created resource in storage.
   *
   * @param  \Illuminate\Http\Request  $request
@@ -99,10 +100,22 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
       $demande = demandeexb::FindOrFail($id);
-      return view('examenbio.edit', compact('demande'));
+      if($request->ajax())
+      {
+        $exams = DB::table('demande_examenbio') 
+                ->join('examenbiologiques', 'demande_examenbio.exam_id','examenbiologiques.id')
+                  ->join('demandeexb', 'demande_examenbio.demande_id', 'demandeexb.id')
+                  ->join('visites', 'demandeexb.imageable_id', 'visites.id')
+                  ->join('employs', 'visites.id_employe', 'employs.id')
+                  ->select('demande_examenbio.*', 'examenbiologiques.*','demandeexb.etat','visites.date','employs.nom AS mednom','employs.prenom')->where('demande_id', $demande->id)->get();  
+        return $exams;
+    
+      }
+      else
+        return view('examenbio.edit', compact('demande'));
     }
     /**
      * Update the specified resource in storage.

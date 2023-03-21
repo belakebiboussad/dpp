@@ -20,9 +20,9 @@ class ActeController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function index($visId = null)
+    public function index(Request $request)
     {
-      $visite = visite::find($visId);
+      $visite = visite::find($request->visId);
       return $visite->actes()->active()->get();
     }
     public function edit(Acte $acte )

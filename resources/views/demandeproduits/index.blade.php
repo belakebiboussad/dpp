@@ -74,24 +74,20 @@
   		})
   	})
  	$(document).ready(function(){
-  		 jQuery('body').on('click', '.deletedemande', function (e) {
-  		 		event.preventDefault();
-        	var demande_id = $(this).val();
-        	$.ajaxSetup({
-	       		headers: {
-	             		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	         	}
-         	});
-        	$.ajax({
-          		type: "DELETE",
-          		url: '/demandeproduit/' + demande_id,
-          		success: function (data) {
-              			$("#demande-" + demande_id).remove();
-          		},
-          		error: function (data) {
-            			console.log('Error:', data);
-          		}
-        	});
+		 jQuery('body').on('click', '.deletedemande', function (e) {
+		 		event.preventDefault();
+      	var demande_id = $(this).val();
+        $.ajax({
+        		type: "DELETE",
+        		url: '/demandeproduit/' + demande_id,
+            data: { _token: CSRF_TOKEN } ,
+        		success: function (data) {
+            			$("#demande-" + demande_id).remove();
+        		},
+        		error: function (data) {
+          			console.log('Error:', data);
+        		}
+      	});
 		})
  	});
 </script>

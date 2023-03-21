@@ -163,16 +163,12 @@
     $(".execActe").click(function(e){//runActe
       e.preventDefault();
       var formData = {
+        _token: CSRF_TOKEN,
         acte_id : $(this).val(),
         does    : $("#fait").is(':checked')?1:0,
         obs     : $('#obs').val(),
         ordre    : $(this).data('acte-ordre')
       };
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
       $.ajax({
           type : 'POST',
           url :"{{ route('acteExec.store') }}",
@@ -190,16 +186,12 @@
     $(".execTrait").click(function(e){//runActe
       e.preventDefault();
       var formData = {
+        _token: CSRF_TOKEN,
         trait_id : $(this).val(),
         does     : $("#faitT").is(':checked')?1:0,
         obs      : $('#observ').val(),
         ordre    : $(this).data('trait-ordre')  
       };
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
       $.ajax({
           type : 'POST',
           url :"{{ route('traitExec.store') }}",

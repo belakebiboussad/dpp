@@ -1,18 +1,14 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
- function deleteDemandeHospi(id)
- {
-      event.preventDefault();
-      $.ajaxSetup({
-		headers: {
-			 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		}
-	});
+function deleteDemandeHospi(id)
+{
+  event.preventDefault();
 	$.ajax({
 			type: "DELETE",
 			url: '/demandehosp/' + id,
-	        	 success: function (data) {
+      data: { _token: CSRF_TOKEN } ,
+	    success: function (data) {
 					$(".dh").remove();
 			}
 	});
@@ -107,14 +103,10 @@ $(function(){
       var id = $(this).val();
       var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
       url = url.replace(':slug',id);
-        $.ajaxSetup({
-          headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
-        });
-        $.ajax({
+      $.ajax({
             type: "DELETE",
-            url: url,//'/hommeConfiance/' + id,
+            url: url,
+            data: { _token: CSRF_TOKEN } ,
             success: function (data) {
                 $("#garde" + id).remove();
             }
@@ -257,43 +249,28 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,"language": { "url": '/localisation/fr_FR.json'},});*/
-  $('#specialiteTick').change(function(){
-        if($(this).val() =="")        	
-         	$('#print').prop('disabled', 'disabled');
-        else
-        	$('#print').removeAttr("disabled");
-  	});
-		$('#print').click(function(e){
+ /* $('#specialiteTick').change(function(){ if($(this).val() =="")       
+$('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");});*/
+      $('#print').click(function(e){
+        e.preventDefault();
         $("#ticket").hide();
       	var formData = {
+          _token: CSRF_TOKEN,
 			  	specialite:$('#specialiteTick').val(),
 			  	typecons:$('#typecons').val(),
 			  	document:$('#document').val(), 
 			  	id_patient:$('#id_patient').val()
 		    };
-        $.ajaxSetup({
-          headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-        }); 
         $.ajax({
             type : 'POST',
             url : '/createTicket',
             data:formData,
             success:function(data){ 
             	location.reload(true);
-            },
-            error: function (data) {
-                  console.log('Error:', data);
             }
         });
 	 })
   });
- /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
-      e.preventDefault();//Clear out old row's color 	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-	    if(e.keyCode == 38){selectedRow--; } else if(e.keyCode == 40){selectedRow++;} if(selectedRow >= rows.length){// selectedRow = 0;
-	     } else if(selectedRow < 0){// selectedRow = rows.length-1; }//Set new row's color rows[selectedRow].style.backgroundColor = "#8888FF";showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";*/
 </script>
 @endsection
 @section('main-content')
@@ -378,8 +355,9 @@ $(function(){
     <div class="modal-body">
     	<div  class="form-group">
 				<label for="typecons" class="form-label">Type de Consultation :</label>
-				<select class="form-control" id="typecons" name="typecons" required>
-					<option value="Normale">Normale</option>
+				<select class="form-control" id="typecons" required>
+					<option value="" selected disabled>Séléctionner...</option>
+          <option value="Normale">Normale</option>
 					<option value="Urgente">Urgente</option>
 					<option value="controle">Contrôle</option>
 					<option value="specialise">Spécialisée</option>
@@ -387,7 +365,8 @@ $(function(){
 			</div>
 			<div  class=" form-group">
 				<label for="document" class="form-label">Document :</label>
-				<select class="form-control" id="document" name="document" id="document" required>
+				<select class="form-control" id="document" required>
+          <option value="" selected disabled>Séléctionner...</option>
 					<option value="Rendez-vous">Rendez-vous</option>
 					<option value="Lettre d'orientation">Lettre d'orientation</option>
 					<option value="Consultation généraliste">Consultation généraliste</option>
@@ -396,16 +375,15 @@ $(function(){
 			</div>
 			<div  class="form-group">
 				<label for="specialite" class="form-label">Spécialité :</label>
-				<select class="form-control" id="specialiteTick" name="specialite"  required>
-					<option value="" selected disabled>Selectionner...</option>
+				<select class="form-control" id="specialiteTick" disabled required>
 					@foreach($specialites as $specialite)
-					<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+<option value="{{ $specialite->id}}" '{{($specialite->id == Auth::User()->employ->specialite) ?"selected disabled":'' }}'> {{ $specialite->nom}}</option>
 					@endforeach
 				</select>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="submit" class="btn btn-primary" id ="print" disabled><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>	
+			<button type="submit" class="btn btn-primary" id ="print"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>	
 			<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i> Fermer</button>
 		</div>
     	

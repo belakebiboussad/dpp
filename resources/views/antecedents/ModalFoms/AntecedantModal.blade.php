@@ -119,6 +119,7 @@
 			{
 				var tabName = "antsFamTab";
 				var formData = {
+          _token: CSRF_TOKEN ,
 					Patient_ID_Patient   : '{{ $obj->patient->id }}',
 					Antecedant         : 'Familiaux',
 					date               : $('#dateAntcd').val(),
@@ -130,12 +131,7 @@
 		 	{	
 				if($('.dataTables_empty').length > 0)
 					$('.dataTables_empty').remove();
-				$.ajaxSetup({
-						headers: {
-						  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-						}
-				});
-				var state = $(this).val();
+			  var state = $(this).val();
 				var type = "POST";
 				var atcd_id = $('#atcd_id').val();
 				var ajaxurl = '/atcd';

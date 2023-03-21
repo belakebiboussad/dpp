@@ -15,14 +15,10 @@ function check(input) {
 $(function(){
 	$('#passwordResetbtn').click(function(e){
 		var formData = {
-				id:'{{$user->id}}',
-				password: $("#newPassword").val()
+      _token: CSRF_TOKEN,
+			id:'{{$user->id}}',
+			password: $("#newPassword").val()
 		};
-		$.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-    });
 		$.ajax({
     	type: "POST",
  			url: "{{ url('admin/password/reset')}}",

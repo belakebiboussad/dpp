@@ -76,9 +76,10 @@ $(function() {
     {
       var type = "POST",
       url ="{{ route('appreilExamClin.store') }}";  
-      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       var state = $(this).val();
+      alert(state);
       var formData = {
+          _token: CSRF_TOKEN,
           cons_id:'{{ $obj->id }}',
           appareil_id:$(this).data('id'),
           description:$("#"+ $(this).data('id')).text()

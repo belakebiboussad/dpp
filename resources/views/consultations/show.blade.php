@@ -294,13 +294,11 @@
     $('body').on('click', '.orient-delete', function (e) {  
       event.preventDefault();
       var id = $(this).val(); 
-      $.ajaxSetup({
-        headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
-      });
       $.ajax({
         type: "DELETE",
         url: '/orientLetter/' + id,
         dataType: 'json',
+        data: { _token: CSRF_TOKEN },
         success: function (data) {
           $("#orient-" + data.id).remove(); 
         },

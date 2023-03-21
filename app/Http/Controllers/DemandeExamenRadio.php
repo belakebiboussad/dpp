@@ -44,17 +44,17 @@ class DemandeExamenRadio extends Controller
         } else
         {
           $demandes = demandeexr::with('imageable.medecin.Service','imageable.patient')
-                                ->whereHas('consultation.medecin', function($query) use ($q) {
-                                    $query->where('service_id', $q);
-                                  })->orWhereHas('visite.medecin', function($query) use ($q) {
-                                    $query->where('service_id', $q);
-                                  })->get();
+                        ->whereHas('consultation.medecin', function($query) use ($q) {
+                            $query->where('service_id', $q);
+                          })->orWhereHas('visite.medecin', function($query) use ($q) {
+                            $query->where('service_id', $q);
+                          })->get();
         }
         return $demandes;
       }else
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
-        $demandesexr = demandeexr::whereNull('etat')->get();
+        $demandesexr = demandeexr::with('imageable')->whereNull('etat')->orderBy('id','desc')->get();
         return view('examenradio.index', compact('demandesexr','services')); 
       }
     }

@@ -16,38 +16,24 @@ $('document').ready(function(){
   $('body').on('click', '.delete-demandeBio', function (e) {
       event.preventDefault();
       var demande_id = $(this).val();
-      $.ajaxSetup({
-          headers: {
-           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-      });
       $.ajax({
         type: "DELETE",
         url: '/demandeexb/' + demande_id,
+        data: { _token: CSRF_TOKEN },
         success: function (data) {
           $("#demandeBio" + demande_id).remove();
-        },
-        error: function (data) {
-          console.log('Error:', data);
         }
       });
   });
   jQuery('body').on('click', '.delete-ordonnance', function (e) {
       event.preventDefault();
       var id = $(this).val();
-      $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-      });
       $.ajax({
           type: "DELETE",
           url: '/ordonnace/' + id,
+          data: { _token: CSRF_TOKEN },
           success: function (data) {
             $("#ordonnace" + id).remove();
-          },
-          error: function (data) {
-            console.log('Error:', data);
           }
       });
   });

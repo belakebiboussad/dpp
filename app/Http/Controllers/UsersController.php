@@ -174,14 +174,14 @@ class UsersController extends Controller
           $activer=1;
       }
       $user->update([
-              'name'=>$request->username,
-              "password"=>$user->password,
-              "email"=>$request->email,
-              "employe_id"=>$user->employe_id,
-              "role_id"=>$request->role,
-              "active"=>$activer,   
+        'name'=>$request->username,
+        "password"=>$user->password,
+        "email"=>$request->email,
+        "employe_id"=>$user->employe_id,
+        "role_id"=>$request->role,
+        "active"=>$activer,   
      ]);  
-     return redirect(Route('users.show',$id));
+     return redirect(Route('users.show',$user->id));
     }
 
     /**

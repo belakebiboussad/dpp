@@ -9,9 +9,7 @@
 				<input type="hidden" id="acc_id" value="0">
 				<div class="form-group">
 					<label class="col-sm-4 control-label" >Lieu :</label>
-					<div class="col-sm-8">
-						<input type="text" id="lieu" class="form-control"/>
-					</div>
+					<div class="col-sm-8"><input type="text" id="lieu" class="form-control"/></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Presentation :</label>
@@ -56,11 +54,9 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-info btn-sm" id ="accouchSave" value="add">
-        <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-      </button>
-     	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-       	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
-      </button>
+        <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+      <button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
+       	<i class="ace-icon fa fa-close bigger-110"></i>Fermer </button>
 		</div>
 	</div>
 </div>
@@ -70,14 +66,10 @@
 		$('body').on('click', '.delete-acc', function (e) {
   		event.preventDefault();
     	var acc_id = $(this).val();
-  		$.ajaxSetup({
-    		headers: {
-     		 	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-    		}
-    	});
-    	$.ajax({
+  		$.ajax({
           type: "DELETE",
           url: '/accouch/' + acc_id,
+          data: { _token: CSRF_TOKEN },
           success: function (data) {
             $("#acc" + acc_id).remove();
             $("#accAdd").removeClass("hidden");
@@ -91,6 +83,7 @@
 		$("#accouchSave").click(function (e) {
 	 		e.preventDefault();//terme  :  $('#terme').val(),motif  :  $('#motiftype').val(),
 	 		var formData = {
+        _token: CSRF_TOKEN ,
 				etablisement :  $('#lieu').val(),
 				presentation :  $('#presentation').val(),
 				eggopenduration :  $('#eggopenduration').val(),
@@ -98,13 +91,8 @@
 				expulsduration :  $('#expulsduration').val(),
 				incident 		 :  $('#incident').val(),
 				type 		 		 :  $('#type').val(),
-				pid    	  	 : '{{ $patient->id }}'
+				pid    	  	 : '{{ $obj->patient->id }}'
 			};
-			$.ajaxSetup({
-				headers: {
-					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
 			var state = $(this).val();
 			var type = "POST";
 			var ajaxurl = '/accouch';

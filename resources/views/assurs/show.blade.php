@@ -3,14 +3,10 @@
 <script>
 	jQuery('body').on('click', '.delete-patient', function () {
 		 var patient_id = $(this).val();      
-	       $.ajaxSetup({
-	       		headers: {
-	        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	          	}
-	      });
 	       $.ajax({
 		       type: "DELETE",
-		        url: '/patient/' + patient_id,
+		       url: '/patient/' + patient_id,
+           data: { _token: CSRF_TOKEN },
 		       success: function (data) {
 		              $("#patient" + patient_id).remove()
 		          },

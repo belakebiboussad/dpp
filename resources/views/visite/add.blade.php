@@ -101,21 +101,14 @@
     });
     jQuery('body').on('click', '.delete-acte', function () {
         var id = $(this).val();
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-        });
         url='{{ route("acte.destroy",":slug") }}';
         url = url.replace(':slug',id);
         $.ajax({
           type: "DELETE",
           url: url,
+          data: { _token: CSRF_TOKEN },
           success: function (data) {
             $("#acte" + id).remove();
-          },
-          error: function (data) {
-            console.log('Error:', data);
           }
         });
      });  //end of add acte

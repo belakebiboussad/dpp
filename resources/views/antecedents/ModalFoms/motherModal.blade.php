@@ -58,6 +58,7 @@
 		$("#motherSave").click(function (e) {
 	 		e.preventDefault();
 	 		var formData = {
+         _token: CSRF_TOKEN
 					pid    	  : '{{ $patient->id }}',
 					dob       : $('#dob').val(),
 					motWeight : $("#motWeight").val(),
@@ -65,11 +66,6 @@
 					gs        : $("#gs").val(),
 					rh        : $("#rh").val(),
 			};
-			$.ajaxSetup({
-				headers: {
-					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
 			var state = $(this).val();
 			var type = "POST";
 			var ajaxurl = '/mother';
@@ -101,14 +97,11 @@
 		$('body').on('click', '.delete-mother', function (e) {
 	    event.preventDefault();
 	    var mother_id = $(this).val();
-	    $.ajaxSetup({
-	    	headers: {
-	      	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    	}
-	    });
+	   
 	    $.ajax({
 	          type: "DELETE",
 	          url: '/mother/' + mother_id,
+            data: { _token: CSRF_TOKEN },
 	          success: function (data) {
 	            $("#mother" + mother_id).remove();
 	            $("#motherAdd").removeClass("hidden");

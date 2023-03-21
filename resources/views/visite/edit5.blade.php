@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
-        <table id="actes-table"></table><div id="actesPager"></div>
+        <table id="actes-table" ></table> <div id="actesPager"></div>
       </div>
     </div>
   </div>
@@ -20,6 +20,13 @@
         <table id="traits-table"></table><div id="traitPager"></div>
       </div>
     </div>
+  </div>
+  <div class="row" {{ (isset($visite->demandeexmbio)&&($visite->demandeexmbio->etat=='En Cours')  )?'':'hidden' }}>
+    <div class="col-xs-12">
+      <div class="panel-body">
+        <table id="demandeBio-table"></table><div id="BiologPager"></div>
+      </div>
+    </div>  
   </div>
 </div>
 @endsection
@@ -60,14 +67,10 @@
   {
     var url = '{{ route("acte.destroy", ":slug") }}'; 
     url = url.replace(':slug', id);
-    $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
     $.ajax({
       type:"DELETE",
       url:url,
+      data: { _token: CSRF_TOKEN },
       dataType:'json',
       success: function (data) { }
     }) 
@@ -111,21 +114,33 @@
   {
     var url = '{{ route("traitement.destroy", ":slug") }}'; 
     url = url.replace(':slug', id);
-    $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
+   $.ajax({
+      type:"DELETE",
+      url:url,
+      data: { _token: CSRF_TOKEN },
+      dataType:'json',
+      success: function (data) { }
+    }) 
+  }
+  function examDelete(id) 
+  {
+    var formData = {
+      _token: CSRF_TOKEN,
+      demande_id : '{!! $visite->demandeexmbio['id'] !!}',
+    };
+    var url = '{{ route("exmbio.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
     $.ajax({
       type:"DELETE",
       url:url,
+      data: formData,
       dataType:'json',
       success: function (data) { }
     }) 
   }
 $(document).ready(function(){
   $("#actes-table").jqGrid({
-    url: '/visteActes/{{ $visite->id }}',
+    url : '{{ route("acte.index", ["visId"=>$visite->id])}}',
     mtype: "GET",
     datatype: "json",
     colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
@@ -202,8 +217,8 @@ $(document).ready(function(){
       recreateForm: true,
       reloadAfterSubmit: true,
       errorTextFormat: commonError,
-      onclickSubmit: function (response, actedata) {
-        deleteActe(actedata);
+      onclickSubmit: function (response, id) {
+        deleteActe(id);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
     });  //$('.ui-jqgrid-titlebar-close','#actes_table').remove();
@@ -311,8 +326,8 @@ $("#traits-table").jqGrid({
       reloadAfterSubmit: true,
       errorTextFormat: commonError,
       bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
-      onclickSubmit: function (response, actedata) {
-        addTrait(actedata);
+      onclickSubmit: function (response, traitdata) {
+        addTrait(traitdata);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       },
       beforeShowForm: function() {
@@ -324,8 +339,8 @@ $("#traits-table").jqGrid({
       recreateForm: true,
       reloadAfterSubmit: true,
       errorTextFormat: commonError,
-      onclickSubmit: function (response, actedata) {
-        deleteTrait(actedata);
+      onclickSubmit: function (response, id) {
+        deleteTrait(id);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
     });
@@ -339,6 +354,59 @@ $("#traits-table").jqGrid({
         viewicon : 'ace-icon fa fa-search-plus grey',
         addicon : 'ace-icon fa fa-plus-circle purple',
     });
+    if(!isEmpty('{{ $visite->demandeexmbio }}'))
+    {
+      var url = '{{ route("demandeexb.edit", ":slug") }}'; 
+      url = url.replace(':slug', '{!!$visite->demandeexmbio['id']!!}');
+      $("#demandeBio-table").jqGrid(
+      {
+        url :url ,
+        mtype: "GET",
+        datatype: "json",
+        colNames:['Date','Nom','Medecin'],//,'Nom','Etat' 
+        colModel:[
+        { name:'date',index:'date',editable: false},
+        { name:'nom',index:'nom',editable: false},
+        { name:'mednom',index:'mednom',editable: false,
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.mednom +' '+rowObject.prenom;
+          }
+        }],
+        width: 1146,
+        height: "auto",
+        rowNum:10,
+        loadonce: true,
+        rowList:[10,20,30],
+        multiselect: true,
+        pager: '#BiologPager',
+        sortname: 'nom',
+        viewrecords: true,
+        sortorder: "desc",
+        editurl : '/demandeb/edit',
+        caption:"Demande",
+        emptyrecords: "0 records found",
+      });
+      $("#demandeBio-table").jqGrid('navGrid','#BiologPager',
+      {
+        edit:false,
+        add:true, addtitle: "Ajouter un examen",
+        addicon : 'ace-icon fa fa-plus-circle purple',
+        view:false,search:false,
+      },{},{},
+      {
+        loseOnEscape: true, 
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        onclickSubmit: function (response, id) {
+          examDelete(id);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        }
+      });
+    }
+   
+    
 });
  </script>
 @endsection

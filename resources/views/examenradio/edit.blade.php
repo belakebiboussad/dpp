@@ -6,21 +6,16 @@
     $('body').on('click', '.exam-Delete', function (e) {  
       event.preventDefault();
       var exam_id = $(this).val(); 
-       $.ajaxSetup({
-          headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') }
-       });
       url='{{ route("examRad.destroy",":slug") }}';
       url = url.replace(':slug',exam_id);
-     $.ajax({
-          type: "GET",
-           url : url,
-             dataType: 'json',
-              success: function (data) {
-                     $("#exm-" + data.id).remove(); 
-              },
-              error: function (data) {
-                     console.log('Error:', data); 
-               } 
+      $.ajax({
+        type: "GET",
+        url : url,
+          dataType: 'json',
+          data: { _token: CSRF_TOKEN } ,
+          success: function (data) {
+            $("#exm-" + data.id).remove(); 
+          } 
       });
     });
     $("#requestImgEdit").submit(function(e){
