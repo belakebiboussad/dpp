@@ -20,7 +20,7 @@
 			     		<label for="specialiteHospi">Spécialité :</label>
 					   	<select class="form-control" id="specialiteHospi">
 						    @foreach($specialites as $specialite)
-						   	<option value="{{ $specialite->id}}" @if( $employe->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
+						   	<option value="{{ $specialite->id}}" @if( Auth::user()->employ->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
 						    @endforeach 
 						  </select>
 						  <br>
@@ -31,7 +31,7 @@
 			     	 	<label for="serviceHospi">Service :</label>
 					    <select class="form-control" id="serviceHospi">
 							  @foreach($services as $service)
-							  <option value="{{ $service->id }}" @if( $employe->service_id == $service->id) selected @endif>{{ $service->nom }}</option>
+							  <option value="{{ $service->id }}" @if( Auth::user()->employ->service_id == $service->id) selected @endif>{{ $service->nom }}</option>
 							  @endforeach     
 							</select>
 			      </div>	

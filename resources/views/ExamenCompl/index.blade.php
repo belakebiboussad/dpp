@@ -24,18 +24,11 @@
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content no-border">
 	 		<div class="tab-pane active examsBio" id="biologique"> 
-	      @if($specialite->exmsbio !== "null")
-          @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
-	 	  	  	<div class="checkbox col-xs-4">
-	 	   			 <label>
-							<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
-					 		<span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
-				 		 </label>
-	 		  		</div>
-	 				@endforeach 
-        @else
-          Non configurer
-	 			@endif
+	    @foreach ( $specialite->BioExams as $exbio)
+      <div class="checkbox col-xs-4"><label>
+       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"  /><span class="lbl">{{ $exbio->nom }}</span></label>
+      </div>
+      @endforeach 
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> 
         @if($specialite->exmsImg !== "null")
@@ -167,10 +160,10 @@
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-          examsBioSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+          examsBioSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ Auth::user()->employ->full_name }}',$(this).data('field'),$(this).val());
             break;
         case 1:
-          examsImgSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
+          examsImgSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ Auth::user()->employ->full_name }}',$(this).data('field'),$(this).val());
             break;
         default :
           break;

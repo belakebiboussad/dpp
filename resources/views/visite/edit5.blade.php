@@ -75,7 +75,7 @@
       success: function (data) { }
     }) 
   }
-  function geMedicamentValue(rowid, value, name)
+  function getMedicaments(rowid, value, name)
   {
     var IdCell = $('#traits-table').getRowData(rowid);
     var spec_id =  (isEmpty(IdCell.spec_id)) ? 1 : IdCell.spec_id;
@@ -137,6 +137,20 @@
       dataType:'json',
       success: function (data) { }
     }) 
+  }
+  function addExamB(rowid, value, name)
+  {
+    url = '{{ route("exmbio.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['id_visite'] ='{{ $visite->id}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {}
+    })
   }
 $(document).ready(function(){
   $("#actes-table").jqGrid({
@@ -242,7 +256,7 @@ $("#traits-table").jqGrid({
                 }, editrules : { edithidden : true }
             },
             { name:'med_id', index:'med_id',editable: true, edittype:'select', editoptions: {
-                  dataUrl: geMedicamentValue,
+                  dataUrl: getMedicaments,
                   datatype: "json",
                   aysnc: false,
                   defaultValue:1,
@@ -260,8 +274,8 @@ $("#traits-table").jqGrid({
                 return rowObject.medicament.nom;
               }
             },
-            { name:'posologie', index:'posologie',editable: true, width:100, editable: true, editoptions: {size:50} },
-            { name:'nbrPJ', index:'nbrPJ',editable: true, width:17, editable: true,
+            { name:'posologie', index:'posologie', width:100, editable: true, editoptions: {size:50} },
+            { name:'nbrPJ', index:'nbrPJ', editable: true, width:17,
               editoptions:{ size: 15, maxlengh: 10,
                 dataInit: function(element) {
                   $(element).keyup(function(){
@@ -346,13 +360,11 @@ $("#traits-table").jqGrid({
     });
     $("#traits-table").jqGrid('navGrid','#traitPager',
     {
-        edit:true, edittitle: "Edit Acte",
-        add:true, addtitle: "Add Acte",
-        del:true,
-        refresh: false,
-        view:true,
-        viewicon : 'ace-icon fa fa-search-plus grey',
-        addicon : 'ace-icon fa fa-plus-circle purple',
+      edit:true, edittitle: "Edit Acte",
+      add:true, addtitle: "Add Acte",
+      del:true, refresh: false, view:true,
+      viewicon : 'ace-icon fa fa-search-plus grey',
+      addicon : 'ace-icon fa fa-plus-circle purple',
     });
     if(!isEmpty('{{ $visite->demandeexmbio }}'))
     {
@@ -363,15 +375,18 @@ $("#traits-table").jqGrid({
         url :url ,
         mtype: "GET",
         datatype: "json",
-        colNames:['Date','Nom','Medecin'],//,'Nom','Etat' 
+        colNames:['ID','Nom','Specialite'],
         colModel:[
-        { name:'date',index:'date',editable: false},
-        { name:'nom',index:'nom',editable: false},
-        { name:'mednom',index:'mednom',editable: false,
+        { name:'id',index:'id',editable: false, hidden:true, editable: true},
+        { name:'nom', index:'nom', editable: true, edittype:'select',
+          editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}'}
+        },
+        {
+          name: 'spec', index: 'spec', editable: false,edittype:'select', // editoptions: { value: '' },
           formatter: function (cellvalue, options, rowObject) 
           {
-            return rowObject.mednom +' '+rowObject.prenom;
-          }
+            return rowObject.specialite.nom;
+          }, editrules : { edithidden : true }
         }],
         width: 1146,
         height: "auto",
@@ -385,7 +400,7 @@ $("#traits-table").jqGrid({
         sortorder: "desc",
         editurl : '/demandeb/edit',
         caption:"Demande",
-        emptyrecords: "0 records found",
+        emptyrecords: "0 enregistrements trouvés",
       });
       $("#demandeBio-table").jqGrid('navGrid','#BiologPager',
       {
@@ -393,7 +408,22 @@ $("#traits-table").jqGrid({
         add:true, addtitle: "Ajouter un examen",
         addicon : 'ace-icon fa fa-plus-circle purple',
         view:false,search:false,
-      },{},{},
+      },{},{
+        width: "600", 
+        closeOnEscape: true, 
+        closeAfterAdd: true,
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, biodata) {
+        addExamB(traitdata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      },
+      beforeShowForm: function() {
+        //$("#specialiteProd").val('1');
+      }
+      },
       {
         loseOnEscape: true, 
         recreateForm: true,

@@ -33,26 +33,26 @@ class ExamenbioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,$consultID){
-      if($request->AutreBiol != null)  //save examen biologique autre 
-      {
-        $tags = explode(",", $request->AutreBiol);
-        foreach($tags as $k=>$v){    
-          examenbiologique::create([
-                    "id_consultation"=>$consultID,
-                    "classe"=>"Autre",
-                    "nom"=>$v
-                ]);
-        }
-      }
-      if($request->exambio != null)
-      {
-        foreach($request->exambio as $k=>$v){  
-          foreach($v as $value)
-          {
-            examenbiologique::create(["id_consultation"=>$consultID,"classe"=>$k,"nom"=>$value]);
-          }
-        }
-      }
+      // if(!is_null($request->AutreBiol))  //save examen biologique autre 
+      // {
+      //   $tags = explode(",", $request->AutreBiol);
+      //   foreach($tags as $k=>$v){    
+      //     examenbiologique::create([
+      //               "id_consultation"=>$consultID,
+      //               "classe"=>"Autre",
+      //               "nom"=>$v
+      //           ]);
+      //   }
+      // }
+      // if($request->exambio != null)
+      // {
+      //   foreach($request->exambio as $k=>$v){  
+      //     foreach($v as $value)
+      //     {
+      //       examenbiologique::create(["id_consultation"=>$consultID,"classe"=>$k,"nom"=>$value]);
+      //     }
+      //   }
+      // }
     }
      /**
      * Display the specified resource.

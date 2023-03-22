@@ -105,7 +105,7 @@ route::get('/getpatient','PatientController@getpatient');//
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-Route::post('/exmbio/store/{id}','ExamenbioController@store');
+Route::post('/exmbio/store/{id}','ExamenbioController@store');//averif
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');

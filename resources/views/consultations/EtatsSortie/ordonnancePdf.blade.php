@@ -1,5 +1,5 @@
 <div class="ml-46 mtP40"><b>Alger le</b> : {{ \Carbon\Carbon::today()->format('d/m/Y') }}</div>
-<div class="ml-06 mtp33"><b>Médecin prescripteur :</b> {{ $employe->full_name}}</div><br>
+<div class="ml-06 mtp33"><b>Médecin prescripteur :</b> {{ Auth::user()->employ->full_name}}</div><br>
  <div><b>Patient(e)</b> :</div>
 <div class="tab">
   <b>Nom</b> :<span> {{ $obj->patient->Nom }}</span> <b>Prenom</b> :<span> {{ $obj->patient->Prenom }}</span>

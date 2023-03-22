@@ -52,16 +52,13 @@ class VisiteController extends Controller
       $prescredconst = [];
       $date = Carbon\Carbon::now();
       $etab = Etablissement::first(); 
-      $employe = Auth::user()->employ;
-      $specialite = (! is_null($employe->specialite)) ? $specialite = $employe->Specialite : $employe->Service->Specialite;
+      $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $hosp = hospitalisation::with('patient')->FindOrFail($id_hosp);
       $lastVisite = $hosp->getlastVisiteWitCstPresc();
       $obj = $hosp->visites()->create([
-         'date'=>$date,
-        'heure'=>$date->format("H:i"),
-        'pid'=>$hosp->patient->id,
-        'date'=>$date,
-        'id_employe'=>$employe->id
+        'date'=>$date,'heure'=>$date->format("H:i"),
+        'pid'=>$hosp->patient->id,'date'=>$date,
+        'id_employe'=>Auth::user()->employ->id
        ]); 
       $specialitesProd = specialite_produit::all();//trait
       $infossupp = infosupppertinentes::all();
@@ -69,7 +66,7 @@ class VisiteController extends Controller
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
       $consts = consts::all();//'patient',
-      return view('visite.add',compact('consts', 'obj' , 'employe','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));//->with('id',$visite->id);
+      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));//->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -92,7 +89,7 @@ class VisiteController extends Controller
               'Explecations'  =>$request->explication,  
         ]);
         if(isset($request->infos))
-            $dr->infossuppdemande()->attach($request->infos);
+          $dr->infossuppdemande()->attach($request->infos);
        foreach (json_decode ($request->ExamsImg) as $key => $id)
         {
           $dr->examensradios()->create([
@@ -112,15 +109,16 @@ class VisiteController extends Controller
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
-    {//$actes$visite->actes()->active()->get()->toJson(); 
+    {
       $ngaps='';  $specs='';
       $visite = visite::find($id);
       $codesNgap = NGAP::all();
       $specialitesProd = specialite_produit::all();
+      $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $ngaps = format_string($codesNgap,'code','code');
       $specs = format_string($specialitesProd,'id','nom');
       $ngaps=  addslashes($ngaps);
-      return view('visite.edit5',compact('visite','ngaps','specs'));  
+      return view('visite.edit5',compact('visite','specialite','ngaps','specs'));  
     }
     public function destroy($id)
     {

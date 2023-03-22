@@ -31,10 +31,10 @@ use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
+use App\modeles\CIM\maladie;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
 use App\modeles\Allergie;
-use App\modeles\CIM\maladie;
 use Carbon\Carbon;
 use Validator;
 use Response;
@@ -80,16 +80,16 @@ class ConsultationsController extends Controller
      */
       public function create(Request $request, $pid)
       {
-        $date = Carbon::now(); $etab = Etablissement::first();$employe = Auth::user()->employ; 
-        if(isset($employe->specialite))
-          $specialite = $employe->Specialite;
-        else
-          $specialite = $employe->Service->Specialite;
+        $date = Carbon::now();
+        $etab = Etablissement::first();
+        $employe = Auth::user()->employ; 
+        $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
         $patient = patient::FindOrFail($pid);
-        $chapitres = chapitre::all();$services = service::all();$apareils = appareil::all();
+        $chapitres = chapitre::all();$services = service::all();
+        $apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $obj = $patient->Consultations()->create([
@@ -98,8 +98,7 @@ class ConsultationsController extends Controller
           'id_lieu'=>$etab->id,
         ]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
-        // 'patient',
-        return view('consultations.createObj',compact('obj','employe','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
+        return view('consultations.createObj',compact('obj','etab','chapitres','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
       }
     /**
      * Store a newly created resource in storage.

@@ -32,13 +32,12 @@ class paramController extends Controller
         $specialite  = specialite::FindOrFail($specialite_id);
         $consConsts = json_decode($specialite->consConst, true);
         $hospConsts = json_decode($specialite->hospConst, true);
-        $specExamsBio = json_decode($specialite->exmsbio, true);
         $specExamsImg = json_decode($specialite->exmsImg, true);
         $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
         $specappreils = json_decode($specialite->appareils, true);
         $modesHosp = ModeHospitalisation::all(); 
-        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsBio','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
+        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
         break;
       case 4:
       case 8://dir
@@ -57,8 +56,7 @@ class paramController extends Controller
       }else
          $param->update(['value'=>null ]); 
     }
-    switch (Auth::user()->role_id) {/*case 4://admincase 8://direc foreach (Auth::user()->role->Parameters as $key => $param) {
-if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update(['value'=>$request->$nomv ]); }}break; */
+    switch (Auth::user()->role_id) {
       case 13://med chef
       case 14://chef de service
         $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
@@ -66,7 +64,7 @@ if(in_array($param->nom, $request->keys())){$nomv = $param->nom;$param->update([
         $input = $request->all();
         $input['consConst'] = $request->consConsts;
         $input['hospConst'] = $request->hospConsts;
-        $input['exmsbio'] = $request->exmsbio;
+        $specialite->BioExams()->sync($request->exmsbio);
         $input['exmsImg'] = $request->exmsImg;
         $input['antecTypes'] = $request->antecTypes;
         $input['vaccins'] = $request->vaccs;

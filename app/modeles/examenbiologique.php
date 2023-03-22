@@ -15,4 +15,8 @@ class examenbiologique extends Model
   {
     return $this->belongsToMany('App\modeles\demandeexb','demande_examenbio', 'exam_id', 'demande_id');
   }
+  public function SpecialiteMed()
+  {
+    return $this->hasMany('App\modeles\examenbiologique','examenbio_specialite','examen_id','spec_id');
+  }
 }
