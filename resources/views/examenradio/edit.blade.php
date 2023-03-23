@@ -6,7 +6,7 @@
     $('body').on('click', '.exam-Delete', function (e) {  
       event.preventDefault();
       var exam_id = $(this).val(); 
-      url='{{ route("examRad.destroy",":slug") }}';
+      url='{{ route("exmRad.destroy",":slug") }}';
       url = url.replace(':slug',exam_id);
       $.ajax({
         type: "GET",

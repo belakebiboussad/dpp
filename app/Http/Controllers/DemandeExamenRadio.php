@@ -190,13 +190,20 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function edit($id) {
+      public function edit(Request $request,$id) 
+      {
         $demande = demandeexr::FindOrFail($id);
-        $infossupp = infosupppertinentes::all();
-        $examens = TypeExam::all();//CT,RMN
-        $examensradio = examenradiologique::all();//pied,poignet
-        $specialite = Specialite::findOrFail((Auth::user()->employ)->specialite);
-        return view('examenradio.edit', compact('demande','infossupp','examensradio','examens','specialite')); 
+        if($request->ajax())    
+        {
+          return $demande->examensradios->load('Examen','Type');
+        }else
+        {
+          $infossupp = infosupppertinentes::all();
+          $examens = TypeExam::all();//CT,RMN
+          $examensradio = examenradiologique::all();//pied,poignet
+          $specialite = Specialite::findOrFail((Auth::user()->employ)->specialite);
+          return view('examenradio.edit', compact('demande','infossupp','examensradio','examens','specialite')); 
+        }
       }
     /**
      * Update the specified resource in storage.
@@ -213,7 +220,7 @@ class DemandeExamenRadio extends Controller
      */
     public function destroy(Request $request,$id){
       $demande = demandeexr::destroy($id);    
-      return $demande;
+      return $id;
     }
     public function delResult(Request $request)
     {
@@ -225,11 +232,16 @@ class DemandeExamenRadio extends Controller
       $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
       return $ex;
     }
-    public function examDestroy($id)
+    public function exmDestroy($id)
     {
-      $ex = Demande_Examenradio::FindOrFail($id);
+      $ex = Demande_Examenradio::with('Demande')->FindOrFail($id);
       $ex->delete();
+      //si le ernier examen je suprimer la demande
+      //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
       return $ex;
+    }
+    public function exmStore(Request $request)
+    {
     }
     public function print($id)
     {

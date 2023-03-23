@@ -41,7 +41,6 @@ class TraitementController extends Controller
         'nbrPJ'=>$request->nbrPJ,
       ]);
       return $trait->load('medicament','visite.medecin');
-      // return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
     }
     public function destroy($id)
     {

@@ -31,10 +31,8 @@
       @endforeach 
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> 
-        @if($specialite->exmsImg !== "null")
+        @if($specialite->ImgExams->count()>0)
           @include('ExamenCompl.ExamenRadio')
-        @else
-          Non configurer
         @endif
       </div>
 	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>
@@ -42,8 +40,6 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-{{-- @if(isset($id))<button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
-       	@else @endif --}}
         <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $obj->id }}" data-field="consultation_id" disabled>
        
           <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>

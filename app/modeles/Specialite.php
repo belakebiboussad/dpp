@@ -7,7 +7,7 @@ class Specialite extends Model
 {
   public $timestamps = false;
   // 'exmsbio',
-	protected $fillable = ['nom','type','consConst','hospConst','exmsImg','antecTypes','vaccins','appareils','nbMax','dhValid'];
+	protected $fillable = ['nom','type','consConst','hospConst','antecTypes','vaccins','appareils','nbMax','dhValid'];
   public function setConsConstAttribute($value)
   {
     $this->attributes['consConst'] = json_encode($value);
@@ -16,15 +16,17 @@ class Specialite extends Model
   {
     $this->attributes['hospConst'] = json_encode($value);
   }
-/*public function setExmsbioAttribute($value){$this->attributes['exmsbio'] = json_encode($value); }*/
   public function BioExams()
   {
-return $this->belongsToMany('App\modeles\examenbiologique','examenbio_specialite','spec_id','examen_id');
+    return $this->belongsToMany('App\modeles\examenbiologique','examenbio_specialite','spec_id','examen_id');
   }
-  public function setExmsImgAttribute($value)
+  public function ImgExams()
   {
-   	$this->attributes['exmsImg'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\TypeExam','examenimg_specialite','spec_id','examen_id');
   }
+/*public function setExmsImgAttribute($value){$this->attributes['exmsImg'] = json_encode($value);
+  }*/
+
  public function setAntecTypesAttribute($value)
  {
          $this->attributes['antecTypes'] = json_encode($value);

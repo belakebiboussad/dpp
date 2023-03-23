@@ -2,13 +2,14 @@
 $('document').ready(function(){
   jQuery('body').on('click', '.delete-demandeRad', function (e) {
       event.preventDefault();
-      var demande_id = $(this).val();
+       var url = '{{ route("demandeexr.destroy", ":slug") }}'; 
+      url = url.replace(':slug', $(this).val());
       $.ajax({
           type: "DELETE",
-          url: '/demandeexr/' + demande_id,
+          url: url,
           data: { _token: CSRF_TOKEN } ,
           success: function (data) {
-            $("#demandeRad" + demande_id).remove();
+            $("#demandeRad" + data).remove();
           }
       });
   });

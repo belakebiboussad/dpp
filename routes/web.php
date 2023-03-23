@@ -105,12 +105,11 @@ route::get('/getpatient','PatientController@getpatient');//
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-Route::post('/exmbio/store/{id}','ExamenbioController@store');//averif
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
-route::get('/getmed/{id}','MedicamentsController@getmed');//route::get('/setting/{id}', 'UsersController@setting');
+route::get('/getmed/{id}','MedicamentsController@getmed');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
@@ -142,7 +141,8 @@ route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-res', 'DemandeExamenRadio@upload');
 Route::post('delete-res', 'DemandeExamenRadio@delResult');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
-route::get('/examRadioDel/{id}', 'DemandeExamenRadio@examDestroy')->name('examRad.destroy');
+route::post('exmRad', 'DemandeExamenRadio@exmStore')->name('exmRad.store');
+route::get('/exmRad/{id}', 'DemandeExamenRadio@exmDestroy')->name('exmRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');

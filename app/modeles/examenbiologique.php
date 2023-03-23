@@ -17,6 +17,6 @@ class examenbiologique extends Model
   }
   public function SpecialiteMed()
   {
-    return $this->hasMany('App\modeles\examenbiologique','examenbio_specialite','examen_id','spec_id');
+    return $this->hasMany('App\modeles\Specialite','examenbio_specialite','examen_id','spec_id');
   }
 }

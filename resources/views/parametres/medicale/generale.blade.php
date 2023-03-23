@@ -5,11 +5,7 @@
 <div class="row">
   @foreach($examensImg as $exImg)
     <div class="col-xs-2">
-      @if(isset($specExamsImg))
-      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specExamsImg))? 'checked' : '' }}/>
-      @else
-      <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}"/>
-      @endif   
+    <input name="exmsImg[]" type="checkbox" class="ace" value="{{ $exImg->id}}" {{ (in_array($exImg->id, $specialite->ImgExams()->pluck('id')->toArray()))? 'checked' : '' }}/>
       <span class="lbl">{{ $exImg->nom }} </span>
     </div>
   @endforeach

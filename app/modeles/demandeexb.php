@@ -21,7 +21,7 @@ class demandeexb extends Model
   }
   public function examensbios()
   { 
-    return $this->belongsToMany('App\modeles\examenbiologique','demande_examenbio','demande_id','exam_id');
+return $this->belongsToMany('App\modeles\examenbiologique','demande_examenbio','demande_id','exam_id');
   }
   public function imageable()
   {

@@ -43,7 +43,7 @@ class hospitalisation extends Model
     }
     public function visites()
     {
-      return$this->hasMany('App\modeles\visite','id_hosp');//->orderBy('date','DESC')->orderBy('heure','DESC')
+      return$this->hasMany('App\modeles\visite','id_hosp')->orderBy('date', 'DESC')->orderBy('heure','DESC');
     }
     public function garde()
     {

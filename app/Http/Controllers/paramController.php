@@ -31,8 +31,7 @@ class paramController extends Controller
         $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
         $specialite  = specialite::FindOrFail($specialite_id);
         $consConsts = json_decode($specialite->consConst, true);
-        $hospConsts = json_decode($specialite->hospConst, true);
-        $specExamsImg = json_decode($specialite->exmsImg, true);
+        $hospConsts = json_decode($specialite->hospConst, true); 
         $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
         $specappreils = json_decode($specialite->appareils, true);
@@ -42,7 +41,7 @@ class paramController extends Controller
       case 4:
       case 8://dir
         $parametres = Auth::user()->role->Parameters;
-        return view('parametres.administratif.index');//,compact('parametres')
+        return view('parametres.administratif.index');
         break;
     }
   }   
@@ -65,7 +64,7 @@ class paramController extends Controller
         $input['consConst'] = $request->consConsts;
         $input['hospConst'] = $request->hospConsts;
         $specialite->BioExams()->sync($request->exmsbio);
-        $input['exmsImg'] = $request->exmsImg;
+        $specialite->ImgExams()->sync($request->exmsImg);
         $input['antecTypes'] = $request->antecTypes;
         $input['vaccins'] = $request->vaccs;
         $input['appareils'] = $request->appareils;

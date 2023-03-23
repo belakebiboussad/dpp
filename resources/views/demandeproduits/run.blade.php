@@ -68,8 +68,7 @@ $('document').ready(function(){
 			<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
-				  @include("demandeproduits.partials._show")  
-          <div class="space-12"></div>
+				  @include("demandeproduits.partials._show") <div class="space-12"></div> 
 					<div class="row">
 						<div class="col-xs-12">
 							<table id="cmd" class="table table-striped table-bordered">

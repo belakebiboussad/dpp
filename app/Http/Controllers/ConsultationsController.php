@@ -193,9 +193,9 @@ class ConsultationsController extends Controller
       { 
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
-                  $specialite = Auth::user()->employ->Specialite;
+          $specialite = Auth::user()->employ->Specialite;
          else
-                 $specialite = Auth::user()->employ->Service->Specialite;
+          $specialite = Auth::user()->employ->Service->Specialite;
          return view('consultations.show', compact('consultation','specialite','specialites'));
       }
       public function destroy(Request $request, $id)

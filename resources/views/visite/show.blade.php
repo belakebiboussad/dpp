@@ -4,22 +4,13 @@
 	<div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
 <div class="row">
   <div class="col-sm-12"><h4>Détails de la visite</h4>
-    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
-	  	 </div>
-  </div>
-	</div>	
-	<div class="row">
-		<div class="form-group">		
-			<span class="col-sm-1 control-label no-padding-right" for="service">Date</span>
-			<div class="col-sm-8 col-xs-8">
-				 <label class="blue">{{ $visite->date_formated }}</label>
-			</div>
-		</div>
+    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
 	</div>
-	<div class="row">
-		<div class="col-sm-1 no-padding-right"><span>Médecin</span></div>
-		<div class="form-group col-sm-6"><span class="blue">{{ $visite->medecin->full_name }}</span></div>
 	</div>
+   <div class="row">
+    <div class="col-xs-12">@include('visite.partials._show')</div>  
+  </div>	
+
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist">
 	        @if($visite->actes->count() > 0)

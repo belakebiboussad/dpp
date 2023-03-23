@@ -32,27 +32,10 @@ class ExamenbioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$consultID){
-      // if(!is_null($request->AutreBiol))  //save examen biologique autre 
-      // {
-      //   $tags = explode(",", $request->AutreBiol);
-      //   foreach($tags as $k=>$v){    
-      //     examenbiologique::create([
-      //               "id_consultation"=>$consultID,
-      //               "classe"=>"Autre",
-      //               "nom"=>$v
-      //           ]);
-      //   }
-      // }
-      // if($request->exambio != null)
-      // {
-      //   foreach($request->exambio as $k=>$v){  
-      //     foreach($v as $value)
-      //     {
-      //       examenbiologique::create(["id_consultation"=>$consultID,"classe"=>$k,"nom"=>$value]);
-      //     }
-      //   }
-      // }
+    public function store(Request $request){
+      $demande = demandeexb::find($request->id_demande);
+      $examBio = $demande->examensbios()->syncWithoutDetaching($request->nom);
+      return $demande->examensbios->load('Specialite','Demande.imageable');
     }
      /**
      * Display the specified resource.

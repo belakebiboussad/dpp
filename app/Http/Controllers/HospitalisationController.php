@@ -106,19 +106,17 @@ class HospitalisationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-    public function store(Request $request)
-    { 
-    }
+    public function store(Request $request) {   }
   /**
    * Display the specified resource.
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)//
+  public function show($id)
   {
-    $hosp = hospitalisation::find($id);$employ= Auth::user()->employ;
-    $specialite=(is_null($employ->specialite))? $employ->Service->Specialite : $employ->Specialite;
+    $hosp = hospitalisation::find($id);
+    $specialite=(is_null(Auth::user()->employ->specialite))? Auth::user()->employ->Service->Specialite : Auth::user()->employ->Specialite;
     $consts = consts::all();  
     return view('hospitalisations.show',compact('hosp','consts','specialite'));
   }

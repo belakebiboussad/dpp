@@ -1,152 +1,552 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-  <div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
+  <div class="page-header">@include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
+  <div class="row">
+  <div class="col-sm-12"><h4>Modifier la visite</h4>
+  <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">@include('visite.partials._show')</div>  
+  </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" id="gbox_grid-table" dir="ltr" style="width: 1163px;">
-        <div class="jqgrid-overlay ui-widget-overlay" id="lui_grid-table" style="display: none;"></div>
-        <div class="loading ui-state-default ui-state-active" id="load_grid-table" style="display: none;">Saving...
-        </div>
-        <div class="ui-jqgrid-view " role="grid" id="gview_grid-table" style="width: 1163px;">
-          <div class="ui-jqgrid-titlebar ui-jqgrid-caption ui-widget-header ui-corner-top ui-helper-clearfix">
-            <a role="link" class="ui-jqgrid-titlebar-close HeaderButton ui-corner-all" title="Toggle Expand Collapse Grid" style="right: 0px;"><span class="ui-jqgrid-headlink ui-icon ui-icon-circle-triangle-n"></span>
-            </a><span class="ui-jqgrid-title">jqGrid with inline editing</span>
-        </div>
-        <div class="ui-jqgrid-hdiv ui-state-default" style="width: 1163px;">
-          <div class="ui-jqgrid-hbox">
-            <table class="ui-jqgrid-htable ui-common-table " style="width: 1145px;" role="presentation" aria-labelledby="gbox_grid-table">
-            <thead>
-              <tr class="ui-jqgrid-labels" role="row">
-                <th id="grid-table_cb" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 35px;">
-                  <div id="jqgh_grid-table_cb">
-                    <input role="checkbox" id="cb_grid-table" class="cbox" type="checkbox">
-                    <span class="s-ico" style="display:none">
-                      <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n">
-                      </span>
-                      <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s">
-                      </span>
-                    </span>
-                  </div>
-                </th>
-                <th id="grid-table_id" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 99px;">
-                <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                <div id="jqgh_grid-table_id" class="ui-jqgrid-sortable">ID
-                  <span class="s-ico" style="display:none">
-                    <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                    <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
-                  </span>
-                </div>
-              </th>
-              <th id="grid-table_sdate" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 148px;">
-                <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                <div id="jqgh_grid-table_sdate" class="ui-jqgrid-sortable">Last Sales
-                  <span class="s-ico" style="display:none">
-                    <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                    <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
-                  </span>
-                </div>
-              </th>
-              <th id="grid-table_name" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 247px;">
-                <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                <div id="jqgh_grid-table_name" class="ui-jqgrid-sortable">Name
-                  <span class="s-ico" style="display:none">
-                    <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                    <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
-                  </span>
-                </div>
-              </th>
-              <th id="grid-table_stock" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 115px;">
-                <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                <div id="jqgh_grid-table_stock" class="ui-jqgrid-sortable">Stock
-                  <span class="s-ico" style="display:none">
-                    <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                   <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
-                  </span>
-                </div>
-              </th>
-              <th id="grid-table_ship" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 148px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid-table_ship" class="ui-jqgrid-sortable">Ship via<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span></span></div></th>
-              <th id="grid-table_note" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 248px;">
-                <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                <div id="jqgh_grid-table_note" class="ui-jqgrid-sortable">Notes<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span></span>
-                </div>
-              </th>
-                 <th id="grid-table_subgrid" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 25px;">
-                  <div id="jqgh_grid-table_subgrid">
-                    <span class="s-ico" style="display:none">
-                      <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                      <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s">
-                      </span>
-                    </span>
-                  </div>
-                </th>
-                <th id="grid-table_myac" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 80px;">
-                  <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                  <div id="jqgh_grid-table_myac" class="ui-jqgrid-sortable">
-                   <span class="s-ico" style="display:none">
-                    <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
-                    <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
-                  </span>
-                </div>
-              </th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-    </div>
-    <div class="ui-jqgrid-bdiv" style="height: 250px; width: 1163px;">
-      <div style="position:relative;">
-        <div></div>
-        <table id="grid-table" tabindex="0" role="presentation" aria-multiselectable="true" aria-labelledby="gbox_grid-table" class="ui-jqgrid-btable ui-common-table" style="width: 1145px;">
-          <tbody>
-            <tr class="jqgfirstrow" role="row">
-              <td role="gridcell" style="height:0px;width:35px;"></td>
-              <td role="gridcell" style="height:0px;width:25px;"></td>
-              <td role="gridcell" style="height:0px;width:80px;"></td>
-              <td role="gridcell" style="height: 0px; width: 99px;"></td>
-              <td role="gridcell" style="height: 0px; width: 148px;"></td>
-              <td role="gridcell" style="height: 0px; width: 247px;"></td>
-              <td role="gridcell" style="height: 0px; width: 115px;"></td>
-              <td role="gridcell" style="height: 0px; width: 148px;"></td>
-              <td role="gridcell" style="height: 0px; width: 248px;"></td>
-            </tr>
-            <tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr ui-widget-content">
-              <td role="gridcell" style="text-align:center;width: 35px;" aria-describedby="grid-table_cb"><input role="checkbox" type="checkbox" id="jqg_grid-table_1" class="cbox cbox" name="jqg_grid-table_1">
-              </td>
-              <td role="gridcell" aria-describedby="grid-table_subgrid" class="ui-sgcollapsed sgcollapsed" style="">
-                <a style="cursor:pointer;" class="ui-sghref"><span class="ui-icon ace-icon fa fa-plus center bigger-110 blue"></span></a>
-              </td>
-              <td role="gridcell" style="" title="" aria-describedby="grid-table_myac">
-                <div style="margin-left:8px;">
-                  <div title="" style="float:left;cursor:pointer;" class="ui-pg-div ui-inline-edit" id="jEditButton_1" onclick="jQuery.fn.fmatter.rowactions.call(this,'edit');" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover');" data-original-title="Edit selected row">
-                    <span class="ui-icon ui-icon-pencil"></span>
-                  </div>
-                  <div title="" style="float:left;" class="ui-pg-div ui-inline-del" id="jDeleteButton_1" onclick="jQuery.fn.fmatter.rowactions.call(this,'del');" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover');" data-original-title="Delete selected row">
-                    <span class="ui-icon ui-icon-trash"></span>
-                  </div>
-                  <div title="" style="float:left;display:none" class="ui-pg-div ui-inline-save" id="jSaveButton_1" onclick="jQuery.fn.fmatter.rowactions.call(this,'save');" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover');" data-original-title="Save row">
-                    <span class="ui-icon ui-icon-disk"></span>
-                  </div>
-                  <div title="" style="float:left;display:none;" class="ui-pg-div ui-inline-cancel" id="jCancelButton_1" onclick="jQuery.fn.fmatter.rowactions.call(this,'cancel');" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover');" data-original-title="Cancel row editing">
-                    <span class="ui-icon ui-icon-cancel"></span>
-                  </div>
-                </div>
-              </td>
-              <td role="gridcell" style="" title="1" aria-describedby="grid-table_id">1</td>
-              <td role="gridcell" style="" title="2007-12-03" aria-describedby="grid-table_sdate">2007-12-03</td>
-              <td role="gridcell" style="" title="Desktop Computer" aria-describedby="grid-table_name">Desktop Computer</td>
-              <td role="gridcell" style="" title="Yes" aria-describedby="grid-table_stock">Yes</td>
-              <td role="gridcell" style="" title="FedEx" aria-describedby="grid-table_ship">FedEx</td>
-              <td role="gridcell" style="" title="note" aria-describedby="grid-table_note">note</td>
-            </tr>
-
-          </tbody>
-        </table>
+      <div class="panel-body">
+        <table id="actes-table" ></table> <div id="actesPager"></div>
       </div>
     </div>
   </div>
-  <div class="ui-jqgrid-resize-mark" id="rs_mgrid-table">&nbsp;</div><div id="grid-pager" class="ui-jqgrid-pager ui-state-default ui-corner-bottom" dir="ltr" style="width: 1163px;"><div id="pg_grid-pager" class="ui-pager-control" role="group"><table class="ui-pg-table ui-common-table ui-pager-table "><tbody><tr><td id="grid-pager_left" align="left"><table class="ui-pg-table navtable ui-common-table"><tbody><tr><td class="ui-pg-button ui-corner-all" title="" id="add_grid-table" data-original-title="Add new row"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-plus-circle purple"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="edit_grid-table" data-original-title="Edit selected row"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-pencil blue"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="view_grid-table" data-original-title="View selected row"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-search-plus grey"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="del_grid-table" data-original-title="Delete selected row"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-trash-o red"></span></div></td><td class="ui-pg-button ui-state-disabled" style="width:4px;" data-original-title="" title=""><span class="ui-separator"></span></td><td class="ui-pg-button ui-corner-all" title="" id="search_grid-table" data-original-title="Find records"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-search orange"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="refresh_grid-table" data-original-title="Reload Grid"><div class="ui-pg-div"><span class="ui-icon ace-icon fa fa-refresh green"></span></div></td></tr></tbody></table></td><td id="grid-pager_center" align="center" style="white-space: pre; width: 335px;"><table class="ui-pg-table ui-common-table ui-paging-pager"><tbody><tr><td id="first_grid-pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="First Page"><span class="ui-icon ace-icon fa fa-angle-double-left bigger-140"></span></td><td id="prev_grid-pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="Previous Page"><span class="ui-icon ace-icon fa fa-angle-left bigger-140"></span></td><td class="ui-pg-button ui-state-disabled"><span class="ui-separator"></span></td><td id="input_grid-pager" dir="ltr">Page <input class="ui-pg-input ui-corner-all" type="text" size="2" maxlength="7" value="0" role="textbox"> of <span id="sp_1_grid-pager">3</span></td><td class="ui-pg-button ui-state-disabled"><span class="ui-separator"></span></td><td id="next_grid-pager" class="ui-pg-button ui-corner-all" title="Next Page"><span class="ui-icon ace-icon fa fa-angle-right bigger-140"></span></td><td id="last_grid-pager" class="ui-pg-button ui-corner-all" title="Last Page"><span class="ui-icon ace-icon fa fa-angle-double-right bigger-140"></span></td><td dir="ltr"><select class="ui-pg-selbox ui-widget-content ui-corner-all" role="listbox" title="Records per Page"><option role="option" value="10" selected="selected">10</option><option role="option" value="20">20</option><option role="option" value="30">30</option></select></td></tr></tbody></table></td><td id="grid-pager_right" align="right"><div dir="ltr" style="text-align:right" class="ui-paging-info">View 1 - 10 of 23</div></td></tr></tbody></table></div></div></div>
+   <div class="row">
+    <div class="col-xs-12">
+      <div class="panel-body">
+        <table id="traits-table"></table><div id="traitPager"></div>
+      </div>
     </div>
   </div>
+  <div class="row" {{ (isset($visite->demandeexmbio)&&($visite->demandeexmbio->etat=='En Cours')  )?'':'hidden' }}>
+    <div class="col-xs-12">
+      <div class="panel-body">
+        <table id="demandeBio-table"></table><div id="BiologPager"></div>
+      </div>
+    </div>  
+  </div>
+   <div class="row" {{ (isset($visite->demandExmImg)&&($visite->demandExmImg->etat=='En Cours')  )?'':'hidden' }}>
+    <div class="col-xs-12">
+      <div class="panel-body"><table id="demandeImg-table"></table><div id="ImgPager"></div>
+      </div>
+    </div>  
+  </div>
+  <div class="hr hr-dotted"></div>
+  <div class="row">
+    <div class="center">
+      <a href="{{ URL::previous() }}" class="btn btn-info btn-sm"<i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</a>  
+      </div>
+    </div>
 </div>
+@endsection
+@section('page-script')
+@include('visite.scripts.scripts')
+<script type="text/javascript"> 
+  function commonError(data) {
+    return "Error Occured during Operation. Please try again";
+  }
+  function updatActe(params) {
+    url = '{{ route("acte.update", ":slug") }}'; 
+    url = url.replace(':slug', params.id);
+    params['_token'] =CSRF_TOKEN;
+    params['editurl'] =url;
+    $.ajax({
+        type:"PUT",
+        url:url,
+        data: params,
+        dataType:'json',
+        success: function (data) {} 
+    })
+  }
+  function addActe(params)
+  {
+    url = '{{ route("acte.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['id_visite'] ='{{ $visite->id}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {}
+    })
+  }
+  function deleteActe(id) 
+  {
+    var url = '{{ route("acte.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
+    $.ajax({
+      type:"DELETE",
+      url:url,
+      data: { _token: CSRF_TOKEN },
+      dataType:'json',
+      success: function (data) { }
+    }) 
+  }
+  function getMedicaments(rowid, value, name)
+  {
+    var IdCell = $('#traits-table').getRowData(rowid);
+    var spec_id =  (isEmpty(IdCell.spec_id)) ? 1 : IdCell.spec_id;
+    return '/getproduits/1/'+ spec_id;
+  }
+  function UpdateTrait(params)
+  {
+    url = '{{ route("traitement.update", ":slug") }}'; 
+    url = url.replace(':slug', params.id);
+    params['_token'] =CSRF_TOKEN;
+    params['editurl'] =url;
+    params['visite_id'] = '{{ $visite->id }}';
+    $.ajax({
+        type:"PUT",
+        url:url,
+        data: params,
+        dataType:'json',
+        success: function (data) {} 
+    })
+  }
+  function addTrait(params)
+  {
+    url = '{{ route("traitement.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['id_visite'] ='{{ $visite->id}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {}
+    })
+  }
+  function deleteTrait(id) 
+  {
+    var url = '{{ route("traitement.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
+   $.ajax({
+      type:"DELETE",
+      url:url,
+      data: { _token: CSRF_TOKEN },
+      dataType:'json',
+      success: function (data) { }
+    }) 
+  }
+  function examDelete(id) 
+  {
+    var formData = {
+      _token: CSRF_TOKEN,
+      demande_id : '{!! $visite->demandeexmbio['id'] !!}',
+    };
+    var url = '{{ route("exmbio.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
+    $.ajax({
+      type:"DELETE",
+      url:url,
+      data: formData,
+      dataType:'json',
+      success: function (data) { }
+    }) 
+  }
+  function addExamB(params)
+  {
+    url = '{{ route("exmbio.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['id_demande'] ='{{ $visite->demandeexmbio['id']}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {}
+    })
+  }
+  function addExamImg(params)
+  {
+    url = '{{ route("exmRad.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+  
+    params['editurl'] =url;
+    // $.ajax({
+    //   type:"POST",
+    //   url:url,
+    //   data: params,
+    //   dataType:'json',
+    //   success: function (data) {}
+    // })
+  }
+  function examImgDelete(id)
+  {
+    var formData = {
+      _token: CSRF_TOKEN,
+    
+    };
+    url='{{ route("exmRad.destroy",":slug") }}';
+    url = url.replace(':slug',id);
+
+    $.ajax({
+      type:"DELETE",
+      url:url,
+      data: {  _token: CSRF_TOKEN } ,
+      dataType:'json',
+      success: function (data) {}
+    }) 
+  }
+$(document).ready(function(){
+  $("#actes-table").jqGrid({
+    url : '{{ route("acte.index", ["visId"=>$visite->id])}}',
+    mtype: "GET",
+    datatype: "json",
+    colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
+    colModel:[
+    { name:'id', index:'id', editable: false, width:20, hidden:true, editable: true},
+    {name:'nom',index:'nom',editable: true, width:130,editoptions: {size:67}},
+    {name:'type',index:'type', editable: true, width:60, edittype:'select',editoptions: {value: "paramedicale:paramédicale;medicale:médicale", editrules: { required: true }}},
+    {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: '{!! $ngaps !!}' , editrules: { required: false }}},
+    {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},       
+    {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text", width:17,
+      editoptions:{ size: 15, maxlengh: 10,
+        dataInit: function(element) {
+          $(element).keyup(function(){
+            var val1 = element.value;
+            var num = new Number(val1);
+            if(isNaN(num))
+              {alert("S'il vous plait, entrez un nombre valide");}
+          })
+        }
+      }
+    }],
+    width: 1146,
+    height: "auto",
+    rowNum:10,
+    loadonce: true,
+    rowList:[10,20,30],
+    multiselect: true,
+    pager: '#actesPager',
+    sortname: 'id',
+    viewrecords: true,
+    sortorder: "desc",
+    editurl : '/acte/edit',
+    caption:"Actes",
+    emptyrecords: "0 records found",
+    editable: true
+  });
+  $("#actes-table").jqGrid('navGrid','#actesPager',
+    {
+      edit:true, edittitle: "Edit Acte",
+      add:true, addtitle: "Add Acte",
+      del:true,
+      refresh: false,
+      view:true,
+      viewicon : 'ace-icon fa fa-search-plus grey',
+      addicon : 'ace-icon fa fa-plus-circle purple',
+    },
+    {
+      closeOnEscape: true, 
+      closeAfterEdit: true,//savekey: [true, 13],  
+      errorTextFormat: commonError, 
+      width: "600", 
+      reloadAfterSubmit: true, 
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      top: "60",left: "5", right: "5",
+      onclickSubmit: function (response, actedata) {
+        updatActe(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    },// options for the Add Dialog
+    {
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, actedata) {
+        addActe(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    },
+    {
+      closeOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, id) {
+        deleteActe(id);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });  //$('.ui-jqgrid-titlebar-close','#actes_table').remove();
+  $("#traits-table").jqGrid({
+      url : '{{ route("traitement.index", ["visId"=>$visite->id])}}',
+      mtype: "GET",
+      datatype: "json",
+      colNames:['ID','spec_id' ,'Spécialite','Médicament','Posologie','P/Jour','Médecin'],
+      colModel:[
+            { name:'id',index:'id',editable: false, hidden:true, editable: true},
+            { name:'spec_id',index:'spec_id',editable: false, hidden:true, editable: false,
+              formatter: function (cellvalue, options, rowObject) 
+              {
+                return rowObject.medicament.specialite.id;
+              }
+            },
+            {  name: 'specialiteProd', index: 'specialiteProd',hidden:true,editable: true,edittype:'select', editoptions: { value: '{!! $specs !!}' },
+                formatter: function (cellvalue, options, rowObject) 
+                {
+                  return rowObject.medicament.specialite.nom;
+                }, editrules : { edithidden : true }
+            },
+            { name:'med_id', index:'med_id',editable: true, edittype:'select', editoptions: {
+                  dataUrl: getMedicaments,
+                  datatype: "json",
+                  aysnc: false,
+                  defaultValue:1,
+                  buildSelect: function (data) {
+                    var response = jQuery.parseJSON(data);
+                    var s = '<select>';
+                    $.each(response, function () {
+                     s += '<option value="' + this.id + '">' + this.nom + '</option>';
+                    });
+                    return s + '</select>' ;
+                  }
+              },
+              formatter: function (cellvalue, options, rowObject) 
+              {
+                return rowObject.medicament.nom;
+              }
+            },
+            { name:'posologie', index:'posologie', width:100, editable: true, editoptions: {size:50} },
+            { name:'nbrPJ', index:'nbrPJ', editable: true, width:17,
+              editoptions:{ size: 15, maxlengh: 10,
+                dataInit: function(element) {
+                  $(element).keyup(function(){
+                    var val1 = element.value;
+                    var num = new Number(val1);
+                    if(isNaN(num))
+                      {alert("S'il vous plait, entrez un nombre valide");}
+                  })
+                }
+              }
+            },
+            { name: 'medecin', index: 'medecin',width:60,
+            formatter: function (cellvalue, options, rowObject) 
+            {
+              return rowObject.visite.medecin.full_name;
+            }
+      }],
+      width: 1146,
+      height: "auto",
+      rowNum:10,
+      loadonce: true,
+      rowList:[10,20,30],
+      multiselect: true,
+      pager: '#traitPager',
+      sortname: 'id',
+      viewrecords: true,
+      sortorder: "desc",
+      editurl : '/trait/edit',
+      caption:"Traitements",
+      emptyrecords: "0 records found",
+      editable: true
+    });
+    $("#traits-table").jqGrid('navGrid','#traitPager',
+    {
+      edit:true, edittitle: "Edit traitement",
+      add:true, addtitle: "Add traitement",
+      del:true,
+      refresh: false,
+      view:true,
+      viewicon : 'ace-icon fa fa-search-plus grey',
+      addicon : 'ace-icon fa fa-plus-circle purple',
+    },
+    {
+      closeOnEscape: true, 
+      closeAfterEdit: true, 
+      savekey: [true, 13], 
+      errorTextFormat: commonError, 
+      width: "600", 
+      reloadAfterSubmit: true, 
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      top: "60",left: "5", right: "5",
+      onclickSubmit: function (response, actedata) {
+         UpdateTrait(actedata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    },
+    {
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, traitdata) {
+        addTrait(traitdata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      },
+      beforeShowForm: function() {
+        $("#specialiteProd").val('1');
+      }
+    },
+    {
+      closeOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, id) {
+        deleteTrait(id);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });
+    $("#traits-table").jqGrid('navGrid','#traitPager',
+    {
+      edit:true, edittitle: "Edit Acte",
+      add:true, addtitle: "Add Acte",
+      del:true, refresh: false, view:true,
+      viewicon : 'ace-icon fa fa-search-plus grey',
+      addicon : 'ace-icon fa fa-plus-circle purple',
+    });
+    if(!isEmpty('{{ $visite->demandeexmbio }}'))
+    {
+      var url = '{{ route("demandeexb.edit", ":slug") }}'; 
+      url = url.replace(':slug', '{!!$visite->demandeexmbio['id']!!}');
+      $("#demandeBio-table").jqGrid(
+      {
+        url :url ,
+        mtype: "GET",
+        datatype: "json",
+        colNames:['ID','Nom','Specialite'],
+        colModel:[
+        { name:'id',index:'id',editable: false, hidden:true, editable: true},
+        { name:'nom', index:'nom', editable: true, edittype:'select',
+          editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}'}
+        },
+        {
+          name: 'spec', index: 'spec', editable: false,edittype:'select', 
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.specialite.nom;
+          }, editrules : { edithidden : true }
+        }],
+        width: 1146,
+        height: "auto",
+        rowNum:10,
+        loadonce: true,
+        rowList:[10,20,30],
+        multiselect: true,
+        pager: '#BiologPager',
+        sortname: 'nom',
+        viewrecords: true,
+        sortorder: "desc",
+        editurl : '/demandeb/edit',
+        caption:"Demande examens biologiques",
+        emptyrecords: "0 enregistrements trouvés",
+      });
+      $("#demandeBio-table").jqGrid('navGrid','#BiologPager',
+      {
+        edit:false,
+        add:true, addtitle: "Ajouter un examen",
+        addicon : 'ace-icon fa fa-plus-circle purple',
+        view:false,search:false,
+      },{},{
+        width: "600", 
+        closeOnEscape: true, 
+        closeAfterAdd: true,
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+        onclickSubmit: function (response, biodata) {
+          addExamB(biodata);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        },
+      },
+      {
+        loseOnEscape: true, 
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        onclickSubmit: function (response, id) {
+          examDelete(id);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        }
+      });
+    }
+    if(!isEmpty('{{ $visite->demandExmImg }}'))
+    {
+      var url = '{{ route("demandeexr.edit", ":slug") }}'; 
+      url = url.replace(':slug', '{!!$visite->demandExmImg['id']!!}');
+      $("#demandeImg-table").jqGrid(
+      {
+        url :url ,
+        mtype: "GET",
+        datatype: "json",
+        colNames:['ID','Nom','Type'],
+        colModel:[
+        { name:'id',index:'id',editable: false, hidden:true, editable: true},
+        { name:'nom', index:'nom', editable: true, edittype:'select',
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.examen.nom;
+          }, editrules : { }
+        },
+        {name:'Type', index:'Type', editable: true, edittype:'select',
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.type.nom;
+          }, editrules : { }}
+       ],
+        width: 1146,
+        height: "auto",
+        rowNum:10,
+        loadonce: true,
+        rowList:[10,20,30],
+        multiselect: true,
+        pager: '#ImgPager',
+        sortname: 'nom',
+        viewrecords: true,
+        sortorder: "desc",
+        editurl : '/demandeexr/edit',
+        caption:"Demande examens d'imagerie",
+        emptyrecords: "0 enregistrements trouvés",
+      });
+      $("#demandeImg-table").jqGrid('navGrid','#ImgPager',
+      {
+        edit:false,
+        add:true, addtitle: "Ajouter un examen",
+        addicon : 'ace-icon fa fa-plus-circle purple',
+        view:false,search:false,
+      },{},{
+        width: "600", 
+        closeOnEscape: true, 
+        closeAfterAdd: true,
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+        onclickSubmit: function (response, imgdata) {
+          addExamImg(imgdata);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        },
+      },
+      {
+        loseOnEscape: true, 
+        recreateForm: true,
+        reloadAfterSubmit: true,
+        errorTextFormat: commonError,
+        onclickSubmit: function (response, id) {
+          examImgDelete(id);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        }
+      });
+      
+    }
+});
+ </script>
 @endsection

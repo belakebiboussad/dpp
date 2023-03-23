@@ -116,9 +116,8 @@ class VisiteController extends Controller
       $specialitesProd = specialite_produit::all();
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $ngaps = format_string($codesNgap,'code','code');
-      $specs = format_string($specialitesProd,'id','nom');
-      $ngaps=  addslashes($ngaps);
-      return view('visite.edit5',compact('visite','specialite','ngaps','specs'));  
+      $specs = format_string($specialitesProd,'id','nom'); $ngaps=  addslashes($ngaps);
+      return view('visite.edit',compact('visite','specialite','ngaps','specs'));  
     }
     public function destroy($id)
     {

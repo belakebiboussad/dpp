@@ -14,7 +14,6 @@ use App\modeles\service;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use DB;
 use ToUtf;
 use Response;
 //use View;
@@ -104,19 +103,9 @@ class DemandeExbController extends Controller
     {
       $demande = demandeexb::FindOrFail($id);
       if($request->ajax())
-      {
-        // $exams = DB::table('demande_examenbio') 
-        //         ->join('examenbiologiques', 'demande_examenbio.exam_id','examenbiologiques.id')
-        //           ->join('demandeexb', 'demande_examenbio.demande_id', 'demandeexb.id')
-        //           ->join('visites', 'demandeexb.imageable_id', 'visites.id')
-        //           ->join('employs', 'visites.id_employe', 'employs.id')
-        //           ->select('demande_examenbio.*', 'examenbiologiques.*','demandeexb.etat','visites.date','employs.nom AS mednom','employs.prenom')->where('demande_id', $demande->id)->get();  
         return $demande->examensbios->load('Specialite');
-      }
       else
-      {
         return view('examenbio.edit', compact('demande'));
-      }
     }
     /**
      * Update the specified resource in storage.

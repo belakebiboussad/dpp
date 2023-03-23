@@ -15,6 +15,7 @@
 						<tr>
 							<th class ="center">Médecin</th>
 							<th class="center">Date</th>
+              <th class="center">Heure</th>
 							<th class ="center">Examens Biologique</th>
 							<th class ="center">Examens Imageries</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
@@ -25,13 +26,16 @@
 					<tr  role="row" class="even">
             <td>{{ $visite->medecin->full_name }}</td>
 						<td>{{ $visite->date_formated }}</td>
+            <td>{{ $visite->heure }}</td>
 						<td class="center">{!! format_stat($visite->demandeexmbio) !!}</td>
             <td>{!! format_stat($visite->demandExmImg) !!}</td>
 					  <td class="center">
-  <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-             @if(Auth::user()->employ->isServHead(Auth::user()->employ->service_id) || $visite->id_employe == Auth::user()->employe_id )
-<a href="{{ route('visites.edit', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit fa-xs"></i></a>
-            @endif
+              <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+              @if($visite->date->isToday())
+              @if(($loop->first) && (Auth::user()->employ->isServHead(Auth::user()->employ->service_id) || $visite->id_employe == Auth::user()->employe_id))
+              <a href="{{ route('visites.edit', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit fa-xs"></i></a>
+              @endif
+              @endif
             </td>
 					</tr>
 					@endforeach 
