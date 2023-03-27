@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\consultation;
+use App\modeles\visite;
 use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
@@ -194,9 +195,8 @@ class DemandeExamenRadio extends Controller
       {
         $demande = demandeexr::FindOrFail($id);
         if($request->ajax())    
-        {
           return $demande->examensradios->load('Examen','Type');
-        }else
+        else
         {
           $infossupp = infosupppertinentes::all();
           $examens = TypeExam::all();//CT,RMN
@@ -232,16 +232,27 @@ class DemandeExamenRadio extends Controller
       $ex ->update([   "etat" => null,  "resultat" => null ,"crr_id"=> null]);
       return $ex;
     }
-    public function exmDestroy($id)
-    {
-      $ex = Demande_Examenradio::with('Demande')->FindOrFail($id);
-      $ex->delete();
-      //si le ernier examen je suprimer la demande
-      //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
-      return $ex;
-    }
     public function exmStore(Request $request)
     {
+       if(!is_null($request->demande_id))
+        $demande = demandeexr::FindOrFail($request->demande_id);
+      else
+      {
+        $visite = visite::find($request->visit_id);
+        $demande = $visite->demandExmImg()->create();
+      }
+      $demande->examensradios()->create([
+          'exm_id' =>$request->nom,
+          'type_id' =>$request->Type
+      ]); 
+      return $demande->examensradios->load('Examen','Type');
+    }
+    public function exmDestroy($id)
+    {
+      $ex = Demande_Examenradio::FindOrFail($id);//with('Demande')->
+      $ex->delete();  //si le ernier examen je suprimer la demande
+      //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
+      return $ex;
     }
     public function print($id)
     {

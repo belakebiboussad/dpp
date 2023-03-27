@@ -24,14 +24,14 @@
       </div>
     </div>
   </div>
-  <div class="row" {{ (isset($visite->demandeexmbio)&&($visite->demandeexmbio->etat=='En Cours')  )?'':'hidden' }}>
+  <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
         <table id="demandeBio-table"></table><div id="BiologPager"></div>
       </div>
     </div>  
   </div>
-   <div class="row" {{ (isset($visite->demandExmImg)&&($visite->demandExmImg->etat=='En Cours')  )?'':'hidden' }}>
+   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body"><table id="demandeImg-table"></table><div id="ImgPager"></div>
       </div>
@@ -157,6 +157,7 @@
   {
     url = '{{ route("exmbio.store") }}'; 
     params['_token'] =CSRF_TOKEN;
+    params['visit_id'] ='{{ $visite->id}}';
     params['id_demande'] ='{{ $visite->demandeexmbio['id']}}';
     params['editurl'] =url;
     $.ajax({
@@ -164,32 +165,35 @@
       url:url,
       data: params,
       dataType:'json',
-      success: function (data) {}
+      success: function (data) {
+        if($("#demandeBio-table").getRowData().length ==0)
+         location.reload();    
+      }
     })
   }
   function addExamImg(params)
   {
     url = '{{ route("exmRad.store") }}'; 
     params['_token'] =CSRF_TOKEN;
-  
+    params['visit_id'] ='{{ $visite->id}}';
+    params['demande_id'] ='{!! $visite->demandExmImg['id']!!}';
     params['editurl'] =url;
-    // $.ajax({
-    //   type:"POST",
-    //   url:url,
-    //   data: params,
-    //   dataType:'json',
-    //   success: function (data) {}
-    // })
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {
+        if($("#demandeImg-table").getRowData().length ==0)
+         location.reload();    
+      }
+    })
   }
   function examImgDelete(id)
   {
-    var formData = {
-      _token: CSRF_TOKEN,
-    
-    };
+    var formData = { _token: CSRF_TOKEN };
     url='{{ route("exmRad.destroy",":slug") }}';
     url = url.replace(':slug',id);
-
     $.ajax({
       type:"DELETE",
       url:url,
@@ -205,12 +209,12 @@ $(document).ready(function(){
     datatype: "json",
     colNames:['ID', 'Acte','Type','NGAP','Application','P/Jour'],
     colModel:[
-    { name:'id', index:'id', editable: false, width:20, hidden:true, editable: true},
-    {name:'nom',index:'nom',editable: true, width:130,editoptions: {size:67}},
-    {name:'type',index:'type', editable: true, width:60, edittype:'select',editoptions: {value: "paramedicale:paramédicale;medicale:médicale", editrules: { required: true }}},
-    {name:'code_ngap',index:'code_ngap', editable: true, edittype:"select", width:20,edittype:'select', editoptions: {value: '{!! $ngaps !!}' , editrules: { required: false }}},
-    {name:'description',index:'description', editable: true, width:130,edittype:"textarea",editoptions:{rows:"3",cols:"67"}},       
-    {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text", width:17,
+    { name:'id', index:'id', hidden:true, editable: true},
+    {name:'nom',index:'nom',editable: true,editoptions:{size:67},editrules:{required:true}},
+    {name:'type',index:'type',editable:true,edittype:'select',editoptions: {value: "paramedicale:paramédicale;medicale:médicale"}},
+    {name:'code_ngap',index:'code_ngap',editable: true,edittype:"select",editoptions: {value: '{!! $ngaps !!}'},width:20},
+    {name:'description',index:'description', editable: true, edittype:"textarea",editoptions:{rows:"3",cols:"67"},editrules:{required:true}},       
+    {name:'nbrFJ',index:'nbrFJ',editable:true, edittype:"text",
       editoptions:{ size: 15, maxlengh: 10,
         dataInit: function(element) {
           $(element).keyup(function(){
@@ -220,7 +224,7 @@ $(document).ready(function(){
               {alert("S'il vous plait, entrez un nombre valide");}
           })
         }
-      }
+      },editrules:{required:true}
     }],
     width: 1146,
     height: "auto",
@@ -234,7 +238,7 @@ $(document).ready(function(){
     sortorder: "desc",
     editurl : '/acte/edit',
     caption:"Actes",
-    emptyrecords: "0 records found",
+    emptyrecords: "0 enregistrements trouvés",
     editable: true
   });
   $("#actes-table").jqGrid('navGrid','#actesPager',
@@ -288,8 +292,8 @@ $(document).ready(function(){
       datatype: "json",
       colNames:['ID','spec_id' ,'Spécialite','Médicament','Posologie','P/Jour','Médecin'],
       colModel:[
-            { name:'id',index:'id',editable: false, hidden:true, editable: true},
-            { name:'spec_id',index:'spec_id',editable: false, hidden:true, editable: false,
+            { name:'id',index:'id', hidden:true, editable: true},
+            { name:'spec_id',index:'spec_id',hidden:true, editable: false,
               formatter: function (cellvalue, options, rowObject) 
               {
                 return rowObject.medicament.specialite.id;
@@ -305,7 +309,6 @@ $(document).ready(function(){
                   dataUrl: getMedicaments,
                   datatype: "json",
                   aysnc: false,
-                  defaultValue:1,
                   buildSelect: function (data) {
                     var response = jQuery.parseJSON(data);
                     var s = '<select>';
@@ -314,13 +317,13 @@ $(document).ready(function(){
                     });
                     return s + '</select>' ;
                   }
-              },
+              },editrules:{required:true},
               formatter: function (cellvalue, options, rowObject) 
               {
                 return rowObject.medicament.nom;
               }
             },
-            { name:'posologie', index:'posologie', width:100, editable: true, editoptions: {size:50} },
+            { name:'posologie',index:'posologie',width:100,editable:true,editoptions: {size:50},editrules:{required:true}},
             { name:'nbrPJ', index:'nbrPJ', editable: true, width:17,
               editoptions:{ size: 15, maxlengh: 10,
                 dataInit: function(element) {
@@ -330,8 +333,7 @@ $(document).ready(function(){
                     if(isNaN(num))
                       {alert("S'il vous plait, entrez un nombre valide");}
                   })
-                }
-              }
+                }},editrules:{required:true} 
             },
             { name: 'medecin', index: 'medecin',width:60,
             formatter: function (cellvalue, options, rowObject) 
@@ -351,7 +353,7 @@ $(document).ready(function(){
       sortorder: "desc",
       editurl : '/trait/edit',
       caption:"Traitements",
-      emptyrecords: "0 records found",
+      emptyrecords: "0 enregistrements trouvés",
       editable: true
     });
     $("#traits-table").jqGrid('navGrid','#traitPager',
@@ -412,141 +414,136 @@ $(document).ready(function(){
       viewicon : 'ace-icon fa fa-search-plus grey',
       addicon : 'ace-icon fa fa-plus-circle purple',
     });
-    if(!isEmpty('{{ $visite->demandeexmbio }}'))
+    var url = '{{ route("demandeexb.edit", ":slug") }}'; 
+    url = url.replace(':slug', '{!!$visite->demandeexmbio['id']!!}');
+    $("#demandeBio-table").jqGrid(
     {
-      var url = '{{ route("demandeexb.edit", ":slug") }}'; 
-      url = url.replace(':slug', '{!!$visite->demandeexmbio['id']!!}');
-      $("#demandeBio-table").jqGrid(
-      {
-        url :url ,
-        mtype: "GET",
-        datatype: "json",
-        colNames:['ID','Nom','Specialite'],
-        colModel:[
-        { name:'id',index:'id',editable: false, hidden:true, editable: true},
-        { name:'nom', index:'nom', editable: true, edittype:'select',
-          editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}'}
-        },
-        {
-          name: 'spec', index: 'spec', editable: false,edittype:'select', 
-          formatter: function (cellvalue, options, rowObject) 
-          {
-            return rowObject.specialite.nom;
-          }, editrules : { edithidden : true }
-        }],
-        width: 1146,
-        height: "auto",
-        rowNum:10,
-        loadonce: true,
-        rowList:[10,20,30],
-        multiselect: true,
-        pager: '#BiologPager',
-        sortname: 'nom',
-        viewrecords: true,
-        sortorder: "desc",
-        editurl : '/demandeb/edit',
-        caption:"Demande examens biologiques",
-        emptyrecords: "0 enregistrements trouvés",
-      });
-      $("#demandeBio-table").jqGrid('navGrid','#BiologPager',
-      {
-        edit:false,
-        add:true, addtitle: "Ajouter un examen",
-        addicon : 'ace-icon fa fa-plus-circle purple',
-        view:false,search:false,
-      },{},{
-        width: "600", 
-        closeOnEscape: true, 
-        closeAfterAdd: true,
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
-        onclickSubmit: function (response, biodata) {
-          addExamB(biodata);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        },
+      url :url ,
+      mtype: "GET",
+      datatype: "json",
+      colNames:['ID','Nom','Specialite'],
+      colModel:[
+      { name:'id',index:'id',editable: false, hidden:true, editable: true},
+      { name:'nom', index:'nom', editable: true, edittype:'select',editrules:{required:true},
+        editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}',defaultValue:1}
       },
       {
-        loseOnEscape: true, 
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        onclickSubmit: function (response, id) {
-          examDelete(id);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        }
-      });
-    }
-    if(!isEmpty('{{ $visite->demandExmImg }}'))
+        name: 'spec', index: 'spec', editable: false,edittype:'select', 
+        formatter: function (cellvalue, options, rowObject) 
+        {
+          return rowObject.specialite.nom;
+        }, editrules : { edithidden : true }
+      }],
+      width: 1146,
+      height: "auto",
+      rowNum:10,
+      loadonce: true,
+      rowList:[10,20,30],
+      multiselect: true,
+      pager: '#BiologPager',
+      sortname: 'nom',
+      viewrecords: true,
+      sortorder: "desc",
+      editurl : '/demandeb/edit',
+      caption:"Demande examens biologiques",
+      emptyrecords: "0 enregistrements trouvés",
+    });
+    $("#demandeBio-table").jqGrid('navGrid','#BiologPager',
     {
-      var url = '{{ route("demandeexr.edit", ":slug") }}'; 
-      url = url.replace(':slug', '{!!$visite->demandExmImg['id']!!}');
-      $("#demandeImg-table").jqGrid(
-      {
-        url :url ,
-        mtype: "GET",
-        datatype: "json",
-        colNames:['ID','Nom','Type'],
-        colModel:[
+      edit:false,
+      add:true, addtitle: "Ajouter un examen",
+      addicon : 'ace-icon fa fa-plus-circle purple',
+      view:false,search:false,
+    },{},{
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, biodata) {
+        addExamB(biodata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      },
+    },
+    {
+      loseOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, id) {
+        examDelete(id);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });
+    var url = '{{ route("demandeexr.edit", ":slug") }}'; 
+    url = url.replace(':slug', '{!!$visite->demandExmImg['id']!!}');
+    $("#demandeImg-table").jqGrid(
+    {
+      url :url ,
+      mtype: "GET",
+      datatype: "json",
+      colNames:['ID','Nom','Type'],
+      colModel:[
         { name:'id',index:'id',editable: false, hidden:true, editable: true},
-        { name:'nom', index:'nom', editable: true, edittype:'select',
+        { name:'nom', index:'nom', editable: true, edittype:'select',editrules:{required:true},
+          editoptions: {value:'{!! $examensradio!!}', defaultValue:1},editrules: { required: true },
           formatter: function (cellvalue, options, rowObject) 
           {
             return rowObject.examen.nom;
-          }, editrules : { }
+          }
         },
-        {name:'Type', index:'Type', editable: true, edittype:'select',
+        {name:'Type', index:'Type', editable: true, edittype:'select',editrules: { required: true },
+          editoptions: {value:'{!!format_string($specialite->ImgExams,'id','nom')!!}',defaultValue:1},
           formatter: function (cellvalue, options, rowObject) 
           {
             return rowObject.type.nom;
-          }, editrules : { }}
-       ],
-        width: 1146,
-        height: "auto",
-        rowNum:10,
-        loadonce: true,
-        rowList:[10,20,30],
-        multiselect: true,
-        pager: '#ImgPager',
-        sortname: 'nom',
-        viewrecords: true,
-        sortorder: "desc",
-        editurl : '/demandeexr/edit',
-        caption:"Demande examens d'imagerie",
-        emptyrecords: "0 enregistrements trouvés",
-      });
-      $("#demandeImg-table").jqGrid('navGrid','#ImgPager',
-      {
-        edit:false,
-        add:true, addtitle: "Ajouter un examen",
-        addicon : 'ace-icon fa fa-plus-circle purple',
-        view:false,search:false,
-      },{},{
-        width: "600", 
-        closeOnEscape: true, 
-        closeAfterAdd: true,
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
-        onclickSubmit: function (response, imgdata) {
-          addExamImg(imgdata);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        },
+          }}
+      ],
+      width: 1146,
+      height: "auto",
+      rowNum:10,
+      loadonce: true,
+      rowList:[10,20,30],
+      multiselect: true,
+      pager: '#ImgPager',
+      sortname: 'nom',
+      viewrecords: true,
+      sortorder: "desc",
+      editurl : '/demandeexr/edit',
+      caption:"Demande examens d'imagerie",
+      emptyrecords: "0 enregistrements trouvés",
+    });
+    $("#demandeImg-table").jqGrid('navGrid','#ImgPager',
+    {
+      edit:false,
+      add:true, addtitle: "Ajouter un examen",
+      addicon : 'ace-icon fa fa-plus-circle purple',
+      view:false,search:false,
+    },{},{
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, imgdata) {
+        addExamImg(imgdata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
       },
-      {
-        loseOnEscape: true, 
-        recreateForm: true,
-        reloadAfterSubmit: true,
-        errorTextFormat: commonError,
-        onclickSubmit: function (response, id) {
-          examImgDelete(id);
-          $(this).jqGrid("setGridParam", { datatype: "json" });
-        }
-      });
-      
-    }
+    },
+    {
+      loseOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, id) {
+        examImgDelete(id);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });
 });
  </script>
 @endsection

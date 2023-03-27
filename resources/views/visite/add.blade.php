@@ -314,23 +314,23 @@
           <div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
           @if (!is_null(json_decode($specialite->hospConst, true))) 
         <div role="tabpanel" class ="tab-pane" id="constantes"> 
-          <div class="widget-main padding-6 no-padding-left">
-            <div class="form-group">
-            @foreach( json_decode($specialite->hospConst ,true) as $const)
-              <?php $const = App\modeles\Constante::FindOrFail($const) ?>
-              <div class="checkbox col-xs-3"><label>
-              @if(!is_null($lastVisite))
-                <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->constantes->pluck('id')->toArray())) checked="checked" @endif/>
-              @else
+          <div class="control-group">
+          @foreach( json_decode($specialite->hospConst ,true) as $const)
+          <?php $const = App\modeles\Constante::FindOrFail($const) ?>
+          <div class="checkbox-inline">
+            <label>
+            @if(!is_null($lastVisite))
+              <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->constantes->pluck('id')->toArray())) checked="checked" @endif/>
+                @else
                 <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
               @endif
-              <span class="lbl"> {{ $const->nom }}</span>
-              </label></div>
-            @endforeach
+              <span class="lbl">{{ $const->nom  }}</span>
+            </label>
+          </div>
+          @endforeach
           </div>
           <div class="form-group"><label>Observation</label>
-<textarea class="form-control" id="observation" name="observation" rows=5>@if(!is_null($lastVisite)){{ $lastVisite->prescreptionconstantes->observation}}  @endif</textarea>
-          </div>
+            <textarea class="form-control" id="observation" name="observation" rows=5>@if(!is_null($lastVisite)){{ $lastVisite->prescreptionconstantes->observation}}  @endif</textarea>
           </div> 
         </div>
         </div>

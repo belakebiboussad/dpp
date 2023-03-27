@@ -9,7 +9,7 @@
       url='{{ route("exmRad.destroy",":slug") }}';
       url = url.replace(':slug',exam_id);
       $.ajax({
-        type: "GET",
+        type: "DELETE",
         url : url,
           dataType: 'json',
           data: { _token: CSRF_TOKEN } ,
@@ -50,19 +50,24 @@
         <textarea class="form-control" id="explication" name="explication" >{{ $demande->Explecations}}</textarea>
        {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
       </div>
-      <div class="form-group">  
-        <label for="infos">Informations supplémentaires pertinentes</label><br>
-        @foreach($infossupp as $info)
-        <div class="checkbox col-sm-2 col-xs-6 ">
-          <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" {{ in_array($info->id, $demande->infossuppdemande->pluck('id')->toArray()) ? 'checked' : ''}}
-              /><span class="lbl">{{ $info->nom }}</span></label>
-        </div>
-        @endforeach
-      </div><div class="space-12"></div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <label class="control-label">Informations supplémentaires pertinentes</label>
+          <div class="control-group">
+            @foreach($infossupp as $info)
+            <div class="checkbox-inline">
+              <label>
+                <input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" value="{{ $info->id }}" {{ in_array($info->id, $demande->infossuppdemande->pluck('id')->toArray()) ? 'checked' : ''}}><span class="lbl">{{ $info->nom }}</span>
+              </label>
+            </div>
+            @endforeach
+          </div>
+        </div> 
+      </div>  
       <div class="row">
        <div class= "widget-box widget-color-blue col-xs-12">
        <div class="widget-header" >
-        <h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Imagerie</h5>
+        <h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>Examens Imagerie</h5>
         <div class="widget-toolbar widget-toolbar-light no-border" width="5%">
           <a href="#" class="align-middle" data-toggle="modal" data-target="#ExamIgtModal">
             <i class="fa fa-plus-circle bigger-180" data-toggle="modal"></i>

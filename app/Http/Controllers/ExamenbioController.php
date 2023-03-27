@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use App\modeles\demandeexb;
+use App\modeles\visite;
 use Illuminate\Support\Facades\Auth;
 use Response;
 class ExamenbioController extends Controller
@@ -33,9 +34,15 @@ class ExamenbioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-      $demande = demandeexb::find($request->id_demande);
-      $examBio = $demande->examensbios()->syncWithoutDetaching($request->nom);
-      return $demande->examensbios->load('Specialite','Demande.imageable');
+      if(!is_null($request->id_demande))
+        $demande = demandeexb::find($request->id_demande);
+      else
+      {
+        $visite = visite::find($request->visit_id);
+        $demande = $visite->demandeexmbio()->create();
+      }
+      $demande->examensbios()->syncWithoutDetaching($request->nom);
+      return $demande->examensbios->load('Specialite');
     }
      /**
      * Display the specified resource.

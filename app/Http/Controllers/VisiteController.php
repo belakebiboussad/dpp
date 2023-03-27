@@ -111,13 +111,13 @@ class VisiteController extends Controller
     public function edit($id)
     {
       $ngaps='';  $specs='';
-      $visite = visite::find($id);
-      $codesNgap = NGAP::all();
+      $visite = visite::find($id);// $codesNgap = NGAP::all();
       $specialitesProd = specialite_produit::all();
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
-      $ngaps = format_string($codesNgap,'code','code');
+      $ngaps = format_string(NGAP::all(),'code','code');
+      $examensradio = format_string(examenradiologique::all(),'id','nom');
       $specs = format_string($specialitesProd,'id','nom'); $ngaps=  addslashes($ngaps);
-      return view('visite.edit',compact('visite','specialite','ngaps','specs'));  
+      return view('visite.edit',compact('visite','specialite','ngaps','specs','examensradio'));  
     }
     public function destroy($id)
     {
