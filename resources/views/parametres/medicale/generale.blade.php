@@ -1,4 +1,6 @@
 <h3 class="section-heading">Générale</h3>
+  @include('constantes.config')
+<hr>
 <div class="row"><div class="col-sm-12"><h4><u>Examens biologique</u></h4></div></div>
 <div class="row">@include('examenbio.list')</div><hr>
 <div class="row"><div class="col-sm-12"><h4><u>Examens Radiologique</u></h4></div></div>

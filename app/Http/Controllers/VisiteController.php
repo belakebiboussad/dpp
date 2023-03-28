@@ -66,7 +66,7 @@ class VisiteController extends Controller
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
       $consts = consts::all();//'patient',
-      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));//->with('id',$visite->id);
+      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));
     }
  /**
      * Show the form for creating a new resource.
@@ -97,7 +97,10 @@ class VisiteController extends Controller
             'type_id' => (json_decode ($request->types))[$key]
           ]);
         }  
-      }//à revoire si(observ change et constante change) on crée une prescription
+      }
+          
+
+      //à revoire si(observ change et constante change) on crée une prescription
       if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
         $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
       if(!is_null($request->consts))
@@ -106,6 +109,8 @@ class VisiteController extends Controller
       if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
         $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
       }
+
+
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

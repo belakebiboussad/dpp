@@ -53,7 +53,7 @@ class paramController extends Controller
         $nomv = $param->nom;
         $param->update(['value'=>$request->$nomv ]);
       }else
-         $param->update(['value'=>null ]); 
+        $param->update(['value'=>null ]); 
     }
     switch (Auth::user()->role_id) {
       case 13://med chef
@@ -61,8 +61,7 @@ class paramController extends Controller
         $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
         $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
-        $input['consConst'] = $request->consConsts;
-        $input['hospConst'] = $request->hospConsts;
+        $specialite->Consts()->sync($request->consts);
         $specialite->BioExams()->sync($request->exmsbio);
         $specialite->ImgExams()->sync($request->exmsImg);
         $input['antecTypes'] = $request->antecTypes;
@@ -73,14 +72,13 @@ class paramController extends Controller
         if(Auth::user()->role_id == 13)
         {
           $modesHosp = ModeHospitalisation::all();
-          foreach($modesHosp as $mode) { //$mode = ModeHospitalisation::FindOrFail($id);
+          foreach($modesHosp as $mode) {
            if(in_array($mode->id, $request->hospModes))
               $mode->update(["selected"=>1]);
             else
               $mode->update(["selected"=>null]);
           }
         } 
-
         break;
     }  
     return redirect()->to('/home');

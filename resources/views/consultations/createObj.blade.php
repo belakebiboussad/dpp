@@ -76,7 +76,6 @@ function editMedicm(med)
       }
     });
 }
-/*function warning(){  return "dzd";}*/
 $(function(){ 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { 
     var consult_id = '{{ $obj->id }}'-1;
@@ -144,8 +143,8 @@ $(function(){
       var formData = {
          _token: CSRF_TOKEN,
         pid      : '{{ $obj->patient->id }}',
-        Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-        typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
+        Antecedant           : 'Personnels',
+        typeAntecedant       : '0',
         stypeatcd            : jQuery('#sstypeatcdc').val(),
         date                    : $('#dateAntcd').val(),
         cim_code      :$('#cim_code').val(),

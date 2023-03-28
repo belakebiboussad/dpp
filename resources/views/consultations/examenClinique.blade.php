@@ -1,13 +1,11 @@
 <div id="ExamGeneral" class="tabpanel">
   <div class="row">
     <ul class = "nav nav-pills nav-justified navbar-custom1 list-group" role="tablist" id ="cliniq">
-      @if (!empty(json_decode($specialite->consConst, true))) 
       <li role= "presentation" class="active">
         <a href="#ExamGen"  name="ExamGen" aria-controls="ExamGen" role="tab" data-toggle="tab" class="jumbotron">
         <i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">Examen général</span>
          </a>
       </li>
-      @endif
       @if (!empty(json_decode($specialite->appareils, true))) 
       <li role= "presentation" name="appareils">
         <a href="#Appareils" aria-controls="Appareils" role="tab" data-toggle="tab" class="jumbotron">
@@ -20,9 +18,7 @@
   <div class="row">
     <div class= "col-md-9 col-sm-9"> 
       <div  class="tab-content" style ="border-style: none;">
-      @if (!empty(json_decode($specialite->consConst, true))) 
       <div  role="tabpanel" class ="tab-pane active" id="ExamGen">@include("consultations.examenConst")</div>
-      @endif
       @if (!empty(json_decode($specialite->appareils, true))) 
       <div role="tabpanel" class = "tab-pane" id="Appareils"> @include("consultations.ExamenAppareils") </div>
       @endif
@@ -32,21 +28,9 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8" async defer>
-  function formatConsuConsts()
-  {
-    try
-    {
-      var conts = {!! $specialite->consConst !!};
-      $.each(conts,function(key,id){
-        $.get('/const/'+id+'/edit', function (data) {
-           $("."+data.nom).ionRangeSlider({ min:data.min,max:data.max,step:data.step,from:data.normale,grid: true,grid_num: data.grid_num, postfix:" "+data.unite,skin:"big" });
-        });
-      });
-    } catch(err) {
-      console.log("error");
-    }
- }
- $('document').ready(function(){
-    formatConsuConsts()
+  $('document').ready(function(){
+   $.each( {!! $speconst!!}, function( key, cons ) {
+      $("."+cons.nom).ionRangeSlider({ min:cons.min,max:cons.max,step:cons.step,from:cons.normale,grid: true,grid_num: cons.grid_num, postfix:" "+cons.unite,skin:"big" });    
+    })
  });
 </script>

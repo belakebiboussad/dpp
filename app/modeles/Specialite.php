@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
   public $timestamps = false;
-  // 'exmsbio',
-	protected $fillable = ['nom','type','consConst','hospConst','antecTypes','vaccins','appareils','nbMax','dhValid'];
-  public function setConsConstAttribute($value)
+	protected $fillable = ['nom','type','antecTypes','vaccins','appareils','nbMax','dhValid'];
+  public function Consts()
   {
-    $this->attributes['consConst'] = json_encode($value);
-  }
-  public function setHospConstAttribute($value)
-  {
-    $this->attributes['hospConst'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\Constante','constante_specialite','spec_id','const_id');
   }
   public function BioExams()
   {
@@ -24,13 +19,10 @@ class Specialite extends Model
   {
     return $this->belongsToMany('App\modeles\TypeExam','examenimg_specialite','spec_id','examen_id');
   }
-/*public function setExmsImgAttribute($value){$this->attributes['exmsImg'] = json_encode($value);
-  }*/
-
- public function setAntecTypesAttribute($value)
- {
-         $this->attributes['antecTypes'] = json_encode($value);
- }
+  public function setAntecTypesAttribute($value)
+  {
+    $this->attributes['antecTypes'] = json_encode($value);
+  }
  public function setAppareilsAttribute($value)
  {
     $this->attributes['appareils'] = json_encode($value);

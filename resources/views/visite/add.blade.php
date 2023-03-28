@@ -218,12 +218,10 @@
           <li role= "presentation" class="col-md-4">
             <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger"><span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span></a>
           </li>
-          @if (!empty(json_decode($specialite->hospConst, true))) 
           <li role= "presentation" class="col-md-4">
             <a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
             <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span></a>
           </li>
-          @endif
         </ul>
       </div>
       <div class="row">
@@ -312,11 +310,11 @@
           </div><!-- widget-box -->
           </div><!-- Trait -->
           <div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
-          @if (!is_null(json_decode($specialite->hospConst, true))) 
+      
         <div role="tabpanel" class ="tab-pane" id="constantes"> 
+         <div class="form-group">
           <div class="control-group">
-          @foreach( json_decode($specialite->hospConst ,true) as $const)
-          <?php $const = App\modeles\Constante::FindOrFail($const) ?>
+          @foreach($specialite->Consts as $const)
           <div class="checkbox-inline">
             <label>
             @if(!is_null($lastVisite))
@@ -329,12 +327,13 @@
           </div>
           @endforeach
           </div>
+          </div><div class="space-12"></div>
           <div class="form-group"><label>Observation</label>
             <textarea class="form-control" id="observation" name="observation" rows=5>@if(!is_null($lastVisite)){{ $lastVisite->prescreptionconstantes->observation}}  @endif</textarea>
           </div> 
         </div>
         </div>
-        @endif
+      
          </div><!-- tab-content -->
        </div><!-- row -->
        <div class="hr hr-dotted"></div>
