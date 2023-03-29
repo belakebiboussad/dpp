@@ -3,25 +3,25 @@
    <input  type="checkbox" id="isOriented" class="ace input-lg"/><span class="lbl red"> Patient orienté</span></div>
 </div><br>	
 <div class="form-group row hidden" id="hidden_fields">	
-		<label class="col-sm-4 control-label" for="lettreorientaion">Orienté pour :</label>	  
+		<label class="col-sm-4 control-label" for="lettreorientaion">Orienté pour</label>	  
 		<div class="col-sm-8"><textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="Resumé" class="form-control"></textarea></div>
 </div>	
 <div class="form-group row {{ $errors->has('motif') ? 'has-error' : '' }}">
-		<label class="col-sm-4 control-label no-padding-right" for="motif">Motif de consultation : <span class="text-danger">*</span></label> 
+		<label class="col-sm-4 control-label" for="motif">Motif de consultation<span class="text-danger">*</span></label> 
 		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control" required/></div>
 </div>
 <div class="form-group row">
-	<label class="col-sm-4 control-label" for="histoirem">Histoire de la maladie :</label>
+	<label class="col-sm-4 control-label" for="histoirem">Histoire de la maladie</label>
 	<div class="col-sm-8">
 		<textarea class="form-control" id="histoirem" name="histoirem" placeholder="Histoire de la maladie..."></textarea>
 	</div>		
 </div>
 <div class="form-group row">
-	<label class="col-sm-4 control-label" for="diagnostic">Diagnostic :</label> 
+	<label class="col-sm-4 control-label" for="diagnostic">Diagnostic</label> 
 	<div class="col-sm-8"><textarea class="form-control" id="diagnostic" name="diagnostic" placeholder="Diagnostic..." ></textarea></div>
 </div>
 <div class="form-group row">
-    <label for="codesim" class="col-sm-4 control-label">Code CIM-10  :</label>
+    <label for="codesim" class="col-sm-4 control-label">Code CIM-10 </label>
     <div class="input-group">
       <input type="text" class="form-control col-sm-4" placeholder="Rechercher code cim10 for..." id="codesim" name="codesim">
       <span class="input-group-btn">
@@ -30,6 +30,6 @@
     </div>
 </div>
 <div class="form-group row">
-	<label class="col-sm-4 control-label" for="resume">Résumé :<span class="text-danger">*</span></label>  
+	<label class="col-sm-4 control-label" for="resume">Résumé<span class="text-danger">*</span></label>  
 	<div class="col-sm-8"><textarea class="form-control" id="resume" name="resume" placeholder="Résumé..." required></textarea></div>
 </div>

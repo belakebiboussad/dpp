@@ -98,8 +98,12 @@ class VisiteController extends Controller
           ]);
         }  
       }
-          
+      if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
+        dd("existe");
+      else
+        dd($request->consts);
 
+      /*
       //à revoire si(observ change et constante change) on crée une prescription
       if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
         $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
@@ -109,7 +113,7 @@ class VisiteController extends Controller
       if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
         $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
       }
-
+      */
 
       return redirect()->action('HospitalisationController@index');
     }
@@ -133,5 +137,9 @@ class VisiteController extends Controller
     {
       $visite = visite::with('actes','traitements','patient')->FindOrFail($id);
       return view('visite.show', compact('visite'));
+    }
+    public function teste()//a supprimer utilisé pour teste de bootsrap
+    {
+      return view('teste');
     }
 }

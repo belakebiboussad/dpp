@@ -209,49 +209,49 @@ $(function(){
         <div class="widget-header"><h5 class="widget-title">Examens radiologique demadés</h5></div>
         <div class="widget-body">
           <div class="widget-main">
-           <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th class="center" width="10%">N°</th><th>Nom</th>
-                  <th class="center">Type</th><th class="center">Attacher le résultat</th>
-                  <th class="center">Résultat</th><td class="center" width="18%"><em class="fa fa-cog"></em></td>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($demande->examensradios as $index => $examen) 
-                    @if($examen->etat !== 0)
-                    <tr id = "{{ $examen->id }}">
-                      <td class="center">{{ $index+1 }}</td>
-                      <td>{{ $examen->Examen->nom }}</td>
-                      <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
-                      <td class="center">
-                      <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result{!! isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
-                      <td class="center" width="30%">
-                        <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
-                        @if($examen->getEtatID() ===1)
-                        <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
-                       @endif      
-                      </td>
-                      <td class="center" width="18%">
-                      @if($examen->getEtatID() !==0)<!-- non rejete -->
-                      <button  type="button" class="btn btn-sm btn-info start{!! isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
-                      </button>
-                      <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
-                        <i class="glyphicon glyphicon-plus glyphicon"></i>
-                      </button>
-                      <button type="button" class="btn btn-sm btn-primary open-editCRRDialog{{ (isset($examen->crr_id)) ? ' ' : ' hidden' }}" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le compte rendu" value="{{ $examen->crr_id }}"><i class="glyphicon glyphicon-edit glyphicon"></i>
-                      </button>
-                      <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID() === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID() === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
-                        <i class="glyphicon glyphicon-trash glyphicon"></i>
-                      </button>
-                      @else
-                      <span class="badge badge-warning">{{ $examen->etat }}</span>
-                      @endif
-                      </td>
-                    </tr>
-                    @endif
-                    @endforeach
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class="center" width="5%">N°</th><th>Nom</th>
+                <th class="center">Type</th><th class="center">Attacher le résultat</th>
+                <th class="center">Résultat</th><td class="center" width="18%"><em class="fa fa-cog"></em></td>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach ($demande->examensradios as $index => $examen) 
+              @if($examen->etat !== 0)
+              <tr id = "{{ $examen->id }}">
+                <td class="center">{{ $index+1 }}</td>
+                <td>{{ $examen->Examen->nom }}</td>
+                <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
+                <td class="center">
+                <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control-file result{!! isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
+                <td class="center" width="30%">
+                  <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
+                  @if($examen->getEtatID() ===1)
+                  <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
+                 @endif      
+                </td>
+                <td class="center" width="18%">
+                @if($examen->getEtatID() !==0)<!-- non rejete -->
+                <button  type="button" class="btn btn-sm btn-info start{!! isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
+                  <i class="glyphicon glyphicon-plus glyphicon"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-primary open-editCRRDialog{{ (isset($examen->crr_id)) ? ' ' : ' hidden' }}" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le compte rendu" value="{{ $examen->crr_id }}"><i class="glyphicon glyphicon-edit glyphicon"></i>
+                </button>
+                <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID() === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
+                <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID() === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
+                  <i class="glyphicon glyphicon-trash glyphicon"></i>
+                </button>
+                @else
+                <span class="badge badge-warning">{{ $examen->etat }}</span>
+                @endif
+                </td>
+              </tr>
+              @endif
+              @endforeach
               </tbody>
             </table>
           </div><!-- main -->

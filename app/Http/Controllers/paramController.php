@@ -30,13 +30,11 @@ class paramController extends Controller
         $appareils = appareil::orderBy('id')->get();
         $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
         $specialite  = specialite::FindOrFail($specialite_id);
-        $consConsts = json_decode($specialite->consConst, true);
-        $hospConsts = json_decode($specialite->hospConst, true); 
         $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
         $specappreils = json_decode($specialite->appareils, true);
         $modesHosp = ModeHospitalisation::all(); 
-        return view('parametres.medicale.index',compact('specialite','consts','consConsts','hospConsts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
+        return view('parametres.medicale.index',compact('specialite','consts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
         break;
       case 4:
       case 8://dir

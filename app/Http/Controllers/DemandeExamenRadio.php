@@ -56,6 +56,7 @@ class DemandeExamenRadio extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexr = demandeexr::with('imageable')->whereNull('etat')->orderBy('id','desc')->get();
+        //dd($demandesexr);
         return view('examenradio.index', compact('demandesexr','services')); 
       }
     }

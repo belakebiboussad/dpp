@@ -65,9 +65,7 @@
       var url ='{{ route("acte.store") }}';
       var state = jQuery('#EnregistrerActe').val();
       if (state == "update") {
-       
-        type = "PUT";
-        //var id = jQuery('#acte_id').val();
+        type = "PUT";//var id = jQuery('#acte_id').val();
         url = '{{ route("acte.update", ":slug") }}'; 
         url = url.replace(':slug', $('#acte_id').val());
       }
@@ -186,10 +184,10 @@
        console.log('Error:', data);
       }
     });
-  }); //////////Traitement
-    
+     }); //////////Traitement
     $("#visiteForm").submit(function(e){
-      addExamsImg(this);
+      if ($( "#ExamsImg" ).length )
+        addExamsImg(this);
     });
   });
   </script>
@@ -205,23 +203,21 @@
     <div class="tabpanel mb-3">
       <div class="row">
         <ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
-          <li role= "presentation" class="active col-md-4">
-            <a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success">
-            <span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span>
-          </a>
-          </li>
-          <li role= "presentation" class="col-md-4">
-            <a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary">
-              <span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span>
-            </a>
-          </li>
-          <li role= "presentation" class="col-md-4">
+        <li role= "presentation" class="active col-md-4">
+          <a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success">
+            <span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span></a>
+        </li>
+        <li role= "presentation" class="col-md-4">
+          <a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary">
+              <span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span></a>
+        </li>
+        <li role= "presentation" class="col-md-4">
             <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger"><span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span></a>
-          </li>
-          <li role= "presentation" class="col-md-4">
-            <a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
+        </li>
+        <li role= "presentation" class="col-md-4">
+          <a href="#constantes" aria-controls="" role="tab" data-toggle="tab" class="btn btn-warning">
             <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span></a>
-          </li>
+        </li>
         </ul>
       </div>
       <div class="row">

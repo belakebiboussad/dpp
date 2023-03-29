@@ -137,7 +137,7 @@ $(function(){
 	<div class="col-sm-7 col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-blue">
       <div class="widget-header">
-        <h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>liste des services</h5>
+        <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Services</h5>
         <div class="widget-toolbar widget-toolbar-light no-border">
           <a href="#" id ="serv-add" class="align-middle"><i class="fa fa-plus-circle bigger-180"></i></a>
         </div>

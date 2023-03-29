@@ -250,7 +250,8 @@
   }
   function addExamsImg(form)
   {
-    var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [], types = [];
+    ExamsImg = [], types = [];
+    var arrayLignes = document.getElementById("ExamsImg").rows;
     if(arrayLignes.length > 0)
     {
       for(var i=0; i< arrayLignes.length ; i++)

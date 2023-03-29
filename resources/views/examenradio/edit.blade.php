@@ -19,8 +19,8 @@
       });
     });
     $("#requestImgEdit").submit(function(e){
-      var arrayLignes = document.getElementById("ExamsImg").rows;
-      addExamsImg(this);
+      if ($( "#ExamsImg" ).length )
+        addExamsImg(this);
       $("#requestImgEdit").submit();
     });
  })

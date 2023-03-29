@@ -168,3 +168,4 @@ Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name(
 Route::get('/etabExport', 'EtablissementControler@exportCsv');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');
+Route::get('/teste','VisiteController@teste');//to teste

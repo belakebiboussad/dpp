@@ -74,7 +74,7 @@
 							<div class="col-sm-9"><input type="text" name="tutelle" class="form-control"/></div>
 						</div><div class="space-12  hidden-xs"></div>
             <div class="form-group">
-              <label class="col-sm-3 control-label" for="logo">Logo :</label>
+              <label class="col-sm-3 control-label-file" for="logo">Logo :</label>
               <div class="col-sm-9">
                 <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement"/>
               </div>

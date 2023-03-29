@@ -104,7 +104,7 @@
                     <td>{{ $exm->Specialite->nom }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                      <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+                      <input type="file" class="form-control-file" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
                     </td>
                     @endif
                     @if($loop->first)

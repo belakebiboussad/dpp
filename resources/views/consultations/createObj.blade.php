@@ -313,7 +313,8 @@ $(function(){
               if(result.value)
               {
                 confirmed = true; 
-                addExamsImg(this);
+                if ($( "#ExamsImg" ).length )
+                  addExamsImg(this);
                 document.getElementById("consultForm").submit()
               }else
                 return false; 

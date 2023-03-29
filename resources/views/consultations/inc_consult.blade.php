@@ -70,17 +70,17 @@ $('document').ready(function(){
 <ul class="list-unstyled spaced">
   @if(isset($consultation->examensCliniques))
     @if(isset($consultation->examensCliniques->consts))
-       @foreach(json_decode($specialite->consConst ,true) as $const)
-      <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom?>
-        @if($consultation->examensCliniques->consts[$obj->nom ] != null)
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><b>{{  $obj ->description }} :</b>
-            <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts->$nom }}</span> ({{$obj->unite }})</li>
-             @endif
-        @endforeach
+      @foreach($specialite->Consts as $const)
+      @if($consultation->examensCliniques->consts[$const->nom ] != null)
+       <li><i class="message-star ace-icon fa fa-star orange2"></i>{{  $const ->description }}:
+        <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->consts[$const->nom ]}}</span> ({{$const->unite }})</li>
+       </li>
+      @endif
+      @endforeach
     @endif
-    <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Etat général du patient :</b><span>{{ $consultation->examensCliniques->etat  }}</span></li>
-    <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Peau et phanéres  :</b><span>{{ $consultation->examensCliniques->peaupha }}</span></li>
-      <li><i class="message-star ace-icon fa fa-star orange2"></i><b>Autre :</b>{{ $consultation->examensCliniques->autre  }}</li>
+    <li><i class="message-star ace-icon fa fa-star orange2"></i>Etat général du patient :<span>{{ $consultation->examensCliniques->etat  }}</span></li>
+    <li><i class="message-star ace-icon fa fa-star orange2"></i>Peau et phanéres  :<span>{{ $consultation->examensCliniques->peaupha }}</span></li>
+      <li><i class="message-star ace-icon fa fa-star orange2"></i>Autre :{{ $consultation->examensCliniques->autre  }}</li>
   @endif
 </ul>
 </div>

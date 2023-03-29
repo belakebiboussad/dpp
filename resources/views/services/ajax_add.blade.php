@@ -6,12 +6,12 @@
       <div class="widget-body">
         <div class="widget-main">
           <form role="form" method="POST">
-            <div class="form-group"><label class="col-sm-3 control-label" for="nom">Nom : </label>
+            <div class="form-group row"><label class="col-sm-3 col-control-label" for="nom">Nom</label>
               <div class="col-sm-9">
                 <input type="text" id="nom" placeholder="Nom du dervice" class="form-control"/>
               </div>
             </div>
-            <div class="form-group"><label class="col-sm-3 control-label" for="type">Type :</label>
+            <div class="form-group row"><label class="col-sm-3 control-label" for="type">Type</label>
               <div class="col-sm-9">
                 <select id="type" class="form-control selectpicker show-menu-arrow" required >
                   <option value="0">Médicale</option>
@@ -21,8 +21,8 @@
                 </select> 
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="responsable_id">Chef :</label>
+            <div class="form-group row">
+              <label class="col-sm-3 col-control-label" for="responsable_id">Chef</label>
               <div class="col-sm-9">
                 <select id="responsable_id" class="form-control selectpicker">
                   <option value="" selected disabled>Selectionner le chef du service</option>
@@ -32,8 +32,8 @@
                 </select> 
               </div>
             </div>
-            <div class="form-group medChirservice">
-              <label class="col-sm-3 control-label" for="hebergement">Hébergement :</label>
+            <div class="form-group medChirservice row">
+              <label class="col-sm-3 col-control-label" for="hebergement">Hébergement</label>
               <div class="col-sm-9">
                 <label>
                   <input name="hebergement" value="0" type="radio" class="ace" checked/><span class="lbl">Non</span></label>&nbsp;&nbsp;
@@ -41,8 +41,8 @@
                   <input name="hebergement" value="1" type="radio" class="ace"/><span class="lbl">Oui</span></label>                
               </div>
             </div>
-            <div class="form-group medChirservice">
-              <label class="col-sm-3 control-label" for="urgence"> Urgence: </label>
+            <div class="form-group medChirservice row">
+              <label class="col-sm-3 col-control-label" for="urgence"> Urgence</label>
               <div class="col-sm-9">
                 <label>
                   <input name="urgence" value="0" type="radio" class="ace" checked /><span class="lbl">Non</span></label>&nbsp;&nbsp;
