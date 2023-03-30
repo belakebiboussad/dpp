@@ -8,8 +8,5 @@ class appareil extends Model
 {
   public $timestamps = false;
   protected $fillable = ['nom'];
-  public function consultations()
-  {
-    return $this->belongsToMany('App\modeles\consultation','examen_appareil','cons_id','appareil_id');//->withPivot('description');
-  }
+/*public function consultations(){  return $this->belongsToMany('App\modeles\consultation','examen_appareil','cons_id','appareil_id');}*/
 }

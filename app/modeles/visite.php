@@ -39,8 +39,8 @@ class visite extends Model
     public function medecin(){
           return $this->belongsTo('App\modeles\employ','id_employe');
     }
-    public function prescreptionconstantes()
+    public function constantes()
     {
-      return $this->hasOne('App\modeles\prescription_constantes','visite_id');
+      return $this->belongsToMany('App\modeles\Constante','constante_visite','visit_id','const_id')->withPivot('obs');
     }
 }

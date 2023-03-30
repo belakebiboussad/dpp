@@ -54,7 +54,11 @@ class VisiteController extends Controller
       $etab = Etablissement::first(); 
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $hosp = hospitalisation::with('patient')->FindOrFail($id_hosp);
-      $lastVisite = $hosp->getlastVisiteWitCstPresc();
+      $lastVisite = $hosp->getlastVisiteWitCsts();
+     
+       // $target = $lastVisite->constantes->find(5)->pivot->obs;
+       // dd($target);
+      // dd($target->pivot->obs);
       $obj = $hosp->visites()->create([
         'date'=>$date,'heure'=>$date->format("H:i"),
         'pid'=>$hosp->patient->id,'date'=>$date,
@@ -98,23 +102,21 @@ class VisiteController extends Controller
           ]);
         }  
       }
-      if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
-        dd("existe");
-      else
-        dd($request->consts);
-
-      /*
-      //à revoire si(observ change et constante change) on crée une prescription
-      if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
-        $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
-      if(!is_null($request->consts))
-      {     
-        $reqintArray = array_map('intval', $request->consts);
-      if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
+      foreach ($request->consts as $key =>$const) {
+         $visite->constantes()->attach($const, ['obs' =>$request->obs[$key]]);
+      }
+    /*
+//à revoire si(observ change et constante change) on crée une prescription
+  if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
+    $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
+  if(!is_null($request->consts))
+  {     
+    $reqintArray = array_map('intval', $request->consts);
+    if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
         $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
       }
-      */
-
+      
+*/
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

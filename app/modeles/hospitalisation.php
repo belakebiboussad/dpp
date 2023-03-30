@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class hospitalisation extends Model
 {
-    public $timestamps = false;
+  public $timestamps = false;
   protected $fillable  = ['id','date','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','HeurEnt', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
     //modeSorie =[''=>Dom, '0'=>Trans, '1'=>,Contreaviméd, '2'=>Déc,'3'=>Repor]
     protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
@@ -61,9 +61,10 @@ class hospitalisation extends Model
     {
       return $this->belongsTo('App\modeles\employ','medecin_id');
     }
-    public function getlastVisiteWitCstPresc()
+    public function getlastVisiteWitCsts()
     { 
-      return visite::with('prescreptionconstantes.constantes')->has('prescreptionconstantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
+      // return visite::with('prescreptionconstantes.constantes')->has('prescreptionconstantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
+      return visite::has('constantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
     }
     public function Transfert()
     {

@@ -1,8 +1,37 @@
 @extends('app')
+@section('style')
+<style type="text/css" media="screen">
+  * {
+      padding: 0;
+      margin: 0;
+    }
+ .inputClass {
+    padding: 0;
+    display: inline-block;
+  }
+}
+</style>
+@endsection
 @section('page-script')
   @include('examenradio.scripts.imgRequestdJS')
   @include('visite.scripts.scripts')
   <script type="text/javascript">
+  function constChanged(cb)
+  { 
+    $("#"+ $(cb).data("id")).val('');
+    if(cb.checked)
+    {
+      if($("#"+ $(cb).data("id")).prop('disabled') == true)
+         $("#"+ $(cb).data("id")).prop('disabled',false);
+      $("#"+ $(cb).data("id")).removeClass('hidden');
+    }
+    else
+    {
+      if($("#"+ $(cb).data("id")).prop('disabled') == false)
+        $("#"+ $(cb).data("id")).prop('disabled',true);
+      $("#"+ $(cb).data("id")).addClass('hidden');
+    } 
+  }
   $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
                base64Img = base64; 
@@ -190,7 +219,7 @@
         addExamsImg(this);
     });
   });
-  </script>
+</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
@@ -308,37 +337,42 @@
           <div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
       
         <div role="tabpanel" class ="tab-pane" id="constantes"> 
-         <div class="form-group">
-          <div class="control-group">
-          @foreach($specialite->Consts as $const)
-          <div class="checkbox-inline">
-            <label>
-            @if(!is_null($lastVisite))
-              <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"  @if(in_array($const->id,$lastVisite->prescreptionconstantes->constantes->pluck('id')->toArray())) checked="checked" @endif/>
+          <table role="presentation" class="table table-striped accordion-users">
+            <tbody class="files">
+            @foreach($specialite->Consts as $const)
+            <tr class="template-upload fade in">
+              <td width="5%">
+              <div class="checkbox">
+                <label>
+                @if(!is_null($lastVisite))
+                  <input name="consts[]" type="checkbox"  class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}" onchange="constChanged(this)" @if(in_array($const->id,$lastVisite->constantes->pluck('id')->toArray())) checked="checked" @endif/>
                 @else
-                <input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}"/>
-              @endif
-              <span class="lbl">{{ $const->nom  }}</span>
-            </label>
-          </div>
+                  <input name="consts[]" type="checkbox" class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}"  onchange="constChanged(this)"/>
+                @endif
+                <span class="lbl"> {{ $const->nom }}</span>
+                </label>
+              </div>
+              </td>
+              <td>
+              <textarea class="form-control inputClass {{ (in_array($const->id,$lastVisite->constantes->pluck('id')->toArray()))?'':'hidden disabled'}}" name="obs[]" id="{{ $const->id }}">
+               {{-- $lastVisite->constantes->find($const->id)->pivot->obs --}}
+               {{ $lastVisite->constantes->find($const->id) }}
+              </textarea>
+              </td>
+            </tr>
           @endforeach
-          </div>
-          </div><div class="space-12"></div>
-          <div class="form-group"><label>Observation</label>
-            <textarea class="form-control" id="observation" name="observation" rows=5>@if(!is_null($lastVisite)){{ $lastVisite->prescreptionconstantes->observation}}  @endif</textarea>
-          </div> 
+          </tbody>
+        </table>
         </div>
         </div>
-      
          </div><!-- tab-content -->
        </div><!-- row -->
        <div class="hr hr-dotted"></div>
-    <div class="row">
       <div class="center">
         <button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> 
           <a href="{{ route('visites.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>    
       </div>
-    </div>  
+   
     </div><!-- tabpanel -->
   </form>
     <div class="row">@include('visite.ModalFoms.acteModal')</div><div class="row">@include('visite.ModalFoms.TraitModal')</div>

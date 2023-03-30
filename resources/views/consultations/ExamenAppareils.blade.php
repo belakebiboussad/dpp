@@ -97,9 +97,6 @@ $(function() {
             success: function (data) {
               if(state == "add")      
                 $("#"+ data).parent().parent().find('.appar-delete').removeAttr('disabled');
-            },
-            error : function(data){
-              alert("data");
             }
       });  
     }

@@ -1,5 +1,5 @@
- @if(Auth::user()->role_id == 14)
- <div class="row"><div class="col-sm-12"><h4><u>Constantes médicaux</u></h4></div></div>
+@if(Auth::user()->role_id == 14)
+<div class="row"><div class="col-sm-12"><h4><u>Constantes médicaux</u></h4></div></div>
 <div class="row">
 @foreach($consts as $const)
 <div class="col-xs-2">
