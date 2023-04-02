@@ -11,18 +11,21 @@
         <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
       </div>
       <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-        <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
-        <span class="btn btn-danger"></span>
+        <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span><span class="btn btn-danger"></span>
+       
       </div>
     </div>
     <ul class="nav nav-list">
       <li>
-        <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
+        <a href="{{ route('patient.index') }}"><span class="menu-text">
+          <i class="menu-icon material-icons">home</i>Accueil</span></a>
         <b class="arrow"></b>
       </li>
       @if(in_array(Auth::user()->role_id,[13,14]))
       <li class="">
-        <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
+        <a href="{{ route('stat.index') }}">
+        <i class="menu-icon material-icons md-18">equalizer</i>
+          <span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
       @endif
       <li>
@@ -37,11 +40,11 @@
         </ul>
       </li>
       <li>
-          <a href="#" class="dropdown-toggle">
-             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
-          </a><b class="arrow"></b>
-          <ul class="submenu">
-            </li>
+        <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
+        </a><b class="arrow"></b>
+        <ul class="submenu">
+        </li>
             <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i>Consultations</a><b class="arrow"></b>
             </li>
           </ul>
@@ -60,9 +63,10 @@
         </li>
         <li>
         <a href="#" class="dropdown-toggle">
-                  <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
-                </a><b class="arrow"></b>
-                <ul class="submenu">
+        <i class="menu-icon material-icons md-18">event_available</i>
+        <span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
                       <li>
                         <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
                       </li>
@@ -86,8 +90,7 @@
           </a><b class="arrow"></b>
           <ul class="submenu">
             <li>
-              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a>
-              <b class="arrow"></b>
+              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a><b class="arrow"></b>
             </li>
           </ul>
         </li>

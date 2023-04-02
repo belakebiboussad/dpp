@@ -13,10 +13,11 @@
             <span class="btn btn-success"></span> <span class="btn btn-info"></span>
             <span class="btn btn-warning"></span><span class="btn btn-danger"></span>
         </div>
-  </div><!-- /.sidebar-shortcuts--><!--<li><a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion des colloques</span></a><b class="arrow"></b></li> --> 
+  </div>
   <ul class="nav nav-list">
     <li>
-        <a href="{{ route('home')}}"><i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a>
+        <a href="{{ route('home')}}"><!-- <i class="menu-icon fa fa-university"></i> -->
+          <i class="menu-icon material-icons">home</i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
     </li>
     <li>

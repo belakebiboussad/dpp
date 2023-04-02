@@ -22,52 +22,46 @@
   <div class="col-lg-3 col-md-6 col-xs-12">
     <div class="widget">
       <div class="widget-body">
-          <div class="widget-icon pull-left">
-              <i class="ace-icon fa fa-user-md bigger-180"></i>
-          </div>
-          <div class="widget-content pull-left">
-              <div class="title">&nbsp;{{ $medsCount }}</div>
-              <div class="comment">Medecins</div>
+        <div class="widget-icon pull-left">
+          <i class="ace-icon fa fa-user-md bigger-180"></i>
+        </div>
+        <div class="widget-content pull-left">
+          <div class="title">&nbsp;{{ $medsCount }}</div><div class="comment">Medecins</div> 
           </div><div class="clearfix"></div>
       </div>
     </div>
   </div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-                <div class="widget-body">
-                    <div class="widget-icon  pull-left">
-                       <i class="fa fa-users bigger-180"></i>
-                    </div>
-                    <div class="widget-content pull-left">
-                        <div class="title">&nbsp;{{ $infsCount  }}</div>
-                        <div class="comment">Infirmiers</div>
-                    </div><div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-              <div class="widget-body">
-                <div class="widget-icon green pull-left"><i class="fa fa-cogs bigger-180"></i></div>
-                <div class="widget-content pull-left">
-                  <div class="title"> {{ $hospCount }}</div>
-                  <div class="comment">Hospitalisation En cours</div>
-                </div><div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="widget">
-            <div class="widget-body">
-              <div class="widget-icon blue pull-left"><i class="fa fa-spinner bigger-180"></i></div>
-              <div class="widget-content pull-left">
-                <div class="title">&nbsp;{{ $nbRequest}}</div>
-                <div class="comment">Hospitalisation En attente</div>
-              </div><div class="clearfix"></div>
-            </div>
-          </div>
-        </div>
-    </div><div class="space-12"></div>
+  <div class="col-lg-3 col-md-6 col-xs-12">
+  <div class="widget">
+    <div class="widget-body">
+      <div class="widget-icon  pull-left"><i class="menu-icon material-icons">groups</i></div>
+      <div class="widget-content pull-left">
+        <div class="title"> {{ $infsCount  }}</div><div class="comment">Infirmiers</div>
+      </div><div class="clearfix"></div>
+    </div>
+  </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-xs-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="widget-icon green pull-left"><i class="fa fa-cogs bigger-180"></i></div>
+        <div class="widget-content pull-left"><div class="title"> {{ $hospCount }}</div>
+          <div class="comment">Hospitalisation En cours</div>
+        </div><div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-xs-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="widget-icon blue pull-left"><i class="fa fa-spinner bigger-180"></i></div>
+        <div class="widget-content pull-left"><div class="title">&nbsp;{{ $nbRequest}}</div>
+          <div class="comment">Hospitalisation En attente</div>
+        </div><div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  </div><div class="space-12"></div>
     <div class="row">
     <div class="col-lg-3 col-md-6 col-xs-12">
     <div class="widget">
@@ -98,10 +92,8 @@
     <div class="col-lg-3 col-md-6 col-xs-12">
     <div class="widget">
       <div class="widget-body">
-          <div class="widget-icon pull-left">
-            <i class="ace-icon fa fa-stethoscope bigger-180"></i>
-          </div>
-          <div class="widget-content pull-left">
+        <div class="widget-icon pull-left"><i class="ace-icon fa fa-stethoscope bigger-180"></i></div>
+        <div class="widget-content pull-left">
               <div class="title">&nbsp;{{ $consultsNbr }}</div>
               <div class="comment">Consultations aujourd'hui</div>
           </div><div class="clearfix"></div>
@@ -111,58 +103,51 @@
     <div class="col-lg-3 col-md-6 col-xs-12">
     <div class="widget">
       <div class="widget-body">
-          <div class="widget-icon pull-left">
-            <i class="ace-icon fa fa-stethoscope bigger-180"></i>
-          </div>
-          <div class="widget-content pull-left">
-              <div class="title">&nbsp;{{ $nbjPerHosp }} Jour</div>
-              <div class="comment">Délai moyen d'hospitalisation</div>
-          </div><div class="clearfix"></div>
+        <div class="widget-icon pull-left"><span class="material-icons">swap_horizontal_circle</span>
+        </div>
+        <div class="widget-content pull-left">
+          <div class="title">&nbsp;{{ $nbjPerHosp }} Jour</div>
+          <div class="comment">Délai moyen d'hospitalisation</div>
+        </div><div class="clearfix"></div>
       </div>
     </div>
     </div>
   </div><div class="space-12"></div>
   <div class="row">
     <div class="col-lg-6">
-        <div class="widget">
+      <div class="widget">
         <div class="widget-title">
           <i class="fa fa-stethoscope"></i> Consultaions / Jour
           <a class="pull-right" href="{{route('stats.search',1)}}">Plus de statistiques</a><div class="clearfix"></div>
         </div>
-        <div class="widget-body medium no-padding">
-          <canvas id = "canvasconsul"></canvas>
-        </div>
+        <div class="widget-body medium no-padding"><canvas id = "canvasconsul"></canvas></div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="widget">
         <div class="widget-title">
-           <i class="fa fa-bed"></i>Nombre d'hospitalisation
+          <i class="menu-icon material-icons">local_hospital</i>Nombre d'hospitalisation
           <a class="pull-right" href="{{route('stats.search',2)}}">Plus de statistiques</a><div class="clearfix"></div>
         </div>
-        <div class="widget-body medium no-padding">
-          <canvas id = "Hospcanvas"></canvas>
-        </div>
+        <div class="widget-body medium no-padding"><canvas id = "Hospcanvas"></canvas></div>   
       </div>
     </div>
-  </div>
-  <div class="space-12"></div>
+  </div><div class="space-12"></div>
   <div class="row">
     <div class="col-lg-6">
-    <div class="widget">
-        <div class="widget-title">
-          <i class="fa fa-cloud-download"></i>Lits
-          <a class="pull-right" href="{{route('stats.search',3)}}">Plus de statistiques</a>
-        </div>
-        <div class="widget-body medium no-padding">
-          <canvas id = "canvaslit" height="230" width="600"></canvas>
-        </div>
+      <div class="widget">
+        <div class="widget-title"><i class="fa fa-bed"></i> Lits
+        <a class="pull-right" href="{{route('stats.search',3)}}">Plus de statistiques</a>
+      </div>
+      <div class="widget-body medium no-padding">
+        <canvas id = "canvaslit" height="230" width="600"></canvas>
+      </div>
       </div>
     </div>
     <div class="col-lg-6">
        <div class="widget">
         <div class="widget-title">
-          <i class="fa fa-cloud-download"></i>Délai moyen d'hospitalisation
+          <span class="material-icons">swap_horizontal_circle</span> Délai moyen d'hospitalisation
         </div>
         <div class="widget-body medium no-padding">
           <canvas id = "DMHOSP" height="230" width="600"></canvas>

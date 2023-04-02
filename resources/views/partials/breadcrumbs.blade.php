@@ -5,10 +5,10 @@
 
     <ul class="breadcrumb">
         <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
+            <!-- <i class="ace-icon fa fa-home home-icon"></i> -->
+            <i class="material-icons">home</i>
             <a href="#">Accueil</a>
-        </li>
-        {{-- <li class="active">Gestion des utilisateurs</li>--}}
+        </li> {{-- <li class="active">Gestion des utilisateurs</li>--}}
     </ul>
     <!-- #section:basics/content.searchbox -->
     <div class="nav-search" id="nav-search">

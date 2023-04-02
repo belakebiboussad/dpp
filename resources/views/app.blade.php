@@ -305,7 +305,8 @@ $.ajax({type : 'get',url : '{{URL::to('reportprint')}}',data:formData,success(da
             @include('partials.sidebar_med')           
         @endif
         <div class="main-content">
-            <div class="main-content-inner">{{-- @include('partials.breadcrumbs') --}}
+            <div class="main-content-inner">
+              {{-- @include('partials.breadcrumbs') --}}
                 <div class="page-content">
                   @include('flashy::message')
               	  @yield('main-content')

@@ -4,9 +4,7 @@
     try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
   </script>
   <ul class="breadcrumb">
-    <li>
-      <i class="ace-icon fa fa-home home-icon"></i>
-      <a href="#">Accueil</a>
+    <li><i class="menu-icon material-icons">home</i><a href="#">Accueil</a>
     </li>
     <li class="active">Gestion des {{ $lien}}</li>
   </ul><!-- /.breadcrumb -->

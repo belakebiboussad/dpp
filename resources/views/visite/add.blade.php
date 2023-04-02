@@ -238,7 +238,8 @@
         </li>
         <li role= "presentation" class="col-md-4">
           <a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary">
-              <span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span></a>
+            <span class ="medical medical-icon-health-services" aria-hidden="true"></span>
+            <span class="bigger-160">Traitements</span></a>
         </li>
         <li role= "presentation" class="col-md-4">
             <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger"><span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span></a>
@@ -344,7 +345,7 @@
               <td width="5%">
               <div class="checkbox">
                 <label>
-                @if(!is_null($lastVisite))
+                @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
                   <input name="consts[]" type="checkbox"  class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}" onchange="constChanged(this)" @if(in_array($const->id,$lastVisite->constantes->pluck('id')->toArray())) checked="checked" @endif/>
                 @else
                   <input name="consts[]" type="checkbox" class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}"  onchange="constChanged(this)"/>
@@ -354,10 +355,13 @@
               </div>
               </td>
               <td>
-              <textarea class="form-control inputClass {{ (in_array($const->id,$lastVisite->constantes->pluck('id')->toArray()))?'':'hidden disabled'}}" name="obs[]" id="{{ $const->id }}">
-               {{-- $lastVisite->constantes->find($const->id)->pivot->obs --}}
-               {{ $lastVisite->constantes->find($const->id) }}
-              </textarea>
+                @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
+<textarea class="form-control inputClass {{ (in_array($const->id,$lastVisite->constantes->pluck('id')->toArray()))?'':'hidden'}}" name="obs[]" id="{{ $const->id }}" name="obs[]" id="{{ $const->id }}" {{ (in_array($const->id,$lastVisite->constantes->pluck("id")->toArray())) ? "":"disabled"}}>{{ ($lastVisite->constantes->find($const->id))['pivot']['obs'] }}</textarea>
+                @else
+                <textarea class="form-control inputClass hidden" name="obs[]" id="{{ $const->id }}" disabled></textarea>
+                   
+                 
+                @endif
               </td>
             </tr>
           @endforeach

@@ -34,4 +34,18 @@
 <link rel="stylesheet" href="{{ asset('/css/fullcalendar.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace-rtl.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('/css/fullcalendar.print.css')}}"   media='print' />
+<link rel="stylesheet" href="{{ asset('/css/fullcalendar.print.css')}}" media='print' />
+<style type="text/css">
+  @font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: '{{ URL::asset('/fonts/google/MaterialIcons-Regular.eot') }}';
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    '{{ URL::asset('/fonts/google/MaterialIcons-Regular.woff2')}} format('woff2')',
+    '{{ URL::asset('/fonts/google/MaterialIcons-Regular.woff') }} format('woff')',
+    '{{ URL::asset('/fonts/google/MaterialIcons-Regular.ttf') }} format('truetype')';     
+}
+</style>
+<link rel="stylesheet" href="{{ asset('/fonts/google/material-icons.css') }}" />

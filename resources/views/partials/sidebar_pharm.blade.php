@@ -14,25 +14,16 @@
 	    <span class="btn btn-warning"></span><span class="btn btn-danger"></span>
 	  </div>
 	</div>
-	<li class="">
-    <a href="#">
-      <i class="menu-icon fa fa-picture-o"></i>
-      <span class="menu-text">Menu Gestion Patients</span>
-     </a>
-    <b class="arrow"></b>
-  </li>
   <ul class="nav nav-list">
     <li class="">
       <a href="/home">
-        <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span>
-      </a>
-      <b class="arrow"></b>
+        <i class="menu-icon material-icons">home</i><span class="menu-text">Accueil</span>
+      </a><b class="arrow"></b>
     </li>
-    <li class="">
-        <a href="{{ route('demandeproduit.index') }}">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
-      </a>
-      <b class="arrow"></b>
+    <li>
+      <a href="{{ route('demandeproduit.index') }}">
+        <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
+      </a><b class="arrow"></b>
     </li>
     </ul><!-- /.nav-list -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

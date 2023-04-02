@@ -55,10 +55,6 @@ class VisiteController extends Controller
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $hosp = hospitalisation::with('patient')->FindOrFail($id_hosp);
       $lastVisite = $hosp->getlastVisiteWitCsts();
-     
-       // $target = $lastVisite->constantes->find(5)->pivot->obs;
-       // dd($target);
-      // dd($target->pivot->obs);
       $obj = $hosp->visites()->create([
         'date'=>$date,'heure'=>$date->format("H:i"),
         'pid'=>$hosp->patient->id,'date'=>$date,

@@ -3,7 +3,8 @@
 <div class="page-header">@include('patient._patientInfo',['patient'=>$hosp->patient])</div>
 <div class="row"><h4>Hospitalisation : suivi(e) du patient</h4>
 <div class="pull-right">
-   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
+   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info">
+    <i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 </div>
 <div class="tabbable"  class="user-profile">

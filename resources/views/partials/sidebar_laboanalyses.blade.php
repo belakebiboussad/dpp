@@ -15,31 +15,22 @@
         </div>
     </div><!-- /.sidebar-shortcuts -->
     <ul class="nav nav-list">
-        <li class="">
-            <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a>
-            <b class="arrow"></b>
+      <li>
+        <a href="{{ route('demandeexb.index') }}"><i class="menu-icon material-icons">home</i><span class="menu-text">Accueil</span></a><b class="arrow"></b>
+      </li>
+      <li>
+      <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Liste des demandes </span></a><b class="arrow"></b>  
         </li>
-        <li class="">
-            <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span> </a>
-            <b class="arrow"></b>
-        </li>
-        <li class="">
-            <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Liste des demandes </span></a>
-            <b class="arrow"></b>
-        </li>
-        <li class="">
+        <li>
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-        <b class="arrow"></b>
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span><b class="arrow fa fa-angle-down"></b>
+           </a><b class="arrow"></b>
         <ul class="submenu">
-          <li class="">
+          <li>
             <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
           </li>
           <li>
-            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a>
-            <b class="arrow"></b>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Demandes</a><b class="arrow"></b>
           </li>              
         </ul>
       </li>
