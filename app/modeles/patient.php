@@ -89,6 +89,10 @@ class patient extends Model
   {
     return $this->belongsToMany('App\modeles\Allergie','allergie_patient','patient_id','allergie_id')->withTimestamps();
   }
+  public function vaccins()
+  {
+    return $this->belongsToMany('App\modeles\Vaccin','patient_vaccin','patient_id','vaccin_id')->withTimestamps();
+  }
   public function ContagDesease()
   {
     return $this->belongsToMany('App\modeles\CIM\maladie','dppdb.maladie_patient','patient_id','maladie_id')->withTimestamps();

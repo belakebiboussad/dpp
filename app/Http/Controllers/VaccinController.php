@@ -29,7 +29,8 @@ class VaccinController extends Controller
   {
     $patient = patient::findOrFail($request->pid);
     $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
-    return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    //return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    return $patient->vaccins()->find($request->vaccinid)->pivot;
   }
   public function destroy(Request $request,$id)
   {

@@ -47,11 +47,6 @@ $(function(){
 			vaccinid : $('#vid').val(),
 			date     : $('#dateVacc').val(),
 		};
-		// $.ajaxSetup({
-		// 	headers: {
-		//    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		// 	}
-		// });
 		var state = $(this).val();
 		var type = "POST";
 		var ajaxurl = '/vaccin/';
@@ -65,6 +60,11 @@ $(function(){
 			   	data: formData,
 			   	dataType: 'json',
 			   	success: function (data) {
+              $.each(data,function(key, value){
+                alert(key +':'+value);
+              })
+
+            /*
 			   		var vac = '<tr id="vaccin' + data.vaccin_id + '"><td>'+ $("#vid :selected").text()
 			   						+ '</td><td>' + data.date +'</td>';
 			   		vac += '<td class ="center"><button class="btn btn-xs btn-info open-modalVacc" value="' + data.vaccin_id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>';
@@ -74,7 +74,8 @@ $(function(){
 			 			else
 			 				$("#vaccin" + $("#vac_id").val()).replaceWith(vac);
 			 		  $('#vaccinModal').modal('hide');
-			 		},
+			 		  */
+          },
 					error: function (data) {
 						console.log('Error:', data);
 			   }
