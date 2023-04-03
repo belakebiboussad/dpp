@@ -5,8 +5,7 @@
  	<div class= "widget-box widget-color-pink">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
-        <font color="black"> <i class="ace-icon fa fa-table"></i>
-        &nbsp;<b>Vaccins</b></font></h5>
+        <i class="ace-icon fa fa-table"></i> Vaccins</h5>
 		 	<div class="widget-toolbar widget-toolbar-light no-border">
 				<a id ="vaccAdd" data-target="#vaccinModal" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>

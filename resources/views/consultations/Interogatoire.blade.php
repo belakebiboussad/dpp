@@ -13,7 +13,7 @@
 	</ul>
 	<div class="row">
 		<div class= "col-sm-9">
-			<div class ="tab-content"  style = "border-style: none;">
+			<div class ="tab-content" style = "border-style: none;">
 				<div role="tabpanel" class = "tab-pane in active" id="Motif">@include('consultations.motif')</div>
 				<div role="tabpanel" class = "tab-pane" id="ATCD">
           @isset($specialite->antecTypes)

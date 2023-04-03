@@ -2,7 +2,7 @@
 <div class="row">
 	<div class= "widget-box widget-color-red">
 		<div class="widget-header">
-		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Accouchement</b></font></h5>
+<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i> Accouchement</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<a id ="accAdd" class="btn-xs align-middle @if(isset($obj->patient->accouchement)) hidden @endif" data-toggle="modal" data-target="#accouchementModal">
 					<i class="fa fa-plus-circle bigger-180"></i>
