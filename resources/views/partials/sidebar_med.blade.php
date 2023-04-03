@@ -24,7 +24,7 @@
       @if(in_array(Auth::user()->role_id,[13,14]))
       <li class="">
         <a href="{{ route('stat.index') }}">
-        <i class="menu-icon material-icons md-18">equalizer</i>
+        <i class="menu-icon material-icons md-22">equalizer</i>
           <span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
       @endif
@@ -63,15 +63,15 @@
         </li>
         <li>
         <a href="#" class="dropdown-toggle">
-        <i class="menu-icon material-icons md-18">event_available</i>
+        <i class="menu-icon material-icons md-22">event_available</i>
         <span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-                      <li>
-                        <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
-                      </li>
-                      <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
-                </ul>
+            <li>
+              <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
+            </li>
+            <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
+      </ul>
           </li>
         <li>
           <a href="#" class="dropdown-toggle">

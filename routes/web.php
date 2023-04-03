@@ -50,7 +50,7 @@ Route::resource('crrs','CRRControler');
 Route::resource('stat','StatistiqusController');
 Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
-route::resource('/const','ConstanteController');
+route::resource('const','ConstanteController');
 route::resource('acteExec','ActeExecController');
 route::resource('orientLetter','LettreOrientationController');
 route::resource('certifDescrip','CertificatDescriptifController');
@@ -160,7 +160,7 @@ Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crb
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
-route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
+route::get('/getconst','SoinsController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print');

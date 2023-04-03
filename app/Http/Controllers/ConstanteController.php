@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\Constante;
-use App\modeles\Constantes;
-use App\modeles\prescription_constantes;  
-use Carbon\Carbon;
+use App\modeles\visite;  
 use DB;
 class ConstanteController extends Controller
 {
@@ -18,39 +16,23 @@ class ConstanteController extends Controller
   {
     $hosp_id = $request->hosp_id;
     $const = Constante::FindOrFail($request->id);
-    $view = view("soins.ajax_const_details",compact('const','hosp_id'))->render();
+    $view = view("soins.ajax_AddconstVal",compact('const','hosp_id'))->render();
     return($view);
   }
   public function edit(Request $request,$id)
-  {
-    if($request->ajax())  
-    {
-      $const = Constante::find($id);
-      return $const;
-    }
+  {/*if($request->ajax()){$const = Constante::find($id);return $const;}*/
+    $visite = visite::find($id);
+    return $visite->constantes;
   }
   public function store(Request $request)
   {
-    $input = $request->all();
-    $input['date'] = Carbon::now()->format('Y-m-d H:i:s') ;
-    $const =  Constantes::create($input);
-    if($request->ajax()) 
-      return $const;
-    else
-      return redirect()->back()->with('succes', 'prescription inserer avec success');  
+    $visite = visite::find($request->visit_id); 
+    $visite->constantes()->attach($request->nom, ['obs' => $request->obs]);
+    return $visite->constantes;
   }
-  public function destroy(Request $request)
+  public function destroy(Request $request, $id)
   {
-    $const = Constantes::where('hospitalisation_id',$request->hosp_id)->where($request['constename'],'<>',null)->orderBy('date','desc')->first();
-    $const->delete();
-    return $const;
-  }
-  public function getConstData(Request $request)
-  {
-    if($request->isDate == 1)
-      $data = Constantes::select('date')->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
-    else
-      $data = Constantes::select($request->const_name)->whereNotNull($request->const_name)->where('hospitalisation_id', $request->hosp_id)->get();
-    return $data ;
+    $visite = visite::FindOrFail($request->visit_id);
+    return $visite->constantes()->detach($id);
   }
 }

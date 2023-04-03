@@ -56,7 +56,6 @@ class DemandeExamenRadio extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexr = demandeexr::with('imageable')->whereNull('etat')->orderBy('id','desc')->get();
-        //dd($demandesexr);
         return view('examenradio.index', compact('demandesexr','services')); 
       }
     }
@@ -250,7 +249,7 @@ class DemandeExamenRadio extends Controller
     }
     public function exmDestroy($id)
     {
-      $ex = Demande_Examenradio::FindOrFail($id);//with('Demande')->
+      $ex = Demande_Examenradio::FindOrFail($id);
       $ex->delete();  //si le ernier examen je suprimer la demande
       //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
       return $ex;

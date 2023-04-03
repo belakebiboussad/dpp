@@ -46,7 +46,6 @@
 .mtp10 {  margin-top: +10px !important; }
 .mtp20 {  margin-top: +20px !important; }
 .mtp33 {  margin-top: +33px !important; }
-
 /*teste*/
 .mtP40 { margin-top:+40px !important;}
 .mtP5p { margin-top:+5% !important;}
@@ -232,4 +231,4 @@ p.pageCenter {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-22 { font-size: 22px; }

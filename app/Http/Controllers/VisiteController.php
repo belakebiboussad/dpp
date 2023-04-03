@@ -101,18 +101,6 @@ class VisiteController extends Controller
       foreach ($request->consts as $key =>$const) {
          $visite->constantes()->attach($const, ['obs' =>$request->obs[$key]]);
       }
-    /*
-//à revoire si(observ change et constante change) on crée une prescription
-  if(!is_null($visite->hospitalisation->getlastVisiteWitCstPresc()))
-    $VisconstIds = $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->constantes->pluck('id')->toArray();
-  if(!is_null($request->consts))
-  {     
-    $reqintArray = array_map('intval', $request->consts);
-    if( ($reqintArray  != $VisconstIds) || ($request->observation != $visite->hospitalisation->getlastVisiteWitCstPresc()->prescreptionconstantes->observation))
-        $visite->prescreptionconstantes()->create(["observation" => $request->observation])->constantes()->attach($request->consts); 
-      }
-      
-*/
       return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)

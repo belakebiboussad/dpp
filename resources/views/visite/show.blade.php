@@ -58,7 +58,7 @@
     			</div>
 			@endif
 			@if($visite->traitements->count() > 0)
-    			  <div id="traitement" class="tab-pane row">
+    		<div id="traitement" class="tab-pane row">
        				<div class="col-xs-12 widget-container-col row">
 				<div class="widget-box widget-color-blue">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>

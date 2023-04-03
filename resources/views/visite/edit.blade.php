@@ -37,6 +37,12 @@
       </div>
     </div>  
   </div>
+   <div class="row">
+    <div class="col-xs-12">
+      <div class="panel-body"><table id="consts-table"></table><div id="ConstsPager"></div>
+      </div>
+    </div>  
+  </div>
   <div class="hr hr-dotted"></div>
   <div class="row">
     <div class="center">
@@ -200,6 +206,39 @@
       data: {  _token: CSRF_TOKEN } ,
       dataType:'json',
       success: function (data) {}
+    }) 
+  }
+  function addConst(params)
+  {
+    url = '{{ route("const.store") }}'; 
+    params['_token'] =CSRF_TOKEN;
+    params['visit_id'] ='{{ $visite->id}}';
+    params['editurl'] =url;
+    $.ajax({
+      type:"POST",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {
+        if($("#consts-table").getRowData().length ==0)
+         location.reload();    
+      }
+    })
+  }
+  function ConstDelete(id)
+  {
+    var formData = {
+      _token: CSRF_TOKEN,
+      visit_id : '{!! $visite->id !!}',
+    };
+    var url = '{{ route("const.destroy", ":slug") }}'; 
+    url = url.replace(':slug', id);
+    $.ajax({
+      type:"DELETE",
+      url:url,
+      data: formData,
+      dataType:'json',
+      success: function (data) { }
     }) 
   }
 $(document).ready(function(){
@@ -423,7 +462,7 @@ $(document).ready(function(){
       datatype: "json",
       colNames:['ID','Nom','Specialite'],
       colModel:[
-      { name:'id',index:'id',editable: false, hidden:true, editable: true},
+      { name:'id',index:'id',editable: true, hidden:true},
       { name:'nom', index:'nom', editable: true, edittype:'select',editrules:{required:true},
         editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}',defaultValue:1}
       },
@@ -486,7 +525,7 @@ $(document).ready(function(){
       datatype: "json",
       colNames:['ID','Nom','Type'],
       colModel:[
-        { name:'id',index:'id',editable: false, hidden:true, editable: true},
+        { name:'id',index:'id',editable: true, hidden:true},
         { name:'nom', index:'nom', editable: true, edittype:'select',editrules:{required:true},
           editoptions: {value:'{!! $examensradio!!}', defaultValue:1},editrules: { required: true },
           formatter: function (cellvalue, options, rowObject) 
@@ -541,6 +580,69 @@ $(document).ready(function(){
       errorTextFormat: commonError,
       onclickSubmit: function (response, id) {
         examImgDelete(id);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      }
+    });
+    var url = '{{ route("const.edit", ":slug") }}'; 
+    url = url.replace(':slug', '{!!$visite->id!!}');
+   $("#consts-table").jqGrid(
+    {
+      url :url ,
+      mtype: "GET",
+      datatype: "json",
+      colNames:['ID','Nom','Observation'],
+      colModel:[
+        { name:'id', index:'id',editable: true, hidden:true},
+        { name:'nom', index:'nom', editable:true, edittype:'select',
+          editoptions: { value: '{!!format_string($specialite->Consts,'id','nom')!!}', defaultValue:1}
+        },
+        { name:'obs', index:'obs', editable: true, editoptions: {size:67},
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.pivot.obs;
+          }
+        }
+      ],
+      width: 1146,
+      height: "auto",
+      rowNum:10,
+      loadonce: true,
+      rowList:[10,20,30],
+      multiselect: true,
+      pager: '#ConstsPager',
+      sortname: 'nom',
+      viewrecords: true,
+      sortorder: "desc",
+      editurl : '/const/edit',
+      caption:"Constantes Médicaux",
+      emptyrecords: "0 enregistrements trouvés",
+    });
+    $("#consts-table").jqGrid('navGrid','#ConstsPager',
+    {
+      edit:false,
+      add:true, addtitle: "Ajouter une Constante",
+      addicon : 'ace-icon fa fa-plus-circle purple',
+      view:false,search:false,
+    },{},{
+      width: "600", 
+      closeOnEscape: true, 
+      closeAfterAdd: true,
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+      onclickSubmit: function (response, imgdata) {
+        addConst(imgdata);
+        $(this).jqGrid("setGridParam", { datatype: "json" });
+      },
+    },
+    {
+      loseOnEscape: true, 
+      recreateForm: true,
+      reloadAfterSubmit: true,
+      errorTextFormat: commonError,
+      onclickSubmit: function (response, id) {
+        ConstDelete(id);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
     });

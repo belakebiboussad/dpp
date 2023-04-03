@@ -28,7 +28,7 @@
                     <tr id="acte-{{ $acte->id }}">
                       <td>{{ $acte->nom }}</td><td>{{ $acte->description }}</td>
                       <td>{{ $acte->visite->medecin->full_name }}</td><td>{{ $acte->visite->date_formated}}</td><td class="center">
-                        <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du traitement"><i class="fa fa-eye fa-xs"></i></a></button>
+                        <button onclick ="getActdetail({{ $acte->id }})" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du l'acte"><i class="fa fa-eye fa-xs"></i></a></button>
                       </td> 
                     </tr>
                     @endif
@@ -83,8 +83,7 @@
     </div>
   </div>
   @endif
-  @if( (! is_null($lastVisite)) && (! is_null($lastVisite->prescreptionconstantes)) ) 
-  @if($lastVisite->prescreptionconstantes->constantes->count() > 0)
+  @if((! is_null($lastVisite)) && (! is_null($lastVisite->constantes)))
   <div class="row">
     <div class="col-sm-6 widget-container-col">
       <div class="widget-box widget-color-blue">
@@ -96,24 +95,18 @@
             <table  class="table  table-bordered table-hover">
               <thead>
               <tr>
-                <th class="center">Constante</th>
-                <th class="center">Observation</th>
+                <th class="center">Nom</th> <th class="center">Observation</th>
                 <th class="center"><em class="fa fa-cog"></em></th>
               </tr>
               </thead>
-               <tbody>
-                @foreach($lastVisite->prescreptionconstantes->constantes as $const)
+              <tbody> 
+                @foreach($lastVisite->constantes as $const)
                 <tr>
-                  <td>{{ $const->description }}</td>
-                  @if($loop->first)
-                  <td class="align-middle" rowspan = "{{$lastVisite->prescreptionconstantes->constantes->count() }}">
-                  {{ $lastVisite->prescreptionconstantes->observation }}
-                  </td>
-                  @endif
+                  <td>{{ $const->description }}</td><td>{{ $const->pivot->obs}}</td>
                   <td class="center">
                     <button  style="cursor:pointer" class="btn btn-primary btn-xs setConst" data-toggle="tooltip"  value="{{ $const->id }}" data-unite="{{ $const->id }}"><i class="fa fa-eye fa-xs"></i></a></button>
                   </td>
-                 </tr>
+                </tr>
                 @endforeach
               </tbody>
             </table>
@@ -121,8 +114,7 @@
         </div>
       </div>
     </div>
-  </div><!-- ROW -->
-  @endif
+  </div>
   @endif
 </div>
 @include('soins.ModalFoms.acteExecuteModal')@include('soins.ModalFoms.traitExecuteModal')@include('constantes.scripts.functions')
@@ -211,15 +203,11 @@
       $.ajax({
         url : url,
         type : 'GET',
-        data:formData,//{   id :  $(this).val() , hosp_id= '{{-- $hosp->id--}}' };
+        data:formData,
         success:function(data,status, xhr){
-          $('#details').html(data);
-        },
-        error:function(data){
-          console.log("error acte details")
+           $('#details').html(data);
         }
       });
-      
     });
   });
  </script> 

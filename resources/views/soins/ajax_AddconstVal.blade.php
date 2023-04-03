@@ -4,7 +4,7 @@
     <input type="number" step="{{ $const->step }}" id="cnst" class="input input-sm " value="{{ $const->normale }}" min="{{ $const->min}}" max="{{ $const->max}}">     
     <button type="buton" class ="btn btn-xs btn-primary" id="addCste"><i class="fa fa-plus-circle"></i></button>
       <button class="btn btn-xs btn-danger" id="btnRemovePoints"><i class="fa fa-trash-o"></i></button> 
-  </div><!-- <div class="col-sm-1"></div> -->
+  </div>
   <div class="col-sm-5">
   <label id="min">Min:{{ $const->min }}</label>&nbsp;<label id="mxn">Max:{{ $const->max }}</label>
   </div>
@@ -60,7 +60,7 @@ $(function(){
     if(constValues.length == 0 )
       $("#btnRemovePoints").addClass('hidden'); 
     $("#addCste").click(function(e){
-      var url = '{{ route('const.store')}}';
+      var url = '{{ route('soins.store')}}';
       var formData = {
          _token: CSRF_TOKEN,
         hospitalisation_id  : '{{ $hosp_id }}',
@@ -79,7 +79,7 @@ $(function(){
     });
     $("#btnRemovePoints").click(function()
     {//ajax to remove laste
-      var url = '{{ route('const.destroy',":slug") }}';//dataArray = chart.data.datasets[0].data;
+      var url = '{{ route('soins.destroy',":slug") }}';
       chart.data.labels.pop();
       var value = chart.data.datasets[0].data.pop();
       url = url.replace(':slug',value);
@@ -95,7 +95,7 @@ $(function(){
         data: formData,
         success: function (data) {
           if(chart.data.datasets[0].data.length == 0 )
-            $("#btnRemovePoints").addClass('hidden');//chart.data.datasets[0].data = chart.data.datasets[0].data;
+            $("#btnRemovePoints").addClass('hidden');
           chart.update();
         }
       });
