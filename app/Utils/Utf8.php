@@ -1,5 +1,6 @@
 <?php 
-namespace App\Helpers\String;
+
+namespace App\Utils;
 class Utf8{
 	public static function cleanString($stext){
 		  $utf8 = array(
@@ -23,6 +24,5 @@ class Utf8{
         '/ /'           =>   '-', // nonbreaking space (equiv. to 0x160)
     );
     return preg_replace(array_keys($utf8), array_values($utf8), $stext);
-
 	}
 }

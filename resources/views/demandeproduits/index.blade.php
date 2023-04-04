@@ -150,12 +150,13 @@
 										<td>{{ $demande->date->format('Y-m-d') }}</td>
 										<td>{{is_null($demande->id_employe)? '' :$demande->demandeur->Service->nom }}</td>
                     <td>{{ $demande->demandeur->full_name }}</td> 
-                    <td class="center">{!! format_stat($demande)!!}</td>
+                    <td class="center">{!! $formatStat
+($demande)!!}</td>
                     <td class="center">
 										<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails"><i class="ace-icon fa fa-hand-o-up"></i></a>
 										@if(Auth::user()->is(14))
-										<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-primary btn-xs{!! isInprog($demande)!!}" title="Modifier Demande"><i class="fa fa-edit fa-xs"></i></a>
-										<a href="{{ route('demandeproduit.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger{!! isInprog($demande)!!}"><i class="fa fa-trash-o"></i></a>
+										<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-primary btn-xs{!! $isInprog($demande)!!}" title="Modifier Demande"><i class="fa fa-edit fa-xs"></i></a>
+										<a href="{{ route('demandeproduit.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger{!! $isInprog($demande)!!}"><i class="fa fa-trash-o"></i></a>
 										@endif
 										@if(Auth::user()->is(10))
 										<a href="{{ route ("runDemande",$demande->id) }}" class="btn btn-xs btn-info" title="Traiter Demande"><i class="ace-icon fa fa-cog"></i></a>

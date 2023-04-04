@@ -79,7 +79,8 @@
                 <td>{{ $demande->imageable->medecin->full_name }}</td> 
                 <td>{{ $demande->imageable->patient->full_name }}<small class="text-primary"> ({{ ($demande->imageable_type === 'App\modeles\visite')?'Hospitalisation':'Consultation' }})</small>
                 </td>
-              	<td>{!! format_stat($demande) !!}</td>
+              	<td>{!! $formatStat
+($demande) !!}</td>
 								<td class="center">
 								  <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
 		    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>

@@ -147,7 +147,7 @@
 	<div class="row">
 		<div class="col-sm12 center"><br>
 			<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i> Enregistrer	</button>
-			<button type="reset" class="btn btn-sm btn-default">	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i> Annuler</button>
+			<button type="reset" class="btn btn-sm btn-default"><i class="ace-icon fa fa-undo icon-on-left bigger-110"></i> Annuler</button>
 		</div>
 	</div>
 	</form>

@@ -6,7 +6,7 @@
 	<div class="pull-right">
 	<a href="{{route('demandeproduit.index')}}" class="btn btn-info"><i class="ace-icon fa fa-arrow-circle-left blue"></i> Demandes</a>
     @if($demande->demandeur->service == Auth::user()->employ->service)
-	<a href="{{route('demandeproduit.destroy',$demande->id)}}" class="btn btn-danger{!!isInprog($demande)!!}" title="Supprimer Demande" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+	<a href="{{route('demandeproduit.destroy',$demande->id)}}" class="btn btn-danger{!!$isInprog($demande)!!}" title="Supprimer Demande" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 			<i class="ace-icon fa fa-trash-o"></i> Supprimer</a>
 	  @endif
 	</div>

@@ -7,10 +7,10 @@
     <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
     @if($demande->imageable->medecin->id == Auth::user()->employ->id)
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
-     <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
+     <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! $isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
       @endif
       @if( Auth::user()->is(11))
-  <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info{!! isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
+  <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info{!! $isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
       @endif
     </div>
     </div>
@@ -30,7 +30,8 @@
                       </div>
                     </div>
                     <div class="profile-info-row"><div class="profile-info-name">Etat</div>
-                      <div class="profile-info-value">{!! format_stat($demande) !!}</div>
+                      <div class="profile-info-value">{!! $formatStat
+($demande) !!}</div>
                     </div>
                     <div class="profile-info-row"><div class="profile-info-name">Demandeur</div>
                       <div class="profile-info-value"><span class="editable">{{ $demande->imageable->medecin->full_name }}</span></div>
@@ -54,7 +55,8 @@
                           <td class="center">{{ $index + 1 }}</td>
                           <td>{{ $exm->nom }}</td><td>{{ $exm->specialite->nom }}</td>
                           @if($loop->first)
-                          <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">{!! format_stat($demande) !!}</td>
+                          <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">{!! $formatStat
+($demande) !!}</td>
                           @endif
                           @if($loop->first)
                           <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">

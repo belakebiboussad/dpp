@@ -23,6 +23,6 @@ class ToUtfServerProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once app_path() . '/Helpers/String/Utf8.php';
+        require_once app_path() . '/Utils/Utf8.php';
     }
 }

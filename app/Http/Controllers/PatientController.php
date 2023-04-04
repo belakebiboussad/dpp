@@ -495,41 +495,42 @@ class PatientController extends Controller
   } 
   public function patientsToMerege(Request $request)
   {
-     $statuses = []; $values="";
-     $patientResult = new patient;
-     $patient1 = patient::FindOrFail($request->search[0]);
-     $patient2 = patient::FindOrFail($request->search[1]);    
-     $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
-     foreach ($patientResult->getFillable() as $field) {
-        $values = ArrayClass::pluck($patients, $field);    
-        ArrayClass::removeValue("", $values);
-        if (!count($values)) {
-              $statuses[$field] = "none";
-              continue;
-       }
-      $patientResult->$field = reset($values);  // One unique value
-       if (count($values) == 1) {
-           $statuses[$field] = "unique";
-           continue;
-      }// Multiple values
-       $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-      }// Count statuses
-       $counts = array(
-              "none"      => 0,
-              "unique"    => 0,
-              "duplicate" => 0,
-              "multiple"  => 0,
-       );
-       foreach ($statuses as $status) {
-             $counts[$status]++;
-       }  
-        $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
-      return(['html'=>$view]);
+    $statuses = []; $values="";
+    $patientResult = new patient;
+    $patient1 = patient::FindOrFail($request->search[0]);
+    $patient2 = patient::FindOrFail($request->search[1]);    
+    $patients = [$patient1->getAttributes(),$patient2->getAttributes()];
+    foreach ($patientResult->getFillable() as $field) {
+      $values = ArrayClass::pluck($patients, $field);    
+      ArrayClass::removeValue("", $values);
+      if (!count($values)) {
+        $statuses[$field] = "none";
+      continue;
+     }
+    $patientResult->$field = reset($values);  // One unique value
+     if (count($values) == 1) {
+         $statuses[$field] = "unique";
+         continue;
+    }// Multiple values
+     $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+    }// Count statuses
+     $counts = array(
+            "none"      => 0,
+            "unique"    => 0,
+            "duplicate" => 0,
+            "multiple"  => 0,
+     );
+     foreach ($statuses as $status) {
+           $counts[$status]++;
+     }  
+      $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+    return(['html'=>$view]);
   }
   public function merge(Request $request)
   {
     $patient1=patient::FindOrFail($request->patient1_id);
-    $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
+    $patient2=patient::FindOrFail($request->patient2_id);
+    //chargement des consultation du patient2 
     $consuls = consultation::where('pid',$request->patient2_id)->get();
     $antecedants=antecedant::where('pid',$request->patient2_id)->get();
     foreach ($antecedants as $key => $antecedant) {

@@ -57,7 +57,8 @@ $(function(){
                         @foreach ($demande->examensradios as $index => $ex)
                         <tr id = "{{ $ex->id }}">
                           <td class="center" width="5%">{{ $index +1}}</td><td>{{ $ex->Examen->nom }}</td>
-                          <td>{{ $ex->Type->nom }}</td><td>{!! format_stat($ex) !!}</td>
+                          <td>{{ $ex->Type->nom }}</td><td>{!! $formatStat
+($ex) !!}</td>
                           <td class="center" width="20%">
                             @switch($ex->etat)
                               @case('En Cours')

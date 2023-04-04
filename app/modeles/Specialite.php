@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
   public $timestamps = false;
-	protected $fillable = ['nom','type','antecTypes','vaccins','appareils','nbMax','dhValid'];
+	protected $fillable = ['nom', 'type' , 'vaccins', 'nbMax','dhValid'];
   public function Consts()
   {
     return $this->belongsToMany('App\modeles\Constante','constante_specialite','spec_id','const_id');
@@ -18,6 +18,14 @@ class Specialite extends Model
   public function ImgExams()
   {
     return $this->belongsToMany('App\modeles\TypeExam','examenimg_specialite','spec_id','examen_id');
+  }
+  public function appareils()
+  {
+    return $this->belongsToMany('App\modeles\Appareil','appareil_specialite','spec_id','appareil_id');
+  }
+  public function antecTypes()
+  {
+    return $this->belongsToMany('App\modeles\antecType','antecedant_specialite','spec_id','type_id');
   }
   public function setAntecTypesAttribute($value)
   {

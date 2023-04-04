@@ -23,7 +23,7 @@ class consultation extends Model
     }
     public function examsAppareil()
     {// consultation
-      return $this->belongsToMany('App\modeles\appareil','examen_appareil','cons_id','appareil_id')->withPivot('description');
+      return $this->belongsToMany('App\modeles\appareil','appareil_examen','cons_id','appareil_id')->withPivot('description');
     }
     public function demandeexmbio()
     {
@@ -48,7 +48,7 @@ class consultation extends Model
   public function demandeHospitalisation()
   {
     return $this->hasOne('App\modeles\DemandeHospitalisation','id_consultation');
-  }/*public function ordonnaces(){return $this->hasMany('App\modeles\ordonnance','id_consultation');}*/
+  }
   public function lettreOrintation()
   {
     return $this->hasMany('App\modeles\LettreOrientation','consultation_id');

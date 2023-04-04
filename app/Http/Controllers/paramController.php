@@ -32,9 +32,8 @@ class paramController extends Controller
         $specialite  = specialite::FindOrFail($specialite_id);
         $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
-        $specappreils = json_decode($specialite->appareils, true);
         $modesHosp = ModeHospitalisation::all(); 
-        return view('parametres.medicale.index',compact('specialite','consts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','specappreils','appareils','modesHosp'));
+        return view('parametres.medicale.index',compact('specialite','consts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','appareils','modesHosp'));
         break;
       case 4:
       case 8://dir
@@ -62,9 +61,9 @@ class paramController extends Controller
         $specialite->Consts()->sync($request->consts);
         $specialite->BioExams()->sync($request->exmsbio);
         $specialite->ImgExams()->sync($request->exmsImg);
+         $specialite->appareils()->sync($request->appareils);
         $input['antecTypes'] = $request->antecTypes;
         $input['vaccins'] = $request->vaccs;
-        $input['appareils'] = $request->appareils;
         $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
         if(Auth::user()->role_id == 13)

@@ -128,7 +128,7 @@ Route::post('/patients/autoField','PatientController@AutoCompletePatientField')-
 Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
-Route::post('/patient/merge','PatientController@merge');
+Route::post('/patient/merge','PatientController@merge')->name('patients.merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del

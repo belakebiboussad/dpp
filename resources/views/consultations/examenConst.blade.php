@@ -1,7 +1,7 @@
 @foreach($specialite->Consts as $const)
  <div class="form-group row">
- <label >{{ $const->description }}</label>
- <input type="text" name="{{ $const->nom }}" class="irs-hidden-input col-sm-12 {{ $const->nom }}" tabindex="-1" value="{{ $const->min }}">
+ <label class="control-label">{{ $const->description }}</label>
+ <input type="text" name="{{ $const->nom }}" class="form-control irs-hidden-input col-sm-12 {{ $const->nom }}" tabindex="-1" value="{{ $const->min }}">
 </div>
 
 @endforeach

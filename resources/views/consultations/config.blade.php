@@ -16,12 +16,7 @@
 <div class="row">
 @foreach($appareils as $appar)
 <div class="col-xs-2">
-  @if(isset($specappreils))
-   <input name="appareils[]" type="checkbox" class="ace" value="{{ $appar->id}}" {{ (in_array($appar->id, $specappreils))? 'checked' : '' }}/>
-  @else
-  <input name="appareils[]" type="checkbox" class="ace" value="{{ $appar->id}}"/>
-  @endif
-  <span class="lbl">{{ $appar->nom }}</span>
+   <input name="appareils[]" type="checkbox" class="ace" value="{{ $appar->id}}" {{ (in_array($appar->id, $specialite->appareils()->pluck('id')->toArray()))? 'checked' : '' }}/><span class="lbl">{{ $appar->nom }}</span>
 </div>
 @endforeach
 </div>

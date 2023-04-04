@@ -225,7 +225,7 @@ $(function(){
                 <td>{{ $examen->Examen->nom }}</td>
                 <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
                 <td class="center">
-                <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control-file result{!! isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
+                <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control-file result{!! $isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
                 <td class="center" width="30%">
                   <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
                   @if($examen->getEtatID() ===1)
@@ -234,7 +234,7 @@ $(function(){
                 </td>
                 <td class="center" width="18%">
                 @if($examen->getEtatID() !==0)<!-- non rejete -->
-                <button  type="button" class="btn btn-sm btn-info start{!! isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
+                <button  type="button" class="btn btn-sm btn-info start{!! $isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
                   <i class="glyphicon glyphicon-plus glyphicon"></i>

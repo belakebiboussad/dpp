@@ -32,4 +32,3 @@ class AppareilExamenCliniqueController extends Controller
         return $request->appareil_id;
       }
 }
-

@@ -81,12 +81,13 @@
             <td>{{ $consultation->demandeHospitalisation->modeAdmission }}</td>
             <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
             <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
-            <td class="center">{!! format_stat($consultation->demandeHospitalisation) !!}</td>
+            <td class="center">{!! $formatStat
+($consultation->demandeHospitalisation) !!}</td>
             <td class="center">
          <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
           <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
-        <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success{!! isInprog($consultation->demandeHospitalisation) !!}" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom"><i class="ace-icon fa fa-pencil"></i></a>
-<button type="button" class="dh-delete btn btn-xs btn-danger{!! isInprog($consultation->demandeHospitalisation) !!}" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
+        <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success{!! $isInprog($consultation->demandeHospitalisation) !!}" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom"><i class="ace-icon fa fa-pencil"></i></a>
+<button type="button" class="dh-delete btn btn-xs btn-danger{!! $isInprog($consultation->demandeHospitalisation) !!}" value='{{ $consultation->demandeHospitalisation->id }}' data-confirm="Etes Vous Sur ?"><i class="fa fa-trash-o fa-xs"></i></button>
     </td>
       </tbody>
   </table>
@@ -154,12 +155,13 @@
                         <tbody>
                           <tr>
                             <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                            <td>{!! format_stat($consultation->demandeexmbio) !!}</td>
+                            <td>{!! $formatStat
+($consultation->demandeexmbio) !!}</td>
                             <td class="center">
                             <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                             @if(($consultation->medecin->id) === (Auth::user()->employ->id))
-                            <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs{!!isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-pencil"></i></a>
-                            <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs{!!isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-trash-o"></i></a>
+                            <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs{!!$isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-pencil"></i></a>
+                            <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs{!!$isInprog($consultation->demandeexmbio)!!}"><i class="ace-icon fa fa-trash-o"></i></a>
                             <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a> 
                               @endif
                             </td>
@@ -190,7 +192,8 @@
                             <tbody>
                             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
                             <td>{{ $consultation->date->format('Y-m-d') }}</td>
-                            <td>{!! format_stat($consultation->demandExmImg) !!}</td>
+                            <td>{!! $formatStat
+($consultation->demandExmImg) !!}</td>
                             <td class="center">
                               <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                               @if(!$consultation->demandExmImg->hasResult())

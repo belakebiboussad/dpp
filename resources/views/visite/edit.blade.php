@@ -464,7 +464,7 @@ $(document).ready(function(){
       colModel:[
       { name:'id',index:'id',editable: true, hidden:true},
       { name:'nom', index:'nom', editable: true, edittype:'select',editrules:{required:true},
-        editoptions: {value:'{!!format_string($specialite->BioExams,'id','nom')!!}',defaultValue:1}
+        editoptions: {value:'{!!$formatString($specialite->BioExams,'id','nom')!!}',defaultValue:1}
       },
       {
         name: 'spec', index: 'spec', editable: false,edittype:'select', 
@@ -534,7 +534,7 @@ $(document).ready(function(){
           }
         },
         {name:'Type', index:'Type', editable: true, edittype:'select',editrules: { required: true },
-          editoptions: {value:'{!!format_string($specialite->ImgExams,'id','nom')!!}',defaultValue:1},
+          editoptions: {value:'{!!$formatString($specialite->ImgExams,'id','nom')!!}',defaultValue:1},
           formatter: function (cellvalue, options, rowObject) 
           {
             return rowObject.type.nom;
@@ -594,7 +594,7 @@ $(document).ready(function(){
       colModel:[
         { name:'id', index:'id',editable: true, hidden:true},
         { name:'nom', index:'nom', editable:true, edittype:'select',
-          editoptions: { value: '{!!format_string($specialite->Consts,'id','nom')!!}', defaultValue:1}
+          editoptions: { value: '{!!$formatString($specialite->Consts,'id','nom')!!}', defaultValue:1}
         },
         { name:'obs', index:'obs', editable: true, editoptions: {size:67},
           formatter: function (cellvalue, options, rowObject) 

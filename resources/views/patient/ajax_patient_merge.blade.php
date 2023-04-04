@@ -1,18 +1,35 @@
-<table>
+<!-- <table>
 	<tr>
-		<td>&nbsp;&nbsp;<b>Afficher les Champs:</b></td>
-		<th>&nbsp;&nbsp;<label for=""><input onclick="$('tr.duplicate').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs identiques<b>({{$counts['duplicate']}} valeurs) &nbsp;&nbsp;</b></label></th>
-		<th><label for=""><input onclick="$('tr.unique').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs uniques <b>({{$counts['unique']}} valeurs) </label></th>
-	</tr>
-</table>
+		<td>Afficher les Champs :</td>
+		<td>
+      <label><input onclick="$('tr.duplicate').toggle();" type="checkbox" checked> avec valeurs identiques ({{$counts['duplicate']}} valeurs) </label>
+    </td>
+		<td>
+      <label><input onclick="$('tr.unique').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs uniques ({{$counts['unique']}} valeurs) </label>
+    </td>
+	</tr><div class="col-sm-8 input-group">
+</table> -->
+<div class="form-group">
+  <label class="coltrol-label">Afficher les Champs</label>
+  <div class="input-group">
+    <label class="inline">
+      <input type="checkbox" class="ace" onclick="$('tr.duplicate').toggle();" checked/>
+      <span class="lbl"> avec valeurs identiques ({{$counts['duplicate']}})</span>
+    </label>
+    <label class="inline">
+      <input type="checkbox" class="ace" onclick="$('tr.unique').toggle();" checked/>
+      <span class="lbl"> avec valeurs uniques ({{$counts['unique']}})</span>
+    </label>
+  </div> 
+</div>
 <input type="hidden" name="patient1_id" value="{{ $patient1->id}}">
 <input type="hidden" name="patient2_id" value="{{ $patient2->id}}">
 <table id ="PatiensMerge" class="table table-striped table-bordered merger">
  	<thead>
 		<th class="category narrow"></th>
-	      	<th>Résultat</th>
-	      	<th>Patient1 <q><mark>{{ $patient1->Nom }}-{{ $patient1->Prenom}}</mark></q></th>
-	      	<th>Patient2	<q><mark>{{ $patient2->Nom }}-{{ $patient2->Prenom}}</mark></q></th>
+    	<th>Résultat</th>
+    	<th>Patient1 <q><mark>{{ $patient1->Nom }}-{{ $patient1->Prenom}}</mark></q></th>
+    	<th>Patient2	<q><mark>{{ $patient2->Nom }}-{{ $patient2->Prenom}}</mark></q></th>
 	</thead>
 	<tbody id="mergepatients">		
 		<tr class="{{ $statuses['Nom'] }}">

@@ -91,7 +91,7 @@ class patient extends Model
   }
   public function vaccins()
   {
-    return $this->belongsToMany('App\modeles\Vaccin','patient_vaccin','patient_id','vaccin_id')->withTimestamps();
+    return $this->belongsToMany('App\modeles\Vaccin','patient_vaccin','patient_id','vaccin_id')->withPivot('date')->withTimestamps();
   }
   public function ContagDesease()
   {

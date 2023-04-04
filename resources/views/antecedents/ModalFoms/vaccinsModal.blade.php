@@ -47,7 +47,7 @@ $(function(){
 			vaccinid : $('#vid').val(),
 			date     : $('#dateVacc').val(),
 		};
-		var state = $(this).val();
+    var state = $(this).val();
 		var type = "POST";
 		var ajaxurl = '/vaccin/';
 		if (state == "update") {
@@ -60,25 +60,17 @@ $(function(){
 			   	data: formData,
 			   	dataType: 'json',
 			   	success: function (data) {
-              $.each(data,function(key, value){
-                alert(key +':'+value);
-              })
-
-            /*
-			   		var vac = '<tr id="vaccin' + data.vaccin_id + '"><td>'+ $("#vid :selected").text()
+           var vac = '<tr id="vaccin' + data.vaccin_id + '"><td>'+ $("#vid :selected").text()
 			   						+ '</td><td>' + data.date +'</td>';
-			   		vac += '<td class ="center"><button class="btn btn-xs btn-info open-modalVacc" value="' + data.vaccin_id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>';
-				  	vac += '<button class="btn btn-xs btn-danger delete-Vacc" value="' + data.vaccin_id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';
+			   		vac += '<td class ="center"><button class="btn btn-xs btn-info open-modalVacc" value="' + data.vaccin_id + '"><i class="fa fa-edit" aria-hidden="true"></i></button>';
+				  	vac += ' <button class="btn btn-xs btn-danger delete-Vacc" value="' + data.vaccin_id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o"></i></button></td></tr>';
 						if (state == "add")
 			 				$('#vaccsTab' +' tbody').append(vac);
 			 			else
 			 				$("#vaccin" + $("#vac_id").val()).replaceWith(vac);
 			 		  $('#vaccinModal').modal('hide');
-			 		  */
-          },
-					error: function (data) {
-						console.log('Error:', data);
-			   }
+			 		  
+          }
 			});
 	});
 	$('body').on('click', '.open-modalVacc', function (event) {
@@ -97,13 +89,8 @@ $(function(){
 	$('body').on('click', '.delete-Vacc', function (e) {
   		event.preventDefault();
     	var vac_id = $(this).val();
-  		var formData = { pid : '{{ $obj->patient->id }}' };
-  		$.ajaxSetup({
-    		headers: {
-     		 	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-    		}
-    	});
-    	$.ajax({
+  		var formData = { _token: CSRF_TOKEN, pid : '{{ $obj->patient->id }}' };
+  		$.ajax({
           type: "DELETE",
           url: '/vaccin/' + vac_id,
           data: formData,
@@ -111,10 +98,6 @@ $(function(){
           success: function (data) {
             $("#vaccin" + vac_id).remove();
             $('#vaccinSave').val("add");
-          },
-          error: function (data) {
-             console.log('Error:', data);
-            alert("error"); 
           }
     	});
   });

@@ -16,7 +16,8 @@
                   <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                       <div class="profile-info-name col-sm-3">Etat :</div>
-                      <div class="profile-info-value col-sm-9">{!! format_stat($demande) !!}</div>
+                      <div class="profile-info-value col-sm-9">{!! $formatStat
+($demande) !!}</div>
                     </div>
                   </div><!-- striped   -->
                   <div class="profile-user-info profile-user-info-striped">

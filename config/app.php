@@ -169,6 +169,7 @@ return [
         /*
          * Package Service Providers...
          */
+        MercurySeries\Helpers\HelpersServiceProvider::class,
         /*
          * Application Service Providers...
          */
