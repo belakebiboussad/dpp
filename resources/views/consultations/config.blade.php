@@ -3,12 +3,8 @@
 <div class="row">
 @foreach($antecTypes as $antecType)
   <div class="col-xs-2">
-  @if(isset($specAntecTypes))
-    <input name="antecTypes[]" type="checkbox" class="ace" value="{{ $antecType->id}}" {{ (in_array($antecType->id, $specAntecTypes))? 'checked' : '' }}/>
-  @else
-    <input name="antecTypes[]" type="checkbox" class="ace" value="{{ $antecType->id}}"/>
-  @endif   
-  <span class="lbl">{{ $antecType->nom_complet }}</span>
+  <input name="antecTypes[]" type="checkbox" class="ace" value="{{ $antecType->id}}" {{ (in_array($antecType->id, $specialite->antecTypes()->pluck('id')->toArray()))? 'checked' : '' }}/>
+    <span class="lbl">{{ $antecType->nom_complet }}</span>
   </div>
 @endforeach
 </div><div class="space-12"></div>

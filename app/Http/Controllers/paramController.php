@@ -30,10 +30,9 @@ class paramController extends Controller
         $appareils = appareil::orderBy('id')->get();
         $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
         $specialite  = specialite::FindOrFail($specialite_id);
-        $specAntecTypes = json_decode($specialite->antecTypes, true);
         $specvaccins = json_decode($specialite->vaccins, true);
         $modesHosp = ModeHospitalisation::all(); 
-        return view('parametres.medicale.index',compact('specialite','consts','specialites','specExamsImg','examensImg','antecTypes','specAntecTypes','vaccins','specvaccins','appareils','modesHosp'));
+        return view('parametres.medicale.index',compact('specialite','consts','specialites','specExamsImg','examensImg','antecTypes','vaccins','specvaccins','appareils','modesHosp'));
         break;
       case 4:
       case 8://dir
@@ -61,8 +60,8 @@ class paramController extends Controller
         $specialite->Consts()->sync($request->consts);
         $specialite->BioExams()->sync($request->exmsbio);
         $specialite->ImgExams()->sync($request->exmsImg);
-         $specialite->appareils()->sync($request->appareils);
-        $input['antecTypes'] = $request->antecTypes;
+        $specialite->appareils()->sync($request->appareils);
+        $specialite->antecTypes()->sync($request->antecTypes);
         $input['vaccins'] = $request->vaccs;
         $input['dhValid'] = $request->dhValid;
         $specialite->update($input);

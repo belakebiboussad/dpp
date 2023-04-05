@@ -27,14 +27,6 @@ class Specialite extends Model
   {
     return $this->belongsToMany('App\modeles\antecType','antecedant_specialite','spec_id','type_id');
   }
-  public function setAntecTypesAttribute($value)
-  {
-    $this->attributes['antecTypes'] = json_encode($value);
-  }
- public function setAppareilsAttribute($value)
- {
-    $this->attributes['appareils'] = json_encode($value);
- }
   public function setVaccinsAttribute($value)
   {
       $this->attributes['vaccins'] = json_encode($value);

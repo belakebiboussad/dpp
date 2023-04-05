@@ -84,7 +84,8 @@ class ConsultationsController extends Controller
         $etab = Etablissement::first();
         $employe = Auth::user()->employ; 
         $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
-        $speconst = json_encode($specialite->Consts);
+        //$speconst = json_encode($specialite->Consts);
+        
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
@@ -99,7 +100,7 @@ class ConsultationsController extends Controller
           'id_lieu'=>$etab->id,
         ]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
-        return view('consultations.createObj',compact('obj','etab','chapitres','speconst','apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
+        return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
       }
     /**
      * Store a newly created resource in storage.

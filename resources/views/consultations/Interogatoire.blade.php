@@ -17,8 +17,8 @@
 				<div role="tabpanel" class = "tab-pane in active" id="Motif">@include('consultations.motif')</div>
 				<div role="tabpanel" class = "tab-pane" id="ATCD">
           @isset($specialite->antecTypes)
-            @foreach( json_decode($specialite->antecTypes ,true) as $antype)
-              @include('antecedents.' . App\modeles\antecType::FindOrFail($antype)->nom)
+            @foreach( $specialite->antecTypes as $antype)
+              @include('antecedents.' . $antype->nom)
             @endforeach
           @endisset
          
