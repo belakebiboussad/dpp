@@ -40,7 +40,7 @@
    });       
  })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau patient</h4>
@@ -73,8 +73,8 @@
 						<li ><a class="jumbotron" data-toggle="tab" href="#Assure"><h4>Assuré(e)</h4></a></li>
 			 		</ul>
 			 		<div class="tab-content">
-						<div id="Patient" class="tab-pane in active">@include('patient.addPatient')</div>
-            <div id="Assure" class="tab-pane  fade">@include("assurs.addAssure")</div>
+					<div id="Patient" class="tab-pane in active">@include('patient.addPatient')</div>
+          <div id="Assure" class="tab-pane  fade">@include("assurs.addAssure")</div>
 					</div>
 			  </div>
       </div><div class="hr hr-dotted"></div>
@@ -87,4 +87,4 @@
 		</form>
 	</div>
 </div>
- @endsection
+@stop

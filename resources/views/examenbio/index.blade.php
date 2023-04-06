@@ -16,7 +16,7 @@
 	  	})
   	})
 </script>
-@endsection 	
+@stop 	
 @section('main-content')
 <div class="page-header"><h1>Rechercher une demande d'examen biologique</h1></div>
 <div class="row">
@@ -96,4 +96,4 @@
 		</div>
 	</div>
 </div>	
-@endsection
+@stop

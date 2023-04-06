@@ -16,7 +16,7 @@
                 <img class="nav-user-photo" src="{{ asset('/avatars/user.jpg') }}" alt="admins's Photo"/>
 			          <span class="user-info"><small>Bienvenue,</small> {{ Auth::user()->name }}</span> <i class="ace-icon fa fa-caret-down"></i>
                 <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                  <li><a href="#"><i class="ace-icon fa fa-cog"></i>Réglages</a></li> 
+                  <li><a href="#"><i class="ace-icon fa fa-cog"></i>Changer le mot de passe</a></li> 
                   <li><a href="/profile/{{Auth::user()->id}}"><i class="ace-icon fa fa-user"></i>Profil</a></li><li class="divider"></li>
                   <li>
                     <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> <i class="ace-icon fa fa-power-off"></i> Déconnexion</a>

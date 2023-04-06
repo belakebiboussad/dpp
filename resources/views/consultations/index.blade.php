@@ -84,7 +84,7 @@
     });
   });
  </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="col-md-12 col-sm-12"> <h4>Rechercher une consultation</h4>
@@ -128,4 +128,4 @@
 </div>
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
-@endsection
+@stop

@@ -12,7 +12,7 @@
  		}
 	}
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <h4>Ajouter un Patient</h4>
@@ -44,4 +44,4 @@
 		</div>	
 	</form>
 </div>{{-- container-fluid --}}
-@endsection
+@stop

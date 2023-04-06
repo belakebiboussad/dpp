@@ -11,7 +11,7 @@
   }
 }
 </style>
-@endsection
+@stop
 @section('page-script')
   @include('examenradio.scripts.imgRequestdJS')
   @include('visite.scripts.scripts')
@@ -220,7 +220,7 @@
     });
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
 <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$obj->patient])</div></div>
@@ -383,4 +383,4 @@
        <div class="row text-center">@include('examenradio.ModalFoms.crrPrint')</div>
 </div><!-- content -->
 </div>
-@endsection
+@stop

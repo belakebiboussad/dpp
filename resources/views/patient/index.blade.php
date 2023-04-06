@@ -193,7 +193,7 @@ function errorMsg(msg, error) {
 	});
 });	
 </script>
-@endsection
+@stop
 @section('main-content')
 	<div class="row">
 		<div class="col-sm-12">
@@ -254,4 +254,4 @@ function errorMsg(msg, error) {
 		<div class="col-md-5 col-sm-5"  id="patientDetail"></div>		
 	</div>{{-- row --}}
 	<div class="row">@include('patient.ModalFoms.mergeModal')@include('patient.ModalFoms.scanbarCodeModal')</div>
-@endsection
+@stop

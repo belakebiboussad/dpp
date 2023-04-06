@@ -37,4 +37,4 @@
 		<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 	</div>
 </form>
-@endsection
+@stop

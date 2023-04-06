@@ -14,7 +14,7 @@ function getRoomBeds(id)
   });
 }	
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Liste des chambres</h1></div>
 <div class="row">
@@ -86,4 +86,4 @@ function getRoomBeds(id)
 	</div>	
 </div>
 {{-- row --}}
-@endsection
+@stop

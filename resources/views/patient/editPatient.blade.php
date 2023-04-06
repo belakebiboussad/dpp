@@ -1,14 +1,14 @@
 <h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
 	<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }} col-sm-6">
-		<label class="col-sm-3 control-label" for="nom">Nom :<span class="text-danger">*</span></label>
+		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control"  alpha required  />
 			{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 		</div>
   </div>
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
-		<label class="col-sm-3 control-label" for="prenom">Prénom :<span class="text-danger">*</span></label>
+		<label class="col-sm-3 control-label" for="prenom">Prénom :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			<input type="text" id="prenom" name="prenom" value="{{ $patient->Prenom }}" class="form-control" required/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
@@ -17,7 +17,7 @@
 </div>
   <div class="row">
 	 <div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
-		<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :<span class="text-danger">*</span></label>
+		<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			@if(isset($patient->Dat_Naissance)) 
 				<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance->format('Y-m-d')}}" required/>
@@ -161,7 +161,7 @@
     </div>
   </div>
   <div class="form-group col-sm-3">
-	<label class="control-label col-sm-5 col-xs-5" for="type">Type : <span class="text-danger">*</span></label>
+	<label class="control-label col-sm-5 col-xs-5" for="type">Type : <span class="red">*</span></label>
 	<div class="col-sm-7 col-xs-7">
   		<select class="form-control" id="type" name="type" onchange="showTypeEdit(1);">
   			<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>

@@ -129,7 +129,7 @@ $(function(){
   });
 })	
 </script>
-@endsection
+@stop
 @section('main-content')
 <page-header><h1>Services de l'hôpital</h1>
 </page-header>
@@ -194,4 +194,4 @@ $(function(){
 	</div>
 	<div class ="col-sm-5 col-xs-12" id="ajaxPart"></div> 
 </div>
-@endsection
+@stop

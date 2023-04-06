@@ -16,7 +16,7 @@
     })
   })
  </script>
- @endsection
+ @stop
 @section('main-content')
 <div class="page-header"><h1>Rechercher une demande d'examen radiologique</h1></div>
 <div class="row">
@@ -97,4 +97,4 @@
       </div><!-- box -->
     </div>
   </div><!-- row -->
- @endsection
+ @stop

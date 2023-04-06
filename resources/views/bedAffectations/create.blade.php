@@ -113,7 +113,7 @@
 </div>
 @endif
 <div class="row">@include('bedAffectations.ModalFoms.addAffecteModal')</div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
 $(function(){
@@ -145,4 +145,4 @@ $(function(){
   });
 })
 </script>
-@endsection
+@stop

@@ -20,7 +20,7 @@
       return false;
     }
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row"><h4><strong>Ajouter un  nouveau colloque</strong></h4></div><div class="space-12 hidden-xs"></div>
 <div class="row"> 
@@ -69,4 +69,4 @@
     </form>
   </div>  <!-- cpl-s-12    -->
 </div>  
-@endsection
+@stop

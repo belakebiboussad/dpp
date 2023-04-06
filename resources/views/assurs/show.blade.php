@@ -16,7 +16,7 @@
 	      	});
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
 	<h1>Détails du fonctionnaire : {{ $assure->full_name }}</h1>
@@ -167,4 +167,4 @@
 		@endif
 	</div><!-- / -->							
 </div>
-@endsection
+@stop

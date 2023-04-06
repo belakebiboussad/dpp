@@ -46,7 +46,7 @@
 </div><!-- widget-container-col -->
 </div>
 </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   function getMembers(data, type, dataToSet) {
@@ -146,4 +146,4 @@
     });
   });
 </script>
-@endsection
+@stop

@@ -11,7 +11,7 @@
         padding:5px 0;
   }
   </style>
-@endsection
+@stop
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 {{--<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
 <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>  --}}
@@ -274,7 +274,7 @@ $(function() {
     });
   });
 </script>
-@endsection
+@stop
 @section('main-content')
   <page-header><h1>Ajouter un rendez-vous</h1></page-header>
   <div class="row"><div class="col-sm-12 col-xs-12 calendar"></div></div>
@@ -286,4 +286,4 @@ $(function() {
     </div>
   </div>
   <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>
-@endsection
+@stop

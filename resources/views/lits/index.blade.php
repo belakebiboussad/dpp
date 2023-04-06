@@ -7,7 +7,7 @@ function bedShow(id){
 	});
 }
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Liste des lits</h1></div>
 <div class="row">
@@ -59,4 +59,4 @@ function bedShow(id){
 	<div class="col-xs-5" id="lit">
 	</div>
 </div>
-@endsection
+@stop

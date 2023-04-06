@@ -13,7 +13,7 @@
     })  
   });
 </script>
-@endsection
+@stop
 @section('main-content')
  <?php $patient = $hosp->patient;?>
 <div class="row"> @include('patient._patientInfo')</div>
@@ -64,9 +64,7 @@
             <label class="col-sm-4 control-label" for="date">Date :</label>
             <div class="input-group col-sm-8">
               <input class="form-control date" type="text" value = "{{ $hosp->date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" readonly disabled/>
-               <span class="input-group-btn"><button class="btn btn-sm disabled" type="button">
-                <i class="ace-icon fa fa-calendar bigger-110"></i></button>
-              </span>
+               <span class="input-group-btn"><button class="btn btn-sm disabled" type="button"><i class="ace-icon fa fa-calendar bigger-110"></i></button></span>
             </div> 
           </div>
           <div class="form-group col-xs-4">
@@ -203,4 +201,4 @@
     </div>
 </div>
 </div> 
-@endsection
+@stop

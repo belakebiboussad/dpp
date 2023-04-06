@@ -34,7 +34,7 @@
 </div>
 <div class="col-sm-6">
 </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   $(function(){
@@ -82,4 +82,4 @@
     }); 
   });
 </script>
-@endsection
+@stop

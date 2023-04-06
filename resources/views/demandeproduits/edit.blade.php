@@ -45,7 +45,7 @@ $('document').ready(function(){
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
 	<h1>Modification de la demande du &quot;{{ $demande->date->format('Y-m-d')}}&quot;</h1>
@@ -131,4 +131,4 @@ $('document').ready(function(){
 		</div><!-- /.span -->
 	</div>
 </div>
-@endsection
+@stop

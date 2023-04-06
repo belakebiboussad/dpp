@@ -24,7 +24,7 @@
     z-index: 1040 !important;
   }
 </style>
-@endsection
+@stop
 @section('page-script')
 @include('examenradio.scripts.imgRequestdJS')
 <script>
@@ -381,7 +381,7 @@ $(function(){
     }) 
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$obj->patient])</div></div>
@@ -445,4 +445,4 @@ $(function(){
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
 <div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterPDF')</div>
 {{-- <div id="certificatDescrPdf">@include('consultations.EtatsSortie.certifDescripPDF')</div> --}}
-@endsection
+@stop

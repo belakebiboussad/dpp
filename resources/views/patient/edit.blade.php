@@ -77,7 +77,7 @@
  		});	
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 	<div class="page-header">
 		<h1>Modification des données du patient : <q class="blue"> {{ $patient->getCivilite() }} {{ $patient->full_name }} </q></h1>
@@ -127,4 +127,4 @@
 		</div>
 	</div>
 </form>	
-@endsection
+@stop

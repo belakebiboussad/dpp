@@ -122,7 +122,7 @@
     var actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(1,' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ rdv.id_demande +'"><td hidden>'+ rdv.id + '</td><td>';
     rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
-    rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="text-danger"><b>';
+    rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="red"><b>';
     rows +=  moment(rdv.date).format('YYYY-MM-DD') + '</b></span></td><td>' + getModeAdmission(rdv.demande_hospitalisation.modeAdmission) + '</td><td>' + bedAffect + '</td><td class="center">' + actions + '</td></tr>';    
     return rows;
   }
@@ -132,7 +132,7 @@
     actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(0,' + dh.id + ')" title = "Valider l\'admission du patient" data-placement="bottom"><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ dh.id +'"><td hidden>'+ dh.id + '</td><td>';
     rows +=  dh.consultation.patient.full_name +'</td><td>';
-    rows +=  dh.service.nom +'</td><td><span class ="text-danger"><b>';
+    rows +=  dh.service.nom +'</td><td><span class ="red"><b>';
     rows +=  moment(dh.consultation.date).format('YYYY-MM-DD') + '</b></span></td><td>' + getModeAdmission(dh.modeAdmission) + '</td><td>' + getBedAffectation(dh.bed_affectation) + '</td><td class="center">' + actions + '</td></tr>';    
     return rows;
   }
@@ -182,7 +182,7 @@
  	});
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="col-sm-12 col-md-12">
@@ -240,4 +240,4 @@
    </div>
 </div>{{-- row --}}
 @include('hospitalisations.ModalFoms.EtatSortie')
-@endsection
+@stop

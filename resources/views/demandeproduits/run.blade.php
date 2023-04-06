@@ -52,7 +52,7 @@ $('document').ready(function(){
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
 	<h1>Traitement de la demande du &quot;{{ $demande->demandeur->full_name }}&quot;</h1>
@@ -135,4 +135,4 @@ $('document').ready(function(){
 		</div>
 	</div>
 </div>
-@endsection
+@stop

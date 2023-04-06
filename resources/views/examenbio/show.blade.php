@@ -93,4 +93,4 @@
          </div>
     @endif
     </div>  {{-- content --}}
-  @endsection    
+  @stop    

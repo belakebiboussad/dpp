@@ -91,4 +91,4 @@
     <!-- /.widget-body -->
 </div>
 <!-- /.signup-box -->
-@endsection
+@stop

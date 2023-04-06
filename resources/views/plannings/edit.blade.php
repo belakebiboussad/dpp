@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container">
   <div class="page-header">Modifier la demande du {{$demande->date}}</div>
@@ -57,4 +57,4 @@
     </div>
   </div>
 </div>
-@endsection
+@stop

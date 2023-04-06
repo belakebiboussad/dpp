@@ -37,13 +37,13 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(Request $request)
+    public function index()//Request $request
     {
-      if($request->ajax())  
+      if(request()->ajax())  
       {
         $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d');
-        $sub65 = ($today->subYears(65))->format('Y-m-d');$q = $request->value;
-        $field= $request->field;
+        $sub65 = ($today->subYears(65))->format('Y-m-d');$q = request()->value;
+        $field= request()->field;
         switch(Auth::user()->employ->specialite)
         {       
           case 3 :
@@ -97,18 +97,17 @@ class PatientController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\Request  
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store()//Request $request
   {
-    dd($request->all());
     $DOB="";
     static $assurObj;
-    $date = Date::Now();
-    if(isset($request->presume))
+    $date = Carbon::now();//Date::Now();
+    if(isset(request()->presume))
     {
-      switch($request->presume)
+      switch(request()->presume)
       {
         case 1:
                 $DOB= ($date->subYears(16))->format('Y-m-d');
@@ -121,7 +120,7 @@ class PatientController extends Controller
           break;
       }
     }else
-      $DOB  = $request->datenaissance;   
+      $DOB  = request()->datenaissance;   
     $rule = array(
             "nom" => 'required',
             "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',
@@ -132,93 +131,93 @@ class PatientController extends Controller
       "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
       "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
-    $validator = Validator::make($request->all(),$rule,$messages);   
-    if ($validator->fails()) { //$errors = $validator->errors();//return 
-        return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+    $validator = Validator::make(request()->all(),$rule,$messages);   
+    if ($validator->fails()) {
+      return back()->withInput(request()->input())->withErrors($validator->errors());
     }
 
-    if(!in_array($request->type,[5,6])) 
+    if(!in_array(request()->type,[5,6])) 
     {  
-      $assure = assur::where('NSS', $request->nss)->first(); 
+      $assure = assur::where('NSS', request()->nss)->first(); 
       if ($assure === null) {
-        if($request->type == 0)
+        if(request()->type == 0)
         {
           $assurObj = assur::firstOrCreate([
-            "Nom"=>$request->nom,
-            "Prenom"=>$request->prenom,
-            "Date_Naissance"=>$request->datenaissance,
-            "lieunaissance"=>$request->idlieunaissance,
-            "Sexe"=>$request->sexe,
-            'sf'=>$request->sf,
-            "adresse"=>$request->adresse,      
-            "commune_res"=>$request->idcommune,
-            'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
-            "grp_sang"=>$request->gs.$request->rh,
-            "NSS"=>$request->nss
+            "Nom"=>request()->nom,
+            "Prenom"=>request()->prenom,
+            "Date_Naissance"=>request()->datenaissance,
+            "lieunaissance"=>request()->idlieunaissance,
+            "Sexe"=>request()->sexe,
+            'sf'=>request()->sf,
+            "adresse"=>request()->adresse,      
+            "commune_res"=>request()->idcommune,
+            'wilaya_res'=>isset(request()->idwilaya) ?request()->idwilaya:'49',
+            "grp_sang"=>request()->gs.request()->rh,
+            "NSS"=>request()->nss
           ]);
         }else
         {
           $assurObj = assur::firstOrCreate([
-            "Nom"=>$request->nomf,
-            "Prenom"=>$request->prenomf,
-            "Date_Naissance"=>$request->datenaissancef,
-            "lieunaissance"=>$request->idlieunaissancef,
-            "Sexe"=>$request->sexef,
-            'sf'=>$request->SituationFamille,
-            "adresse"=>$request->adressef,      
-            "commune_res"=>$request->idcommunef,
-            'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
-            "grp_sang"=>$request->gsf.$request->rhf,
-            "Service"=>$request->service,
-            "NSS"=>$request->nss
+            "Nom"=>request()->nomf,
+            "Prenom"=>request()->prenomf,
+            "Date_Naissance"=>request()->datenaissancef,
+            "lieunaissance"=>request()->idlieunaissancef,
+            "Sexe"=>request()->sexef,
+            'sf'=>request()->SituationFamille,
+            "adresse"=>request()->adressef,      
+            "commune_res"=>request()->idcommunef,
+            'wilaya_res'=>isset(request()->idwilayaf) ?request()->idwilayaf:'49',
+            "grp_sang"=>request()->gsf.request()->rhf,
+            "Service"=>request()->service,
+            "NSS"=>request()->nss
           ]);
         }          
       }else
       {
         $assurObj = $assure->update([
-          "Nom"=>$request->nomf,
-          "Prenom"=>$request->prenomf,
-          "Date_Naissance"=>$request->datenaissancef,
-          "lieunaissance"=>$request->idlieunaissancef,
-          "Sexe"=>$request->sexef,
-          'sf'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,
-          "commune_res"=>$request->idcommunef,
-          "wilaya_res"=>$request->idwilayaf,
-          "grp_sang"=>$request->gsf.$request->rhf,
-          "Service"=>$request->service,
-          "NSS"=>$request->nss
+          "Nom"=>request()->nomf,
+          "Prenom"=>request()->prenomf,
+          "Date_Naissance"=>request()->datenaissancef,
+          "lieunaissance"=>request()->idlieunaissancef,
+          "Sexe"=>request()->sexef,
+          'sf'=>request()->SituationFamille,
+          "adresse"=>request()->adressef,
+          "commune_res"=>request()->idcommunef,
+          "wilaya_res"=>request()->idwilayaf,
+          "grp_sang"=>request()->gsf.request()->rhf,
+          "Service"=>request()->service,
+          "NSS"=>request()->nss
         ]);           
       }
     }  
     $patient = patient::firstOrCreate([
-        "Nom"=>$request->nom,// "code_barre"=>$codebarre,
-        "Prenom"=>$request->prenom,
+        "Nom"=>request()->nom,// "code_barre"=>$codebarre,
+        "Prenom"=>request()->prenom,
         "Dat_Naissance"=>$DOB,
-        "Lieu_Naissance"=>$request->idlieunaissance,
-        "Sexe"=>$request->sexe,
-        "sf"=>$request->sf,
-        "nom_jeune_fille"=>$request->nom_jeune_fille, 
-        "Adresse"=>$request->adresse,
-        'commune_res'=>$request->idcommune,//'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
-        'wilaya_res'=>$request->idwilaya,//'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
-        "tele_mobile1"=>$request->mobile1,
-        "tele_mobile2"=>$request->mobile2,
-        "group_sang"=>$request->gs,
-        "rhesus"=>$request->rh,
-        "Assurs_ID_Assure"=> $assurObj !=null ? $request->nss : null ,
-        "Type"=>$request->type,
-        "description"=> $request->description,
-        "NSS"=>$request->nsspatient,
+        "Lieu_Naissance"=>request()->idlieunaissance,
+        "Sexe"=>request()->sexe,
+        "sf"=>request()->sf,
+        "nom_jeune_fille"=>request()->nom_jeune_fille, 
+        "Adresse"=>request()->adresse,
+        'commune_res'=>request()->idcommune,//'commune_res'=>isset(request()->idcommune) ?request()->idcommune:'1556',
+        'wilaya_res'=>request()->idwilaya,//'wilaya_res'=>isset(request()->idwilaya) ?request()->idwilaya:'49',
+        "tele_mobile1"=>request()->mobile1,
+        "tele_mobile2"=>request()->mobile2,
+        "group_sang"=>request()->gs,
+        "rhesus"=>request()->rh,
+        "Assurs_ID_Assure"=> $assurObj !=null ? request()->nss : null ,
+        "Type"=>request()->type,
+        "description"=> request()->description,
+        "NSS"=>request()->nsspatient,
     ]);
-    $sexe = ($request->sexe == "M") ? 1:0;
+    $sexe = (request()->sexe == "M") ? 1:0;
     $ipp =$sexe.$date->year.$patient->id;
     $patient->update([ "IPP" => $ipp ]);
     return redirect(Route('patient.show',$patient->id));
   }
   public function storePatient(Request  $request) ///store ptient from assure
   {
-    $date = Date::Now();
+    $date = Carbon::now();//Date::Now();
     $rule = array(
         "nom" => 'required',
         "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance"=>'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
@@ -392,30 +391,6 @@ class PatientController extends Controller
         ]);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
-    public function updateP(Request $request, patient $patient) 
-    { 
-      $patient -> update([
-               "Nom"=>$request->nom,
-               "Prenom"=>$request->prenom,
-               "Dat_Naissance"=>$request->datenaissance,
-               "Lieu_Naissance"=>$request->idlieunaissance,
-               "Sexe"=>$request->sexe,
-               "Adresse"=>$request->adresse,
-               "commune_res"=>$request->idcommune,
-               'wilaya_res'=>$request->idwilaya,
-               "sf"=>$request->sf,
-               "nom_jeune_fille"=>$request->nom_jeune_fille, 
-               "tele_mobile1"=>$request->operateur1.$request->mobile1,
-               "tele_mobile2"=>$request->operateur2.$request->mobile2,
-               "group_sang"=>$request->gs,
-               "rhesus"=>$request->rh, 
-               "Assurs_ID_Assure"=>$request->assure_id,
-               "Type"=>$request->type,
-               "description"=>isset($request->description)? $request->description: null,
-               "NSS"=>($request->type != "Autre" )? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,  
-      ]);
-      return redirect(Route('patient.show',$id)); 
-    } 
     /**
      * Remove the specified resource from storage.
      *
@@ -431,7 +406,6 @@ class PatientController extends Controller
           return redirect()->route('patient.index');
         
       } 
-    //public function getPatientsArrayEditSelect(Request $request){ return ['success' => true, 'data' => $patients];}
   public function getPatientsList(Request $request)
   {
     $output="";$today = Carbon::now();$sub17 = ($today->subYears(17))->format('Y-m-d');$sub65 = ($today->subYears(65))->format('Y-m-d');
@@ -514,12 +488,7 @@ class PatientController extends Controller
     }// Multiple values
      $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
     }// Count statuses
-     $counts = array(
-            "none"      => 0,
-            "unique"    => 0,
-            "duplicate" => 0,
-            "multiple"  => 0,
-     );
+     $counts = array("none" => 0,"unique" => 0,"duplicate" => 0, "multiple"  => 0 );
      foreach ($statuses as $status) {
            $counts[$status]++;
      }  

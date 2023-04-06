@@ -33,7 +33,7 @@
     })
 })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Demandes d'hospitalisations</h1></div>
 <div class="row">
@@ -97,4 +97,4 @@
 	</div><!-- /.span -->
 </div>
 <div class="row">@include('rdvHospi.ModalFoms.rdvModalForm')</div>
-@endsection
+@stop

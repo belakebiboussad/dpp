@@ -25,7 +25,7 @@
     });
  })
   </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <div class="page-header">@include('patient._patientInfo',['patient'=>$demande->imageable->patient])</div>
@@ -115,4 +115,4 @@
 </div><!-- row -->
 <div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>
 </div>
-@endsection
+@stop

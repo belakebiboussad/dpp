@@ -162,7 +162,7 @@ class UsersController extends Controller
       ];
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
-        return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+        return back()->withInput($request->input())->withErrors($validator->errors());
       $activer = $user->active;
       if($user->active)
       {
@@ -273,7 +273,7 @@ class UsersController extends Controller
             {
               return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
             }else{
-                $user_id = Auth::User()->id;       
+                $user_id = Auth::User()->id;   
                 $obj_user = User::find($user_id);
                 $obj_user->password = Hash::make($request_data['newPassword']);
                 $obj_user->save(); 
@@ -322,6 +322,10 @@ class UsersController extends Controller
     }
     public function passwordReset(Request $request)
     {
+      # Validation
+      $request->validate([
+        'password' => 'required',
+      ]);
       if(Auth::Check() && (Auth::user()->is(4)))
       {
         $user = User::FindOrFail($request->id);

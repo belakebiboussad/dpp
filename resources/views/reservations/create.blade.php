@@ -64,7 +64,7 @@
 	</div>
 </div>
 <div class="row">@include('reservations.ModalFoms.addReservModal')</div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   $(function(){
@@ -95,4 +95,4 @@
     });
   })
 </script>
-@endsection
+@stop

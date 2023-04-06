@@ -101,4 +101,4 @@
 				<button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 			</div>
 	</form>
-@endsection
+@stop

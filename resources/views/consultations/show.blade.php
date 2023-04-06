@@ -9,7 +9,7 @@
      white-space: nowrap;
   }
 </style>
-@endsection
+@stop
 @section('main-content')
  <div class="container-fluid">
 <div class="row"><div class="col-sm-12"> @include('patient._patientInfo',['patient'=>$consultation->patient])</div></div>
@@ -288,7 +288,7 @@
          </div>{{-- tab-content  --}}
     </div>  {{-- tabbable --}}
 </div>    {{-- container-fluid --}}
-@endsection
+@stop
 @section('page-script')
 @include('consultations.scripts.functions')
 @include('examenradio.scripts.imgRequestdJS')
@@ -312,4 +312,4 @@
     });
   })
  </script>
-@endsection
+@stop

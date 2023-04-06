@@ -95,10 +95,7 @@ class ConsultationsController extends Controller
         $meds = User::whereIn('role_id', [1,13,14])->get();
         $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
         $obj = $patient->Consultations()->create([
-          'date'=>$date,
-          'employ_id'=>Auth::User()->employe_id,
-          'id_lieu'=>$etab->id,
-        ]);
+          'date'=>$date,'employ_id'=>Auth::User()->employe_id,'id_lieu'=>$etab->id]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
         return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
       }
@@ -110,10 +107,7 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { 
-        $request->validate([
-          "motif" => 'required',
-          "resume" => 'required',
-        ]);
+        $request->validate([ "motif" => 'required',"resume" => 'required']);
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
         $validator = Validator::make($request->all(), [
@@ -121,7 +115,7 @@ class ConsultationsController extends Controller
                 'resume' => 'required',
          ]);
         if($validator->fails())
-           return redirect()->back()->withErrors($validator)->withInput();
+           return back()->withErrors($validator)->withInput();
         if(isset(Auth::user()->employ->specialite) && (!is_null(Auth::user()->employ->specialite)))
           $specialite = Auth::user()->employ->Specialite;
         else

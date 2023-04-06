@@ -37,7 +37,7 @@ $('document').ready(function(){
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 <div class="col-xs-12">
@@ -78,4 +78,4 @@ $('document').ready(function(){
 		</div><!-- /.span -->
 	</div>
 </div>
-@endsection
+@stop

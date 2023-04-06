@@ -7,7 +7,7 @@ $(function(){
   });
 })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <div class="page-header"> @include('patient._patientInfo')</div>
@@ -127,4 +127,4 @@ $(function(){
     <div class="col-sm-5 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
   </div><!-- row no-gutters -->
 </div><!-- container-fluid -->
-@endsection
+@stop

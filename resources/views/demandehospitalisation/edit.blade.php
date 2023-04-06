@@ -118,4 +118,4 @@
     </div><!-- widget-box -->
   </div>
 </div>
-@endsection
+@stop

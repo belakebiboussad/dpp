@@ -129,7 +129,7 @@
     });
  })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
@@ -190,9 +190,9 @@
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->full_name }}</td>
 							<td>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</td>
-							<td><span class ="text-danger">{{ $hosp->date->format('Y-m-d') }}</span></td>
+							<td><span class ="red">{{ $hosp->date->format('Y-m-d') }}</span></td>
 							<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
-							<td><span class ="text-danger">{{ $hosp->Date_Sortie->format('Y-m-d') }}</span></td>
+							<td><span class ="red">{{ $hosp->Date_Sortie->format('Y-m-d') }}</span></td>
 							<td><span class="badge badge-info">
                 @if(isset($hosp->modeSortie))
                   @switch($hosp->modeSortie)
@@ -237,4 +237,4 @@
 	 </div>	 {{-- row --}}
 	 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 </div>
-@endsection
+@stop

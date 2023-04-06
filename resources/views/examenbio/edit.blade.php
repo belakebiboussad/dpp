@@ -24,7 +24,7 @@
     });
    })
   </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo',['patient'=>$demande->imageable->patient])</div>
 <div class="content">
@@ -70,4 +70,4 @@
     </div>
   </div>
 </div>
-@endsection
+@stop

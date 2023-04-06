@@ -22,7 +22,7 @@
     });
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
   <h1>Modification du  Rendez-vous d'hospitalisation du :
@@ -207,4 +207,4 @@
     </form>
   </div>
 </div>
-@endsection
+@stop

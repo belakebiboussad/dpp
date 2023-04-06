@@ -22,7 +22,7 @@
         border-bottom-right-radius: 0.25rem;
   }
  </style>
-@endsection
+@stop
 @section('page-script')
 @include('rdv.scripts.calendar')
 @include('rdv.scripts.js')
@@ -150,7 +150,7 @@ $(function(){
         });
 })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Liste des rendez-vous:</h1></div>
 <div class="row">
@@ -166,4 +166,4 @@ $(function(){
   </div>
 </div>
 <div class="row">@include('rdv.ModalFoms.edit')</div>
-@endsection
+@stop

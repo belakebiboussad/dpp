@@ -167,4 +167,4 @@
 		</div><!-- tab-content -->
 	</div>
 </div>
-@endsection
+@stop

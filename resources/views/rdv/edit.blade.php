@@ -92,7 +92,7 @@
          }).fullCalendar('gotoDate','{{ $rdv->date }}');
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
 	<h4>Modifier le  rendez-vous du patient &quot;{{ $rdv->patient->getCivilite() }} {{ $rdv->patient->full_name }}&quot;
@@ -118,4 +118,4 @@
   </div>
 </div>
 <div class="row"> @include('rdv.ModalFoms.edit') </div>
-@endsection
+@stop

@@ -17,7 +17,7 @@
       });
   })
   </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container">
         <form method="POST" role="form" action="{{ route('planning.store') }}">
@@ -94,4 +94,4 @@
             </div>
         </form>
     </div>
-@endsection
+@stop

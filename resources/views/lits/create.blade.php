@@ -20,7 +20,7 @@ $(function(){
    })
   });
 </script>
-@endsection
+@stop
 @section('main-content')
   <div class="page-header"><h1>Ajouter un nouveau lit</h1>
      <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
@@ -91,4 +91,4 @@ $(function(){
       </div> {{-- widget-box --}}
       </div> {{-- col-xs-12 --}}
       </div>
-      @endsection
+      @stop

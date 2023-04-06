@@ -152,7 +152,7 @@
 	</div>
 	</form>
 </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   $(function(){
@@ -165,4 +165,4 @@
     });
   });
 </script>
-@endsection
+@stop

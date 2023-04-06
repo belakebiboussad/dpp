@@ -50,7 +50,7 @@
       </div>
     </div>
 </div>
-@endsection
+@stop
 @section('page-script')
 @include('visite.scripts.scripts')
 <script type="text/javascript"> 
@@ -648,4 +648,4 @@ $(document).ready(function(){
     });
 });
  </script>
-@endsection
+@stop

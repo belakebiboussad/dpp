@@ -19,7 +19,7 @@
       return false;
     }
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="space-12"></div>
 <div class="row"> <h4><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h4></div>
@@ -71,4 +71,4 @@
     </form>
   </div>  <!-- cpl-s-12    -->
 </div>  
-@endsection
+@stop

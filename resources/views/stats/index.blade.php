@@ -16,7 +16,7 @@
     float: left!important;
   }
 </style>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
   <div class="col-lg-3 col-md-6 col-xs-12">
@@ -155,7 +155,7 @@
       </div>
     </div>  
   </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
 $(function(){
@@ -337,4 +337,4 @@ $(function(){
     //end test
    });
 </script>
-@endsection
+@stop

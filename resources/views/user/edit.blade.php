@@ -14,14 +14,15 @@ function check(input) {
 }
 $(function(){
 	$('#passwordResetbtn').click(function(e){
-		var formData = {
+		
+    var formData = {
       _token: CSRF_TOKEN,
 			id:'{{$user->id}}',
 			password: $("#newPassword").val()
 		};
 		$.ajax({
     	type: "POST",
- 			url: "{{ url('admin/password/reset')}}",
+ 			url: "{{ url('admin/passwordReset')}}",
     	data:formData,
     	success:function(data,status, xhr){
    	  }
@@ -29,7 +30,7 @@ $(function(){
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Modification de : {{ $user->name }}</h1></div>
 <div class="row">
@@ -243,4 +244,4 @@ $(function(){
 	</div>	
 </div><div class="row">@include('user.ModalFoms.changeUserPassword')
 </div>
-@endsection
+@stop

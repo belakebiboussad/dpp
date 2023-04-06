@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded by th  e RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
@@ -84,7 +84,6 @@ Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
-Route::post('/hospitalisation/{id}','HospitalisationController@update');//
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
 Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
 Route::post('users/changePassword', 'UsersController@changePassword');
@@ -120,7 +119,6 @@ Route::any('/profile/{userId}', [
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
 Route::get('/userdetail', 'UsersController@getUserDetails');
@@ -163,7 +161,7 @@ Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
 route::get('/getconst','SoinsController@getConstData')->name('getConstData');
 route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
-Route::post('/admin/password/reset','UsersController@passwordReset');
+Route::post('/admin/passwordReset','UsersController@passwordReset');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print');
 Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
 Route::get('/etabExport', 'EtablissementControler@exportCsv');

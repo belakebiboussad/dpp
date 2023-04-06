@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container">
  @if(session()->has('message'))
@@ -58,4 +58,4 @@
     @endif
   </div>
 </div>
-@endsection
+@stop

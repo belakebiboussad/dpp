@@ -60,4 +60,4 @@
         <!-- /.widget-body -->
     </div>
     <!-- /.reset-password-box -->
-@endsection
+@stop

@@ -139,7 +139,7 @@
     </div>
 	</div>
 	<div class="form-group col-sm-3">
-		<label class="control-label col-sm-5 col-xs-5" for="type">Type :<span class="text-danger">*</span></label>
+		<label class="control-label col-sm-5 col-xs-5" for="type">Type :<span class="red">*</span></label>
 		<div class="col-sm-7 col-xs-7">
 			<select class="form-control" id="type" name="type">
 				<option value="" disabled selected>Selectionner...</option>

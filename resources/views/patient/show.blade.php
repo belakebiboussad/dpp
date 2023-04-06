@@ -272,7 +272,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
 	 })
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
@@ -390,4 +390,4 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
   		</div>
   	</div>
 </div>
-@endsection
+@stop

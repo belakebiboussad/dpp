@@ -83,7 +83,7 @@ function getUserdetail(id)
   });	
 }
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-content">
 	<div class="row">
@@ -158,4 +158,4 @@ function getUserdetail(id)
 	</div>
   </div>
 
-@endsection
+@stop

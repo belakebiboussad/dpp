@@ -49,7 +49,7 @@
 		}
 	}
 </script>
-@endsection
+@stop
 @section('main-content')
 <div  class="row"><h4><strong>Déroulement du colloque du service &quot; {{ $colloque->Service->nom }}&quot;  de la semaine du </strong><strong>&quot;<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong></h4>
 </div>
@@ -196,4 +196,4 @@
 		</div>
 	</div>
 </form>	
-@endsection
+@stop

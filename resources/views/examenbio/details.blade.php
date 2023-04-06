@@ -41,7 +41,7 @@
      });
    })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">@include('patient._patientInfo',['patient'=>$demande->imageable->patient]) </div>
 <div class="page-header"><h1>Demande d'examen biologique</h1>
@@ -136,4 +136,4 @@
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div> </div>
 </div><!-- row -->
 <div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
-@endsection
+@stop

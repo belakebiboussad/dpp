@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="text-danger">*</span></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
 						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12" alpha/>
@@ -14,7 +14,7 @@
 	</div>
 	<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="text-danger">*</span></label>
+				<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
 					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12 asdemogData" alpha/>
@@ -72,7 +72,7 @@
        	</div>
    		<div class="col-sm-6">
      		 <div class="form-group">
-	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin :<span class="text-danger">*</span></label>
+	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin :<span class="red">*</span></label>
 			<div class="col-sm-2">
 			  <select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf">
 					@if(isset($assure))
@@ -90,7 +90,7 @@
 					@endif
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus :<span class="text-danger">*</span></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus :<span class="red">*</span></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf" class="groupeSanguin asdemogData">
 					@if(isset($assure))
@@ -172,7 +172,7 @@
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss">NSS :<span class="text-danger">*</span></label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss">NSS :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					<div class="clearfix">
 						@if(!in_array($patient->Type,[5,6]))

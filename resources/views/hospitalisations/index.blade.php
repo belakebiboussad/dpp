@@ -1,5 +1,5 @@
 @extends('app')
-@section('title')Hospitalisations @endsection
+@section('title')Hospitalisations @stop
 @section('style')
 <style>
  .bootstrap-timepicker-meridian, .meridian-column
@@ -16,7 +16,7 @@
       z-index: 3500 !important;
  }
 </style>
- @endsection
+ @stop
 @section('page-script')
 <script>
     var nowDate = new Date();
@@ -235,7 +235,7 @@
       });
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header"><h1>Rechercher une hospitalisation</h1></div>
 <div class="row">
@@ -332,4 +332,4 @@
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div><div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
-@endsection
+@stop

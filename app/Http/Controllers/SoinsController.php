@@ -25,7 +25,7 @@ class SoinsController extends Controller
     if($request->ajax()) 
       return $const;
     else
-      return redirect()->back()->with('succes', 'prescription inserer avec success');  
+      return back()->with('succes', 'prescription inserer avec success');  
   } 
   public function destroy(Request $request)
   {

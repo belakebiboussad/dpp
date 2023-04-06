@@ -36,5 +36,5 @@
     <!-- /.widget-body -->
 </div>
 <!-- /.forgot-box -->
-@endsection
+@stop
 

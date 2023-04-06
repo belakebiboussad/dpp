@@ -20,7 +20,7 @@
       padding: 20px;
   }
 </style>
-@endsection
+@stop
 @section('page-script')
 <script>
 function CRRPrint()
@@ -186,7 +186,7 @@ $(function(){
       })
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
   <div class="page-header"> @include('patient._patientInfo')</div>
@@ -273,4 +273,4 @@ $(function(){
   </div>
 </div>
 @include('examenradio.ModalFoms.CRRModal'){{-- @include('examenradio.ModalFoms.crrPrint') --}}
-@endsection
+@stop

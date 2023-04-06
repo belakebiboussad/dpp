@@ -211,4 +211,4 @@
     });
   });
  </script> 
-@endsection
+@stop
