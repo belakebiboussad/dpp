@@ -119,7 +119,7 @@ function errorMsg(msg, error) {
 		});
 	});
 	var field ="Dat_Naissance";
-	$(document).ready(function(){
+	$(function(){
 		$(document).on('click','.findptient',function(event){
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');

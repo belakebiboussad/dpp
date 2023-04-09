@@ -3,7 +3,7 @@
 @section('page-script')
 <script>
 var field = 'name';
-$(document).ready(function(){
+$(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
 		$('#Controls').removeClass('hidden');

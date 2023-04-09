@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
 <script>
-$('document').ready(function(){
+$(function(){
 	$("#ajoutercmd").click(function(){
     if($('#gamme').val() == "1")
     {

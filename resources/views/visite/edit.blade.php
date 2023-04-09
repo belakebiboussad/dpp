@@ -241,7 +241,7 @@
       success: function (data) { }
     }) 
   }
-$(document).ready(function(){
+  $(function(){
   $("#actes-table").jqGrid({
     url : '{{ route("acte.index", ["visId"=>$visite->id])}}',
     mtype: "GET",

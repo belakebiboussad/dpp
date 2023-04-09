@@ -1,5 +1,5 @@
 <script  type="text/javascript" charset="utf-8" async defer>
-$('document').ready(function(){
+$(function(){
   jQuery('body').on('click', '.delete-demandeRad', function (e) {
       event.preventDefault();
        var url = '{{ route("demandeexr.destroy", ":slug") }}'; 

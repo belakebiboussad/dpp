@@ -23,7 +23,7 @@ $(function(){
    		 })
 	})
 });//window.location.href='/demandeproduit/valider/'+'/'+id;	
-$('document').ready(function(){
+$(function(){
 	$('#validerdmd').click(function(){
 		var tb = $('#cmd tbody');
   		var produits = [];

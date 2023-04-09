@@ -312,7 +312,7 @@
           select.append($("<option>").val(options[key][field1]).text(options[key][field2]));
         })
       }
-      $(document).ready(function () {
+      $(function () {
           $('.select2').css('width','50%').select2({allowClear:true});
           $('#examensradio').on('select2:select', function (e) { 
             if($("input[name='exmns']").is(":checked"))

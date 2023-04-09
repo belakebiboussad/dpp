@@ -2,7 +2,7 @@
 @section('title','Colloque')
 @section('page-script')
 <script>
-	$(document).ready(function(){
+	$(function(){
 		  $(".med").change(function(){
 		    $(this).next().remove();
 		  });

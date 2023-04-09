@@ -14,7 +14,7 @@ function enableDestry()
 			 $('#deletepod').attr("disabled", true);	
 	}
 }
-$('document').ready(function(){
+$(function(){
  	$("#ajoutercmd").click(function(){
  		if($('#gamme').val() == "1")
 			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specPrd option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");

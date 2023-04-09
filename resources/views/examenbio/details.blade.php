@@ -25,7 +25,7 @@
             footer64Img = base64; 
    });    
   })
-  $('document').ready(function(){
+  $(function(){
      $("button").click(function (event) {
         which = '';str ='send';
         which = $(this).attr("id");

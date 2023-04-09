@@ -1,6 +1,6 @@
 @include('consultations.scripts.functions')
 <script type="text/javascript">
-$('document').ready(function(){
+$(function(){
   $("#accordion" ).accordion({
     collapsible: true ,
     heightStyle: "content",

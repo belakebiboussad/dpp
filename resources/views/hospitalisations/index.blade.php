@@ -168,7 +168,7 @@
           });
       }
       var field ="etat";
-      $('document').ready(function(){
+      $(function(){
           $(document).on('click','.findHosp',function(event){
               getHospitalisations(field,$('#'+field).val().trim());
           });

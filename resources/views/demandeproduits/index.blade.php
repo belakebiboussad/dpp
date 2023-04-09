@@ -73,7 +73,7 @@
   	 		 getProdsRequests(field,$('#'+field).val().trim());
   		})
   	})
- 	$(document).ready(function(){
+ 	$(function(){
 		 jQuery('body').on('click', '.deletedemande', function (e) {
 		 		event.preventDefault();
       	var demande_id = $(this).val();

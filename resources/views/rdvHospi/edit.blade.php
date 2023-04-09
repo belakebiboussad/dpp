@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-	$('document').ready(function(){
+	$(function(){
     var debut = new Date($('#dateEntree').val());
     var fin = new Date($('#dateSortiePre').val());
     var diff = new Date(fin - debut);

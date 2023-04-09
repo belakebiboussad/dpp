@@ -51,7 +51,7 @@
   function _initInterface() {
     initModeButtons();
   }
-  $(document).ready(function(){
+  $(function(){
     var loaded = false;
     $('body').on('click', '.dicom_viewer', function () {
       jQuery('#dicom').show();

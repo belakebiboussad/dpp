@@ -69,7 +69,7 @@
       e.preventDefault();e.stopPropagation();   
     }
   }
-  $(document).ready(function(){
+  $(function(){
     $('.timepicker1').timepicker({
               minuteStep:15,
               minTime: '08',

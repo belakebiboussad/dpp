@@ -2,7 +2,7 @@
 @section('title','Liste de produits')
 @section('page.script')
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$('#meds_table').dataTable({
     		ordering: true,
 	      bInfo : false,

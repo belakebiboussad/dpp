@@ -217,7 +217,7 @@
              $("#ajoutercmd").removeAttr("disabled");
           });
        });
-      $(document).ready(function(){
+        $(function(){
           $("select.groupeSanguin").change(function(){//var gs = 
           if($(this).children("option:selected").val() !=="")
           {

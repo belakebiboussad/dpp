@@ -4,7 +4,7 @@
 <script type="text/javascript">
     var nowDate = new Date();
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-    $(document).ready(function() {
+    $(function() {
         window.prettyPrint && prettyPrint();
         $("#date").datepicker("setDate", now);  
         $('#liste_membre').multiselect();

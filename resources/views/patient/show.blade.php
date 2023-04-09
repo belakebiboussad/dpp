@@ -65,7 +65,7 @@ function deleteDemandeHospi(id)
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
-}).fail(function () {console.log("Could not connect to Hub.");});});*/// $('document').ready(function(){
+}).fail(function () {console.log("Could not connect to Hub.");});});*/// $(function(){
 $(function(){
     $('#listeGardes').DataTable({ 
         colReorder: true,
