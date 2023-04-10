@@ -159,9 +159,8 @@ Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crb
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
-route::get('/getconst','SoinsController@getConstData')->name('getConstData');
-route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
-Route::post('/admin/passwordReset','UsersController@passwordReset');
+Route::get('/getconst','SoinsController@getConstData')->name('getConstData');
+Route::post('reset_password_','UsersController@resetPassword');
 Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print');
 Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
 Route::get('/etabExport', 'EtablissementControler@exportCsv');

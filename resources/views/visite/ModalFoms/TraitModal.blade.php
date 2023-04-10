@@ -5,7 +5,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" id="TraitCrudModal">Prescrire un traitement</h4>
         </div> 
-        <form id="addTrait" method="POST" action="">
+        <form id="addTrait" method="POST">
         <input type="hidden" id ="trait_id" value=""/>
         <div class="modal-body">
         <div class="form-group">

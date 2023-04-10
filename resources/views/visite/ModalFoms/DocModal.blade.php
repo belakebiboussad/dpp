@@ -5,7 +5,7 @@
                <button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Attacher un document médical</h4> 
           </div>
           <div class="modal-body">
-          <form id="addDoc" method="POST" action ="/saveDoc" name="form2" id="form2">
+          <form id="addDoc" method="POST" action ="/saveDoc" id="form2">
            {{ csrf_field() }}
            <input type="hidden" value=""  id ="doc_id" name="doc_id"> <div class="space-12"></div>
           <div class="row">

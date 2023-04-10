@@ -14,7 +14,6 @@ function check(input) {
 }
 $(function(){
 	$('#passwordResetbtn').click(function(e){
-		
     var formData = {
       _token: CSRF_TOKEN,
 			id:'{{$user->id}}',
@@ -22,10 +21,9 @@ $(function(){
 		};
 		$.ajax({
     	type: "POST",
- 			url: "{{ url('admin/passwordReset')}}",
+ 			url: "{{ url('reset_password_')}}",
     	data:formData,
-    	success:function(data,status, xhr){
-   	  }
+    	success:function(data,status, xhr){}
 		});
 	});
 });
@@ -231,7 +229,7 @@ $(function(){
 			<div class=" col-xs-10 col-sm-10  col-sm-offset-1">
 				<div class="form-group">
 					@if(Auth::user()->is(4))
-						<button id="btnResetPassword" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
+						<button class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
 					@endif
 				</div>
 			</div>

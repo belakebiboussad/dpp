@@ -6,7 +6,7 @@
           <h4 class="modal-title" id="acteCrudModal">Prescrire un Acte Médicale</h4>
       </div>
       <div class="modal-body">
-        <form id="addActe" method="POST" action ="">
+        <form id="addActe" method="POST">
         <input type="hidden" id ="acte_id">
         <div class="form-group">
             <label class="control-label" for="specialiteProd">Acte :</label>

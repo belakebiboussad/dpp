@@ -37,7 +37,7 @@ class UsersController extends Controller
       if($request->ajax())  
       {
         $value = trim($request->value);
-        //$users = null;
+        $users = null;
         switch($request->field)
         {
           case "role_id"  :
@@ -320,19 +320,17 @@ class UsersController extends Controller
      $view = view("user.ajax_userdetail",compact('user','employe'))->render();
      return (['html'=>$view]);
     }
-    public function passwordReset(Request $request)
+    public function resetPassword(Request $request)
     {
-      # Validation
-      $request->validate([
-        'password' => 'required',
-      ]);
+      $request->validate(['password' => 'required']);
       if(Auth::Check() && (Auth::user()->is(4)))
       {
         $user = User::FindOrFail($request->id);
         $user->update([
            "password"=> Hash::make($request['password']),
         ]);
-       
       }
+      
+      return $request->password;
     }
 }

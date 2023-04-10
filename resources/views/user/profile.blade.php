@@ -5,28 +5,13 @@
     $('[data-rel=tooltip]').tooltip();
     $('#fuelux-wizard-container')
       .ace_wizard({
-       
-      }).on('actionclicked.fu.wizard' , function(e, info){
-        if(info.step == 1) {
-          if(!$('#validation-form').valid()) e.preventDefault();
-        }
       }).on('finished.fu.wizard', function(e) {
-          bootbox.dialog({
-            message: "Thank you! Your information was successfully saved!", 
-            buttons: {
-              "success" : {
-                "label" : "OK",
-                "className" : "btn-sm btn-primary"
-              }
-            }
-          });
+        $( "#profilForm" ).submit();  
       }).on('stepclick.fu.wizard', function(e){
       });
       var wizard = $('#fuelux-wizard-container').data('fu.wizard')
-      wizard.currentStep = 3;
-      wizard.setState();
-
-      
+      wizard.currentStep = 1;
+      wizard.setState();  
   });
 </script>
 @stop
@@ -59,7 +44,7 @@
           <hr>
           <div class="step-content pos-rel">
           <div class="step-pane active" data-step="1">
-            <form class="form-horizontal" id="sample-form">
+            <form class="form-horizontal" id="profilForm" action="{{ route('home') }}">
                 <div class="form-group">
                   <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Nom</label>
                   <div class="col-xs-12 col-sm-5">
@@ -103,14 +88,18 @@
               </form>
             </div><!-- step-pane -->
             <div class="step-pane" data-step="3">
-           
+              <div class="center"><h3 class="green">Merci!</h3>
+                <div>
+                  <p><i class="fa fa-check"></i> Cliquer sur <b>Terminer</b> pour Continuer.</p>
+                </div>
+              </div>
             </div><!-- step-pane -->
           </div><!-- step-content -->
         </div><!-- fuelux-wizard -->
         <div class="wizard-actions">
           <button class="btn btn-prev" disabled="disabled">
             <i class="ace-icon fa fa-arrow-left"></i>Précédant</button>
-          <button class="btn btn-success btn-next" data-last="Finish">
+          <button class="btn btn-success btn-next" data-last="Terminer">
             Suivant<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>
         </div>
       </div>

@@ -14,7 +14,7 @@
         </div>
       </div>
        <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="passwordResetbtn"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+        <button type="button" class="btn btn-sm btn-primary" id ="passwordResetbtn"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
         <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i> Annuler</button>
       </div>
     </div>
