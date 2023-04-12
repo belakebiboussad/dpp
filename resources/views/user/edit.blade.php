@@ -14,10 +14,8 @@ function check(input) {
 }
 $(function(){
 	$('#passwordResetbtn').click(function(e){
-    var formData = {
-      _token: CSRF_TOKEN,
-			id:'{{$user->id}}',
-			password: $("#newPassword").val()
+    var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
+     	password: $("#newPassword").val()
 		};
 		$.ajax({
     	type: "POST",

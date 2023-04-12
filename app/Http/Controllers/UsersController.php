@@ -286,6 +286,10 @@ class UsersController extends Controller
       }else
       return redirect()->to('/home');
     }
+    public function forceChangePassword($id)
+    {
+      return $id;
+    }
     public function setting($id_user)
     {
       $user = User::FindOrFail($id_user);

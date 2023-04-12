@@ -16,7 +16,7 @@
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
 <script src="{{ asset('/js/spin.js') }}"></script>
-<script src="{{ asset('/js/moment.min.js') }}"></script> <!-- ace scripts -->
+<script src="{{ asset('/js/moment.min.js') }}"></script> 
 <script src="{{asset('/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('/js/ace.min.js')}}"></script><!-- ace scripts -->
 <script src="{{ asset('/js/larails.js') }}"></script>
@@ -53,6 +53,7 @@
 <script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('/js/app.js')}}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   var base64Img = null; 
@@ -413,9 +414,9 @@
           no_icon: 'ace-icon fa fa-cloud-upload',
           droppable: true,
           thumbnail: 'small' ,//large | fit
-          preview_error : function(filename, error_code) {//name of the file that failed //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',//3 = 'THUMBNAIL_FAILED'   //alert(error_code);
+          preview_error : function(filename, error_code) {//name of the 
           }
-      }).on('change', function(){ });//console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));//dynamically change allowed formats by changing allowExt && allowMime function  
+      }).on('change', function(){ });// 
       $('#id-file-format').removeAttr('checked').on('change', function() {
         var whitelist_ext, whitelist_mime;
         var btn_choose
@@ -684,6 +685,6 @@
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
             pdf.save(fileName);
           }, 
-         margins);/*iframe =document.getElementById('ipdf');iframe.src =pdf.output('datauristring');$("#crrModal").modal();*/ 
+         margins);
       }
 </script>

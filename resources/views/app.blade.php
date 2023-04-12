@@ -7,268 +7,277 @@
   @yield('style')
 </head>
 <body class="no-skin">
-    @include('partials.navbar')
-    @include('partials.scripts')
-    @include('flashy::message')
-      <div class="main-container" id="main-container">
-      <script type="text/javascript">
-        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        function activaTab(tab){
-          $('.nav-pills a[href="#' + tab + '"]').tab('show');
-        }
-        function createRDVModal(debut, fin, pid = 0, fixe=1)
-        { 
-            var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-            var fin = moment(fin).format('YYYY-MM-DD HH:mm');
-            if(pid !== 0)
-            {
-              if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')
-              {
-                var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
-                var url = "{{ route('rdv.store') }}"; 
-                $.ajax({
-                    type : 'POST',
-                    url :url,
-                    data:formData,
-                    success:function(data){         
-                      var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-                      $('.calendar').fullCalendar( 'renderEvent',  {
-                              title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                              start: debut,
-                              end: fin,
-                              id : data['rdv']['id'],
-                              idPatient:data['patient']['id'],
-                              fixe: data['rdv']['fixe'],
-                              tel:data['patient']['tele_mobile1'] ,
-                              age:data['age'],
-                              specialite: data['rdv']['specialite_id'],
-                              civ : data['patient']['civ'],
-                              allDay: false,
-                              color:color
-                      });//calendar1
-                    },
-                    error: function (data) {
-                      console.log('Error:', data);
-                    }
-                });
-              }else
-                showRdvModal(debut,fin,pid,fixe); 
-            }else
-              showRdvModal(debut,fin,0,fixe); 
-        }
-        function copyPatient(){ 
-          $("#asdemogData").addClass('hidden');
-          $("#foncform").addClass('hidden');
-        }
-        function checkPatient()
+  @include('partials.navbar')
+  @include('partials.scripts')
+  @include('flashy::message')
+  <div class="main-container" id="main-container">
+  <script type="text/javascript">
+    try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    function activaTab(tab){
+      $('.nav-pills a[href="#' + tab + '"]').tab('show');
+    }
+    function createRDVModal(debut, fin, pid = 0, fixe=1)
+    { 
+        var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+        var fin = moment(fin).format('YYYY-MM-DD HH:mm');
+        if(pid !== 0)
         {
-          var erreur =true;
-          var nom = $('#nom').val();
-          var prenom = $('#prenom').val();
-          var type = $('#type').val();
-          var inputAssVal = new Array(type,prenom,nom);
-          var inputMessage = new Array('Type',"Prenom","Nom");
-          $('.error').each(function(i, obj) {
-            $(obj).next().remove();
-            $(obj).detach();
-          });
-          jQuery.each( inputAssVal, function( i, val ) {
-            if(val =="" )
-            {
-              erreur =false;
-              $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-            }
-         });
-         return erreur;
-        }
-        function checkAssureOrg()
-        {
-          var erreur =true;
-          var nss = $('#nss').val();
-          var prenomf = $('#prenomf').val();
-          var nomf = $('#nomf').val();
-          inputAssVal = new Array(nss,prenomf,nomf);
-          inputMessage.push("Numèro de Secruté Social", "Prénom","Nom");
-          $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-          jQuery.each( inputAssVal, function( i, val ) {
-            if(val =="" )
-            {
-              erreur =false;
-              $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-            }
-          });
-         return erreur;
-        }
-        function checkAssure()
-        {
-          var erreur =true;
-          var nss = $('#nss').val();
-          var inputAssVal = new Array(nss);
-          var inputMessage = new Array("Numèro de Secruté Social");
-          if($("#type").val() != 0)
+          if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')
           {
-            var prenomf = $('#prenomf').val();
-            var nomf = $('#nomf').val();
-            inputAssVal.push(prenomf,nomf);
-            inputMessage.push("Prenom","Nom");
-          }
-          $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-          jQuery.each( inputAssVal, function( i, val ) {
-            if(val =="" )
-            {
-              erreur =false;
-              $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-            }
-          });
-          return erreur;
-        }
-        function  checkHomme(){
-            var erreur =true;
-            var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-            var type_piece_id = $('#type_piece_id').val();
-            var npiece_id = $('#npiece_id').val();
-            mobileA = $('#mobileA').val();
-            var inputHomVal = new Array(npiece_id,type_piece_id,mobileA,prenomA,nomA);
-            var inputHomMessage = new Array("Numero de la pièce","Type de la pièce","Téléphone mobile","Prenom","Nom");
-            $('.error').each(function(i, obj) {
-                  $(obj).next().remove();
-                  $(obj).detach();
-           });
-            jQuery.each( inputHomVal, function( i, val ) {
-                 if(val =="" )
-                {
-                       erreur =false;
-                      $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-                 }
-            });   
-           return erreur;
-        }
-        function getProducts(id_gamme, id_spec=0,med_id = 0)
-        {
-          var html = '<option value="" selected disabled>Sélectionner...</option>';
-          $.ajax({
-              url : '/getproduits/'+id_gamme+'/'+id_spec,
-              type : 'GET',
-              dataType : 'json',
-              success : function(data){
-                  $.each(data, function(){
-                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                  });
-                  $('#med_id').html(html);
-                  if(med_id != 0)
-                    $('#med_id').val(med_id);
-              }
-          });
-        }
-        function addDays()
-        {
-          var datefin = new Date($('.date').val());
-          datefin.setDate(datefin.getDate() + parseInt($('.numberDays').val(), 10));
-          $(".date_end").val(moment(datefin).format("YYYY-MM-DD"));        
-        }
-        function updateDureePrevue()//a fusionner updateDureePrevue
-        { 
-          var iDaysDelta = 0;
-          var dEntree = $('.date').datepicker('getDate');
-          var dSortie = $('.date_end').datepicker('getDate');
-          if (dEntree && dSortie && (dSortie >= dEntree)) 
-          {
-            iDaysDelta = Math.floor((dSortie.getTime() - dEntree.getTime()) / 86400000);
-            if(iDaysDelta < 0)            
-              $(".date_end").datepicker("setDate", dEntree); 
+            var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
+            var url = "{{ route('rdv.store') }}"; 
+            $.ajax({
+                type : 'POST',
+                url :url,
+                data:formData,
+                success:function(data){         
+                  var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+                  $('.calendar').fullCalendar( 'renderEvent',  {
+                          title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                          start: debut,
+                          end: fin,
+                          id : data['rdv']['id'],
+                          idPatient:data['patient']['id'],
+                          fixe: data['rdv']['fixe'],
+                          tel:data['patient']['tele_mobile1'] ,
+                          age:data['age'],
+                          specialite: data['rdv']['specialite_id'],
+                          civ : data['patient']['civ'],
+                          allDay: false,
+                          color:color
+                  });//calendar1
+                },
+                error: function (data) {
+                  console.log('Error:', data);
+                }
+            });
           }else
-            $(".date_end").datepicker("setDate", $('.date').datepicker('getDate'));
-          $('.numberDays').val(iDaysDelta ); 
-        }
-       $(function(){
-         $('#gamme').change(function(){
-            switch($(this).val())
-            {
-              case "1":
-                if($("#specialiteDiv").is(":hidden"))
-                  $("#specialiteDiv").show();
-                  break;
-              case "2":
-                  if(!$("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").hide();
-                    if($("#med_id").prop('disabled') == true)
-                      $("#med_id").prop('disabled',false);
-                    getProducts(2);
-                  break;
-              case "3":
-                if(!$("#specialiteDiv").is(":hidden"))
-                  $("#specialiteDiv").hide();
-                  getProducts(3);
-                  break;
-              case "4":
-                $("#specialiteDiv").hide();
-                if($("#med_id").prop('disabled') == true)
-                      $("#med_id").prop('disabled',false);
-                getProducts(4);
-                break;
-              default:
-                break; 
-            }
-          });
-         $('#specPrd').change(function(){
-            getProducts($('#gamme').val(),$(this).val());
-          });
-          $('#med_id').change(function(){
-             $("#ajoutercmd").removeAttr("disabled");
-          });
-       });
-        $(function(){
-          $("select.groupeSanguin").change(function(){//var gs = 
-          if($(this).children("option:selected").val() !=="")
-          {
-           if($(this).attr('name') === "gs")
-                  $("#rh" ).attr("disabled", false);
-            else
-            $("#rhf" ).attr("disabled", false);  
+            showRdvModal(debut,fin,pid,fixe); 
         }else
+          showRdvModal(debut,fin,0,fixe); 
+    }
+    function copyPatient(){ 
+      $("#asdemogData").addClass('hidden');
+      $("#foncform").addClass('hidden');
+    }
+    function checkPatient()
+    {
+      var erreur =true;
+      var nom = $('#nom').val();
+      var prenom = $('#prenom').val();
+      var type = $('#type').val();
+      var inputAssVal = new Array(type,prenom,nom);
+      var inputMessage = new Array('Type',"Prenom","Nom");
+      $('.error').each(function(i, obj) {
+        $(obj).next().remove();
+        $(obj).detach();
+      });
+      jQuery.each( inputAssVal, function( i, val ) {
+        if(val =="" )
         {
-          if($(this).attr('name') === "gs")
-          {
-            $("#rh" ).attr("disabled", true);
-            $("select#rh").val(''); 
-          }
-          else
-          {
-            $("#rhf" ).attr("disabled", true);
-            $("select#rhf").val(''); 
-          }
+          erreur =false;
+          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+        }
+     });
+     return erreur;
+    }
+    function checkAssureOrg()
+    {
+      var erreur =true;
+      var nss = $('#nss').val();
+      var prenomf = $('#prenomf').val();
+      var nomf = $('#nomf').val();
+      inputAssVal = new Array(nss,prenomf,nomf);
+      inputMessage.push("Numèro de Secruté Social", "Prénom","Nom");
+      $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+      jQuery.each( inputAssVal, function( i, val ) {
+        if(val =="" )
+        {
+          erreur =false;
+          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
         }
       });
-        $("select.rhesus").change(function(){
-            if($(this).children("option:selected").val() =="")
-               if($(this).attr('name') === "rh")
-                $("select#gs").val(''); 
-              else
-                 $("select#gsf").val('');             
-        });/* with button*/    
-       $(document).on('click', '.selctetat', function(event){
-        var data = '';
-        $.ajax({
-            type: 'GET',
-            url: '/pdf/generate',
-            data: data,
-            xhrFields: {
-                responseType: 'blob'
-            },
-            success: function(response){
-                var blob = new Blob([response]);
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "Sample.pdf";
-                link.click();
-            },
-            error: function(blob){
-                console.log(blob);
-            }
-        });
-        });
-      }) 
-     </script>
+     return erreur;
+    }
+    function checkAssure()
+    {
+      var erreur =true;
+      var nss = $('#nss').val();
+      var inputAssVal = new Array(nss);
+      var inputMessage = new Array("Numèro de Secruté Social");
+      if($("#type").val() != 0)
+      {
+        var prenomf = $('#prenomf').val();
+        var nomf = $('#nomf').val();
+        inputAssVal.push(prenomf,nomf);
+        inputMessage.push("Prenom","Nom");
+      }
+      $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+      jQuery.each( inputAssVal, function( i, val ) {
+        if(val =="" )
+        {
+          erreur =false;
+          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+        }
+      });
+      return erreur;
+    }
+    function  checkHomme(){
+        var erreur =true;
+        var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+        var type_piece_id = $('#type_piece_id').val();
+        var npiece_id = $('#npiece_id').val();
+        mobileA = $('#mobileA').val();
+        var inputHomVal = new Array(npiece_id,type_piece_id,mobileA,prenomA,nomA);
+        var inputHomMessage = new Array("Numero de la pièce","Type de la pièce","Téléphone mobile","Prenom","Nom");
+        $('.error').each(function(i, obj) {
+              $(obj).next().remove();
+              $(obj).detach();
+       });
+        jQuery.each( inputHomVal, function( i, val ) {
+             if(val =="" )
+            {
+                   erreur =false;
+                  $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+             }
+        });   
+       return erreur;
+    }
+    function getProducts(id_gamme, id_spec=0,med_id = 0)
+    {
+      var html = '<option value="" selected disabled>Sélectionner...</option>';
+      $.ajax({
+          url : '/getproduits/'+id_gamme+'/'+id_spec,
+          type : 'GET',
+          dataType : 'json',
+          success : function(data){
+              $.each(data, function(){
+                html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+              });
+              $('#med_id').html(html);
+              if(med_id != 0)
+                $('#med_id').val(med_id);
+          }
+      });
+    }
+    function addDays()
+    {
+      var datefin = new Date($('.date').val());
+      datefin.setDate(datefin.getDate() + parseInt($('.numberDays').val(), 10));
+      $(".date_end").val(moment(datefin).format("YYYY-MM-DD"));        
+    }
+    function updateDureePrevue()//a fusionner updateDureePrevue
+    { 
+      var iDaysDelta = 0;
+      var dEntree = $('.date').datepicker('getDate');
+      var dSortie = $('.date_end').datepicker('getDate');
+      if (dEntree && dSortie && (dSortie >= dEntree)) 
+      {
+        iDaysDelta = Math.floor((dSortie.getTime() - dEntree.getTime()) / 86400000);
+        if(iDaysDelta < 0)            
+          $(".date_end").datepicker("setDate", dEntree); 
+      }else
+        $(".date_end").datepicker("setDate", $('.date').datepicker('getDate'));
+      $('.numberDays').val(iDaysDelta ); 
+    }
+   $(function(){
+     $('#gamme').change(function(){
+        switch($(this).val())
+        {
+          case "1":
+            if($("#specialiteDiv").is(":hidden"))
+              $("#specialiteDiv").show();
+              break;
+          case "2":
+              if(!$("#specialiteDiv").is(":hidden"))
+                $("#specialiteDiv").hide();
+                if($("#med_id").prop('disabled') == true)
+                  $("#med_id").prop('disabled',false);
+                getProducts(2);
+              break;
+          case "3":
+            if(!$("#specialiteDiv").is(":hidden"))
+              $("#specialiteDiv").hide();
+              getProducts(3);
+              break;
+          case "4":
+            $("#specialiteDiv").hide();
+            if($("#med_id").prop('disabled') == true)
+                  $("#med_id").prop('disabled',false);
+            getProducts(4);
+            break;
+          default:
+            break; 
+        }
+      });
+     $('#specPrd').change(function(){
+        getProducts($('#gamme').val(),$(this).val());
+      });
+      $('#med_id').change(function(){
+         $("#ajoutercmd").removeAttr("disabled");
+      });
+   });
+    $(function(){
+      $("select.groupeSanguin").change(function(){//var gs = 
+      if($(this).children("option:selected").val() !=="")
+      {
+       if($(this).attr('name') === "gs")
+              $("#rh" ).attr("disabled", false);
+        else
+        $("#rhf" ).attr("disabled", false);  
+    }else
+    {
+      if($(this).attr('name') === "gs")
+      {
+        $("#rh" ).attr("disabled", true);
+        $("select#rh").val(''); 
+      }
+      else
+      {
+        $("#rhf" ).attr("disabled", true);
+        $("select#rhf").val(''); 
+      }
+    }
+  });
+  $("select.rhesus").change(function(){
+        if($(this).children("option:selected").val() =="")
+           if($(this).attr('name') === "rh")
+            $("select#gs").val(''); 
+          else
+             $("select#gsf").val('');             
+  });    
+  $(document).on('click', '.selctetat', function(event){
+      var data = '';
+      $.ajax({
+          type: 'GET',
+          url: '/pdf/generate',
+          data: data,
+          xhrFields: {
+              responseType: 'blob'
+          },
+          success: function(response){
+              var blob = new Blob([response]);
+              var link = document.createElement('a');
+              link.href = window.URL.createObjectURL(blob);
+              link.download = "Sample.pdf";
+              link.click();
+          },
+          error: function(blob){
+              console.log(blob);
+          }
+      });
+  });
+  $("#changePassword").click(function () {
+    formSubmit($("#userChangePasswordForm"), null, function(xhr, form) {
+     /* if (xhr.success) {
+       $("#changePassword").addClass("disabled");
+        window.location.href = "{{ route("home") }}";
+        
+      }*/
+    });
+  });
+}) 
+</script>
         @yield('page-script')
         @if( Auth::user()->role_id == 1)
                @include('partials.sidebar_med')
