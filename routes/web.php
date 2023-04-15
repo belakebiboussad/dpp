@@ -71,8 +71,8 @@ route::get('/products/list','demandeprodController@getProducts')->name('products
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
-Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
-Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
+Route::post('/demande_validating','DemandeHospitalisationController@valider')->name('demande_validate');
+Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('demande_invalidate');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/getConsultations','ConsultationsController@getConsultations');Route::get('/getRdvs','RdvHospiController@getRdvs');

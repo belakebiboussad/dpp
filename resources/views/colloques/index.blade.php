@@ -1,4 +1,4 @@
-@extends('app_dele')
+@extends('app')<!-- _dele -->
 @section('main-content')
 <div class="container-fluid">
 <div class="page-header"><h1>Rechercher un colloque</h1></div>
@@ -13,7 +13,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
               </div> 
           </div> 
-          <div class="col-sm-4 col-sm-offset-1"> <label>Etat</label>
+          <div class="col-sm-4 col-sm-offset-1"><label>Etat</label>
              <select id='etat' class="form-control filter">
               <option value="" selected active>En cours</option>
               <option value="1">Cloturée</option>
@@ -31,7 +31,7 @@
   <div class="col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
+			<h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>
       	Liste des Colloques du Service {{ $service->nom}}
 			</h5> <span class="badge badge-info numberResult"></span>
 			<div class="widget-toolbar widget-toolbar-light no-border">
@@ -41,9 +41,9 @@
 		<div class="widget-body">
 			<div class="widget-main no-padding"><table class="display table-responsive" id="liste_colloques"></table>
 			</div>
-		</div><!-- widget-body -->
-	</div><!-- widget-box -->
-</div><!-- widget-container-col -->
+		</div>
+	</div>
+</div>
 </div>
 </div>
 @stop

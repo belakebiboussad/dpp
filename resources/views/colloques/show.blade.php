@@ -1,4 +1,4 @@
-@extends('app_dele')
+@extends('app')
 @section('title','détails du  colloque')
 @section('main-content')
 <div class="page-header"><h2>Détails le colloque du &quot; {{ $colloque->date }} &quot;</h2>
@@ -12,8 +12,8 @@
       <div class="row">      
         <div class="col-xs-5">
           <div class="widget-box">
-            <div class="widget-header widget-header-flat widget-header-small">
-              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Membres du colloque </h5><label><span class="badge badge-info numberResult"></span></label>
+            <div class="widget-header widget-header-flat">
+            <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Membres du colloque </h5><span class="badge badge-info numberResult"></span>
             </div>
             <div class="widget-body">
               <div class="widget-main no-padding">
@@ -31,8 +31,8 @@
         <div class="col-sm-7">
           @if($colloque->getEtatID())
           <div class="widget-box">
-            <div class="widget-header widget-header-flat widget-header-small">
-              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demandes traités </h5><label><span class="badge badge-info numberResult"></span></label>
+            <div class="widget-header widget-header-flat">
+              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demandes traités </h5><span class="badge badge-info numberResult"></span>
             </div>
             <div class="widget-body">
               <div class="widget-main no-padding">

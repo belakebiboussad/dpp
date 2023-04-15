@@ -135,7 +135,7 @@ class DemandeHospitalisationController extends Controller
       }
       public function valider(Request $request)
       {
-        $dem = dem_colloque::firstOrCreate($request->all());
+        $dem = dem_colloque::firstOrCreate($request->except('_token'));
         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
         $demande->update(["etat" => 5]);
         return $demande;

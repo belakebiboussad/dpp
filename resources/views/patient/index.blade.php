@@ -59,10 +59,7 @@ function errorMsg(msg, error) {
 		      type : 'GET',
 		      success:function(data,status, xhr){
 			      	$('#patientDetail').html(data);
-        		},
-          		error:function(data){
-	         		 console.log("error patient details")
-	        	}	
+        		}
 		});
 	}
 	var values = new Array();
