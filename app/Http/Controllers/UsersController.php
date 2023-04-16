@@ -261,34 +261,12 @@ class UsersController extends Controller
       if(Auth::Check())
       {
         $request_data = $request->All();
-        $validator = $this->admin_credential_rules($request_data);
-        if($validator->fails())
-          return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
-        else
-        {
-          $password = Auth::User()->password;         
-          if(Hash::check($request_data['curPassword'], $password))
-          {       
-            if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
-            {
-              return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
-            }else{
-                $user_id = Auth::User()->id;   
-                $obj_user = User::find($user_id);
-                $obj_user->password = Hash::make($request_data['newPassword']);
-                $obj_user->save(); 
-                  return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
-            }                            
-          } 
-          else
-            return redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
-        }
+        reurn("1");
       }else
+      {
+        reurn("2");
+      }
       return redirect()->to('/home');
-    }
-    public function forceChangePassword($id)
-    {
-      return $id;
     }
     public function setting($id_user)
     {
@@ -326,6 +304,7 @@ class UsersController extends Controller
     }
     public function resetPassword(Request $request)
     {
+
       $request->validate(['password' => 'required']);
       if(Auth::Check() && (Auth::user()->is(4)))
       {

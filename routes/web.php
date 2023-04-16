@@ -86,9 +86,8 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
 Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
-Route::post('users/changePassword', 'UsersController@changePassword');
 // teste
-Route::get('/user/password/{id}','UsersController@forceChangePassword')->name('user.change.password');
+ Route::post('/user/password','UsersController@changePassword')->name('user.change.password');
 // fteste
 Route::post('/users/store/','UsersController@store');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
