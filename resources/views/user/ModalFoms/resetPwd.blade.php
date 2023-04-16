@@ -17,10 +17,10 @@
           <div class="mb-3"> 
             <br>
             <label for="password" class="form-label">Mot de passe </label>
-            <input type="password" class="form-control" name="password" placeholder="Entrer le mot de passe" required/><small class="help-block">Saisissez votre mot de passe actuel</small> 
+            <input type="password" class="form-control" name="current-password" placeholder="Entrer le mot de passe" required/><small class="help-block">Saisissez votre mot de passe actuel</small> 
           </div>
           <div class="mb-3">
-          <label for="password" class="form-label">Nouveau mot de passe </label>
+          <label for="newPassword" class="form-label">Nouveau mot de passe </label>
             <input type="password" class="form-control" name="newPassword" placeholder="Entrer le mot de passe" required/><small class="help-block">Saisissez votre nouveau mot de passe</small> 
           </div>
           <div class="mb-3">

@@ -240,6 +240,7 @@ class UsersController extends Controller
             'employe' => $employe
         ]);
     }
+    /*
     public function admin_credential_rules(array $data)
     {
       $messages = [
@@ -255,16 +256,43 @@ class UsersController extends Controller
           // |confirmed 
       ], $messages); 
       return $validator;
-    }  
+    }  */
+      public function admin_credential_rules(array $data)
+      {
+           $messages = [
+                   'current-password.required' => 'Entrer le mot de passe actuel correct',
+                   'newPassword.required' => 'entrer le nouveau mot de passe SVP',
+                   'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
+             ];
+             $validator = Validator::make($data, [
+                    'current-password' => 'required',
+                    'newPassword' => 'required',
+                    'password_again' => 'required|same:newPassword',     
+              ], $messages);
+          return $validator;
+      }  
     public function changePassword(Request $request)
     {
+          
       if(Auth::Check())
       {
-        $request_data = $request->All();
-        reurn("1");
+            $request_data = $request->All();
+            $validator = $this->admin_credential_rules($request_data);
+             if($validator->fails())
+                    return back()->withErrors($validator)->withInput();
+             else
+             {
+                  $password = Auth::User()->password;  
+                  if(Hash::check($request_data['current-password'], $password))
+                  {
+                     if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
+                  }else
+                     return "3";
+
+             }
       }else
       {
-        reurn("2");
+        return("2");
       }
       return redirect()->to('/home');
     }
