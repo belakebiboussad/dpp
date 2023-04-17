@@ -1,5 +1,5 @@
 <script src="{{ asset('/js/Dicom/hammer.min.js') }}"></script>
-<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script><!-- include the cornerstone library -->
+<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>  
@@ -51,7 +51,7 @@
   function _initInterface() {
     initModeButtons();
   }
-  $(document).ready(function(){
+  $(function(){
     var loaded = false;
     $('body').on('click', '.dicom_viewer', function () {
       jQuery('#dicom').show();
@@ -64,10 +64,7 @@
       });
       cornerstone.enable(element);
       const toolName = 'Length';
-      //var APP_URL = {!! json_encode(url('/')) !!} +'/storage/files/'+$(this).val();
-      //var APP_URL = {!! json_encode(url('/')) !!} +'app/public/files/'+$(this).val();
-      var storagePath = {!! storage_path('files') !!};
-      alert(storagePath);
+      var APP_URL = "{{url('/files')}}" +"/" + $(this).val();
       var url = "wadouri:" + APP_URL;
       const imageIds = [  url  ];
       const stack = {
@@ -84,7 +81,6 @@
         document.getElementById('patientName').textContent =  image.data.string('x00100010');
         document.getElementById('patientId').textContent =  image.data.string('x00100020'); 
         document.getElementById('date').textContent =  image.data.string('x00080032'); 
-        //document.getElementById('machine').textContent = image.data.string('x00081010');
         document.getElementById('genre').textContent = image.data.string('x00100040');
         document.getElementById('age').textContent = image.data.string('x00101010');
         cornerstone.reset(element);
@@ -108,8 +104,8 @@
         cornerstone.reset(element);
       });
       const LengthTool = cornerstoneTools.LengthTool;
-      cornerstoneTools.addTool(LengthTool)
-      cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 })
+      cornerstoneTools.addTool(LengthTool);
+      cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
     });
   });
 </script>

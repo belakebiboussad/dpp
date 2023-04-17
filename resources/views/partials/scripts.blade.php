@@ -5,6 +5,8 @@
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script> 
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
+<script src="{{asset('/js/jquery.jqGrid.min.js')}}"></script>
+<script src="{{asset('/js/grid.locale-fr.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.min.js')}}"></script>
@@ -14,7 +16,7 @@
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
 <script src="{{ asset('/js/spin.js') }}"></script>
-<script src="{{ asset('/js/moment.min.js') }}"></script> <!-- ace scripts -->
+<script src="{{ asset('/js/moment.min.js') }}"></script> 
 <script src="{{asset('/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('/js/ace.min.js')}}"></script><!-- ace scripts -->
 <script src="{{ asset('/js/larails.js') }}"></script>
@@ -51,7 +53,7 @@
 <script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/quagga.min.js')}}"></script>
-{{-- <script type="text/javascript" src="{{asset('/js/2bcba094d2.js')}}"></script> --}}
+<script type="text/javascript" src="{{ asset('/js/app.js')}}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   var base64Img = null; 
@@ -68,9 +70,8 @@
       e.preventDefault();e.stopPropagation();   
     }
   }
-  $(document).ready(function(){
-/* $('.timepicker').timepicker({timeFormat: 'HH:mm',minuteStep: 60,//minTime: '08', maxTime: '17',defaultTime: '08:00', startTime: '08:00',dynamic: true,dropdown: true,scrollbar: true,showMeridian: false});*/   
-      $('.timepicker1').timepicker({
+  $(function(){
+    $('.timepicker1').timepicker({
               minuteStep:15,
               minTime: '08',
               maxTime: '18',
@@ -144,7 +145,7 @@
             field =event['target']['id'];
           }
     });
-        $( ".autoUserfield" ).autocomplete({
+    $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {
           $.ajax({
                 url:"{{route('users.autoField')}}",
@@ -165,7 +166,14 @@
           $(this).val(ui.item.label);
           field =event['target']['id'];
         }
-    });  /*$(function() {  var checkbox = $("#hommeConf"); checkbox.change(function() { if(checkbox.is(":checked"))  $("#hommelink").removeClass('invisible'); else$("#hommelink").addClass('invisible');  })  });*/
+    });  
+    $('ul#menuPatient li').click(function(e) 
+    { 
+      if(($(this).index() == 1) && ($("#type").val() == 0))
+      {
+        copyPatient();
+      }
+    });
 });
 </script>
 <script type="text/javascript">
@@ -186,48 +194,22 @@
                 });
 </script>   
 <script type="text/javascript">
-  function isNumeric (evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode (key);
-    var regex = /[0-9]|\./;
-    if ( !regex.test(key) ) {
-      theEvent.returnValue = false;
-      if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-  }
-  function addRequiredAttr()
-  { 
-    var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-    $.each(classList, function(index, item){
-      if (item === 'hidden') { 
-        $( "ul#menuPatient li:eq(0)" ).removeClass( item );
-      }
-    });             
-    if($('ul#menuPatient li:eq(0)').css('display') == 'none')
-    {
-      $('ul#menuPatient li:eq(0)').css('display', '');
-    }
-    $(".starthidden").hide(250);
-    if($("#type").val() != 0)
-       $('.asdemogData').attr('disabled', 'disabled');
-  }
   function assurHide()
   {
     var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
     $('#menuPatient a[href="#Assure"]').parent().addClass('hide');
     $(active_tab_selector).removeClass('active').addClass('hide');
     $('.nav-pills a[href="#Patient"]').tab('show');
-    $(".starthidden").show();
+    $("#otherPat").removeClass('hidden');
     if(!$("#foncform").is(":hidden"))
       $("#foncform").addClass('hidden');
     $('#nsspatient').attr('disabled', true);
   }
   function assureShow()
   {
-    $('.nav-pills li').eq(0).removeClass('hide');
+    $('.nav-pills li').eq(1).removeClass('hide');
     $("div#Assure").removeClass('hide');
-    $(".starthidden").hide(250);
+    $("#otherPat").addClass('hidden');
     $('#description').val('');
     $('#nsspatient').attr('disabled', false);  
   }
@@ -236,30 +218,30 @@
     $('#Assure').find('input').val('');
     $('#Assure').find("select").prop("selectedIndex",0);
   }
-  function showTypeAdd(type, i)//ajout patient
+  function showTypeAdd(type, i)
   { 
     switch(type){
       case "0":
-        if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
-        copyPatient(); // if(!($("#asdemogData").hasClass("hide")))//   $("#asdemogData").addClass("hide");
-        $('.asdemogData').prop('disabled', true);
+        copyPatient();
         if(i !=0)
           $(".asProfData").val('');
-          break;
+        break;
       case "1": case "2": case "3": case "4":
-        if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
+        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
+        if($("#asdemogData").is(":hidden")) 
+          $("#asdemogData").removeClass('hidden'); 
         if($("#foncform").is(":hidden"))
-          $("#foncform").removeClass('hidden');// if($("#asdemogData").hasClass("hide"))//$("#asdemogData").removeClass("hide");
-        
-        if($('.asdemogData').is('[disabled="disabled"]'))
-        {
-          $('.asdemogData').prop('disabled', false);
-          $('.asdemogData').val('');
-        }
-        if(i !=0)
+          $("#foncform").removeClass('hidden');
+        if(i != 0)
           $(".asProfData").val('');
+        if(type == "1")
+        {
+            $("#sf").prop("selectedIndex", 2).change();
+            $("#SituationFamille").prop("selectedIndex", 2).change();
+        }
         break;
       case "5": case "6":
         assurHide();
@@ -432,9 +414,9 @@
           no_icon: 'ace-icon fa fa-cloud-upload',
           droppable: true,
           thumbnail: 'small' ,//large | fit
-          preview_error : function(filename, error_code) {//name of the file that failed //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',//3 = 'THUMBNAIL_FAILED'   //alert(error_code);
+          preview_error : function(filename, error_code) {//name of the 
           }
-      }).on('change', function(){ });//console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));//dynamically change allowed formats by changing allowExt && allowMime function  
+      }).on('change', function(){ });// 
       $('#id-file-format').removeAttr('checked').on('change', function() {
         var whitelist_ext, whitelist_mime;
         var btn_choose
@@ -476,9 +458,9 @@
       $('.date-picker').datepicker({
               autoclose: true,
               todayHighlight: true,
-              dateFormat: 'MM/DD/YYYY',//dateFormat: 'yy-mm-dd',
+              dateFormat: 'MM/DD/YYYY',
               flat: true,
-              calendars: 1,//language: 'fr',
+              calendars: 1,
               changeYear: true,
               yearRange: "-120:+80"
       }).on('click', function(e) {
@@ -584,7 +566,7 @@
               $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
               $("#datefinrdv").val(data.rdv.fin); 
             }
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));  //$('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
             $('#btnDelete').attr('value',data.rdv.id);
             $('#updateRDV').attr('value',data.rdv.id);
             $('#fullCalModal').modal({ show: 'true' });
@@ -703,6 +685,6 @@
             headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
             pdf.save(fileName);
           }, 
-         margins);/*iframe =document.getElementById('ipdf'); iframe.src = pdf.output('datauristring');$("#crrModal").modal();*/
+         margins);
       }
 </script>

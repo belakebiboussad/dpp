@@ -1,28 +1,16 @@
 @extends('app')
 @section('main-content')
 <div class="container-fluid">
-	<div class="row">
-    <div class="col-sm-12">
-      @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])
-    </div>
-  </div>
-	<div class="panel-heading left">
-	  	<h4><b>Détails de la visite :</b></h4>
-	  	<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-	  	 </div>
-	</div>	
-	<div class="row">
-		<div class="form-group">		
-			<label class="col-sm-1 control-label no-padding-right" for="service"><b>Date :</b></label>
-			<div class="col-sm-8 col-xs-8">
-				 <label class="blue">{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</label>
-			</div>
-		</div>
+	<div class="page-header"> @include('patient._patientInfo',['patient'=>$visite->hospitalisation->patient])</div>
+<div class="row">
+  <div class="col-sm-12"><h4>Détails de la visite</h4>
+    <div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
 	</div>
-	<div class="row">
-		<div class="col-sm-1 no-padding-right"><label>Médecin :</label></div>
-		<div class="form-group col-sm-6"><label class="blue">{{ $visite->medecin->full_name }}</label></div>
 	</div>
+   <div class="row">
+    <div class="col-xs-12">@include('visite.partials._show')</div>  
+  </div>	
+
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist">
 	        @if($visite->actes->count() > 0)
@@ -49,19 +37,16 @@
 						<table class="table table-striped table-bordered table-hover">
 							<thead class="thin-border-bottom">
 								<tr>
-									<th class="center">Nom</th>
-									<th class="center">Type</th>
-									<th class="center">Description</th>
+									<th class="center">Nom</th>  <th class="center">Type</th>
+								  <th class="center">Description</th>
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
 							@foreach($visite->actes as $acte)
 								<tr>
-									<td>{{ $acte->nom }}</td>
-									<td>{{ $acte->type }}</td>
-									<td>{{ $acte->description }}</td>
-									<td></td>
+									<td>{{ $acte->nom }}</td><td>{{ $acte->type }}</td>
+									<td>{{ $acte->description }}</td><td></td>
 								</tr>
 							@endforeach
 							</tbody>
@@ -73,7 +58,7 @@
     			</div>
 			@endif
 			@if($visite->traitements->count() > 0)
-    			  <div id="traitement" class="tab-pane row">
+    		<div id="traitement" class="tab-pane row">
        				<div class="col-xs-12 widget-container-col row">
 				<div class="widget-box widget-color-blue">
 				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
@@ -82,8 +67,7 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center">Nom</th>
-								<th class="center">Type</th>
+								<th class="center">Nom</th><th class="center">Type</th>
 								<th class="center">Posologie</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
@@ -93,7 +77,6 @@
 							<tr>
 								<td>{{ $trait->medicament->nom }}</td>
 								<td>{{ $trait->medicament->specialite->nom }}</td>
-
 								specialite
 								<td>{{ $trait->posologie }}</td>
 								<td></td>
@@ -117,11 +100,8 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center">#</th>
-							<th class="center"><b>Date</b></th>
-							<th class="center"><b>Nom</b></th>
-							<th><b>Etat</b></th>
-							<th class="center"><em class="fa fa-cog"></em></th>
+							<th class="center">#</th><th class="center">Date</th><th class="center">Nom</th>
+							<th>Etat</th><th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,21 +109,18 @@
 					<tr>
 						<td class="center">{{ $index + 1 }}</td>
 						@if($loop->first)
-							<td  rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-							{{ $visite->date }}
+							<td  rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">{{ $visite->date_formated }}
 							</td>
 						@endif	
 						 <td>{{ $exm->nom }}</td>
 						@if($loop->first)
-            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-                <span class="badge badge-{{( $visite->demandeexmbio->getEtatID($visite->demandeexmbio->etat)) === 0 ? 'warning':'primary' }}">
-                {{ $visite->demandeexmbio->etat }}</span>
-            	</td>
+            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">{!! $formatStat
+($visite->demandeexmbio) !!}</td>
             @endif 
 						@if($loop->first)
-			            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-			            	<a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
-			            	</td>
+			        <td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
+			         <a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
+			        </td>
 				          @endif   	
 		      </tr>
 		      @endforeach   
@@ -159,31 +136,21 @@
 	<div id="examImg" class="tab-pane row">
 		<div class="col-xs-12 widget-container-col row">
 			<div class="widget-box widget-color-red">
-			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
+			<div class="widget-header"><h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="center"><b>Date</b></th><th class="center"><b>Etat</b></th>
+							<th class="center">Date</th><th class="center">Etat</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>{{  (\Carbon\Carbon::parse($visite->date))->format('d/m/Y') }}</td>
-							<td>
-								{{-- @if($visite->demandExmImg->etat == null)
-											<span class="badge badge-warning"> En Attente</span>
-								 @elseif($visite->demandExmImg->etat == 1)
-											Validé
-								@else
-										 <span class="badge badge-danger">Rejeté</span>
-								 @endif --}}
-                <span class="badge badge-{{( $visite->demandExmImg->getEtatID($visite->demandExmImg->etat)) === 0 ? 'warning':'primary' }}">
-              {{ $visite->demandExmImg->etat }}
-              </span>
-							</td>
+							<td>{{ $visite->date_formated }}</td>
+							<td class="center">{!! $formatStat
+($visite->demandExmImg) !!}</td>
 							<td class="center">
 								<a href="{{ route('demandeexr.show', $visite->demandExmImg->id) }}"><i class="fa fa-eye"></i></a>
 								<a href="/drToPDF/{{ $visite->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
@@ -200,4 +167,4 @@
 		</div><!-- tab-content -->
 	</div>
 </div>
-@endsection
+@stop

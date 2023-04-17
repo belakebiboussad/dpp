@@ -13,7 +13,7 @@
             <p> Entrez vos coordonnées pour commencer : </p>
 
             <form role="form" method="POST" action="{{ url('/auth/register') }}">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                {{ csrf_field() }}
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
@@ -91,4 +91,4 @@
     <!-- /.widget-body -->
 </div>
 <!-- /.signup-box -->
-@endsection
+@stop

@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="AntecCrudModal">Ajouter un antécédent</h4>
 		</div>
 		<div class="modal-body">
-			<form id="modalFormAnt" method="POST" class="form-horizontal">
+			<form id="modalFormAnt" method="POST">
 			{!! csrf_field() !!}
 				<input type="hidden" id="atcd_id" value="0">
 				<div id="atcdsstypehide" class="form-group">

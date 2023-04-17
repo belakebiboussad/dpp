@@ -17,10 +17,10 @@
       });
   })
   </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container">
-        <form method="POST" class="form-horizontal" role="form" action="{{ route('planning.store') }}">
+        <form method="POST" role="form" action="{{ route('planning.store') }}">
              {{ csrf_field() }}
             <fieldset class="border p-2 mt-3">
                 <legend class="w-auto">Type de la demande</legend>
@@ -94,4 +94,4 @@
             </div>
         </form>
     </div>
-@endsection
+@stop

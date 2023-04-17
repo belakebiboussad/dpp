@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use App\modeles\assur;
 use Illuminate\Http\Request;
-use App\modeles\grade;
 use App\modeles\Wilaya;
 use App\Traits\PatientSearch;
 use App\Traits\AssureSearch;
@@ -45,32 +44,25 @@ class AssurController extends Controller
         "commune_res"=>$request->idcommunef,
         "wilaya_res"=>$request->idwilayaf,
         "grp_sang"=>$request->gsf.$request->rhf,
-        "Matricule"=>$request->mat,
         "Service"=>$request->service,
-        "Grade"=>$request->grade,
         "Etat"=>$request->etatf,
-        "NSS"=>$request->nss,
-        "NMGSN"=>$request->NMGSN, 
+        "NSS"=>$request->nss
       ]);
        return view('assurs.show',compact('assure'));
     }
     /**
      * //je stock l'assure obtenue de GRH  
      */
-    public function save($obj, $date,$sf, $grade)
+    public function save($obj, $date,$sf)
     {
-        $assure = new assur;
-        $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-        $assure->Date_Naissance = $date;//$assure->lieunaissance =  1556;
-        $assure->Sexe = $obj->Genre;// $assure->SituationFamille = utf8_encode($obj->SituationFamille);
-        $assure->SituationFamille =$sf;
-        $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);//$assure->commune_res = 1556;
-        $assure->wilaya_res =  $obj->WilayaResidence;
-        $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
-        $assure->Position = utf8_encode($obj->Position);
-        $assure->Service =utf8_encode($obj->Service);
-        $assure->Grade = $grade;
-        $assure->save();
+      $assure = new assur;
+      $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
+      $assure->Date_Naissance = $date;$assure->Sexe = $obj->Genre;
+      $assure->sf =$sf; $assure->adresse = utf8_encode($obj->Adresse);
+      $assure->wilaya_res =  $obj->WilayaResidence;
+      $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+      $assure->Service =utf8_encode($obj->Service);
+      $assure->save();
     }
     /**
      * Display the specified resource.
@@ -78,9 +70,6 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    /*
-    public function show($id) { $assure = assur::FindOrFail($id);   return view('assurs.show',compact('assure'));   }
-    */
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,32 +96,20 @@ class AssurController extends Controller
               "commune_res"=>$request->idcommunef,
               "wilaya_res"=>$request->idwilayaf,
               "grp_sang"=>$request->gsf.$request->rhf,
-              "Matricule"=>$request->matf, 
               "Service"=>$request->service,
               "Etat"=>$request->etatf,
-              "Grade"=>$request->grade,
-              "NMGSN"=>$request->NMGSN,
-              "NSS"=>$request->nss,
+              "NSS"=>$request->nss
       ] );
       return redirect(Route('assur.show',$assure->id));
     }
-    public function  updateAssure($situationFamille, $matricule, $adresse,$wilayaResid, $grade, $service ,$position, $NSS)
+    public function  updateAssure($situationFamille,  $adresse,$wilayaResid, $service , $NSS)
     {
       $assure = assur::find($NSS);
       $assure->update([
-                  "SituationFamille"=>$situationFamille,
-                  "adresse"=>$adresse,
-                   "wilaya_res"=>$wilayaResid,
-                  "Matricule"=>$matricule, 
-                  "Service"=>$service,
-                  "Position"=>$position,
-                  "Grade"=>$grade,
-      ] );
+          "sf"=>$situationFamille,
+          "adresse"=>$adresse,
+          "wilaya_res"=>$wilayaResid,
+          "Service"=>$service
+      ]);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\modeles\assur  $assur
-     * @return \Illuminate\Http\Response
-     */
   }

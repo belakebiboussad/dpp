@@ -1,18 +1,35 @@
-<table>
+<!-- <table>
 	<tr>
-		<td>&nbsp;&nbsp;<b>Afficher les Champs:</b></td>
-		<th>&nbsp;&nbsp;<label for=""><input onclick="$('tr.duplicate').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs identiques<b>({{$counts['duplicate']}} valeurs) &nbsp;&nbsp;</b></label></th>
-		<th><label for=""><input onclick="$('tr.unique').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs uniques <b>({{$counts['unique']}} valeurs) </label></th>
-	</tr>
-</table>
+		<td>Afficher les Champs :</td>
+		<td>
+      <label><input onclick="$('tr.duplicate').toggle();" type="checkbox" checked> avec valeurs identiques ({{$counts['duplicate']}} valeurs) </label>
+    </td>
+		<td>
+      <label><input onclick="$('tr.unique').toggle();" type="checkbox" checked>&nbsp;&nbsp; avec valeurs uniques ({{$counts['unique']}} valeurs) </label>
+    </td>
+	</tr><div class="col-sm-8 input-group">
+</table> -->
+<div class="form-group">
+  <label class="coltrol-label">Afficher les Champs</label>
+  <div class="input-group">
+    <label class="inline">
+      <input type="checkbox" class="ace" onclick="$('tr.duplicate').toggle();" checked/>
+      <span class="lbl"> avec valeurs identiques ({{$counts['duplicate']}})</span>
+    </label>
+    <label class="inline">
+      <input type="checkbox" class="ace" onclick="$('tr.unique').toggle();" checked/>
+      <span class="lbl"> avec valeurs uniques ({{$counts['unique']}})</span>
+    </label>
+  </div> 
+</div>
 <input type="hidden" name="patient1_id" value="{{ $patient1->id}}">
 <input type="hidden" name="patient2_id" value="{{ $patient2->id}}">
 <table id ="PatiensMerge" class="table table-striped table-bordered merger">
  	<thead>
 		<th class="category narrow"></th>
-	      	<th>Résultat</th>
-	      	<th>Patient1 <q><mark>{{ $patient1->Nom }}-{{ $patient1->Prenom}}</mark></q></th>
-	      	<th>Patient2	<q><mark>{{ $patient2->Nom }}-{{ $patient2->Prenom}}</mark></q></th>
+    	<th>Résultat</th>
+    	<th>Patient1 <q><mark>{{ $patient1->Nom }}-{{ $patient1->Prenom}}</mark></q></th>
+    	<th>Patient2	<q><mark>{{ $patient2->Nom }}-{{ $patient2->Prenom}}</mark></q></th>
 	</thead>
 	<tbody id="mergepatients">		
 		<tr class="{{ $statuses['Nom'] }}">
@@ -37,8 +54,8 @@
 		<tr class="{{ $statuses['Dat_Naissance'] }}">
 			<td align="center"><b>Né(e) le</b></td>
 		      <td><input type="text" id ="Dat_Naissance" name="datenaissance" value=" {{ $patientResult->Dat_Naissance }}"/></td>
-		       <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance }}</td>
-		      <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance }}</td>
+		       <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance->format('Y-m-d') }}</td>
+		      <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance->format('Y-m-d') }}</td>
 		</tr>
 		<tr class="{{ $statuses['Lieu_Naissance'] }}">
 			<td align="center"><b>à</b></td>
@@ -72,19 +89,19 @@
 		           <td><input  type="radio" name="choixSexe" onclick="setField('Sexe', '{{ $patient1->Sexe }}');" checked>{{ $patient1->Sexe }}</td>
 		           <td><input type="radio" name="choixSexe" onclick="setField('Sexe','{{ $patient2->Sexe }}');">{{ $patient2->Sexe }}</td>
 		</tr>
-		<tr class="{{ $statuses['situation_familiale'] }}">
+		<tr class="{{ $statuses['sf'] }}">
 			<td align="center"><b>Civilité</b></td>
 			<td>
 				<select  id ="situation_familiale" name="sf">
 					<option value="">------</option>
-					<option value="celibataire" @if($patientResult->situation_familiale =="celibataire")  selected @endif>Célibataire(e)</option>
-					<option value="marie" @if($patient1->situation_familiale =="marie")  selected @endif>Marié(e)</option>
-					<option value="divorce" @if($patient1->situation_familiale =="divorce")  selected @endif>Divorcé(e)</option>
-					<option value="veuf" @if($patient1->situation_familiale =="veuf")  selected @endif>Veuf(veuve)</option>
+					<option value="celibataire" @if($patientResult->sf =="celibataire")  selected @endif>Célibataire(e)</option>
+					<option value="marie" @if($patient1->sf =="marie")  selected @endif>Marié(e)</option>
+					<option value="divorce" @if($patient1->sf =="divorce")  selected @endif>Divorcé(e)</option>
+					<option value="veuf" @if($patient1->sf =="veuf")  selected @endif>Veuf(veuve)</option>
 				</select>
 			</td>
-		           <td><input  type="radio" name="choixCivilite" onclick="setField('situation_familiale', '{{ $patient1->situation_familiale }}');" checked>{{ $patientResult->situation_familiale }}</td>
-		           <td><input type="radio" name="choixCivilite" onclick="setField('situation_familiale','{{ $patient2->situation_familiale }}');">{{ $patient2->situation_familiale }}</td>
+		           <td><input  type="radio" name="choixCivilite" onclick="setField('situation_familiale', '{{ $patient1->sf }}');" checked>{{ $patientResult->sf }}</td>
+		           <td><input type="radio" name="choixCivilite" onclick="setField('situation_familiale','{{ $patient2->sf }}');">{{ $patient2->sf }}</td>
 		</tr>
 		<tr class="{{ $statuses['Adresse'] }}">
 			<td align="center"><b>Adresse</b></td>

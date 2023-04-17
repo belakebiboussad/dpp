@@ -15,12 +15,10 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-      //ajax pour tester
       if($request->ajax())  
       {
-        //supprimer
         $service = service::FindOrFail($request->id);
-        return $service->salles()->where('etat',null)->get();
+        return $service->salles()->whereNull('etat')->get();
       }else
       {
         $services = service::with('responsable')->get();
@@ -38,12 +36,9 @@ class ServiceController extends Controller
       $users = User::whereHas( 'role', function($q){
                       $q->whereIn('id',[1,5,6,10,11,12,13,14]);
                   })->get();
-      if($request->ajax())
-      {
-        $view = view("services.ajax_add",compact('users','services'))->render();
-        return($view);
-      }else
-        return view('services.add',compact('users','services'));
+      
+      $view = view("services.ajax_add",compact('users','services'))->render();
+      return($view);
     }
 
     /**
@@ -89,21 +84,17 @@ class ServiceController extends Controller
       public function edit(Request $request,service $service)
       {
         if($service->type != "2")
-        {
           $employs = employ::with('User')->whereHas('User', function($q){
                            $q->where('role_id', 1)->orWhere('role_id', 14);    
                         })->where('service_id',$service->id)->get();
-        }
+        
         else
-        {
-
          $employs = employ::where('service_id',$service->id)->get();
-        } 
         if($request->ajax())
         {
           $view = view("services.ajax_edit",compact('service','employs'))->render();      
           return $view;
-        }// $employs = employ::whereHas('User', function($q){//$q->where('role_id', 1)->orWhere('role_id', 14); //})->where('service_id',$service->id)->get();
+        }
         return view('services.edit', compact('service','employs'));
       }
     /**
@@ -149,7 +140,7 @@ class ServiceController extends Controller
       }
       public function getsalles($id)
       { 
-        $salles = salle::where('service_id',$id)->where('etat',null)->get();
+        $salles = salle::where('service_id',$id)->whereNull('etat')->get();
         return $salles;
       }
 }

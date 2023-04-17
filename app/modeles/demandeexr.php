@@ -3,13 +3,11 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-
 class demandeexr extends Model
 {
   public $timestamps = false;
   protected $table = "demandeexr";
-  protected $fillable = ['InfosCliniques', 'Explecations', 'etat','id_consultation','visite_id'];
-  protected $appends = ['infos'];
+  protected $fillable = ['InfosCliniques', 'Explecations', 'etat','imageable_id','imageable_type'];
   public const ETATS = [
       ''=> 'En Cours',
       0 => 'Rejetée',  
@@ -19,48 +17,46 @@ class demandeexr extends Model
   {
     return self::ETATS[ $this->attributes['etat'] ];
   }
-  public static function getEtatID($etat) {
-     return array_search($etat, self::ETATS); 
+  public function getEtatID() {
+    return array_search($this->etat, self::ETATS); 
   }
   public function examensradios()
   { 
-    return $this->hasMany('App\modeles\Demandeexr_Examenradio','demande_id');
+    return $this->hasMany('App\modeles\Demande_Examenradio','demande_id');
   }
   public function infossuppdemande()
   {
     return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
   }
-  public function getInfosAttribute()
+  public function imageable()
   {
-    return $this->infossuppdemande->pluck('id')->toArray();
+    return $this->morphTo();
   }
-  public function consultation()
+  public function consultation()  {
+    return $this->belongsTo('App\modeles\consultation', 'imageable_id')
+        ->where('demandeexr.imageable_type','App\modeles\consultation');
+  } 
+  public function visite()  
   {
-     return $this->belongsTo('App\modeles\consultation','id_consultation');
+    return $this->belongsTo('App\modeles\visite', 'imageable_id')
+                ->where('demandeexr.imageable_type','App\modeles\visite');
   }
-  public function visite()
-  {
-    return $this->belongsTo('App\modeles\visite','visite_id');
-  }
+  
   public function hasCCR()
   {
-   foreach($this->examensradios as $examen)
-      {
-        if(isset($examen->crr_id))
-        {
-          return true;       
-        }
-      }  
-      return false;
+    foreach($this->examensradios as $examen)
+    {
+      if(isset($examen->crr_id))
+        return true;       
+    }  
+    return false;
   }
   public function hasResult()
   {
     foreach($this->examensradios as $examen)
     {
-      if((isset($examen->crr_id)) || ($examen->getEtatID($examen->etat) != ""))
-      {
+      if((isset($examen->crr_id)) || ($examen->getEtatID() != ""))
         return true;       
-      }
     }  
     return false;
   }

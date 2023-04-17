@@ -4,9 +4,9 @@
   <li class="nav-item"><a href="#assure" data-toggle="tab"><b>Assure</b></a></li>
   @endif
 </ul>
-<div class="tab-content" style="border:none">
-  <div class="tab-pane noborders  in active" id="patient">
-    <table class="table table-bordered table-condensed col-sm-12" width="100%"><!-- w-auto -->
+<div class="tab-content no-border">
+  <div class="tab-pane in active" id="patient">
+    <table class="table table-condensed col-sm-12" width="100%">
       <tbody>
         <tr>
           <td class ="noborders">nom:</td><td align="left">{{ $patient->Nom }}</td>
@@ -22,7 +22,7 @@
           <td class ="noborders">Genre :</td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
           <td  class ="noborders">Civilité:</td>
           <td align="left">
-             @switch($patient->situation_familiale)
+             @switch($patient->sf)
                      @case("C")
                           <span class="label label-sm label-success">Célibataire(e)
                           @break
@@ -80,13 +80,13 @@
   </div> {{-- tabpane --}}
   @if(!(in_array($patient->Type,[5,6])))
   <div class="tab-pane" id="assure">
-    <table class="table table-bordered table-condensed col-sm-12 w-auto">
+    <table class="table table-condensed col-sm-12 w-auto">
       <tbody>
         <tr>
-              <td class ="noborders">Nom:</td><td colspan="1">{{ $patient->assure->Nom }}</td>
-              <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
+          <td class ="noborders">Nom:</td><td colspan="1">{{ $patient->assure->Nom }}</td>
+          <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
         </tr>
-       <tr>
+        <tr>
           <td class ="noborders text-nowrap">Né(e) le :</td> <td> {{ $patient->assure->Date_Naissance }}</td>
           <td class ="noborders">Né(e) a:</td>
           <td>{{ isset($patient->assure->lieunaissance) ? $patient->assure->lieuNaissance->nom_commune :'' }}
@@ -94,21 +94,14 @@
        </tr>
         <tr>
           <td class ="noborders nowrap">Genre :</td><td>@if ( $patient->assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-          <td class ="noborders">Matricule:</td><td>{{ $patient->assure->matricule }}</td> 
+          <td class ="noborders"></td><td></td> 
         </tr>
        <tr>
           <td class ="noborders">NSS :</td><td>{{ $patient->assure->NSS }}</td>
-          <td class ="noborders">NMGSN:</td><td>{{ $patient->assure->NMGSN }}</td>
        </tr>
         <tr>
-          <td colspan="1" class ="noborders nowrap">Grade :</td>
-          <td>{{ isset($patient->Lieu_Naissance) ? $patient->lieuNaissance->nom_commune :''}}
-                     @if(isset($patient->assure->Grade))
-                    {{ $patient->assure->grade->nom }}
-                  @endif
-                  </td>
-                 <td class ="noborders blue">Etat:</td><td>{{ $patient->assure->Position }}</td>
-          </tr>
+          <td></td><td></td>
+        </tr>
       </tbody>
      </table>
   </div> {{-- tabpane --}}
@@ -116,7 +109,7 @@
 </div> <!-- tab-content -->
 <div class= "center">
   @if( in_array(Auth::user()->role_id,[1,13,14]))
-    <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
   @endif
   <a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance))  disabled @endif>
     <i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous

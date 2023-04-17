@@ -2,8 +2,8 @@
 
 @section('content')
     <div id="reset-password-box" class="login-box visible widget-box no-border">
-        <div class="widget-body">
-            <div class="widget-main">
+      <div class="widget-body">
+      <div class="widget-main">
                 <h4 class="header blue lighter bigger">
                     <i class="ace-icon fa fa-coffee green"></i>
                     Réinitialiser le mot de passe
@@ -12,8 +12,8 @@
                 <div class="space-6"></div>
 
                 <form role="form" method="POST" action="{{ url('/password/reset') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="token" value="{{ $token }}">
+                  {{ csrf_field() }}
+                    <input type="hidden" name="token" value="">
                     <fieldset>
                         <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
@@ -60,4 +60,4 @@
         <!-- /.widget-body -->
     </div>
     <!-- /.reset-password-box -->
-@endsection
+@stop

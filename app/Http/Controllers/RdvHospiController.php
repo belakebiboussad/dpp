@@ -24,7 +24,6 @@ class RdvHospiController extends Controller
   }
   public function index(Request $request)
   {
-
     if($request->ajax())
     {
       $rdvs = ""; 
@@ -80,13 +79,12 @@ class RdvHospiController extends Controller
   }
   public function getlisteRDVs()
   {
-    //$now = \Carbon\Carbon::now(); rdv future
     $specialite = Auth::user()->employ->Service->Specialite;
     //j'affiche pas les lits affecté// ->doesntHave('demandeHospitalisation.bedAffectation')
     $rdvHospis = rdv_hospitalisation::with('bedReservation')
                                       ->whereHas('demandeHospitalisation',function ($q){
                                            $q->where('service',Auth::user()->employ->service_id)->where('etat',1);      
-                                    })->where('etat', null)->get();                                         
+                                    })->whereNull('etat')->get();                                         
     return view('rdvHospi.liste',compact('specialite','rdvHospis'));
   }
   public function edit(Request $request, $id)
@@ -98,7 +96,7 @@ class RdvHospiController extends Controller
       $specialite = Auth::user()->employ->Service->Specialite;
       $services = service::where('type','<>',2)->where('hebergement','1')->get();
       $rdv =  rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.DemeandeColloque','bedReservation')->FindOrFail($id);
-      return view('rdvHospi.edit', compact('specialite','demande','services','rdv'));       
+      return view('rdvHospi.edit', compact('specialite','services','rdv'));       
     }  
   }
   public function update(Request $request,$id)
@@ -138,11 +136,11 @@ class RdvHospiController extends Controller
   }
   public function print($id)
   { 
-    $t = Carbon::now();
+    $today =  Carbon::today()->format('d/m/Y');
     $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
     $patient =  $rdv->demandeHospitalisation->consultation->patient;
     $etab = Etablissement::first();
-    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etab'))->setPaper('a4','landscape');
+    $pdf = PDF::loadView('rdvHospi.rdvPDF', compact('rdv','today','etab'))->setPaper('a4','landscape');
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
     return $pdf->stream($name);
   }

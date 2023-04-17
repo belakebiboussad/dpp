@@ -1,6 +1,6 @@
 @extends('app')
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/print.css') }}" />  
+<link rel="stylesheet" href="{{ asset('css/print.css') }}" />
 <style>
   .modaldialog {
     width:92%;
@@ -11,7 +11,7 @@
       border: 0;
       position:relative;
       z-index:999;
-  }/*.b{ height:20px !important;  }*/
+  }
   #content {
     background: white;
     width: 98%;
@@ -24,13 +24,13 @@
     z-index: 1040 !important;
   }
 </style>
-@endsection
+@stop
 @section('page-script')
 @include('examenradio.scripts.imgRequestdJS')
 <script>
 function print()
 {
-  document.title = 'ordonnance-'+'{{ $patient->Nom }}'+'-'+'{{ $patient->Prenom}}';
+  document.title = 'ordonnance-'+'{{ $obj->patient->Nom }}'+'-'+'{{ $obj->patient->Prenom}}';
   $('#iframe-pdf').get(0).contentWindow.print();document.title = 'Nouvelle Consultation';
 }
 function drugRemove(id)
@@ -39,14 +39,14 @@ function drugRemove(id)
 }
 function storeord()
 {
-    var arrayLignes = document.getElementById("ordonnance").rows;
-    var longueur = arrayLignes.length; var ordonnance = []; 
-    for(var i=1; i<longueur; i++)
-    {
-      ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
-    }
-    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-    champ.appendTo('#consultForm');
+  var arrayLignes = document.getElementById("ordonnance").rows;
+  var longueur = arrayLignes.length; var ordonnance = []; 
+  for(var i=1; i<longueur; i++)
+  {
+    ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+  }
+  var champ = $("<input type='text' name ='listMeds' value='"+JSON.stringify(ordonnance)+"' hidden>");
+  champ.appendTo('#consultForm');
 }
 function resetField()
 {
@@ -56,9 +56,10 @@ function addmidifun()
 {
   var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
   med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-  med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+  med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
   $("#ordonnance").append(med);
-  $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+  $("#posologie_medic").attr("disabled", true);
+  $("#addDrugBtn").attr("disabled", true);
   $("#nommedic").val('');$("#forme").val('');$("#dosage").val('');$("#posologie_medic").val('');
 }
 function editMedicm(med)
@@ -70,18 +71,14 @@ function editMedicm(med)
       success: function (result)
       {
         $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
-        $("#dosage").val(result.Dosage);$("#id_medicament").val(result['id']);
-        $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+        $("#dosage").val(result.Dosage); $("#id_medicament").val(result['id']);
+        $("#posologie_medic").attr("disabled", false);$("#addDrugBtn").attr("disabled", false); 
       }
     });
-}/*function rowDelete(id){  $("#"+id).remove();}*/
-function warning()
-{
-  return "dzd"; //U can write any custom message here.
 }
 $(function(){ 
-  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { //ajax delete consult
-    var consult_id = '{{ $consult->id }}'-1;
+  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { 
+    var consult_id = '{{ $obj->id }}'-1;
     var formData = {_token: CSRF_TOKEN };
     $.ajax({
           type: "DELETE",
@@ -100,17 +97,15 @@ $(function(){
   });
   imgToBase64("{{ asset('/img/footer.jpg') }}", function(base64) {
      footer64Img = base64; 
-  });//var date = new Date('{{ $patient->Dat_Naissance }}'); $( ".gdob" ).datepicker( "option", "minDate", date );  /*$( 'ul.nav li' ).on( 'click', function() {  $(this).siblings().addClass('filter'); });*/
-  /*$('#select2-multiple-style .btn').on('click', function(e){  var target = $(this).find('input[type=radio]');  var which = parseInt(target.val());if(which == 2) $('.select2').addClass('tag-input-style'); else  $('.select2').removeClass('tag-input-style');});*/
+  });
   $("#isOriented").change(function() {
     if( $("#hidden_fields").hasClass('hidden'))
-      $("#hidden_fields").removeClass('hidden');//show();
+      $("#hidden_fields").removeClass('hidden');
     else {
       $("#hidden_fields").addClass('hidden');
       $("#lettreorientaioncontent").val("");
     }
-  });/*$(".two-decimals").change(function(){    this.value = parseFloat(this.value).toFixed(2); });*/
-/* pas sup pas verif $("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){return true;}  });*//*$("#btnCalc").click(function(event){event.preventDefault(); });*/
+  });
   $('#medc_table').DataTable({
       processing: true,
       serverSide: true,
@@ -147,9 +142,9 @@ $(function(){
       var tabName = "antsTab";
       var formData = {
          _token: CSRF_TOKEN,
-        pid      : '{{ $patient->id }}',
-        Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-        typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
+        pid      : '{{ $obj->patient->id }}',
+        Antecedant           : 'Personnels',
+        typeAntecedant       : '0',
         stypeatcd            : jQuery('#sstypeatcdc').val(),
         date                    : $('#dateAntcd').val(),
         cim_code      :$('#cim_code').val(),
@@ -160,7 +155,7 @@ $(function(){
       var tabName = "antsFamTab";
       var formData = {
         _token: CSRF_TOKEN,
-        pid   : '{{ $patient->id }}',
+        pid   : '{{ $obj->patient->id }}',
         Antecedant         : 'Familiaux',
         date               : $('#dateAntcd').val(),
         cim_code           : $('#cim_code').val(),
@@ -233,7 +228,7 @@ $(function(){
       var habitudeAlim = null; var tabac=null ; var ethylisme = null;
       var formData = {
         _token: CSRF_TOKEN,
-        pid                  : '{{ $patient->id }}',
+        pid                  : '{{ $obj->patient->id }}',
         Antecedant           : 'Personnels',//$('#Antecedant').val()
         typeAntecedant       : '1',//$('#typeAntecedant').val(),
         date                 : $('#dateAntcdPhys').val(),
@@ -312,14 +307,14 @@ $(function(){
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Oui',
-            cancelButtonText: "Non",
-            //closeOnConfirm: true, //timer: 2000, //icon: 'warning',
+            cancelButtonText: "Non",//closeOnConfirm: true, //timer: 2000, //icon: 'warning',
             showCloseButton: true
           }).then((result) => {
               if(result.value)
               {
                 confirmed = true; 
-                addExamsImg(this);
+                if ($( "#ExamsImg" ).length )
+                  addExamsImg(this);
                 document.getElementById("consultForm").submit()
               }else
                 return false; 
@@ -332,34 +327,33 @@ $(function(){
     $(".pcran").ionRangeSlider({ min:25,max:60,step:1, from:25, grid:true, grid_num:60, postfix:" cm", skin:"big" });
     $("#drugsPrint").click(function(){
       storeord();
-      var fileName ='Ordonnance-' + '{{ $patient->full_name }}' +'.pdf'; 
+      var fileName ='Ordonnance-' + '{{ $obj->patient->full_name }}' +'.pdf'; 
       ol = document.getElementById('listMeds');
       ol.innerHTML = '';
       $("#ordonnance tbody tr").each(function(key,value){
         $("ol").append('<li><h4>'+(key+1)+'- '+ $(this).find('td:eq(1)').text() 
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(2)').text()
-                + ' &nbsp; &nbsp;'+ $(this).find('td:eq(3)').text()
+                + '  '+ $(this).find('td:eq(2)').text() + '  '+ $(this).find('td:eq(3)').text()
                 +'</h4><h5>'+$(this).find('td:eq(4)').text()+'</h5></li>');
       }); 
       var pdf = new jsPDF('p', 'pt', 'a4');
-      JsBarcode("#barcode",'{{ $patient->IPP }}' ,{
+      JsBarcode("#barcode",'{{ $obj->patient->IPP }}' ,{
           format: "CODE128",
           width: 2,
           height: 30,
           textAlign: "left",
           fontSize: 12, 
-          text: "IPP: " + '{{ $patient->IPP }}' 
+          text: "IPP: " + '{{ $obj->patient->IPP }}' 
       });
       var canvas = document.getElementById('barcode');
       var jpegUrl = canvas.toDataURL("image/jpeg");
-      pdf.addImage(jpegUrl, 'JPEG', 60, 175);
+      pdf.addImage(jpegUrl, 'JPEG', 53, 180);
       generate(fileName,pdf,'ordPdf');
     });//teste
     $("#DHospadd").click(function(e){
       e.preventDefault();
       var formData = {
          _token             : CSRF_TOKEN,
-        id_consultation     : '{{ $consult->id }}',
+        id_consultation     : '{{ $obj->id }}',
         modeAdmission       : $('#modeAdmissionHospi').val(), 
         specialite          : $('#specialiteHospi').val(),
         service             : $('#serviceHospi').val()
@@ -387,15 +381,15 @@ $(function(){
     }) 
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
-  <div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
+  <div class="row"><div class="col-sm-12">@include('patient._patientInfo',['patient'=>$obj->patient])</div></div>
   <div class="row">
-    <form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
+    <form id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
     {{ csrf_field() }}
-    <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
-     <input type="hidden" name= "id" id= "id" value="{{ $consult->id }}">
+    <input type="hidden" name="patient_id" id="patient_id" value="{{ $obj->patient->id }}">
+     <input type="hidden" name= "id" id= "id" value="{{ $obj->id }}">
     <div class="form-group" id="error" aria-live="polite">
     @if (count($errors) > 0)
       <div class="alert alert-danger">
@@ -433,9 +427,8 @@ $(function(){
      <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
-        <!-- id="send" -->
           <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
-          <a href="{{ route('consultations.destroy',$consult->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
+          <a href="{{ route('consultations.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
         </div>
       </div>
     </div>
@@ -444,12 +437,12 @@ $(function(){
 </div>
 @include('antecedents.AntecedantModal')@include('antecedents.AntecedantModalPhysio')
 @include('cim10.cimModalForm')@include('consultations.ModalFoms.DemadeHospitalisation')
-@include('rdv.rendezVous')@include('consultations.ModalFoms.LettreOrientation')
+@include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
 <div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterPDF')</div>
-<div id="certificatDescrPdf" class="hidden">@include('consultations.EtatsSortie.certifDescripPDF')</div>
-@endsection
+{{-- <div id="certificatDescrPdf">@include('consultations.EtatsSortie.certifDescripPDF')</div> --}}
+@stop

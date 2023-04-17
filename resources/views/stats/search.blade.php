@@ -22,7 +22,8 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'hidden' }}"><label class="control-label">Service:</label>
+          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'hidden' }}">
+            <label class="control-label">Service:</label>
             <div class="input-group col-sm-12 col-xs-12">
               <select class="form-control" class="input-group" id="service">
                 <option value="">Choisir un uervice...</option>
@@ -30,12 +31,14 @@
                   <option value="{{ $service->id }}">{{ $service->nom }}</option>
                 @endforeach
               </select>
+                <div class="input-group-prepend">
               <span class="glyphicon glyphicon-search form-control-feedback"></span>            
+            </div>
             </div>
           </div>
           <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}" {{ $id == 3 ? 'hidden':''}}><label class="control-label">Medcin:</label>
-            <div class="input-group col-sm-12 col-xs-12">
-            <select class="form-control" class="input-group col-sm-12 col-xs-12" id="medecin">
+            <div class="input-group dropdown col-sm-12 col-xs-12"">
+            <select class="form-control" class="input-group form-control" id="medecin">
               <option value="">Choisir Un Medcin...</option>
               @foreach($medecins as $medecin)
                 <option value="{{ $medecin->id }}">{{$medecin->full_name }}</option> 
@@ -84,7 +87,7 @@
     </div>
   </div>
 </div>
-@endsection
+@stop
 @section('page-script')
 <script>    
   $(function(){
@@ -155,4 +158,4 @@
   });
 })
 </script>
-@endsection
+@stop

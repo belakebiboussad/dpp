@@ -1,8 +1,8 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h4>Réservations</h4></div>
+<div class="page-header"><h1>Réservations</h1></div>
 <div class="col-sm-6">
-  <form method="POST" class="form-horizontal" role="form" action ="{{ route('reservation.update',1)}}">
+  <form method="POST" role="form" action ="{{ route('reservation.update',1)}}">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
     <input type="hidden" name ="Affect" class ="affect" value="0">
@@ -34,7 +34,7 @@
 </div>
 <div class="col-sm-6">
 </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   $(function(){
@@ -82,4 +82,4 @@
     }); 
   });
 </script>
-@endsection
+@stop

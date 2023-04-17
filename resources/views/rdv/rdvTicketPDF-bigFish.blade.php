@@ -26,7 +26,7 @@
   			height:110px;/*70px*/
   			border: 0.5px solid black !important;
   			border-radius: 5px !important;
-  			font-size:xx-small; /* padding: 5px;*/
+  			font-size:xx-small;
   		}
 		</style>
 	</head>
@@ -42,21 +42,20 @@
 			</div>
     </div>
 		<div class="row"><hr class ="mt-5"></div>
-	  <div class="row">
-	   	<div class="col-md-4 col-sm-4 float-left" style="font-size:x-small;"></div>
-	   	<div class="col-md-4 col-sm-4 content text-center pt-21">
+	  <div class="row">  <div class="col-md-4 col-sm-4 float-left"></div>
+	    <div class="col-md-4 col-sm-4 content text-center pt-21">
         <h4><b>Rendez-Vous de Consultation</b></h4>
       </div>		
 	  </div><br>	
 	  <div class="row mt-10 pt-10">
-		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<b>{{ $rdv->specialite->nom}}</b></div>
+		  <div class="col-sm-12">Rendez-vous dans la Spécialitè &quot;<b>{{ $rdv->specialite->nom}}</b>&quot;</div>
 		</div>
 	  <div class="row">
 	   	<div class="col-sm-12">
-		 	  <b> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</b>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->date)->format('d-m-Y') }}</span>
+		 	  <b> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</b><u> {{ $rdv->date->format('d/m/Y') }}</u>
 	   	</div>
 	  </div>
-		<div class="row">	<div class="col-sm-12"><b>Nom : </b><span>{{ $rdv->patient->Nom}}</span></div></div>
+		<div class="row"><div class="col-sm-12"><b>Nom : </b><span>{{ $rdv->patient->Nom}}</span></div></div>
 		<div class="row" >
 		  <div class="col-sm-12"><b>Prenom : </b><span>{{ $rdv->patient->Prenom}}</span> </div>
 		</div>

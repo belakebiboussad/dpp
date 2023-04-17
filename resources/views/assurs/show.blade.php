@@ -3,14 +3,10 @@
 <script>
 	jQuery('body').on('click', '.delete-patient', function () {
 		 var patient_id = $(this).val();      
-	       $.ajaxSetup({
-	       		headers: {
-	        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	          	}
-	      });
 	       $.ajax({
 		       type: "DELETE",
-		        url: '/patient/' + patient_id,
+		       url: '/patient/' + patient_id,
+           data: { _token: CSRF_TOKEN },
 		       success: function (data) {
 		              $("#patient" + patient_id).remove()
 		          },
@@ -20,10 +16,10 @@
 	      	});
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
-	<h3>Détails du fonctionnaire : {{ $assure->full_name }}</h3>
+	<h1>Détails du fonctionnaire : {{ $assure->full_name }}</h1>
 	<div class="pull-right">
 		<a href="{{ route('assur.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Rechercher un fonctionnire</a>
 		<a href="{{route('assur.destroy',$assure->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
@@ -88,64 +84,9 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Position</div>
-					<div class="profile-info-value">
-						<span class="label label-purple arrowed-in-right">
-							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
-							@switch($assure->Etat)
-   					    	@case(0)
-     									Activité
-        							@break
-    							@case(1)
-       								Retraite
-        						 @break
-        					@case(3)
-        							Congé Maladie
-        							@break
-        					@default
-        						  Révoqué
-        							@break
-									@endswitch
-						</span>
-						</div>
-					</div>
-			</div>
-			@if($assure->Eta == "En exercice")
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Service </div><div class="profile-info-value"><span class="editable" id="nom">{{ $assure->Service  }}</span></div>
-				</div>
-			</div>
-			@endif
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Grade </div>
-						<div class="profile-info-value">
-							<span class="label label-sm label-primary arrowed arrowed-right">{{ $assure->grade->nom  }}</span>
-						</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Matricule </div>
-						<div class="profile-info-value">
-							<span class="label label-sm label-primary arrowed arrowed-right">{{ $assure->matricule  }}</span>
-						</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
 					<div class="profile-info-name"> Sécurité sociale </div>
 					<div class="profile-info-value">
 						<span class="editable" id="nom">{{ $assure->NSS }}</span>
-					</div>
-				</div>
-			</div>
-			<div class="profile-user-info profile-user-info-striped">
-				<div class="profile-info-row">
-					<div class="profile-info-name"> NMGSN </div>
-					<div class="profile-info-value">
-						<span class="editable" id="nom">{{ $assure->NMGSN }}</span>
 					</div>
 				</div>
 			</div>
@@ -182,7 +123,7 @@
 								<td>{{$j++}}</td>
 								<td>{{ $patient->Nom}}</td>
 								<td> {{ $patient->Prenom}}</td>
-								<td> {{ $patient->Dat_Naissance }}</td>
+								<td> {{ $patient->Dat_Naissance->format('Y-m-d') }}</td>
 								<td>
 								 	@switch($patient->Type)
 								 			@case("0")
@@ -226,4 +167,4 @@
 		@endif
 	</div><!-- / -->							
 </div>
-@endsection
+@stop

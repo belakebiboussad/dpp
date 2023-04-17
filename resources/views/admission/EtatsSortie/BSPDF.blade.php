@@ -17,38 +17,41 @@
     </style>
   </head>
   <body>
-   @include('partials.etatHeader')
-   <br>
-     <h3 class="text-uppercase center"><span style="font-size: xx-large;"><b><u>{{ $etat->nom}}</u></b></span></h3>
+    <div class="container-fluid">
+    <div class="mt-12 center">@include('partials.etatHeader')</div>
+    <h3 class="text-uppercase center"><b><u>{{ $etat->nom}}</u></b></h3>
     <br><br> 
     <section class="table solid" style="width:100%;">
-     <table>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
+      <table>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-            <td colspan="2"><b>N° :</b><span>&nbsp;{{ $obj->id }}</td>
-            <td><b>Date d'admission :</b><span>&nbsp;{{ (\Carbon\Carbon::parse($obj->date))->format('d/m/Y') }}</span></td>
+          <td colspan="2" class="plh"><b>N° :</b><span>{{ $obj->id }}</td>
+          <td class="plh"><b>Date d'admission :</b><span> {{ $obj->date->format('d/m/Y') }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-              <td><b>Service :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span></td>
-              <td><b>Salle :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span></td>
-              <td><b>Lit :</b><span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span></td>
+          <td class="plh"><b>Service :</b><span> {{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span></td>
+          <td class="plh"><b>Salle :</b><span> {{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span></td>
+          <td class="plh"><b>Lit :</b><span> {{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-              <td><b>Nom :</b><span>&nbsp;{{ $patient->Nom}}</span></td>
-              <td><b>Prénom :</b><span>&nbsp;{{ $patient->Prenom }}</span></td>
-               @if(($patient->situation_familiale == "M") && ( $patient->Type == "1") )
-                   <td><b>Epoux(se)  :</b><span>&nbsp;{{ $patient->assure->full_name }}</span></td>
-              @endif
-              </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <td class="plh"><b>Nom :</b><span> {{ $patient->Nom}}</span></td>
+          <td class="plh"><b>Prénom :</b><span> {{ $patient->Prenom }}</span></td>
+          @if(($patient->sf == "M") && ( $patient->Type == "1") )
+            <td class="plh"><b>Epoux(se)  :</b><span> {{ $patient->assure->full_name }}</span></td>
+          @endif
+          </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
          <tr>
-          <td><b>Genre :</b><span>&nbsp;{{ $patient->Sexe }}</span></td>
-          <td><b>Né(e) le :</b><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
-          <td><b>Né(e) à :</b><span>&nbsp;{{ $patient->lieuNaissance->nom_commune }}</span></td>
+          <td class="plh"><b>Genre :</b><span> {{ $patient->Sexe }}</span></td>
+          <td class="plh"><b>Né(e) le :</b><span> {{ $patient->Dat_Naissance->format('d/m/Y') }}</span></td>
+          <td class="plh"><b>Né(e) à :</b><span> {{ is_null( $patient->Lieu_Naissance) ? '': $patient->lieuNaissance->nom_commune }}</span></td>
         </tr> 
       </table>
-    </section><br>  <br>
- 
-  </body>
+    </section><br>
+    <div class="sign1"><div>Alger le : {{ $date }}</div><div>{{  Auth::user()->employ->Service->nom }}</div> 
+    </div>
+     <div class="row text-center footer">@include('partials.etatFooter')</div>
+ </div>
+</body>
 </html>

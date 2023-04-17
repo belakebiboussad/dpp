@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
-use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
-use App\modeles\demandeexb_examenbio;
+use App\modeles\visite;
 use Illuminate\Support\Facades\Auth;
 use Response;
 class ExamenbioController extends Controller
@@ -34,27 +33,16 @@ class ExamenbioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$consultID){
-      if($request->AutreBiol != null)  //save examen biologique autre 
+    public function store(Request $request){
+      if(!is_null($request->id_demande))
+        $demande = demandeexb::find($request->id_demande);
+      else
       {
-        $tags = explode(",", $request->AutreBiol);
-        foreach($tags as $k=>$v){    
-          examenbiologique::create([
-                    "id_consultation"=>$consultID,
-                    "classe"=>"Autre",
-                    "nom"=>$v
-                ]);
-        }
+        $visite = visite::find($request->visit_id);
+        $demande = $visite->demandeexmbio()->create();
       }
-      if($request->exambio != null)
-      {
-        foreach($request->exambio as $k=>$v){  
-          foreach($v as $value)
-          {
-            examenbiologique::create(["id_consultation"=>$consultID,"classe"=>$k,"nom"=>$value]);
-          }
-        }
-      }
+      $demande->examensbios()->syncWithoutDetaching($request->nom);
+      return $demande->examensbios->load('Specialite');
     }
      /**
      * Display the specified resource.
@@ -69,7 +57,6 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)   { }
       /**
      * Update the specified resource in storage.
      *
@@ -84,12 +71,9 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($examid, $demandeid){dd($examid);// dd($id); }*/
     public function destroy(Request $request, $id)
     {
-      $ex = demandeexb_examenbio::where('id_examenbio',$id)->where('id_demandeexb', $request->demande_id)->first();
-      $ex->delete();
-      return $ex;
+      $demande = demandeexb::FindOrFail($request->demande_id);
+      return $demande->examensbios()->detach($id);
     }
-   /* public function examDestroy($id){ $ex = demandeexb_examenbio::FindOrFail($id);$ex->delete();return Response::json($ex); }*/
 }

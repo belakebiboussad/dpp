@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container">
  @if(session()->has('message'))
@@ -34,8 +34,8 @@
        @foreach( $plannings as $demande)
         <tr>
           <td>{{ $demande->type }}</td>
-          <td>{{  $demande->date }} {{  $demande->heure }}</td>
-          <td>{{ $demande->date_end }} {{  $demande->heure_end }}</td>
+          <td>{{  $demande->date->format('Y-m-d') }} {{  $demande->heure }}</td>
+          <td>{{ $demande->date_end->format('Y-m-d') }} {{  $demande->heure_end }}</td>
           <td>{{ $demande->desc }}</td>
           <td>
             <span class="badge badge-{{( $demande->getStateID($demande->state)) === 0 ? 'warning':'primary' }}">
@@ -58,4 +58,4 @@
     @endif
   </div>
 </div>
-@endsection
+@stop

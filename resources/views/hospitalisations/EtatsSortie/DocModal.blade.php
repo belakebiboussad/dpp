@@ -13,7 +13,7 @@
               <label for="resultat" id="labelresultat"class="control-label no-padding-right">Attacher le résultat</label>
             </div>
             <div class="col-sm-7">
-             <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/> 
+             <input type="file" id="resultat" name="resultat" class="form-control-file" accept="image/*,.pdf" required/> 
             </div>  
           </div><div class="space-12"></div><div class="space-12"></div>
           <div class="row">

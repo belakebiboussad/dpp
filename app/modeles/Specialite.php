@@ -6,31 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 class Specialite extends Model
 {
   public $timestamps = false;
-	protected $fillable = ['nom','type','consConst','hospConst','exmsbio','exmsImg','antecTypes','vaccins','appareils','nbMax','dhValid'];
-  public function setConsConstAttribute($value)
+	protected $fillable = ['nom', 'type' , 'vaccins', 'nbMax','dhValid'];
+  public function Consts()
   {
-    $this->attributes['consConst'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\Constante','constante_specialite','spec_id','const_id');
   }
-  public function setHospConstAttribute($value)
+  public function BioExams()
   {
-    $this->attributes['hospConst'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\examenbiologique','examenbio_specialite','spec_id','examen_id');
   }
-  public function setExmsbioAttribute($value)
+  public function ImgExams()
   {
-    $this->attributes['exmsbio'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\TypeExam','examenimg_specialite','spec_id','examen_id');
   }
-  public function setExmsImgAttribute($value)
+  public function appareils()
   {
-   	$this->attributes['exmsImg'] = json_encode($value);
+    return $this->belongsToMany('App\modeles\Appareil','appareil_specialite','spec_id','appareil_id');
   }
- public function setAntecTypesAttribute($value)
- {
-         $this->attributes['antecTypes'] = json_encode($value);
- }/*public function getAppareilsAttribute($value){return $this->attributes['appareils'] = json_decode($value,true);}*/
- public function setAppareilsAttribute($value)
- {
-    $this->attributes['appareils'] = json_encode($value);
- }
+  public function antecTypes()
+  {
+    return $this->belongsToMany('App\modeles\antecType','antecedant_specialite','spec_id','type_id');
+  }
   public function setVaccinsAttribute($value)
   {
       $this->attributes['vaccins'] = json_encode($value);

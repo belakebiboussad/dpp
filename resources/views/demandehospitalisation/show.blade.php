@@ -8,11 +8,11 @@
 					<div class="widget-header widget-header-large">
 						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Détails :</h3>
 						<div class="widget-toolbar hidden-480">
-						@if( Auth::user()->role->id == 1)
+						@if(in_array(Auth::user()->role_id,[1,13,14]))
 							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><b>Liste des demandes</b></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;
-						@if(Auth::User()->employee_id == $demande->employ_id)
+						@if(Auth::User()->employe_id == $demande->employ_id)
 							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><b>Modifier</b></a>
 								&nbsp;&nbsp;&nbsp;
 						@endif
@@ -33,7 +33,7 @@
 										<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b><b class="green">{{ $demande->consultation->patient->Prenom }}</b>
 										</li>
 										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b><b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
+											<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b><b class="green">{{ $demande->consultation->patient->Dat_Naissance->format('Y-m-d') }}</b>
 										</li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>
@@ -59,7 +59,7 @@
 									</li>
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><b>Date de consultation :</b>
-													<b class="blue">{{ $demande->consultation->date }}</b>
+													<b class="blue">{{ $demande->consultation->date->format('Y-m-d') }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i><b>Service :</b>
@@ -90,4 +90,4 @@
 			</div>
 	</div>
 </div>
-@endsection
+@stop

@@ -61,9 +61,6 @@ class SalleController extends Controller
      */
     public function store(Request $request)
     {
-      $etat = 1;
-      if(isset($_POST['etat']) )
-        $etat = 0;
       salle::create($request->all());  
       return redirect()->action('SalleController@index');
     }
@@ -101,7 +98,9 @@ class SalleController extends Controller
      */
     public function update(Request $request, salle $salle)
     {
-      $salle->update($request->all());
+      $input = $request->all();
+      $input['etat'] =(isset($request->etat))?'1': null;
+      $salle->update($input);
       return redirect()->action('SalleController@index');
     }
 

@@ -6,7 +6,7 @@ use App\modeles\patient;
 use App\modeles\Vaccin;
 use Response;
 use DB;
-class vaccinController extends Controller
+class VaccinController extends Controller
 {
   public function show(Request $request,$id)
   {
@@ -29,12 +29,13 @@ class vaccinController extends Controller
   {
     $patient = patient::findOrFail($request->pid);
     $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
-    return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    //return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
+    return $patient->vaccins()->find($request->vaccinid)->pivot;
   }
   public function destroy(Request $request,$id)
   {
-       $v = DB::table('patient_vaccin')->where('vaccin_id', $id)->where('patient_id',$request->pid)->delete();
-        return Response::json($v);
+     $v = DB::table('patient_vaccin')->where('vaccin_id', $id)->where('patient_id',$request->pid)->delete();
+      return Response::json($v);
   } 
 }
 

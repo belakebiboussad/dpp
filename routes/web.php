@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded by th  e RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
@@ -50,15 +50,16 @@ Route::resource('crrs','CRRControler');
 Route::resource('stat','StatistiqusController');
 Route::resource('params','paramController');
 Route::resource('soins','SoinsController');
-route::resource('/const','ConstanteController');
+route::resource('const','ConstanteController');
 route::resource('acteExec','ActeExecController');
 route::resource('orientLetter','LettreOrientationController');
 route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::resource('bedAffectation','AffectationsController');
 Route::resource('planning','PlanningController');
-route::resource('/allergie','AllergieController');
+route::resource('allergie','AllergieController');
 Route::resource('maladies','CimController');
+Route::resource('vaccin','VaccinController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -67,12 +68,11 @@ route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDem
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
 route::get('/products/list','demandeprodController@getProducts')->name('productsList');
-route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
-Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
-Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
+Route::post('/demande_validating','DemandeHospitalisationController@valider')->name('demande_validate');
+Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('demande_invalidate');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/getConsultations','ConsultationsController@getConsultations');Route::get('/getRdvs','RdvHospiController@getRdvs');
@@ -84,12 +84,12 @@ Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
-Route::post('/hospitalisation/{id}','HospitalisationController@update');//
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
 Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
-Route::post('users/changePassword', 'UsersController@changePassword');
+// teste
+ Route::post('/user/password','UsersController@changePassword')->name('user.change.password');
+// fteste
 Route::post('/users/store/','UsersController@store');
-Route::get('/searchAssure','AssurController@search');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
@@ -107,12 +107,11 @@ route::get('/getpatient','PatientController@getpatient');//
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-Route::post('/exmbio/store/{id}','ExamenbioController@store');
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
-route::get('/getmed/{id}','MedicamentsController@getmed');//route::get('/setting/{id}', 'UsersController@setting');
+route::get('/getmed/{id}','MedicamentsController@getmed');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
@@ -122,17 +121,14 @@ Route::any('/profile/{userId}', [
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::get('/searchPatient','PatientController@search')->name('patients.search');
-Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
-Route::get('/searchUser','UsersController@search');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::post('/patients/autoField','PatientController@AutoCompletePatientField')->name('patients.autoField');
 Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
-Route::post('/patient/merge','PatientController@merge');
+Route::post('/patient/merge','PatientController@merge')->name('patients.merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del
@@ -140,16 +136,15 @@ Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 // end del
 route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
-route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
-route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::post('/uploadresultat','DemandeExbController@uploadresultat')->name('uploadBioRes');
 route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-res', 'DemandeExamenRadio@upload');
 Route::post('delete-res', 'DemandeExamenRadio@delResult');
 Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
-route::get('/examRadioDel/{id}', 'DemandeExamenRadio@examDestroy')->name('examRad.destroy');
+route::post('exmRad', 'DemandeExamenRadio@exmStore')->name('exmRad.store');
+route::delete('/exmRad/{id}', 'DemandeExamenRadio@exmDestroy')->name('exmRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
-route::get('/searchImgRequests','DemandeExamenRadio@search');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
@@ -165,12 +160,12 @@ Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download'
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 Route::post('/createTicket','ticketController@store');
 Route::get('/listRdvs','RDVController@listeRdvs');
-Route::get('/soins/index/{id}','SoinsController@index');/*Route::get('/404', function () {   return view('errors.404'); });*/
-route::get('/getconst','ConstanteController@getConstData')->name('getConstData');
-route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
-Route::post('/admin/password/reset','UsersController@passwordReset');
-Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print')->name('CertifDescToPDF');
-route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
-Route::get('/etabExport', 'EtablissementControler@exportCsv');//Route::get('/searchdate','StatistiqusController@seardate');
+Route::get('/soins/index/{id}','SoinsController@index');
+Route::get('/getconst','SoinsController@getConstData')->name('getConstData');
+Route::post('reset_password_','UsersController@resetPassword');
+Route::get('/printCertifDescrip/{id}','CertificatDescriptifController@print');
+Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name('orientLetToPDF');
+Route::get('/etabExport', 'EtablissementControler@exportCsv');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');
+Route::get('/teste','VisiteController@teste');//to teste

@@ -12,6 +12,7 @@
 	$(function(){
     try {
         stream =  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+<<<<<<< HEAD
   			  App.init();
   		  	Quagga.onProcessed(function(result) {
                               var drawingCtx = Quagga.canvas.ctx.overlay,
@@ -39,6 +40,35 @@
                                   setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
                               }
                         });	
+=======
+  			App.init();
+  		  Quagga.onProcessed(function(result) {
+          var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+            if (result) {
+                   if (result.boxes) {
+                          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                          result.boxes.filter(function (box) {
+                              return box !== result.box;
+                          }).forEach(function (box) {
+                              Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                          });
+                   }
+                  if (result.box)
+                      Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+                  if (result.codeResult && result.codeResult.code)
+                      Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+           }
+         });
+         Quagga.onDetected(function(result) {
+                if (result.codeResult.code){
+                    $('#IPP').val(result.codeResult.code);
+                    Quagga.stop();
+                    App.init();  
+                    setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);            
+                }
+          });	
+>>>>>>> testeploy
   	    }).catch(function(error) {
   		    $("#scanButton").addClass('hidden');
   	    });
@@ -59,10 +89,7 @@ function errorMsg(msg, error) {
 		      type : 'GET',
 		      success:function(data,status, xhr){
 			      	$('#patientDetail').html(data);
-        		},
-          		error:function(data){
-	         		 console.log("error patient details")
-	        	}	
+        		}
 		});
 	}
 	var values = new Array();
@@ -119,19 +146,19 @@ function errorMsg(msg, error) {
 		});
 	});
 	var field ="Dat_Naissance";
-	$(document).ready(function(){
+	$(function(){
 		$(document).on('click','.findptient',function(event){
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
-			$.ajax({
+	    $.ajax({
 		        type : 'get',
-		        url : '{{URL::to('searchPatient')}}',
+		        url : '{{ route("patient.index") }}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
 			     		$('#'+field).val('');//field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			 	 	var table =   $("#liste_patients").DataTable ({
+     			 	  var table =   $("#liste_patients").DataTable ({
 	     					"processing": true,
 		  				 	"paging":   true,
 		  				  "destroy": true,
@@ -155,9 +182,18 @@ function errorMsg(msg, error) {
 											{ data: 'Nom', title:'Nom' },
 		       						{ data: 'Prenom', title:'Prenom' },
 		       						{ data: 'IPP', title:'IPP'},
-		       			  		{ data: 'Dat_Naissance', title:'Né(e) le' },
+		       			  		{ data: null,
+                        render: function ( data, type, row ) {
+                          return moment(row.Dat_Naissance).format('YYYY-MM-DD');
+                        },title:'Né(e) le'
+                      },
 										  { data: 'Sexe', title:'Sexe'},
-									    { data: 'created_at', title:'Créer le'},
+									    { data: null,
+                        render: function ( data, type, row ) {
+                          return moment(row.created_at).format('YYYY-MM-DD');
+                        },title:'Créer le'
+                      },
+
 									    { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
 									  	"render": function(data,type,full,meta){
 										    if ( type === 'display' ) {
@@ -170,24 +206,21 @@ function errorMsg(msg, error) {
 									  }
 		  		   			],
 				   			"columnDefs": [
-				   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
-				   						{"targets": 3 ,  className: "dt-head-center priority-2" },
-				   						{"targets": 4 ,  className: "dt-head-center priority-3" },
-				   						{"targets": 5 ,  className: "dt-head-center priority-4" },//date
-				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sexe
-								 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//creele
-								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
+			   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
+			   						{"targets": 3 ,  className: "dt-head-center priority-2" },
+			   						{"targets": 4 ,  className: "dt-head-center priority-3" },
+			   						{"targets": 5 ,  className: "dt-head-center priority-4" },//dt
+			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sex
+							 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//cre le
+							 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"}
 						   	],
 	    				});
-     			},
-     			error:function(){
-     				console.log("error");
-     			},
+     			}
     		});
 	});
 });	
 </script>
-@endsection
+@stop
 @section('main-content')
 	<div class="row">
 		<div class="col-sm-12">
@@ -248,4 +281,4 @@ function errorMsg(msg, error) {
 		<div class="col-md-5 col-sm-5"  id="patientDetail"></div>		
 	</div>{{-- row --}}
 	<div class="row">@include('patient.ModalFoms.mergeModal')@include('patient.ModalFoms.scanbarCodeModal')</div>
-@endsection
+@stop

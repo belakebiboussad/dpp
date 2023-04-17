@@ -2,7 +2,7 @@
 @section('title','Liste de produits')
 @section('page.script')
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$('#meds_table').dataTable({
     		ordering: true,
 	      bInfo : false,
@@ -32,7 +32,7 @@
     	});
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">
@@ -143,4 +143,4 @@
 		  </div>
 </div>
 </div>
-@endsection
+@stop

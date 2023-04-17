@@ -11,7 +11,7 @@
         padding:5px 0;
   }
   </style>
-@endsection
+@stop
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
 {{--<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
 <script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>  --}}
@@ -43,7 +43,7 @@ function reset_in(){
 }
 function getPatient()
 {
-  var spec ='{{  in_array(Auth::user()->role->id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var spec ='{{  in_array(Auth::user()->role_id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();
   var ajaxurl = '{{ URL::to('getPatients') }}';
   $.ajax({
@@ -54,7 +54,7 @@ function getPatient()
             "specialite":spec,
         },
         success: function(html) {
-          $("#livesearch").html(html).show();//document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+          $("#livesearch").html(html).show();
         },
         error: function() {
           console.log("can't connect to db");
@@ -105,7 +105,7 @@ $(function() {
         navLinks: true,
         selectable: true,
         selectHelper: true, 
-        eventColor: '#87CEFA',
+        eventColor: '#3A87AD',
         editable: true,
         eventLimit: true,     
         hiddenDays: [ 5, 6 ],
@@ -137,11 +137,11 @@ $(function() {
                 var minutes = end.diff(start,"minutes"); 
                 if( (minutes == 15) && (start >=today ))//CurrentDate
                 {
-                  if('{{ in_array(Auth::user()->role->id,[1,13,14]) }}')                                  
+                  if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')                                
                   {
                     Swal.fire({
-                        title: 'Confimer vous  le Rendez-Vous ?',
-                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</b></h4>',
+                        title: 'Confimer vous le Rendez-Vous?',
+                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD/MM/YYYY')+'</b></h4>',
                         input: 'checkbox',
                         inputValue: 1,
                         inputPlaceholder: 'Redez-Vous Fixe',
@@ -167,7 +167,6 @@ $(function() {
                       createRDVModal(start,end,'{{ $patient->id }}',1);
                     else
                       createRDVModal(start,end,0,1);
-                    
                   }
                   resetPatient();
                 }else
@@ -190,7 +189,7 @@ $(function() {
                       (data.employe != null) ?$('#medecinName').val(data.employe.full_name):'';
                       (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                       $('#civiliteCode').val(calEvent.civ);
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id)); // $('#printRdv').attr("data-id",calEvent.id); 
+                      $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
                       $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id));      
               });
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
@@ -216,9 +215,9 @@ $(function() {
               else
               {
                       if(event.fixe>0)
-                              element.css('background-color', '#87CEFA'); //#378006
+                              element.css('background-color', '#3A87AD'); //#D6487E
                       else
-                              element.css('background-color', '#378006');
+                              element.css('background-color', '#D6487E');
 
                         element.css("padding", "5px");
               }
@@ -251,12 +250,11 @@ $(function() {
               formData.employ_id = $('#employ_id').val();
           }
           $.ajax({
-/*headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},*/
             type:"POST",
             url:url,
             data:formData,
             success:function(data){      
-                var color = (data['rdv']['fixe'] > 0) ? '#87CEFA':'#378006';
+                var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
                 $('.calendar').fullCalendar( 'renderEvent', {
                     title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
                     start: formData.date,
@@ -276,15 +274,16 @@ $(function() {
     });
   });
 </script>
-@endsection
+@stop
 @section('main-content')
-  <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un rendez-vous</h4></div></div>
-  <div class="row"><div class="col-sm-12 calendar"></div></div>
+  <page-header><h1>Ajouter un rendez-vous</h1></page-header>
+  <div class="row"><div class="col-sm-12 col-xs-12 calendar"></div></div>
+  <hr>
   <div class="row">
-    <div class="col-sm-12 col-sm-12">
-      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV fixe</b></h7>
-      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7><b>&nbsp;RDV à fixer</b></h7>
+    <div class="col-sm-12 col-xs-12">
+      <span class="badge label-info"><small>RDV fixe</small></span>
+      <span class="badge label-pink"><small>RDV à fixé</small></span>
     </div>
   </div>
   <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>
-@endsection
+@stop

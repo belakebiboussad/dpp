@@ -14,29 +14,26 @@
 <div class="container-fluid">{{-- @include('partials.etatHeader') --}}
   <header><img src="img/entete.jpg" class="center thumb img-icons mt-25" alt="entete"/></header>
   <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons"/></footer>
-  <main>
-<br><br>
-  <div class="textCenter mtP40 ft16"><b>Demande d'examen radiologique</b></div>
-  <br>
-  <div class="row"><div class="col-sm-12"><div class="section"><div class="right"><b><u>Fait le:</u></b>
-        {{ (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
+  <main><br><br>
+  <div class="center mtP40 ft20">Demande d'examen radiologique</div><br>
+  <div class="row"><div class="section"><div class="right"><b><u>Fait le:</u></b>
+    {{ $demande->imageable->date->format('d/m/Y') }}</div></div>
   </div>
   <div class="row">
-    <div class="col-sm-12">
+    <div>
       <div class="section">
-            <div class="sec-gauche">
-                  <b><u>Patient(e) :</u></b><b> {{ $patient->getCivilite() }} </b> 
-                  {{ $patient->full_name }},&nbsp;
-                  {{ $patient->age }} ans,{{ $patient->Sexe }}
-            </div>
+        <div class="sec-gauche">
+          <b><u>Patient(e) :</u></b><b> {{$demande->imageable->patient->getCivilite() }} </b> 
+          {{ $demande->imageable->patient->full_name }}, {{ $demande->imageable->age }} ans, {{ $demande->imageable->Sexe }}     
+        </div>
       </div>
     </div>
   </div><br>
   <div class="row">
-    <div class="col-sm-12">
+    <div>
       <div class="section">
         <div class="sec-gauche">
-          <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $patient->IPP }}
+          <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($demande->imageable->patient->IPP, 'C128')}}" alt="barcode" /><br><b>IPP :</b>{{ $demande->imageable->patient->IPP }}
          </div>
       </div>
     </div>
@@ -45,48 +42,42 @@
   <div class="content">
     <div class="col-sm-12">
       <div class="col-xs-12 widget-container-col">
-        <div class="widget-box" id="infopatient">
+        <div class="widget-box">
           <div class="widget-body">
             <div class="widget-main">
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentes :</b> </label>
+                    <label><b>Informations cliniques pertinentes :</b></label>
                     <p>{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Explication de la demande de diagnostic :</b></label>
+                    <label><b>Explication de la demande de diagnostic :</b></label>
                     <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>
-                  <div>
-                      <label><b>Informations supplémentaires pertinentes</b></label>
-                      <div>
-                        <ul class="list-inline">
-                            @foreach($demande->infossuppdemande as $index => $info)
-                                <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                            @endforeach
-                        </ul>    
+                  <div><label><b>Informations supplémentaires pertinentes</b></label>
+                    <div>
+                      @foreach($demande->infossuppdemande as $index => $info)
+                        <span>{{ $info->nom }}{{(! $loop->last) ? ', ' : '' }}</span>
+                      @endforeach
                       </div>
                   </div>
-                  <div>
-                    <label><b>Examen(s) proposé(s)</b></label>
+                  <div><label><b>Examen(s) proposé(s)</b></label>
                     <div>
-                      <table class="table table-borderless">
+                      <table class="table">
                         <thead>
                           <tr>
-                            <th class="center" width="10%">#</th>
-                            <th class="center"><b>Nom</b></th>
-                            <th class="center"><b>Type</b></th>
+                            <th class="center" width="10%">#</th><th class="center">Nom</th>
+                            <th class="center">Type</th>
                           </tr>
                         </thead>
                         <tbody>
                           @foreach($demande->examensradios as $index => $examen)
                           <tr>
                             <td class="center">{{ $index + 1 }}</td>
-                            <td>{{ $examen->Examen->nom }}</td>
-                            <td class="center">{{ $examen->Type->nom }}</td>
+                            <td>{{ $examen->Examen->nom }}</td><td class="center">{{ $examen->Type->nom }}</td>
                           </tr>
                          @endforeach
                         </tbody>
@@ -101,11 +92,9 @@
   </div>
   </div>
   </div>
-  <div class="row foo">
-    <div class="col-sm-12">
-      <div class="section"><div class="right"><span><b> Docteur :</b> {{ Auth::user()->employ->full_name }}</span></div></div>
-    </div>
-  </div>
+  <div class="foo"><div>
+    <div class="section"><div class="right"><span><b> Docteur :</b> {{ Auth::user()->employ->full_name }}</span></div></div>
+  </div></div>
 </main>
 </div>
 </body>

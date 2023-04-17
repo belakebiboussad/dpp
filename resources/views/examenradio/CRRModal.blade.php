@@ -5,14 +5,12 @@
 				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un compte rendue radiologique </h4>
 			</div>
 			<div class="modal-body">
-			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
+			  <form id="CRRForm" action="" method="POST">
 			    <input type="hidden" name=""  id="examId" value="">
 			     <input type="hidden" name=""  id="crrId" value="">
-{{--<div class="row"><div class="col-xs-12"><br><label for="indication"><strong> Indication:</strong></label><textarea class="form-control" id="indication" rows="3"></textarea>	
-</div></div><div class="space-12"></div><div class="row"><div class="col-xs-12"><label for="techRea"><strong>Technique de réaliation :</strong></label><textarea class="form-control" id="techRea" rows="6"></textarea></div></div><div class="space-12"></div><div class="row"><div class="col-xs-12"><label for="result"><b>Résultat:</b></label><textarea class="form-control" id="result" rows="6"></textarea></div></div><br>--}}
 			    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span class="text-danger">*</span></b></label>
+			     	 	<label class="pull-left"><b>Compte rendu radiologique:<span class="red">*</span></b></label>
 					    <textarea class="form-control" id="conclusion" rows="6" required></textarea>
 			      </div>	
 			    </div>

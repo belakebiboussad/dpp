@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\Traitement;
+use App\modeles\visite;
 use Carbon\Carbon;
 class TraitementController extends Controller
 {
+    public function index(Request $request)
+    {
+      $visite = visite::find($request->visId);//with('medecin')->
+      return $visite->traitements->load('medicament','medicament.specialite','visite.medecin');
+    }
     public function edit($id)
-    {//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
-      $trait = Traitement::FindOrFail($id);
-      return $trait->load('medicament');
+    {
+      return Traitement::with('medicament')->FindOrFail($id);
     }
     public function show($id)
     {
@@ -21,15 +26,21 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-      $this->validate($request, ['med_id'=> 'required|string|max:225','visite_id'=> 'required']);
-      $trait =Traitement::create($request->all());//return Response::json($tait);    
-      return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
+      $this->validate($request, ['med_id'=> 'required|string|max:225','id_visite'=> 'required']);
+      $visite = visite::find($request->id_visite);
+      $trait = $visite->traitements()->create($request->all());
+      return $trait->load('medicament','visite.medecin');
     }
     public function update(Request $request,$id)
     {
       $trait = Traitement::FindOrFail($id);
-      $trait->update($request->all());
-      return ['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]; 
+      $trait->update([
+        'visite_id'=>$request->visite_id,
+        'med_id'=>$request->med_id,
+        'posologie'=>$request->posologie,
+        'nbrPJ'=>$request->nbrPJ,
+      ]);
+      return $trait->load('medicament','visite.medecin');
     }
     public function destroy($id)
     {

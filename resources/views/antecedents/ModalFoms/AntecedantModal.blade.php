@@ -107,7 +107,7 @@
 			{
 				var tabName = "antsTab";
 				var formData = {
-					Patient_ID_Patient   : '{{ $patient->id }}',
+					Patient_ID_Patient   : '{{ $obj->patient->id }}',
 					Antecedant           : 'Personnels',//$('#Antecedant').val()
 					typeAntecedant       : '0',//$('#typeAntecedant').val(),
 					stypeatcd            : $('#sstypeatcdc').val(),
@@ -119,7 +119,8 @@
 			{
 				var tabName = "antsFamTab";
 				var formData = {
-					Patient_ID_Patient   : '{{ $patient->id }}',
+          _token: CSRF_TOKEN ,
+					Patient_ID_Patient   : '{{ $obj->patient->id }}',
 					Antecedant         : 'Familiaux',
 					date               : $('#dateAntcd').val(),
 					cim_code					 : $('#cim_code').val(),
@@ -130,12 +131,7 @@
 		 	{	
 				if($('.dataTables_empty').length > 0)
 					$('.dataTables_empty').remove();
-				$.ajaxSetup({
-						headers: {
-						  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-						}
-				});
-				var state = $(this).val();
+			  var state = $(this).val();
 				var type = "POST";
 				var atcd_id = $('#atcd_id').val();
 				var ajaxurl = '/atcd';

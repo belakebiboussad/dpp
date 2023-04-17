@@ -1,10 +1,10 @@
 <style type="text/css" media="screen">
 td
 {
- max-width: 100px;
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
+   max-width: 100px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 </style>
 <div id="lettreorient" class="modal fade" role="dialog">
@@ -17,8 +17,8 @@ td
 			    <div class="col-xs-12">
 				    <div class= "widget-box widget-color-green">
             <div class="widget-header">
-               <h5 class="widget-title bigger lighter">
-                  <i class="ace-icon fa fa-table"></i>&nbsp;<b>Lettres d'orientation</b></h5>
+               <h5 class="widget-title lighter">
+                  <i class="ace-icon fa fa-table"></i> Lettres d'orientation</h5>
               <div class="widget-toolbar widget-toolbar-light no-border">
                 <a id="orientation-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
               </div>
@@ -28,12 +28,8 @@ td
                 <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="orientationsList">
                   <thead class="thin-border-bottom">
                     <tr>
-                    <th class ="hidden"></th>
-                    <th class="center">Spécialité</th>
-                    <th class="center">
-                      Motif de consultation
-                    </th>
-                    <th class="center hidden-480">Examen général</th>
+                    <th class ="hidden"></th><th class="center">Spécialité</th>
+                    <th class="center">Motif de consultation</th><th class="center">Examen général</th>
                     <th class="center" width="12%"><em class="fa fa-cog"></em></th>
                     </tr>
                   </thead>
@@ -44,14 +40,13 @@ td
             </div>
             </div>
 		      </div>
-				</div><!-- row -->
-        <div class="space-12"></div> 
+				</div> <div class="space-12"></div> 
         <div class="row">
           <div class="col-xs-12">
             <div class= "widget-box widget-color-info">
               <div class="widget-header">
-               <h5 class="widget-title bigger lighter">
-                <i class="ace-icon fa fa-table"></i>&nbsp;<b>Certificat Medical Descriptif</b></h5>
+               <h5 class="widget-title lighter">
+                <i class="ace-icon fa fa-table"></i> Certificat Medical Descriptif</h5>
                 <div class="widget-toolbar widget-toolbar-light no-border">
                   <a id="certifDescrip-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
                 </div>
@@ -75,7 +70,7 @@ td
       </div>{{-- modal-body --}}
 		  <div class="modal-footer">
           <div class="col-sm-12">
-			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="OrientationSave()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i> Enregistrer</button>
 				  <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>
@@ -84,11 +79,7 @@ td
 </div>{{-- modal --}}
 @include('consultations.ModalFoms.LettreOrientationAdd')@include('consultations.ModalFoms.certificatDescriptif')
 <script>
-/*function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) { $('#OrientLetterPdf').removeAttr('hidden');$("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
-      $("#motifCons").text($( "#motifC" ).val());$("#motifO").text($( "#motifOrient" ).val()); var element = document.getElementById('OrientLetterPdf');var options = {filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
-      };var exporter = new html2pdf(element, options);$("#OrientLetterPdf").attr("hidden",true); exporter.getPdf(true).then((pdf) => {console.log('pdf file downloaded');});
-      exporter.getPdf(false).then((pdf) => {console.log('doing something before downloading pdf file'); pdf.save();});}*/
-    $(function(){
+  $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
         base64Img = base64; 
       });
@@ -108,11 +99,11 @@ td
           $('#orientCrudModal').html("Ajouter une  lettre d'orientation");
           jQuery('#LettreOrientationAdd').modal('show');
       });
-      $('#orientationSave').click(function (e) {//save Orientation
+      $('#orientationSave').click(function (e) {
          e.preventDefault();
         var formData = {
            _token          : CSRF_TOKEN,
-          consultation_id  : '{{ $consult->id }}',
+          consultation_id  : '{{ $obj->id }}',
           specialite       : $("#specialiteOrient").val(),
           motif            : $("#motifC").val(), 
           examen           : $("#motifOrient").val(),
@@ -130,10 +121,10 @@ td
             url: url,
             data: formData,
             success: function (data) {
-              var orientation ='<tr id="'+ data.id + '"><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
-              orientation += '<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-              orientation += '<button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-              orientation += '<button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              var orientation ='<tr id="'+ data.id + '"><td class="hidden">'+data.specialite.id+'</td><td>'+ data.specialite.nom +'</td><td>'+ data.motif +'</td><td>'+ data.examen +'</td><td class="center">';
+              orientation +='<button type="button" class="btn btn-xs btn-info open-Orient" value="' + data.id + '"><i class="fa fa-edit"></i></button>';
+              orientation +=' <button type="button" class="btn btn-xs btn-success" id ="orientationPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>';
+              orientation +=' <button class="btn btn-xs btn-danger delete-orient" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
               if(state == "update")
                 $("#" + data.id).replaceWith(orientation);
               else
@@ -142,26 +133,18 @@ td
             }
         });
     });
-    $('body').on('click', '.open-Orient', function (event) {
-      event.preventDefault();
-      var id = $(this).val();
-      $.get('/orientLetter/'+id+'/edit', function (data) {
-         $('#orient_id').val(data.id);
-        $("#specialiteOrient").val(data.specialite.id).change();
-        $("#motifC").val(data.motif);
-        $("#motifOrient").val(data.examen);
-        $('#orientationSave').val("update");
-        $('#orientationSave').attr('data-id',data.id);
-        $('#orientCrudModal').html("Modifier la  lettre d'orientation") 
-        $('#LettreOrientationAdd').modal('show');
-      }); 
-    });
-    $('body').on('click', '#orientationPrint', function (event) {
-        var fileName ='orientLetter-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
+/*$('body').on('click', '.open-Orient', function (event) {
+event.preventDefault();var id = $(this).val();
+$.get('/orientLetter/'+id+'/edit', function (data) {
+$('#orient_id').val(data.id);$("#specialiteOrient").val(data.specialite.id).change();
+$("#motifC").val(data.motif);$("#motifOrient").val(data.examen);
+$('#orientationSave').val("update");$('#orientationSave').attr('data-id',data.id);     $('#orientCrudModal').html("Modifier la  lettre d'orientation")$('#LettreOrientationAdd').modal('show');});});*/ 
+$('body').on('click', '#orientationPrint', function (event) {
+        var fileName ='orientLetter-'+'{{ $obj->patient->Nom}}'+'-'+'{{ $obj->patient->Prenom}}'+'.pdf';
         var tr = document.getElementById($(this).val());
         $("#motifCons").text(tr.cells[1].innerHTML);
         $("#motifO").text(tr.cells[2].innerHTML);
-        var ipp = '{{ $patient->IPP }}';
+        var ipp = '{{ $obj->patient->IPP }}';
         var pdf = new jsPDF('p', 'pt', 'a4');
         JsBarcode("#barcode",ipp,{
           format: "CODE128",
@@ -174,32 +157,19 @@ td
         });
         var canvas = document.getElementById('barcode');
         var jpegUrl = canvas.toDataURL("image/jpeg");
-        pdf.addImage(jpegUrl, 'JPEG', 25, 175);
+        pdf.addImage(jpegUrl, 'JPEG', 25, 185);
         pdf.setFontSize(12);//pdf.text(120,30, 'Cher confrére');
         pdf.text(320,730, 'Respectueusement');
         generate(fileName,pdf,'OrientLetterPdf'); 
     });
-    $('body').on('click', '.delete-orient', function (event) {
-      event.preventDefault();
-      var formData = {_token: CSRF_TOKEN };
-      var id =$(this).val();
-      $.ajax({
-          type: "DELETE",
-          url: '/orientLetter/' + id,
-          data: formData,
-          success: function (data) {
-            $("#"+id).remove();
-          }
-      });
-    });
     $('#certifDescrip-add').click(function (e) {
-      $('#decriptifSave').val("add");   $('#modalFormDescript').trigger("reset");$('#CertifDescrAdd').modal('show');
+      $('#decriptifSave').val("add");  $('#modalFormDescript').trigger("reset");$('#CertifDescrAdd').modal('show');
     });
     $('#decriptifSave').click(function (e) {//ADD Orientation
       e.preventDefault();
       var formData = {
         _token          : CSRF_TOKEN,
-        consultation_id  : '{{ $consult->id }}',
+        consultation_id  : '{{ $obj->id }}',
         examen           : $("#examClin").val(),
         isChronic : $("#isChronic").is(":checked") ? 1:0,
       };
@@ -218,10 +188,9 @@ td
           success: function (data) {
             var isChronic = data.isChronic != 0 ? 'Oui' : 'Non';
             var certificat ='<tr id ="descript-'+ data.id +'"><td>'+ data.examen +'</td><td>' + isChronic + '</td><td>';
-            certificat += '<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            //certificat += '<button type="button" class="btn btn-xs btn-success" id ="descriptPrint" value="' + data.id + '"><i class="ace-icon fa fa-print"></i></button>&nbsp;';
-            certificat += '<a href="/printCertifDescrip/' + data.id +'" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i>&nbsp;</a>';
-            certificat += '<button type="button" class="btn btn-xs btn-danger delete-Desc" value="' + data.id + '" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+            certificat +='<button type="button" class="btn btn-xs btn-info open-Desc" value="' + data.id + '"><i class="fa fa-edit"></i></button> ';
+            certificat +='<a href="/printCertifDescrip/' + data.id +'" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>';
+            certificat +=' <button type="button" class="btn btn-xs btn-danger delete-Desc" value="' + data.id + '" data-confirm = "Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
             if(state == "update")
               $("#descript-" + data.id).replaceWith(certificat);
             else
@@ -243,9 +212,7 @@ td
         $('#decriptifSave').val("update"); 
         $('#CertifDescrAdd').modal('show');
       });
-    });/*$('body').on('click', '#descriptPrint', function (event) { var fileName ='certifDescrip-'+'{{ $patient->Nom}}'+'-'+'{{ $patient->Prenom}}'+'.pdf';
-var tr = document.getElementById("descript-" + $(this).val());$("#examen").text(tr.cells[0].innerHTML);$("#motifO").text(tr.cells[2].innerHTML);
-pdf.setFontSize(12); pdf.text(320,730, 'Respectueusement');generate(fileName,pdf,'certificatDescrPdf');});*/     
+    });
     $('body').on('click', '.delete-Desc', function (event) {
       event.preventDefault();
       var formData = {_token: CSRF_TOKEN };

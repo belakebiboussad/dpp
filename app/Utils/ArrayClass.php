@@ -458,7 +458,6 @@ abstract class ArrayClass {
     if (is_string($haystack)) {
       $haystack = explode(" ", $haystack);
     }
-    
     return in_array($needle, $haystack);
   }
 }

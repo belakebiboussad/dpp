@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\service;
 use App\modeles\medcamte;
@@ -14,7 +13,7 @@ use App\modeles\demande_dispositif;
 use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\Consommable;
-use Jenssegers\Date\Date;
+use Carbon\Carbon;
 use Response;
 class demandeprodController extends Controller
 {
@@ -24,9 +23,9 @@ class demandeprodController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-      {
-          $this->middleware('auth');
-      }
+    {
+        $this->middleware('auth');
+    }
     public function get_produit($id_gamme, $id_spes)
     {
       if($id_gamme == 1)
@@ -49,21 +48,54 @@ class demandeprodController extends Controller
           return $consommables;
       }
     }
-    public function index()
+    public function index(Request $request)
     {
-      if(Auth::user()->role_id == 10)
+      if($request->ajax())  
       {
-        $services =service::where('id','!=',14)->get();
-        $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
-        return view('demandeproduits.index', compact('demandes','services'));
-      }
-      else
+        $q = $request->value;  $field= $request->field;
+        if(Auth::user()->role_id != 10) 
+        {
+          $ServiceId = Auth()->user()->employ->service_id;    
+          if(isset($q))
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use( $ServiceId){
+                                       $query->where('id', $ServiceId);
+                         })->where($field,'LIKE', "$q%")->get();
+          else
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use( $ServiceId) {
+                              $query->where('id', $ServiceId);
+                         })->whereNull($field)->get();
+        }else
+        {
+          if($field != "service")  
+          {
+            if(isset($request->value))
+              return $demandes = demand_produits::with('demandeur.Service')->where($field,'LIKE', "$q%")->get();
+            else
+              return $demandes = demand_produits::with('demandeur.Service')->whereNull($field)->get();
+          }else
+          {
+            $serviceID = $request->value;
+            return $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
+                              $query->where('id', $serviceID);
+                                        })->get();
+          }
+        }
+      } else
       {
-        $serviceID =Auth::user()->employ->service;
-        $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
-              $q->where('id',$serviceID); 
-        })->orderBy('Date', 'desc')->get();
-        return view('demandeproduits.index', compact('demandes'));     
+        if(Auth::user()->role_id == 10)//pharm
+        {
+          $services =service::where('id','!=',14)->get();
+          $demandes = demand_produits::whereNull('Etat')->orderBy('Date', 'desc')->get();
+          return view('demandeproduits.index', compact('demandes','services'));
+        }
+        else
+        {
+          $serviceID =Auth::user()->employ->service_id;
+          $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($query) use ($serviceID) {
+             $query->where('id',$serviceID);  
+          })->orderBy('Date', 'desc')->get();
+         return view('demandeproduits.index', compact('demandes'));     
+        }
       }
     }
     /**
@@ -83,36 +115,27 @@ class demandeprodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-       public function store(Request $request)
+      public function store(Request $request)
       {
-          $date = date('Y-m-d');
-          $demande = demand_produits::Create([
-             "Date" => $date, // "Etat" => "E",
-            "id_employe" => Auth::user()->employee_id,
-         ]);
-         $listes = json_decode($request->liste);
+        $date = Carbon::today();
+        $demande = demand_produits::Create([
+          "date" => $date,
+          "id_employe" => Auth::user()->employe_id,
+        ]);
+        $listes = json_decode($request->liste);
         for ($i=1; $i < count($listes); $i++) { 
-
-                $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
-
-                if($gamme->id == "1")
-                {
-                    $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                }
-                elseif($gamme->id == "2") 
-                {
-                    $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                }
-                elseif($gamme->id == "3") 
-                {
-                    $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                }
-                elseif($gamme->id == "4")
-                {
-                    $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-                }
-         }
-        return redirect()->route('demandeproduit.show',$demande->id); 
+          $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+          if($gamme->id == "1")
+          
+            $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+          elseif($gamme->id == "2") 
+            $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+          elseif($gamme->id == "3") 
+            $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+          elseif($gamme->id == "4")
+            $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+      }
+      return redirect()->route('demandeproduit.show',$demande->id); 
     }
     /**
      * Display the specified resource.
@@ -144,14 +167,14 @@ class demandeprodController extends Controller
             return view('demandeproduits.run', compact('demande'));
        }
       public function valider(Request $request,$id)
-       {
-           $demande = demand_produits::FindOrFail($id);
-           $listes = json_decode($request->liste);
-           for ($i=0; $i < count($listes); $i++) { 
-                $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
-                $attributes = ['qteDonne' => $listes[$i]->qteDem];
-                  if($gamme->id == "1")
-                  {
+      {
+       $demande = demand_produits::FindOrFail($id);
+       $listes = json_decode($request->liste);
+       for ($i=0; $i < count($listes); $i++) { 
+            $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
+            $attributes = ['qteDonne' => $listes[$i]->qteDem];
+              if($gamme->id == "1")
+              {
                           $demande->medicaments()->updateExistingPivot($listes[$i]->produit, $attributes);
                     }elseif($gamme->id == "2") {
                           $demande->dispositifs()->updateExistingPivot($listes[$i]->produit, $attributes);
@@ -159,8 +182,8 @@ class demandeprodController extends Controller
                           $demande->reactifs()->updateExistingPivot($listes[$i]->produit, $attributes);
                   }
            }   
-          $demande->update([  "etat" => "1" ]);
-           return redirect()->action('demandeprodController@index');
+      $demande->update([  "etat" => "1" ]);
+      return redirect()->action('demandeprodController@index');
     }  
     /**
      * Update the specified resource in storage.
@@ -175,19 +198,17 @@ class demandeprodController extends Controller
       $demande->medicaments()->detach();
       $demande->dispositifs()->detach();
       $demande->reactifs()->detach();
-      $listes = json_decode($request->liste);
-      for ($i=0; $i < count($listes); $i++) { 
-              $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
-              if($gamme->id == "1")
-              {   
-                  $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
-              }elseif($gamme->id == "2") {
-                   $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
-                }elseif($gamme->id == "3") {
-                  $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
-                }elseif($gamme->id == "4") {
-                    $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte,'unite' => $listes[$i]->unite]);
-                }
+      $lists = json_decode($request->liste);
+      for ($i=0; $i < count($lists); $i++) { 
+        $gamme = gamme::where('nom',trim($lists[$i]->gamme))->get()->first();
+        if($gamme->id == "1")
+          $demande->medicaments()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+        elseif($gamme->id == "2")
+          $demande->dispositifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+        elseif($gamme->id == "3")
+          $demande->reactifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+        elseif($gamme->id == "4")
+          $demande->consomables()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
         }
        return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);
     }
@@ -199,26 +220,26 @@ class demandeprodController extends Controller
      */
       public function getProducts()
       {
-            $meds = medcamte::paginate(50);
-             $dispositifs = dispositif::paginate(50);
-             $reactifs = reactif::paginate(50);
-             return view('demandeproduits.products', compact('meds','dispositifs','reactifs'));
+        $meds = medcamte::paginate(50);
+         $dispositifs = dispositif::paginate(50);
+         $reactifs = reactif::paginate(50);
+         return view('demandeproduits.products', compact('meds','dispositifs','reactifs'));
       }
       public function rejeter($id,$motif)
       {
-             $demande = demand_produits::FindOrFail($id);
-               $demande->update([
-                      "etat" => '0',
-                      "motif" => $motif
-               ]);
-               return redirect()->action('demandeprodController@index');
+        $demande = demand_produits::FindOrFail($id);
+        $demande->update([
+          "etat" => '0',
+          "motif" => $motif
+        ]);
+           return redirect()->action('demandeprodController@index');
       }
       public function destroy(Request $request ,$id)
       {
         if($request->ajax())  
         {
           $demande = demand_produits::destroy($id);
-          return Response::json($demande); 
+          return $demande; 
         }
         else
         {
@@ -229,36 +250,5 @@ class demandeprodController extends Controller
           $demande = demand_produits::destroy($id);
           return redirect()->action('demandeprodController@index');
         } 
-      }
-      public function search(Request $request)
-      {
-        if(Auth::user()->role_id != 10) 
-        {
-          $ServiceId = Auth()->user()->employ->service_id;    
-          if(isset($request->value))
-              $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId){
-                                       $q->where('id', $ServiceId);
-                         })->where($request->field,'LIKE', trim($request->value)."%")->get();
-          else
-              $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
-                              $q->where('id', $ServiceId);
-                         })->where($request->field, null)->get();
-        }else
-        {
-          if($request->field != "service")  
-          {
-              if(isset($request->value))
-                $demandes = demand_produits::with('demandeur.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-              else
-                $demandes = demand_produits::with('demandeur.Service')->where($request->field, null)->get();
-          }else
-          {
-            $serviceID = $request->value;
-            $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
-                                          $q->where('id', $serviceID);
-                                        })->get();
-          }
-        }
-        return Response::json($demandes);
       }
 }

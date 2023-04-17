@@ -7,9 +7,9 @@
 				<div class="widget-header"><h5 class="widget-title"><b>Information du service</b></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
-						<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update', $service->id) }}">
-							{{ csrf_field() }}
-							{{ method_field('PUT') }}
+					<form role="form" method="POST" action="{{ route('service.update', $service->id) }}">
+						{{ csrf_field() }}
+						{{ method_field('PUT') }}
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom : </strong></label>
 								<div class="col-sm-9">
@@ -65,7 +65,7 @@
 			</div>
 		</div>
 		<div class="col-xs-5">
-			<div class="widget-box" id="widget-box-2">
+			<div class="widget-box">
 				<div class="widget-header">
 				{{--<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span>Chambres</span></h5>--}}
 				<div><h5 class="widget-title"><b>Chambres</b></h5></div>
@@ -83,4 +83,4 @@
 			</div>
 		</div>
 	</div>
-@endsection
+@stop

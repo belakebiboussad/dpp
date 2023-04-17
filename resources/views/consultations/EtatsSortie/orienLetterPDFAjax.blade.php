@@ -14,7 +14,7 @@
     <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" /></footer>
     <main> 
       <hr class="h-1 mtp33"/>
-      <div class="textCenter mtP40 ft16"><b>LETTRE D'ORIENTATION MEDICALE</b></div>
+      <div class="center mtP40 ft20">LETTRE D'ORIENTATION MEDICAL</div>
       <div class="tab-space40 mtp10"><b>Alger le :</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div><br/><br/>
       <div class="sec-gauche">
         <b>Docteur :</b> {{ $orient->consultation->medecin->full_name }} &nbsp;&nbsp; 

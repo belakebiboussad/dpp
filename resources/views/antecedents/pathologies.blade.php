@@ -26,7 +26,7 @@
 				  </tr>
 				</thead>
 				<tbody>
-				 @foreach($patient->antecedants as $antcd)
+				 @foreach($obj->patient->antecedants as $antcd)
 					@if(($antcd->Antecedant == "Personnels") &&($antcd->typeAntecedant == "0"))
 					<tr id="{{ 'atcd'.$antcd->id }}">
 						<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td>

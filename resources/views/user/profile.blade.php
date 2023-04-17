@@ -1,141 +1,109 @@
 @extends('app')
+@section('page-script')
+<script type="text/javascript">
+   $(function(){
+    $('[data-rel=tooltip]').tooltip();
+    $('#fuelux-wizard-container')
+      .ace_wizard({
+      }).on('finished.fu.wizard', function(e) {
+        $( "#profilForm" ).submit();  
+      }).on('stepclick.fu.wizard', function(e){
+      });
+      var wizard = $('#fuelux-wizard-container').data('fu.wizard')
+      wizard.currentStep = 1;
+      wizard.setState();  
+  });
+</script>
+@stop
 @section('main-content')
- 	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif>
-    <h3>Mon Profil</h3>
-	</div>
-<div class="row">
-@if($user->profile_image_url != '')
-	<img class="img-thumbnail img-responsive center-block" width="180" src="{{ route('profile/image', ['profile_image_url' => $user->profile_image_url]) }}">
-@endif
+<div class="page-header">
+  <h4 class="lighter"><i class="fa fa-user"></i> Mon Profil</h4>
 </div>
-<div class="row tabs">
-  <ul class="nav nav-pills nav-justified" id="tabMenu">
-	  <li  role= "presentation" class="col-md-4 active">
-	  	<a data-toggle="tab" href="#edit-basic" aria-controls="edit-basic" data-toggle="tab" class="btn btn-info" >
-	   		<i class="ace-icon fa fa-pencil-square-o bigger-160 red" ></i>&nbsp;<span class="bigger-160">Informations Géneral</span>
-			</a>
-		</li>
-		<li role= "presentation" class="col-md-4">
-			<a role= "presentation" data-toggle="tab" href="#edit-password"  aria-controls="edit-password" data-toggle="tab" class="btn btn-danger" >
-			  <i class="blue ace-icon fa fa-key bigger-160"></i>&nbsp;<span class="bigger-160">Information d'Authentification</span>
-	    </a>
-		</li>
-	</ul>
-  <div class="tab tab-content no-border">
-		<div role="tabpanel" class = "tab-pane active" id="edit-basic">
-		 	<div class="w3-teal"><h4 class="header blue smaller">Géneral</h4></div>
-     	<div class="row">
-      	<div class="col-md-6 col-sm-6">
-      		<ul class="list-unstyled spaced">
-      			<li>
-			     		<i class="ace-icon fa fa-caret-right blue"></i><b>Nom :</b>  <label class="blue">{{ $employe->nom }}</label>
-				    </li>
-						<li>
-				    	<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b><label class="blue">{{ $employe->prenom }}</label>
-				    </li>
-						<li>
-				      <i class="ace-icon fa fa-caret-right blue"></i><b>Date de Naissance  :</b>  <label class="blue">{{ $employe->Date_Naiss }}</label>
-				    </li>
-						<li>
-				     	<i class="ace-icon fa fa-caret-right blue"></i><b>Genre :</b>
-				       	<label class="blue">{{ $employe->sexe == "M" ? 'Masculin' : 'Féminin' }} <i class="fas fa-address-book"></i></label>
-				    </li>
-						@if( $employe->service  != null)
-						<li>
-				      <i class="ace-icon fa fa-caret-right blue"></i><b>Service :</b><label class="blue">{{Auth::User()->employ->Service->nom }}</label>
-				    </li>
-						@endif
-         	</ul>
+<div class="hr hr-18 hr-double dotted"></div>
+<div class="widget-box">
+  <div class="widget-header widget-header-blue widget-header-flat">
+    <div class="widet-body">
+      <div class="widget-main">
+        <div id="fuelux-wizard-container" class="no-steps-container">
+          <div>
+            <ul class="steps" style="margin-left: 0">
+              <li data-step="1" class="active"><span class="step">1</span>
+              <span class="title">
+              <i class="ace-icon fa fa-info-circle"></i> Personnelles</span>
+              </li>
+              <li data-step="2">
+                <span class="step">2</span>
+                <span class="title"><i class="ace-icon fa fa-phone"></i> Contact</span>
+              </li>
+              <li data-step="3">
+                <span class="step">3</span>
+                <span class="title"><i class="ace-icon fa fa-check bigger-120"></i>Validation</span>
+              </li>
+            </ul>
+          </div>
+          <hr>
+          <div class="step-content pos-rel">
+          <div class="step-pane active" data-step="1">
+            <form class="form-horizontal" id="profilForm" action="{{ route('home') }}">
+                <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Nom</label>
+                  <div class="col-xs-12 col-sm-5">
+                    <input type="text" id="nom" class="width-100" value="{{ $employe->nom }}" disabled>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Prenom</label>
+                  <div class="col-xs-12 col-sm-5">
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->prenom }}" disabled>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Service</label>
+                  <div class="col-xs-12 col-sm-5">
+                  <input type="text" id="prenom" class="width-100" value="{{ $employe->service->nom}}" disabled>
+                  </div>
+                </div>
+              </form>
+            </div><!-- step-pane -->
+            <div class="step-pane" data-step="2">
+              <form class="form-horizontal"> 
+               <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Adresse</label>
+                  <div class="col-xs-12 col-sm-5">
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->Adresse }}" disabled>
+                  </div>
+                </div> 
+                <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Tél fixe</label>
+                  <div class="col-xs-12 col-sm-5">
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->Tele_fixe }}" disabled>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Mobile</label>
+                  <div class="col-xs-12 col-sm-5">
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->tele_mobile }}" disabled>
+                  </div>
+                </div>
+              </form>
+            </div><!-- step-pane -->
+            <div class="step-pane" data-step="3">
+              <div class="center"><h3 class="green">Merci!</h3>
+                <div>
+                  <p><i class="fa fa-check"></i> Cliquer sur <b>Terminer</b> pour Continuer.</p>
+                </div>
+              </div>
+            </div><!-- step-pane -->
+          </div><!-- step-content -->
+        </div><!-- fuelux-wizard -->
+        <div class="wizard-actions">
+          <button class="btn btn-prev" disabled="disabled">
+            <i class="ace-icon fa fa-arrow-left"></i>Précédant</button>
+          <button class="btn btn-success btn-next" data-last="Terminer">
+            Suivant<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>
         </div>
-        <div class="col-md-6 col-sm-6">
-       		<ul class="list-unstyled spaced">
-       			<li>
-			    		<i class="ace-icon fa fa-caret-right blue"></i><b>Spécialité :</b>
-                <label class="blue">{{ isset(Auth::User()->employ->specialite) ? Auth::User()->employ->Specialite->nom : '' }}</label>
-			      </li>
-						<li>
-			        <i class="ace-icon fa fa-caret-right blue"></i><b>Matricule :</b><label class="blue">{{ $employe->Matricule_dgsn }}</label>
-			      </li>
-						<li>
-			       	<i class="ace-icon fa fa-caret-right blue"></i><b>Username :</b><label class="blue">{{ $user->name }}</label>
-			      </li>
-						<li>
-			       	<i class="ace-icon fa fa-caret-right blue"></i><b>Rôle :</b><label class="blue">{{ Auth::user()->role->role }}</label>
-			      </li>
-			  </ul>
-       	</div>
       </div>
-      <div class="w3-teal"><h4 class="header blue smaller">Contact</h4></div>
-      <div class="row">
-      		<div class="col-md-6 col-sm-6">
-      			<ul class="list-unstyled spaced">
-      				<li>
-			    			<i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-			    			<b>Tél mobile :</b>  <label class="blue">{{ $employe->tele_mobile  }}</label>
-							</li>
-			  			<li>
-				        <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-mobile bigger-110"></i>
-				      	<b>Tél fixe :</b>  <label class="blue">{{ $employe->Tele_fixe  }}</label>
-						  </li>
-
-         		</ul>
-         	</div>
-         	<div class="col-md-6 col-sm-6">
-	         	<ul class="list-unstyled spaced">
-		        	<li>
-						    <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-home bigger-110"></i>
-						    <b>Adresse :</b> <adress class="blue">{{ $employe->Adresse }}</adress>
-							</li>
-							<li>
-						    <i class="ace-icon fa fa-caret-right blue"></i><i class="ace-icon fa fa-envelope bigger-90"></i>
-						    <b>E-mail :</b> <adress class="blue">{{ $user->email  }}</adress>
-							</li>
-	         	</ul>
-         </div>
-      </div>
-    </div>  {{-- edit-basic --}}
-    <div id ="edit-password" role="tabpanel" class = "tab-pane">
-    @if (session('error'))
-		  <div class="alert alert-danger">{{ session('error') }}</div>
-		@endif
-		@if (session('success'))
-		  <div class="alert alert-success"> {{ session('success') }} </div>
-		@endif
-    <form id="form-change-password" role="form" method="POST" action="{{ url('/users/changePassword') }}"onsubmit = "return checkForm(this);">
-        {{ csrf_field() }}
-        <input type="hidden" name="user_id" value="{{ $user->id }}">
-        <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}"> </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><b>Mot de passe Actuel:<span class="text-danger">*</span></b></label>
-          <div class="col-md-6">
-            <input type="password" class="form-control" id="curPassword" name="curPassword" placeholder="taper le mot de passe actuel" required/>
-            <small class="help-block"></small>
-          </div>
-        </div>
-        <div class="space-12"></div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><b>Nouveau mot de passe:<span class="text-danger">*</span></b></label>
-          <div class="col-md-6">
-            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="taper un nouveau mot de passe" required />
-            <small class="help-block"></small>
-          </div>
-        </div><div class="space-12"></div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" align="right"><b>Confirmer nouveau mot de passe:<span class="text-danger">*</span></b></label>
-          <div class="col-md-6">
-            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmer mot de passe" required />
-            </div>
-        </div><div class="space-12"></div> 
-        <div class="form-group"><br>
-          <div class="col-md-6 col-md-offset-4"> <br>
-            <div class="center">
-              <button type="submit" class="btn btn-xs btn-primary"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-              <a href="route('HomeController.index')" class="btn btn-xs btn-info"><i class="ce-icon c fa fa-times-circle  bigger-110"></i>&nbsp;Annuler</a>
-            </div>
-          </div>
-        </div>
-    </form>
-    </div>	
+    </div>
   </div>
-</div> 
-@endsection
+</div>
+@stop

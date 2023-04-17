@@ -32,11 +32,35 @@ class UsersController extends Controller
     {
        $user = Auth::user();
     }
-    public function index()
+    public function index(Request $request)
     {
-      $roles = rol::all();
-      $services = service::all();
-      return view('user.index',compact('roles','services'));
+      if($request->ajax())  
+      {
+        $value = trim($request->value);
+        $users = null;
+        switch($request->field)
+        {
+          case "role_id"  :
+                $users = User::with('role')->where($request->field,$value)->get(); 
+                break; 
+          case "name"  :
+                $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
+                break;
+          case "service_id"  :
+                $users = User::with('role')->whereHas('employ', function ($q) use ($value){
+                                               $q->where('service_id',$value);
+                                           })->get();
+                break; 
+          default:    
+                break;          
+        }
+        return $users;
+      }else
+      {
+        $roles = rol::all();
+        $services = service::all();
+        return view('user.index',compact('roles','services'));
+      }
     }
     /**
      * Show the form for creating a new resource.
@@ -50,7 +74,6 @@ class UsersController extends Controller
       $specialites = Specialite::all();
       return view('user.add', compact('roles','services','specialites'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -79,14 +102,14 @@ class UsersController extends Controller
             "tele_mobile"=>$request->mobile,
             "specialite"=>$request->specialite,
             "service_id"=>$request->service,
-            "Matricule_dgsn"=>$request->mat,
+            "matricule"=>$request->mat,
             "NSS"=>$request->nss,
       ]);
       $user = User::firstOrCreate([
         "name"=>$request->username,// "password"=>$request->password,
         "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
-        "employee_id"=>$employe->id,
+        "employe_id"=>$employe->id,
         "role_id"=>$request->role,
       ]);//return redirect(Route('employs.show',$employe->id)); 
       return redirect(Route('users.show',$user->id));                 
@@ -139,7 +162,7 @@ class UsersController extends Controller
       ];
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
-        return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+        return back()->withInput($request->input())->withErrors($validator->errors());
       $activer = $user->active;
       if($user->active)
       {
@@ -151,14 +174,14 @@ class UsersController extends Controller
           $activer=1;
       }
       $user->update([
-              'name'=>$request->username,
-              "password"=>$user->password,
-              "email"=>$request->email,
-              "employee_id"=>$user->employee_id,
-              "role_id"=>$request->role,
-              "active"=>$activer,   
+        'name'=>$request->username,
+        "password"=>$user->password,
+        "email"=>$request->email,
+        "employe_id"=>$user->employe_id,
+        "role_id"=>$request->role,
+        "active"=>$activer,   
      ]);  
-     return redirect(Route('users.show',$id));
+     return redirect(Route('users.show',$user->id));
     }
 
     /**
@@ -184,7 +207,7 @@ class UsersController extends Controller
     }
     public function getAddEditRemoveColumnData()
     {
-      $users = User::select(['id', 'name', 'email', 'employee_id','role_id']);
+      $users = User::select(['id', 'name', 'email', 'employe_id','role_id']);
       return Datatables::of($users)
           ->addColumn('action2', function ($user) {
               return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
@@ -207,16 +230,17 @@ class UsersController extends Controller
         $user = null;      
         if($userId != null) {
             $user = User::find($userId);
-            $employe = employ::FindOrFail($user->employee_id);
+            $employe = employ::FindOrFail($user->employe_id);
         } else {
             $user = User::find(Auth::user()->id);
-            $employe = employ::FindOrFail($user->employee_id);
+            $employe = employ::FindOrFail($user->employe_id);
         }
         return view('user/profile', [
             'user' => $user,
             'employe' => $employe
         ]);
     }
+    /*
     public function admin_credential_rules(array $data)
     {
       $messages = [
@@ -232,63 +256,56 @@ class UsersController extends Controller
           // |confirmed 
       ], $messages); 
       return $validator;
-    }  
+    }  */
+      public function admin_credential_rules(array $data)
+      {
+           $messages = [
+                   'current-password.required' => 'Entrer le mot de passe actuel correct',
+                   'newPassword.required' => 'entrer le nouveau mot de passe SVP',
+                   'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
+             ];
+             $validator = Validator::make($data, [
+                    'current-password' => 'required',
+                    'newPassword' => 'required',
+                    'password_again' => 'required|same:newPassword',     
+              ], $messages);
+          return $validator;
+      }  
     public function changePassword(Request $request)
-    {
+    {   
       if(Auth::Check())
       {
         $request_data = $request->All();
         $validator = $this->admin_credential_rules($request_data);
         if($validator->fails())
-          return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
+          return back()->withErrors($validator)->withInput();
         else
         {
-          $password = Auth::User()->password;         
-          if(Hash::check($request_data['curPassword'], $password))
-          {       
-            if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
-            {
-              return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
-            }else{
-                $user_id = Auth::User()->id;       
-                $obj_user = User::find($user_id);
-                $obj_user->password = Hash::make($request_data['newPassword']);
-                $obj_user->save(); 
-                  return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
-            }                            
-          } 
-          else
-            return redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
+          $password = Auth::User()->password;  
+          if(Hash::check($request_data['current-password'], $password))
+          {
+            if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
+              return back()->withErrors($validator)->withInput();
+            else
+            { 
+              Auth::user()->password = Hash::make($request_data['newPassword']);
+              Auth::user()->save(); 
+              return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
+            }
+          }else{//Entrer le mot de passe actuel correct. essaie encore 
+            return back()->withErrors($validator)->withInput();
+          }
         }
       }else
+      {
+        return("2");
+      }
       return redirect()->to('/home');
     }
     public function setting($id_user)
     {
       $user = User::FindOrFail($id_user);
       return view('user.settings', compact('user'));
-    }
-    public function search(Request $request)
-    {
-      $value = trim($request->value);
-      $users = null;
-      switch($request->field)
-      {
-        case "role_id"  :
-              $users = User::with('role')->where($request->field,$value)->get(); 
-              break; 
-        case "name"  :
-              $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
-              break;
-        case "service_id"  :
-              $users = User::with('role')->whereHas('employ', function ($q) use ($value){
-                                             $q->where('service_id',$value);
-                                         })->get();
-              break; 
-        default:    
-              break;          
-      }
-      return $users;
     }    
     public function AutoCompleteField(Request $request)
     { 
@@ -315,19 +332,22 @@ class UsersController extends Controller
     public function getUserDetails(Request $request)
     {
      $user = User::FindOrFail($request->search);
-     $employe = employ::FindOrFail($user->employee_id);
+     $employe = employ::FindOrFail($user->employe_id);
      $view = view("user.ajax_userdetail",compact('user','employe'))->render();
      return (['html'=>$view]);
     }
-    public function passwordReset(Request $request)
+    public function resetPassword(Request $request)
     {
+
+      $request->validate(['password' => 'required']);
       if(Auth::Check() && (Auth::user()->is(4)))
       {
         $user = User::FindOrFail($request->id);
         $user->update([
            "password"=> Hash::make($request['password']),
         ]);
-       
       }
+      
+      return $request->password;
     }
 }

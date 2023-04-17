@@ -169,6 +169,7 @@ return [
         /*
          * Package Service Providers...
          */
+        MercurySeries\Helpers\HelpersServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -179,7 +180,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Acacha\AceTemplateLaravel\Providers\AceTemplateLaravelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Jenssegers\Date\DateServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
@@ -234,7 +234,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Date' => Jenssegers\Date\Date::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,

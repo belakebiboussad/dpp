@@ -2,18 +2,20 @@
 <div class="row">
 	<ul  class="nav nav-pills nav-justified navbar-custom2 list-group" id ="compl">
 		<li role= "presentation" class="active" data-interest = "0">
-	    		<a href="#biologique" aria-controls="biologique" role="tab" data-toggle="tab" class="jumbotron">
-	     			<i class="fa fa-2x fa-flask deep-purple-text"></i><span class="bigger-130">Examen Biologique</span>	
-	   		 </a>
+  		<a href="#biologique" aria-controls="biologique" role="tab" data-toggle="tab" class="jumbotron">
+   			<i class="fa fa-2x fa-flask fa-pull-left"></i><span class="bigger-130"> Examen Biologique</span>
+      </a>
 	 	 </li>
 		<li role= "presentation" data-interest = "1">
-  			<a href="#radiologique" aria-controls="radiologique" role="tab" data-toggle="tab" class="jumbotron" >
-  			<span class="medical medical-icon-mri-pet" aria-hidden="true"></span><span class="bigger-130">Examen Radiologique</span>
-    	 		</a>
+  		<a href="#radiologique" aria-controls="radiologique" role="tab" data-toggle="tab" class="jumbotron" >
+  			<span class="medical medical-icon-mri-pet" aria-hidden="true"></span>
+        <span class="bigger-130"> Examen Radiologique</span>
+    	</a>
    		</li>
    		<li role= "presentation" data-interest = "2">
      			<a href="#anapath" aria-controls="anapath" role="tab" data-toggle="tab" class="jumbotron" >
-   			<span class="medical medical-icon-pathology" aria-hidden="true"></span><span class="bigger-130"> Examen Anapath</span>
+   			<span class="medical medical-icon-pathology" aria-hidden="true"></span>
+        <span class="bigger-130"> Examen Anapath</span>
     			</a>
    		</li>
 	</ul>
@@ -22,24 +24,15 @@
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content no-border">
 	 		<div class="tab-pane active examsBio" id="biologique"> 
-	      @if($specialite->exmsbio !== "null")
-          @foreach ( json_decode($specialite->exmsbio, true) as $exbio)
-	 	  	  	<div class="checkbox col-xs-4">
-	 	   			 <label>
-							<input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio }}"  />
-					 		<span class="lbl">{{ App\modeles\examenbiologique::FindOrFail($exbio)->nom }}</span> 
-				 		 </label>
-	 		  		</div>
-	 				@endforeach 
-        @else
-          Non configurer
-	 			@endif
+	    @foreach ( $specialite->BioExams as $exbio)
+      <div class="checkbox col-xs-4"><label>
+       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"  /><span class="lbl">{{ $exbio->nom }}</span></label>
+      </div>
+      @endforeach 
 	 		</div>
 	 		<div class="tab-pane" id="radiologique"> 
-        @if($specialite->exmsImg !== "null")
+        @if($specialite->ImgExams->count()>0)
           @include('ExamenCompl.ExamenRadio')
-        @else
-          Non configurer
         @endif
       </div>
 	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>
@@ -47,56 +40,50 @@
 	 </div>
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
-			  @if(isset($hosp))
-        <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12 requestPrint" value ="{{ $id }}" data-field="visite_id" disabled>
-       	@else
-        <button type="button" class="btn btn-primary btn-lg col-sm-12 col-xs-12 requestPrint" value ="{{ $consult->id }}" data-field="id_consultation" disabled>
-        @endif
-          <div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
+        <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $obj->id }}" data-field="consultation_id" disabled>
+       
+          <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>
 				</button>
 			</div><div class="space-12"></div>
-			<div>
-				@if(! isset( $hosp))
+			@if(! isset($hosp))
 					@include('consultations.actions')	
 				@endif
-			</div>
-	</div>
+		</div>
 </div>
 </div><div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>
 <script> 
   function examsImgSave(patientName, ipp, med,fieldName, fieldValue){ 
-      var infos = [] , exams = [];
-      $('.infosup input.ace:checkbox:checked').each(function(index, value) {
-        infos.push($(this).val());
-      });
-      var arrayLignes = document.getElementById("ExamsImg").rows;
-      for(var i=0; i< arrayLignes.length ; i++)
-      {
-        ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
+   var infos = [] , ExamsImg = [], types = [];
+    $('.infosup input.ace:checkbox:checked').each(function(index, value) {
+      infos.push($(this).val());
+    });
+    var arrayLignes = document.getElementById("ExamsImg").rows;
+    for(var i=0; i< arrayLignes.length ; i++)
+    {   
+      ExamsImg[i] = arrayLignes[i].cells[0].innerHTML;
+      types [i] = arrayLignes[i].cells[2].innerHTML;  
+    }
+    var formData = {
+      _token         : CSRF_TOKEN,
+      infosc : $("#infosc").val(),
+      explication   : $("#explication").val(),
+      infos          : JSON.stringify(infos),
+      ExamsImg          : JSON.stringify(ExamsImg),
+      types          : JSON.stringify(types),
+    };
+    formData[fieldName] = fieldValue;
+    var type = "POST";
+    url ="{{ route('demandeexr.store') }}";
+    $.ajax({
+      type: type,
+      url: url,
+      data: formData,
+      success: function (data) {
+        examsImgprint(patientName, ipp, med);
       }
-      var formData = {
-        _token         : CSRF_TOKEN,
-        infosc : $("#infosc").val(),
-        explication   : $("#explication").val(),
-        infos          : JSON.stringify(infos),
-        ExamsImg       : JSON.stringify(ExamsImg),
-      };
-      formData[fieldName] = fieldValue;
-      var type = "POST";
-      url ="{{ route('demandeexr.store') }}";
-      $.ajax({
-            type: type,
-            url: url,
-            data: formData,
-            success: function (data) {
-              examsImgprint(patientName, ipp, med);
-            },
-            error : function(data){
-              console.log("data");
-            }
-      });  
+    });  
   }
-   function examsImgprint(patientName,ipp,med)
+  function examsImgprint(patientName,ipp,med)
   {
     var fileName ='examsImg-' + patientName +'.pdf'; 
     $("#infoSupPertinante").text('');
@@ -169,13 +156,13 @@
       var interest = $('ul#compl').find('li.active').data('interest');
       switch(interest){
         case 0:
-                examsBioSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
-                break;
+          examsBioSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ Auth::user()->employ->full_name }}',$(this).data('field'),$(this).val());
+            break;
         case 1:
-                examsImgSave('{{ $patient->full_name }}', '{{ $patient->IPP}}','{{ $employe->full_name }}',$(this).data('field'),$(this).val());
-                break;
-         default :
-                break;
+          examsImgSave('{{ $obj->patient->full_name }}', '{{ $obj->patient->IPP}}','{{ Auth::user()->employ->full_name }}',$(this).data('field'),$(this).val());
+            break;
+        default :
+          break;
       }
     })
   })

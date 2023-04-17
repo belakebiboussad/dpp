@@ -1,14 +1,14 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-	$('document').ready(function(){
-    var debut = new Date($('#dateEntree').val());//var dateRDV = $('#dateEntree').val();//var datefinRDV =$('#dateSortie').val();
+	$(function(){
+    var debut = new Date($('#dateEntree').val());
     var fin = new Date($('#dateSortiePre').val());
     var diff = new Date(fin - debut);
     $('#numberDays').val(diff/1000/60/60/24);
     $( "#RDVForm" ).submit(function( event ) {  
       $("#dateSortiePre").prop('disabled', false);
-    }); //$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    }); 
     $(".numberDays").on('click keyup', function() {
       if( ! isEmpty($('.serviceHosp').val()))
         $(".serviceHosp").prop("selectedIndex", 0).change();
@@ -22,18 +22,18 @@
     });
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
   <h1>Modification du  Rendez-vous d'hospitalisation du :
-    &laquo;{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}&raquo;</h1>
+    &quot;{{ $rdv->demandeHospitalisation->consultation->patient->full_name }}&quot;</h1>
   <div class="pull-right">
     <a href="/listeRDVs" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-      <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
+      <form id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
@@ -83,7 +83,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $rdv->date }}" data-date-format="yyyy-mm-dd" required />
+              <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $formatDate($rdv->date) }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
             </div>
           </div>
@@ -95,10 +95,10 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label" for="numberDays">Durée prévue :</label>
-            <div class="col-sm-6 col-xs-6">    
-              <input class="col-xs-8 col-sm-8 numberDays" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
-              <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
+            <label class="col-sm-6 control-label" for="numberDays">Durée :</label>
+            <div class="input-group">    
+              <input class="form-control numberDays input-sm" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
+              <span class="input-group-addon"><small> nuit(s)</small></span>
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label" for="dateSortie">Service :</label>
             <div class="col-sm-8">
-              <select name="serviceh" class="selectpicker col-xs-12 serviceHosp"/>
+              <select name="serviceh" class="form-control selectpicker serviceHosp"/>
                 <option value="" selected>Selectionnez le service</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->salle->service->id == $service->id)) selected @endif>
@@ -142,7 +142,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label" for="salle">Salle :</label>
             <div class="col-sm-8">
-              <select name="salle" class="selectpicker col-xs-12 salle">
+              <select name="salle" class="selectpicker salle">
                 <option value="" selected disabled>Selectionnez la salle</option>      
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
@@ -155,11 +155,10 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label" for="lit_id">Lit :</label>
             <div class="col-sm-8">
-              <select name="lit_id" class="selectpicker lit_id col-xs-12">
+              <select name="lit_id" class="selectpicker lit_id">
                 <option value="" disabled>Selectionnez le lit</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                  {{-- @if($lit->isFree(strtotime($rdv->date),strtotime($rdv->date_Prevu_Sortie)))  --}} {{-- @endif --}}
                   <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
                 @endforeach
               </select>
@@ -168,11 +167,11 @@
         </div>
       </div> 
       @else
-      <div class="row form group">
+      <div class="row form-group">
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
           <div class="col-sm-8">
-            <select  name="serviceh" class="selectpicker col-xs-12 serviceHosp"/>
+            <select  name="serviceh" class="form-control selectpicker serviceHosp"/>
               <option value="" selected>Selectionnez le service</option>
               @foreach($services as $service)
               <option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -183,7 +182,7 @@
         <div class="col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
              <div class="col-sm-8">
-              <select name="salle" class="selectpicker col-xs-12 salle" disabled>
+              <select name="salle" class="form-control selectpicker salle" disabled>
                 <option value="" selected disabled>Selectionnez la salle</option>      
               </select>
             </div>
@@ -191,7 +190,7 @@
         <div class="col-xs-4">
           <label class="col-sm-4 control-label" for="lit_id"><strong>Lit :</strong></label>
           <div class="col-sm-8">
-            <select name="lit_id" class="selectpicker col-xs-12 lit_id" disabled>
+            <select name="lit_id" class="form-control selectpicker lit_id" disabled>
               <option value="" selected>Selectionnez le lit</option>      
             </select>
           </div>
@@ -208,4 +207,4 @@
     </form>
   </div>
 </div>
-@endsection
+@stop

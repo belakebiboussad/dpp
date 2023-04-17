@@ -1,18 +1,19 @@
-@extends('app_dele')
+@extends('app')<!-- _dele -->
 @section('main-content')
 <div class="container-fluid">
+<div class="page-header"><h1>Rechercher un colloque</h1></div>
 <div class="row">
-  <div class="col-sm-12 col-md-12"> <h4>Rechercher un colloque</h4>
-    <div class="panel panel-default"><div class="panel-heading">Rechercher par :</div>
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default"><div class="panel-heading">Rechercher par</div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-sm-4"><label>Date :</label>
+          <div class="col-sm-4"><label>Date</label>
               <div class="input-group">
                 <input type="text" id ="date" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
               </div> 
           </div> 
-          <div class="col-sm-4 col-sm-offset-1"> <label>Etat :</label>
+          <div class="col-sm-4 col-sm-offset-1"><label>Etat</label>
              <select id='etat' class="form-control filter">
               <option value="" selected active>En cours</option>
               <option value="1">Cloturée</option>
@@ -30,9 +31,9 @@
   <div class="col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
+			<h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>
       	Liste des Colloques du Service {{ $service->nom}}
-			</h5>&nbsp;<span class="badge badge-info numberResult"></span>
+			</h5> <span class="badge badge-info numberResult"></span>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Colloque</b></a>
 			</div>	
@@ -40,12 +41,12 @@
 		<div class="widget-body">
 			<div class="widget-main no-padding"><table class="display table-responsive" id="liste_colloques"></table>
 			</div>
-		</div><!-- widget-body -->
-	</div><!-- widget-box -->
-</div><!-- widget-container-col -->
+		</div>
+	</div>
 </div>
 </div>
-@endsection
+</div>
+@stop
 @section('page-script')
 <script type="text/javascript">
   function getMembers(data, type, dataToSet) {
@@ -59,9 +60,9 @@
   function getAction(data, type, dataToSet) {
     var actions ='<a href = "/colloque/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Détails"><i class="fa fa-hand-o-up fa-xs"></i></a>';
     if(data.etat != "Cloturé"){
-      actions +='&nbsp;<a href="/colloque/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Colloque"><i class="fa fa-edit fa-xs"></i></a>';
+      actions +=' <a href="/colloque/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Colloque"><i class="fa fa-edit fa-xs"></i></a>';
       actions += '&nbsp;<a href="/runcolloque/' + data.id + '" class="btn btn-xs btn-green" title="Déroulement"><i class="ace-icon fa fa-cog  bigger-110"></i></a>';
-      actions += '&nbsp;<button class="btn btn-xs btn-danger deleteColloque" data-id="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button>';
+      actions += ' <button class="btn btn-xs btn-danger deleteColloque" data-id="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button>';
     }
     return actions;     
   }
@@ -112,7 +113,7 @@
   {
     $.ajax({
             url:  '{{ route("colloque.index") }}',
-            data: {"field":field, "value":value}, //dataType: "json",
+            data: {"field":field, "value":value},
             success: function (data) {
               $(".numberResult").html(data.length);
               loadDataTable(data);
@@ -125,6 +126,7 @@
     getColloques(field, null);
     $('body').on('click','.colFind',function(event){
       getColloques(field,$('#'+field).val().trim());
+      field= "etat"; 
     });
     $('body').on('click', '.deleteColloque', function (event) {
       var id = $(this).data("id");
@@ -144,4 +146,4 @@
     });
   });
 </script>
-@endsection
+@stop

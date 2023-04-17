@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\specialite_exb;
 use App\modeles\consultation;
-use Jenssegers\Date\Date;
+use App\modeles\visite;
 use App\modeles\demandeexb;
 use App\modeles\Etablissement;
 use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\service;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use ToUtf;
@@ -23,22 +24,41 @@ class DemandeExbController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-        public function __construct()
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    public function index(Request $request) {
+      if($request->ajax())  
+      {
+        $q = $request->value;
+        if($request->field != "service")  
         {
-          $this->middleware('auth');
-        }/*public function createexb($id){$specialites = specialite_exb::all();$consultation = consultation::FindOrFail($id);return view('examenbio.demande_exb', compact('specialites','consultation'));}*/
-        public function index() {
-          $services =service::where('type','!=',"2")->get();
-          $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
-          return view('examenbio.index', compact('demandesexb','services'));
-        }
-  /**
+          if(isset($request->value))
+            $demandes = demandeexb::with('imageable.medecin.Service','imageable.patient')->where($request->field,'LIKE', "$q%")->get();
+          else
+            $demandes = demandeexb::with('imageable.medecin.Service','imageable.patient')->whereNull($request->field)->get();
+        }else
+           $demandes = demandeexb::with('imageable.medecin.Service','imageable.patient')
+                                ->whereHas('consultation.medecin', function($query) use ($q) {
+                                    $query->where('service_id', $q);
+                                  })->orWhereHas('visite.medecin', function($query) use ($q) {
+                                    $query->where('service_id', $q);
+                                  })->get();
+        return $demandes;
+      }else
+      {
+        $services =service::where('type',0)->orwhere('type',1)->get();
+        $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
+        return view('examenbio.index', compact('demandesexb','services'));
+      }
+    }
+/**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function create() {  }
-  /**
+   /**
   * Store a newly created resource in storage.
   *
   * @param  \Illuminate\Http\Request  $request
@@ -46,16 +66,14 @@ class DemandeExbController extends Controller
   */
   public function store(Request $request)//,$consultId
   {
-
     if($request->ajax())    
     { 
-      if(isset($request->id_consultation))
-        $demande = demandeexb::FirstOrCreate([ "id_consultation" => $request->id_consultation]);
+      if(isset($request->consultation_id))
+        $obj = consultation::findOrFail($request->consultation_id);
       else
-         $demande = demandeexb::FirstOrCreate([ "visite_id" => $request->visite_id]);
-      $exams = json_decode($request->exams);
-      $demande->examensbios()->attach($exams);
-      return $demande;
+        $obj = visite::findOrFail($request->visite_id);
+      $db = $obj->demandeexmbio()->create();
+      $db->examensbios()->attach(json_decode($request->exams));
     }
   }
   /**
@@ -64,31 +82,30 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function show($id)
-   {
-      $demande = demandeexb::FindOrFail($id);
-      if(isset($demande->consultation))
-      {
-        $medecin =$demande->consultation->medecin ; 
-        $patient = $demande->consultation->patient;    
-       }
-       else
-      {
-        $medecin = $demande->visite->medecin ;
-        $patient = $demande->visite->hospitalisation->patient;          
-      }
+    public function show($id)
+    {
+      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
       return view('examenbio.show', compact('demande','medecin','patient'));
-   }
+    }
+     public function detailsdemandeexb($id)
+    {
+      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+      $etab = Etablissement::first();
+      return view('examenbio.details', compact('demande','etab'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
       $demande = demandeexb::FindOrFail($id);
-      return view('examenbio.edit', compact('demande'));
+      if($request->ajax())
+        return $demande->examensbios->load('Specialite');
+      else
+        return view('examenbio.edit', compact('demande'));
     }
     /**
      * Update the specified resource in storage.
@@ -104,12 +121,12 @@ class DemandeExbController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id){
-      $demande = demandeexb::FindOrFail($request->demande_id);  
+      $demande = demandeexb::FindOrFail($request->id);  
       if($demande->examensbios->count() == 0)
         $demande->delete();
       else
         $demande->save();
-      return redirect(Route('consultations.show',$demande->id_consultation));  
+      return redirect(Route('consultations.show',$demande->imageable_id));  
     }
     public function destroy(Request $request ,$id)
     { 
@@ -121,96 +138,35 @@ class DemandeExbController extends Controller
       else
         return redirect()->action('ConsultationsController@show', $const_id);
      }
-    public function detailsdemandeexb($id)
-    {
-      $demande = demandeexb::FindOrFail($id);
-      $etab = Etablissement::first();
-      if(isset($demande->consultation))
-      {
-        $medecin =  $patient = $demande->consultation->medecin;     
-        $patient = $demande->consultation->patient;
-      }
-      else
-      {
-        $medecin =  $patient = $demande->visite->medecin ;   
-        $patient = $demande->visite->hospitalisation->patient;   
-      }
-      return view('examenbio.details', compact('demande','patient','medecin','etab'));
-    }
     public function uploadresultat(Request $request)
     {
-      $request->validate([
-          'resultat' => 'required',
+      $request->validate(
+        ['resultat' => 'required|mimes:png,JPG,jpeg,csv,txt,pdf'
       ]);
       $filename= "";
-      $demande = demandeexb::FindOrFail($request->id_demande);
+      $demande = demandeexb::FindOrFail($request->id);
       if($request->hasfile('resultat')){
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
         $file = file_get_contents($request->file('resultat')->getRealPath());
         $request->file('resultat')->storeAs('public/files',$filename);  
-      }  
-      $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
-      return  redirect()->action('DemandeExbController@index');
-    }
-    public function search(Request $request)
-    {
-      if($request->field != "service")  
-      {
-        if(isset($request->value))
-          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-        else
-          $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')->where($request->field, null)->get();
-      }else
-      {
-        $serviceID = $request->value;
-        $demandes = demandeexb::with('consultation.patient','consultation.medecin.Service','visite.hospitalisation.patient','visite.medecin.Service')
-                               ->whereHas('consultation.medecin.Service', function($q) use ($serviceID) {
-                                    $q->where('id', $serviceID);
-                                })->orWhereHas('visite.medecin.Service', function($q) use ($serviceID) {
-                                    $q->where('id', $serviceID);
-                                })->get();
+        $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
       }
-      return Response::json($demandes);
+      return  redirect()->action('DemandeExbController@index');
     }
     public function print($id)
     {
-      $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
+      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
       $etab = Etablissement::first();
-      if(isset($demande->id_consultation))
-      {
-        $patient = $demande->consultation->patient ;
-        $date = $demande->consultation->date ;
-        $medecin = $demande->consultation->medecin;
-
-      }  else
-      {
-        $patient = $demande->visite->hospitalisation->patient ;
-        $date = $demande->visite->date;
-        $medecin = $demande->visite->medecin;
-      }
-      $filename = "demandeExamensBio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','patient','date','etab','medecin'));
+      $filename = "demandeExamensBio-".$demande->imageable->patient->Nom."-".$demande->imageable->patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenbio.demandePDF', compact('demande','date','etab'));
       return $pdf->stream($filename);
     }
     public function downloadcrb($id)
     {
-      $demande = demandeexb::find($id);
-      $crb = $demande->crb;
-      if(isset($demande->id_consultation))
-      {
-        $patient = $demande->consultation->patient ;
-        $date = $demande->consultation->date ;
-        $medecin = $demande->consultation->medecin;
-
-      }  else
-      {
-        $patient = $demande->visite->hospitalisation->patient ;
-        $date = $demande->visite->date;
-        $medecin = $demande->visite->medecin;
-      }
-      $pdf = PDF::loadView('examenbio.EtatsSortie.crbPDf',compact('patient','medecin','crb'));
-      $filename = "Compte-Rendu-BioPDF-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+      $filename = "Compte-Rendu-Biolog-".$demande->imageable->patient->Nom."-".$demande->imageable->patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenbio.EtatsSortie.crbPDf',compact('demande'));
       return $pdf->stream($filename);
     }
 }

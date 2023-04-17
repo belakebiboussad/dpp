@@ -5,7 +5,6 @@
     <div class="checkbox">
       <label>
         <input name="exmsbio[]" type="checkbox" class="ace desContag" value="{{ $des->CODE_DIAG }}"/>
-        {{--  (in_array($al->id, $patient->allergs))? 'checked' : '' --}} 
         <span class="lbl"> {{ $des->NOM_MALADIE }} </span> 
       </label>
        </div>

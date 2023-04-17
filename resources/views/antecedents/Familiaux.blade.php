@@ -20,7 +20,7 @@
 						  </tr>
 					</thead>
 					<tbody>
-					 @foreach($patient->antecedants as $antcd)
+					 @foreach($obj->patient->antecedants as $antcd)
 						 @if($antcd->Antecedant == "Familiaux") 
 						<tr id="{{ 'atcd'.$antcd->id }}">
 							<td>{{ $antcd->date }}</td>
@@ -39,6 +39,6 @@
 		</div>
 	</div>
 </div>
-@if(!in_array(1,json_decode($specialite->antecTypes)))
+@if(!in_array(1,$specialite->antecTypes()->pluck('id')->toArray()))
 	<div class="row">@include('antecedents.ModalFoms.AntecedantModal')</div>
 @endif

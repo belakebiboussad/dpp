@@ -6230,16 +6230,6 @@ button.close {
 .error {
     color: red;
 }
-.disabledElem
-{
-  opacity: .5;
-  pointer-events: none;
-}
-.enabledElem
-{
-    opacity: 1.0;
-    pointer-events: auto;
-}
 .imgExam
 {
   opacity: 1.0;
@@ -6440,14 +6430,4 @@ width:auto !important;
        height: 20px;
        line-height: 20px;
     }
-.liste th {text-align:center}
-.my-right-float {
-     margin-right: -10px;
-}
-#ui-datepicker-div {
-  display: none;
-}
-/*deb*/
-
-/*fin/*/
-
+.liste th {text-align:center}/*.my-right-float { margin-right: -10px;}#ui-datepicker-div { display: none;}*/

@@ -23,7 +23,7 @@ $(function(){
    		 })
 	})
 });//window.location.href='/demandeproduit/valider/'+'/'+id;	
-$('document').ready(function(){
+$(function(){
 	$('#validerdmd').click(function(){
 		var tb = $('#cmd tbody');
   		var produits = [];
@@ -52,7 +52,7 @@ $('document').ready(function(){
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="page-header">
 	<h1>Traitement de la demande du &quot;{{ $demande->demandeur->full_name }}&quot;</h1>
@@ -68,8 +68,7 @@ $('document').ready(function(){
 			<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
-				  @include("demandeproduits.partials._show")  
-          <div class="space-12"></div>
+				  @include("demandeproduits.partials._show") <div class="space-12"></div> 
 					<div class="row">
 						<div class="col-xs-12">
 							<table id="cmd" class="table table-striped table-bordered">
@@ -77,54 +76,41 @@ $('document').ready(function(){
 									<tr>
 										<th hidden>Produit</th><th class="center">Produit</th>
 										<th class="center">Code Produit</th><th class="center">Gamme</th>
-										<th class="center">Spécialité</th>
-										<th class="center">Quantité</th>
-										<th class="center">Quantité Donner</th>
-										<th><em class="fa fa-cog"></em></th>
+										<th class="center">Spécialité</th><th class="center">Quantité</th>
+										<th class="center">Quantité Donner</th><th><em class="fa fa-cog"></em></th>
 									</tr>
 								</thead>
 								<tbody>
 								@foreach($demande->dispositifs as $dispositif)
-									<tr>
-										<td hidden>{{ $dispositif->id }} </td>
-										<td>{{ $dispositif->nom }}</td>
-										<td>{{ $dispositif->code }}</td>
-										<td>DISPOSITIFS MEDICAUX</td>
-										<td>/</td>
-										<td class="center">{{ $dispositif->pivot->qte }}</td>
-										<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
-										<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count() + $demande->consomables->count() }}">
-											<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
-										</td>
-									</tr>
+								<tr>
+									<td hidden>{{ $dispositif->id }}</td><td>{{ $dispositif->nom }}</td>
+									<td>{{ $dispositif->code }}</td><td>DISPOSITIFS MEDICAUX</td>
+									<td>/</td><td class="center">{{ $dispositif->pivot->qte }}</td>
+									<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
+									<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count() + $demande->consomables->count() }}">
+										<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
+									</td>
+								</tr>
 								@endforeach
 								@foreach($demande->medicaments as $medicament)
 									<tr>
-										<td hidden>{{ $medicament->id }}</td>
-										<td>{{ $medicament->nom }}</td>
-										<td>{{ $medicament->code_produit }}</td>
-										<td> MEDICAMENTS</td>
-										<td>{{ $medicament->specialite->nom }}</td>
-										<td class="center">{{ $medicament->pivot->qte }}</td>
+										<td hidden>{{ $medicament->id }}</td><td>{{ $medicament->nom }}</td>
+										<td>{{ $medicament->code_produit }}</td><td> MEDICAMENTS</td>
+										<td>{{ $medicament->specialite->nom }}</td><td class="center">{{ $medicament->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($medicament->pivot->qteDonne)) ? $medicament->pivot->qteDonne: $medicament->pivot->qte }}"  min="1" max="{{ $medicament->pivot->qte }}"> </td>
 									</tr>
 								@endforeach
 								@foreach($demande->reactifs as $reactif)
 									<tr>
-										<td hidden>{{ $reactif->id }}</td>
-										<td>{{ $reactif->nom }}</td>
-										<td>{{ $reactif->code }}</td>
-										<td>Réactifs chimiques et dentaires</td>
-										<td>/</td>
+										<td hidden>{{ $reactif->id }}</td><td>{{ $reactif->nom }}</td>
+										<td>{{ $reactif->code }}</td><td>Réactifs chimiques et dentaires</td><td>/</td>
 										<td class="center">{{ $reactif->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($reactif->pivot->qteDonne)) ? $reactif->pivot->qteDonne: $reactif->pivot->qte }}" placeholder="" min="1" max="{{ $reactif->pivot->qte }}"> </td>
 									</tr>
 								@endforeach
 								@foreach($demande->consomables as $consomable)
 								<tr>
-									<td hidden>{{ $consomable->id }}</td>
-									<td>{{ $consomable->nom }}</td>
-									<td></td>
+									<td hidden>{{ $consomable->id }}</td><td>{{ $consomable->nom }}</td><td></td>
 									<td>Produits consommables de Labo</td><td></td>
 									<td class="center">{{ $consomable->pivot->qte }}</td>
 									<td><input type="number" class="form-control" name="" value="{{ (isset($consomable->pivot->qteDonne)) ? $consomable->pivot->qteDonne: $consomable->pivot->qte }}" placeholder="" min="1" max="{{ $consomable->pivot->qte }}"> </td>
@@ -142,11 +128,11 @@ $('document').ready(function(){
 				<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('demandeproduit.valider', $demande->id) }}">
 				{{ csrf_field() }}
 				<div class="form-actions center">
-					<button type="submit" id="validerdmd" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer</button>
+					<button type="submit" id="validerdmd" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i> Enregistrer</button>
 				</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-@endsection
+@stop

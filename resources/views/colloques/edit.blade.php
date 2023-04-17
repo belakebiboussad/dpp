@@ -1,37 +1,37 @@
-@extends('app_dele')
+@extends('app')
 @section('title','Modifier Colloque')
 @section('page-script')
 <script type="text/javascript">
     var nowDate = new Date();
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-      $(document).ready(function() {
+      $(function() {
         window.prettyPrint && prettyPrint();
         $('#liste_membre').multiselect();
         $('#reset').click(function(){
           $('#liste_membre_to').empty();       
         });
     });
-    function myFunction()
+    function validatFct()
     {
-      if( $('#liste_membre_to').has('option').length > 0 ) {
+      if( $('#liste_membre_to').has('option').length > 0 ) 
         return true
-      }
       return false;
     }
 </script>
-@endsection
+@stop
 @section('main-content')
+
+<div class="page-header"> <h4>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</h4></div>
 <div class="space-12"></div>
-<div class="row"> <h4><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h4></div>
-<div class="space-12"></div>
+
 <div class="row"> 
   <div class="col-sm-12">
-    <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return myFunction()">
+    <form id="creat_col" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return validatFct()">
       {{ csrf_field() }} 
       {{ method_field('PUT') }}
       <div class="row">
         <div class="col-xs-5">
-          <label for="liste_membre"> <h5> <strong>Liste des médecins :</strong></h5></label>&nbsp;
+          <label class="control-label">Médecins</label>
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $listeMeds as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->full_name}}</option>
@@ -46,9 +46,8 @@
           <button type="button" id="liste_membre_redo" class="btn btn-warning btn-block"><i class="glyphicon glyphicon-step-forward"></i></button>
         </div>            
         <div class="col-xs-5">
-          <label for="liste_membre_to"> <h5> <strong>&nbsp;Liste des membres :</strong></h5></label>&nbsp;
-          <br>
-          <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
+          <label class="control-label">Liste des membres</label>
+         <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
             @foreach( $colloque->membres as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->full_name}}</option>
             @endforeach
@@ -71,4 +70,4 @@
     </form>
   </div>  <!-- cpl-s-12    -->
 </div>  
-@endsection
+@stop

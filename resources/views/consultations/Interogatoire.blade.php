@@ -13,17 +13,17 @@
 	</ul>
 	<div class="row">
 		<div class= "col-sm-9">
-			<div class ="tab-content"  style = "border-style: none;">
+			<div class ="tab-content" style = "border-style: none;">
 				<div role="tabpanel" class = "tab-pane in active" id="Motif">@include('consultations.motif')</div>
 				<div role="tabpanel" class = "tab-pane" id="ATCD">
           @isset($specialite->antecTypes)
-            @foreach( json_decode($specialite->antecTypes ,true) as $antype)
-              @include('antecedents.' . App\modeles\antecType::FindOrFail($antype)->nom)
+            @foreach( $specialite->antecTypes as $antype)
+              @include('antecedents.' . $antype->nom)
             @endforeach
           @endisset
          
         </div>
 			</div>
-		</div><div class= "col-sm-3"><div>@include('consultations.actions')</div></div>
+		</div><div class= "col-md-3 col-sm-3">@include('consultations.actions')</div>
 	</div><!-- row -->
 </div>

@@ -1,16 +1,16 @@
-<div class="row"><div class="col-sm-12"><h5 class="header lighter blue">Informations administratives</h5></div></div>
+<h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
 	<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }} col-sm-6">
-		<label class="col-sm-3 control-label" for="nom">Nom :<span  class="red">*</span></label>
+		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control col-xs-12 col-sm-12"  alpha required  />
+			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control"  alpha required  />
 			{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 		</div>
-        </div>
+  </div>
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="prenom">Prénom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="prenom" name="prenom" value="{{ $patient->Prenom }}" class="form-control col-xs-12 col-sm-12" required/>
+			<input type="text" id="prenom" name="prenom" value="{{ $patient->Prenom }}" class="form-control" required/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
@@ -20,10 +20,10 @@
 		<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			@if(isset($patient->Dat_Naissance)) 
-				<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
+				<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance->format('Y-m-d')}}" required/>
 				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			@else
-			<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
+			<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
 			@endif
 		</div>
 	</div>
@@ -32,11 +32,11 @@
 	  <div class="col-sm-9">
 			@if(isset($patient->Lieu_Naissance)) 
 				<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-				<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}"/>
+				<input type="text" id="lieunaissance" class="form-control autoCommune" value="{{ $patient->lieuNaissance->nom_commune }}"/>
 		 	  {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 		  @else
 		  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-				<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12"/>
+				<input type="text" id="lieunaissance" class="autoCommune "/>
 		  @endif
 	  </div>
 	</div>
@@ -68,7 +68,7 @@
         			<option value="AB" >AB</option>
         			<option value="O" >O</option>
         		@else 		
-        			<option value="" selected >------</option>
+        			<option value="" selected>------</option>
         			<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
         			<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
         			<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
@@ -80,7 +80,7 @@
         	 <div class="col-sm-2">
                 	<select id="rh" name="rh">
                 	@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
-                		<option value="" selected >------</option>
+                		<option value="" selected>------</option>
                 		<option value="+">+</option>
                 		<option value="-">-</option>
                 	@else
@@ -97,87 +97,95 @@
         	<label class="col-sm-3 control-label" for="sf">Civilité :</label>
         	<div class="col-sm-9">
         		<select class="form-control civilite" id="sf" name="sf">
-        			<option value="C" @if( $patient->situation_familiale =='C') selected @endif >Célibataire(e)</option>
-        			<option value="M" @if( $patient->situation_familiale =='M') selected @endif>Marié(e)</option>
-        			<option value="D" @if( $patient->situation_familiale =="D") selected @endif >Divorcé(e)</option>
-        			<option value="V" @if( $patient->situation_familiale =="V") selected @endif  >Veuf(ve)</option>
+        			<option value="C" @if( $patient->sf =='C') selected @endif >Célibataire(e)</option>
+        			<option value="M" @if( $patient->sf =='M') selected @endif>Marié(e)</option>
+        			<option value="D" @if( $patient->sf =="D") selected @endif >Divorcé(e)</option>
+        			<option value="V" @if( $patient->sf =="V") selected @endif  >Veuf(ve)</option>
         		</select>
         	</div>
       </div>
-	<div class="form-group col-sm-6 " id="Div-nomjeuneFille"  @if(($patient->Sexe != "M") || (in_array($patient->situation_familiale, ["C","D"]))) hidden @endif>	
+<div class="form-group col-sm-6 " id="Div-nomjeuneFille"  @if(($patient->Sexe == "M") || (in_array($patient->sf, ["C","D"]))) hidden @endif >	
         	<label class="col-sm-3 control-label" for="nom_jeune_fille">Nom jeune fille:</label>
         	<div class="col-sm-9">
-        		<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" class="col-xs-12 col-sm-12"/>
+        		<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" class="form-control"/>
         			 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
         	</div>		
         </div>
 </div>
-<div class="row"><div class="col-sm-12"><h5 class="header  lighter blue">Contact</h5></div></div>
+<h4 class="header lighter block blue">Contact</h4>
 <div class="row">
-	<div class="form-group  col-sm-4">
-		<label class="control-label col-sm-4 col-xs-4" for="adresse">Adresse :</label>
-		<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
+	<div class="form-group  col-sm-6">
+		<label class="control-label col-sm-2 col-xs-2" for="adresse">Adresse :</label>
+		<div class="col-sm-10 col-xs-10">
+      <input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="form-control"/>
+    </div>
 	</div>
-	<div class="form-group  col-sm-4">
+	<div class="form-group  col-sm-3 col-xs-3">
 		<label class="control-label col-sm-4 col-xs-4" for="commune">Commune:</label>
-		@if(isset($patient->commune_res))
+		<div class="col-sm-8 col-xs-8">
+    @if(isset($patient->commune_res))
 		<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-		<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
+    <input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune form-control"/>					
 		@else
-		<input type="hidden" name="idcommune" id="idcommune" value=""/>
-		<input type="text" id="commune"  value="" class="autoCommune col-sm-8 col-xs-8"/>					
+		<input type="hidden" name="idcommune" id="idcommune" value="form-control"/>
+		<input type="text" id="commune"  value="" class="autoCommune "/>					
 		@endif
-	</div>
-	<div class="form-group col-sm-4">
+	  </div>
+  </div>
+	<div class="form-group col-sm-3 col-xs-3">
 		<label class="control-label col-sm-4 col-xs-4">Wilaya :</label>
-		@if(isset($patient->wilaya_res))
+		<div class="col-sm-8 col-xs-8">
+    @if(isset($patient->wilaya_res))
 		<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
-		<input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="col-sm-8 col-xs-8"readonly/>	
+		<input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="form-control" readonly/>	
 		@else
 		<input type="hidden" name="idwilaya" id="idwilaya" value=""/>
-		<input type="text" id="wilaya" value="" class="col-sm-8 col-xs-8"readonly/>	
+		<input type="text" id="wilaya" value="" class="form-control" readonly/>	
 		@endif
+  </div>
 	</div>
 </div>
 <div class="row">
   <div class="form-group col-sm-3">
-  	<label class="control-label col-xs-12 col-sm-4" for="mobile1">Mob1:</label>
+  	<label class="control-label col-sm-4 col-xs-4" for="mobile1">Mob1:</label>
     <div class="input-group col-sm-8">
       <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 
       <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->tele_mobile1 }}">
     </div>
   </div>
   <div class="form-group col-sm-3">
-  	<label class="control-label col-xs-12 col-sm-4" for="mobile2">Mob2:</label>
-    <div class="input-group col-sm-8">
+  	<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2:</label>
+    <div class="input-group col-sm-8 col-xs-8">
       <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 	 	
         <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->tele_mobile2 }}">
     </div>
   </div>
-        <div class="form-group col-sm-3">
-    		<label class="control-label col-sm-4" for="type">Type :<span class="red">*</span></label>
-    		<div class="col-sm-8">
-        		<select class="form-control" id="type" name="type" onchange="showTypeEdit(1);">
-        			<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
-        			<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
-        			<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
-        			<option value="3" @if($patient->Type =='3') selected @endif>Mere</option>
-        			<option value="4" @if($patient->Type =='4') selected @endif>Enfant</option>
-        			<option value="5" @if($patient->Type =='5') selected @endif>Dérogation</option>
-        			<option value="6" @if($patient->Type =='6') selected @endif>Autre</option>
-        		</select>
-        	</div>
-        </div>
+  <div class="form-group col-sm-3">
+	<label class="control-label col-sm-5 col-xs-5" for="type">Type : <span class="red">*</span></label>
+	<div class="col-sm-7 col-xs-7">
+  		<select class="form-control" id="type" name="type" onchange="showTypeEdit(1);">
+  			<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
+  			<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
+  			<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
+  			<option value="3" @if($patient->Type =='3') selected @endif>Mere</option>
+  			<option value="4" @if($patient->Type =='4') selected @endif>Enfant</option>
+  			<option value="5" @if($patient->Type =='5') selected @endif>Dérogation</option>
+  			<option value="6" @if($patient->Type =='6') selected @endif>Autre</option>
+  		</select>
+  	</div>
+  </div>
 	<div class="form-group col-sm-3" id="foncform">
-		<label class="control-label col-sm-4 " for="nsspatient">NSS:</label>
-		<input type="text" value="{{ $patient->NSS }}" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="col-xs-12 col-sm-6 nssform" maxlength =12 minlength =12/>
+		<label class="control-label col-sm-5 col-xs-5" for="nsspatient">NSS:</label>
+		<div class="col-sm-7 col-xs-7">
+      <input type="text" value="{{ $patient->NSS }}" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX" class="nssform form-control" maxlength =12 minlength =12/>
+    </div>
 	</div>
 </div>
  <div class="row">
-	<div class="form-group col-sm-6 starthidden">
-		<label class="control-label col-sm-3 " for="description">Autre information :</label>
-        	<div class="col-sm-8">
-        		<textarea class="form-control" id="description" rows="1" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
-        	</div>
+	<div class="form-group col-sm-6" id="otherPat">
+		<label class="control-label col-sm-3 col-xs-3" for="description">Information :</label>
+  	<div class="col-sm-9">
+  		<textarea class="form-control" id="description" rows="1" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
+  	</div>
 	</div>
 </div>

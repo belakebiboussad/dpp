@@ -1,8 +1,8 @@
-<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations démographiques</strong></h5></div></div>
+<h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="text-danger">*</span></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
 						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12" alpha/>
@@ -14,7 +14,7 @@
 	</div>
 	<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="text-danger">*</span></label>
+				<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
 					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12 asdemogData" alpha/>
@@ -72,7 +72,7 @@
        	</div>
    		<div class="col-sm-6">
      		 <div class="form-group">
-	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin :<span class="text-danger">*</span></label>
+	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin :<span class="red">*</span></label>
 			<div class="col-sm-2">
 			  <select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf">
 					@if(isset($assure))
@@ -90,7 +90,7 @@
 					@endif
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus :<span class="text-danger">*</span></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus :<span class="red">*</span></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf" class="groupeSanguin asdemogData">
 					@if(isset($assure))
@@ -113,18 +113,17 @@
 				<label class="col-sm-3 control-label text-nowrap" for="SituationFamille">Civilité :</label>
 				<div class="col-sm-9">
 					<select class="form-control civilite asdemogData" id="SituationFamille" name="SituationFamille">
-						<option value="" @empty($assure->SituationFamille) selected @endempty>Sélectionner...</option>
-						<option value="C" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =='C')) selected @endif >Célibataire(e)</option>
-						<option value="M" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =='M')) selected @endif>Marié(e)</option>
-						<option value="D" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =="D")) selected @endif>Divorcé(e)</option>
-						<option value="V" @if(isset($assure->SituationFamille) && ($assure->SituationFamille =="V")) selected @endif >Veuf(ve)</option>
+						<option value="" @empty($assure->sf) selected @endempty>Sélectionner...</option>
+						<option value="C" @if(isset($assure->sf) && ($assure->sf =='C')) selected @endif >Célibataire(e)</option>
+						<option value="M" @if(isset($assure->sf) && ($assure->sf =='M')) selected @endif>Marié(e)</option>
+						<option value="D" @if(isset($assure->sf) && ($assure->sf =="D")) selected @endif>Divorcé(e)</option>
+						<option value="V" @if(isset($assure->sf) && ($assure->sf =="V")) selected @endif >Veuf(ve)</option>
 					</select>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue">Contact</h5></div></div>
-	<div class="row">
+	</div><h4 class="header lighter block blue">Contact</h4>
+  <div class="row">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="control-label col-sm-3 col-xs-3" for="adressef">Adresse: </label>
@@ -157,78 +156,23 @@
 		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData col-sm-9 col-xs-9" readonly />
 		  @endif
 	  </div>
-  </div>
+  </div><h4 class="header lighter block blue">Fonction</h4>	
 	<div class="row">
-		<div class="col-sm-12"><h5 class="header smaller lighter blue">Fonction</h5>	</div>
-	</div>	
-	 <div class="row">
-	 	<div class="col-sm-4">
-			<div class="form-group">
-				<label class="col-sm-3 control-label " for="grade">Grade :</label>
-				<div class="col-sm-9">
-					<select id="grade" name="grade" class=" col-xs-12 col-sm-12 asProfData"/>
-					<option value="">Sélectionner...</option>
-						@foreach ($grades as $key=>$grade)
-						<option value="{{ $grade->id }}" {{((isset($assure)) && ($assure->Grade === $grade->id)) ? "selected":"" }} >{{ $grade->nom }}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
-    <div class="col-sm-4" id="statut">
-			<div class="form-group">
-				<label class="col-sm-3 control-label" for="Position">Position :<span class="text-danger">*</span></label>
-					<div class="col-sm-9">
-					 <select name="Position" id="Position" class="col-xs-12 col-sm-12 asProfData">
-						<option value="">Sélectionner...</option>
-						<option value="Activité" {{ (isset($assure)) && ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
-						<option value="Détachement" {{ (isset($assure)) && ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
-						<option value="Mise en Disponibilité" {{ (isset($assure)) &&($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
-						<option value="Licencié" {{ (isset($assure)) && ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
-						<option value="Démission" {{ (isset($assure)) && ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
-						<option value="Retraite" {{(isset($assure)) && ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="Congé Longue Durée" {{(isset($assure)) && ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
-						<option value="Assurance Invaliditéé" {{(isset($assure)) && ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
-						<option value="Décédé" {{ (isset($assure)) && ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
-						<option value="Service National" {{(isset($assure)) && ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
-						<option value="Contrat résilié" {{ (isset($assure)) &&($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
-						<option value="Congé Maladie" {{ (isset($assure)) &&($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
-						<option value="Révoqué" {{ (isset($assure)) && ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>	
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4" id ="serviceFonc">
-			<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right" for="service">Service :</label>
-				<div class="col-sm-9">
-					@if(isset($assure))
-					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12 asProfData" value=" {{ $assure->Service}} ">	
-					@else
-					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12 asProfData">		
-					@endif
-				</div>
-			</div>
-		</div>
+	 	<div class="col-sm-4"><div class="form-group"></div></div>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4"><div class="form-group"></div></div>
 	</div>
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="matf">Matricule :</label>
-				<div class="col-sm-9">
-				<div class="clearfix">
-						@if(isset($assure))
-						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->matricule }}" maxlength="5" />	
-						@else
-						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-12 asProfData" maxlength="5" />	
-						@endif
-				</div>
+				<label class="control-label col-xs-12 col-sm-3" for="matf"></label>
+				<div class="col-sm-9"><div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss">NSS :<span class="text-danger">*</span></label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss">NSS :<span class="red">*</span></label>
 				<div class="col-sm-9">
 					<div class="clearfix">
 						@if(!in_array($patient->Type,[5,6]))
@@ -241,18 +185,4 @@
 				</div>
 			</div>
 		</div>	
-		<div class="col-sm-4">
-			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="NMGSN">NMGSN :</label>
-				<div class="col-sm-9">
-					<div class="clearfix">
-					@if(isset($assure))
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->NMGSN }}" maxlength =12 minlength =12/>
-					@else
-						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 asProfData" maxlength =12 minlength =12/>
-					@endif
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>

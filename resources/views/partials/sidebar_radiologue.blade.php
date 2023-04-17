@@ -11,30 +11,22 @@
             <button class="btn btn-danger">    <i class="ace-icon fa fa-cogs"></i></button>
         </div>
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-            <span class="btn btn-success"></span>
-            <span class="btn btn-info"></span>
-            <span class="btn btn-warning"></span>
-            <span class="btn btn-danger"></span>
+            <span class="btn btn-success"></span><span class="btn btn-info"></span> 
+            <span class="btn btn-warning"></span><span class="btn btn-danger"></span>
         </div>
     </div><!-- /.sidebar-shortcuts -->
-    <li class="">
-        <a href="home"><i class="menu-icon fa fa-picture-o"></i> <span class="menu-text">Menu Gestion Patients</span> </a>
-        <b class="arrow"></b>
-    </li>
     <ul class="nav nav-list">
-        <li>
-            <a href="{{ route('demandeexr.index') }}"> <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
-            <b class="arrow"></b>
-        </li>
-        <li>
-            <a href="/listeexrs">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
-            </a>
-            <b class="arrow"></b>
-        </li>
-       </ul>
-      <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+      <li>
+        <a href="{{ route('demandeexr.index') }}"><i class="menu-icon material-icons">home</i><span class="menu-text">Accueil</span></a><b class="arrow"></b>    
+      </li>
+      <li>
+        <a href="/listeexrs">
+          <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span>
+        </a><b class="arrow"></b> 
+      </li>
+    </ul>
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+      <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}

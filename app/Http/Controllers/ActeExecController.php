@@ -11,7 +11,7 @@ class ActeExecController extends Controller
 {
   public function index(Request $request)
   {
-    $date= Carbon::now()->format('d/m/Y'); 
+    $date= Carbon::now()->format('Y-m-d'); 
     $acte = Acte::FindOrFail($request->id);
     $view = view("soins.ajax_acte_details",compact('acte','date'))->render();
     return($view);
@@ -19,7 +19,7 @@ class ActeExecController extends Controller
   public function store(Request $request)
   {
     $input = $request->all();
-    $input['employ_id'] = Auth::user()->employee_id ;
+    $input['employ_id'] = Auth::user()->employe_id ;
     $exec =ActeExec::create($input);    
     return $exec;
   } 

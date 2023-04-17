@@ -61,7 +61,7 @@
 			<div class="row">
 				<div class="form-group col-xs-12 col-sm-3">
 					<label class="col-sm-4  text-right">Matricule :</label>
-					<div class="col-sm-8"><label class="blue">{{ $user->employ->Matricule_dgsn }}</label></div>
+					<div class="col-sm-8"><label class="blue">{{ $user->employ->matricule }}</label></div>
 				</div>
 				@isset($user->employ->service)
 				<div class="form-group col-xs-12 col-sm-3">
@@ -96,5 +96,5 @@
 		</div>
 	</div>
 </div>
-@endsection
+@stop
 	

@@ -33,9 +33,9 @@
     })
 })
 </script>
-@endsection
+@stop
 @section('main-content')
-<div class="page-header"><h4>Demandes d'hospitalisations</h4></div>
+<div class="page-header"><h1>Demandes d'hospitalisations</h1></div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col">
 		<div class="widget-box widget-color-blue">
@@ -63,18 +63,15 @@
 						<tbody>
 						<?php $d=Date::Now().' monday next week' ?>
 						@foreach($demandes as $demande)
-	           {{--@if(date('d M Y',strtotime(($demande->DemeandeColloque->colloque->date).' monday next week')-1) == date('d M Y',strtotime($d)-1)) --}}
-							<tr>
+	        		<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
                 <td>{{ $demande->consultation->patient->Sexe }} </td>
-								<td>{{ $demande->consultation->date }}</td>
-                <td><span class="badge badge-{{( $demande->getModeAdmissionID($demande->modeAdmission)) == 2 ? 'warning':'primary' }}">
-                               {{ $demande->modeAdmission }}</span>
-                </td>
+								<td>{{ $demande->consultation->date->format('Y-m-d') }}</td>
+                <td><span class="badge badge-{{( $demande->getModeAdmissionID($demande->modeAdmission)) == 2 ? 'warning':'primary' }}">{{ $demande->modeAdmission }}</span></td>
                 <td>{{ $demande->Specialite->nom }}</td>
-                <th>
+                <td>
                   {{ isset($specialite->dhValid) ? $demande->DemeandeColloque->medecin->full_name: $demande->consultation->medecin->full_name}}
-                </th>
+                </td>
 								@isset($specialite->dhValid)
                 <td>
                   <span class="badge badge-{{ ($demande->DemeandeColloque->ordre_priorite == 3)  ? 'warning':'primary'  }}">
@@ -100,4 +97,4 @@
 	</div><!-- /.span -->
 </div>
 <div class="row">@include('rdvHospi.ModalFoms.rdvModalForm')</div>
-@endsection
+@stop

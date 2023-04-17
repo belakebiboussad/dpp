@@ -38,13 +38,6 @@
          </ul>
       </li>
       <li>
-        <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b></a>
-        <b class="arrow"></b>
-        <ul class="submenu">
-          <li class=""> <a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i>Fonctionnaires</a><b class="arrow"></b></li>          
-        </ul>
-      </li>
-      <li>
         <a href="#" class="dropdown-toggle"> <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Infrastructure</span><b class="arrow fa fa-angle-down"></b></a>
         <b class="arrow"></b>
         <ul class="submenu">

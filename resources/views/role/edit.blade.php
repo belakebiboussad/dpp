@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h4>Modifier le nom du rôle :</h4></div>
+<div class="page-header"><h1>Modifier le rôle :</h1></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="space-10"></div>
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('role.update',$role->id) }}">
+			<form role="form" method="POST" action="{{ route('role.update',$role->id) }}">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
@@ -25,4 +25,4 @@
 			</form>
 	</div>
 </div>
-@endsection
+@stop

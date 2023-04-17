@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h4>Liste des rôles :</h4></div>
+<div class="page-header"><h1>Liste des rôles :</h1></div>
  @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -50,4 +50,4 @@
 
 
 </div>
-@endsection
+@stop

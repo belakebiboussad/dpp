@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CRR;
 use App\modeles\demandeexr;
-use App\modeles\Demandeexr_Examenradio;
+use App\modeles\Demande_Examenradio;
 use App\modeles\Etablissement;
 use Response;
 use PDF;
@@ -18,22 +18,21 @@ class CRRControler extends Controller
   }
   public function store(Request $request)
   {
-    $ex = Demandeexr_Examenradio::FindOrFail($request->exam_id); 
+    $ex = Demande_Examenradio::FindOrFail($request->exam_id); 
     $crr = CRR::create($request->all());
     $ex->update(["etat" =>1,'crr_id'=>$crr->id]);
     return ['exId'=>$ex->id,'crrId'=>$crr->id];
   }
  	public function edit($id)
  	{
- 		$crr= CRR::find($id);
-    return Response::json($crr);
- 	}
+ 		return $crr = CRR::find($id);
+  }
  	public function update(Request $request, $id)
   {
     $crr = CRR::find($id);
     $crr->update($request->all()); 
     $crr->save();
-    return Response::json($crr);  
+    return $crr;
   }
   public function print(Request $request)
   {
@@ -52,20 +51,21 @@ class CRRControler extends Controller
   }
   public function download($id)
   {
-          $crr = CRR::find($id);
-           $demande = $crr->examenRadio->Demande;
-          if(isset($demande->id_consultation))
-          {
-            $patient = $demande->consultation->patient;
-            $medecin = $demande->consultation->medecin;
-          }  
-          else
-          {
-            $patient = $demande->visite->hospitalisation->patient ;
-            $medecin = $demande->visite->medecin;
-          }
-          $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin'));
-          $filename = "cr-radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-          return $pdf->stream($filename);
+    $date=\Carbon\Carbon::today()->format('d/m/Y');
+    $crr = CRR::find($id);
+    $demande = $crr->examenRadio->Demande;
+    if(isset($demande->id_consultation))
+    {
+      $patient = $demande->consultation->patient;
+      $medecin = $demande->consultation->medecin;
+    }  
+    else
+    {
+      $patient = $demande->visite->hospitalisation->patient ;
+      $medecin = $demande->visite->medecin;
+    }
+    $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','patient','medecin','date'));
+    $filename = "CRR-".$patient->Nom."-".$patient->Prenom.".pdf";
+    return $pdf->stream($filename);
   }
 }

@@ -1,10 +1,10 @@
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Accouchement</h3></div></div>
+<h4 class="header smaller lighter blue">Accouchement</h4>
 <div class="row">
 	<div class= "widget-box widget-color-red">
 		<div class="widget-header">
-		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Accouchement</b></font></h5>
+<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i> Accouchement</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<a id ="accAdd" class="btn-xs align-middle @if(isset($patient->accouchement)) hidden @endif" data-toggle="modal" data-target="#accouchementModal">
+				<a id ="accAdd" class="btn-xs align-middle @if(isset($obj->patient->accouchement)) hidden @endif" data-toggle="modal" data-target="#accouchementModal">
 					<i class="fa fa-plus-circle bigger-180"></i>
 				</a>
 			</div>
@@ -25,18 +25,18 @@
 					  </tr>
 					</thead>
 					<tbody>
-						@isset($patient->accouchement)
-						<tr id="{{ 'acc'.$patient->accouchement->id }}">
-							<td>{{ $patient->accouchement->etablisement }}</td>{{-- <td>{{ $patient->accouchement->terme }}</td> --}}
-							<td>{{ $patient->accouchement->presentation }}</td>
-							<td>{{ $patient->accouchement->eggopenduration }}</td>
-							<td>{{ $patient->accouchement->workduration }}</td>
-							<td>{{ $patient->accouchement->expulsduration }}</td>
-							<td>{{ $patient->accouchement->type }} </td>
-							<td>{{ $patient->accouchement->incident }}</td>{{-- <td>{{ $patient->accouchement->motif }}</td> --}}
+						@isset($obj->patient->accouchement)
+						<tr id="{{ 'acc'.$obj->patient->accouchement->id }}">
+							<td>{{ $obj->patient->accouchement->etablisement }}</td>{{-- <td>{{ $obj->patient->accouchement->terme }}</td> --}}
+							<td>{{ $obj->patient->accouchement->presentation }}</td>
+							<td>{{ $obj->patient->accouchement->eggopenduration }}</td>
+							<td>{{ $obj->patient->accouchement->workduration }}</td>
+							<td>{{ $obj->patient->accouchement->expulsduration }}</td>
+							<td>{{ $obj->patient->accouchement->type }} </td>
+							<td>{{ $obj->patient->accouchement->incident }}</td>{{-- <td>{{ $obj->patient->accouchement->motif }}</td> --}}
 							<td class="center">
-								<button type="button" class="btn btn-xs btn-info open-modalacc" value="{{ $patient->accouchement->id}}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-								<button type="button" class="btn btn-xs btn-danger delete-acc" value="{{ $patient->accouchement->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button> 
+								<button type="button" class="btn btn-xs btn-info open-modalacc" value="{{ $obj->patient->accouchement->id}}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
+								<button type="button" class="btn btn-xs btn-danger delete-acc" value="{{ $obj->patient->accouchement->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button> 
 							</td>
 						</tr>
 						@endisset

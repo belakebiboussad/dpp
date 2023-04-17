@@ -6,28 +6,27 @@
    {
       switch(value){
         case "0":
-          if ($('ul#menuPatient li:eq(0)').hasClass("hide"))
-            assureShow();
-          copyPatient();
+          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
+            assureShow();//copyPatient();
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
           break;
         case  "1": case "2": case "3": case "4":
+          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
+            assureShow();
           $("#foncform").removeClass('hide');
-          $('#nsspatient').attr('disabled', false);
-          $('.asdemogData').prop('disabled', false);
+          $('#nsspatient').prop('disabled', false);$('.asdemogData').prop('disabled', false);
           break;
         case "5": case "6":
-          assurHide();
-          resetAsInp();
-          break;    
+          assurHide(); resetAsInp();
+         break;    
       }
    } 
-	 function showTypeEdit(i){//edition patient
+	 function showTypeEdit(i){
     var value = {{ $patient->Type}};
     switch(value){
       case 0:
-        if(i == 0)// if ($('ul#menuPatient li:eq(0)').hasClass("hide"))assureShow();
+        if(i == 0)
         {   
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
@@ -41,13 +40,11 @@
             $('#nsspatient').attr('disabled', false);
           }else
             patTypeChange($('#type').val());
-            
           break;
       case 5: case 6:
           if(i == 0)
           {   
-            assurHide();
-            resetAsInp();
+            assurHide(); resetAsInp();
           }else
             patTypeChange($('#type').val()); 
           break;
@@ -80,17 +77,17 @@
  		});	
 	});
 </script>
-@endsection
+@stop
 @section('main-content')
 	<div class="page-header">
-		<h4>Modification des données du patient :&nbsp;{{ $patient->getCivilite() }} {{ $patient->full_name }}</h4>
+		<h1>Modification des données du patient : <q class="blue"> {{ $patient->getCivilite() }} {{ $patient->full_name }} </q></h1>
 		<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left  blue"></i> Rechercher un Patient
 			</a>
 		</div>
 	</div>
-	<form class="form-horizontal" id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<div class="row">
@@ -109,25 +106,25 @@
 			</div>
 		</div>
 		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li class="active" role="presentation">
-			<a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
-				<span class="bigger-130"><strong>Assuré(e)</strong></span>
+		  <li class="active" role="presentation">
+        <a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
+          <h4>Patient(e)</h4></a>
+      </li>
+      <li role="presentation">
+			 <a data-toggle="tab" href="#Assure" data-toggle="tab" class="Deptnav_link" aria-selected="true">
+				<h4>Assuré(e)</h4>
 	    </a>
  		</li>
-	 	<li role="presentation">
-	 	<a data-toggle="tab" href="#Patient" role="presentation" class="Deptnav_link">
-	   	<span class="bigger-130"><strong>Patient</strong></span></a>
-	  </li>
 	</ul>
 	<div class="tab-content">
-  	<div id="Assure" class="tab-pane active">@include('assurs.editAssure')</div>
-		<div id="Patient" class="tab-pane">@include('patient.editPatient')</div>
+    <div id="Patient" class="tab-pane active">@include('patient.editPatient')</div>
+  	<div id="Assure" class="tab-pane">@include('assurs.editAssure')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">
-		<div class="center"><br>
-			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+		<div class="center">
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
 			<button class="btn btn-warning btn-sm" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
 	</div>
 </form>	
-@endsection
+@stop

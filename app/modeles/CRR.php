@@ -11,6 +11,6 @@ class CRR extends Model
 	protected $fillable = ['indication','techRea','result','conclusion','exam_id'];
 	public function examenRadio()
 	{
-		return $this->belongsTo('App\modeles\Demandeexr_Examenradio','exam_id');
+		return $this->belongsTo('App\modeles\Demande_Examenradio','exam_id');
 	}
 }

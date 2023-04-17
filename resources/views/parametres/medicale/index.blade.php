@@ -16,7 +16,7 @@
               <li><a href="#rdvs" role="tab" data-toggle="tab"><span>Rendaz-Vous</span></a></li>
               @endif
             </ul>
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('params.store')}}">
+            <form role="form" method="POST" action="{{ route('params.store')}}">
               {{ csrf_field() }}
               <div class="tab-content">
                 <div class="tab-pane active" id="generale">@include('parametres.medicale.generale')</div>
@@ -47,4 +47,4 @@
         </div>
       </div>
   </div>
-@endsection
+@stop

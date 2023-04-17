@@ -10,7 +10,7 @@ class Constantes extends Model
     public $timestamps = false;
     protected $fillable = ['poids', 'taille', 'PAS', 'PAD', 'pouls', 'temp', 'glycemie', 'LDL','HDL','apgar','shoutnbr','PC','examCl_id', 'hospitalisation_id', 'date'];
     public function getDateAttribute($value)
-     { 
-        return $this->asDateTime($value)->format('y-m-d H:i'); 
-     }
+    { 
+      return $this->asDateTime($value)->format('y-m-d H:i'); 
+    }
 }

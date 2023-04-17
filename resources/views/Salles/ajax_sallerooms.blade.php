@@ -1,4 +1,4 @@
-<div class="servive-block servive-block-grey" id="widget-box-2">
+<div class="servive-block servive-block-grey">
 <div class="widget-header">
 	<h5 class="widget-title bigger lighter">
 		<i class="ace-icon fa fa-table"></i>

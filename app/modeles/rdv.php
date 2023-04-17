@@ -3,17 +3,16 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-// use MaddHatter\LaravelFullcalendar\Event;// use MaddHatter\LaravelFullcalendar\IdentifiableEvent;//use Calendar;
-class rdv extends Model// implements IdentifiableEvent
+class rdv extends Model
 {
   public const STATES = [
     ''=> 'en Cours',
     0 => 'Annule',
     1 => 'valide',
   ];
-	public $timestamps = false;
+ 	public $timestamps = false;
 	protected $fillable =['date','fin','fixe','patient_id','employ_id','specialite_id','etat'];
-	protected $dates = ['date', 'fin'];//,'Temp_rdv'
+	protected $dates = ['date', 'fin'];
 	protected $appends = ['title'];
   public function getStartAttribute()
   {
@@ -38,8 +37,9 @@ class rdv extends Model// implements IdentifiableEvent
     else
       $this->attributes['etat'] = (int) $value;
   }
-  public static function getEtatID($state) {
-    return array_search($state, self::STATES); 
+  public function getEtatID()
+  {
+    return array_search($this->etat, self::STATES); 
   }
   public function isAllDay()
 	{
@@ -52,7 +52,7 @@ class rdv extends Model// implements IdentifiableEvent
 	public function getEnd()
 	{
 	  return $this->date;
-	}/*public function getTime(){      return $this->Temp_rdv;}*/
+	}
 	public function patient()
 	{
 		return $this->belongsTo('App\modeles\Patient','patient_id','id');

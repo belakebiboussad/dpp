@@ -7,21 +7,18 @@ $(function(){
   });
 })
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">@include('patient._patientInfo')</div>
-  </div>
+  <div class="page-header"> @include('patient._patientInfo')</div>
   <div class="row">
     <div class="col-sm-5"><h4>Détails de la demande d'examens radiologiques</h4></div>
     <div class="col-sm-7 pull-right btn-toolbar"> 
-      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i> Imprimer
-      </a>
-      @if((!$demande->hasResult()) && (( $obj->medecin->id == Auth::user()->employ->id)))
+      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+      @if((!$demande->hasResult()) && (( $demande->imageable->medecin->id == Auth::user()->employ->id)))
        <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
        @endif
-      <a href="{{ route('consultations.show',$obj->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+      <a href="{{ route('consultations.show',$demande->imageable->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
     </div>
   </div><hr>
   <div class="row ">
@@ -52,21 +49,16 @@ $(function(){
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
-                            <th class="center" width="5%">N°</th> <th class="center" width="30%">Nom</th>
-                            <th class="center" width="7%">Type</th><th class="center" width="7%">Etat</th>
-                            <th class="center" width="20%"><em class="fa fa-cog"></em></th>
+                            <th class="center" width="5%">N°</th><th class="center" width="30%">Nom</th>
+                            <th class="center" width="7%">Type</th><th class="center" width="7%">Etat</th><th class="center" width="20%"><em class="fa fa-cog"></em></th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($demande->examensradios as $index => $ex)
                         <tr id = "{{ $ex->id }}">
-                          <td class="center" width="5%">{{ $index }}</td>
-                          <td>{{ $ex->Examen->nom }}</td>
-                          <td>{{ $ex->Type->nom }}</td>
-                          <td>
-                            <span class="badge badge-{{(($ex->getEtatID($ex->etat)== 0) && ($ex->getEtatID($ex->etat) !== "") )  ? 'warning':'primary' }}">
-                            {{ $ex->etat }}</span>
-                          </td>
+                          <td class="center" width="5%">{{ $index +1}}</td><td>{{ $ex->Examen->nom }}</td>
+                          <td>{{ $ex->Type->nom }}</td><td>{!! $formatStat
+($ex) !!}</td>
                           <td class="center" width="20%">
                             @switch($ex->etat)
                               @case('En Cours')
@@ -79,7 +71,6 @@ $(function(){
                                 <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
                                 @break
                               @case('Rejeté')
-                                <span class="badge badge-danger">Annuler</span>
                                 <a href="#" class="btn btn-xs show-details-btn green" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" ><i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>  
                                 </a>
                                 @break
@@ -136,4 +127,4 @@ $(function(){
     <div class="col-sm-5 container" id="dicom"  hidden="true">@include('DICOM.show')</div>
   </div><!-- row no-gutters -->
 </div><!-- container-fluid -->
-@endsection
+@stop

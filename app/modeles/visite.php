@@ -3,20 +3,26 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-
 class visite extends Model
 {
-    public $timestamps = false;
-    protected $fillable  = ['date','heure','id_hosp','id_employe'];
-    //protected $appends = ['date_presc'];
-    /*public function getDatePrescAttribute(){return date('Y-m-d H:i', strtotime("$this->date $this->heure"));}*/
+    public $timestamps = true;
+    protected $fillable  = ['date','heure','id_hosp','pid','id_employe'];
+    protected $dates = ['date'];
+    public function getDateFormatedAttribute()
+    {
+      return $this->date->format('Y-m-d');
+    }
     public function hospitalisation()
     {
     	return $this->belongsTo('App\modeles\hospitalisation','id_hosp');
     }
+    public function patient()
+    {
+      return $this->belongsTo('App\modeles\patient','pid');
+    }
     public function actes()
     {
-    	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);
+    	return $this->hasMany('App\modeles\Acte','id_visite');
     }
     public function traitements()
     {
@@ -24,17 +30,17 @@ class visite extends Model
     }
     public function demandeexmbio()
     {
-          return $this->hasOne('App\modeles\demandeexb','visite_id');
+      return $this->morphOne('App\modeles\demandeexb', 'imageable');
     }
     public function demandExmImg()
-    {
-          return $this->hasOne('App\modeles\demandeexr','visite_id');
+    { 
+      return $this->morphOne('App\modeles\demandeexr','imageable');
     }
     public function medecin(){
           return $this->belongsTo('App\modeles\employ','id_employe');
     }
-    public function prescreptionconstantes()
+    public function constantes()
     {
-      return $this->hasOne('App\modeles\prescription_constantes','visite_id');
+      return $this->belongsToMany('App\modeles\Constante','constante_visite','visit_id','const_id')->withPivot('obs');
     }
 }

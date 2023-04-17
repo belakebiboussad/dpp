@@ -1,51 +1,49 @@
 <div id="accouchementModal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 	<div class="modal-content custom-height-modal">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="accCrudModal">Information sur l'Accouchement</h4>
 		</div>
 		<div class="modal-body">
-			<form id="modalFormAcc" class="form-horizontal">
+			<form id="modalFormAcc">
 				<input type="hidden" id="acc_id" value="0">
 				<div class="form-group">
-					<label class="col-sm-3 control-label" >Lieu :</label>
-					<div class="col-sm-9">
-						<input type="text" id="lieu" class="form-control"/>
-					</div>
+					<label class="col-sm-4 control-label" >Lieu :</label>
+					<div class="col-sm-8"><input type="text" id="lieu" class="form-control"/></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Presentation :</label>
-					<div class="col-sm-9">
+					<label class="col-sm-4 control-label">Presentation :</label>
+					<div class="col-sm-8">
 						<input type="text" id="presentation" class="form-control"/>
 					</div>
 				</div>
 			<div class="form-group">
-				<label  class="col-sm-3 control-label">Durée Ouverture de l'Oeuf :</label>
-				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="eggopenduration" type="number" placeholder="Durée Ouverture de l'Oeuf" min="0" max="24" value="0" required />
+				<label  class="col-sm-4 control-label">Durée Ouverture de l'Oeuf :</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="eggopenduration" type="number" placeholder="Durée Ouverture de l'Oeuf" min="0" max="24" value="0" required />
 					</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Durée du Travail :</label>
-				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="workduration" type="number" placeholder="Durée du Travail" min="0" max="24" value="0" required />
+				<label class="col-sm-4 control-label">Durée du Travail :</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="workduration" type="number" placeholder="Durée du Travail" min="0" max="24" value="0" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Durée du l'Expulsion :</label>
-				<div class="col-sm-9">
-					<input class="col-xs-5 col-sm-5" id="expulsduration" type="number" placeholder="Durée du l'Expulsion" min="0" max="50" value="0" required />
+				<label class="col-sm-4 control-label">Durée du l'Expulsion :</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="expulsduration" type="number" placeholder="Durée du l'Expulsion" min="0" max="50" value="0" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" >Incidents :</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label" >Incidents :</label>
+				<div class="col-sm-8">
 					<textarea id="incident" class="form-control"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Type :</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label">Type :</label>
+				<div class="col-sm-8">
           <select id="type" class="form-control">
             @foreach(App\modeles\Accouchement::TYPES  as  $key=>$value)
             <option value="{{ $key}}" >{{ $value }}</option>
@@ -56,11 +54,9 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-info btn-sm" id ="accouchSave" value="add">
-        <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-      </button>
-     	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-       	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
-      </button>
+        <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+      <button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
+       	<i class="ace-icon fa fa-close bigger-110"></i>Fermer </button>
 		</div>
 	</div>
 </div>
@@ -70,14 +66,10 @@
 		$('body').on('click', '.delete-acc', function (e) {
   		event.preventDefault();
     	var acc_id = $(this).val();
-  		$.ajaxSetup({
-    		headers: {
-     		 	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-    		}
-    	});
-    	$.ajax({
+  		$.ajax({
           type: "DELETE",
           url: '/accouch/' + acc_id,
+          data: { _token: CSRF_TOKEN },
           success: function (data) {
             $("#acc" + acc_id).remove();
             $("#accAdd").removeClass("hidden");
@@ -91,6 +83,7 @@
 		$("#accouchSave").click(function (e) {
 	 		e.preventDefault();//terme  :  $('#terme').val(),motif  :  $('#motiftype').val(),
 	 		var formData = {
+        _token: CSRF_TOKEN ,
 				etablisement :  $('#lieu').val(),
 				presentation :  $('#presentation').val(),
 				eggopenduration :  $('#eggopenduration').val(),
@@ -98,13 +91,8 @@
 				expulsduration :  $('#expulsduration').val(),
 				incident 		 :  $('#incident').val(),
 				type 		 		 :  $('#type').val(),
-				pid    	  	 : '{{ $patient->id }}'
+				pid    	  	 : '{{ $obj->patient->id }}'
 			};
-			$.ajaxSetup({
-				headers: {
-					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
 			var state = $(this).val();
 			var type = "POST";
 			var ajaxurl = '/accouch';

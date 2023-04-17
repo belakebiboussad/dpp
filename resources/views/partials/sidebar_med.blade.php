@@ -11,18 +11,21 @@
         <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
       </div>
       <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-        <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
-        <span class="btn btn-danger"></span>
+        <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span><span class="btn btn-danger"></span>
+       
       </div>
     </div>
     <ul class="nav nav-list">
       <li>
-        <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
+        <a href="{{ route('patient.index') }}"><span class="menu-text">
+          <i class="menu-icon material-icons">home</i>Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(in_array(Auth::user()->role->id,[13,14]))
+      @if(in_array(Auth::user()->role_id,[13,14]))
       <li class="">
-        <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
+        <a href="{{ route('stat.index') }}">
+        <i class="menu-icon material-icons md-22">equalizer</i>
+          <span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
       @endif
       <li>
@@ -37,11 +40,11 @@
         </ul>
       </li>
       <li>
-          <a href="#" class="dropdown-toggle">
-             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
-          </a><b class="arrow"></b>
-          <ul class="submenu">
-            </li>
+        <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-user-md"></i> <span class="menu-text">Consultations </span><b class="arrow fa fa-angle-down"></b>
+        </a><b class="arrow"></b>
+        <ul class="submenu">
+        </li>
             <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i>Consultations</a><b class="arrow"></b>
             </li>
           </ul>
@@ -60,18 +63,19 @@
         </li>
         <li>
         <a href="#" class="dropdown-toggle">
-                  <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
-                </a><b class="arrow"></b>
-                <ul class="submenu">
-                      <li>
-                        <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
-                      </li>
-                      <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
-                </ul>
+        <i class="menu-icon material-icons md-22">event_available</i>
+        <span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li>
+              <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
+            </li>
+            <li><a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b></li>
+      </ul>
           </li>
         <li>
           <a href="#" class="dropdown-toggle">
-          <i class="menu-icon fa fa-file-o fa-2xs"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
+          <i class="menu-icon fa fa-file-o fa-2x"></i><span class="menu-text">Demandes Hospi</span><b class="arrow fa fa-angle-down"></b>
             </a><b class="arrow"></b>
              <ul class="submenu">
                      <li>
@@ -86,8 +90,7 @@
           </a><b class="arrow"></b>
           <ul class="submenu">
             <li>
-              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a>
-              <b class="arrow"></b>
+              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -95,8 +98,7 @@
         @if(Auth::user()->is(14))
         <li>
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
-            <b class="arrow fa fa-angle-down"></b>
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span><b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
           <ul class="submenu">
@@ -121,7 +123,7 @@
 
           </ul>
         </li>
-        @if(in_array(Auth::user()->role->id,[13,14]))
+        @if(in_array(Auth::user()->role_id,[13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>
@@ -203,7 +205,7 @@
       }
       function addCIMCode(code,field)
       {
-            $("#"+field).val(code);
+          $("#"+field).val(code);
           $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
           $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
@@ -225,9 +227,6 @@
             data: formData,
             success: function (data) {
               examsBioprint(patientName, ipp, med);
-            },
-            error : function(data){
-              console.log("data");
             }
       });
     }
@@ -254,15 +253,18 @@
   }
   function addExamsImg(form)
   {
-    var arrayLignes = document.getElementById("ExamsImg").rows , ExamsImg = [];
+    ExamsImg = [], types = [];
+    var arrayLignes = document.getElementById("ExamsImg").rows;
     if(arrayLignes.length > 0)
     {
       for(var i=0; i< arrayLignes.length ; i++)
       {
-        ExamsImg[i] = { acteId: arrayLignes[i].cells[0].innerHTML, type: arrayLignes[i].cells[2].innerHTML }   
+        ExamsImg[i] = arrayLignes[i].cells[0].innerHTML;
+        types [i] = arrayLignes[i].cells[2].innerHTML;   
       }
       var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-      champ.appendTo(form);
+      var champType = $("<input type='text' name ='types' value='"+JSON.stringify(types)+"' hidden>");
+      champ.appendTo(form);champType.appendTo(form);
     }
   }
     function IMC1(){
@@ -303,17 +305,6 @@
           $("#interpretation").attr("value", "Obésité III (morbide)");  
           }
       }
-      //save input modal to input form
-      function OrientationSave() {//$('#specialite').val($('#specialiteOrient').val());$('#motifOr').val($('#motifOrient').val()); // $('#medecin').val($('#medecinOrient').val());
-        var orientations = document.getElementById("orientationsList").rows;
-        var longueur = orientations.length; var orientationliste = []; 
-        for(var i=1; i<longueur; i++)
-        {
-          orientationliste[i-1] = { specialite: orientations[i].cells[0].innerHTML, motif: orientations[i].cells[2].innerHTML, examen: orientations[i].cells[3].innerHTML }
-        }
-        var champ = $("<input type='text' name ='orients' value='"+JSON.stringify(orientationliste)+"' hidden>");
-        champ.appendTo('#consultForm');
-      }
       function selectFill(id,options,field1,field2)
       {
         var select = $('#'+id).empty();
@@ -321,23 +312,25 @@
           select.append($("<option>").val(options[key][field1]).text(options[key][field2]));
         })
       }
-      $(document).ready(function () {
+      $(function () {
           $('.select2').css('width','50%').select2({allowClear:true});
           $('#examensradio').on('select2:select', function (e) { 
-              if($("input[name='exmns']").is(":checked"))
-                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+            if($("input[name='exmns']").is(":checked"))
+             $("#btn-addImgExam").attr("disabled", false);
           });
           $('#examensradio').on('select2:unselecting', function(event) {
-             $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            $("#btn-addImgExam").attr("disabled", true);
           });
           $('input[type=radio][name=exmns]').change(function() {
             if(! isEmpty($('#examensradio').val()))
-               $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+              $("#btn-addImgExam").attr("disabled", false);
             else
-            $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+              $("#btn-addImgExam").attr("disabled", true);
           });
           $('#btnclose').click(function(){
-           $("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+            $("#examensradio").select2("val", "");
+            if(!$("#btn-addImgExam").prop('disabled'))
+              $("#btn-addImgExam").attr("disabled", true);
           })
           $('input[type=radio][name=sexe]').change(function(){
             if(this.value == "M")
@@ -427,14 +420,10 @@
           $('body').on('click', '.delete-atcd', function (e) {
             event.preventDefault();
             var atcd_id = $(this).val();
-            $.ajaxSetup({
-              headers: {
-               'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
-            });
             $.ajax({
               type: "DELETE",
-                url: '/atcd/' + atcd_id,
+              url: '/atcd/' + atcd_id,
+              data: { _token: CSRF_TOKEN } ,
               success: function (data) {
                     $("#atcd" + atcd_id).remove();
                  },

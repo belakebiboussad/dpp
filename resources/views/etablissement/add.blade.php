@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 	<div class="row"><h3>Ajouter Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
-		<form id ="addEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
+		<form id ="addEtab" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
 		<div class="row">
 			{{ csrf_field() }}
 		<div class="col-sm-9 col-xs-12">
@@ -74,7 +74,7 @@
 							<div class="col-sm-9"><input type="text" name="tutelle" class="form-control"/></div>
 						</div><div class="space-12  hidden-xs"></div>
             <div class="form-group">
-              <label class="col-sm-3 control-label" for="logo">Logo :</label>
+              <label class="col-sm-3 control-label-file" for="logo">Logo :</label>
               <div class="col-sm-9">
                 <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement"/>
               </div>
@@ -90,4 +90,4 @@
       <button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
 		</div>
 	</form>
-@endsection
+@stop

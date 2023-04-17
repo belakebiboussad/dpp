@@ -7,16 +7,16 @@ function bedShow(id){
 	});
 }
 </script>
-@endsection
+@stop
 @section('main-content')
-<div class="page-header"><h4>Liste des lits :</h4></div>
+<div class="page-header"><h1>Liste des lits</h1></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>lits </h5>
+				<h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>lits</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
-			  	<a href="{{ route('lit.create') }}" ><i class="fa fa-plus-circle bigger-120"></i> Lit</a>
+			  	<a href="{{ route('lit.create') }}" ><i class="fa fa-plus-circle bigger-180"></i></a>
 				</div>
 			</div>
 			<div class="widget-body">
@@ -26,7 +26,7 @@ function bedShow(id){
 							<tr>
 								<th class="center">Numéro</th><th class="center">Nom</th>
 								<th class="center">Service</th><th class="center">Chambre</th>
-								<th class="center">Bloqué </th><th class="center">Affecté</th>
+								<th class="center">Bloqué ?</th><th class="center">Affecté</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -38,7 +38,8 @@ function bedShow(id){
 								<td>{{ $lit->salle->service->nom }}</td>
 								<td>{{ $lit->salle->nom }}</td>
 								<td>{{ $lit->bloq == 1 ? "Oui" : "Non" }}</td>
-                                                            <td>{{ $lit->affectation == 1 ? "Oui" : "Non" }}</td>
+                  <td>{{ $lit->affectation == 1 ? "Oui" : "Non" }}
+                </td>
 								<td class="center">
 	 								<button title="" class="btn btn-xs btn-success" onclick="bedShow('{{$lit->id}}');"><i class="ace-icon fa fa-hand-o-up"></i></button>
 									<a href="{{ route('lit.edit', $lit->id) }}" class="btn btn-xs btn-info">
@@ -58,4 +59,4 @@ function bedShow(id){
 	<div class="col-xs-5" id="lit">
 	</div>
 </div>
-@endsection
+@stop

@@ -69,8 +69,7 @@ class LoginController extends Controller
         if ($request->expectsJson()) {
           return response()->json($errors, 422);
         }
-        return redirect()->back()
-                ->withInput($request->only($this->username(), 'remember'))
+        return back()->withInput($request->only($this->username(), 'remember'))
                 ->withErrors($errors);
       }//fabm logout user 
       public function logout() {

@@ -30,7 +30,7 @@
 		vertical-align: middle;
     }
 </style>
-@endsection
+@stop
 @section('page-script')
 <script>
   function exportTasks(_this) {
@@ -39,7 +39,7 @@
     window.location.href = _url;
    }
 </script>
-@endsection
+@stop
 @section('main-content')
 	<div class="row">
 		<div class="table-wrapper" style="overflow-x:auto;">
@@ -90,4 +90,4 @@
 			</table>				
 		</div>
 	</div>	
-@endsection
+@stop

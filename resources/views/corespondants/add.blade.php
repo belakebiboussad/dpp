@@ -6,10 +6,10 @@
         <h4 class="modal-title"  id="CoresCrudModal">Ajouter un correspondant(e)</h4> 
       </div>
       <div class="modal-body">
-        <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}" class="form-horizontal">
+        <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
-          <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
+          <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employe_id}}">
            <input type="hidden" id="hom_id" name="hom_id" value="0">
           <hr>
           <div class="form-group">
@@ -67,7 +67,7 @@
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="mb-3">
-            <label for="num_piece">Délivré le :<span class="text-danger">*</span></label>
+            <label for="num_piece">Délivré le :<span class="red">*</span></label>
             <input class="form-control date-picker" id="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
           </div>
           <div class="mb-3">

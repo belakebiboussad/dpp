@@ -20,7 +20,7 @@
       padding: 20px;
   }
 </style>
-@endsection
+@stop
 @section('page-script')
 <script>
 function CRRPrint()
@@ -164,108 +164,94 @@ $(function(){
          })
        });
        $(".deleteExam").click(function () { 
-              event.preventDefault();
-              var examId =  $(this).val();  
-              var formData = { _token: CSRF_TOKEN, examId : examId };
-              $.ajax({
-               type: "POST",
-               url: "{{ url('delete-res') }}",
-               data: formData,
-               dataType : 'json', 
-                success: function (data) {
-                  $("#btn-" + data.id).removeClass("hidden");
-                  $("#cancel-" + data.id).removeClass("hidden");
-                  $("#exm-" + data.id).removeClass("hidden");
-                  $("#delet-" + data.id).addClass("hidden");
-                  $('#crr-edit-' + data.id).val();
-                  $('#crr-edit-' + data.id).addClass("hidden");
-                  $('#crr-add-' + data.id).removeClass("hidden");
-                  $("tr#"+ data.id + " td").eq(4).html('');
-                },
-              error: function (data) {
-                  console.log('Error:', data);
-              }
-             }); 
+          event.preventDefault();
+          var examId =  $(this).val();  
+          var formData = { _token: CSRF_TOKEN, examId : examId };
+          $.ajax({
+           type: "POST",
+           url: "{{ url('delete-res') }}",
+           data: formData,
+           dataType : 'json', 
+            success: function (data) {
+              $("#btn-" + data.id).removeClass("hidden");
+              $("#cancel-" + data.id).removeClass("hidden");
+              $("#exm-" + data.id).removeClass("hidden");
+              $("#delet-" + data.id).addClass("hidden");
+              $('#crr-edit-' + data.id).val();
+              $('#crr-edit-' + data.id).addClass("hidden");
+              $('#crr-add-' + data.id).removeClass("hidden");
+              $("tr#"+ data.id + " td").eq(4).html('');
+            },
+         }); 
       })
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="container-fluid">
-  <div class="row" width="100%"> @include('patient._patientInfo')</div>
+  <div class="page-header"> @include('patient._patientInfo')</div>
   <div class="row">
-      <div class="col-md-5 col-sm-5"><h4> <b>Demande d'examen radiologique</b></h4></div>
+      <div class="col-md-5 col-sm-5"><h4>Demande d'examen radiologique</h4></div>
       <div class="col-md-7 col-sm-7 btn-toolbar">
         <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
-          <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
-          @if(Auth::user()->role_id  == 12)
-           <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
-          @else
-           <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+          <i class="ace-icon fa fa-print"></i> Imprimer</a> 
+        @if(Auth::user()->role_id  == 12)
+        <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
+        @else
+        <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
           @endif
       </div>
-  </div><hr> <div class="space-12 hidden-xs"></div>
-  <div class="row">
-    <div class="col-xs-12">
-       @include('examenradio.partials._show')
-    </div>
-  </div>
-  <div class="row">
+  </div><hr>
+  <div class="row"><div class="col-xs-12">@include('examenradio.partials._show')</div></div>
+   <div class="row">
     <div class="col-sm-12 col-xs-12 widget-container-col">
       <div class="widget-box">
-        <div class="widget-header"><h5 class="widget-title"><b>Examens radiologique demadés</b></h5></div>
+        <div class="widget-header"><h5 class="widget-title">Examens radiologique demadés</h5></div>
         <div class="widget-body">
           <div class="widget-main">
-           <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th class="center" width="10%">N°</th>
-                  <th>Nom</th>
-                  <th class="center">Type</th>
-                  <th class="center">Attacher le résultat</th>
-                  <th class="center">Résultat</th>
-                  <td class="center" width="18%"><em class="fa fa-cog"></em></td>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($demande->examensradios as $index => $examen) 
-                    @if($examen->etat !== 0)
-                    <tr id = "{{ $examen->id }}">
-                      <td class="center">{{ $index+1 }}</td>
-                      <td>{{ $examen->Examen->nom }}</td>
-                      <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
-                      <td class="center"> {{-- @if((Auth::user()->role->id == 12) && ($examen->getEtatID($examen->etat) == ""))@endif --}}
-                        <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result {{ ((Auth::user()->role->id !== 12) || ($examen->getEtatID($examen->etat) !== ""))?'hidden':'' }}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/>
-                      </td>
-                      <td class="center" width="30%">
-                        <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
-                        @if($examen->getEtatID($examen->etat) ===1)
-                       {{--   @if(in_array($extension, config('constants.imageExtensions')))
-                         <img  id="preview-{{ $examen->id }}"  src="{{ asset('storage/files/'.$examen->resultat) }}"  style="width:10%"/>
-                            src="{{ url('/files/'.$examen->resultat) }}"@else   <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>@endif --}}
-                        <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
-                       @endif      
-                      </td>
-                      <td class="center" width="18%">
-                      @if($examen->getEtatID($examen->etat) !==0)<!-- non rejete -->
-                      <button  type="button" class="btn btn-sm btn-info start{{ ($examen->getEtatID($examen->etat) ==="" ) ? '' : ' hidden' }}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
-                      </button>
-                      <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
-                        <i class="glyphicon glyphicon-plus glyphicon"></i>
-                      </button>
-                      <button type="button" class="btn btn-sm btn-primary open-editCRRDialog{{ (isset($examen->crr_id)) ? ' ' : ' hidden' }}" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le compte rendu" value="{{ $examen->crr_id }}"><i class="glyphicon glyphicon-edit glyphicon"></i>
-                      </button>
-                      <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID($examen->etat) === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID($examen->etat) === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
-                        <i class="glyphicon glyphicon-trash glyphicon"></i>
-                      </button>
-                      @else
-                      <span class="badge badge-warning">{{ $examen->etat }}</span>
-                      @endif
-                      </td>
-                    </tr>
-                    @endif
-                    @endforeach
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class="center" width="5%">N°</th><th>Nom</th>
+                <th class="center">Type</th><th class="center">Attacher le résultat</th>
+                <th class="center">Résultat</th><td class="center" width="18%"><em class="fa fa-cog"></em></td>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach ($demande->examensradios as $index => $examen) 
+              @if($examen->etat !== 0)
+              <tr id = "{{ $examen->id }}">
+                <td class="center">{{ $index+1 }}</td>
+                <td>{{ $examen->Examen->nom }}</td>
+                <td><span class="badge badge-success">{{ $examen->Type->nom }}</span></td>
+                <td class="center">
+                <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control-file result{!! $isInprog($examen) !!}" accept="image/*, .pdf,*/dicom, .dcm, image/dcm, */dcm, .dico,.rar" required/></td>
+                <td class="center" width="30%">
+                  <?php  $explodeImage = explode('.', $examen->resultat);  $extension = end($explodeImage);  ?> 
+                  @if($examen->getEtatID() ===1)
+                  <span id="preview-{{ $examen->id }}">{{ $examen->resultat }}</span>
+                 @endif      
+                </td>
+                <td class="center" width="18%">
+                @if($examen->getEtatID() !==0)<!-- non rejete -->
+                <button  type="button" class="btn btn-sm btn-info start{!! $isInprog($examen) !!}" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled><i class="glyphicon glyphicon-upload glyphicon"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-success open-AddCRRDialog{{ isset($examen->crr_id) ? ' hidden' : '' }}" data-toggle="modal" title="ajouter un compte rendu" value="{{ $examen->id }}" id ="crr-add-{{ $examen->id }}">
+                  <i class="glyphicon glyphicon-plus glyphicon"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-primary open-editCRRDialog{{ (isset($examen->crr_id)) ? ' ' : ' hidden' }}" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le compte rendu" value="{{ $examen->crr_id }}"><i class="glyphicon glyphicon-edit glyphicon"></i>
+                </button>
+                <button class="btn btn-sm btn-warning cancel{{ ($examen->getEtatID() === 1) ? ' hidden' :'' }}" id="cancel-{{ $examen->id }}" value = '{{ $examen->id }}'><i class="glyphicon glyphicon-ban-circle glyphicon"></i></button>
+                <button type="button" class="btn btn-sm btn-danger deleteExam{{ ($examen->getEtatID() === 1) ? '' :' hidden' }}" id ="delet-{{ $examen->id }}" data-toggle="modal" title="Supprimer le résultat du l'examen"  value="{{ $examen->id }}" data-crr="{{ $examen->crr_id }}">
+                  <i class="glyphicon glyphicon-trash glyphicon"></i>
+                </button>
+                @else
+                <span class="badge badge-warning">{{ $examen->etat }}</span>
+                @endif
+                </td>
+              </tr>
+              @endif
+              @endforeach
               </tbody>
             </table>
           </div><!-- main -->
@@ -273,21 +259,18 @@ $(function(){
       </div><!-- box -->
     </div>
   </div>
-  <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div>
-  <div class="space-12 hidden-xs"></div>
-  <div class="row" style="bottom:0px;">
-    <div class="col-sm-12">
-      <form class="form-horizontal" method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
+  <div class="row"><div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div><div class="space-12 hidden-xs"></div>
+  <div class="row">
+    <div class="col-sm-12 center">
+      <form method="POST" action="{{ route('demandeexr.update',$demande->id) }}" enctype="multipart/form-data"> 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
-        <input type="text" name="demande_id" value="{{ $demande->id }}" hidden>
-        <div class="col-md-offset-5 col-md-7">
-        <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
-        <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
-         </div>
+        <input type="hidden" name="demande_id" value="{{ $demande->id }}">
+         <button class="btn btn-info btn-xs" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+        <a class="btn btn-warning btn-xs" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo"></i> Annuler</a>
       </form>
     </div>
   </div>
 </div>
 @include('examenradio.ModalFoms.CRRModal'){{-- @include('examenradio.ModalFoms.crrPrint') --}}
-@endsection
+@stop

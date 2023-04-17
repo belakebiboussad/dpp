@@ -5,10 +5,10 @@
 				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un compte-rendue biologique </h4>
 			</div>
 			<div class="modal-body">
-			  <form id="CRBForm" action="" method="POST" class="form-horizontal">
+			  <form id="CRBForm" action="" method="POST">
 			    <input type="hidden" name=""  id="crbId" value="">
 			    <div class="row">
-			      <div class="col-xs-12"><br><label for="crbm"><strong></strong></label>
+			      <div class="col-xs-12"><label for="crbm"></label>
 			     		 <textarea class="form-control" id="crbm" rows="10"></textarea>	
 				    </div>
 			    </div>{{-- row --}}
@@ -17,7 +17,7 @@
 		  <div class="modal-footer">
         <button type="submit" class="btn btn-primary btn-sm" id="crbSave" data-dismiss="modal" onclick= "CRBSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
         <button type="button" class="btn btn-sm btn-success" onclick="CRBPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
+        <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}

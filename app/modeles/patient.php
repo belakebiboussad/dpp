@@ -5,8 +5,13 @@ use Carbon\Carbon;
 class patient extends Model
 {
 	public $timestamps = true;
-	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
-  protected $appends = ['full_name','age','civ','allergs'];
+	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
+  protected $dates =['Dat_Naissance'];
+  protected $appends = ['full_name','age','civ'];
+  public function scopeActive($q)
+  {
+    return $q->where('active',1);
+  }
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;
@@ -35,10 +40,6 @@ class patient extends Model
           break;     
     }
   }
-  public function getAllergsAttribute()
-  {
-    return $this->Allergies->pluck('id')->toArray();
-  }
   public function lieuNaissance()
 	{
 		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
@@ -59,7 +60,7 @@ class patient extends Model
 	public function assure()
 	{	
 		if(isset($this->Assurs_ID_Assure))
-			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');//return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
+			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
 	}
 	public function hommesConf()
  	{
@@ -88,6 +89,10 @@ class patient extends Model
   {
     return $this->belongsToMany('App\modeles\Allergie','allergie_patient','patient_id','allergie_id')->withTimestamps();
   }
+  public function vaccins()
+  {
+    return $this->belongsToMany('App\modeles\Vaccin','patient_vaccin','patient_id','vaccin_id')->withPivot('date')->withTimestamps();
+  }
   public function ContagDesease()
   {
     return $this->belongsToMany('App\modeles\CIM\maladie','dppdb.maladie_patient','patient_id','maladie_id')->withTimestamps();
@@ -99,7 +104,7 @@ class patient extends Model
  			if($this->age >16)
  			{
 	 			if($this->Sexe == "F")
- 					if($this->situation_familiale== "celibataire")
+ 					if($this->sf== "celibataire")
  						return "Mlle.";
  					else
  						return "Mme.";

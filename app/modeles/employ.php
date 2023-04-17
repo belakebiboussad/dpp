@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class employ extends Model
 {
 	public $timestamps = false;
-	protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service_id','Matricule_dgsn','NSS'];
+	protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service_id','matricule','NSS'];
 	protected $appends = ['full_name'];
   public function getFullNameAttribute()
   {
@@ -16,8 +16,8 @@ class employ extends Model
   public function Service()
 	{
 	  return $this->belongsTo('App\modeles\service','service_id');
-	} 
-	public function Specialite()
+	}
+  public function Specialite()
 	{
 		return $this->belongsTo('App\modeles\Specialite','specialite');
 	}
@@ -27,9 +27,14 @@ class employ extends Model
 	}
 	public function User()
 	{
-		return $this->hasOne('App\User','employee_id');
+		return $this->hasOne('App\User','employe_id');
 	}
-	 public function colloques()
+  public function isServHead($servId)
+  {
+    return (($this->User->role_id == 14) && ($this->service_id == $servId ));
+  }
+
+	public function colloques()
 	{
 		return $this->belongsToMany ('App\modeles\colloque','membres','id_employ','id_colloque');
 	}

@@ -9,15 +9,7 @@
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
         @yield('page-script')
-        @if( Auth::user()->role->id == 1)
-            @include('partials.sidebar_med')
-        @elseif( Auth::user()->role->id == 2)
-            @include('partials.sidebar_rec')
-        @elseif(Auth::user()->role->id == 5)
-            @include('partials.sidebar_sur')    
-        @elseif(Auth::user()->role->id == 6) 
-            @include('partials.sidebar_dele')            
-        @endif
+        @include('partials.sidebar_dele')
         <div class="main-content">
           <div class="main-content-inner">
             <?php $lien = "Colloques" ?> 

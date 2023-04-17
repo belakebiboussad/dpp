@@ -14,32 +14,25 @@ function check(input) {
 }
 $(function(){
 	$('#passwordResetbtn').click(function(e){
-		var formData = {
-				id:'{{$user->id}}',
-				password: $("#newPassword").val()
+    var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
+     	password: $("#newPassword").val()
 		};
-		$.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-    });
 		$.ajax({
     	type: "POST",
- 			url: "{{ url('admin/password/reset')}}",
+ 			url: "{{ url('reset_password_')}}",
     	data:formData,
-    	success:function(data,status, xhr){
-   	  }
+    	success:function(data,status, xhr){}
 		});
 	});
 });
 </script>
-@endsection
+@stop
 @section('main-content')
-<div class="page-header"><h4>Modification de : {{ $user->name }}</h4></div>
+<div class="page-header"><h1>Modification de : {{ $user->name }}</h1></div>
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">
-			<form class="form-horizontal" role="form" action="{{  route('employs.update', $user->employ->id) }}" method="POST">
+			<form role="form" action="{{  route('employs.update', $user->employ->id) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<input type="hidden" name="id" value="{{ $user->employ->id }}">
@@ -61,8 +54,8 @@ $(function(){
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div><div class="space-12"></div>
+        <div class="row">
 						<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
@@ -80,8 +73,8 @@ $(function(){
 							</div>	
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div><div class="space-12"></div>
+        <div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="col-sm-3 ml-auto align-top">
 							<label class="control-label pull-right mt-0">Genre :</label>
@@ -139,7 +132,7 @@ $(function(){
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label" for="mat">Matricule :</label>
 							<div class="col-sm-7">
-							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->Matricule_dgsn }}"  maxlength =5 minlength =5>
+							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->matricule }}"  maxlength =5 minlength =5>
 							</div>	
 						</div>
 					</div>
@@ -178,7 +171,7 @@ $(function(){
 	</div><!-- col-sm-8 -->
 	<div class="col-sm-3 col-xs-12 well well-sm">
 		<div class="w-120 p-3 mb-2" ><h4 class="center">Informations d'authentification</h4></div>
-		<form class="form-horizontal" action="{{route('users.update',$user->id)}}" method="POST">
+		<form action="{{route('users.update',$user->id)}}" method="POST">
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}
   		<div class="form-group">
@@ -234,7 +227,7 @@ $(function(){
 			<div class=" col-xs-10 col-sm-10  col-sm-offset-1">
 				<div class="form-group">
 					@if(Auth::user()->is(4))
-						<button id="btnResetPassword" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
+						<button class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
 					@endif
 				</div>
 			</div>
@@ -247,4 +240,4 @@ $(function(){
 	</div>	
 </div><div class="row">@include('user.ModalFoms.changeUserPassword')
 </div>
-@endsection
+@stop

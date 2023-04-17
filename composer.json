@@ -1,7 +1,7 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["DGSN", "Dossier Patient"],
+    "keywords": ["MSPRH", "Dossier Patient"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -12,15 +12,17 @@
         "components/font-awesome": "^5.12",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
+        "http-interop/http-factory-guzzle": "^1.1",
         "intercom/intercom-php": "^4.4",
-        "jenssegers/date": "^3.2",
         "laracasts/utilities": "^3.0",
         "laravel-validation-rules/phone": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "league/flysystem": "^1.0",
         "mercuryseries/flashy": "^1.0",
+        "mercuryseries/laravel-helpers": "^1.0",
         "milon/barcode": "^5.3",
+        "symfony/http-client": "^5.4",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {

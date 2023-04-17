@@ -3,10 +3,10 @@
 @section('main-content')
 	<div class="container-fluid">
 	<div class="row"><h4>Ajouter un nouveau utilisateur</h4></div>
-	<form  id="userAdd" class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
-	<div class="widget-box" id="widget-box-1">
+	<form  id="userAdd" action="{{ url('/users/store') }}" method="POST">
+	<div class="widget-box">
 		<div class="widget-body">
-			<div class="widget-main">{{-- "{{route('users.store')}} --}}
+			<div class="widget-main">
 				{{ csrf_field() }}
 				<h4 class="header block blue">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
@@ -14,15 +14,15 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label" for="nom">Nom:</label>
 							<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12" type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
+							<input class="form-control " type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4">
+         	<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="prenom">Prénom :</label>
 						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
+						<input class="form-control" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -30,17 +30,17 @@
             <div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
             <label class="col-sm-3 control-label" for="datenaissance">Né(e) le :</label>
             <div class="col-sm-9">
-            <input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+            <input class="form-control date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
             </div>
             </div>
           </div>
-				</div>	
+				</div><div class="space-12"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à :</label>
 						<div class="col-sm-9">
-						  <input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
+						  <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
 						</div>
 						</div>
 					</div>
@@ -101,18 +101,8 @@
 							<input type="text" class="col-sm-8 col-xs-8" name="mat" placeholder="Matricule..." maxlength =5 minlength =5>
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-3"></div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
-							<label for="service" class="control-label col-sm-43 col-xs-4">Service :</label>
-							<select class="col-sm-8 col-xs-8" name="service">
-								<option value="" selected disabled>Sélectionner...</option>
-								@foreach($services as $service)
-								<option value="{{ $service->id }}">{{ $service->nom }}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-            <div class="col-xs-12 col-sm-3">
             <div class="{{ $errors->has('role') ? "has-error" : "" }}">
               <label for="role" class="control-label col-sm-4 col-xs-4">Rôle:</label>
               <select id="role" name="role" class="col-sm-8 col-xs-8" required>
@@ -153,17 +143,16 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="hr hr-dotted"></div>
+	</div><div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="col-sm12 center"><br>
-			<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer	</button>
-			<button type="reset" class="btn btn-sm btn-default">	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i>&nbsp;Annuler</button>
+			<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i> Enregistrer	</button>
+			<button type="reset" class="btn btn-sm btn-default"><i class="ace-icon fa fa-undo icon-on-left bigger-110"></i> Annuler</button>
 		</div>
 	</div>
 	</form>
 </div>
-@endsection
+@stop
 @section('page-script')
 <script type="text/javascript">
   $(function(){
@@ -176,4 +165,4 @@
     });
   });
 </script>
-@endsection
+@stop

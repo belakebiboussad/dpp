@@ -1,4 +1,4 @@
-@extends('app_dele')
+@extends('app')
 @section('title','détails du  colloque')
 @section('main-content')
 <div class="page-header"><h2>Détails le colloque du &quot; {{ $colloque->date }} &quot;</h2>
@@ -8,12 +8,12 @@
 </div>
 <div class="row"> 
   <div class="col-sm-12">
-    <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.index')}}">
+    <form id="creat_col" role="form" method="POST" action="{{route('colloque.index')}}">
       <div class="row">      
         <div class="col-xs-5">
           <div class="widget-box">
-            <div class="widget-header widget-header-flat widget-header-small">
-              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Membres du colloque </h5><label><span class="badge badge-info numberResult"></span></label>
+            <div class="widget-header widget-header-flat">
+            <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Membres du colloque </h5><span class="badge badge-info numberResult"></span>
             </div>
             <div class="widget-body">
               <div class="widget-main no-padding">
@@ -29,27 +29,25 @@
             </div>     
         </div>
         <div class="col-sm-7">
-          @if($colloque->getEtatID($colloque->etat))
+          @if($colloque->getEtatID())
           <div class="widget-box">
-            <div class="widget-header widget-header-flat widget-header-small">
-              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demandes traités </h5><label><span class="badge badge-info numberResult"></span></label>
+            <div class="widget-header widget-header-flat">
+              <h5 class="widget-title"><i class="ace-icon fa fa-table"></i>Demandes traités </h5><span class="badge badge-info numberResult"></span>
             </div>
             <div class="widget-body">
               <div class="widget-main no-padding">
               <table  class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th class="center">Patient</th>
-                  <th class="center">date</th>
-                  <th class="center">Motif</th>
-                  <th class="center">observation</th>
+                  <th class="center">Patient</th><th class="center">date</th>
+                  <th class="center">Motif</th><th class="center">observation</th>
                 </tr>
                 </thead>
                 <tbody>
                   @foreach( $colloque->demandes as $dem)
                   <tr>
                     <td>{{ $dem->consultation->patient->full_name }}</td>
-                    <td>{{ $dem->consultation->date }}</td>
+                    <td>{{ $dem->consultation->date->format('Y-m-d') }}</td>
                     <td>{{ $dem->consultation->motif }}</td>
                     <td><small>{{ $dem->DemeandeColloque->observation }}</small></td>
                   </tr>
@@ -63,9 +61,9 @@
         </div>
       </div>
       <div class="center form-actions">
-              <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
+        <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
         </div>
     </form>
-  </div>  <!-- cpl-s-12    -->
+  </div>
 </div>  
-@endsection
+@stop

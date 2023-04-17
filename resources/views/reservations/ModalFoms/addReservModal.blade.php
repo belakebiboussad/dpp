@@ -2,12 +2,13 @@
   <div class="modal-dialog" role="document">
     <div  class="modal-content">
       <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 id="myModalBedReserv">Réserver un lit</h4>
       </div>
-      <form id="addReservationForm" method="POST" role="form"> <!-- <input type="hidden" id="rdv_id"> -->
+      <form id="addReservationForm" method="POST" role="form"> 
         <input type="hidden" class ="affect" value="0">
-        <input type="hidden" class="demande_id"><input type="hidden" class="date"><input type="hidden"  class="date_end">
+        <input type="hidden" class="demande_id"><input type="hidden" class="date">
+        <input type="hidden"  class="date_end">
         <div class="modal-body">
           <div class="form-group">
             <label for="serviceh">Service :</label>

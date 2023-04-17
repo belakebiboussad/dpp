@@ -8,6 +8,7 @@ class ticket extends Model
 {
     public $timestamps = false;
     protected $fillable = ['date', 'specialite', 'type_consultation', 'document', 'num_order', 'id_patient'];
+    protected $dates = ['date'];
     public function Specialite()
     {
     	return $this->belongsTo('App\modeles\Specialite','specialite');

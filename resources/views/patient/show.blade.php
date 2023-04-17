@@ -1,18 +1,14 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
- function deleteDemandeHospi(id)
- {
-      event.preventDefault();
-      $.ajaxSetup({
-		headers: {
-			 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		}
-	});
+function deleteDemandeHospi(id)
+{
+  event.preventDefault();
 	$.ajax({
 			type: "DELETE",
 			url: '/demandehosp/' + id,
-	        	 success: function (data) {
+      data: { _token: CSRF_TOKEN } ,
+	    success: function (data) {
 					$(".dh").remove();
 			}
 	});
@@ -69,7 +65,7 @@
  /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
-}).fail(function () {console.log("Could not connect to Hub.");});});*/// $('document').ready(function(){
+}).fail(function () {console.log("Could not connect to Hub.");});});*/// $(function(){
 $(function(){
     $('#listeGardes').DataTable({ 
         colReorder: true,
@@ -107,14 +103,10 @@ $(function(){
       var id = $(this).val();
       var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
       url = url.replace(':slug',id);
-        $.ajaxSetup({
-          headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
-        });
-        $.ajax({
+      $.ajax({
             type: "DELETE",
-            url: url,//'/hommeConfiance/' + id,
+            url: url,
+            data: { _token: CSRF_TOKEN } ,
             success: function (data) {
                 $("#garde" + id).remove();
             }
@@ -226,8 +218,8 @@ $(function(){
               var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom
                         + '</td><td>'+ data.date_naiss+'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>'
                          + type + '</td><td>' + data.num_piece + '</td><td>' + dateLivr + '</td>';
-              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
-              homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button> '; 
+              homme +='<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';
               homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
               if (state == "add") 
                 $("#listeGardes tbody").append(homme);
@@ -257,45 +249,30 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  /*$('#hosptList').DataTable({  "searching":false,"pageLength" : 10, bLengthChange: false,"info" : false,"language": { "url": '/localisation/fr_FR.json'},});*/
-  $('#specialiteTick').change(function(){
-        if($(this).val() =="")        	
-         	$('#print').prop('disabled', 'disabled');
-        else
-        	$('#print').removeAttr("disabled");
-  	});
-		$('#print').click(function(e){
+ /* $('#specialiteTick').change(function(){ if($(this).val() =="")       
+$('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");});*/
+      $('#print').click(function(e){
+        e.preventDefault();
         $("#ticket").hide();
       	var formData = {
+          _token: CSRF_TOKEN,
 			  	specialite:$('#specialiteTick').val(),
 			  	typecons:$('#typecons').val(),
 			  	document:$('#document').val(), 
 			  	id_patient:$('#id_patient').val()
 		    };
-        $.ajaxSetup({
-          headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-        }); 
         $.ajax({
             type : 'POST',
             url : '/createTicket',
             data:formData,
             success:function(data){ 
             	location.reload(true);
-            },
-            error: function (data) {
-                  console.log('Error:', data);
             }
         });
 	 })
   });
- /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
-      e.preventDefault();//Clear out old row's color 	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-	    if(e.keyCode == 38){selectedRow--; } else if(e.keyCode == 40){selectedRow++;} if(selectedRow >= rows.length){// selectedRow = 0;
-	     } else if(selectedRow < 0){// selectedRow = rows.length-1; }//Set new row's color rows[selectedRow].style.backgroundColor = "#8888FF";showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";*/
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
@@ -335,9 +312,9 @@ $(function(){
 					</li>
 					@endif
 				@endif	
-				@if( $rdvs->count() > 0 )
+				@if((in_array(Auth::user()->role_id,[1,13,14,15]))&& $rdvs->count() > 0 )
 				<li><a data-toggle="tab" href="#rdvs">
-					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
+					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous <span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
 				</li>
 				@endif
@@ -346,7 +323,9 @@ $(function(){
           &nbsp;<span class="badge badge-success">{{ $patient->hommesConf->count() }}</span>
           </a></li>
 				@endif
+        @if(in_array(Auth::user()->role_id,[1,13,14]))
         <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i>Documents</a></li>
+        @endif
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
@@ -368,52 +347,47 @@ $(function(){
 </div>
 <div id="ticket" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-		<div class="modal-content">{{-- route('ticket.store')  <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
+		<div class="modal-content">
 		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><b>Ajouter un ticket d'enregistrement</b></h4>
-    		</div>
-    		<div class="modal-body">
-	    		<div class="row">
-				<div  class="col-sm-12 form-group">
-					<label for="typecons"><b>Type de Consultation:</b></label>
-					<select class="form-control" id="typecons" name="typecons" required>
-						<option value="Normale">Normale</option>
-						<option value="Urgente">Urgente</option>
-						<option value="controle">Contrôle</option>
-						<option value="specialise">Spécialisée</option>
-					</select>
-				</div>
+    	<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un ticket d'enregistrement</h4>
+    </div>
+    <div class="modal-body">
+    	<div  class="form-group">
+				<label for="typecons" class="form-label">Type de Consultation :</label>
+				<select class="form-control" id="typecons" required>
+					<option value="" selected disabled>Séléctionner...</option>
+          <option value="Normale">Normale</option>
+					<option value="Urgente">Urgente</option>
+					<option value="controle">Contrôle</option>
+					<option value="specialise">Spécialisée</option>
+				</select>
 			</div>
-			<div class="row">
-				<div  class="col-sm-12 form-group">
-					<label for="document"><b>Document:</b></label>
-					<select class="form-control" id="document" name="document" id="document" required>
-						<option value="Rendez-vous">Rendez-vous</option>
-						<option value="Lettre d'orientation">Lettre d'orientation</option>
-						<option value="Consultation généraliste">Consultation généraliste</option>
-						<option value="autre">Autre</option>
-					</select>
-				</div>
+			<div  class=" form-group">
+				<label for="document" class="form-label">Document :</label>
+				<select class="form-control" id="document" required>
+          <option value="" selected disabled>Séléctionner...</option>
+					<option value="Rendez-vous">Rendez-vous</option>
+					<option value="Lettre d'orientation">Lettre d'orientation</option>
+					<option value="Consultation généraliste">Consultation généraliste</option>
+					<option value="autre">Autre</option>
+				</select>
 			</div>
-			<div class="row">
-				<div  class="col-sm-12 form-group">
-					<label for="specialite"><b>Spécialité:</b></label>
-					<select class="form-control" id="specialiteTick" name="specialite"  required>
-						<option value="" selected disabled>Selectionner...</option>
-						@foreach($specialites as $specialite)
-						<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>	
-	    		</div>
-	    		<div class="modal-footer">
-    				<button type="submit" class="btn btn-primary" id ="print" disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
-    				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
-    			</div>
-    	{{-- </form> --}}
+			<div  class="form-group">
+				<label for="specialite" class="form-label">Spécialité :</label>
+				<select class="form-control" id="specialiteTick" disabled required>
+					@foreach($specialites as $specialite)
+<option value="{{ $specialite->id}}" '{{($specialite->id == Auth::User()->employ->specialite) ?"selected disabled":'' }}'> {{ $specialite->nom}}</option>
+					@endforeach
+				</select>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" id ="print"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>	
+			<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i> Fermer</button>
+		</div>
+    	
   		</div>
   	</div>
 </div>
-@endsection
+@stop

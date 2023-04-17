@@ -21,14 +21,14 @@
                 </div>
                 <div class="form-check"><input class="form-check-input cards" type="checkbox" value="2" id="cp">
                        <label class="form-check-label" for="cp">CP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>`;
-      var BAPrintBtn = '<a class="btn btn-md btn-default" target="_blank" href="reportprint/'+ className +'/'+ id+'/8'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
-      var BSPrintBtn = '<a class="btn btn-md btn-default" target="_blank" href="reportprint/'+ className +'/'+ id+'/9'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
+      var BAPrintBtn = '<a class="btn btn-xs btn-success" target="_blank" href="reportprint/'+ className +'/'+ id+'/8'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
+      var BSPrintBtn = '<a class="btn btn-xs btn-success" target="_blank" href="reportprint/'+ className +'/'+ id+'/9'+'" ><i class="ace-icon fa fa-print">  Imprimer</i>';
        (async function backAndForth() {
       let currentStep =0;    const values = [];  const steps = ['1', '2', '3']; var cards = [];
       swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-warning'
         },
         confirmButtonText: 'Suivant',
         reverseButtons: true,
@@ -45,7 +45,7 @@
                     cards.push($(this).val());
                   });
                   if(cards == "")
-                    swal.showValidationMessage("Veuillez cocher les documents !!");
+                    swal.showValidationMessage("Veuillez selectionner un document !!");
                 }
               },{
                 title: 'BULTTIN  ADMISSION', 
@@ -122,8 +122,8 @@
     var actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(1,' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ rdv.id_demande +'"><td hidden>'+ rdv.id + '</td><td>';
     rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
-    rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="text-danger"><b>';
-    rows +=  rdv.date + '</b></span></td><td>' + getModeAdmission(rdv.demande_hospitalisation.modeAdmission) + '</td><td>' + bedAffect + '</td><td class="center">' + actions + '</td></tr>';    
+    rows +=  rdv.demande_hospitalisation.service.nom +'</td><td><span class ="red"><b>';
+    rows +=  moment(rdv.date).format('YYYY-MM-DD') + '</b></span></td><td>' + getModeAdmission(rdv.demande_hospitalisation.modeAdmission) + '</td><td>' + bedAffect + '</td><td class="center">' + actions + '</td></tr>';    
     return rows;
   }
   function fillUrg(dh)
@@ -132,8 +132,8 @@
     actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(0,' + dh.id + ')" title = "Valider l\'admission du patient" data-placement="bottom"><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ dh.id +'"><td hidden>'+ dh.id + '</td><td>';
     rows +=  dh.consultation.patient.full_name +'</td><td>';
-    rows +=  dh.service.nom +'</td><td><span class ="text-danger"><b>';
-    rows +=  dh.consultation.date + '</b></span></td><td>' + getModeAdmission(dh.modeAdmission) + '</td><td>' + getBedAffectation(dh.bed_affectation) + '</td><td class="center">' + actions + '</td></tr>';    
+    rows +=  dh.service.nom +'</td><td><span class ="red"><b>';
+    rows +=  moment(dh.consultation.date).format('YYYY-MM-DD') + '</b></span></td><td>' + getModeAdmission(dh.modeAdmission) + '</td><td>' + getBedAffectation(dh.bed_affectation) + '</td><td class="center">' + actions + '</td></tr>';    
     return rows;
   }
   function getAdmissions(field,value)
@@ -146,9 +146,10 @@
       success: function(data) {
         var admissions = $('#rdvs').empty();
         $('#total_records').text(data.length);
+        
         if(data.length > 0){
           $.each(data,function(key,rdv){
-            rows =  fill(rdv);
+            rows +=  fill(rdv);
           });
           $('#rdvs').html(rows); 
         } 
@@ -181,7 +182,7 @@
  	});
   });
 </script>
-@endsection
+@stop
 @section('main-content')
 <div class="row">
 	<div class="col-sm-12 col-md-12">
@@ -208,7 +209,7 @@
 	</div>
 </div>
 <div class="row">
-  <div class="widget-box widget-color-blue" id="widget-box-2">
+  <div class="widget-box widget-color-blue">
     <div class="widget-header">
       <h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
         Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult"></span></b>
@@ -239,4 +240,4 @@
    </div>
 </div>{{-- row --}}
 @include('hospitalisations.ModalFoms.EtatSortie')
-@endsection
+@stop

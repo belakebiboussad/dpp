@@ -35,9 +35,7 @@
       <footer><img src="img/footer.png" alt="footer" class="center thumb img-icons" width="100%"/></footer>
       <main> 
         <hr class="h-1 mtp33"/>
-        <div>
-         <h3 class="center rect"><span style="font-size: xx-large;"><b>{{ $etat->nom}}</b></span></h3>
-        </div><br>
+        <div><h2 class="center rect"><b>{{ $etat->nom}}</b></h2></div><br>
         <section class="borderv"><h5 class="center"> <b>PARTIE A REMPLIR PAR LE PRATICIEN</b></h5></section>
         <section class="borderv">
           <div class="tab">Je soussigné(e),</div>

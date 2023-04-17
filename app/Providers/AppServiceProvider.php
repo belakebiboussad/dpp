@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      Carbon::setLocale('fr_FR');
+      Carbon::setLocale('fr_FR');//Carbon::setLocale('fr');
       Carbon::setWeekendDays([
           Carbon::FRIDAY,
           Carbon::SATURDAY,
@@ -61,8 +61,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-      setlocale(LC_ALL, "fr_FR.UTF-8");
+       setlocale(LC_ALL, "fr_FR.UTF-8");
       \Carbon\Carbon::setLocale(config('app.locale'));
     }
 }

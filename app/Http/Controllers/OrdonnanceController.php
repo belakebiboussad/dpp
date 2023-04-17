@@ -8,7 +8,6 @@ use App\modeles\employ;
 use App\modeles\ordonnance;
 use App\modeles\medicament;
 use App\modeles\Etablissement;
-use Jenssegers\Date\Date;
 use PDF;
 use Response;
 use Storage;
@@ -45,9 +44,8 @@ class OrdonnanceController extends Controller
     public function store(Request $request,$id_consultation)
     {
       $date = Date::now();
-      $ordonnance = ordonnance::FirstOrCreate([
-            "date" => $date,
-            "id_consultation" => $id_consultation,   
+      $ordonnance = ordonnance::FirstOrCreate([//"date" => $date,
+        "id_consultation" => $id_consultation,   
       ]);
       $listes = json_decode($request->liste);
       for ($i=0; $i < count($listes); $i++) { 
@@ -93,7 +91,7 @@ class OrdonnanceController extends Controller
       $ordonnance = ordonnance::FindOrFail($id);
       $etab = Etablissement::first();
       $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('ordonnance','etab'));
-      $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
+      $filename = $ordonnance->Consultation->patient->Nom . "-" . $ordonnance->Consultation->patient->Prenom . ".pdf";
       Storage::put('public/pdf/'.$filename,$pdf->output());
       $file = storage_path() . "/app/public/pdf/" . $filename;
       if (File::isFile($file))
@@ -107,7 +105,6 @@ class OrdonnanceController extends Controller
     }
     public function destroy($id)
     {
-      $ord = ordonnance::destroy($id);
-      return Response::json($ord);
+      return ordonnance::destroy($id);
     }
 }

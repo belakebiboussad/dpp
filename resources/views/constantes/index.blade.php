@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-{{($hosp->etat_id != 1) ? '8':'12' }}">
+  <div class="col-sm-{{ empty($hosp->getEtatID()) ? '8':'12' }}">
     <div class="widget-box">
       <div class="widget-header"><h5 class="widget-title"><b>Patient : {{ $patient->full_name }}</b></h5></div>
         <div class="widget-body">
@@ -11,10 +11,10 @@
         </div>
       </div>
   </div>
-  @if($hosp->etat_id != 1)
+@if(empty($hosp->getEtatID()))
   <div class="col-sm-4">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Nouvelle prise</b></h5></div>
+      <div class="widget-header"><h5 class="widget-title">Nouvelle prise</h5></div>
         <div class="widget-body">
           <div class="widget-main">
             @if($message = Session::get('succes'))

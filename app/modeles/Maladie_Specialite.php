@@ -4,9 +4,8 @@ namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class modelesMaladie_Specialite extends Model
+class Maladie_Specialite extends Model
 {
-  //
   public $timestamps = false;
   protected $table = "maladie_specialite";
   protected $fillable = ['maladie_id','specialite_id'];

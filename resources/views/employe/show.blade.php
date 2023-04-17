@@ -73,7 +73,7 @@
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Matricule </div>
 			<div class="profile-info-value">
-				<span class="editable" id="age">{{ $employe->Matricule_dgsn }}</span>
+				<span class="editable" id="age">{{ $employe->matricule }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
@@ -83,4 +83,4 @@
 			</div>
 		</div>
 	</div>
-@endsection
+@stop

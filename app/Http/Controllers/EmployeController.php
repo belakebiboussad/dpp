@@ -77,7 +77,7 @@ class EmployeController extends Controller
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
         if ($validator->fails())
-          return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+          return back()->withInput($request->input())->withErrors($validator->errors());
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,
@@ -90,7 +90,7 @@ class EmployeController extends Controller
                 "tele_mobile"=>$request->mobile,
                 "specialite"=>$request->specialite,
                 "service_id"=>$request->service,
-                "Matricule_dgsn"=>$request->mat,
+                "matricule"=>$request->mat,
                 "NSS"=>$request->nss,
         ]);
         return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
@@ -101,8 +101,4 @@ class EmployeController extends Controller
      * @param  \App\modeles\employ  $employ
      * @return \Illuminate\Http\Response
      */
-    public function searchBySpececialite(Request $request){
-      $doctors =  (specialite::FindOrFail($request->specialite))->employes;
-      return Response::json($doctors);
-    }
 }

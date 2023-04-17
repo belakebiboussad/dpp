@@ -14,7 +14,6 @@ use App\modeles\codesim;
 use App\modeles\employ;
 use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use View;
 use Response;
 use Carbon\Carbon;
@@ -125,7 +124,7 @@ class StatistiqusController extends Controller
  public function search($id)
   {
     $services = service::whereIn('type', [0,1])->get();
-    if((in_array(Auth::user()->role->id,[4,8])))
+    if((in_array(Auth::user()->role_id,[4,8])))
       $medecins = employ::all();
     else 
       $medecins =Auth::user()->employ->Service->Medecins;
@@ -176,7 +175,7 @@ class StatistiqusController extends Controller
              $nb2 = hospitalisation::whereHas('medecin', function($q) use ($sid) {
                                                       $q->where('service_id', $sid);
                                                   })->where('date','<=', $date)
-                                                  ->where('Date_Sortie',null)->count();                                      
+                                                  ->whereNull('Date_Sortie')->count();                                      
             $dataArray[]  = $nb1 + $nb2;
           } 
         } 

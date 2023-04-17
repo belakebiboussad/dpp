@@ -14,19 +14,19 @@ function getRoomBeds(id)
   });
 }	
 </script>
-@endsection
+@stop
 @section('main-content')
-<div class="page-header"><h4>Liste des chambres</h4></div>
+<div class="page-header"><h1>Liste des chambres</h1></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue" >
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
+			<h5 class="widget-title lighter">
 				<i class="ace-icon fa fa-table"></i><span>Détails des chambres</span>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-primary no-border">
 				<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">
-			  <i class="ace-icon  fa fa-plus-circle"></i> Chambre</a>
+			  <i class="ace-icon  fa fa-plus-circle bigger-180"></i></a>
 			</div>
 			</div>
 			<div class="widget-body">
@@ -86,4 +86,4 @@ function getRoomBeds(id)
 	</div>	
 </div>
 {{-- row --}}
-@endsection
+@stop

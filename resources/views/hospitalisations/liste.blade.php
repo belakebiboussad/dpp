@@ -18,13 +18,10 @@
 					@if($patient->hospitalisations->count()>0)
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
-							<td>{{ $hosp->date }}</td><td>{{ $hosp->medecin->full_name }}</td>
-							<td>{{ ($hosp->etat_id == 1 ) ? $hosp->Date_Sortie : $hosp->Date_Prevu_Sortie }}</td>
-							<td>
-               <span class="badge badge-{{ ( $hosp->etat_id == 1) ? 'primary':'success' }}">{{ $hosp->etat }}</span>
-              </td>
-							<td>
-                <button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});">
+							<td>{{ $hosp->date->format('y-m-d') }}</td><td>{{ $hosp->medecin->full_name }}</td>
+					<td>{{ empty($hosp->getEtatID()) ? $formatDate($hosp->Date_Prevu_Sortie) : $formatDate($hosp->Date_Sortie) }}</td><td>{!! $formatStat($hosp) !!}</td>
+          <td>
+          <button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});">
                  <i class="ace-icon fa fa-eye-slash fa-2xs"></i></button>
                 <a href = "{{ route('hospitalisation.show',$hosp->id)}}" style="cursor:pointer" class="btn btn-success btn-xs" data-toggle="tooltip" title="voir hospitalisation"><i class="ace-icon fa fa-hand-o-up fa-2xs"></i></a>
               </td>
