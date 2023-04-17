@@ -271,15 +271,12 @@
     e.preventDefault();
      var formData = new FormData($('#userChangePasswordForm')[0]);
     formSubmit($('#userChangePasswordForm')[0]), null, function(xhr, form) {
-     /*if (xhr.success) {
-     $("#changePassword").addClass("disabled");
-      window.location.href = "{{ route("home") }}";  
-    }*/
+      if (xhr.success) {//$("#changePassword").addClass("disabled");
+        window.location.href = "{{ route("home") }}";  
       }
+    }
    });
-
   });
- 
 </script>
         @yield('page-script')
         @if( Auth::user()->role_id == 1)

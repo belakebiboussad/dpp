@@ -272,24 +272,30 @@ class UsersController extends Controller
           return $validator;
       }  
     public function changePassword(Request $request)
-    {
-          
+    {   
       if(Auth::Check())
       {
-            $request_data = $request->All();
-            $validator = $this->admin_credential_rules($request_data);
-             if($validator->fails())
-                    return back()->withErrors($validator)->withInput();
-             else
-             {
-                  $password = Auth::User()->password;  
-                  if(Hash::check($request_data['current-password'], $password))
-                  {
-                     if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
-                  }else
-                     return "3";
-
-             }
+        $request_data = $request->All();
+        $validator = $this->admin_credential_rules($request_data);
+        if($validator->fails())
+          return back()->withErrors($validator)->withInput();
+        else
+        {
+          $password = Auth::User()->password;  
+          if(Hash::check($request_data['current-password'], $password))
+          {
+            if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
+              return back()->withErrors($validator)->withInput();
+            else
+            { 
+              Auth::user()->password = Hash::make($request_data['newPassword']);
+              Auth::user()->save(); 
+              return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
+            }
+          }else{//Entrer le mot de passe actuel correct. essaie encore 
+            return back()->withErrors($validator)->withInput();
+          }
+        }
       }else
       {
         return("2");

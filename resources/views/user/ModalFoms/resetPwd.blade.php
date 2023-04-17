@@ -32,7 +32,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-primary" id="changePassword"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+      <button type="button" class="btn btn-sm btn-primary" id="changePassword" data-dismiss="modal"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
       <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i> Annuler</button>
     </div>
   </div>

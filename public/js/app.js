@@ -15,11 +15,6 @@ function formSubmit(form, e, callBack) {
       processData : false,
       contentType: false,
       cache : false,
-      success: function(response) {
-            // $.each(response, function(key, value){
-            //   alert(key +":" + value);  
-            // })
-            alert(response);
-      }
-    })
+      success: function(response) {}
+      })
 }
