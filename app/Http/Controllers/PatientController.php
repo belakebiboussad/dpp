@@ -92,7 +92,7 @@ class PatientController extends Controller
         return view('patient.addP',compact('assure','NSS','type','nom','prenom')); 
       }
       else 
-        return view('patient.add');
+        return view('patient.create');
     }
   /**
    * Store a newly created resource in storage.

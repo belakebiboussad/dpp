@@ -1,6 +1,6 @@
 <h4 class="header lighter block blue">Informations démographiques</h4>
 <div class="row demograph">
-	<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
+  <div class="form-group col-sm-6 {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			<input type="text" id="nom" name="nom" placeholder="Nom..." class="form-control"  value="{{ old('nom') }}" alpha/>
