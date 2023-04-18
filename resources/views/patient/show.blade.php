@@ -276,7 +276,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
-	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
 	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-warning"><i class="ace-icon fa fa-trash-o"> Supprimer</i></a>
 	 </div>
 </div>

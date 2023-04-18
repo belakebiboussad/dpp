@@ -72,7 +72,7 @@ class UsersController extends Controller
       $roles = rol::all();
       $services = service::all();
       $specialites = Specialite::all();
-      return view('user.add', compact('roles','services','specialites'));
+      return view('user.create', compact('roles','services','specialites'));
     }
     /**
      * Store a newly created resource in storage.
