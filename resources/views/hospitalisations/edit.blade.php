@@ -70,7 +70,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="HeurEnt">Heure :</label>
             <div class="input-group col-sm-8">   
-               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->HeurEnt }}" disabled/> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
+               <input id="heurEnt" class="form-control timepicker1" type="text" value = "{{ $hosp->HeurEnt }}" disabled/> <span class="input-group-addon fa fa-clock-o"></span> 
             </div>
           </div>
           <div id = "numberofDays" class="form-group col-xs-4">
@@ -95,7 +95,7 @@
             <label class="col-sm-4 control-label" for="heure">Heure :</label>
             <div class="input-group col-sm-8 col-xs-8">
               <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="form-control timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role_id,[5])) disabled @endif />
-              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
+              <span class="input-group-addon fa fa-clock-o"></span> 
             </div>
            {{-- <button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>  --}}
           </div>

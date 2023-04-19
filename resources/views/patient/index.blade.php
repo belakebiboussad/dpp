@@ -118,7 +118,7 @@ function errorMsg(msg, error) {
 	var field ="Dat_Naissance";
 	$(function(){
 		$(document).on('click','.findptient',function(event){
-			event.preventDefault();
+		  event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
 	    $.ajax({

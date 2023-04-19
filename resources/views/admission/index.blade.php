@@ -188,22 +188,22 @@
 	<div class="col-sm-12 col-md-12">
   	<div class="panel panel-default"><div class="panel-heading">Rechercher une admission</div>
     	<div class="panel-body">
-                <div class="row">
-                   <div class="col-sm-4">
-              			<div class="form-group"><label class="control-label">Date :</label>
-            			    <div class="input-group">
-            			      <input type="text" id ="date" class="date-picker form-control filter" value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
-            					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-              				</div>
-          	        </div>
-                	</div>
-            		 <div class="col-sm-4">
-                  <div class="form-group"><label class="control-label">IPP:</label><input type="text" id="IPP" class="form-control filter"></div>
-                </div>	
-            	</div>
+        <div class="row">
+           <div class="col-sm-4">
+      			<div class="form-group"><label class="control-label">Date</label>
+    			    <div class="input-group">
+    			      <input type="text" id ="date" class="date-picker form-control filter" value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
+                <span class="input-group-addon fa fa-calendar"></span> 
+    					 </div>
+  	        </div>
+        	</div>
+    		 <div class="col-sm-4">
+          <div class="form-group"><label class="control-label">IPP</label><input type="text" id="IPP" class="form-control filter"></div>
+        </div>	
+    	</div>
     	</div>
         	<div class="panel-footer">
-        		<button type="submit" class="btn btn-sm btn-primary admiSearch"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+        		<button type="submit" class="btn btn-sm btn-primary admiSearch"><i class="fa fa-search"></i> Rechercher</button>
         	</div>
   	</div>
 	</div>

@@ -10,13 +10,13 @@
           <div class="col-sm-4"><label>Date</label>
               <div class="input-group">
                 <input type="text" id ="date" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-                <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+                <span class="input-group-addon fa fa-calendar"></span>
               </div> 
           </div> 
           <div class="col-sm-4 col-sm-offset-1"><label>Etat</label>
              <select id='etat' class="form-control filter">
               <option value="" selected active>En cours</option>
-              <option value="1">Cloturée</option>
+              <option value="1">Cloturé</option>
             </select>
           </div>
         </div>
@@ -32,7 +32,7 @@
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
 			<h5 class="widget-title lighter"><i class="ace-icon fa fa-table"></i>
-      	Liste des Colloques du Service {{ $service->nom}}
+      	Liste des Colloques du Service &quot;{{ $service->nom}}&quot;
 			</h5> <span class="badge badge-info numberResult"></span>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Colloque</b></a>

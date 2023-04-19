@@ -63,14 +63,16 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-        $rule = array(
-            "nom"=> "required | max:120",
-            "prenom"=> "required|max:120",
-            "datenaissance"=> "required",// | date
-            "lieunaissance"=> "required",
-            "sexe"=> "required",//"adresse"=>"required",
-            "mobile"=> "required | regex:/[0][567][0-9]{8}/",//"fixe"=> "numeric | regex:/[0][0-9]{8}/","mat"=> "required","service"=> "required",nss"=> "required | regex:/[0-9]{12}/","specialite"=>"required",
-        );
+      //sdd($request->all());
+      $rule = array(
+          "nom"=> "required | max:120",
+          "prenom"=> "required|max:120",
+          "datenaissance"=> "required",// | date
+          "lieunaissance"=> "required",
+          "sexe"=> "required",
+          "mobile"=> "required | regex:/[0][25679][0-9]{8}/",
+           //"fixe"=> "numeric | regex:/[0][0-9]{8}/",nss"=> "required | regex:/[0-9]{12}/",
+      );
         $messages = [
           "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
            "date"         => "Le champ :attribute n'est pas une date valide.",

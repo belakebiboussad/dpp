@@ -124,7 +124,7 @@
     <label class="control-label col-sm-4 col-xs-4" for="tel">Mob1 :</label>
     <div class="col-xs-12 col-sm-8">
       <div class="input-group">
-        <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <span class="input-group-addon fa fa-phone"></span>
         <input type="tel" name="mobile1" class="form-control mobile">
       </div>
     </div>
@@ -133,7 +133,7 @@
 			<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2 :</label>
 		  <div class="col-xs-12 col-sm-8">
       <div class="input-group">
-        <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <span class="input-group-addon fa fa-phone"></span>
         <input type="tel" name="mobile2" class="form-control mobile">
       </div>
     </div>

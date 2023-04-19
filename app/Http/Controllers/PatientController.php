@@ -48,7 +48,7 @@ class PatientController extends Controller
         {       
           case 3 :
             $patients = patient::where($field,'LIKE', "$q%")->active()
-                            ->where('Dat_Naissance', '>', $sub17)->get();
+                                ->where('Dat_Naissance', '>', $sub17)->get();
             break;
           case 5 :
             $patients = patient::where($field,'LIKE', "$q%")->active()

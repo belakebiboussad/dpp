@@ -1,33 +1,5 @@
 @extends('app')
 @section('title','Modifier  l\'utilisateur')
-@section('page-script')
-<script type="text/javascript">
-  function check(input) {
-  $('#newPassword, #password_confirm').on('keyup', function () {
-    if ($('#newPassword').val() == $('#password_confirm').val()) {
-      $('#message').html('correspond').css('color', 'green');
-      $('#passwordResetbtn').removeAttr("disabled"); 
-    } else {
-        $('#message').html('ne correspond pas').css('color', 'red');
-        $('#passwordResetbtn').prop('disabled', true);; 
-    }
-  });
-  }
-  $(function(){
-    $('#passwordResetbtn').click(function(e){
-      var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
-        password: $("#newPassword").val()
-      };
-      $.ajax({
-        type: "POST",
-        url: "{{ url('reset_password_')}}",
-        data:formData,
-        success:function(data,status, xhr){}
-      });
-    });
-  });
-</script>
-@stop
 @section('main-content')
 <div class="page-header">
     <h1>Modification les données du l'utilisateur  <q class="blue">{{ $user->employ->full_name }} </q></h1>
@@ -58,7 +30,7 @@
         <div class="form-group col-sm-6 {{ $errors->has('nom') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>
           <div class="col-sm-6">
-            <input class="form-control" type="text" name="nom" value="{{ $user->employ->nom }}"  required/>
+            <input class="form-control" type="text" name="nom" value="{{ $user->employ->nom }}"/>
           </div>
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('prenom') ? 'has-error' : '' }}" >
@@ -104,38 +76,39 @@
       </div>
       <h4 class="header lighter block blue">Contact</h4>
       <div class="row">
-        <div class="form-group col-sm-6 {{ $errors->has('adresse') ? 'has-error' : '' }}">
+        <div class="form-group col-sm-4 {{ $errors->has('adresse') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="adresse">Adresse</label>
-          <div class="col-sm-6">
+          <div class="input-group col-sm-9">
+            <span class="input-group-addon fa fa-home"></span>
             <input class="form-control " type="text" name="adresse" value="{{ $user->employ->Adresse }}" />
           </div>  
         </div>
-        <div class="form-group col-sm-3{{ $errors->has('mobile') ? 'has-error' : '' }}">
-          <label class="control-label col-sm-5" for="mobile">Mob</label>
-          <div class="input-group col-sm-7">
-            <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <div class="form-group col-sm-4{{ $errors->has('mobile') ? 'has-error' : '' }}">
+          <label class="control-label col-sm-3" for="mobile">Mob</label>
+          <div class="input-group col-sm-9">
+            <span class="input-group-addon fa fa-phone"></span>
             <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  required />
           </div>  
         </div>
-        <div class="form-group col-sm-3 {{ $errors->has('fixe') ? 'has-error' : '' }}">
-          <label class="col-sm-5 control-label no-padding-right " for="fixe">Fixe</label>
-          <div class="input-group col-sm-7">
-            <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <div class="form-group col-sm-4 {{ $errors->has('fixe') ? 'has-error' : '' }}">
+          <label class="col-sm-3 control-label no-padding-right " for="fixe">Fixe</label>
+          <div class="input-group col-sm-9">
+            <span class="input-group-addon fa fa-phone"></span>
             <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" >
           </div>    
         </div>
       </div>
-      <h4 class="header lighter block blue">Information de poste</h4>
+      <h4 class="header lighter block blue">Fonction</h4>
       <div class="row">
-        <div class="form-group col-sm-4 {{ $errors->has('matricule') ? 'has-error' : '' }}">
+        <div class="form-group col-sm-3 {{ $errors->has('matricule') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="matricule">Matricule</label>
-          <div class="col-sm-7 col-sm-offset-1">
+          <div class="col-sm-9">
           <input type="text" class="form-control"  name="matricule" value="{{ $user->employ->matricule }}"  maxlength =5 minlength =5>
           </div>  
         </div>
-        <div class="form-group col-sm-4 {{ $errors->has('service') ? has-error : '' }}">
+        <div class="form-group col-sm-3 {{ $errors->has('service') ? has-error : '' }}">
           <label class="col-sm-3 control-label" for="service">Service</label>
-          <div class="col-sm-7">
+          <div class="col-sm-9">
             <select class="form-control" name="service">
               <option value="" disabled>--Selectionner--</option>   
               @foreach($services as $key=>$value)
@@ -144,9 +117,20 @@
             </select>
           </div>
         </div>
-        <div class="form-group col-sm-4 {{ $errors->has('specialite') ? 'has-error' : '' }}">
-          <label class="col-sm-3 control-label" for="specialite">Spécialité :</label>
-          <div class="col-sm-7">
+        <div class="form-group col-sm-3 {{ $errors->has('role') ? 'has-error' : '' }}">
+          <label for="role" class="control-label col-sm-3">Rôle</label>
+          <div class="col-sm-9">
+          <select id="role" name="role" class="form-control" required>
+            <option value="" selected disabled>Sélectionner...</option>
+            @foreach($roles as $role)
+            <option value="{{ $role->id }}" {{ ($user->role_id == $role->id) ? 'Selected':'' }}>{{ $role->role }}</option>
+            @endforeach
+          </select>
+          </div>
+        </div>
+        <div class="form-group col-sm-3 {{ $errors->has('specialite') ? 'has-error' : '' }} {{ (in_array($user->role_id, ['1', '10', '12', '13', '14'] ))? '' : 'hidden' }}"  id="specialite">
+          <label class="col-sm-3 control-label" for="specialite">Spécialité</label>
+          <div class="col-sm-9">
           <select class="form-control" name="specialite">
             <option value="" >Selectionner</option>
             @foreach($specialites as $key=>$value)
@@ -156,11 +140,48 @@
           </div>
         </div>
       </div>
-      <hr>
+       <h4 class="header block blue">Informations de compte</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 {{ $errors->has('username') ? 'has-error' : '' }}">
+          <label class="control-label col-xs-3" for="username">Login</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="username" value="{{ $user->name}}" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" required>
+        </div>
+        </div>
+      </div><hr/>
       <div class="form-group col-md-6 col-md-offset-5">
         <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
+        <a href="{{ route('home') }}" class="btn btn-sm btn-warning text-decoration-none"><i class="ace-icon fa fa-undo"></i>Annuler</a>
       </div>
     </form>
   </div>
 </div>
+@stop
+@section('page-script')
+<script type="text/javascript">
+  function check(input) {
+  $('#newPassword, #password_confirm').on('keyup', function () {
+    if ($('#newPassword').val() == $('#password_confirm').val()) {
+      $('#message').html('correspond').css('color', 'green');
+      $('#passwordResetbtn').removeAttr("disabled"); 
+    } else {
+        $('#message').html('ne correspond pas').css('color', 'red');
+        $('#passwordResetbtn').prop('disabled', true);; 
+    }
+  });
+  }
+  $(function(){
+    $('#passwordResetbtn').click(function(e){
+      var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
+        password: $("#newPassword").val()
+      };
+      $.ajax({
+        type: "POST",
+        url: "{{ url('reset_password_')}}",
+        data:formData,
+        success:function(data,status, xhr){}
+      });
+    });
+  });
+</script>
 @stop

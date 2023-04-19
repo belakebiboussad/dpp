@@ -101,7 +101,7 @@
       			<div class="form-group"><label>Date de la consultation</label>
     			    <div class="input-group">
 			     		  <input type="text" id ="date" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-					       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+					      <span class="input-group-addon fa fa-calendar"></span>
 					    </div>
 		        </div>
       		</div>	

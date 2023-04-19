@@ -258,7 +258,8 @@
            <div class="col-sm-3"><label>Date de sortie</label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-              <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+              <span class="input-group-addon fa fa-calendar"></span>
+            </div>
             </div>
           </div>
         </div>

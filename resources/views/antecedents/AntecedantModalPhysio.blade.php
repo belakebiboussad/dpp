@@ -25,11 +25,13 @@
 				<div class="form-group">
 		    	<label class="col-sm-2 control-label" for="codecim">Code(Cim10):</label>
 					<div class="col-sm-10 input-group">
-						<input type="text" class="form-control" id="phys_cim_code" disabled/><span class="input-group-addon" style=" padding: 0px 6px;">
-						<button class="btn btn-xs CimCode" type="button" value="phys_cim_code"><i class="fa fa-search"></i></button>
+						<input type="text" class="form-control" id="phys_cim_code" disabled/>
+						<button class="btn btn-xs CimCode" type="button" value="phys_cim_code">
+              <span class="input-group-addon fa fa-search" style=" padding: 0px 6px;">
 					  </span>
-				  </div>		
-				</div>
+            </button>
+				  </div>
+        </div>
 				<div class="form-group">
 					<label for="description" class="col-sm-2 control-label">Description :</label>
 					<div class="col-sm-10"><textarea class="form-control" id="descriptionPhys" required=""></textarea></div>

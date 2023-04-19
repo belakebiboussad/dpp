@@ -26,15 +26,13 @@
 						</div>
 					</div>
 					<div class="form-group">
-			    			<label class="col-sm-2 control-label" for="codecim">Code(Cim10) :</label>
+			    	<label class="col-sm-2 control-label" for="codecim">Code(Cim10) :</label>
 						<div class="col-sm-10 input-group">
 							<input type="text" class="form-control" id="cim_code" disabled/>
-              <span class="input-group-addon" style=" padding: 0px 6px;"> 
-							 <button class="btn btn-xs CimCode" type="button" value="cim_code">
-                <i class="fa fa-search"></i>
-              </button>
-
+							 <button class="btn btn-xs CimCode" value="cim_code">
+               <span class="input-group-addon fa fa-search" style=" padding: 0px 6px;">
 		          </span>
+              </button>
 					   </div>		
 					</div>
 					<div class="form-group">

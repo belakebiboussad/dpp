@@ -31,7 +31,7 @@
               <label class="col-control-label col-sm-3" for="tel">Téléphone :</label>
               <div class="col-xs-12 col-sm-9">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+                  <span class="input-group-addon fa fa-phone"></span>
                    <input type="tel" name="tel" class="form-control telfixe" value="{{ $etab->tel }}">
                 </div>
               </div>
@@ -40,7 +40,7 @@
 						   <label class="col-control-label col-sm-3" for="tel2">Téléphone2 :</label>
               <div class="col-xs-12 col-sm-9">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+                  <span class="input-group-addon fa fa-phone"></span>
                   <input type="tel" name="tel2" class="form-control telfixe" value="{{ $etab->tel2 }}">
                 </div>
               </div>

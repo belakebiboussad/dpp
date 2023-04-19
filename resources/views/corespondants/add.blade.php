@@ -78,7 +78,7 @@
           <div class="form-froup">
             <label for="mobile_h">Mob :</label>
             <div class="input-group col-sm-12">
-              <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+              <span class="input-group-addon fa fa-phone"></span>
               <input type="tel" id="mobile_h" class="form-control mobile" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">
               <span class="tel validity input-group-text"></span>
             </div>

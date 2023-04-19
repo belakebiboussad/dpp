@@ -149,7 +149,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {      
+    {   
       $rule = array(
             "username"=> "required",
             "email"=> "nullable|email",//|unique:utilisateurs

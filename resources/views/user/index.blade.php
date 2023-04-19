@@ -133,7 +133,7 @@ function getUserdetail(id)
 	  	</div>			   
 		</div>
 		<div class="panel-footer">
-			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i> Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>
@@ -143,8 +143,8 @@ function getUserdetail(id)
 		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats: </h5> 
-				<label for=""><span class="badge badge-info numberUser"></span></label>
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats</h5> 
+				<label><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">
 				<table id="users" class="table table-striped table-bordered table-responsive" role="grid">

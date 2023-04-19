@@ -137,7 +137,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
-     			<div class="form-group"><label>Etat :</label>
+     			<div class="form-group"><label>Etat</label>
          	  <select id='etat' class="form-control filter">
       				<option value="0">En cours</option>
 		          <option value="1">Validée</option>
@@ -146,10 +146,10 @@
     		</div>
         <div class="col-sm-4">
         	<div class="form-group">
-         		<label class="control-label" for="Date_Sortie">Date sortie:</label>
+         		<label class="control-label" for="Date_Sortie">Date sortie</label>
          		<div class="input-group">
   			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
-  					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+  					 <span class="input-group-addon fa fa-calendar"></span>
     			</div>
 		    </div>
         </div>	

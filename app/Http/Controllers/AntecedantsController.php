@@ -18,13 +18,12 @@ class AntecedantsController extends Controller
       {
           $this->middleware('auth');
       }
-/*public function index($id){$patient = patient::FindOrFail($id);$atcds = antecedant::where("pid",$patient->id)->get()->all(); return view('antecedents.index',compact('patient','atcds'));}*/
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-/*public function create($id_patient){$patient = patient::FindOrFail($id_patient);return view('antecedents.create',compact('patient'));}*/
+
     /**
      * Store a newly created resource in storage.
      *
