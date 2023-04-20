@@ -6,7 +6,7 @@
           <span class="sr-only">Toggle sidebar</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <div class="navbar-header pull-left" >
-          <a href="#" class="navbar-brand"><small> <i class="ace-icon fa fa-h-square"></i>
+          <a href="#" class="navbar-brand"><small><i class="ace-icon fa fa-h-square"></i>
             <b>Dossier Médical Electronique &quot;{{ Session('etabAcr')}}&quot;</b></small></a> 
          </div>
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -14,7 +14,7 @@
             <li class="light-blue">
               <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                 <img class="nav-user-photo" src="{{ asset('/avatars/user.jpg') }}" alt="admins's Photo"/>
-			          <span class="user-info"><small>Bienvenue,</small> {{ Auth::user()->name }}</span> <i class="ace-icon fa fa-caret-down"></i>
+			         <span class="user-info"><small>Bienvenue,</small> {{ Auth::user()->username }}</span> <i class="ace-icon fa fa-caret-down"></i>
                 <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                   <li>
                   <a data-toggle="modal" data-target="#resetPwd" href="#">

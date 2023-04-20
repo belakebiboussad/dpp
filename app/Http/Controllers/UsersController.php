@@ -43,7 +43,7 @@ class UsersController extends Controller
           case "role_id"  :
                 $users = User::with('role')->where($request->field,$value)->get(); 
                 break; 
-          case "name"  :
+          case "username"  :
                 $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
                 break;
           case "service_id"  :
@@ -82,37 +82,38 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-      $request->validate([
-        "nom"=> "required",
-        "prenom"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", ////"nss"=> "required",
-        "username"=> "required",
+      $validator = Validator::make($request->all(), [
+        "username"=> "required|unique:utilisateurs",
         "password"=> "required",// "mail"=> "required",
         "role"=> "required",
+        "nom"=> "required",
+        "prenom"=> "required","required","nss"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",
+        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",// "mat"=> 
       ]);
+      if($validator->fails())
+           return back()->withErrors($validator)->withInput();
       $employe = employ::firstOrCreate([
-            "nom"=>$request->nom,
-            "prenom"=>$request->prenom,
-            "sexe"=>$request->sexe,
-            "Date_Naiss"=>$request->datenaissance,
-            "Lieu_Naissance"=>$request->lieunaissance,
-            "Adresse"=>$request->adresse,
-            "Tele_fixe"=>$request->fixe,
-            "tele_mobile"=>$request->mobile,
-            "specialite"=>$request->specialite,
-            "service_id"=>$request->service,
-            "matricule"=>$request->mat,
-            "NSS"=>$request->nss,
+          "nom"=>$request->nom,
+          "prenom"=>$request->prenom,
+          "sexe"=>$request->sexe,
+          "Date_Naiss"=>$request->datenaissance,
+          "Lieu_Naissance"=>$request->lieunaissance,
+          "Adresse"=>$request->adresse,
+          "Tele_fixe"=>$request->fixe,
+          "tele_mobile"=>$request->mobile,
+          "specialite"=>$request->specialite,
+          "service_id"=>$request->service,
+          "matricule"=>$request->mat,
+          "NSS"=>$request->nss,
       ]);
-      $user = User::firstOrCreate([
-        "name"=>$request->username,// "password"=>$request->password,
-        "password"=> Hash::make($request['password']),
-        "email"=>$request->mail,
-        "employe_id"=>$employe->id,
+      $employe->User()->create([
+        "username"=>$request->username,
+        "password"=> Hash::make($request->password),
+        "email"=>$request->email,
         "role_id"=>$request->role,
-      ]);//return redirect(Route('employs.show',$employe->id)); 
-      return redirect(Route('users.show',$user->id));                 
+      ]);
+      return redirect(Route('users.show',$$employe->User->id));                 
     }
     /**
      * Display the specified resource.
@@ -149,16 +150,13 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {   
-      $rule = array(
-            "username"=> "required",
-            "email"=> "nullable|email",//|unique:utilisateurs
-            "role"=> "required",
-      );
+    {  
+      dd("fdfsd");
+/*$rule = array("username"=> "required","email"=>"nullable|email",//|unique:utilisateurs
+"role"=> "required");
       $messages = [
         "required"     => "Le champ :attribute est obligatoire.",
-        // "NSSValide"    => 'le numéro du securite sociale est invalide ',
-         "date"         => "Le champ :attribute n'est pas une date valide.",
+        "date"         => "Le champ :attribute n'est pas une date valide.",
       ];
       $validator = Validator::make($request->all(),$rule,$messages);  
       if ($validator->fails()) 
@@ -182,6 +180,44 @@ class UsersController extends Controller
         "active"=>$activer,   
      ]);  
      return redirect(Route('users.show',$user->id));
+      */
+     $validator = Validator::make($request->all(), [
+        "username"=> "required|unique:utilisateurs",
+        "password"=> "required",// "mail"=> "required",
+        "role"=> "required",
+        "nom"=> "required",
+        "prenom"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",
+         "mobile"=> "required | regex:/[0][245679][0-9]{8}/",
+      ]);
+/* $rule = array( "nom"=> "required | max:120","prenom"=> "required|max:120",
+"datenaissance"=> "required",// | date"lieunaissance"=> "required",
+"sexe"=> "required","mobile"=> "required | regex:/[0][25679][0-9]{8}/",
+//"fixe"=> "numeric | regex:/[0][0-9]{8}/",nss"=> "required | regex:/[0-9]{12}/");
+        $messages = [
+          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+           "date"         => "Le champ :attribute n'est pas une date valide.",
+        ];
+        */
+        $validator = Validator::make($request->all(),$rule,$messages);     
+        if ($validator->fails())
+          return back()->withInput($request->input())->withErrors($validator->errors());
+        $employe = employ::FindOrFail($employid);
+        $employe->update([
+                "nom"=>$request->nom,
+                "prenom"=>$request->prenom,
+                "sexe"=>$request->sexe,
+                "Date_Naiss"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->lieunaissance,
+                "Adresse"=>$request->adresse,
+                "Tele_fixe"=>$request->fixe,
+                "tele_mobile"=>$request->mobile,
+                "specialite"=>$request->specialite,
+                "service_id"=>$request->service,
+                "matricule"=>$request->matricule,
+                "NSS"=>$request->nss,
+        ]);
+        return redirect(Route('users.show',$employe->User->id));
     }
 
     /**

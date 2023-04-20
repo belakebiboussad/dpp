@@ -107,15 +107,15 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { 
-        $request->validate([ "motif" => 'required',"resume" => 'required']);
+        $validator = Validator::make($request->all(), [
+            'motif' => 'required',
+            'resume' => 'required',
+        ]);
+        if($validator->fails())
+          return back()->withErrors($validator)->withInput();
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
-        $validator = Validator::make($request->all(), [
-                'motif' => 'required',
-                'resume' => 'required',
-         ]);
-        if($validator->fails())
-           return back()->withErrors($validator)->withInput();
+       
         if(isset(Auth::user()->employ->specialite) && (!is_null(Auth::user()->employ->specialite)))
           $specialite = Auth::user()->employ->Specialite;
         else

@@ -25,7 +25,7 @@
 .sec-gauche{  float: left; }
 .right{  float: right; }
 .mt-1 {  margin-top: 1px !important; }
-.mt-2 {  margin-top: -2px !important; }
+.mt-2 {  margin-top: -2px !important; }*/
 .mt-1p {  margin-top: -1% !important; }
 .mt-2p {  margin-top: -2% !important; }
 .mt-5 {  margin-top: -5px !important; }
@@ -42,11 +42,9 @@
 .mt-30 { margin-top:-30px; }
 .mt-40 { margin-top:-40px; }
 .mt-50 { margin-top:-50px; }
-/*teste*/
 .mtp10 {  margin-top: +10px !important; }
 .mtp20 {  margin-top: +20px !important; }
 .mtp33 {  margin-top: +33px !important; }
-/*teste*/
 .mtP40 { margin-top:+40px !important;}
 .mtP5p { margin-top:+5% !important;}
 .mtP10p { margin-top:+10% !important;}

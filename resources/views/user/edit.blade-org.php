@@ -28,7 +28,7 @@ $(function(){
 </script>
 @stop
 @section('main-content')
-<div class="page-header"><h1>Modification de : {{ $user->name }}</h1></div>
+<div class="page-header"><h1>Modification de : {{ $user->username }}</h1></div>
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">
@@ -178,7 +178,7 @@ $(function(){
 				<label class="col-sm-4 control-label" for="username">Login	:</label>
 				<div class="col-sm-8 input-group">
 				  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-				 	<input type="text" name="username" placeholder="Username" value="{{ $user->name }}" class="col-xs-11 col-sm-11" required/>
+				 	<input type="text" name="username" placeholder="Username" value="{{ $user->username }}" class="col-xs-11 col-sm-11" required/>
 				</div>
 			</div>
 			<div class="form-group">

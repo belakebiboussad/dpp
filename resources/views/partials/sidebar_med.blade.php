@@ -168,7 +168,7 @@
           if(val =="" )
           {
             erreur =false;
-            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+            $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
           }
        });
        return erreur;

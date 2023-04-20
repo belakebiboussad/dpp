@@ -12,7 +12,7 @@
 				<fieldset>
 					<label class="block clearfix">
 						<span class="block input-icon input-icon-right">
-							<input type="text" class="form-control" placeholder="Nom utilisateur"  name="name"/><i class="ace-icon fa fa-user"></i>
+							<input type="text" class="form-control" placeholder="Nom utilisateur" name="username"/><i class="ace-icon fa fa-user"></i>
 						</span>
 					</label>
 					<label class="block clearfix">

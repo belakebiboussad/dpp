@@ -76,7 +76,7 @@
   <div class="row">
     <div class="form-group col-xs-12 col-sm-6">
       <label class="col-sm-4 control-label  text-right">Nom d'utilisateur :</label>
-      <div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
+      <div class="col-sm-8"><label class="blue">{{ $user->username }}</label></div>
     </div>
     <div class="form-group col-xs-12 col-sm-6">
       <label class="col-sm-4 control-label  text-right">Rôle :</b></label>

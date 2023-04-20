@@ -10,7 +10,7 @@
   <div class="mb-3">
             <label class="col-sm-2 control-label">Utilisateur</label>
             <div class="col-sm-10">
-              <div class="inline">{{ Auth::user()->name}}</div>
+              <div class="inline">{{ Auth::user()->username}}</div>
             </div>
             <div class="hr hr-16 hr-dotted"></div>
           </div> 

@@ -147,16 +147,4 @@
 </div>
 </div>
 @stop
-@section('page-script')
-<script type="text/javascript">
-  $(function(){
-    $("#role").change(function (e) {
-      var rols = [ "1", "10", "12", "13", "14"  ];
-      var role = $('#role').val();
-      if(jQuery.inArray(role, rols ) != -1){
-       $(".hidden").removeClass();
-      }
-    });
-  });
-</script>
-@stop
+

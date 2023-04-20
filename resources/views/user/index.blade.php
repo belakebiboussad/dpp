@@ -2,7 +2,7 @@
 @section('title','Gestion des Utilisateures')
 @section('page-script')
 <script>
-var field = 'name';
+var field = 'username';
 $(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
@@ -34,7 +34,7 @@ $(function(){
 							  className: "dt-body-center",
 	   	 		  	},
 	   	 		  	{ data:'id',title:'ID', "visible": false},
-	   	 		  	{ data: 'name', title:'Nom' },
+	   	 		  	{ data: 'username', title:'Nom' },
 	   	 		  	{ data: 'email', title:'E-Mail' },
 	   	 		  	{ data: 'role.role', title:'Rôle' },
 	   	 		   	{data: null, title:'Compte',
@@ -99,7 +99,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label">Nom</label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input-xs autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
+							<input type="text" class="form-control input-xs autoUserfield filter" id="username" name="username"  placeholder="Nom de l'utilisateur"/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>
 	  	    </div>

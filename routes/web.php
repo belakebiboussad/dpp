@@ -89,7 +89,6 @@ Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'Hospitalisa
 // teste
  Route::post('/user/password','UsersController@changePassword')->name('user.change.password');
 // fteste
-Route::post('/users/store/','UsersController@store');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');

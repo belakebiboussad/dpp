@@ -76,7 +76,7 @@
         if(val =="" )
         {
           erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+          $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
         }
      });
      return erreur;
@@ -94,7 +94,7 @@
         if(val =="" )
         {
           erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+          $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
         }
       });
      return erreur;
@@ -117,7 +117,7 @@
         if(val =="" )
         {
           erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+          $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
         }
       });
       return erreur;
@@ -138,7 +138,7 @@
              if(val =="" )
             {
                    erreur =false;
-                  $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+                  $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
              }
         });   
        return erreur;

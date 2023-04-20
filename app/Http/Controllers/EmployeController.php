@@ -63,7 +63,7 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-      //sdd($request->all());
+      /*
       $rule = array(
           "nom"=> "required | max:120",
           "prenom"=> "required|max:120",
@@ -92,10 +92,11 @@ class EmployeController extends Controller
                 "tele_mobile"=>$request->mobile,
                 "specialite"=>$request->specialite,
                 "service_id"=>$request->service,
-                "matricule"=>$request->mat,
+                "matricule"=>$request->matricule,
                 "NSS"=>$request->nss,
         ]);
-        return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
+        return redirect(Route('users.show',$employe->User->id));
+        */
     }
     /**
      * Remove the specified resource from storage.
