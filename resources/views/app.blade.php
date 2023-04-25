@@ -269,13 +269,20 @@
   });
   $("#changePassword").click(function (e) {
     e.preventDefault();
-     var formData = new FormData($('#userChangePasswordForm')[0]);
+    var formData = new FormData($('#userChangePasswordForm')[0]);
     formSubmit($('#userChangePasswordForm')[0]), null, function(xhr, form) {
       if (xhr.success) {//$("#changePassword").addClass("disabled");
         window.location.href = "{{ route("home") }}";  
       }
     }
    });
+    $('#passwordResetbtn').click(function(e){
+      e.preventDefault();
+      var formData = new FormData($('#changePWD')[0]);
+      formSubmit($('#changePWD')[0]), null, function(xhr, form) {
+       alert("ici");
+      }
+    }) 
   });
 </script>
         @yield('page-script')

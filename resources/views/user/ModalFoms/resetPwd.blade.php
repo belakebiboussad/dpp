@@ -6,14 +6,9 @@
       <div class="row">
         <div class="col-md-12">
 <form id="userChangePasswordForm" class="form-horizontal" method="POST" action="{{ Route('user.change.password')}}">
-  <input type="hidden" value="" id="user_id"/> 
-  <div class="mb-3">
-            <label class="col-sm-2 control-label">Utilisateur</label>
-            <div class="col-sm-10">
-              <div class="inline">{{ Auth::user()->username}}</div>
-            </div>
-            <div class="hr hr-16 hr-dotted"></div>
-          </div> 
+      <div class="alert alert-danger print-error-msg" style="display:none">
+      <strong>Errors:</strong> <ul></ul></div>
+      <div class="alert alert-success print-success-msg" style="display:none"></div>
           <div class="mb-3"> 
             <br>
             <label for="password" class="form-label">Mot de passe </label>
@@ -32,7 +27,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-primary" id="changePassword" data-dismiss="modal"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+      <button type="button" class="btn btn-sm btn-primary" id="changePassword"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
       <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i> Annuler</button>
     </div>
   </div>

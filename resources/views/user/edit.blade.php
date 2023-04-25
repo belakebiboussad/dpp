@@ -6,13 +6,13 @@
     <div class="pull-right">
       <a href="{{route('users.index')}}" class="btn btn-white btn-info btn-bold">
         <i class="ace-icon fa fa-arrow-circle-left blue"></i> Rechercher</a>
+      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
     </div>
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <form role="form" action="{{  route('users.update', $user->employ->id) }}" method="POST">
-      {{ csrf_field() }}
-      {{ method_field('PUT') }}
+    <form role="form" action="{{  route('users.update', $user->id) }}" method="POST">
+      {{ csrf_field() }} {{ method_field('PUT') }}
       <input type="hidden" name="id" value="{{ $user->employ->id }}">
       <div class="form-group" id="error" aria-live="polite">
         @if (count($errors) > 0)
@@ -48,10 +48,10 @@
           </div>  
         </div>
         <div class="form-group col-sm-6{{ $errors->has('lieunaissance') ? 'has-error' : '' }}">
-            <label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
-            <div class="col-sm-6">
-                <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  />
-            </div>  
+          <label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
+          <div class="col-sm-6">
+            <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  />
+          </div>  
         </div>
       </div>
       <div class="row">
@@ -153,7 +153,15 @@
           <label class="control-label col-xs-3" for="username">Login</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="username" value="{{ $user->username}}" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" required>
+          </div>
         </div>
+         <div class="form-group row">
+          <div class="checkbox col-sm-offset-3">
+          <label>
+            <input type="checkbox" class="ace" name="active" value ="1" {{(isset($user->active))? 'checked':''}}>
+            <span class="lbl"> Active</span>
+          </label>
+          </div>
         </div>
       </div><hr/>
       <div class="form-group col-md-6 col-md-offset-5">
@@ -163,32 +171,63 @@
     </form>
   </div>
 </div>
+</div><div class="row">@include('user.ModalFoms.changeUserPassword')
 @stop
 @section('page-script')
 <script type="text/javascript">
   function check(input) {
-  $('#newPassword, #password_confirm').on('keyup', function () {
-    if ($('#newPassword').val() == $('#password_confirm').val()) {
-      $('#message').html('correspond').css('color', 'green');
-      $('#passwordResetbtn').removeAttr("disabled"); 
-    } else {
+    $('#newPassword, #password_confirm').on('keyup', function () {
+      if ($('#newPassword').val() == $('#password_confirm').val()) {
+        $('#message').html('correspond').css('color', 'green');
+        $('#passwordResetbtn').removeAttr("disabled"); 
+      } else {
         $('#message').html('ne correspond pas').css('color', 'red');
-        $('#passwordResetbtn').prop('disabled', true);; 
-    }
-  });
+        $('#passwordResetbtn').prop('disabled', true);
+      }
+    });
   }
   $(function(){
-    $('#passwordResetbtn').click(function(e){
+ /*   $('#passwordResetbtn').click(function(e){
+      e.preventDefault();
+      var formData = new FormData($('#changePWD')[0]);
+      formSubmit($('#changePWD')[0]), null, function(xhr, form) {
+      }
+      
       var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
-        password: $("#newPassword").val()
+        newPassword: $("#newPassword").val(),
+        password_again: $("#password_again").val()
       };
       $.ajax({
         type: "POST",
         url: "{{ url('reset_password_')}}",
         data:formData,
-        success:function(data,status, xhr){}
+        success:function(data,status, xhr){
+          if($.isEmptyObject(data.errors))
+            printSuccessMsg(data.success);
+          else
+            printErrorMsg(data.errors);
+        }
       });
-    });
+      
+     
+     
+    });*/
+    var $success_msg = $(".print-success-msg");
+    var $error_msg = $(".print-error-msg");
+    function printSuccessMsg(msg) {
+        $success_msg.html(msg);
+        $success_msg.css('display','block');
+        $success_msg.delay(5000).fadeOut(350);
+        $('#changePWD')[0].reset();
+    }
+    function printErrorMsg (msg) {
+        $error_msg.find("ul").html('');
+        $error_msg.css('display','block');
+        $.each( msg, function( key, value ) {
+            $error_msg.find("ul").append('<li>'+value+'</li>');
+        });
+        $error_msg.delay(5000).fadeOut(350);
+    }
   });
 </script>
 @stop
