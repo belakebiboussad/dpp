@@ -243,10 +243,11 @@ class UsersController extends Controller
         'current-password.required' => 'Entrer le mot de passe actuel correct',
         'newPassword.required' => 'entrer le nouveau mot de passe SVP',
         'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
+
       ];
       $validator = Validator::make($data, [
         'current-password' =>  "required_if:role,!=,4",
-        'newPassword' => 'required',
+        'newPassword' => 'required|different:current-password',
         'password_again' => 'required|same:newPassword',     
       ], $messages);
       return $validator;
@@ -266,19 +267,17 @@ class UsersController extends Controller
           {
             if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
             {
-              return "1";
+             
               return response()->json(['errors'=>$validator->errors()->all()]);
             }
             else
             { 
-              return "2";
-              // Auth::user()->password = Hash::make($request_data['newPassword']);
-              // Auth::user()->save(); 
-              // return response()->json(['success'=>'mot de passe est changé avec succée']);
+              Auth::user()->password = Hash::make($request_data['newPassword']);
+              Auth::user()->save(); 
+              return response()->json(['success'=>'mot de passe est changé avec succée']);
             }
           }else//Entrer le mot de passe actuel correct. essaie encore 
             return response()->json(['errors'=>'Entrer le mot de passe actuel correct. essaie encore']);
-          
         }
       }
       return redirect()->to('/home');

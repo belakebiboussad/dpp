@@ -211,7 +211,7 @@
       
      
      
-    });*/
+    });
     var $success_msg = $(".print-success-msg");
     var $error_msg = $(".print-error-msg");
     function printSuccessMsg(msg) {
@@ -227,7 +227,7 @@
             $error_msg.find("ul").append('<li>'+value+'</li>');
         });
         $error_msg.delay(5000).fadeOut(350);
-    }
+    }*/
   });
 </script>
 @stop
