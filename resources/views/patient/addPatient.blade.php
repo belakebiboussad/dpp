@@ -143,13 +143,9 @@
 		<div class="col-sm-7 col-xs-7">
 			<select class="form-control" id="type" name="type">
 				<option value="" disabled selected>Selectionner...</option>
-				<option value="0">Assure</option>
-				<option value="1">Conjoint(e)</option>
-				<option value="2">Pere</option>
-				<option value="3">Mere</option>
-				<option value="4">Enfant</option>
-				<option value="5">Dérogation</option>
-				<option value="6">Autre</option>
+        @foreach($types as $type)
+          <option value="{{ $type->id }}"> {{ $type->nom }}</option>
+        @endforeach
 			</select>
 		</div>
 	</div>

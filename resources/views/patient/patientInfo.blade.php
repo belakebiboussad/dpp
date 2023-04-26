@@ -18,31 +18,7 @@
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
-			<span class="label label-purple arrowed-in-right"><i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
-			@switch($patient->Type)
-          @case(0)
-                 Assuré
-                 @break
-          @case(1)
-                 Conjoint(e)
-                 @break
-          @case(2)
-                 Père
-                 @break
-          @case(3)
-                 Mère
-                      @break  
-          @case(4)
-                 Enfant 
-                 @break
-          @case(5)
-                 Dérogation 
-                 @break   
-           @case(6)
-                 Autre 
-                 @break                     
-		      @endswitch  
-		     </span>
+			<span class="label label-purple arrowed-in-right"><!-- <i class="ace-icon fa fa-circle smaller-80 align-middle"></i> -->{{ $patient->Type->nom }}</span>
 			</h4>
 			<div class="profile-user-info">
 				<div class="profile-info-row">
@@ -136,7 +112,7 @@
           <span>{{ $patient->created_at->format('Y-m-d') }}</span></div>
 				</div>
 			</div><div class="hr hr-8 dotted"></div>
-			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))
+			@if(in_array( $patient->type_id , [2,3,4,5]) && (isset($patient->assure)))
 			<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 				<div class="widget-box transparent" id="widget-box-12">
 					<div class="widget-header"><h5 class="widget-title lighter"><b>Informations du fonctionnaire</b></h5></div>

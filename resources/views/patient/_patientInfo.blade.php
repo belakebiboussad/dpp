@@ -13,7 +13,7 @@
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
 				<span class="lbl">&nbsp;Sexe: </span>
-				<span class="blue"><i class="fa fa-{{($patient->Sexe == "M" ) ? 'mars':'venus'}}" aria-hidden="true"></i></span>
+				<span class="blue"><i class="fa fa-{{($patient->Sexe == 'M' ) ? 'mars':'venus'}}" aria-hidden="true"></i></span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline"><span class="lbl">Âge:</span>
 				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span>&nbsp;(Ans)
@@ -35,32 +35,8 @@
 			<span class="blue">{{ $patient->NSS }}</span></label>	&nbsp;&nbsp;&nbsp;
 			@endisset
       <label class="inline hidden-xs"> 	
-			<span class="lbl">&nbsp;Type :</span>
-				<span class="badge badge-info">
-					@switch($patient->Type)
-	             @case(0)
-	                Assuré
-	                @break
-              @case(1)
-	             	  Conjoint(e)
-	                @break
-              @case(2)
-	             	   Père
-	                @break
-              @case(3)
-	             	  Mère
-	                @break
-	            @case(4)
-	             	  Enfant
-	                @break 
-               @case(5)
-                 Dérogation 
-                 @break      
-              @case(6)
-	                Autre 
-	                @break       
-            @endswitch 
-           	</span>		
+			<span class="lbl">Type :</span>
+				<span class="badge badge-info">{{ $patient->Type->nom }}</span>		
 					</label>
 				</div>
 			</div>

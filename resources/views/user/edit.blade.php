@@ -6,7 +6,7 @@
     <div class="pull-right">
       <a href="{{route('users.index')}}" class="btn btn-white btn-info btn-bold">
         <i class="ace-icon fa fa-arrow-circle-left blue"></i> Rechercher</a>
-      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Changer le mot de passe </button>
+      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-edit"></i>Réinitialiser le mot de passe </button>
     </div>
 </div>
 <div class="row">

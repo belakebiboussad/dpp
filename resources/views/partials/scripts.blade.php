@@ -221,29 +221,29 @@
   function showTypeAdd(type, i)
   { 
     switch(type){
-      case "0":
+      case "1":
         if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
         copyPatient();
-        if(i !=0)
+        if(i !=1)
           $(".asProfData").val('');
         break;
-      case "1": case "2": case "3": case "4":
+      case "2": case "3": case "4": case "5":
         if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
           assureShow();
         if($("#asdemogData").is(":hidden")) 
           $("#asdemogData").removeClass('hidden'); 
         if($("#foncform").is(":hidden"))
           $("#foncform").removeClass('hidden');
-        if(i != 0)
+        if(i != 1)
           $(".asProfData").val('');
-        if(type == "1")
+        if(type == "2")
         {
-            $("#sf").prop("selectedIndex", 2).change();
-            $("#SituationFamille").prop("selectedIndex", 2).change();
+          $("#sf").prop("selectedIndex", 2).change();
+          $("#SituationFamille").prop("selectedIndex", 2).change();
         }
         break;
-      case "5": case "6":
+      case "6":
         assurHide();
         resetAsInp();
         break;

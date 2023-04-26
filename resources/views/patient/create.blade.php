@@ -16,9 +16,9 @@
 		 	  activaTab("Patient");
 	  	    event.preventDefault();
 	      }else{
-          if(($("#type").val() == 0) || ($("#type").val() == 1) || ($("#type").val() == 2)|| ($("#type").val() == 3)|| ($("#type").val() == 4))
+          if($("#type").val() != 6)
         	{
-            if($("#type").val() == "0")
+            if($("#type").val() == "1")
               $('.asdemogData').prop("disabled", false);
             if( ! checkAssure() )
             {

@@ -105,7 +105,7 @@
       var nss = $('#nss').val();
       var inputAssVal = new Array(nss);
       var inputMessage = new Array("Numèro de Secruté Social");
-      if($("#type").val() != 0)
+      if($("#type").val() != 1)
       {
         var prenomf = $('#prenomf').val();
         var nomf = $('#nomf').val();
@@ -270,16 +270,16 @@
   $("#changePassword").click(function (e) {
     e.preventDefault();
     var formData = new FormData($('#userChangePasswordForm')[0]);
-    formSubmit($('#userChangePasswordForm')[0]), null, function(xhr, form) {
+    formSubmit($('#userChangePasswordForm')[0]), this, function(xhr, form) {
       if (xhr.success) {//$("#changePassword").addClass("disabled");
         window.location.href = "{{ route("home") }}";  
       }
     }
-   });
-    $('#passwordResetbtn').click(function(e){
+  });
+  $('#passwordResetbtn').click(function(e){//change by admin
       e.preventDefault();
       var formData = new FormData($('#changePWD')[0]);
-      formSubmit($('#changePWD')[0]), null, function(xhr, form) {
+      formSubmit($('#changePWD')[0]), this, function(xhr, form) {
        alert("ici");
       }
     }) 

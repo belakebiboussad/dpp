@@ -1,10 +1,12 @@
-<div id="passwordReset" class="modal fade" role="dialog">
+<div id="passwordReset" class="modal fade" role="dialog"> <!-- by admin -->
   <div class="modal-dialog modal-lg">
     <div class="modal-content custom-height-modal">
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Changer le mot de passer</h4></div>
       <div class="modal-body">
 <form id="changePWD" class="form-horizontal" method="POST" action="{{ url('reset_password_')}}">      
-          <div class="alert alert-danger print-error-msg" style="display:none">
+        <input type="hidden" name="current-password" value="{{ $user->password }}">
+         <input type="hidden" name="id" value="{{ $user->id }}">
+        <div class="alert alert-danger print-error-msg" style="display:none">
             <strong>Errors:</strong>
             <ul></ul>
           </div>
@@ -19,7 +21,7 @@
         </div>
       </div>
        <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-primary" id ="passwordResetbtn"><i class="ace-icon fa fa-save" data-dismiss="modal"></i> Enregistrer</button>
+        <button type="button" class="btn btn-sm btn-primary" id ="passwordResetbtn"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
         <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i> Annuler</button>
       </div>
       </form>
