@@ -7,18 +7,22 @@
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
 			<span class="bigger-110">Modifier</span>
 		</a>
-		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
-				<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
+    @if(Auth::user()->isIn([2,15])))
+		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket"><i class="ace-icon fa fa-print bigger-120"></i>
+		<span class="bigger-110">Imprimer Ticket d'ordre</span>
 		</a>
+    @endif
+    {{--
 		@if(Auth::user()->role_id == 2)
-		<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}">
-			<span class="bigger-110"><i class="ace-icon fa fa-print bigger-120"></i>&nbsp;Imprimer Ticket d'ordre</span>
+		<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><i class="ace-icon fa fa-plus bigger-120"></i>
+	<span class="bigger-110"> Rendez-Vous</span>
 		</a>
 		@endif
+    --}}
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
-			<span class="label label-purple arrowed-in-right"><!-- <i class="ace-icon fa fa-circle smaller-80 align-middle"></i> -->{{ $patient->Type->nom }}</span>
+			<span class="label label-purple arrowed-in-right">{{ $patient->Type->nom }}</span>
 			</h4>
 			<div class="profile-user-info">
 				<div class="profile-info-row">

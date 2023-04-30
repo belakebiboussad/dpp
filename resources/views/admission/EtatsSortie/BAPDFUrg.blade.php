@@ -63,33 +63,7 @@
     <section class="table tab" >
      	<table>
 	     	<tr>
-	   			<td><b>Qualité :</b>
-   					<span>
-   							@switch($patient->Type)
- 					    	@case(0)
-   									Assuré
-      							@break
-  							@case(1)
-     								Conjoint(e)
-      						 @break
-      					@case(2)
-      							Père
-      							@break
-      					@case(3)
-      							Mère
-      							@break
-      					@case(4)
-      							Enfant
-      							@break
-      					@case(5)
-      							Autre
-      							@break
-      					@default
-      						Assuré
-      						@break
-								@endswitch
-   					</span>
-	   			</td>
+	   			<td><b>Qualité :</b><span>{{ $patient->Type->nom }}</span></td>
 	   			<td><b>Détail :</b></td>
 	     	</tr>
 	     	<tr>

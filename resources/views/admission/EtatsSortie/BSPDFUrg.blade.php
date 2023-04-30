@@ -37,7 +37,7 @@
         <tr>
           <td class="plh"><b>Nom :</b><span> {{ $patient->Nom}}</span></td>
           <td class="plh"><b>Prénom :</b><span> {{ $patient->Prenom }}</span></td>
-            @if(($patient->sf == "M") && ( $patient->Type == "1") )
+            @if(($patient->sf == "M") && ( $patient->type_id == "2") )
           <td class="plh"><b>Epoux(se)  :</b><span> {{ $patient->assure->full_name }}</span></td>
         @endif
         </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>

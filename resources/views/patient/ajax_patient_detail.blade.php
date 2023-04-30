@@ -1,6 +1,6 @@
 <ul class="nav nav-pills justify-content-center" role="tablist">
   <li class="nav-item active"><a href="#patient" data-toggle="tab"><b>Patient</b></a></li>
- @if(!(in_array($patient->Type,[5,6])))
+ @if($patient->type_id !=6) 
   <li class="nav-item"><a href="#assure" data-toggle="tab"><b>Assure</b></a></li>
   @endif
 </ul>
@@ -51,34 +51,12 @@
         <tr>
           <td class ="noborders">Sang :</td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
           <td class ="noborders">Type:</td>
-          <td align="left">
-            @switch($patient->Type)
-               @case("0")
-                          <span class="label label-sm label-success">Assure
-                            @break
-               @case("1")
-                            <span class="label label-sm label-primary">Conjoint(e)
-                            @break  
-               @case("2")
-                            <span class="label label-sm label-warning"> Père
-                            @break
-               @case("3")
-                            <span class="label label-sm label-warning">Mère 
-                            @break
-               @case("4")
-                            <span class="label label-sm label-warning">Enfant 
-                            @break
-                @case("5")
-                            <span class="label label-sm label-warning">Autre 
-                            @break
-            @endswitch  
-            </span>
-          </td>
-        </tr>           
+          <td align="left"><span class="label label-sm label-success"> {{ $patient->Type->nom }}</span></td>
+          </tr>           
       </tbody>
     </table>
   </div> {{-- tabpane --}}
-  @if(!(in_array($patient->Type,[5,6])))
+  @if($patient->type_id != 6)
   <div class="tab-pane" id="assure">
     <table class="table table-condensed col-sm-12 w-auto">
       <tbody>

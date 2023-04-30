@@ -4,9 +4,9 @@
 		<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			@if(isset($assure))
-				<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12" alpha/>
+				<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12"/>
 			@else
-				<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+				<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off"/>
 			@endif	
 		</div>
 	</div>

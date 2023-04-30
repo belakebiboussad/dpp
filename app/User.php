@@ -38,4 +38,8 @@ class User extends Authenticatable
     {
       return ($role == $this->role_id);
     }
+    public function isIn($roles)
+    {
+      return in_array($this->role_id,$roles);//($role == $this->role_id);
+    }
 }

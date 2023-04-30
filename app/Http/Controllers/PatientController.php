@@ -87,14 +87,14 @@ class PatientController extends Controller
   {
     $DOB="";
     static $assurObj;
-    $date = Carbon::now();//Date::Now();
+    $date = Carbon::now();
     if(isset(request()->presume))
     {
       switch(request()->presume)
       {
         case 1:
-                $DOB= ($date->subYears(16))->format('Y-m-d');
-                break;
+            $DOB= ($date->subYears(16))->format('Y-m-d');
+            break;
         case 2:
             $DOB= ($date->subYears(64))->format('Y-m-d');
              break; 
@@ -232,7 +232,7 @@ class PatientController extends Controller
       public function edit(patient $patient)//,$asure_id =null
       {  
         $assure=null;
-         $types =PatientType::all();
+        $types =PatientType::all();
         if($patient->type_id != 6)
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','types')); 
@@ -244,16 +244,17 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request, patient $patient)
-      { 
-        $assure = new assur;$ayants = array("2", "3", "4","5");
-        $ayantsAssure = array("1", "2", "3","4","5");
-        if(($request->type != 6)
+    public function update(Request $request, patient $patient)
+    { 
+      $ayants = array("2", "3", "4","5");
+      $ayantsAssure = array("1", "2", "3","4","5");
+      $assure = new assur;
+      if($request->type != 6)
+      {
+        if(($request->type == $patient->type_id) || ((in_array($request->type, $ayants) && (in_array($patient->type_id, $ayants)))))
         {
-          if(($request->type == $patient->type_id) || ((in_array($request->type, $ayants) && (in_array($patient->type_id, $ayants)))))
-          { 
-            $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
-            $assure->update([
+          $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+          $assure->update([
               "Nom"=>$request->nomf,
               "Prenom"=>$request->prenomf,
               "Date_Naissance"=>$request->datenaissancef,
@@ -267,9 +268,9 @@ class PatientController extends Controller
               "Service"=>$request->service,
               "NSS"=>$request->nss
             ]);
-          }else{  
-            if(((in_array($patient->type_id, $ayants)) && ($request->type ==0)) || (in_array($request->type, $ayants) && ($patient->type_id ==0)) ||($patient->type_id == 6) && (in_array($request->type, $ayantsAssure))))
-            { 
+        }else
+        {
+          if(((in_array($patient->type_id, $ayants))&&($request->type == 1))||((in_array($request->type, $ayants))&&($patient->type_id == 1))||(($patient->type_id == 6) && (in_array($request->type, $ayantsAssure))))  
               $assure = $assure->firstOrCreate([
                 "Nom"=>$request->nomf,
                 "Prenom"=>$request->prenomf,
@@ -282,11 +283,10 @@ class PatientController extends Controller
                 "grp_sang"=>$request->gsf.$request->rhf,
                 "Service"=>$request->service,
                 "NSS"=>$request->nss
-              ]);
-            }
-          }
+              ]);  
         }
-        $patient -> update([
+      }
+      $patient -> update([
                "Nom"=>$request->nom,
                "Prenom"=>$request->prenom,
                "Dat_Naissance"=>$request->datenaissance,
@@ -305,7 +305,7 @@ class PatientController extends Controller
                "type_id"=>$request->type,
                "description"=>isset($request->description)? $request->description: null,
                "NSS"=>(!in_array($patient->type_id,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
-        ]);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
+        ]);
         return redirect(Route('patient.show',$patient->id));
     }
     /**
