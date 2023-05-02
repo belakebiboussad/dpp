@@ -50,6 +50,7 @@ class DemandeExbController extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
+        //dd($demandesexb);
         return view('examenbio.index', compact('demandesexb','services'));
       }
     }

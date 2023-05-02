@@ -76,7 +76,7 @@
           <div id = "numberofDays" class="form-group col-xs-4">
             <label class="col-sm-4 control-label">Durée :</label>
             <div class="input-group col-sm-8">
-              <input class="form-control numberDays input-sm" type="number"  min="0" max="50" value="0" @if(in_array(Auth::user()->role_id,[5])) disabled @endif/>
+              <input class="form-control numberDays input-sm" type="number"  min="0" max="50" value="0" @if(Auth::user()->is(5)) disabled @endif/>
               <span class="input-group-addon"><small>nuit(s)</small></span>
             </div>  
           </div>
@@ -85,7 +85,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="Date_Prevu_Sortie">Date :</label>
             <div class="input-group">
-<input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value ="{{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" @if(in_array(Auth::user()->role_id,[5])) disabled @endif required/>
+<input class="form-control date_end" type="text" name="Date_Prevu_Sortie" value ="{{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" @if(Auth::user()->is(5)) disabled @endif required/>
               <span class="input-group-btn"><button class="btn btn-sm" type="button" onclick="$('.date_end').focus();">
                 <i class="ace-icon fa fa-calendar bigger-110"></i></button>
               </span>
@@ -94,7 +94,7 @@
           <div class="form-group col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label" for="heure">Heure :</label>
             <div class="input-group col-sm-8 col-xs-8">
-              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="form-control timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role_id,[5])) disabled @endif />
+              <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="form-control timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(Auth::user()->is(5)) disabled @endif />
               <span class="input-group-addon fa fa-clock-o"></span> 
             </div>
            {{-- <button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>  --}}
@@ -150,7 +150,7 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="serviceh">Service :</label>
             <div class="col-sm-8">
-              <select name="serviceh" class="selectpicker form-control serviceHosp" {{ (Auth::user()->role_id != 5) ? 'disabled':''  }}/>
+              <select name="serviceh" class="selectpicker form-control serviceHosp" {{ !(Auth::user()->is(5)) ? 'disabled':''  }}/>
                 <option value="" selected disabled>Selectionnez le service</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->id == $service->id) selected @endif>

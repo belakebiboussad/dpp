@@ -3,8 +3,9 @@
  	<div class= "widget-box widget-color-pink">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>THERAPEUTIQUES RECUES</b></font></h5>
-		 	<div class="widget-toolbar widget-toolbar-light no-border"> {{-- @if(isset($patient->therapieRecue)) hidden @endif --}}
-				<a id="therapRecueAdd" class="btn-xs align-middle @if(count($patient->therapieRecue)) hidden @endif" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
+		 	<div class="widget-toolbar widget-toolbar-light no-border"> {{-- @if(isset($obj->patient->therapieRecue)) hidden @endif --}}
+       {{-- @if(count($obj->patient->therapieRecue)) hidden @endif--}}
+				<a id="therapRecueAdd" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
 	 	</div>
 	 	<div class="widget-body">
@@ -19,7 +20,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($patient->therapieRecue as $th)
+						@foreach($obj->patient->therapieRecue as $th)
 						<tr id="{{ 'trait'.$th->id }}">
 							<td>
 						 		@foreach($th->medicaments as $med)

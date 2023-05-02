@@ -21,7 +21,7 @@ $(function(){
         var type = "DELETE";
         ajaxurl += $(this).val();
       }
-     var formData = { _token: CSRF_TOKEN, maladie_id : $(this).val(),pid : '{{ $patient->id }}',};
+     var formData = { _token: CSRF_TOKEN, maladie_id : $(this).val(),pid : '{{ $obj->patient->id }}',};
     
       $.ajax({
             type: type,

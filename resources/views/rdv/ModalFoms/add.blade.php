@@ -46,7 +46,7 @@
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
           		  	<label class="col-form-label blue" for="filtre">Filtre :</label> 
-          	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+          	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->is(2))) disabled @endif> 
          		        <option value="" selected disabled="">Selectionner...	</option>
 	                 		<option value="Nom">Nom</option>
 	                  	<option value="Prenom">Prenom</option>
@@ -78,7 +78,7 @@
     $("#pat_id").val(pid);
     $("#pat-search").val(name);
     $("#livesearch").html('')
-    @if(Auth::user()->role_id == 15)
+    @if(Auth::user()->is(15))
       if(($("#specialite").val()) != null)
         $("#btnSave").attr("disabled", false);
     @else

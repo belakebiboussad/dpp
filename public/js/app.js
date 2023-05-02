@@ -10,7 +10,7 @@ function printErrorMsg (form, msg) {
   $error_msg.find("ul").html('');
   $error_msg.css('display','block');//$.each( msg, function( key, value ) { //});
   $error_msg.find("ul").append('<li>'+msg+'</li>');
-   $error_msg.delay(3000).fadeOut(350);
+  $error_msg.delay(3000).fadeOut(350);
 }
 function formSubmit(form, e, callBack) {
   var $success_msg = $(".print-success-msg");
@@ -32,12 +32,14 @@ function formSubmit(form, e, callBack) {
     contentType: false,
     cache : false,
     success: function(data) {
+      // $.each(data, function(key, value){
+      //   alert(key +":"+ value);
+      // })
       $form.trigger("reset");
       if($.isEmptyObject(data.errors))
         printSuccessMsg(form, data.success);
       else
         printErrorMsg(form, data.errors);
-     
     }
   })
 }

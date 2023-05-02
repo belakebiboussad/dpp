@@ -28,7 +28,7 @@ class paramController extends Controller
         $vaccins = Vaccin::all();
         $antecTypes = antecType::orderBy('id')->get();
         $appareils = appareil::orderBy('id')->get();
-        $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
+        $specialite_id = (Auth::user()->is(13) || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
         $specialite  = specialite::FindOrFail($specialite_id);
         $specvaccins = json_decode($specialite->vaccins, true);
         $modesHosp = ModeHospitalisation::all(); 
@@ -54,7 +54,7 @@ class paramController extends Controller
     switch (Auth::user()->role_id) {
       case 13://med chef
       case 14://chef de service
-        $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
+        $specialite = (Auth::user()->is(13)) ? 16 :Auth::user()->employ->specialite;
         $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
         $specialite->Consts()->sync($request->consts);
@@ -65,7 +65,7 @@ class paramController extends Controller
         $input['vaccins'] = $request->vaccs;
         $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
-        if(Auth::user()->role_id == 13)
+        if(Auth::user()->is(13))
         {
           $modesHosp = ModeHospitalisation::all();
           foreach($modesHosp as $mode) {

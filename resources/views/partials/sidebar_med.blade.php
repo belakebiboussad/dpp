@@ -21,7 +21,7 @@
           <i class="menu-icon material-icons">home</i>Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(in_array(Auth::user()->role_id,[13,14]))
+      @if(Auth::user()->isIn([13,14]))
       <li class="">
         <a href="{{ route('stat.index') }}">
         <i class="menu-icon material-icons md-22">equalizer</i>
@@ -83,7 +83,7 @@
                      </li>
                 </ul>
         </li>
-        @if(Auth::user()->role_id == "10")
+        @if(Auth::user()->is(10))
         <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits de la pharmacie</span><b class="arrow fa fa-angle-down"></b>
@@ -123,7 +123,7 @@
 
           </ul>
         </li>
-        @if(in_array(Auth::user()->role_id,[13,14]))
+        @if(Auth::user()->isIn([13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>

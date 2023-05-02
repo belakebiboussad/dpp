@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              @if(in_array(Auth::user()->role_id,[1,13,14]))
+              @if(Auth::user()->isIn([1,13,14]))
                <a  id="btnConsulter" class="btn btn-primary btn-xs"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
               @endif 
               <a id="printRdv" href="" class="btn btn-xs btn-success"   aria-hidden="true" target="_blank"><i class="ace-icon fa fa-print"></i>Imprimer</a>

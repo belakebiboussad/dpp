@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\ticket;
 use App\modeles\Etablissement;
+use Illuminate\Support\Facades\Validator;
 use PDF;
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
@@ -35,26 +36,45 @@ class ticketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-      public function store(Request $request)
-      {
-        $now = Carbon::today();
-        if($request->typecons == "Normale")
-          $tickets = ticket::where('date',$now)
-                          ->where("specialite",$request->specialite)->get()->count();
-        else
-          $tickets = ticket::where('date',$now)
-                              ->where("type_consultation",$request->typecons)
-                              ->get()->count(); 
-         $ticket = ticket::firstOrCreate([
-            "date" => $now,
-            "specialite" => $request->specialite,
-            "type_consultation" => $request->typecons,
-            "document" => $request->document,
-            "num_order" => $tickets++,
-            "id_patient" => $request->id_patient,
-        ]);
-        return redirect()->route("ticket.pdf",$ticket->id);
-       }
+    public function admin_credential_rules(array $data)
+    {
+      $messages = [
+        'type_consultation.required' => 'Séléctionner le type de la consultation',
+        'document.required' => 'Séléctionner le type de document',
+        'specialite.required' => 'Séléctionner la spécialité médicale'
+      ];
+      $validator = Validator::make($data, [
+        'type_consultation' =>  "required",
+        'document' => 'required',
+        'specialite' => 'required',     
+      ], $messages);
+      return $validator;
+    }  
+    public function store(Request $request)
+    {
+      $request_data = $request->All();
+
+      $validator = $this->admin_credential_rules($request_data);
+      if($validator->fails())//pass cof error
+        return response()->json(['errors'=>$validator->errors()->all()]);
+      $now = Carbon::today();
+      if($request->typecons == "Normale")
+        $tickets = ticket::where('date',$now)
+                        ->where("specialite",$request->specialite)->get()->count();
+      else
+        $tickets = ticket::where('date',$now)
+                            ->where("type_consultation",$request->typecons)
+                            ->get()->count(); 
+       $ticket = ticket::firstOrCreate([
+          "date" => $now,
+          "specialite" => $request->specialite,
+          "type_consultation" => $request->type_consultation,
+          "document" => $request->document,
+          "num_order" => $tickets++,
+          "id_patient" => $request->id_patient,
+      ]);
+      return redirect()->route("ticket.pdf",$ticket->id);
+     }
 // comment
     /**
      * Display the specified resource.

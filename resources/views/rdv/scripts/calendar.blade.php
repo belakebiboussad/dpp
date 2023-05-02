@@ -13,7 +13,7 @@ $(function(){//edit,index
                           fin  : $("#datefinrdv").val(), 
                           fixe : fixe,       
           };
-          if('{{ Auth::user()->role_id == 2 }}')
+          if('{{ Auth::user()->is(15) }}')
           {
             formData.specialite = $('#specialite').val();
             if('{{ $appointDoc }}' != null)

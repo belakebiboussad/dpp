@@ -249,28 +249,13 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
- /* $('#specialiteTick').change(function(){ if($(this).val() =="")       
-$('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");});*/
-      $('#print').click(function(e){
-        e.preventDefault();
-        $("#ticket").hide();
-        var url ="{{ route('ticket.store')}}";
-      	var formData = {
-          _token: CSRF_TOKEN,
-			  	specialite:$('#specialiteTick').val(),
-			  	typecons:$('#typecons').val(),
-			  	document:$('#document').val(), 
-			  	id_patient:$('#id_patient').val()
-		    };
-        $.ajax({
-            type : 'POST',
-            url : url,///createTicket
-            data:formData,
-            success:function(data){
-              alert(data); 
-            	location.reload(true);
-            }
-        });
+  $('#printTck').click(function(e){
+      e.preventDefault();
+      formSubmit($('#ticketAddForm')[0]), this, function(xhr, form) {
+      if (xhr.success) {
+        window.location.href = "{{ route("home") }}";  
+      }
+    }
 	 })
   });
 </script>
@@ -291,7 +276,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
 				<li class="active">
 					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><b>Informations administratives</b></a>
 				</li>
-				@if(in_array(Auth::user()->role_id,[1,13,14]))
+				@if(Auth::user()->isIn([1,13,14]))
 					@if( $patient->antecedants->count() >0)
 					<li>
 						 <a data-toggle="tab" href="#Ants">
@@ -314,7 +299,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
 					</li>
 					@endif
 				@endif	
-				@if((in_array(Auth::user()->role_id,[1,13,14,15]))&& $rdvs->count() > 0 )
+				@if((Auth::user()->isIn([1,13,14,15])) && ($rdvs->count() > 0))
 				<li><a data-toggle="tab" href="#rdvs">
 					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous <span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
@@ -325,7 +310,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
           &nbsp;<span class="badge badge-success">{{ $patient->hommesConf->count() }}</span>
           </a></li>
 				@endif
-        @if(in_array(Auth::user()->role_id,[1,13,14]))
+        @if(Auth::user()->isIn([1,13,14]))
         <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i>Documents</a></li>
         @endif
 			</ul>

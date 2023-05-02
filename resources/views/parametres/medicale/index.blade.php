@@ -12,7 +12,7 @@
               <li class="active"><a href="#generale" role="tab" data-toggle="tab"><span>Générale</span></a></li>
               <li><a href="#cons" role="tab" data-toggle="tab"><span>Consultation</span></a></li>
               <li><a href="#hosp" role="tab" data-toggle="tab"><span>Hosppitalisation</span></a></li>
-              @if(Auth::user()->role_id == 13)
+              @if(Auth::user()->is(13))
               <li><a href="#rdvs" role="tab" data-toggle="tab"><span>Rendaz-Vous</span></a></li>
               @endif
             </ul>

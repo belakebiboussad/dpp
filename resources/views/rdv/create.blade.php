@@ -34,7 +34,7 @@ function reset_in(){
   $("#filtre").val('');
   $("#pat-search").attr("disabled", true);
   $("#btnSave").attr("disabled", true);
-  if('{{ Auth::user()->role_id == 2 }}')
+  if('{{ Auth::user()->is(15) }}')
   {
     $('#specialite').val('');
     $("#filtre").attr("disabled", true);
@@ -43,7 +43,7 @@ function reset_in(){
 }
 function getPatient()
 {
-  var spec ='{{  in_array(Auth::user()->role_id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var spec ='{{ Auth::user()->isIn([1,13,14])}}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();
   var ajaxurl = '{{ URL::to('getPatients') }}';
   $.ajax({
@@ -137,7 +137,7 @@ $(function() {
                 var minutes = end.diff(start,"minutes"); 
                 if( (minutes == 15) && (start >=today ))//CurrentDate
                 {
-                  if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')                                
+                  if('{{ Auth::user()->isIn([1,13,14]) }}')                                
                   {
                     Swal.fire({
                         title: 'Confimer vous le Rendez-Vous?',
@@ -243,7 +243,7 @@ $(function() {
               pid:$('#pat_id').val(),
               fixe :$('#fixe').val()
           }
-          if('{{ Auth::user()->role_id }}' == 15)
+          if('{{ Auth::user()->is(15) }}')
           {
             formData.specialite = $('#specialite').val();
             if('{{ $appointDoc }}' != null)

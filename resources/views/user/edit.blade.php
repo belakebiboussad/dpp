@@ -130,12 +130,12 @@
           <select id="role" name="role" class="form-control" required>
             <option value="" selected disabled>Sélectionner...</option>
             @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ ($user->role_id == $role->id) ? 'Selected':'' }}>{{ $role->role }}</option>
+            <option value="{{ $role->id }}" {{ ($user->is($role->id)) ? 'Selected':'' }}>{{ $role->role }}</option>
             @endforeach
           </select>
           </div>
         </div>
-        <div class="form-group col-sm-3 {{ $errors->has('specialite') ? 'has-error' : '' }} {{ (in_array($user->role_id, ['1', '10', '12', '13', '14'] ))? '' : 'hidden' }}"  id="specialite">
+        <div class="form-group col-sm-3 {{ $errors->has('specialite') ? 'has-error' : '' }} {{ ($user->isIn([1,10,12,13,14] ))? '' : 'hidden' }}"  id="specialite">
           <label class="col-sm-3 control-label" for="specialite">Spécialité</label>
           <div class="col-sm-9">
           <select class="form-control" name="specialite">

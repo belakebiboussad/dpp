@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-6"><label class="blue">Âge :</label><span id="agePatient"></span><small>Ans</small></div>
       </div><div class="space-12"></div>
-      @if(Auth::user()->role_id == 15)
+      @if(Auth::user()->is(15))
         <div class="panel panel-default">
         <div class="panel-heading"><span>Selectionner une spécialité</span></div>
         <div class="panel-body">
@@ -71,7 +71,7 @@
             <legend class="scheduler-border">Type rendez-vous</legend>
             <div class="control-group">
               <div class="controls form-check">
-                <label class="block"><input type="checkbox" class="ace" id="fixe" {{ (Auth::user()->role_id == 15) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
+                <label class="block"><input type="checkbox" class="ace" id="fixe" {{ (Auth::user()->is(15)) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
               </div>
            </div>
           </fieldset>
@@ -79,7 +79,7 @@
       </div>
     </div> {{-- modal-body --}} 
     <div class="modal-footer">
-      @if(in_array(Auth::user()->role_id,[1,13,14]))
+      @if(Auth::user()->isIn([1,13,14]))
         <a id="btnConsulter" class="btn btn btn-xs btn-primary" href="#" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
       @endif 
       <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>      

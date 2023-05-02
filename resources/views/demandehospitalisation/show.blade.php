@@ -8,7 +8,7 @@
 					<div class="widget-header widget-header-large">
 						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Détails :</h3>
 						<div class="widget-toolbar hidden-480">
-						@if(in_array(Auth::user()->role_id,[1,13,14]))
+						@if(Auth::user()->isIn([1,13,14]))
 							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><b>Liste des demandes</b></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;

@@ -7,13 +7,13 @@
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
 			<span class="bigger-110">Modifier</span>
 		</a>
-    @if(Auth::user()->isIn([2,15])))
+    @if(Auth::user()->isIn([2,15]))
 		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket"><i class="ace-icon fa fa-print bigger-120"></i>
 		<span class="bigger-110">Imprimer Ticket d'ordre</span>
 		</a>
     @endif
     {{--
-		@if(Auth::user()->role_id == 2)
+		@if(Auth::user()->is(15))
 		<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><i class="ace-icon fa fa-plus bigger-120"></i>
 	<span class="bigger-110"> Rendez-Vous</span>
 		</a>

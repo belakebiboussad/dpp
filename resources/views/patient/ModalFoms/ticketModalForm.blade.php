@@ -1,14 +1,18 @@
 <div id="ticket" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-    <input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un ticket d'enregistrement</h4>
     </div>
     <div class="modal-body">
+      <form id="ticketAddForm" class="form-horizontal" method="POST" action="{{ Route('ticket.store')}}">
+         <input type="hidden" name="id_patient" value="{{ $patient->id }}" >
+      <div class="alert alert-danger print-error-msg" style="display:none">
+      <strong>Errors:</strong> <ul></ul></div>
+      <div class="alert alert-success print-success-msg" style="display:none"></div>
       <div  class="form-group">
-        <label for="typecons" class="form-label">Type de consultation</label>
-        <select class="form-control" id="typecons" required>
+        <label for="type_consultation" class="form-label">Type de consultation</label>
+        <select class="form-control" name="type_consultation" required>
           <option value="" selected disabled>Séléctionner...</option>
           <option value="Normale">Normale</option>
           <option value="Urgente">Urgente</option>
@@ -18,7 +22,7 @@
       </div>
       <div  class=" form-group">
         <label for="document" class="form-label">Document</label>
-        <select class="form-control" id="document" required>
+        <select class="form-control" name="document" required>
           <option value="" selected disabled>Séléctionner...</option>
           <option value="Rendez-vous">Rendez-vous</option>
           <option value="Lettre d'orientation">Lettre d'orientation</option>
@@ -28,15 +32,16 @@
       </div>
       <div  class="form-group">
         <label for="specialite" class="form-label">Spécialité</label>
-        <select class="form-control" id="specialiteTick" disabled required>
+        <select class="form-control" name="specialite" required>
+          <option value="" selected disabled>Séléctionner...</option>
           @foreach($specialites as $specialite)
-            <option value="{{ $specialite->id}}" {{($specialite->id == Auth::User()->employ->specialite) ?"selected disabled":'' }}> {{ $specialite->nom}}</option>
+            <option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
           @endforeach
         </select>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" id ="print"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>  
+      <button type="submit" class="btn btn-primary" id ="printTck"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>  
       <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i> Fermer</button>
     </div>
       </div>

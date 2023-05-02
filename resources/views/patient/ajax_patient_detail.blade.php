@@ -86,7 +86,7 @@
   @endif
 </div> <!-- tab-content -->
 <div class= "center">
-  @if( in_array(Auth::user()->role_id,[1,13,14]))
+  @if(Auth::user()->isIn([1,13,14]))
     <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
   @endif
   <a href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance))  disabled @endif>

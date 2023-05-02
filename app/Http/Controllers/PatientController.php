@@ -206,7 +206,7 @@ class PatientController extends Controller
           $id = $patient->id ;
           $specialites = Specialite::all();
           $employe=Auth::user()->employ;
-          $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+          $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
           $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
                                       $query->where('pid', $id);

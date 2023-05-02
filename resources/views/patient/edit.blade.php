@@ -24,7 +24,6 @@
    } 
 	 function showTypeEdit(i){
     var value = {{ $patient->type_id}};
-    alert(value);
     switch(value){
       case 1:
         if(i == 0)

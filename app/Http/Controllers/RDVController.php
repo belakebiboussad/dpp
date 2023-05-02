@@ -43,7 +43,7 @@ class RDVController extends Controller
       {
         $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
         $specialites = Specialite::where('type','!=',null)->get();
-        if(in_array(Auth::user()->role_id,[1,13,14])) 
+        if(Auth::user()->isIn([1,13,14])) 
         {
           $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)
@@ -67,7 +67,7 @@ class RDVController extends Controller
         $patient = patient::FindOrFail( $request->patient_id);
       else
         $patient = new patient;
-      if((in_array(Auth::user()->role_id,[1,13,14]))) 
+      if(Auth::user()->isIn([1,13,14])) 
       {  
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
         $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
@@ -96,7 +96,7 @@ class RDVController extends Controller
             else
               $specialite_id = Auth::user()->employ->Service->specialite_id; 
           }
-          if(Auth::user()->role_id ==15)
+          if(Auth::user()->is(15))
             $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
           else
             $employ_id = Auth::user()->employe_id;
@@ -142,7 +142,7 @@ class RDVController extends Controller
         }else{
           $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
           $specialite =$rdv->specialite_id;
-          if(in_array(Auth::user()->role_id,[1,13,14])) 
+          if(Auth::user()->isIn([1,13,14])) 
             $rdvs = rdv::with('patient','employe')
                         ->whereHas('specialite',function($q) use ($specialite){
                           $q->where('id',$specialite);
@@ -161,10 +161,10 @@ class RDVController extends Controller
      */
       public function update(Request $request, rdv $rdv)
       { 
-        $specId = (in_array(Auth::user()->role_id,[1,13,14]) )? Auth::user()->employ->specialite : $request->specialite;
+        $specId = (Auth::user()->isIn([1,13,14]))? Auth::user()->employ->specialite : $request->specialite;
         $date = new DateTime($request->date);
         $fin = new DateTime($request->fin);
-        if(Auth::user()->role_id ==2)
+        if(Auth::user()->id(15))
           $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
         else
             $employ_id = Auth::user()->employe_id;

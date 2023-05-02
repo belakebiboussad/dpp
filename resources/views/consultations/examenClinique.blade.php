@@ -27,9 +27,9 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8" async defer>
-  $((function(){
+  $(function(){
    $.each( {!! $specialite->Consts !!}, function( key, cons ) {
-      $("."+cons.nom).ionRangeSlider({ min:cons.min,max:cons.max,step:cons.step,from:cons.normale,grid: true,grid_num: cons.grid_num, postfix:" "+cons.unite,skin:"big" });    
+      $("."+ cons.nom).ionRangeSlider({ min:cons.min,max:cons.max,step:cons.step,from:cons.normale,grid: true,grid_num: cons.grid_num, postfix:" "+cons.unite,skin:"big" });    
     })
  });
 </script>
