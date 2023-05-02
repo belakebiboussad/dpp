@@ -17,7 +17,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="row form-group">
+			<div class="row form-group mt-1">
 				<label for="dateatcd" class="col-sm-2 control-label">Date</label>
 				<div class="col-sm-10">
 					<input type="date" id="dateAntcd" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd"/>
