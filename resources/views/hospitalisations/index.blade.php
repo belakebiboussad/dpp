@@ -313,7 +313,7 @@
                         <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation" onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
                        @endif 
                       @endif
-                      @if(Auth::user()->is(5){{-- surmed --}}
+                      @if(Auth::user()->is(5))
                         <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('{{ $hosp->id }}')"><i class="fa fa-barcode"></i></a>                      
                       @endif
                       @if(Auth::user()->isIn([1,3,5,13,14]))

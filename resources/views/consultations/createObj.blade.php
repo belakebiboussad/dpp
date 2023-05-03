@@ -47,15 +47,11 @@ function storeord()
   }
   var champ = $("<input type='text' name ='listMeds' value='"+JSON.stringify(ordonnance)+"' hidden>");
   champ.appendTo('#consultForm');
-}
-function resetField()
-{
-  $("#description").val('');$('#dateAntcd').val('');
-}
+}/*function resetField(){ $("#description").val('');$('#dateAntcd').val('');}*/
 function addmidifun()
 {
   var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
-  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button> ';
   med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
   $("#ordonnance").append(med);
   $("#posologie_medic").attr("disabled", true);
@@ -183,25 +179,22 @@ $(function(){
           if(data.Antecedant == "Personnels")
           {
             var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.description + '</td>';
-              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              atcd += '<td class ="center"><button class="btn btn-xs btn-success open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
           }else
           {
             var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.date + '</td><td>' +data.cim_code
                 + '</td><td>' + data.description + '</td>';
-            atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+            atcd += '<td class ="center"><button class="btn btn-xs btn-success open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
           }
-            if (state == "add")
-              $('#' + tabName+' tbody').append(atcd);
-            else
-              $("#atcd" + atcd_id).replaceWith(atcd);
-            $('#modalFormAnt').trigger("reset");
-            $('#antecedantModal').modal('hide');
-        },
-        error: function (data) {
-            console.log('Error:', data);
-         }
+          if (state == "add")
+            $('#' + tabName+' tbody').append(atcd);
+          else
+            $("#atcd" + atcd_id).replaceWith(atcd);
+          $('#modalFormAnt')[0].reset();
+          $('#antecedantModal').modal('hide');
+        }
         });
       }          
     });
@@ -254,19 +247,17 @@ $(function(){
           data: formData,
           dataType: 'json',
           success: function (data) {
-              var tabac = data.tabac != 0 ? 'Oui' : 'Non';
-              var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
-              var atcd = '<tr id="atcd' + data.id + '"><td>' + data.date+'</td><td>' + data.cim_code + '</td><td>' + tabac + '</td><td>'+ ethylisme + '</td><td>'+ data.habitudeAlim + '</td><td>'+data.description +'</td>';
-              atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>&nbsp;';
-              atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';
-              if (state == "add")
-                $('#antsPhysTab tbody').append(atcd);
-              else 
-                $("#atcd" + atcd_id).replaceWith(atcd);
-              $('#antecedantPhysioModal').modal('hide');
-          },
-          error: function (data) {
-            console.log('Error:', data);
+            var tabac = data.tabac != 0 ? 'Oui' : 'Non';
+            var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
+            var atcd = '<tr id="atcd' + data.id + '"><td>' + data.date+'</td><td>' + data.cim_code + '</td><td>' + tabac + '</td><td>'+ ethylisme + '</td><td>'+ data.habitudeAlim + '</td><td>'+data.description +'</td>';
+            atcd += '<td class ="center"><button class="btn btn-xs btn-success Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
+            if (state == "add")
+              $('#antsPhysTab tbody').append(atcd);
+            else 
+              $("#atcd" + atcd_id).replaceWith(atcd);
+             $('#modalFormAntPhysio')[0].reset();
+            $('#antecedantPhysioModal').modal('hide');
           }
       });
     });
