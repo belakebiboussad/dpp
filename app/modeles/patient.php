@@ -101,6 +101,10 @@ class patient extends Model
   {
     return $this->belongsToMany('App\modeles\CIM\maladie','dppdb.maladie_patient','patient_id','maladie_id')->withTimestamps();
   }
+  public function Mother()
+  {
+    return $this->hasOne('App\modeles\Mother','pid');
+  }
  	public function getCivilite()
  	{
 		if(isset($this->Dat_Naissance))

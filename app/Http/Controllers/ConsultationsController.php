@@ -84,8 +84,6 @@ class ConsultationsController extends Controller
         $etab = Etablissement::first();
         $employe = Auth::user()->employ; 
         $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
-        //$speconst = json_encode($specialite->Consts);
-        
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet

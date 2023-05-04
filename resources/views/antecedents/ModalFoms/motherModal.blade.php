@@ -62,25 +62,24 @@
 	 	  var formData = {
          _token: CSRF_TOKEN,
 					pid    	  : '{{ $obj->patient->id }}',
-					dob       : $('#dob').val(),
-					motWeight : $("#motWeight").val(),
-					motHeight   : $("#motHeight").val(),
+					date       : $('#dob').val(),
+					poids : $("#motWeight").val(),
+					taille   : $("#motHeight").val(),
 					gs        : $("#gs").val(),
 					rh        : $("#rh").val(),
 			};
-      $.each(formData, function(key ,value){
-        alert(value);
-      })
-			var state = $(this).val();
+     	var state = $(this).val();
 			var type = "POST";
-			var ajaxurl = '/mother';
+			var url = '/mother';
       if (state == "update") {
 				type = "PUT";
 				ajaxurl = '/mother/' + $("#id").val();
 		  }
+      alert(state);
+      alert(url);
 	 		$.ajax({
 			   type: type,
-			   url: ajaxurl,
+			   url: url,
 			   data: formData,
 			   dataType: 'json',
 			   success: function (data) {

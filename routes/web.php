@@ -61,6 +61,7 @@ route::resource('allergie','AllergieController');
 Route::resource('maladies','CimController');
 Route::resource('vaccin','VaccinController');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('mother','MotherController');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');

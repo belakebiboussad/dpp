@@ -268,8 +268,6 @@
         <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i> Rechercher</button>
       </div>
     </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent">
