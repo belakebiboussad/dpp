@@ -47,3 +47,12 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  $(function(){
+    $('#btn-addAntPhys').click(function () {
+      $('#EnregistrerAntecedantPhys').val("add");
+      $('#AntecPhysCrudModal').html("Ajouter un antécédent");
+      $('#antecedantPhysioModal').modal('show');
+    });
+   })
+  </script>

@@ -41,4 +41,3 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
-<div class="row">@include('antecedents.ModalFoms.AntecedantModalPhysio')</div>

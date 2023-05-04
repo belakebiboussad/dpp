@@ -6,26 +6,26 @@
 		</div>
 		<div class="modal-body">
 			<input type="hidden" id="id" value="0">
-			<div class="form-group">
-				<label for="" class="col-sm-3 control-label" >Date de Naissance :</label>
+			<div class="row form-group">
+				<label for="" class="col-sm-3 control-label">Date de Naissance</label>
 				<div class="col-sm-9">
 						<input type="date" id="dob" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd"/>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-3 control-label">Poids habituel :</label>
+			<div class="row form-group">
+				<label for="" class="col-sm-3 control-label">Poids habituel</label>
 				<div class="col-sm-9">
-					<input type="text" id="motWeight" name="motWeight" class="irs-hidden-input col-sm-12 poids" tabindex="-1" readonly="">
+					<input type="text" id="motWeight" name="motWeight" class="form-control col-sm-12 poids" tabindex="-1">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-3 control-label">Taille :</label>
+			<div class="row form-group">
+				<label for="" class="col-sm-3 control-label">Taille</label>
 				<div class="col-sm-9">
-					<input type="text" id="motHeight" name="motHeight" class="irs-hidden-input col-sm-12 taille" tabindex="-1">
+					<input type="text" id="motHeight" name="motHeight" class="form-control col-sm-12 taille" tabindex="-1">
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label text-nowrap" for="gs">Groupe sanguin :</label>
+			<div class="row form-group">
+				<label class="col-sm-3 control-label text-nowrap" for="gs">Groupe sanguin</label>
 				<div class="col-sm-3">
 					<select class="form-control groupeSanguin" id="gs" name="gs">
 						<option value="">Selectionner...</option>
@@ -33,11 +33,11 @@
 						<option value="O">O</option><option value="AB">AB</option>
 					</select>
 				</div>
-				<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus:</label>
+				<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus</label>
 				<div class="col-sm-3">
 					<select id="rh" name="rh" class="rhesus form-control" disabled>
 						<option value="">------</option>
-						<option value="+">+</option>	<option value="-">-</option>
+						<option value="+">+</option><option value="-">-</option>
 					</select>
 				</div>
 			</div>
@@ -46,8 +46,8 @@
 			<button type="button" class="btn btn-info btn-sm" id ="motherSave" value="add">
         <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
       </button>
-     	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-       	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
+     	<button type="reset" class="btn btn-warning btn-sm" data-dismiss="modal">
+       	<i class="ace-icon fa fa-undo bigger-110"></i>Fermer
       </button>
 		</div>
 	</div>
@@ -55,21 +55,26 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		$("#motherSave").click(function (e) {
+    $("#motWeight").ionRangeSlider({ min:0,max:249.99,step:0.1, values:0, grid:true, grid_num:20, postfix:" KG", skin:"big" });
+    $("#motHeight").ionRangeSlider({ min:15.0,max:299.99,step:1, values:15.0, grid:true, grid_num:20, postfix:" cm", skin:"big" });
+    $("#motherSave").click(function (e) {
 	 		e.preventDefault();
-	 		var formData = {
-         _token: CSRF_TOKEN
-					pid    	  : '{{ $patient->id }}',
+	 	  var formData = {
+         _token: CSRF_TOKEN,
+					pid    	  : '{{ $obj->patient->id }}',
 					dob       : $('#dob').val(),
 					motWeight : $("#motWeight").val(),
 					motHeight   : $("#motHeight").val(),
 					gs        : $("#gs").val(),
 					rh        : $("#rh").val(),
 			};
+      $.each(formData, function(key ,value){
+        alert(value);
+      })
 			var state = $(this).val();
 			var type = "POST";
 			var ajaxurl = '/mother';
-			if (state == "update") {
+      if (state == "update") {
 				type = "PUT";
 				ajaxurl = '/mother/' + $("#id").val();
 		  }
@@ -80,7 +85,7 @@
 			   dataType: 'json',
 			   success: function (data) {
 					var mother = '<tr id="mother' + data.id + '"><td>'+ data.age + '</td><td>' + data.motWeight +'</td><td>'+data.motHeight+'</td><td>'+data.gs+data.rh+'</td>';
-				  mother += '<td class ="center"><button class="btn btn-xs btn-info open-modalmoth" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>&nbsp;';
+				  mother += '<td class ="center"><button class="btn btn-xs btn-info open-modalmoth" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
 				  mother += '<button class="btn btn-xs btn-danger delete-mother" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';
 					if (state == "add")
 						$('#motherTab' +' tbody').append(mother);

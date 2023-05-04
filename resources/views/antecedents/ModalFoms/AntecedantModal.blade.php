@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="AntecCrudModal">Ajouter un antécédent</h4>
     </div>
     <div class="modal-body">
-      <form id="modalFormAnt" class="form-horizontal" method="post">
+    <form id="modalFormAnt" class="form-horizontal" method="post">
       <input type="hidden" id="atcd_id" value="0">
       <div id="atcdsstypehide" class="row form-group">
         <label for="sstypeatcd" class="col-sm-2 control-label">Type</label>
@@ -57,7 +57,6 @@
   $(function(){
     $('#btn-add, #AntFamil-add').click(function () {
       $('#EnregistrerAntecedant').val("add");
-      $('#modalFormData').trigger("reset");
       $('#AntecCrudModal').html("Ajouter un antécédent");
       if(this.id == "AntFamil-add")
       {

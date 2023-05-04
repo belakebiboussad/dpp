@@ -125,12 +125,10 @@ $(function(){
         { "targets": 3 ,  className: "dt-head-center dt-body-center" }
       ],
     });
-  $('#btn-addAntPhys').click(function () {// //antecedant Physiologique
-    $('#EnregistrerAntecedantPhys').val("add");
-    $('#modalFormDataPhysio').trigger("reset");
-    $('#AntecPhysCrudModal').html("Ajouter un antécédent");
-    $('#antecedantPhysioModal').modal('show');
-  });
+    $('.modal').on('hidden.bs.modal', function(e)
+    { 
+     $(this).find('form')[0].reset();
+    })
   $("#EnregistrerAntecedant").click(function (e) {
     e.preventDefault();
     if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
@@ -192,8 +190,7 @@ $(function(){
             $('#' + tabName+' tbody').append(atcd);
           else
             $("#atcd" + atcd_id).replaceWith(atcd);
-          $('#modalFormAnt')[0].reset();
-          $('#antecedantModal').modal('hide');
+           $('#antecedantModal').modal('hide');
         }
         });
       }          
@@ -214,6 +211,21 @@ $(function(){
         $('#AntecCrudModal').html("Editer un Antecedant");  
         $('#EnregistrerAntecedant').val("update"); 
         $('#antecedantModal').modal('show');
+      });
+    });
+    $('body').on('click', '.open-modalFamil', function (event) {
+      event.preventDefault();
+      var atcd_id = $(this).val();
+      $.get('/atcd/' + atcd_id, function (data) { 
+        $('#atcd_id').val(data.id);
+        $('#dateAntcd').val(data.date);
+        $('#cim_code').val(data.cim_code);
+        $('#description').val(data.description);
+        if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+          $( "#atcdsstypehide" ).addClass("hidden"); 
+        $('#EnregistrerAntecedant').val("update");
+        $("#EnregistrerAntecedant").attr('data-atcd',"Famille") 
+         $('#antecedantModal').modal('show');
       });
     });
     $("#EnregistrerAntecedantPhys").click(function (e) {
@@ -290,7 +302,6 @@ $(function(){
           if (!confirmed) {
             Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
             title:'<strong>êtes-vous sûr ?</strong>',
-  
             type:'warning',
             html: '<br/><h4>Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours</h4><br/><hr/>',
             showCancelButton: true,
@@ -418,7 +429,7 @@ $(function(){
      <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
-          <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
+          <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp;
           <a href="{{ route('consultations.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
         </div>
       </div>
@@ -426,8 +437,20 @@ $(function(){
   </form>
   </div>
 </div>
-@include('antecedents.AntecedantModal')@include('antecedents.AntecedantModalPhysio')
-@include('cim10.cimModalForm')@include('consultations.ModalFoms.DemadeHospitalisation')
+@if(count(array_intersect([1,3], $specialite->antecTypes()->pluck('id')->toArray())) > 0)
+  @include('antecedents.ModalFoms.AntecedantModal')
+@endif
+@if(in_array(2,$specialite->antecTypes()->pluck('id')->toArray()))
+@include('antecedents.ModalFoms.AntecedantModalPhysio')
+@endif
+@if(in_array(5,$specialite->antecTypes()->pluck('id')->toArray()))
+<div class="row">@include('antecedents.ModalFoms.motherModal')</div>
+@endif
+@if(in_array(8,$specialite->antecTypes()->pluck('id')->toArray()))
+@include('antecedents.ModalFoms.vaccinsModal')
+@endif
+@include('cim10.cimModalForm')
+@include('consultations.ModalFoms.DemadeHospitalisation')
 @include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')

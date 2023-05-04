@@ -6,6 +6,7 @@
 	      <h4 class="modal-title" id="vaccinTitle">Ajouter un vaccin</h4>
 	    </div>
 	   	<div class="modal-body">
+        <form id="" class="form-horizontal" method="post">
 	   		<input type="hidden" id="vac_id" value="0">
 	   		<div class="form-group"> 
 	      	<label for="vid">Vaccin</label>
@@ -23,12 +24,13 @@
 						<input type="date" id="dateVacc" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" autocomplete="off"/>
 					</div> 
       	</div>
+      </form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info btn-sm" id ="vaccinSave" value="add">
+				<button type="button" class="btn btn-primary btn-sm" id ="vaccinSave" value="add">
         	<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-     		<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-       		<i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
+     		<button type="reset" class="btn btn-warning btn-sm" data-dismiss="modal">
+       		<i class="ace-icon fa fa-undo bigger-110"></i>Fermer</button>
 			</div>
 	  </div> 
 	</div>
