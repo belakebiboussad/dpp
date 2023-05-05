@@ -145,6 +145,7 @@ Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::post('exmRad', 'DemandeExamenRadio@exmStore')->name('exmRad.store');
 route::delete('/exmRad/{id}', 'DemandeExamenRadio@exmDestroy')->name('exmRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
+Route::get('/downloadResRad/{id}', 'DemandeExamenRadio@downloadRes')->name('resultRad.download');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
