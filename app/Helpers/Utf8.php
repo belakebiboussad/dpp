@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Utils;
+namespace App\Helpers;
 class Utf8{
 	public static function cleanString($stext){
 		  $utf8 = array(

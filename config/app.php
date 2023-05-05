@@ -239,7 +239,6 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Input'     => Illuminate\Support\Facades\Input::class,
         'Flashy' => MercurySeries\Flashy\Flashy::class,
-        //'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
-        'ToUtf' => App\Helpers\String\Utf8::class,
+        'ToUtf' => App\Helpers\Utf8::class,
     ],
 ];
