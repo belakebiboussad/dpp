@@ -30,15 +30,14 @@ class RdvHospiController extends Controller
       switch($request->field)
       {
         case "date":
-          $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+            $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                     ->whereHas('demandeHospitalisation', function($q){
                                             $q->where('etat', 1);
                                     })->where(trim($request->field),trim($request->value))->get();
-
-          break;
+             break;
         case "IPP":
-          $ipp = $request->value; 
-          $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+              $ipp = $request->value; 
+              $rdvs =rdv_hospitalisation::with('demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
                                     ->whereHas('demandeHospitalisation', function($q){
                                           $q->where('etat', 1);
                                     })->whereHas('demandeHospitalisation.consultation.patient',function($q)use($ipp){

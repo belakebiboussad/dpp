@@ -11,7 +11,7 @@ class assur extends Model
 	public $incrementing = false;
 	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','sf', 'Sexe','adresse','commune_res','wilaya_res','grp_sang','NSS'];
 	protected $appends = ['full_name'];
-  protected $dates =['Dat_Naissance'];
+      protected $dates =['Dat_Naissance'];
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;

@@ -76,7 +76,8 @@ Route::post('/demande_validating','DemandeHospitalisationController@valider')->n
 Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('demande_invalidate');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('/getConsultations','ConsultationsController@getConsultations');Route::get('/getRdvs','RdvHospiController@getRdvs');
+Route::get('/getConsultations','ConsultationsController@getConsultations');
+Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques','ColloqueController@index');

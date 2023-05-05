@@ -47,7 +47,7 @@
         <ul class="submenu">
           <li>
             <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>Ajouter un rendez-vous</a><b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>rendez-vous</a><b class="arrow"></b>
           </li>
           <li><a href="/listeRDVs"><i class="menu-icon fa fa-clock-o"></i>Rendez-Vous</a><b class="arrow"></b></li>
         </ul>
@@ -60,7 +60,7 @@
         <ul class="submenu">
           <li>
             <a href="{{ route('reservation.create') }}" title="Reserver  un lit">
-              <i class="menu-icon fa fa-plus"></i>Ajouter  une réservation</a><b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>Réservation</a><b class="arrow"></b>
           </li>
           <li><a href="{{ route('reservation.index') }}"><i class="menu-icon fa fa-caret-right"></i>Réservations</a><b class="arrow"></b></li>
         </ul>
@@ -73,7 +73,7 @@
         <ul class="submenu">
           <li>
             <a href="{{ route('bedAffectation.create') }}" title="Reserver un lit">
-              <i class="menu-icon fa fa-plus"></i>Ajouter  une Affectation</a><b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>Affectation</a><b class="arrow"></b>
           </li>
           <li><a href="{{ route('bedAffectation.index') }}"><i class="menu-icon fa fa-caret-right"></i>Affectations</a><b class="arrow"></b></li>
          </ul>

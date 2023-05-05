@@ -116,9 +116,9 @@
     var rows ="";
     var disabled = 'disabled';
     var filter= new Date($("#date").val());
-    if(areSameDate(dt, filter))
-      disabled ='';
     var bedAffect = getBedAffectation(rdv.demande_hospitalisation.bed_affectation);
+     if(areSameDate(dt, filter) &&(rdv.demande_hospitalisation.bed_affectation!=null))
+      disabled ='';
     var actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(1,' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ rdv.id_demande +'"><td hidden>'+ rdv.id + '</td><td>';
     rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
@@ -146,7 +146,6 @@
       success: function(data) {
         var admissions = $('#rdvs').empty();
         $('#total_records').text(data.length);
-        
         if(data.length > 0){
           $.each(data,function(key,rdv){
             rows +=  fill(rdv);
