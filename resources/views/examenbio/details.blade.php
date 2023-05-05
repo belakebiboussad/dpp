@@ -46,12 +46,12 @@
 <div class="row">@include('patient._patientInfo',['patient'=>$demande->imageable->patient]) </div>
 <div class="page-header"><h1>Demande d'examen biologique</h1>
   <div class="pull-right">
-    <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
     @if(Auth::user()->is(11))
-    <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+   <a href="{{ route('home')}}" class="btn btn-xs btn-white"><i class="fa fa-search"></i> Rechercher</a>
     @else
-    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
     @endif
+        <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-xs btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
   </div>
 </div><hr>
 <div class="row">
