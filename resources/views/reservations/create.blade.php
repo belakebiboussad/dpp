@@ -78,11 +78,11 @@
         $('#bedReservModal').modal('show');
       });   
     });
-    $("#saveReservation").click(function(e){   // $('#addReservationForm').submit(); // $("#serviceh").selct(0);
+    $("#saveReservation").click(function(e){
       e.preventDefault();
       var formData = { _token: CSRF_TOKEN, id_rdvHosp:$("#rdv_id").val(), id_lit:$(".lit_id").val()};
       var url = "{{ route('reservation.store') }}"; 
-       $.ajax({
+      $.ajax({
             type : 'POST',
             url :url,
             data:formData,

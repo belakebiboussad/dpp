@@ -145,15 +145,15 @@ class HospitalisationController extends Controller
    */
      public function update(Request $request, $id)
      {
-        $messages = array(
-          'diagSortie.max' => "diagnostic can not be great than 255 characters.",
-        );
-        $rule = array('diagSortie'   => 'max:255');
-        $validator = Validator::make($request->all(),$rule,$messages); 
-        if ($validator->fails()) {
-          return back()->withInput($request->input())->withErrors($validator->errors());
-        }
-        $hosp = hospitalisation::find($id);
+        // $messages = array(
+        //   'diagSortie.max' => "diagnostic can not be great than 255 characters.",
+        // );
+        // $rule = array('diagSortie'   => 'max:255');
+        // $validator = Validator::make($request->all(),$rule,$messages); 
+        // if ($validator->fails()) {
+        //   return back()->withInput($request->input())->withErrors($validator->errors());
+        // }
+       $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
           $input = $request->all();

@@ -193,7 +193,8 @@
                     $('.ndeces').removeClass('hidden');
                 } 
           });
-     $('#saveCloturerHop').click(function () {
+     $('#cloturerHop').click(function (e) {
+          e.preventDefault();
           var formData = {
             _token: CSRF_TOKEN,
             id                 : $("#id").val(),
@@ -203,7 +204,7 @@
             resumeSortie       : $('#resumeSortie').val(),
             etatSortie         : $('#etatSortie').val(),
             diagSortie         : $("#diagSortie").val(),
-            ccimdiagSortie     : $("#ccimdiagSortie").val(),//etat               :  1,
+            ccimdiagSortie     : $("#ccimdiagSortie").val(),
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();
@@ -214,22 +215,21 @@
               formData.date = $("#date").val();
               formData.heure = $("#heure").val();
               formData.med_id = $("#medecin").val();
-          } 
+          }
+          
           if(!($("#Date_Sortie").val() == ''))
           {
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
+            url = '{{ route("hospitalisation.update", ":slug") }}'; 
+            url = url.replace(':slug', $("#id").val());
             $.ajax({
-                type: "POST",
-                url: '/hospitalisation/'+$("#id").val(),
-                data: formData,
-                dataType: 'json',
-                success: function (data) {
-                  $("#hospi" + data.id).remove();
-                },
-                error: function (data){
-                  console.log('Error:', data);
-                },
+                type: "PUT",
+                url: url,//'/hospitalisation/'+$("#id").val(),
+                data: formData,//dataType: 'json',
+                 success: function (data) {
+                 $("#hospi" + data.id).remove();
+                }
             });
           }
       });
