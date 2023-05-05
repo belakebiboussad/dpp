@@ -94,7 +94,7 @@
                   <tr>
                     <th class="center" width="5%">#</th><th class="center" width="30%">Nom examen</th>
                     <th class="center" width="15%">Classe examen</th>
-                    <th class="center" width="40%">Attacher le Résultat:</th>
+                    <th class="center" width="40%">Attacher le Résultat</th>
                     <th class="center" width="10%"><em class="fa fa-cog"></em></th>
                   </tr>
                 </thead>
@@ -104,7 +104,7 @@
                     <td class="center">{{ $index + 1 }}</td><td>{{ $exm->nom }}</td>
                     <td>{{ $exm->Specialite->nom }}</td>
                     @if($loop->first)
-                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                    <td rowspan ="{{ $demande->examensbios->count()}}" class="align-middle">
                       <input type="file" class="form-control-file" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
                     </td>
                     @endif
