@@ -77,7 +77,8 @@ $(function(){
                                 <button type="button" class="btn btn-info btn-xs dicom_viewer" value="{{ $ex->resultat }}" title="Voir le résultat">
                                   <i class="ace-icon fa fa-eye-slash"></i></button>
                                 @endif
-                                <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
+                                 <a href="{{ route('resultRad.download',$ex->id)}}" class="btn btn-info btn-xs" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
+                                <i class="fa fa-download"></i></a>
                                 @break
                               @case('Rejeté')
                                 <a href="#" class="btn btn-xs show-details-btn green" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" ><i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>  
