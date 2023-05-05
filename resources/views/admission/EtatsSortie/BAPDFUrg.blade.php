@@ -46,7 +46,9 @@
      		</tr>
      		<tr>
      			<td><b>Adresse :</b><span> {{ $patient->assure->adresse }},
+           @if(!is_null($patient->assure->commune_res))
             {{ $patient->assure->commune->nom_commune }},{{ $patient->assure->commune->daira->wilaya->nom }}
+            @endif
           </span></td>
      		</tr>
      		<tr>
