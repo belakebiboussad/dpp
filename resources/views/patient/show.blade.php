@@ -274,7 +274,7 @@ $(function(){
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-18">
 				<li class="active">
-					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><b>Informations administratives</b></a>
+					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>Informations administratives</a>
 				</li>
 				@if(Auth::user()->isIn([1,13,14]))
 					@if( $patient->antecedants->count() >0)

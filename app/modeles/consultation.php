@@ -23,7 +23,7 @@ class consultation extends Model
     }
     public function examsAppareil()
     {// consultation
-      return $this->belongsToMany('App\modeles\appareil','appareil_examen','cons_id','appareil_id')->withPivot('description');
+      return $this->belongsToMany('App\modeles\Appareil','appareil_examen','cons_id','appareil_id')->withPivot('description');
     }
     public function demandeexmbio()
     {

@@ -50,8 +50,7 @@ class DemandeExbController extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
-        //dd($demandesexb);
-        return view('examenbio.index', compact('demandesexb','services'));
+         return view('examenbio.index', compact('demandesexb','services'));
       }
     }
 /**
@@ -86,7 +85,7 @@ class DemandeExbController extends Controller
     public function show($id)
     {
       $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      return view('examenbio.show', compact('demande','medecin','patient'));
+      return view('examenbio.show', compact('demande'));
     }
      public function detailsdemandeexb($id)
     {

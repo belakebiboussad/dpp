@@ -21,7 +21,7 @@
 	<div class="col-sm-8"><textarea class="form-control" id="diagnostic" name="diagnostic" placeholder="Diagnostic..." ></textarea></div>
 </div>
 <div class="form-group row">
-    <label for="codesim" class="col-sm-4 control-label">Code CIM-10 </label>
+    <label for="codesim" class="col-sm-4 control-label">Code CIM10 </label>
     <div class="input-group">
       <input type="text" class="form-control col-sm-4" placeholder="Rechercher code cim10 for..." id="codesim" name="codesim">
       <span class="input-group-btn">

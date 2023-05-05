@@ -65,7 +65,7 @@
           <textarea class="form-control" id="cause" placeholder="Cause de décès"></textarea>
         </div>  
         <div class="mb-3">
-          <label for="ccimdiagSortie">Code Cim-10 :</label>
+          <label for="ccimdiagSortie">Code Cim10 :</label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search" id="ccimdiagSortie" disabled>
             <div class="input-group-btn">

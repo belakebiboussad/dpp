@@ -9,7 +9,7 @@ use App\modeles\Constante;
 use App\modeles\Specialite;
 use App\modeles\specialite_exb;
 use App\modeles\antecType;
-use App\modeles\appareil;
+use App\modeles\Appareil;
 use App\modeles\TypeExam;
 use App\modeles\Vaccin;
 use App\modeles\Parametre;

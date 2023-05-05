@@ -18,7 +18,7 @@ class StatsHelper
   }
   public static function formatDate(Carbon $date)
   {
-    return $date->format('Y-m-d');
+       return $date->format('Y-m-d');
   }
   public static function formatString($collection, $field1, $field2)
   {

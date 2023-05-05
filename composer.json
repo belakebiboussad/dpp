@@ -70,6 +70,9 @@
         "optimize-autoloader": true,
         "github-oauth": {
 
+        },
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     },
     "repositories": [

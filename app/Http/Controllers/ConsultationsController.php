@@ -29,7 +29,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
-use App\modeles\appareil;
+use App\modeles\Appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\CIM\maladie;
 use App\modeles\facteurRisqueGeneral;
