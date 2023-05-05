@@ -19,7 +19,7 @@
         <a href="{{ route('demandeexb.index') }}"><i class="menu-icon material-icons">home</i><span class="menu-text">Accueil</span></a><b class="arrow"></b>
       </li>
       <li>
-      <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Liste des demandes </span></a><b class="arrow"></b>  
+      <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Demandes </span></a><b class="arrow"></b>  
         </li>
         <li>
           <a href="#" class="dropdown-toggle">

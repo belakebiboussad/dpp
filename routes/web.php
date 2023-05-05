@@ -158,6 +158,7 @@ route::get('/acte/run/{id}','ActeController@run')->name('runActe');
 route::get('/schapitres','CimController@getChapters');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
+Route::get('/downloadRes/{id}', 'DemandeExbController@downloadRes')->name('result.download');
 Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
 Route::get('/getconst','SoinsController@getConstData')->name('getConstData');

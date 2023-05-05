@@ -68,7 +68,9 @@
                               @case('En Cours')
                                 @break
                               @case('Validée')
-                                <a href='/storage/files/{{ $demande->resultat }}' class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
+                              {{--  <a href="/storage/files/{{ $demande->resultat }}" class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
+                                <i class="fa fa-download"></i></a> --}}
+                                <a href="{{ route('result.download',$demande->id)}}" class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
                                 <i class="fa fa-download"></i></a>
                                 @if( isset($demande->crb))
                                   <a href="{{ route('crbs.download',$demande->id )}}" title="télecharger le compte rendu" class="btn btn-default btn-md" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
