@@ -95,7 +95,8 @@ class ConsultationsController extends Controller
         $obj = $patient->Consultations()->create([
           'date'=>$date,'employ_id'=>Auth::User()->employe_id,'id_lieu'=>$etab->id]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
-        return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
+        $isHosp =false;
+        return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases','isHosp'));
       }
     /**
      * Store a newly created resource in storage.

@@ -41,11 +41,10 @@
 	 <div class= "col-md-3 col-sm-3">
 			<div class="row">
         <button type="button" class="btn btn-primary btn-lg btn-block requestPrint" value ="{{ $obj->id }}" data-field="consultation_id" disabled>
-       
           <div class="fa fa-print bigger-120"></div><span class="bigger-110">Imprimer</span>
 				</button>
 			</div><div class="space-12"></div>
-			@if(! isset($hosp))
+			@if(!$isHosp)
 					@include('consultations.actions')	
 				@endif
 		</div>

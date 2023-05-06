@@ -65,8 +65,9 @@ class VisiteController extends Controller
       $examens = TypeExam::all();//CT,RMN
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
-      $consts = consts::all();//'patient',
-      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite'));
+      $consts = consts::all();
+      $isHosp =true;
+      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite','isHosp'));
     }
  /**
      * Show the form for creating a new resource.

@@ -155,8 +155,7 @@
       visite_id: $('#id').val(),
       med_id:$("#med_id").val(),
       posologie:$("#posologie").val(),/*periodes :periodes,*/
-      nbrPJ : $('#nbrPJ').val(),
-      duree : $('#dureeT').val()
+      nbrPJ : $('#nbrPJ').val(),//duree : $('#dureeT').val()
     };
     var state = jQuery('#EnregistrerTrait').val();
     var type = "POST", url='{{ route("traitement.store") }}';
@@ -169,9 +168,11 @@
     $.ajax({
       type:type,
       url:url,
-      data: formData,
-      dataType:'json',
+      data: formData,//dataType:'json',
       success: function (data) {  
+        // $.each(data, function(key, value){
+        //   alert(key+":"+value)
+        // })
         if($('.dataTables_empty').length > 0)
           $('.dataTables_empty').remove();
         var trait = '<tr id="trait'+data.id+'"><td hidden>'+data.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.posologie+'</td><td>'+data.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';

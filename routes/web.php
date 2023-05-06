@@ -56,7 +56,6 @@ route::resource('orientLetter','LettreOrientationController');
 route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::resource('bedAffectation','AffectationsController');
-Route::resource('planning','PlanningController');
 route::resource('allergie','AllergieController');
 Route::resource('maladies','CimController');
 Route::resource('vaccin','VaccinController');

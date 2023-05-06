@@ -112,17 +112,6 @@
         </ul>
         </li>
         @endif
-        <li>
-          <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-calendar" aria-hidden="true"></i><span class="menu-text">Plannings</span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-          <b class="arrow"></b>
-          <ul class="submenu">
-            <li><a href="{{ route('planning.create') }}"><i class="menu-icon fa fa-plus purple"></i> Demande de congés / recupération</i> </a><b class="arrow"></b></li>
-
-          </ul>
-        </li>
         @if(Auth::user()->isIn([13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>

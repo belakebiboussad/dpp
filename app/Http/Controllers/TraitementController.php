@@ -26,7 +26,7 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-      $this->validate($request, ['med_id'=> 'required|string|max:225','id_visite'=> 'required']);
+      //$this->validate($request, ['med_id'=> 'required|string|max:225','id_visite'=> 'required']);
       $visite = visite::find($request->id_visite);
       $trait = $visite->traitements()->create($request->all());
       return $trait->load('medicament','visite.medecin');
