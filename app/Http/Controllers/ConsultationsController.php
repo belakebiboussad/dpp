@@ -110,11 +110,10 @@ class ConsultationsController extends Controller
             'motif' => 'required',
             'resume' => 'required',
         ]);
-        if($validator->fails())
-          return back()->withErrors($validator)->withInput();
+        if ($validator->fails())
+          return back()->withInput($request->input())->withErrors($validator->errors());
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
-       
         if(isset(Auth::user()->employ->specialite) && (!is_null(Auth::user()->employ->specialite)))
           $specialite = Auth::user()->employ->Specialite;
         else

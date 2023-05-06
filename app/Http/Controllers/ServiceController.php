@@ -112,16 +112,15 @@ class ServiceController extends Controller
           {
             $service->responsable->User->update(['role_id'=>1]);
             $service->responsable->User->save();
+            $employ = employ::FindOrFail($request->responsable_id);
+            $employ->User->update(['role_id'=>14]);
+            $employ->User->save();
           } 
         } 
-        $service->update($request->all()); //return redirect()->action('ServiceController@show', ['id'=>$id]);
-        if(isset($request->responsable_id))
-        if($request->responsable_id != $service->responsable_id)
-        {
-          $employ = employ::FindOrFail($request->responsable_id);
-          $employ->User->update(['role_id'=>14]);
-          $employ->User->save();
-        }  
+        $input = $request->all();
+        $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
+        $input['urgence'] = isset($request->urgence)? $request->urgence : null;
+        $service->update($input);
         return redirect()->action('ServiceController@index');
       }
       /**

@@ -162,7 +162,7 @@
        });
        return erreur;
       }
-      if ($("#addGardeMalade").length > 0) {  ////avoir
+      if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({
             rules: {
                 mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   

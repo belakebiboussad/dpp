@@ -5,7 +5,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
-              <h5 class="modal-title" id="exampleModalLabel">Rendez-Vous <q><a href="" id="lien" class="white"></a></q></h5>
+              <h4 class="modal-title" id="exampleModalLabel">Rendez-Vous <q><a href="" id="lien" class="white"></a></q></h4>
             </div>
             <form id ="updateRdv" role="form" >  
             <div class="modal-body">

@@ -33,21 +33,17 @@
               </div>
             </div>
             <div class="form-group medChirservice row">
-              <label class="col-sm-3 col-control-label" for="hebergement">Hébergement</label>
               <div class="col-sm-9">
-                <label>
-                  <input name="hebergement" value="0" type="radio" class="ace" checked/><span class="lbl">Non</span></label>&nbsp;&nbsp;
-                <label>
-                  <input name="hebergement" value="1" type="radio" class="ace"/><span class="lbl">Oui</span></label>                
+                <div class="checkbox col-sm-offset-4">
+                  <label><input name="hebergement" type="checkbox" class="ace" value ="1"/><span class="lbl">Hébergement</span></label>
+                </div>          
               </div>
             </div>
             <div class="form-group medChirservice row">
-              <label class="col-sm-3 col-control-label" for="urgence"> Urgence</label>
               <div class="col-sm-9">
-                <label>
-                  <input name="urgence" value="0" type="radio" class="ace" checked /><span class="lbl">Non</span></label>&nbsp;&nbsp;
-                <label>
-                  <input name="urgence" value="1" type="radio" class="ace"/><span class="lbl">Oui</span></label>             
+                <div class="checkbox col-sm-offset-4">
+                <label><input name="urgence" type="checkbox" class="ace" value ="1"><span class="lbl">Urgence</span></label>
+                </div>
               </div>
             </div>
             <div class="row center">

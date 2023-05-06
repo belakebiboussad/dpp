@@ -37,22 +37,24 @@
 								</div>
 							</div><div class="space-12 hidden-xs"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="hebergement"><strong> Hébergement: </strong></label>
 								<div class="col-sm-9">
-									<label>
-										<input name="hebergement" value="0" type="radio" class="ace" @if(!($service->hebergement)) checked @endif/><span class="lbl">Non</span></label>&nbsp;&nbsp;
-									<label>
-										<input name="hebergement" value="1" type="radio" class="ace" @if($service->hebergement) checked @endif/><span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;								
+								  <div class="checkbox col-sm-offset-3">
+                    <label>
+                      <input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}>
+                      <span class="lbl">Hébergement</span>
+                    </label>
+                  </div>
 								</div>
 							</div>
 							<div class="space-12 hidden-xs"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="urgence"><strong> Urgence: </strong></label>
 								<div class="col-sm-9">
-									<label>
-										<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif/><span class="lbl">Non</span></label>&nbsp;&nbsp;
-									<label>
-										<input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif/><span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;								
+                  <div class="checkbox col-sm-offset-3">
+                    <label>
+                      <input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}>
+                      <span class="lbl">Urgence</span>
+                    </label>
+                  </div>
 								</div>
 							</div>
 							<div class="row center">
