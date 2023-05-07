@@ -7,7 +7,7 @@
       switch(value){
         case "0":
           if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();//copyPatient();
+            assureShow();
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
           break;

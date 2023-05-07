@@ -21,7 +21,7 @@
              </span>
           </div>
           <div class="mb-3">
-             <label for="nom_h" class="col-form-label">Nom :</label>
+             <label for="nom_h" class="col-form-label">Nom</label>
              <input type="text" class="form-control" id="nom_h">
           </div>
           <div class="mb-3">
@@ -29,11 +29,11 @@
             <input type="text" class="form-control" id="prenom_h">
           </div>
           <div class="mb-3">
-            <label for="datenaissance_h">Né(e) le :</label>
+            <label for="datenaissance_h">Né(e) le</label>
             <input class="form-control date-picker ltnow" id="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required />
           </div>
           <div class="mb-3">
-            <label for="lien_par">Qualité :</label>
+            <label for="lien_par">Qualité</label>
             <select class="form-control" id="lien_par" required>
               <option value="" selected>Sélectionner...</option>
               <option value="0">Conjoint(e)</option>
@@ -53,7 +53,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="type_piece">Type de la pièce d'identité :</label>
+            <label for="type_piece">Type de la pièce d'identité</label>
             <div class="radio">
               <label>
               <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
@@ -63,20 +63,20 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="num_piece">N° pièce :</label>
+            <label for="num_piece">N° pièce</label>
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="mb-3">
-            <label for="num_piece">Délivré le :<span class="red">*</span></label>
+            <label for="num_piece">Délivré le<span class="red">*</span></label>
             <input class="form-control date-picker" id="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
           </div>
           <div class="mb-3">
-            <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse :</label>
+            <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse</label>
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
           
           <div class="form-froup">
-            <label for="mobile_h">Mob :</label>
+            <label for="mobile_h">Mob</label>
             <div class="input-group col-sm-12">
               <span class="input-group-addon fa fa-phone"></span>
               <input type="tel" id="mobile_h" class="form-control mobile" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">

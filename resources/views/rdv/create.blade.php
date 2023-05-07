@@ -19,15 +19,15 @@
 <script>
 function resetPatient()
 {
-     $("#livesearch").html("");
-     $("#pat-search").val("");
-      if('{{ $appointDoc }}' != null)
-           $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
-        //tester
-     if (!($("#btnSave").is(":disabled")))
-     {
-            $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
-    }
+   $("#livesearch").html("");
+   $("#pat-search").val("");
+    if('{{ $appointDoc }}' != null)
+         $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
+      //tester
+   if (!($("#btnSave").is(":disabled")))
+   {
+          $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
+  }
 }
 var loaded;
 function reset_in(){
@@ -61,26 +61,62 @@ function getPatient()
         }
   });
 }
-$(function () {
-      if(loaded)
-      {
-              $.connection.hub.url = '{{-- $borneIp--}}/myhubs';
-              // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';// $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
-              // Connect Hubs without the generated proxy
-              var chatHubProxy = $.connection.myChatHub;
-              $.connection.hub.start().done(function (e) {
-                    console.log("Hub connected.");
-                    $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
-                        var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
-                        chatHubProxy.server.send(barcode);       
-                    });
-                }).fail(function () {
-                  console.log("Could not connect to Hub.");
-                });
-      }
-});
-
+function createRDVModal(debut, fin, pid = 0, fixe=1)
+{ 
+  var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+  var fin = moment(fin).format('YYYY-MM-DD HH:mm');
+  if(pid !== 0)
+  {
+    if('{{ Auth::user()->isIn([1,13,14])}}')
+    {
+      var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
+      var url = "{{ route('rdv.store') }}"; 
+      $.ajax({
+          type : 'POST',
+          url :url,
+          data:formData,
+          success:function(data){         
+            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+            $('.calendar').fullCalendar( 'renderEvent',  {
+                  title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                  start: debut,
+                  end: fin,
+                  id : data['rdv']['id'],
+                  idPatient:data['patient']['id'],
+                  fixe: data['rdv']['fixe'],
+                  tel:data['patient']['tele_mobile1'] ,
+                  age:data['age'],
+                  specialite: data['rdv']['specialite_id'],
+                  civ : data['patient']['civ'],
+                  allDay: false,
+                  color:color
+            });
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+      });
+    }else
+      showRdvModal(debut,fin,pid,fixe); 
+  }else
+    showRdvModal(debut,fin,0,fixe); 
+}
 $(function() {
+  if(loaded)
+  {
+    $.connection.hub.url = '{{-- $borneIp--}}/myhubs';
+    // Connect Hubs without the generated proxy
+    var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function (e) {
+          console.log("Hub connected.");
+          $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
+              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
+              chatHubProxy.server.send(barcode);       
+          });
+      }).fail(function () {
+        console.log("Could not connect to Hub.");
+      });
+  }
    $("#showfullCalModal").on('hide.bs.modal', function(){
         $('#specialiteId').val('');
         $('#printRdv').attr("data-id",'');

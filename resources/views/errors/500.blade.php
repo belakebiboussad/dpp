@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('partials.htmlheader')
+@include('partials.head')
 <body class="no-skin">
 
 @if (! Auth::guest())

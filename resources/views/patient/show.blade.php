@@ -117,8 +117,14 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
+      e.preventDefault();
+      if( ! checkHomme() )
+      {
+        alert("error");
+        event.preventDefault();
+      }else
+      {
         $('#gardeMalade').modal('toggle');
-        e.preventDefault();
         var formData = {
             _token: CSRF_TOKEN,
             id_patient:$('#patientId').val(),
@@ -136,12 +142,10 @@ $(function(){
         };
         var state = jQuery('#EnregistrerGardeMalade').val();
         var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
-        if (state == "update") {
+        if (state == "update")
           type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-        }
-        if (state == "add") {
-              ajaxurl ="{{ route('hommeConfiance.store') }}";
-        }
+        if (state == "add")
+          ajaxurl ="{{ route('hommeConfiance.store') }}";
         $('#addGardeMalade').trigger("reset");
         $.ajax({
           type: type,
@@ -226,7 +230,8 @@ $(function(){
               else 
                 $("#garde" + hom_id).replaceWith(homme);          
           },
-        }); 
+        });
+      } 
     }); 
     $("#accordion" ).accordion({
 	      collapsible: true ,

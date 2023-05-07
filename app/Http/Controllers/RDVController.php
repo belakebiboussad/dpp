@@ -196,26 +196,26 @@ class RDVController extends Controller
       }
       public function print(Request $request,$id)
       { 
-          $rdv = rdv::findOrFail($id);
-          $etab = Etablissement::first();
-          $civilite = $civilite = $rdv->patient->civ;
-          $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
-          $pdf417 = new PDF417();
-          $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.$rdv->date->format('dmy'));
-          $renderer = new ImageRenderer([
-              'format' => 'png',
-              'scale' => 1,//1
-              'ratio'=>3,//hauteur,largeur
-              'padding'=>0,//espace par rapport left
-              'format' =>'data-url'
-          ]);
-          $img = $renderer->render($data);
-          $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
-          $dompdf = new Dompdf();
-          $dompdf->loadHtml($viewhtml);
-          $dompdf->setPaper('a6', 'landscape');
-          $dompdf->render();
-          return $dompdf->stream($filename); 
+        $rdv = rdv::findOrFail($id);
+        $etab = Etablissement::first();
+        $civilite = $civilite = $rdv->patient->civ;
+        $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+        $pdf417 = new PDF417();
+        $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.$rdv->date->format('dmy'));
+        $renderer = new ImageRenderer([
+            'format' => 'png',
+            'scale' => 1,//1
+            'ratio'=>3,//hauteur,largeur
+            'padding'=>0,//espace par rapport left
+            'format' =>'data-url'
+        ]);
+        $img = $renderer->render($data);
+        $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($viewhtml);
+        $dompdf->setPaper('a6', 'landscape');
+        $dompdf->render();
+        return $dompdf->stream($filename); 
       }
       public function listeRdvs(Request $request)
       {

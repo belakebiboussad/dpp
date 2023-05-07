@@ -47,7 +47,7 @@ class RolesController extends Controller
               "role"=>$request->rolename,
            ]);
          $roles = rol::all();
-         Session::flash('message','Rôle crée avec succès'); 
+         // Session::flash('message','Rôle crée avec succès'); 
         return view('role.index',compact('roles'));
     }
 
@@ -99,7 +99,6 @@ class RolesController extends Controller
       {
         $role->delete();
         $roles = rol::all();
-        Session::flash('message','Rôle supprimé avec succès');
         return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
       }
 }

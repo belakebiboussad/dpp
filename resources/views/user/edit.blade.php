@@ -186,48 +186,5 @@
       }
     });
   }
-  $(function(){
- /*   $('#passwordResetbtn').click(function(e){
-      e.preventDefault();
-      var formData = new FormData($('#changePWD')[0]);
-      formSubmit($('#changePWD')[0]), null, function(xhr, form) {
-      }
-      
-      var formData = { _token: CSRF_TOKEN, id:'{{$user->id}}',
-        newPassword: $("#newPassword").val(),
-        password_again: $("#password_again").val()
-      };
-      $.ajax({
-        type: "POST",
-        url: "{{ url('reset_password_')}}",
-        data:formData,
-        success:function(data,status, xhr){
-          if($.isEmptyObject(data.errors))
-            printSuccessMsg(data.success);
-          else
-            printErrorMsg(data.errors);
-        }
-      });
-      
-     
-     
-    });
-    var $success_msg = $(".print-success-msg");
-    var $error_msg = $(".print-error-msg");
-    function printSuccessMsg(msg) {
-        $success_msg.html(msg);
-        $success_msg.css('display','block');
-        $success_msg.delay(5000).fadeOut(350);
-        $('#changePWD')[0].reset();
-    }
-    function printErrorMsg (msg) {
-        $error_msg.find("ul").html('');
-        $error_msg.css('display','block');
-        $.each( msg, function( key, value ) {
-            $error_msg.find("ul").append('<li>'+value+'</li>');
-        });
-        $error_msg.delay(5000).fadeOut(350);
-    }*/
-  });
 </script>
 @stop

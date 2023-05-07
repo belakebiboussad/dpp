@@ -111,13 +111,8 @@ class HomeController extends Controller
              break;
        }
     }
-    public function flash()
+    public function print( $className,$objId,$stateId)
     {
-      flashy()->success('You get success notification.', 'hdtuto.com');
-      return view('flash');
-    }
-      public function print( $className,$objId,$stateId)
-      {
         $model_prefix="App\modeles\\";
         $filename ; $pdf;
         $modelName = $model_prefix.$className;

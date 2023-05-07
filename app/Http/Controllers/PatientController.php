@@ -26,7 +26,6 @@ use MessageBag;
 use Carbon\Carbon;
 use Session;
 use View;
-use Flashy;
 class PatientController extends Controller
 {
   /**
