@@ -92,16 +92,17 @@ function copyPatient(){
     return erreur;
   }
   function checkHomme(){
+      return true;
       var erreur =true;
-      var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+      var nomH = $('#nom_h').val();var prenomH = $('#prenom_h').val();
       var type_piece_id = $('#type_piece_id').val();
-      var npiece_id = $('#npiece_id').val();
-      mobileA = $('#mobileA').val();
-      var inputHomVal = new Array(npiece_id,type_piece_id,mobileA,prenomA,nomA);
-      var inputHomMessage = new Array("Numero de la pièce","Type de la pièce","Téléphone mobile","Prenom","Nom");
+      var npiece_id = $('#num_piece').val();
+      mobileH = $('#mobile_h').val();
+      var inputHomVal = new Array(mobileH,npiece_id,type_piece_id,prenomH,nomH);
+      var inputHomMessage = new Array("Téléphone mobile","Numero de la pièce","Type de la pièce","Prenom","Nom");
       $('.error').each(function(i, obj) {
-            $(obj).next().remove();
-            $(obj).detach();
+        $(obj).next().remove();
+        $(obj).detach();
      });
       jQuery.each( inputHomVal, function( i, val ) {
         if(val =="" )

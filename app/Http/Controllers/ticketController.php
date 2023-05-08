@@ -53,7 +53,6 @@ class ticketController extends Controller
     public function store(Request $request)
     {
       $request_data = $request->All();
-
       $validator = $this->admin_credential_rules($request_data);
       if($validator->fails())//pass cof error
         return response()->json(['errors'=>$validator->errors()->all()]);

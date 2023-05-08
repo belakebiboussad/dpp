@@ -143,6 +143,7 @@ class HomeController extends Controller
                   break;
             case "6"://Certificat sejour
                   $filename = "CJ-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
+                 
                   $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etab'));
                   break;
             case "7"://Demande orientation

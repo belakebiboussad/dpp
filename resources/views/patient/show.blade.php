@@ -117,12 +117,9 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
-      e.preventDefault();
       if( ! checkHomme() )
-      {
-        alert("error");
         event.preventDefault();
-      }else
+      else
       {
         $('#gardeMalade').modal('toggle');
         var formData = {
