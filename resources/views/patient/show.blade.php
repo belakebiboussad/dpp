@@ -117,11 +117,10 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
-      if( ! checkHomme() )
-        event.preventDefault();
+      if(!checkHomme() )
+         event.preventDefault();
       else
       {
-        $('#gardeMalade').modal('toggle');
         var formData = {
             _token: CSRF_TOKEN,
             id_patient:$('#patientId').val(),
@@ -143,7 +142,7 @@ $(function(){
           type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
         if (state == "add")
           ajaxurl ="{{ route('hommeConfiance.store') }}";
-        $('#addGardeMalade').trigger("reset");
+        
         $.ajax({
           type: type,
           url: ajaxurl,
@@ -152,10 +151,16 @@ $(function(){
           success: function (data) {
               var lien =  "";
               if($('.dataTables_empty').length > 0)
-              {
                 $('.dataTables_empty').remove();
-              }
-              switch(data.lien_par){
+                if($.isEmptyObject(data.errors))
+                 {
+                  printSuccessMsg($('#addGardeMalade')[0], data.success);
+                  $('#gardeMalade').modal('toggle');
+                  $('#addGardeMalade').trigger("reset");
+                 }
+                else
+                  printErrorMsg($('#addGardeMalade')[0], data.errors);
+                switch(data.lien_par){
                 case "0":
                       lien='<span class="label label-sm label-success"><b>Conjoint(e)</b></span>';
                       break;
@@ -226,6 +231,7 @@ $(function(){
                 $("#listeGardes tbody").append(homme);
               else 
                 $("#garde" + hom_id).replaceWith(homme);          
+            
           },
         });
       } 

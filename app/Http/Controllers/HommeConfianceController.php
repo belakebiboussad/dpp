@@ -30,18 +30,19 @@ class HommeConfianceController extends Controller
     }  
 	public function store(Request $request)
   {
- //    $validator = Validator::make($request->all(), [
- //        "nom"=> "required",
- //        "prenom"=> "required",
- //        "type_piece"=> "required",
- //        "num_piece"=> "required",
- //        "mob"=> "required | regex:/[0][245679][0-9]{8}/",
- //      ]);
+    $validator = Validator::make($request->all(), [
+        "nom"=> "required",
+        "prenom"=> "required",
+        "type_piece"=> "required",
+        "num_piece"=> "required",
+        "mob"=> "required | regex:/[0][245679][0-9]{8}/",
+    ]);
     $request_data = $request->All();
     $validator = $this->admin_credential_rules($request_data);
     if($validator->fails())
         return response()->json(['errors'=>$validator->errors()->all()]);
-   	$homme =homme_conf::create($request->all());
+   	
+    $homme =homme_conf::create($request->all());
     return $homme;
   }
   public function show($id)

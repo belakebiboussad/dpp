@@ -164,7 +164,7 @@ class RDVController extends Controller
         $specId = (Auth::user()->isIn([1,13,14]))? Auth::user()->employ->specialite : $request->specialite;
         $date = new DateTime($request->date);
         $fin = new DateTime($request->fin);
-        if(Auth::user()->id(15))
+        if(Auth::user()->is(15))
           $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
         else
             $employ_id = Auth::user()->employe_id;
