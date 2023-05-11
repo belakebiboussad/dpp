@@ -37,6 +37,7 @@ $(function(){
 	   	 		  	{ data: 'username', title:'Nom' },
 	   	 		  	{ data: 'email', title:'E-Mail' },
 	   	 		  	{ data: 'role.role', title:'Rôle' },
+              { data: 'employ.service.nom', title:'Service' },
 	   	 		   	{data: null, title:'Compte',
 	   	 		  		render : function(data, type, row){
 	   	 		  			if ( type === 'display' )

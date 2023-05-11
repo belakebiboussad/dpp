@@ -43,6 +43,22 @@ class paramController extends Controller
   }   
   public function store(Request $request)
   {
+
+    foreach (Auth::user()->role->Parameters as $key => $param) {
+      
+      //dd($param->parametre->id);
+      //dd($param);
+      $value = isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null;
+      //Auth::user()->role->Parameters->where('param_id',$param->parametre->id)->update(['value'=>$value]);
+      $param->update(['value'=>$value]);
+      $param->value=$value;
+      //$param->save();
+     
+   // dd($param);
+      //dd(Auth::user()->role->Parameters[$param->parametre->nom]);
+     dd($param);
+    }
+    dd('dfgdf');
     foreach (Auth::user()->role->Parameters as $key => $param) {
       if(in_array($param->nom, $request->keys()))
       {

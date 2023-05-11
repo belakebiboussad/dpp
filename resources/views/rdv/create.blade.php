@@ -19,26 +19,18 @@
 <script>
 function resetPatient()
 {
-   $("#livesearch").html("");
-   $("#pat-search").val("");
-    if('{{ $appointDoc }}' != null)
-         $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
-      //tester
-   if (!($("#btnSave").is(":disabled")))
-   {
-          $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
-  }
+    $("#livesearch").html("");
+    $("#pat-search").val("");
+    if (!($("#btnSave").is(":disabled")))
+    {
+      $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
+    }
 }
 var loaded;
 function reset_in(){
-  $("#filtre").val('');
   $("#pat-search").attr("disabled", true);
   $("#btnSave").attr("disabled", true);
-  if('{{ Auth::user()->is(15) }}')
-  {
-    $('#specialite').val('');
-    $("#filtre").attr("disabled", true);
-  }
+  $('#addRDVModal form')[0].reset(); 
   resetPatient();
 }
 function getPatient()
@@ -217,7 +209,7 @@ $(function() {
                       $('#specialiteId').val(data.specialite.id);
                       $('#nomPatient').val(data.patient.full_name);//$('#nomPatient').html(data.patient.full_name);
                       $('#patient_tel').val(data.patient.tele_mobile1);//$('#patient_tel').html(calEvent.tel);
-                      $('#agePatient').val(data.patient.age); // $('#agePatient').html(calEvent.age); 
+                      $('#agePatient').val(data.patient.age);
                       $('#idRDV').val(calEvent.id);
                       $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                       $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));

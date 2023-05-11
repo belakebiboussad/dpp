@@ -14,7 +14,7 @@
  			    <div class="panel-heading"> <span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
        	   	<div class="form-group">
-		         	<label class="col-form-label blue" for="specialite">Spécialité :</label>  
+		         	<label class="col-form-label blue" for="specialite">Spécialité</label>  
 		          	<select class="form-control specialite" id="specialite" required>
                  	<option value="" selected disabled> Selectionner...</option>
                  	@foreach($specialites as $specialite)
@@ -30,7 +30,7 @@
           <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une médecin</span></div>
           <div class="panel-body">
             <div class="form-group">
-              <label class="col-form-label blue">Médecin :</label>  
+              <label class="col-form-label blue">Médecin</label>  
                 <select class="form-control" id="employ_id" disabled>
                   <option value="" selected="selected">Selectionner...</option>
                 </select>
@@ -45,7 +45,7 @@
         		<div class="row">
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
-          		  	<label class="col-form-label blue" for="filtre">Filtre :</label> 
+          		  	<label class="col-form-label blue" for="filtre">Filtre</label> 
           	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->is(2))) disabled @endif> 
          		        <option value="" selected disabled="">Selectionner...	</option>
 	                 		<option value="Nom">Nom</option>

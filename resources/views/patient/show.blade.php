@@ -117,8 +117,8 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
-      if(!checkHomme() )
-         event.preventDefault();
+      if(false )        // !checkHomme()
+        event.preventDefault();
       else
       {
         var formData = {
@@ -153,58 +153,59 @@ $(function(){
               if($('.dataTables_empty').length > 0)
                 $('.dataTables_empty').remove();
                 if($.isEmptyObject(data.errors))
-                 {
+                {
                   printSuccessMsg($('#addGardeMalade')[0], data.success);
                   $('#gardeMalade').modal('toggle');
                   $('#addGardeMalade').trigger("reset");
-                 }
+                }
                 else
+                {
                   printErrorMsg($('#addGardeMalade')[0], data.errors);
-                switch(data.lien_par){
-                case "0":
-                      lien='<span class="label label-sm label-success"><b>Conjoint(e)</b></span>';
-                      break;
-                case "1":
-                       lien='<span class="label label-sm label-success"><b>Père</b></span>';
-                      break;
-                case "2":
-                      lien='<span class="label label-sm label-success"><b>Mère</b></span>';
-                      break;
-                case "3":
-                      lien='<span class="label label-sm label-success"><b>Frère</b></span>';
-                       break;
-                case "4":
+                  switch(data.lien_par){
+                    case "0":
+                        lien='<span class="label label-sm label-success"><b>Conjoint(e)</b></span>';
+                        break;
+                    case "1":
+                        lien='<span class="label label-sm label-success"><b>Père</b></span>';
+                        break;
+                    case "2":
+                       lien='<span class="label label-sm label-success"><b>Mère</b></span>';
+                        break;
+                    case "3":
+                        lien='<span class="label label-sm label-success"><b>Frère</b></span>';
+                        break;
+                    case "4":
                       lien='<span class="label label-sm label-success"><b>Soeur</b></span>';
                       break;
-                case "5":
+                    case "5":
                       lien='<span class="label label-sm label-success"><b>Ascendant</b></span>';
                       break;
-                case "6":
+                    case "6":
                       lien='<span class="label label-sm label-success"><b>Grand-parent</b></span>';
                       break; 
-                case "7":
+                    case "7":
                        lien='<span class="label label-sm label-success"><b>Membre de famille</b></span>';
                       break;
-                case "8":
+                    case "8":
                         lien=' <span class="label label-sm label-success"><b>Ami</b></span>';
                         break;              
-                case "9":
-                        lien='<span class="label label-sm label-success"><b>Collègue</b></span>';
-                        break; 
-                case "10":
-                        lien='<span class="label label-sm label-success"><b>Employeur</b></span>';
-                        break; 
-                case "11":
-                        lien='span class="label label-sm label-success"><b>Employé</b></span>';
-                        break; 
-                case "12":
-                        lien='<span class="label label-sm label-success"><b>Tuteur</b></span>';
-                        break; 
-                case "13":
-                        lien='<span class="label label-sm label-success"><b>Autre</b></span>';
-                        break; 
-                default:
-                        break;
+                    case "9":
+                            lien='<span class="label label-sm label-success"><b>Collègue</b></span>';
+                            break; 
+                    case "10":
+                            lien='<span class="label label-sm label-success"><b>Employeur</b></span>';
+                            break; 
+                    case "11":
+                            lien='span class="label label-sm label-success"><b>Employé</b></span>';
+                            break; 
+                    case "12":
+                            lien='<span class="label label-sm label-success"><b>Tuteur</b></span>';
+                            break; 
+                    case "13":
+                            lien='<span class="label label-sm label-success"><b>Autre</b></span>';
+                            break; 
+                    default:
+                            break;
               }
               switch(data.type_piece)
               {
@@ -232,6 +233,7 @@ $(function(){
               else 
                 $("#garde" + hom_id).replaceWith(homme);          
             
+            }
           },
         });
       } 

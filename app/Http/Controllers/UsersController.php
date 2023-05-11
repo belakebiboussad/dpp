@@ -41,13 +41,13 @@ class UsersController extends Controller
         switch($request->field)
         {
           case "role_id"  :
-                $users = User::with('role')->where($request->field,$value)->get(); 
+                $users = User::with('role','employ.Service')->where($request->field,$value)->get(); 
                 break; 
           case "username"  :
-                $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
+                $users = User::with('role','employ.Service')->where($request->field,'LIKE','%'.$value."%")->get();  
                 break;
           case "service_id"  :
-                $users = User::with('role')->whereHas('employ', function ($q) use ($value){
+                $users = User::with('role','employ.Service')->whereHas('employ', function ($q) use ($value){
                                                $q->where('service_id',$value);
                                            })->get();
                 break; 

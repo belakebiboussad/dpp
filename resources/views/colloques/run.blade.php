@@ -156,7 +156,7 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name center"><b>Service</b></div>
 												<div class="profile-info-value">
-													<span class="label label-sm" resize="none" readonly>{{$demande->Service->nom}}</span>
+													<span class="label label-sm">{{$demande->Service->nom}}</span>
 												</div>
 											</div>
 											<div class="profile-info-row">

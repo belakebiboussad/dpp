@@ -40,8 +40,9 @@ class HommeConfianceController extends Controller
     $request_data = $request->All();
     $validator = $this->admin_credential_rules($request_data);
     if($validator->fails())
-        return response()->json(['errors'=>$validator->errors()->all()]);
-   	
+    {
+      return response()->json(['errors'=>$validator->errors()->all()]);
+   	}
     $homme =homme_conf::create($request->all());
     return $homme;
   }

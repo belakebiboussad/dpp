@@ -28,9 +28,9 @@
 @include('rdv.scripts.js')
 <script>
 function reset_in()
-{
-  $('.es-list').val('');$('#patient').val('');  $('#medecin').val('');
-  $('#printRdv').addClass('hidden');$("#fixe").prop("checked", false);     
+{ // $('.es-list').val('');
+  $('#fullCalModal form')[0].reset();
+  $('#printRdv').addClass('hidden');
 }
 $(function(){
         var today = (new Date()).setHours(0, 0, 0, 0);
@@ -83,12 +83,11 @@ $(function(){
           eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-                  reset_in();
                   if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
                   {
-                           $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
-                          if($('#printRdv').hasClass( "hidden" ))
-                                 $('#printRdv').removeClass('hidden'); 
+                      $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
+                      if($('#printRdv').hasClass( "hidden" ))
+                       $('#printRdv').removeClass('hidden'); 
                    }
                   if($('#fixe').length &&(calEvent.fixe))
                         $("#fixe"). prop("checked", true);

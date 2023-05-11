@@ -11,6 +11,6 @@ class rol extends Model
     	return $this->hasMany('App\User');
     }
     public function Parameters(){
-      return $this->hasMany('App\modeles\Parametre','role_id');
+      return $this->hasMany('App\modeles\param_role','role_id');
     }
 }

@@ -550,9 +550,10 @@
             }
             $("#specialite").val(data.rdv.specialite_id);                  
             $("#employ_id").val(data.rdv.employ_id);
-            $('#patient_tel').text(data.rdv.patient.tele_mobile1);
-            $('#agePatient').text(data.rdv.patient.age);
             $('#nomPatient').val(data.rdv.patient.full_name);
+            if(!isEmpty(data.rdv.patient.tele_mobile1))
+              $('#patient_tel').val(data.rdv.patient.tele_mobile1);
+            $('#agePatient').val(data.rdv.patient.age);
             $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
             $('#lien').text(event.title);
             if(bool)
@@ -568,8 +569,7 @@
             }
             $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
             $('#btnDelete').attr('value',data.rdv.id);
-            $('#updateRDV').attr('value',data.rdv.id);
-            $('#fullCalModal').modal({ show: 'true' });
+            $('#updateRDV').attr('value',data.rdv.id); $('#fullCalModal').modal({ show: 'true' });
           });
         } 
         function isEmpty(value) {

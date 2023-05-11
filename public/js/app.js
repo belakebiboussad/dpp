@@ -12,7 +12,9 @@ function printErrorMsg (form, msg) {
   var $error_msg = $(".print-error-msg");
   $error_msg.find("ul").html('');
   $error_msg.css('display','block');//$.each( msg, function( key, value ) { //});
-  $error_msg.find("ul").append('<li>'+msg+'</li>');
+  $.each( msg, function( key, value ) {
+    $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+  });
   $error_msg.delay(3000).fadeOut(350);
 }
 function formSubmit(form, e, callBack) {
@@ -92,7 +94,6 @@ function copyPatient(){
     return erreur;
   }
   function checkHomme(){
-      return true;
       var erreur =true;
       var nomH = $('#nom_h').val();var prenomH = $('#prenom_h').val();
       var type_piece_id = $('#type_piece_id').val();
