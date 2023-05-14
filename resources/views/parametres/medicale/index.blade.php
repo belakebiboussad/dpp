@@ -25,7 +25,14 @@
                 <h3 class="section-heading">@include('hospitalisations.config')</h3>
                 </div>
                 <div class="tab-pane" id="rdvs">
-                 
+                
+               @foreach(Auth::user()->role->Parameters  as $param)
+                  @if($param->parametre->type =="checkbox")
+<label><input name="{{ $param->parametre->nom }}" type ="{{ $param->parametre->type }}" class="ace"   value="1" {{ (null !== (Auth::user()->employ->Specialite->Parameters->where('param_id',$param->id)->first()) && (!is_null(Auth::user()->employ->Specialite->Parameters->where('param_id',$param->id)->first()->value))) ? 'checked' : '' }}/>
+                    <span class="lbl text-nowrap"> {{ $param->parametre->label}}</span>
+                    </label>
+                  @endif
+                @endforeach
                 </div>
              </div><div class="space-12"></div>
              <div class="row">

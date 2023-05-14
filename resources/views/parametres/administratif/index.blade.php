@@ -6,17 +6,19 @@
   <div class="col-sm-12">
     <div class="widget"><div class="widget-title"></div>
       <div class="widget-body">
-        <form role="form" method="POST" action="{{ route('home') }}">
+        <form role="form" method="POST" action="{{ route('params.store') }}">
           {{ csrf_field() }}
+          <div class="row">
           @foreach(Auth::user()->role->Parameters  as $param)
-          <div class="form-group">
-            <label for="{{ $param->nom }}">{{ $param->label }} :</label>
-            <input type="{{ $param->type }}" class="form-control" name="{{ $param->nom }}" value={{ $param->value }} >
+          <div class="form-group col-sm-3">
+            <label for="{{ $param->nom }}">{{ $param->Parametre->label }}</label>
+            <input type="{{ $param->Parametre->type }}" class="form-control" name="{{ $param->Parametre->nom }}" value="{{ $param->value }}" {{ !(is_null($param->parametre->value)) ? "checked" :"" }} >
           </div>
           @endforeach
-          <div class="bottom center">
-           <button class="btn btn-primary btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-            <a href="/home" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
+          </div>
+          <div class="text-center">
+           <button class="btn btn-primary btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; 
+            <a href="/home" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-under bigger-110"></i>Annuler</a>
           </div> 
         </form>
       </div>

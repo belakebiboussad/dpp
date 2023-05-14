@@ -13,6 +13,7 @@ use App\modeles\Appareil;
 use App\modeles\TypeExam;
 use App\modeles\Vaccin;
 use App\modeles\Parametre;
+use App\modeles\param_specialite;
 use App\modeles\ModeHospitalisation;
 use Config;
 class paramController extends Controller
@@ -36,40 +37,40 @@ class paramController extends Controller
         break;
       case 4:
       case 8://dir
-        $parametres = Auth::user()->role->Parameters;
         return view('parametres.administratif.index');
         break;
     }
   }   
   public function store(Request $request)
   {
-
-    foreach (Auth::user()->role->Parameters as $key => $param) {
-      
-      //dd($param->parametre->id);
-      //dd($param);
-      $value = isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null;
-      //Auth::user()->role->Parameters->where('param_id',$param->parametre->id)->update(['value'=>$value]);
-      $param->update(['value'=>$value]);
-      $param->value=$value;
-      //$param->save();
-     
-   // dd($param);
-      //dd(Auth::user()->role->Parameters[$param->parametre->nom]);
-     dd($param);
-    }
-    dd('dfgdf');
-    foreach (Auth::user()->role->Parameters as $key => $param) {
-      if(in_array($param->nom, $request->keys()))
-      {
-        $nomv = $param->nom;
-        $param->update(['value'=>$request->$nomv ]);
-      }else
-        $param->update(['value'=>null ]); 
-    }
     switch (Auth::user()->role_id) {
+      case 4:
+      case 8:
+        foreach (Auth::user()->role->Parameters as $key => $param) {
+            $param->update(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
+        }
+        break;
       case 13://med chef
       case 14://chef de service
+
+        //foreach (Auth::user()->employ->Specialite->Parameters as $key => $param) {
+        foreach (Auth::user()->role->Parameters as $key => $param) {
+           //Auth::user()->employ->Specialite->Parameters->where('param_id', $param->param_id)->updateOrCreate(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
+           $prm = Auth::user()->employ->Specialite->Parameters->where('param_id', $param->param_id)->first();
+           if(is_null($prm))
+           {
+              Auth::user()->employ->Specialite->Parameters()->create([
+                'param_id' =>$param->Parametre->id,
+                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null
+              ]);
+           }else
+           {
+              $prm->update([
+                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null
+              ]);
+           }
+          // $param->update(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
+        }
         $specialite = (Auth::user()->is(13)) ? 16 :Auth::user()->employ->specialite;
         $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
