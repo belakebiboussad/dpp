@@ -81,7 +81,7 @@ $(function(){
                     $('.calendar1').fullCalendar('unselect');
           },
           eventClick: function(calEvent, jsEvent, view) {
-            if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+           if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
                   if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
                   {
@@ -92,7 +92,7 @@ $(function(){
                   if($('#fixe').length &&(calEvent.fixe))
                         $("#fixe"). prop("checked", true);
                   $('#idRDV').val(calEvent.id); 
-                  ajaxEditEvent(calEvent,'{{ $appointDoc }}',false);
+                  ajaxEditEvent(calEvent, false);
             }
           },
            eventRender: function (event, element, webData) {
@@ -127,31 +127,28 @@ $(function(){
             });
             if($('#fixe').length &&(event.fixe))
               $("#fixe"). prop("checked", true);
-            ajaxEditEvent(event,'{{ $appointDoc }}',true);          
+            ajaxEditEvent(event,true);          
           },      
         }); // calendar
-        $("#specialite" ).change(function() {
-          getDoctors($(this).val(),'{{ $appointDoc }}');
-        });
         $('#patient').editableSelect({
               effects: 'default', 
               editable: false, 
         }).on('select.editable-select', function (e, li) {
-               $('#last-selected').html(
-                       li.val() + '. ' + li.text()
-                );
-               $("#btnSave").removeAttr("disabled");
+           $('#last-selected').html(
+                   li.val() + '. ' + li.text()
+            );
+           $("#btnSave").removeAttr("disabled");
         });
         $("#patient").on("keyup", function() {
-                 var field = $("select#filtre option").filter(":selected").val();
-                 if(field != "Dat_Naissance")
-                        remoteSearch(field,$("#patient").val()); //to call ajax
+         var field = $("select#filtre option").filter(":selected").val();
+         if(field != "Dat_Naissance")
+                remoteSearch(field,$("#patient").val()); //to call ajax
         });
 })
 </script>
 @stop
 @section('main-content')
-<div class="page-header"><h1>Liste des rendez-vous:</h1></div>
+<div class="page-header"><h1>Liste des rendez-vous</h1></div>
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">

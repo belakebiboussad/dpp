@@ -13,8 +13,9 @@ use App\modeles\Appareil;
 use App\modeles\TypeExam;
 use App\modeles\Vaccin;
 use App\modeles\Parametre;
-use App\modeles\param_specialite;
+use App\modeles\employ;
 use App\modeles\ModeHospitalisation;
+use Response;
 use Config;
 class paramController extends Controller
 {
@@ -51,25 +52,15 @@ class paramController extends Controller
         }
         break;
       case 13://med chef
-      case 14://chef de service
-
-        //foreach (Auth::user()->employ->Specialite->Parameters as $key => $param) {
+      case 14://chef de service    
         foreach (Auth::user()->role->Parameters as $key => $param) {
-           //Auth::user()->employ->Specialite->Parameters->where('param_id', $param->param_id)->updateOrCreate(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
-           $prm = Auth::user()->employ->Specialite->Parameters->where('param_id', $param->param_id)->first();
-           if(is_null($prm))
-           {
-              Auth::user()->employ->Specialite->Parameters()->create([
-                'param_id' =>$param->Parametre->id,
-                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null
-              ]);
-           }else
-           {
-              $prm->update([
-                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null
-              ]);
-           }
-          // $param->update(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
+          $prm = Auth::user()->employ->Specialite->Parameters->find($param->param_id);
+          if(is_null($prm))
+           Auth::user()->employ->Specialite->Parameters()->attach(
+                $param->param_id,[
+                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null]);
+         else
+            Auth::user()->employ->Specialite->Parameters()->updateExistingPivot($prm->id, ['value'=>isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null ]);
         }
         $specialite = (Auth::user()->is(13)) ? 16 :Auth::user()->employ->specialite;
         $specialite = specialite::FindOrFail($specialite);
@@ -95,5 +86,23 @@ class paramController extends Controller
         break;
     }  
     return redirect()->to('/home');
+  }
+  public function show($id,$specID)
+  {
+    $specialite =Specialite::find($specID);
+    $value =  $specialite->Parameters->find($id)['pivot']['value'];
+    if($value)
+    {
+      // $medecins = $specialite->employes->whereHas('User',function($q){
+      //                           $q->whereIn('role_id',[1,13,14]);
+      //                         })->get();
+      $medecins = employ::whereHas('User',function($q){
+                                $q->whereIn('role_id',[1,13,14]);
+                              })->whereHas('Service',function($q) use($specID){
+                                 $q->where('specialite_id',$specID); 
+                              })->get();
+      return Response::json(['value'=>$value,'medecins'=>$medecins]);
+    }else
+       return Response::json(['value'=>$value]);
   }           
 }

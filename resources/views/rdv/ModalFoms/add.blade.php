@@ -24,20 +24,19 @@
 	         	</div>
           </div>
         </div>
-        @isset($appointDoc)
-        <div class="panel panel-default">
+       
+        <div class="panel panel-default" id="docPanel">
           <div class="panel-heading">
-          <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une médecin</span></div>
+          <i class="ace-icon fa fa-user-md bigger-110"></i><span>Selectionner une médecin</span></div>
           <div class="panel-body">
             <div class="form-group">
               <label class="col-form-label blue">Médecin</label>  
-                <select class="form-control" id="employ_id" disabled>
-                  <option value="" selected="selected">Selectionner...</option>
+                <select class="form-control" id="employ_id">
+                  <option value="" selected disabled>Selectionner...</option>
                 </select>
             </div>
           </div>
         </div>
-        @endisset
 	      @endif
         <div class="panel panel-default" id="patientPanel">
       		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span> Selectionner un patient</span></div>
@@ -64,8 +63,8 @@
 		          </div>
 		        </div>
 	        </div><!-- modal-body -->
-	        <div class="modal-footer">
-		      	<button  class="btn btn-success btn-xs" type="button" id ="btnSave" data-dismiss="modal" disabled><i class="ace-icon fa fa-save"></i> Enregistrer</button>    
+	        <div class="modal-footer"><!-- " -->
+		      	<button  class="btn btn-primary btn-xs" type="button" id ="btnSave" data-dismiss="modal><i class="ace-icon fa fa-save"></i> Enregistrer</button>
 			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
 		      </div>
       	</form>
@@ -111,20 +110,6 @@
         }
        getPatient(); 
     });
-  $("#specialite" ).change(function() {
-    getDoctors($(this).val(), '{{ $appointDoc }}');
-    if($(this).val() != '')
-    {
-      if('{{ $patient->id }}' != '' || ($('#pat_id').val() != ''))
-        $("#btnSave").removeAttr("disabled");
-    }else
-    {
-      if($("#filtre").prop('disabled') == true)
-        $("#filtre").prop('disabled',false);
-    }  
-/*if('{{ $patient->id }}' == '' ){if($("#filtre").prop('disabled') == true)
-$("#filtre").prop('disabled',false);}else $("#btnSave").removeAttr("disabled");*/ 
-  });
   $( "#filtre" ).change(function() {
     resetPatient();
     if($(this).val() != '' && ( $("#pat-search").prop('disabled') == true))

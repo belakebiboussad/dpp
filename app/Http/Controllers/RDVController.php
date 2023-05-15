@@ -29,35 +29,31 @@ class RDVController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    public function valider($id)
+    {
+      $rdv = rdv::FindOrFail($id);
+      $rdv ->update([  "etat"=>"Valider" ]);
+        return redirect()->route("rdv.show",$rdv->id);
+    }
+    public function index(Request $request,$patientID = null)
+     {
+      //$appointDoc = Auth::user()->employ->Service->Specialite->Parameters->find(3)['pivot']['value'];
+      $specialites = Specialite::where('type','!=',null)->get();
+      if(Auth::user()->isIn([1,13,14])) 
       {
-          $this->middleware('auth');
-      }
-      public function valider($id)
-      {
-        $rdv = rdv::FindOrFail($id);
-        $rdv ->update([  "etat"=>"Valider" ]);
-          return redirect()->route("rdv.show",$rdv->id);
-      }
-      public function index(Request $request,$patientID = null)
-       {
-        $appointDocParam = Auth::user()->role->Parameters->where('param_id',3)->where('role_id',Auth::user()->employ->Service->responsable->User->role_id)->first();
-         $appointDoc =  (isset($appointDocParam)) ? $appointDocParam->value : null;
-        $shareAppParam = Auth::user()->role->Parameters->where('param_id',4)->where('role_id',Auth::user()->employ->Service->responsable->User->role_id)->first();
-        $shareApp = (isset($shareAppParam)) ? $shareAppParam->value : null;;
-        $specialites = Specialite::where('type','!=',null)->get();
-        if(Auth::user()->isIn([1,13,14])) 
-        {
-          $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
-          if(is_null($shareApp))
-            $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
-          else
-            $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->whereNull('etat')->orwhere('etat',1)->get(); 
-        
-        
-        }else
-          $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->whereNull('etat')->orwhere('etat',1)->get();
-        return view('rdv.index', compact('rdvs','specialites','appointDoc'));   
+        $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
+        $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
+        if(is_null($shareApp))
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
+        else
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->whereNull('etat')->orwhere('etat',1)->get();
+       }else
+        $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->whereNull('etat')->orwhere('etat',1)->get();
+      return view('rdv.index', compact('rdvs','specialites'));   
       }
     /**
      * Show the form for creating a new resource.
@@ -141,9 +137,9 @@ class RDVController extends Controller
       { 
         if($request->ajax())
         { 
-          $medecins = ($rdv->specialite)->employes;
-          if(isset($rdv->specialite_id))
-             return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
+         // $medecins = ($rdv->specialite)->employes;
+          if(isset($rdv->specialite_id)) //return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
+            return $rdv;
           else 
             return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
         }else{

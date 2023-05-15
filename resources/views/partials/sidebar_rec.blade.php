@@ -44,7 +44,6 @@
             <li>
               <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rendez-vous</a><b class="arrow"></b>
             </li>
-              <li><a href=""><i class="fa fa-calendar-check"></i>Planning</a><b class="arrow"></b></li>
             </ul>
         </li>
        @endif

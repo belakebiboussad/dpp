@@ -532,49 +532,59 @@
           url = url.replace(':slug',event.id);
           $('#updateRdv').attr('action',url);
          $('#fullCalModal').modal({ show: 'true' }); 
-       }
-        function ajaxEditEvent(event, appointdoc = null , bool)//bool true fixe else not fixe
-        {
-          $.get('/rdv/'+event.id +'/edit', function (data) {
-            if(appointdoc)
-            {
-              if($("#employ_id").prop('disabled') == true)
-                $("#employ_id" ).attr("disabled", false);
-              $('#employ_id').empty().append('<option value="">Selectionner...</option>');
-              $.each(data.medecins, function(i, empl) {
-                $('#employ_id').append($('<option>', {
+      }
+      var appointdoc; 
+      function getAppwithDocParamVal(param_id, spec_id)
+      {
+        $('#employ_id').find('option').remove();
+        $.get('/param/'+param_id +'/'+spec_id, function (data) {
+          if(data.value)
+          { 
+            $('#employ_id').append('<option value="">Sélectionner...</option>');
+            $.each(data.medecins, function(i, empl) {
+              $('#employ_id').append($('<option>', {
                   value: empl.id,
                   text: empl.full_name
                 }));
               })
-            }
-            $("#specialite").val(data.rdv.specialite_id);                  
-            $("#employ_id").val(data.rdv.employ_id);
-            $('#nomPatient').val(data.rdv.patient.full_name);
-            if(!isEmpty(data.rdv.patient.tele_mobile1))
-              $('#patient_tel').val(data.rdv.patient.tele_mobile1);
-            $('#agePatient').val(data.rdv.patient.age);
-            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
-            $('#lien').text(event.title);
-            if(bool)
-            {
-              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-              $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
-              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-            }else{
-              var date = new Date(data.rdv.date);
-              $("#daterdv").val(data.rdv.date);
-              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-              $("#datefinrdv").val(data.rdv.fin); 
-            }
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
-            $('#btnDelete').attr('value',data.rdv.id);
-            $('#updateRDV').attr('value',data.rdv.id); $('#fullCalModal').modal({ show: 'true' });
-          });
-        } 
-        function isEmpty(value) {
-          return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
-        }
+            if($('#docPanel').hasClass( "hidden" ))
+              $('#docPanel').removeClass('hidden');
+          }else
+            if(!$('#docPanel').hasClass( "hidden" ))
+              $('#docPanel').addClass('hidden');
+        });
+      }
+      function ajaxEditEvent(event , bool)//bool true fixe else not fixe
+      {
+        getAppwithDocParamVal(3,event.specialite);
+        $.get('/rdv/'+event.id +'/edit', function (data) {
+          $("#specialite").val(data.specialite_id);                  
+          $("#employ_id").val(data.employ_id);
+          $('#nomPatient').val(data.patient.full_name);
+          if(!isEmpty(data.patient.tele_mobile1))
+            $('#patient_tel').val(data.patient.tele_mobile1);
+          $('#agePatient').val(data.patient.age);
+          $('#lien').attr('href','/patient/'.concat(data.patient.id)); 
+          $('#lien').text(event.title);
+          if(bool)
+          {
+            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+            $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+          }else{
+            var date = new Date(data.date);
+            $("#daterdv").val(data.date);
+            $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+            $("#datefinrdv").val(data.fin); 
+          }
+          $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
+          $('#btnDelete').attr('value',data.id);
+          $('#updateRDV').attr('value',data.id); $('#fullCalModal').modal({ show: 'true' });
+        });
+      } 
+      function isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+      }
        function ImprimerEtat(type,className,objID)
       {  
              $("#etatsList").empty()

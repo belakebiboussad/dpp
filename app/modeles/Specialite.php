@@ -36,6 +36,6 @@ class Specialite extends Model
 		return $this->hasMany('App\modeles\employ','specialite')->orderBy('nom');
 	}
   public function Parameters(){
-    return $this->hasMany('App\modeles\param_specialite','spec_id');
+    return $this->belongsToMany('App\modeles\Parametre','param_specialite','spec_id','param_id')->withPivot('value');
   }
 }

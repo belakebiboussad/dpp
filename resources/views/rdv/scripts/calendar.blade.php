@@ -1,23 +1,22 @@
 <script  type="text/javascript" charset="utf-8" async defer>
 $(function(){//edit,index
       $('#updateRDV').on('click', function(e) { 
-          e.preventDefault();
+           e.preventDefault();
           var  fixe = 1;
           if(!$("#fixe").prop('disabled'))
             if (!$("#fixe").is(':checked'))
               fixe = 0;
            var formData = {
-                          _token: CSRF_TOKEN,
-                          id : $(this).val(),
-                          date : $("#daterdv").val(),
-                          fin  : $("#datefinrdv").val(), 
-                          fixe : fixe,       
+                _token: CSRF_TOKEN,
+                id : $(this).val(),
+                date : $("#daterdv").val(),
+                fin  : $("#datefinrdv").val(), 
+                fixe : fixe,       
           };
           if('{{ Auth::user()->is(15) }}')
           {
             formData.specialite = $('#specialite').val();
-            if('{{ $appointDoc }}' != null)
-              formData.employ_id = $('#employ_id').val();
+            formData.employ_id = $('#employ_id').val();
           }
           $.ajax({
              type : "PUT",
