@@ -117,7 +117,7 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
-      if(false )        // !checkHomme()
+      if(!checkHomme()) 
         event.preventDefault();
       else
       {
@@ -342,7 +342,7 @@ $(function(){
 		</div>
 	</div>
 </div>
-@if(Auth::user()->isIn([2,15])))
+@if(Auth::user()->isIn([2,15]))
 @include('patient.ModalFoms.ticketModalForm')
 @endif
 @stop

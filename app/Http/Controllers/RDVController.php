@@ -10,6 +10,8 @@ use App\modeles\Parametre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use PDF;
 use Calendar;
 use Carbon\Carbon;
@@ -85,8 +87,30 @@ class RDVController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+      public function admin_credential_rules(array $data)
+      {
+       $messages = [
+          'specialite.required' =>  "Séléctionner la spécialité médicale",
+          'employ_id.required' =>  "Séléctionner le médecin",
+          'pid.required' => 'Séléctionner le patient',
+          'date.required' => 'Séléctionner la date de debut de RDV',
+          'fin.required' => 'Séléctionner la date de fin de RDV',
+        ];
+        $validator = Validator::make($data, [
+          'specialite' =>"required_if:isSec,==,1" ,
+          'employ_id' =>"required_if:medecinRequired,==,1" ,
+          'pid' =>  "required",
+          'date' =>  "required",
+          'fin' => 'required', 
+        ], $messages);
+         return $validator;
+      }  
       public function store(Request $request)
-      {/* $request->validate(["daterdv"=> 'required',]);*/
+      {
+        $request_data = $request->All();
+        $validator = $this->admin_credential_rules($request_data);
+        if($validator->fails())//pass cof error
+          return response()->json(['errors'=>$validator->errors()->all()]);
         if($request->ajax())
         { 
           $patient = patient::find($request->pid);

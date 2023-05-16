@@ -19,16 +19,11 @@ function resetPatient()
 {
   $("#livesearch").html("");
   $("#pat-search").val("");
-  if (!($("#btnSave").is(":disabled")))
-  {
-    $("#btnSave").prop('disabled',true);
-    $('#pat_id').val('');   
-  }
+  $('#pid').val(''); /*if (!($("#btnSave").is(":disabled"))) { $("#btnSave").prop('disabled',true);  }*/
 }
 var loaded;
 function reset_in(){
-  $("#pat-search").attr("disabled", true);
-  $("#btnSave").attr("disabled", true);
+  $("#pat-search").attr("disabled", true);//$("#btnSave").attr("disabled", true);
   $('#addRDVModal form')[0].reset(); 
   resetPatient();
 }
@@ -88,6 +83,27 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
       showRdvModal(debut,fin,pid,fixe); 
   }else
     showRdvModal(debut,fin,0,fixe); 
+}
+function checkRdv()
+{
+  var erreur =true;
+  var specialite = $('#specialite').val();
+  var medecin = $('#employ_id').val();
+  var pid = $('#pid').val();
+  var inputRDVVal = new Array(pid,medecin,specialite);
+  var inputRDVMessage = new Array("Patient","Médecin","Specialite médicale");
+  $('.error').each(function(i, obj) {
+    $(obj).next().remove();
+    $(obj).detach();
+  });
+  jQuery.each( inputRDVVal, function( i, val ) {
+    if(val =="" || val ==null )
+    {
+      erreur =false;
+     $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputRDVMessage[i]+'<br/>');
+    }
+  });   
+  return erreur;
 }
 $(function() {
   if(loaded)
@@ -192,9 +208,11 @@ $(function() {
               if('{{ $patient->id}}' != '') 
                 createRDVModal(start,end,'{{ $patient->id }}',1);
               else
-                createRDVModal(start,end,0,1);
+               createRDVModal(start,end,0,1);
+               
             }
-            resetPatient();
+            //alert("ici");
+            //resetPatient();
           }else
             $('.calendar').fullCalendar('unselect');
         },
@@ -260,44 +278,70 @@ $(function() {
       },
       eventMouseover: function(event, jsEvent, view) {
       }
-    });//calendar //fincalendar 
-    $('#btnSave').on('click keyup', function(e) {
-          url ="{{ route('rdv.store') }}";
-          var formData = {
-             _token: CSRF_TOKEN,
-              date:$('#date').val(),
-              fin:$('#fin').val(),
-              pid:$('#pat_id').val(),
-              fixe :$('#fixe').val()
+    });//fincalendar 
+    $('#rdvSaveBtn').on('click keyup', function(e) {
+      if(false)//!checkRdv()
+        e.preventDefault();
+      else
+      {
+        formSubmit($('#addRdv')[0], this, function(status, data) {
+          if (status == "success") {
+            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+              $('.calendar').fullCalendar( 'renderEvent', {
+                  title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
+                  start: formData.date,
+                  end: formData.fin,
+                  id : data['rdv']['id'],
+                  idPatient:data['patient']['id'],
+                  fixe: data['rdv']['fixe'],
+                  tel:data['patient']['tele_mobile1'] ,
+                  age:data['age'],
+                  specialite: data['rdv']['specialite_id'],
+                  civ:data['patient']['civ'],    
+                  color:color
+              });
+              resetPatient();
           }
-          if('{{ Auth::user()->is(15) }}')
-          {
-            formData.specialite = $('#specialite').val();
-            if('{{ $appointDoc }}' != null)
-              formData.employ_id = $('#employ_id').val();
-          }
-          $.ajax({
-            type:"POST",
-            url:url,
-            data:formData,
-            success:function(data){      
-                var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-                $('.calendar').fullCalendar( 'renderEvent', {
-                    title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
-                    start: formData.date,
-                    end: formData.fin,
-                    id : data['rdv']['id'],
-                    idPatient:data['patient']['id'],
-                    fixe: data['rdv']['fixe'],
-                    tel:data['patient']['tele_mobile1'] ,
-                    age:data['age'],
-                    specialite: data['rdv']['specialite_id'],
-                    civ:data['patient']['civ'],    
-                    color:color,
-                });
-                resetPatient();
-            },
-      })
+        });
+      }
+      /*   
+      url ="{{ route('rdv.store') }}";
+      var formData = {
+         _token: CSRF_TOKEN,
+          date:$('#date').val(),
+          fin:$('#fin').val(),
+          pid:$('#pid').val(),
+          fixe :$('#fixe').val()
+      }
+      if('{{ Auth::user()->is(15) }}')
+      {
+        formData.specialite = $('#specialite').val();
+        if('{{ $appointDoc }}' != null)
+          formData.employ_id = $('#employ_id').val();
+      }
+      $.ajax({
+        type:"POST",
+        url:url,
+        data:formData,
+        success:function(data){      
+            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+            $('.calendar').fullCalendar( 'renderEvent', {
+                title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
+                start: formData.date,
+                end: formData.fin,
+                id : data['rdv']['id'],
+                idPatient:data['patient']['id'],
+                fixe: data['rdv']['fixe'],
+                tel:data['patient']['tele_mobile1'] ,
+                age:data['age'],
+                specialite: data['rdv']['specialite_id'],
+                civ:data['patient']['civ'],    
+                color:color,
+            });
+            resetPatient();
+        },
+      });
+      */
     });
   });
 </script>

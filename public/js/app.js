@@ -36,10 +36,16 @@ function formSubmit(form, e, callBack) {
     processData : false,
     contentType: false,
     cache : false,
-    success: function(data) {
+    success: function(data,status, xhr) {
       $form.trigger("reset");
       if($.isEmptyObject(data.errors))
+      {
+        $.each(data,function(key, value){
+          alert(key +':' + value);
+        })
         printSuccessMsg(form, data.success);
+        callBack(status,data);
+      }
       else
         printErrorMsg(form, data.errors);
     }
@@ -104,13 +110,13 @@ function copyPatient(){
       $('.error').each(function(i, obj) {
         $(obj).next().remove();
         $(obj).detach();
-     });
+      });
       jQuery.each( inputHomVal, function( i, val ) {
         if(val =="" )
         {
           erreur =false;
-          $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-       }
+          $('#error').after('<span class="error">Veuiller remplir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+        }
       });   
      return erreur;
-    }
+}

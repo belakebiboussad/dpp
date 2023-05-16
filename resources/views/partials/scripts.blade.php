@@ -549,6 +549,7 @@
               })
             if($('#docPanel').hasClass( "hidden" ))
               $('#docPanel').removeClass('hidden');
+            $("#medecinRequired").val(1);
           }else
             if(!$('#docPanel').hasClass( "hidden" ))
               $('#docPanel').addClass('hidden');
