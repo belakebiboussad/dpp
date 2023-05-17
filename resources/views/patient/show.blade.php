@@ -260,14 +260,14 @@ $(function(){
       			}, 
 	});
   $('#printTck').click(function(e){
-      e.preventDefault();
-      formSubmit($('#ticketAddForm')[0]), this, function(xhr, form) {
-      if (xhr.success) {
-        window.location.href = "{{ route("home") }}";  
+    e.preventDefault();
+    formSubmit($('#ticketAddForm')[0], this, function(xhr, form) {
+      if (xhr.success) {//window.location.href = "{{-- route("home") --}}";  
+         $('#ticket').modal('toggle'); 
       }
-    }
-	 })
+	  })
   });
+})
 </script>
 @stop
 @section('main-content')

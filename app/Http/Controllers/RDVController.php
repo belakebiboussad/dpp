@@ -127,15 +127,14 @@ class RDVController extends Controller
             $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
           else
             $employ_id = Auth::user()->employe_id;
-          $rdv = rdv::firstOrCreate([
+          $rdv = $patient->rdvs()->firstOrCreate([
             "date"=>new DateTime($request->date),
             "fin" =>new DateTime($request->fin),
             "fixe"    => $request->fixe,
-            "patient_id"=> $patient->id,
             "employ_id"=> $employ_id,
             "specialite_id"=> $specialite_id
           ]);
-          return array('patient'=>$patient,'rdv'=>$rdv);
+          return $rdv->load('patient');
         }
     }
     /**

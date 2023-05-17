@@ -138,18 +138,19 @@
   });
   $("#changePassword").click(function (e) {
     e.preventDefault();
-    formSubmit($('#userChangePasswordForm')[0]), this, function(xhr, form) {
+    formSubmit($('#userChangePasswordForm')[0], this, function(xhr, form) {
       if (xhr.success) {//$("#changePassword").addClass("disabled");
         // window.location.href = "{{-- route("home") --}}";  
         location.reload(true);
-      }
-    }
-  });
+      } 
+    });
+  })
   $('#passwordResetbtn').click(function(e){//change by admin
       e.preventDefault();
-      formSubmit($('#changePWD')[0]), this, function(xhr, form) {}
+      formSubmit($('#changePWD')[0], this, function(xhr, form) {
     }) 
   });
+})
 </script>
         @yield('page-script')
         @if( Auth::user()->is(1))

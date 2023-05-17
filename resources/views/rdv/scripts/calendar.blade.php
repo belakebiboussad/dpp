@@ -25,6 +25,7 @@ $(function(){//edit,index
              dataType: 'json',
               success: function (data) {
                 $('#fullCalModal').modal('hide');
+                location.reload();//a optimiser
               }
           });
         });

@@ -9,6 +9,7 @@
       <form id ="updateRdv" role="form" action="" method="POST"> 
       <input type="hidden" id="idRDV">
       <input id="daterdv" type="hidden" /><input id="datefinrdv" type="hidden" />
+      <input type="hidden" id="medecinRequired" name="medecinRequired" value="">
       <div class="row">
        <div class="col-sm-12">
          @if(Auth::user()->is(15))
@@ -26,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div class="panel panel-default hidden" id="docPanel">
+        <div class="panel panel-default hidden docPanel">
           <div class="panel-heading">
           <i class="ace-icon fa  fa-user-md"></i><span> Selectionner une médecin</span></div>
           <div class="panel-body">

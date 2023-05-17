@@ -1,4 +1,4 @@
-<div class="modal fade" id="showfullCalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="showfullCalModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,8 @@
               </button>
               <h4 class="modal-title" id="exampleModalLabel">Rendez-Vous <q><a href="" id="lien" class="white"></a></q></h4>
             </div>
-            <form id ="updateRdv" role="form" >  
+            <form id ="updateRdv" role="form">
+            <input type="hidden" id="medecinRequired" name="medecinRequired" value="">  
             <div class="modal-body">
               <input type="hidden" id="idRDV"><input type="hidden" id ="civiliteCode">
               <input type="hidden" id ="specialiteId">
@@ -30,7 +31,7 @@
                 <label class="col-sm-4 form-control-label text-right">Spécialité</label>
                 <div class="col-sm-8"><input id="specialiteName" class="form-control" readonly /></div>
               </div>
-              <div class="form-group row" id="docPanel">
+              <div class="form-group row docPanel">
                 <label class="col-sm-4 form-control-label text-right">Médecin</label>
                 <div class="col-sm-8"><input id="medecinName" class="form-control" readonly /></div>
               </div>

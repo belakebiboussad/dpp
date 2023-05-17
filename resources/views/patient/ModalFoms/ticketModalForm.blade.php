@@ -41,8 +41,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" id ="printTck"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>  
-      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i> Fermer</button>
+      <button type="submit" class="btn btn-primary" id ="printTck"><i class="ace-icon fa fa-print"></i> Imprémer un ticket</button>  
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
     </div>
       </div>
     </div>

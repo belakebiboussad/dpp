@@ -38,11 +38,9 @@ function formSubmit(form, e, callBack) {
     cache : false,
     success: function(data,status, xhr) {
       $form.trigger("reset");
-      if($.isEmptyObject(data.errors))
+      //if( $.isEmptyObject(data.errors))
+      if(isEmpty(data.errors))
       {
-        $.each(data,function(key, value){
-          alert(key +':' + value);
-        })
         printSuccessMsg(form, data.success);
         callBack(status,data);
       }
@@ -84,10 +82,8 @@ function copyPatient(){
     var inputMessage = new Array("Numèro de Secruté Social");
     if($("#type").val() != 1)
     {
-      var prenomf = $('#prenomf').val();
-      var nomf = $('#nomf').val();
-      inputAssVal.push(prenomf,nomf);
-      inputMessage.push("Prenom","Nom");
+      var prenomf = $('#prenomf').val();var nomf = $('#nomf').val();
+      inputAssVal.push(prenomf,nomf); inputMessage.push("Prenom","Nom");
     }
     $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
     jQuery.each( inputAssVal, function( i, val ) {

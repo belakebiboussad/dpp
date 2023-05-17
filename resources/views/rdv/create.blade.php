@@ -19,11 +19,11 @@ function resetPatient()
 {
   $("#livesearch").html("");
   $("#pat-search").val("");
-  $('#pid').val(''); /*if (!($("#btnSave").is(":disabled"))) { $("#btnSave").prop('disabled',true);  }*/
+  $('#pid').val(''); 
 }
 var loaded;
 function reset_in(){
-  $("#pat-search").attr("disabled", true);//$("#btnSave").attr("disabled", true);
+  $("#pat-search").attr("disabled", true);
   $('#addRDVModal form')[0].reset(); 
   resetPatient();
 }
@@ -88,10 +88,15 @@ function checkRdv()
 {
   var erreur =true;
   var specialite = $('#specialite').val();
-  var medecin = $('#employ_id').val();
   var pid = $('#pid').val();
-  var inputRDVVal = new Array(pid,medecin,specialite);
-  var inputRDVMessage = new Array("Patient","Médecin","Specialite médicale");
+  var inputRDVVal = new Array(pid,specialite);
+  var inputRDVMessage = new Array("Patient", "Specialite médicale");
+  if($('#medecinRequired').val() ==1)
+  {
+    var medecin = $('#employ_id').val();
+    inputRDVVal.push(medecin);
+    inputRDVMessage.push("Médecin");
+  }
   $('.error').each(function(i, obj) {
     $(obj).next().remove();
     $(obj).detach();
@@ -108,8 +113,7 @@ function checkRdv()
 $(function() {
   if(loaded)
   {
-    $.connection.hub.url = '{{-- $borneIp--}}/myhubs';
-    // Connect Hubs without the generated proxy
+    $.connection.hub.url = '{{-- $borneIp--}}/myhubs';// Connect Hubs without the generated proxy
     var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
           console.log("Hub connected.");
@@ -167,9 +171,9 @@ $(function() {
                 idPatient:'{{ $rdv->patient->id}}',
                 fixe:  {{ $rdv->fixe }},
                 tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                age:{{ $rdv->patient->age }},
                 specialite: {{ $rdv->specialite_id }},
-                civ : {{ $rdv->patient->civ }},  // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
+                civ : {{ $rdv->patient->civ }},
             },
            @endforeach   
         ], 
@@ -211,7 +215,6 @@ $(function() {
                createRDVModal(start,end,0,1);
                
             }
-            //alert("ici");
             //resetPatient();
           }else
             $('.calendar').fullCalendar('unselect');
@@ -219,13 +222,13 @@ $(function() {
         eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today)
             {
-               getAppwithDocParamVal(3,calEvent.specialite);
+              getAppwithDocParamVal(3,calEvent.specialite);
               $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
                 $("#lien").attr("href", '/patient/' + data.patient.id);
                 $('#lien').text(calEvent.title); 
                 $('#specialiteId').val(data.specialite.id);
                 $('#nomPatient').val(data.patient.full_name);
-                $('#patient_tel').val(data.patient.tele_mobile1);//$('#patient_tel').html(calEvent.tel);
+                $('#patient_tel').val(data.patient.tele_mobile1);
                 $('#agePatient').val(data.patient.age);
                 $('#idRDV').val(calEvent.id);
                 $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
@@ -255,93 +258,54 @@ $(function() {
           }
       },
       eventRender: function (event, element, webData) {
-              if(event.start < today)
-                    element.css('background-color', '#D3D3D3');  
-              else
-              {
-                      if(event.fixe>0)
-                              element.css('background-color', '#3A87AD'); //#D6487E
-                      else
-                              element.css('background-color', '#D6487E');
+        if(event.start < today)
+              element.css('background-color', '#D3D3D3');  
+        else
+        {
+          if(event.fixe>0)
+                  element.css('background-color', '#3A87AD'); //#D6487E
+          else
+                  element.css('background-color', '#D6487E');
 
-                        element.css("padding", "5px");
-              }
-              element.popover({
-                  delay: { "show": 500, "hide": 100 },  // title: event.title,
-                  content: event.tel,
-                  trigger: 'hover',
-                  animation:true,
-                  placement: 'bottom',
-                  container: 'body',
-                  template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-            });       
+            element.css("padding", "5px");
+        }
+        element.popover({
+            delay: { "show": 500, "hide": 100 },  // title: event.title,
+            content: event.tel,
+            trigger: 'hover',
+            animation:true,
+            placement: 'bottom',
+            container: 'body',
+            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+      });       
       },
       eventMouseover: function(event, jsEvent, view) {
       }
     });//fincalendar 
     $('#rdvSaveBtn').on('click keyup', function(e) {
-      if(false)//!checkRdv()
+      if(!checkRdv())
         e.preventDefault();
       else
       {
         formSubmit($('#addRdv')[0], this, function(status, data) {
           if (status == "success") {
-            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-              $('.calendar').fullCalendar( 'renderEvent', {
-                  title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
-                  start: formData.date,
-                  end: formData.fin,
-                  id : data['rdv']['id'],
-                  idPatient:data['patient']['id'],
-                  fixe: data['rdv']['fixe'],
-                  tel:data['patient']['tele_mobile1'] ,
-                  age:data['age'],
-                  specialite: data['rdv']['specialite_id'],
-                  civ:data['patient']['civ'],    
-                  color:color
-              });
+            $('.calendar').fullCalendar( 'renderEvent', {
+                title: data.patient.full_name+" ,(" + data.patient.age + " ans)",
+                start: data.date,
+                end: data.fin,
+                id : data.id,
+                idPatient:data.patient.id,
+                fixe: data.fixe,
+                tel:data.patient.tele_mobile1 ,
+                age:data.patient.age,
+                specialite: data.specialite_id,
+                civ:data.patient.civ,    
+                color:(data.fixe > 0) ? '#3A87AD':'#D6487E',
+              }); //$('#addRDVModal').modal('toggle'); 
               resetPatient();
           }
         });
       }
-      /*   
-      url ="{{ route('rdv.store') }}";
-      var formData = {
-         _token: CSRF_TOKEN,
-          date:$('#date').val(),
-          fin:$('#fin').val(),
-          pid:$('#pid').val(),
-          fixe :$('#fixe').val()
-      }
-      if('{{ Auth::user()->is(15) }}')
-      {
-        formData.specialite = $('#specialite').val();
-        if('{{ $appointDoc }}' != null)
-          formData.employ_id = $('#employ_id').val();
-      }
-      $.ajax({
-        type:"POST",
-        url:url,
-        data:formData,
-        success:function(data){      
-            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-            $('.calendar').fullCalendar( 'renderEvent', {
-                title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
-                start: formData.date,
-                end: formData.fin,
-                id : data['rdv']['id'],
-                idPatient:data['patient']['id'],
-                fixe: data['rdv']['fixe'],
-                tel:data['patient']['tele_mobile1'] ,
-                age:data['age'],
-                specialite: data['rdv']['specialite_id'],
-                civ:data['patient']['civ'],    
-                color:color,
-            });
-            resetPatient();
-        },
-      });
-      */
     });
   });
 </script>

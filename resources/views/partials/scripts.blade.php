@@ -547,12 +547,15 @@
                   text: empl.full_name
                 }));
               })
-            if($('#docPanel').hasClass( "hidden" ))
-              $('#docPanel').removeClass('hidden');
+            if($('.docPanel').hasClass( "hidden" ))
+              $('.docPanel').removeClass('hidden');
             $("#medecinRequired").val(1);
           }else
-            if(!$('#docPanel').hasClass( "hidden" ))
-              $('#docPanel').addClass('hidden');
+          {
+            $("#medecinRequired").val('');
+            if(!$('.docPanel').hasClass( "hidden" ))
+              $('.docPanel').addClass('hidden');
+          }
         });
       }
       function ajaxEditEvent(event , bool)//bool true fixe else not fixe

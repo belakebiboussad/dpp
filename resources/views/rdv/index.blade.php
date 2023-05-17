@@ -83,16 +83,16 @@ $(function(){
           eventClick: function(calEvent, jsEvent, view) {
            if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-                  if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
-                  {
-                      $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
-                      if($('#printRdv').hasClass( "hidden" ))
-                       $('#printRdv').removeClass('hidden'); 
-                   }
-                  if($('#fixe').length &&(calEvent.fixe))
-                        $("#fixe"). prop("checked", true);
-                  $('#idRDV').val(calEvent.id); 
-                  ajaxEditEvent(calEvent, false);
+              if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
+              {
+                  $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
+                  if($('#printRdv').hasClass( "hidden" ))
+                   $('#printRdv').removeClass('hidden'); 
+               }
+              if($('#fixe').length &&(calEvent.fixe))
+                    $("#fixe"). prop("checked", true);
+              $('#idRDV').val(calEvent.id); 
+              ajaxEditEvent(calEvent, false);
             }
           },
            eventRender: function (event, element, webData) {
@@ -137,7 +137,6 @@ $(function(){
            $('#last-selected').html(
                    li.val() + '. ' + li.text()
             );
-           $("#btnSave").removeAttr("disabled");
         });
         $("#patient").on("keyup", function() {
          var field = $("select#filtre option").filter(":selected").val();

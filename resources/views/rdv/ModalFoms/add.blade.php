@@ -40,7 +40,7 @@
 	         	</div>
           </div>
         </div>
-        <div class="panel panel-default" id="docPanel">
+        <div class="panel panel-default docPanel">
           <div class="panel-heading">
           <i class="ace-icon fa fa-user-md bigger-110"></i><span>Selectionner une médecin</span></div>
           <div class="panel-body">
@@ -78,8 +78,8 @@
 		        </div>
             </form>
 	        </div><!-- modal-body -->
-	        <div class="modal-footer"><!-- " -->
-		      	<button  class="btn btn-primary btn-xs" type="button" id ="rdvSaveBtn" data-dismiss="modal><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+	        <div class="modal-footer"><!-- data-dismiss="modal" -->
+		      	<button  class="btn btn-primary btn-xs" type="button" id ="rdvSaveBtn"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
 			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
 		      </div>
       	
@@ -92,7 +92,6 @@
     $("#pid").val(pid);
     $("#pat-search").val(name);
     $("#livesearch").html('')
-/*@if(Auth::user()->is(15)) if(($("#specialite").val()) != null)  $("#btnSave").attr("disabled", false); @else$("#btnSave").attr("disabled", false); @endif */
   }
   function showRdvModal(date,fin,pid = 0,fixe)
   {
@@ -107,12 +106,10 @@
       if( $( "#patientPanel" ).hasClass( "hidden" ))
         $("#patientPanel").removeClass("hidden"); 
     }
-    $('#addRDVModal').modal({
-      show: 'true'
-    }); 
+    $('#addRDVModal').modal('toggle'); 
   }
   $(function(){
-    $("#pat-search").on("keyup", function() {/*if (!($("#btnSave").is(":disabled"))){$("#btnSave").prop('disabled',true);}*/
+    $("#pat-search").on("keyup", function() {
         $('#pid').val('');
         getPatient(); 
     });
