@@ -117,7 +117,7 @@ $(function() {
     var chatHubProxy = $.connection.myChatHub;
     $.connection.hub.start().done(function (e) {
           console.log("Hub connected.");
-          $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
+          $("#printTck").click(function(){
               var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
               chatHubProxy.server.send(barcode);       
           });
@@ -164,20 +164,17 @@ $(function() {
         events :[
             @foreach($rdvs as $key =>   $rdv)
             {
-                title : '{{ $rdv->patient->full_name }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
-                start : '{{ $rdv->date }}',
-                end:   '{{ $rdv->fin }}',
-                id :'{{ $rdv->id }}',
-                idPatient:'{{ $rdv->patient->id}}',
-                fixe:  {{ $rdv->fixe }},
-                tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->age }},
-                specialite: {{ $rdv->specialite_id }},
-                civ : {{ $rdv->patient->civ }},
+              title : '{{ $rdv->patient->full_name }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+              start : '{{ $rdv->date }}',
+              end:   '{{ $rdv->fin }}', id :'{{ $rdv->id }}',
+              idPatient:'{{ $rdv->patient->id}}',fixe:  {{ $rdv->fixe }},
+              tel:'{{$rdv->patient->tele_mobile1}}',age:{{ $rdv->patient->age }},
+              specialite: {{ $rdv->specialite_id }},civ : {{ $rdv->patient->civ }} 
             },
            @endforeach   
         ], 
         select: function(start, end) {
+          getAppwithDocParamVal(3,'{{ Auth::user()->employ->Service->specialite_id}}');
           var minutes = end.diff(start,"minutes"); 
           if( (minutes == 15) && (start >=today ))//CurrentDate
           {
@@ -193,18 +190,19 @@ $(function() {
                   confirmButtonColor: '#3085d6',
                   cancelButtonColor: '#d33',
                   confirmButtonText: 'Oui',
-                  cancelButtonText: "Non",
-                  allowOutsideClick: false,
-                  showCloseButton: true
+                  cancelButtonText: "Non",allowOutsideClick: false, showCloseButton: true
               }).then((result) => {
                 if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                 {
+                  if($('#medecinRequired').val() ==1)
+                  {
+                    $('#employ_id').val('{{ Auth::user()->employe_id}}');
+                    $('#employ_id').attr('readonly', true);
+                  }
                   if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
                     createRDVModal(start,end,'{{ $patient->id }}',result.value);
                   else
-                  {
-                     createRDVModal(start,end,0,result.value);
-                  } 
+                    createRDVModal(start,end,0,result.value);  
                 }
               })
             }else
@@ -212,10 +210,8 @@ $(function() {
               if('{{ $patient->id}}' != '') 
                 createRDVModal(start,end,'{{ $patient->id }}',1);
               else
-               createRDVModal(start,end,0,1);
-               
-            }
-            //resetPatient();
+               createRDVModal(start,end,0,1); 
+            }//resetPatient();
           }else
             $('.calendar').fullCalendar('unselect');
         },
@@ -288,23 +284,23 @@ $(function() {
       else
       {
         formSubmit($('#addRdv')[0], this, function(status, data) {
-          if (status == "success") {
-            $('.calendar').fullCalendar( 'renderEvent', {
-                title: data.patient.full_name+" ,(" + data.patient.age + " ans)",
-                start: data.date,
-                end: data.fin,
-                id : data.id,
-                idPatient:data.patient.id,
-                fixe: data.fixe,
-                tel:data.patient.tele_mobile1 ,
-                age:data.patient.age,
-                specialite: data.specialite_id,
-                civ:data.patient.civ,    
-                color:(data.fixe > 0) ? '#3A87AD':'#D6487E',
-              }); //$('#addRDVModal').modal('toggle'); 
-              resetPatient();
-          }
-        });
+        if (status == "success") {
+          $('.calendar').fullCalendar( 'renderEvent', {
+              title: data.patient.full_name+" ,(" + data.patient.age + " ans)",
+              start: data.date,
+              end: data.fin,
+              id : data.id,
+              idPatient:data.patient.id,
+              fixe: data.fixe,
+              tel:data.patient.tele_mobile1 ,
+              age:data.patient.age,
+              specialite: data.specialite_id,
+              civ:data.patient.civ,    
+              color:(data.fixe > 0) ? '#3A87AD':'#D6487E',
+            }); //$('#addRDVModal').modal('toggle'); 
+            resetPatient();
+        }
+      });
       }
     });
   });

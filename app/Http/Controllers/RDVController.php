@@ -42,8 +42,7 @@ class RDVController extends Controller
         return redirect()->route("rdv.show",$rdv->id);
     }
     public function index(Request $request,$patientID = null)
-     {
-      //$appointDoc = Auth::user()->employ->Service->Specialite->Parameters->find(3)['pivot']['value'];
+     {//$appointDoc = Auth::user()->employ->Service->Specialite->Parameters->find(3)['pivot']['value'];
       $specialites = Specialite::where('type','!=',null)->get();
       if(Auth::user()->isIn([1,13,14])) 
       {

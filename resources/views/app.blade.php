@@ -139,8 +139,7 @@
   $("#changePassword").click(function (e) {
     e.preventDefault();
     formSubmit($('#userChangePasswordForm')[0], this, function(xhr, form) {
-      if (xhr.success) {//$("#changePassword").addClass("disabled");
-        // window.location.href = "{{-- route("home") --}}";  
+      if (xhr.success) {  // window.location.href = "{{-- route("home") --}}";  
         location.reload(true);
       } 
     });

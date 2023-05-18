@@ -246,8 +246,8 @@ class UsersController extends Controller
         'password_again.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
 
       ];
-      $validator = Validator::make($data, [
-        'current-password' =>  "required_if:role,!=,4",
+      $validator = Validator::make($data, [//'current-password' =>  "required_if:role,!=,4",
+        'current-password' =>  "required",
         'newPassword' => 'required|different:current-password',
         'password_again' => 'required|same:newPassword',     
       ], $messages);
@@ -265,11 +265,15 @@ class UsersController extends Controller
         {
           $password = Auth::User()->password;  
           if(Hash::check($request_data['current-password'], $password))
-          {/*if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0){return response()->json(['errors'=>$validator->errors()->all()]);}else{*/ 
-            Auth::user()->password = Hash::make($request_data['newPassword']);
-            Auth::user()->save(); 
-            return response()->json(['success'=>'mot de passe est changé avec succée']);
-            //}
+          {
+            if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
+              return response()->json(['errors'=>$validator->errors()->all()]);
+            else
+            {
+              Auth::user()->password = Hash::make($request_data['newPassword']);
+              Auth::user()->save(); 
+              return response()->json(['success'=>'mot de passe est changé avec succée']);
+            }
           }else//Entrer le mot de passe actuel correct. essaie encore 
             return response()->json(['errors'=>'Entrer le mot de passe actuel correct. essaie encore']);
         }

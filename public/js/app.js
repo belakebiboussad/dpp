@@ -38,8 +38,7 @@ function formSubmit(form, e, callBack) {
     cache : false,
     success: function(data,status, xhr) {
       $form.trigger("reset");
-      //if( $.isEmptyObject(data.errors))
-      if(isEmpty(data.errors))
+      if( $.isEmptyObject(data.errors))
       {
         printSuccessMsg(form, data.success);
         callBack(status,data);
@@ -96,23 +95,22 @@ function copyPatient(){
     return erreur;
   }
   function checkHomme(){
-      var erreur =true;
+      var errors =[];
       var nomH = $('#nom_h').val();var prenomH = $('#prenom_h').val();
       var type_piece_id = $('#type_piece_id').val();
       var npiece_id = $('#num_piece').val();
       mobileH = $('#mobile_h').val();
-      var inputHomVal = new Array(mobileH,npiece_id,type_piece_id,prenomH,nomH);
-      var inputHomMessage = new Array("Téléphone mobile","Numero de la pièce","Type de la pièce","Prenom","Nom");
+      var inputHomVal = new Array(nomH,prenomH,type_piece_id,npiece_id,mobileH);
+      var inputHomMessage = new Array("Nom","Prenom","Type de la pièce","Numero de la pièce","Téléphone mobile");
       $('.error').each(function(i, obj) {
         $(obj).next().remove();
         $(obj).detach();
       });
       jQuery.each( inputHomVal, function( i, val ) {
         if(val =="" )
-        {
-          erreur =false;
-          $('#error').after('<span class="error">Veuiller remplir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+        { 
+          errors.push('Veuiller remplir le ' + inputHomMessage[i]+' du Correspondant');
         }
       });   
-     return erreur;
-}
+      return errors;
+  }

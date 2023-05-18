@@ -25,16 +25,15 @@
         <input type="hidden" id="fixe" name="fixe"><input type="hidden" id="pid" name="pid">
         <input type="hidden" name="isSec" value="{{ Auth::user()->is(15)}}">
         <input type="hidden" id="medecinRequired" name="medecinRequired" value="">
-        @if(Auth::user()->is(15))
-			  <div class="panel panel-default">
+     	  <div class="panel panel-default">
  			    <div class="panel-heading"> <span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
        	   	<div class="form-group">
 		         	<label class="col-form-label blue" for="specialite">Spécialité</label>  
-		          	<select class="form-control specialite" id="specialite" name="specialite">
+		            <select class="form-control specialite" id="specialite" name="specialite" {{ Auth::user()->isIn([1,13,14]) ?'disabled':''}}>
                  	<option value="" selected disabled> Selectionner...</option>
                  	@foreach($specialites as $specialite)
-               		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
+               		<option value="{{ $specialite->id}}" {{ (Auth::user()->isIn([1,13,14]) && ($specialite->id == Auth::user()->employ->Service->specialite_id )) ?'selected':''}}>{{  $specialite->nom }}</option>
                		 @endforeach
                 </select>
 	         	</div>
@@ -52,7 +51,7 @@
             </div>
           </div>
         </div>
-	      @endif
+	     
         <div class="panel panel-default" id="patientPanel">
       		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span> Selectionner un patient</span></div>
         	<div class="panel-body">	
@@ -94,7 +93,7 @@
     $("#livesearch").html('')
   }
   function showRdvModal(date,fin,pid = 0,fixe)
-  {
+  { 
     $('#date').val(date); $('#fin').val(fin);  $('#fixe').val(fixe);
     if(pid !== 0)
     {

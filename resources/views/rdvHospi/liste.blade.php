@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 <div class="page-header"><h1>Liste des rendez-vous d'hospitalisation</h1></div>
 <div class="col-xs-12 widget-container-col">

@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 <div class="page-header"><h2>Affecter un lit</h2></div>
 <div class="row">
@@ -59,10 +59,8 @@
               <td></td><td></td><td></td>
             @endif
 					<td class="center">
-							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
-								<i class="fa fa-bed" aria-hidden="true"></i>
-							</button>
-						</td>
+						<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}"><i class="fa fa-bed" aria-hidden="true"></i></button>
+				  </td>
 					</tr>
 					@endforeach	
 					</tbody>
