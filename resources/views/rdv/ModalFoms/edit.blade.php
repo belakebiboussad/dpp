@@ -61,7 +61,7 @@
         <div class="row">
           <div class="col-sm-6">
             <fieldset class="scheduler-border">
-              <legend>Date rendez-Vous</legend>
+              <legend>Date</legend>
               <div class="control-group">
                 <div class="controls">
                   <input type="text" class="datetime" id="meetingdate" data-date-format="yyyy-mm-dd" readonly/>
@@ -72,7 +72,7 @@
           </div>
           <div class="col-sm-6">
             <fieldset class="scheduler-border">
-              <legend class="scheduler-border">Type rendez-vous</legend>
+              <legend class="scheduler-border">Type</legend>
               <div class="control-group">
                 <div class="controls form-check">
                   <label class="block"><input type="checkbox" class="ace" id="fixe" {{ (Auth::user()->is(15)) ? 'disabled' : '' }} /> <span class="lbl">Fixe</span></label>

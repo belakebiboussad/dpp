@@ -553,8 +553,8 @@
           }else
           {
             $("#medecinRequired").val('');
-            if(!$('.docPanel').hasClass( "hidden" ))
-              $('.docPanel').addClass('hidden');
+              if(!$('.docPanel').hasClass( "hidden" ))
+                $('.docPanel').addClass('hidden');
           }
         });
       }

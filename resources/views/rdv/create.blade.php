@@ -183,22 +183,21 @@ $(function() {
               Swal.fire({
                   title: 'Confimer vous le Rendez-Vous?',
                   html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD/MM/YYYY')+'</b></h4>',
-                  input: 'checkbox',
-                  inputValue: 1,
-                  inputPlaceholder: 'Redez-Vous Fixe',
-                  showCancelButton: true,
+                  input: 'checkbox', inputValue: 1,
+                  inputPlaceholder: 'Redez-Vous Fixe', showCancelButton: true,
                   confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Oui',
+                  cancelButtonColor: '#d33', confirmButtonText: 'Oui',
                   cancelButtonText: "Non",allowOutsideClick: false, showCloseButton: true
               }).then((result) => {
                 if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                 {
+                  {{--
                   if($('#medecinRequired').val() ==1)
                   {
                     $('#employ_id').val('{{ Auth::user()->employe_id}}');
-                    $('#employ_id').attr('readonly', true);
+                    //$('.docPanel').attr('disabled', true);
                   }
+                  --}}
                   if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
                     createRDVModal(start,end,'{{ $patient->id }}',result.value);
                   else

@@ -15,7 +15,7 @@ function getDoctors(specid)
         }));
       })
     }
-  });//$("#employ_id").prop('disabled',false);  
+  });  
 }  
 $(function(){
   $(".specialite" ).change(function() {
