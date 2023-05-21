@@ -48,7 +48,7 @@ class RDVController extends Controller
       {
         $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
-        if(is_null($shareApp))
+        if((is_null($shareApp)) && (! Auth::user()->is(14)))
           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
         else
           $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->whereNull('etat')->orwhere('etat',1)->get();
@@ -66,6 +66,8 @@ class RDVController extends Controller
     {
       $borneIp =  (Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value;
       $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
+      if(Auth::user()->isIn([1,13,14])) 
+        $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
       $specialites = Specialite::where('type','!=',null)->get();
       if(isset($request->patient_id))
         $patient = patient::FindOrFail( $request->patient_id);
@@ -74,7 +76,10 @@ class RDVController extends Controller
       if(Auth::user()->isIn([1,13,14])) 
       {  
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
-        $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
+        if((is_null($shareApp)) && (! Auth::user()->is(14)))
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
+        else
+          $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
                     ->where('etat',null)->orwhere('etat',1)->get();
       }else
         $rdvs = rdv::with(['patient','specialite'])->where('etat',null)->orwhere('etat',1)->get();
@@ -96,42 +101,34 @@ class RDVController extends Controller
           'fin.required' => 'Séléctionner la date de fin de RDV',
         ];
         $validator = Validator::make($data, [
-          'specialite' =>"required_if:isSec,==,1" ,
+          'specialite' =>"required",
           'employ_id' =>"required_if:medecinRequired,==,1" ,
           'pid' =>  "required",
           'date' =>  "required",
-          'fin' => 'required', 
+          'fin' => 'required' 
         ], $messages);
          return $validator;
       }  
       public function store(Request $request)
-      {
-        $request_data = $request->All();
-        $validator = $this->admin_credential_rules($request_data);
-        if($validator->fails())//pass cof error
+      { 
+        $input = $request->all();
+       if(Auth::user()->isIn([1, 13, 14]))
+        {
+          $input['specialite'] = Auth::user()->employ->Service->specialite_id;
+          $input['employ_id'] =Auth::user()->employe_id;
+        }
+        $validator = $this->admin_credential_rules($input);
+        if($validator->fails())
           return response()->json(['errors'=>$validator->errors()->all()]);
         if($request->ajax())
         { 
           $patient = patient::find($request->pid);
-          if(isset($request->specialite))
-            $specialite_id = $request->specialite;
-          else
-          {
-            if(isset(Auth::user()->employ->specialite))
-              $specialite_id = Auth::user()->employ->specialite;
-            else
-              $specialite_id = Auth::user()->employ->Service->specialite_id; 
-          }
-          if(Auth::user()->is(15))
-            $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
-          else
-            $employ_id = Auth::user()->employe_id;
-          $rdv = $patient->rdvs()->firstOrCreate([
+          $rdv = $patient->rdvs()->create([
             "date"=>new DateTime($request->date),
             "fin" =>new DateTime($request->fin),
             "fixe"    => $request->fixe,
-            "employ_id"=> $employ_id,
-            "specialite_id"=> $specialite_id
+            "employ_id"=> (isset($input['employ_id'])) ? $input['employ_id'] : null,
+            "specialite_id"=> $input['specialite']
           ]);
           return $rdv->load('patient');
         }

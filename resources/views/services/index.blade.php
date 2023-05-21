@@ -1,18 +1,6 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-function getServiceRoom(id)
-{
-  var url = '{{ route("salle.index") }}';
-  $.ajax({
-        type : 'get',
-        url :url,
-        data:{   id :  id  },
-        success:function(data,status, xhr){
-          	$('#ajaxPart').html(data);
-        }
-    });
-}
 function getActions(data){
   var actions = '<button type="button" class="btn btn-xs btn-success serv-show" value="' + data.id + '"><i class="fa fa-hand-o-up fa-xs"></i></button>';
       actions += '<button type="button" class="btn btn-xs btn-info serv-edit" value="' + data.id + '"><i class="ace-icon fa fa-pencil fa-xs"></i></button>';
@@ -160,7 +148,7 @@ $(function(){
 					<tr id='{{ $service->id}}'>
 						<td>
 							@if($service->hebergement && ( $service->salles->count() > 0))
-								<a href="#" id ={{ $service->id }}  onclick="getServiceRoom({{ $service->id }});" title="afficher les chambres">{{ $service->nom }}</a>
+								<a href="{{route('service.show',$service->id)}}" id ="{{ $service->id }}" title="afficher les chambres">{{ $service->nom }}</a>
 							@else
 								{{ $service->nom }}
 							@endif
@@ -179,7 +167,6 @@ $(function(){
                 <i class="ace-icon fa fa-pencil fa-xs"></i></button>
 							@if($service->hebergement)
              	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey" title="Ajouter une chambre"><i class="ace-icon fa fa-plus fa-xs"></i>
-
 							</a>
 							@endif
 							<button type="button" class="btn btn-xs btn-danger serv-delete" value="{{ $service->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 

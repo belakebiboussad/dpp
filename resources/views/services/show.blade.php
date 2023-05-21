@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h4><b>Consultations des détails du service :</b></h4></div>
+	<div class="row"><h4>Détails du service "{{ $servie->nom}}"</h4></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box">
-				<div class="widget-header"><h5 class="widget-title"><b>Détails du service :</b></h5>
+				<div class="widget-header"><h5 class="widget-title"></h5>
 					<div class="pull-right">
 						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des services</a>
 						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-danger btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>

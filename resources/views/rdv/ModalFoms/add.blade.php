@@ -23,9 +23,8 @@
       </div>
        	<input type="hidden" id="date" name="date"><input type="hidden" id="fin"  name="fin">
         <input type="hidden" id="fixe" name="fixe"><input type="hidden" id="pid" name="pid">
-        <input type="hidden" name="isSec" value="{{ Auth::user()->is(15)}}">
+        @if( Auth::user()->is(15))
         <input type="hidden" id="medecinRequired" name="medecinRequired" value="">
-        @if('{{ Auth::user()->is(15)}}'== true)
      	  <div class="panel panel-default">
  			    <div class="panel-heading"> <span>Selectionner une spécialité</span></div>
          	<div class="panel-body">
@@ -71,7 +70,7 @@
 	          	<div class="col-sm-7">
 			          <div class="form-group">
 			          	<label class="col-form-label" for="patient">&nbsp; </label>
-			              <input type="search"  class="form-control"  id="pat-search" name="q" disabled autocomplete="off"><div id="livesearch" class="list-unstyled"></div>
+			              <input type="search"  class="form-control"  id="pat-search" disabled autocomplete="off"><div id="livesearch" class="list-unstyled"></div>
                 </div>
 			          	</div>
 		          	</div>

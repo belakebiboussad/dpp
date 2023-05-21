@@ -112,7 +112,7 @@ function getUserdetail(id)
 							<select class="form-control input-xs filter" name="role_id" id="role_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($roles as $role)
-									<option value="{{ $role->id }}">{{ $role->role }}</option>
+									<option value="{{ $role->id }}">{{ $role->nom }}</option>
 								@endforeach
 							</select>
 						</div>

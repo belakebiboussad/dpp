@@ -40,15 +40,15 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-          $request->validate([
-               "rolename" => 'required|min:3',
-          ]);
-           rol::FirstOrCreate([
-              "role"=>$request->rolename,
-           ]);
-         $roles = rol::all();
-         // Session::flash('message','Rôle crée avec succès'); 
-        return view('role.index',compact('roles'));
+      $request->validate([
+           "nom" => 'required|min:3',
+      ]);
+      $role =  rol::FirstOrCreate([
+          "nom"=>$request->nom,
+          "type"=>$request->type,
+      ]);
+      //$roles = rol::all(); // Session::flash('message','Rôle crée avec succès'); 
+      return view('role.show',compact('role'));
     }
 
     /**

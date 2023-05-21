@@ -241,14 +241,13 @@ function errorMsg(msg, error) {
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats :</h5><label><span class="badge badge-info numberResult"></span></label>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>
 				</div>	
 			</div>
-		</div>
-		<div class="col-md-5 col-sm-5"  id="patientDetail"></div>		
+		</div><div class="col-md-5 col-sm-5"  id="patientDetail"></div>   
 	</div>{{-- row --}}
 	<div class="row">@include('patient.ModalFoms.mergeModal')@include('patient.ModalFoms.scanbarCodeModal')</div>
 @stop

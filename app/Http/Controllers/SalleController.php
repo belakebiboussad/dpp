@@ -24,16 +24,8 @@ class SalleController extends Controller
       }
     public function index(Request $request)
     {
-      if($request->ajax())  
-      { 
-        $service = service::FindOrFail($request->id);
-        $view = view("services.ajax_servicerooms",compact('service'))->render();
-        return $view;
-      }else
-      {
-        $salles = salle::all();
+      $salles = salle::all();
         return view('Salles.index', compact('salles'));
-      } 
     }
     /**
      * Show the form for creating a new resource.

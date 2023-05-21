@@ -84,12 +84,14 @@ class UsersController extends Controller
     {
       $validator = Validator::make($request->all(), [
         "username"=> "required|unique:utilisateurs",
-        "password"=> "required",// "mail"=> "required",
+        "password"=> "required",
         "role"=> "required",
         "nom"=> "required",
-        "prenom"=> "required","required","nss"=> "required",
+        "prenom"=> "required",
+        "nss"=> "required",
         "datenaissance"=> "required",// "lieunaissance"=> "required",
         "mobile"=> "required | regex:/[0][245679][0-9]{8}/",// "mat"=> 
+        "service"=> "required", 
       ]);
       if($validator->fails())
            return back()->withErrors($validator)->withInput();
@@ -207,7 +209,7 @@ class UsersController extends Controller
       $users = User::select(['id', 'name', 'email', 'employe_id','role_id']);
       return Datatables::of($users)
           ->addColumn('action2', function ($user) {
-              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
+              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->nom.'</span>';
           })
           ->addColumn('action', function ($user) {
               return '<div class="hidden-sm hidden-xs action-buttons">
@@ -312,7 +314,7 @@ class UsersController extends Controller
       if($field == "role_id")
       {
         foreach($users as $user){
-          $response[] = array("label"=>$user->role->role);
+          $response[] = array("label"=>$user->role->nom);
         }
       }else
       {

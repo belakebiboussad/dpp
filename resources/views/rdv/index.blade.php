@@ -24,7 +24,6 @@
  </style>
 @stop
 @section('page-script')
-@include('rdv.scripts.calendar')
 @include('rdv.scripts.js')
 <script>
 function reset_in()
@@ -135,7 +134,7 @@ $(function(){
               editable: false, 
         }).on('select.editable-select', function (e, li) {
            $('#last-selected').html(
-                   li.val() + '. ' + li.text()
+              li.val() + '. ' + li.text()
             );
         });
         $("#patient").on("keyup", function() {

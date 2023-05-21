@@ -11,23 +11,24 @@
 						{{ csrf_field() }}
 						{{ method_field('PUT') }}
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom : </strong></label>
+								<label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>
 								<div class="col-sm-9">
 									<input type="text" id="nom" name="nom" value="{{ $service->nom }}" placeholder="Nom Du Service" class="col-xs-10 col-sm-5" />
 								</div>
 							</div>	<div class="space-12 hidden-xs"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Type:</strong></label>
+								<label class="col-sm-3 control-label no-padding-right" for="type">Type</label>
 								<div class="col-sm-9">
 									<select id="type" name="type"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
-										<option value="0" @if($service->type == 0) selected @endif>Médicale</option>
-										<option value="1" @if($service->type == 1) selected @endif>Chirurgical</option>
-										<option value="2" @if($service->type == 2) selected @endif>Fonctionnel</option>
+										<option value="0" @if($service->type == 'Médical') selected @endif>Médicale</option>
+										<option value="1" @if($service->type == 'Chirurgie') selected @endif>Chirurgie</option>
+										<option value="2" @if($service->type == 'Fonctionnel') selected @endif>Fonctionnel</option>
+                      <option value="2" @if($service->type == 'Fonctionnel') selected @endif>Fonctionnel</option>
 									</select>	
 								</div>
 							</div><div class="space-12 hidden-xs"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef:</strong></label>
+								<label class="col-sm-3 control-label no-padding-right" for="type">Chef</label>
 								<div class="col-sm-9">
 									<select id="responsable_id" name="responsable_id"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5">										<option value="" selected disabled>Selectionner le chef</option>
 										@foreach ($employs as $employ)
@@ -58,7 +59,7 @@
 								</div>
 							</div>
 							<div class="row center">
-								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 								<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 							</div>
 						</form>

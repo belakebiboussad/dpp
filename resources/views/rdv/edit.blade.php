@@ -1,6 +1,5 @@
 @extends('app')
 @section('page-script')
- @include('rdv.scripts.calendar')
  @include('rdv.scripts.js')
 <script>
  $(function(){

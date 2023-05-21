@@ -7,10 +7,10 @@ class service extends Model
 	public $timestamps = false;
 	protected $fillable = ['nom','type','specialite_id','responsable_id','hebergement','urgence'];
   public const TYPE = [
+    '' => 'Fonctionnel',
     0 => 'Médical',
-    1 => 'Chirurgical',
-    2 => 'Paramédical',
-    3 => 'Administratif',
+    1 => 'Chirurgie',
+    2 => 'Administratif',
   ];
   protected $casts = [
     'hebergement' => 'boolean',

@@ -8,7 +8,7 @@
                      <div class="col-xs-12">
                            <div class="checkbox">
                                    <label><input name="fixe" type="checkbox" class="ace" value="1" />
-                                         <span class="lbl">&nbsp; Fixe</span>
+                                         <span class="lbl"> Fixe</span>
                                   </label>
                           </div>
                      </div>

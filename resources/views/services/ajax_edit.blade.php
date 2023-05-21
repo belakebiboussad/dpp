@@ -15,13 +15,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-control-label" for="type">Type</label>
+              <label class="col-sm-3 col-control-label" for="type">Type{{$service->type}}</label>
               <div class="col-sm-9">
                 <select id="type" name="type"  class="form-control selectpicker" required >
-                  <option value="0" @if($service->type == 'Médicale') selected @endif>Médicale</option>
-                  <option value="1" @if($service->type == 'Chirurgical') selected @endif>Chirurgical</option>
-                  <option value="2" @if($service->type == 'Paramédical') selected @endif>Paramédical</option>
-                  <option value="3" @if($service->type == "Administratif") selected @endif>Administratif</option>
+                  <option value="" @if($service->type == 'Fonctionnel') selected @endif>Fonctionnel</option>
+                  <option value="0" @if($service->type == 'Médical') selected @endif>Médical</option>
+                  <option value="1" @if($service->type == 'Chirurgie') selected @endif>Chirurgie</option>
+                  <option value="2" @if($service->type == "Administratif") selected @endif>Administratif</option>
                 </select> 
               </div>
             </div>
@@ -39,22 +39,19 @@
             <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
               <div class="col-sm-9">
                  <div class="checkbox col-sm-offset-4">
-                <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}>
-                  <span class="lbl">Hébergement</span></label>
+                <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}> <span class="lbl">Hébergement</span></label>
                 </div>          
               </div>
             </div>
             <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
               <div class="col-sm-9">
                 <div class="checkbox col-sm-offset-4">
-                <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}>
-                  <span class="lbl">Urgence</span></label>
-                </div>
+                <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}><span class="lbl">Urgence</span></label></div>
               </div>
             </div>
             <div class="row center">
-              <button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
-              <button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i> Annuler</button>
+              <button class="btn btn-xs btn-primary" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
+              <button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i> Annuler</button>
             </div>
           </form>
         </div>

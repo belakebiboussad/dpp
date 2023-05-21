@@ -80,7 +80,7 @@
         });
       });
       $("#role").change(function (e) {
-        if(jQuery.inArray($(this).val(), ["1","10","12","13","14"] ) != -1){
+        if(jQuery.inArray($(this).val(), ["1","10",'11',"12","13","14"] ) != -1){
           if($('#specialite').hasClass( "hidden" ))
             $("#specialite").removeClass("hidden");
         }else

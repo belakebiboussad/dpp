@@ -130,7 +130,7 @@
           <select id="role" name="role" class="form-control" required>
             <option value="" selected disabled>Sélectionner...</option>
             @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ ($user->is($role->id)) ? 'Selected':'' }}>{{ $role->role }}</option>
+            <option value="{{ $role->id }}" {{ ($user->is($role->id)) ? 'Selected':'' }}>{{ $role->nom }}</option>
             @endforeach
           </select>
           </div>

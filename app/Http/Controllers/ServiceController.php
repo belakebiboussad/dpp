@@ -89,7 +89,7 @@ class ServiceController extends Controller
                         })->where('service_id',$service->id)->get();
         
         else
-         $employs = employ::where('service_id',$service->id)->get();
+          $employs = employ::where('service_id',$service->id)->get();
         if($request->ajax())
         {
           $view = view("services.ajax_edit",compact('service','employs'))->render();      
@@ -118,6 +118,8 @@ class ServiceController extends Controller
           } 
         } 
         $input = $request->all();
+
+        dd($input);
         $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
         $input['urgence'] = isset($request->urgence)? $request->urgence : null;
         $service->update($input);

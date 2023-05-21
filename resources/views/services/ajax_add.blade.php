@@ -16,8 +16,8 @@
                 <select id="type" class="form-control selectpicker show-menu-arrow" required >
                   <option value="0">Médicale</option>
                   <option value="1">Chirurgical</option>
-                  <option value="2">Paramédical</option>
-                  <option value="3">Administratif</option>
+                  <option value="">Fonctionnel</option>
+                  <option value="2">Administratif</option>
                 </select> 
               </div>
             </div>

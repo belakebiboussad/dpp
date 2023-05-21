@@ -87,11 +87,16 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
 function checkRdv()
 {
   var erreur =true;
-  var specialite = $('#specialite').val();
   var pid = $('#pid').val();
-  var inputRDVVal = new Array(pid,specialite);
-  var inputRDVMessage = new Array("Patient", "Specialite médicale");
-  if($('#medecinRequired').val() ==1)
+  var inputRDVVal = new Array(pid);
+  var inputRDVMessage = new Array("Patient");
+  if('{{ Auth::user()->is(15) }}')
+  {
+    var specialite = $('#specialite').val();
+    inputRDVVal.push(specialite);
+    inputRDVMessage.push("Specialite médicale");
+  }
+  if(('{{ Auth::user()->is(15) }}')&&($('#medecinRequired').val() ==1))
   {
     var medecin = $('#employ_id').val();
     inputRDVVal.push(medecin);
@@ -174,7 +179,6 @@ $(function() {
            @endforeach   
         ], 
         select: function(start, end) {
-          getAppwithDocParamVal(3,'{{ Auth::user()->employ->Service->specialite_id}}');
           var minutes = end.diff(start,"minutes"); 
           if( (minutes == 15) && (start >=today ))//CurrentDate
           {
@@ -189,15 +193,8 @@ $(function() {
                   cancelButtonColor: '#d33', confirmButtonText: 'Oui',
                   cancelButtonText: "Non",allowOutsideClick: false, showCloseButton: true
               }).then((result) => {
-                if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
+                if(!isEmpty(result.value))//indique rdv fixe ou pas
                 {
-                  {{--
-                  if($('#medecinRequired').val() ==1)
-                  {
-                    $('#employ_id').val('{{ Auth::user()->employe_id}}');
-                    //$('.docPanel').attr('disabled', true);
-                  }
-                  --}}
                   if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
                     createRDVModal(start,end,'{{ $patient->id }}',result.value);
                   else
@@ -278,7 +275,7 @@ $(function() {
       }
     });//fincalendar 
     $('#rdvSaveBtn').on('click keyup', function(e) {
-      if(!checkRdv())
+      if(false)//!checkRdv()
         e.preventDefault();
       else
       {

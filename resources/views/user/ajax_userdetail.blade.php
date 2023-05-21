@@ -21,7 +21,7 @@
       </tr>
       <tr>
         <td class ="noborders"><b><b>Email :</b></b></td><td> {{ $user->email }}</td>
-        <td class ="noborders"><b>Rôle :</b></td> <td> {{ $user->role->role }}</td>
+        <td class ="noborders"><b>Rôle :</b></td> <td> {{ $user->role->nom }}</td>
       </tr>
       <tr>
         <td class ="noborders"><b>Tél Fixe :</b></td>   <td>{{ $employe->Tele_fixe }}</td>

@@ -80,7 +80,7 @@
     </div>
     <div class="form-group col-xs-12 col-sm-6">
       <label class="col-sm-4 control-label  text-right">Rôle :</b></label>
-      <div class="col-sm-8"><label class="blue">{{ $user->role->role }}</label></div>
+      <div class="col-sm-8"><label class="blue">{{ $user->role->nom }}</label></div>
     </div>
   </div>
 </div>

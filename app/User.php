@@ -40,6 +40,6 @@ class User extends Authenticatable
     }
     public function isIn($roles)
     {
-      return in_array($this->role_id,$roles);//($role == $this->role_id);
+      return in_array($this->role_id,$roles);
     }
 }

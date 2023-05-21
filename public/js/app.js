@@ -11,7 +11,7 @@ function printSuccessMsg(form ,msg) {
 function printErrorMsg (form, msg) {
   var $error_msg = $(".print-error-msg");
   $error_msg.find("ul").html('');
-  $error_msg.css('display','block');//$.each( msg, function( key, value ) { //});
+  $error_msg.css('display','block');
   $.each( msg, function( key, value ) {
     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
   });
