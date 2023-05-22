@@ -75,8 +75,8 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(rol $role)
-    { //return view('role.edit', compact('role'));
-      $view = view("role.ajax_edit",compact('role'))->render();      
+    { 
+      $view = view("role.ajax_add",compact('role'))->render();      
       return $view;
     }
     /**
