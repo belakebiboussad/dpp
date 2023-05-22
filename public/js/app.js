@@ -22,8 +22,8 @@ function formSubmit(form, e, callBack) {
   var $error_msg = $(".print-error-msg");
   var $form = $(form);
   var url = $form.attr("action");
-  formData = new FormData(form);
-  $.ajaxSetup({
+  var formData = new FormData(form);
+    $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
@@ -31,18 +31,12 @@ function formSubmit(form, e, callBack) {
   $.ajax({
     url:url,
     type:$form.attr("method"),
-    data:formData,
-    dataType: "json",
+    data: formData,//dataType: "json",
     processData : false,
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
-      alert(data);
-      $.each(data, function(key, value) {
-        alert(key +':'+ value);
-      })
-      //$form.trigger("reset");
-      /*
+     $form.trigger("reset");
       if( $.isEmptyObject(data.errors))
       {
         printSuccessMsg(form, data.success);
@@ -50,10 +44,6 @@ function formSubmit(form, e, callBack) {
       }
       else
         printErrorMsg(form, data.errors);
-      */
-    },
-    error(data) {
-      alert("édfs");
     }
   })
 }

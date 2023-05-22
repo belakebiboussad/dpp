@@ -36,7 +36,7 @@ $(function(){
 	   	 		  	{ data:'id',title:'ID', "visible": false},
 	   	 		  	{ data: 'username', title:'Nom' },
 	   	 		  	{ data: 'email', title:'E-Mail' },
-	   	 		  	{ data: 'role.role', title:'Rôle' },
+	   	 		  	{ data: 'role.nom', title:'Rôle' },
               { data: 'employ.service.nom', title:'Service' },
 	   	 		   	{data: null, title:'Compte',
 	   	 		  		render : function(data, type, row){
@@ -158,5 +158,4 @@ function getUserdetail(id)
 		<div class="col-sm-5" id="userDetail"></div>
 	</div>
   </div>
-
 @stop

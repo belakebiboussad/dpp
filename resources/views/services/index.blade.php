@@ -58,7 +58,7 @@ $(function(){
                 }
                 var medecin = (isEmpty(data.responsable)) ? '' : data.responsable.full_name;
                 var heberg = (data.hebergement == 1) ? "Oui" : "Non", urg = (data.urgence == 1) ? "Oui" : "Non" ;
-                var service = '<tr id="' + data.id + '"><td>'+ data.nom + '</td><td>' + type +'</td><td>'+ medecin +'</td><td>'+ heberg
+                var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.id +'">'+ data.nom + '</a></td><td>' + type +'</td><td>'+ medecin +'</td><td>'+ heberg
                     service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data) + '</td></tr>';
                 $('#serivesTable' +' tbody').append(service);
                 $('#ajaxPart').html("");
@@ -143,7 +143,7 @@ $(function(){
 					@foreach($services as $service)
 					<tr id='{{ $service->id}}'>
 						<td>
-							<a href="#"  title="Détails du service" class="servShow" data-id="{{$service->id}}">{{ $service->nom }}</a>
+						<a href="#" title="Détails du service" class="servShow" data-id="{{$service->id}}">{{ $service->nom }}</a>
 						</td>
 						<td width="7%">{{ $service->type }} </td>  
 						<td>

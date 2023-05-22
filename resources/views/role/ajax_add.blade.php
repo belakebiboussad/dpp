@@ -1,20 +1,23 @@
-@section('title','Ajouter un Rôle')
 <div class="page-header"><h1>Ajouter un nouveau rôle</h1></div>
 <div class="row">
   <div class="col-sm-12">
+    <div class="alert alert-danger print-error-msg" style="display:none">
+    <strong>Errors:</strong>
+    <ul></ul>
+    </div>
+    <div class="alert alert-success print-success-msg" style="display:none"></div> 
       <form role="form" id="roleFrm" method="POST" action="{{ route('role.store') }}">
         <div class="form-group row">
           <label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>
           <div class="col-sm-9">
-            <input type="text" id="nom" name="nom" placeholder="Nom du rôle" class="form-control col-xs-10 col-sm-5" required/>
+            <input type="text" id="nom" name="nom" placeholder="Nom du rôle" class="form-control" required/>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 control-label no-padding-right">Type</label>
           <div class="col-sm-9">
-            <select  name="type"  class="form-control col-xs-10 col-sm-5" required>
-              <option value="" disabled selected>---Selectionner---</option>
-              <option value="0">Médicale</option>
+            <select  name="type"  class="form-control" required>
+              <option value="0" selected>Médicale</option>
               <option value="">Paramédicale</option>
               <option value="1">Administratif</option>
              </select>

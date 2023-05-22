@@ -4,7 +4,7 @@
 function getActions(data){
   var actions = '<button type="button" class="btn btn-xs btn-success rolShow" value="' + data.id + '"><i class="fa fa-hand-o-up fa-xs"></i></button>';
   actions += '<button type="button" class="btn btn-xs btn-info rolEdit" value="' + data.id + '"><i class="ace-icon fa fa-pencil fa-xs"></i></button>';
-  actions += '<button type="button" class="btn btn-xs btn-danger rolDelete" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';
+  actions += '<button type="button" class="btn btn-xs btn-danger rolDelete" data-id="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';
   return actions;
 }
 $(function(){
@@ -33,10 +33,9 @@ $(function(){
       $('#ajaxPart').html("");
     });
   });
-  //jQuery('#rolUpdate').click(function (e) {
-  $('body').on('click', '#rolUpdate', function (e) {//e.preventDefault();
-    alert('fds');
-    formSubmit($('#roleUpdFrm')[0], this, function(status, data) {
+  $('body').on('click', '#rolUpdate', function (e) {
+    e.preventDefault();
+    formSubmit($('#rolUpdFrm')[0], this, function(status, data) {
       var rol = '<tr id="' + data.id + '"><td width="40%">'+ data.nom + '</td><td width="30%">' + data.type +'</td><td width="30%" class = "center">' +  getActions(data) + '</td></tr>';
       $("#" + data.id).replaceWith(rol);
       $('#ajaxPart').html("");
@@ -79,8 +78,11 @@ $(function(){
     var formData = {
       _token: CSRF_TOKEN,
     };
+    var id = $(this).data('id');
     var url = "{{ route('role.destroy',':slug') }}"; 
-    url = url.replace(':slug',$(this).val());
+    url = url.replace(':slug', id);
+    alert(url);
+   
     $.ajax({
         type: "DELETE",
         url: url,
@@ -125,7 +127,7 @@ $(function(){
             <button type="button" class="btn btn-xs btn-success rolShow" data-id="{{$role->id}}"><i class="fa fa-hand-o-up fa-xs"></i></button>
             <button type="button" class="btn btn-xs btn-info rolEdit" value="{{$role->id}}">
             <i class="ace-icon fa fa-pencil fa-xs"></i></button>
-              <a href="{{route('role.destroy',$role->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i></a>
+              <a href="#" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger rolDelete" data-id="{{ $role->id }}"><i class="ace-icon fa fa-trash-o"></i></a>
           </div>
 				</td>
 			</tr>

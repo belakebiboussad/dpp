@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\modeles\rol;
-use Session;
+use Log;
 class RolesController extends Controller
 {
     /**
@@ -16,12 +17,18 @@ class RolesController extends Controller
       {
           $this->middleware('auth');
       }
+    public function rol_credential_rules(array $data)
+      {
+        $validator = Validator::make($data, [
+          'nom' =>"required|min:3",
+        ]);
+         return $validator;
+      }  
     public function index()
     {
         $roles = rol::all();
         return view('role.index', compact('roles'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -45,13 +52,13 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-      $request->validate([
-           "nom" => 'required|min:3',
-      ]);
+      $validator = $this->rol_credential_rules($request->all());
+      if($validator->fails())
+        return response()->json(['errors'=>$validator->errors()->all()]);
       $role =  rol::FirstOrCreate([
           "nom"=>$request->nom,
           "type"=>$request->type,
-      ]); //$roles = rol::all(); // Session::flash('message','Rôle crée avec succès'); 
+      ]);  // Session::flash('message','Rôle crée avec succès'); 
       if($request->ajax())
         return $role;
       else
@@ -64,9 +71,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(rol $role)//
+    public function show(rol $role)
     {
-       return view('role.show', compact('role'));
+      $view = view("role.ajax_show",compact('role'))->render();
+      return($view);  
     }
     /**
      * Show the form for editing the specified resource.
@@ -76,7 +84,7 @@ class RolesController extends Controller
      */
     public function edit(rol $role)
     { 
-      $view = view("role.ajax_add",compact('role'))->render();      
+      $view = view("role.ajax_edit",compact('role'))->render();      
       return $view;
     }
     /**
@@ -86,21 +94,18 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,rol $role)// 
+    public function update(Request $request,rol $role)
     {
-      // $request->validate([
-      //     "nom" => 'required|min:3',
-      //     "type" => 'required',
-      // ]);
-      return $request;
+      $validator = $this->rol_credential_rules($request->all());
+      if($validator->fails())
+        return response()->json(['errors'=>$validator->errors()->all()]);
+      //Log::info('Response:', $request->all());
       $role->update([
-         "role"=>$request->nom,
+         "nom"=>$request->nom,
          "type"=>$request->type,
       ]);
-      return $role;
-      //return redirect(Route('role.index'));   
+      return $role;//return redirect(Route('role.index'));   
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -110,7 +115,7 @@ class RolesController extends Controller
       public function destroy(rol $role)
       {
         $role->delete();
-        $roles = rol::all();
-        return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
+        return $role->id;
+        // return view('role.index',compact('roles'));  return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
       }
 }

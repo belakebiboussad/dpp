@@ -1,0 +1,7 @@
+<div class="page-header"><h1>Détails du rôle : {{ $role->nom }}</h1></div>
+<div class="form-group"><label class="col-sm-3 control-label">Nom</label>
+    <div class="col-sm-9"><p class = "form-control-static">{{ $role->nom }}</p></div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Type</label>
+  <div class="col-sm-9"><p class = "form-control-static">{{ $role->type }}</p></div>
+</div>
