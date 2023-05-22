@@ -65,14 +65,8 @@ class ServiceController extends Controller
      */
     public function show(Request $request,service $service)
     {
-      if($request->ajax())
-      {
-        $view = view("services.ajax_show",compact('service'))->render();
-        return($view);
-      }else
-         return view('services.show', compact('service'));
-      
-
+      $view = view("services.ajax_show",compact('service'))->render();
+      return($view);  
     }
 
     /**
@@ -118,8 +112,6 @@ class ServiceController extends Controller
           } 
         } 
         $input = $request->all();
-
-        dd($input);
         $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
         $input['urgence'] = isset($request->urgence)? $request->urgence : null;
         $service->update($input);

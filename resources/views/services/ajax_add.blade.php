@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="row center">
-              <button class="btn btn-xs btn-info" type="button" id="serv-save"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; 
+              <button class="btn btn-xs btn-info" type="button" id="serSave"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
               <button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
             </div>
           </form>

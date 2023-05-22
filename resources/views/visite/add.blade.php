@@ -94,7 +94,7 @@
       var url ='{{ route("acte.store") }}';
       var state = jQuery('#EnregistrerActe').val();
       if (state == "update") {
-        type = "PUT";//var id = jQuery('#acte_id').val();
+        type = "PUT";
         url = '{{ route("acte.update", ":slug") }}'; 
         url = url.replace(':slug', $('#acte_id').val());
       }
@@ -206,9 +206,6 @@
       },
       success: function (data) {
         $("#trait" + id).remove();
-      },
-      error: function (data) {
-       console.log('Error:', data);
       }
     });
      }); //////////Traitement

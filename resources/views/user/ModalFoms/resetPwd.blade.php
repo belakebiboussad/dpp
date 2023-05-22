@@ -11,16 +11,16 @@
       <div class="alert alert-success print-success-msg" style="display:none"></div>
           <div class="mb-3"> 
             <br>
-            <label for="password" class="form-label">Mot de passe </label>
-            <input type="password" class="form-control" name="current-password" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre mot de passe actuel</small> 
+            <label class="form-label" for="current-password">Mot de passe </label>
+            <input type="password" class="form-control" name="current-password" id="current-password" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre mot de passe actuel</small> 
           </div>
           <div class="mb-3">
-          <label for="newPassword" class="form-label">Nouveau mot de passe </label>
-            <input type="password" class="form-control" name="newPassword" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre nouveau mot de passe</small> 
+          <label class="form-label" for="newPassword">Nouveau mot de passe </label>
+            <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre nouveau mot de passe</small> 
           </div>
           <div class="mb-3">
-            <label for="password_again" class="form-label">Confirmer nouveau mot de passe </label>     
-            <input type="password" class="form-control" name="password_again" placeholder="Entrer à nouveau le mot de passe" required autocomplete="off"/>
+            <label class="form-label" for="password_again">Confirmer nouveau mot de passe </label>     
+            <input type="password" class="form-control" id="password_again" name="password_again" placeholder="Entrer à nouveau le mot de passe" required autocomplete="off"/>
           </div>
         </div>
       </div>

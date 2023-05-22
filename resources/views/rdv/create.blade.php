@@ -275,7 +275,7 @@ $(function() {
       }
     });//fincalendar 
     $('#rdvSaveBtn').on('click keyup', function(e) {
-      if(false)//!checkRdv()
+      if(!checkRdv())
         e.preventDefault();
       else
       {

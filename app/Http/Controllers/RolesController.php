@@ -27,9 +27,14 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('role.create');
+      if($request->ajax())  
+      {
+        $view = view("role.ajax_add")->render();
+        return($view);
+      }else
+       return view('role.create');
     }
 
     /**
@@ -46,9 +51,11 @@ class RolesController extends Controller
       $role =  rol::FirstOrCreate([
           "nom"=>$request->nom,
           "type"=>$request->type,
-      ]);
-      //$roles = rol::all(); // Session::flash('message','Rôle crée avec succès'); 
-      return view('role.show',compact('role'));
+      ]); //$roles = rol::all(); // Session::flash('message','Rôle crée avec succès'); 
+      if($request->ajax())
+        return $role;
+      else
+        return view('role.show',compact('role'));
     }
 
     /**
@@ -68,8 +75,9 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(rol $role)
-    {
-      return view('role.edit', compact('role'));
+    { //return view('role.edit', compact('role'));
+      $view = view("role.ajax_edit",compact('role'))->render();      
+      return $view;
     }
     /**
      * Update the specified resource in storage.
@@ -78,15 +86,19 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, rol $role)
+    public function update(Request $request,rol $role)// 
     {
-      $request->validate([
-          "rolename" => 'required|min:3',
-       ]);
-       $role->update([
-         "role"=>$request->rolename,
-       ]);
-      return redirect(Route('role.index'));   
+      // $request->validate([
+      //     "nom" => 'required|min:3',
+      //     "type" => 'required',
+      // ]);
+      return $request;
+      $role->update([
+         "role"=>$request->nom,
+         "type"=>$request->type,
+      ]);
+      return $role;
+      //return redirect(Route('role.index'));   
     }
 
     /**

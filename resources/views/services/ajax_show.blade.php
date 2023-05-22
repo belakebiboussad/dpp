@@ -40,3 +40,32 @@
 		</div>
 	</div>
 </div>
+@if($service->salles->count() > 0)
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header">
+      <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i> les  chambres du service</h5></div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main no-padding">
+        <table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
+          <thead class="thin-border-bottom thead-light">
+            <tr><th class="center">Numéro</th><th class="center">Nom</th><th class="center">Nombre de lits</th></tr>   
+          </thead>
+          <tbody>
+           @foreach ($service->salles as $salle) 
+          <tr>
+            <td>{{ $salle->num }}</td>
+            <td><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a></td>
+            <td class="center"><span class="badge badge-info">{{ count($salle->lits) }}</span></td>
+          </tr>
+          @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endif

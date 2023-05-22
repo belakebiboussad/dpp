@@ -37,7 +37,12 @@ function formSubmit(form, e, callBack) {
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
-      $form.trigger("reset");
+      alert(data);
+      $.each(data, function(key, value) {
+        alert(key +':'+ value);
+      })
+      //$form.trigger("reset");
+      /*
       if( $.isEmptyObject(data.errors))
       {
         printSuccessMsg(form, data.success);
@@ -45,6 +50,10 @@ function formSubmit(form, e, callBack) {
       }
       else
         printErrorMsg(form, data.errors);
+      */
+    },
+    error(data) {
+      alert("édfs");
     }
   })
 }

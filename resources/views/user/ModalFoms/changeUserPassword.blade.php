@@ -12,12 +12,12 @@
           </div>
           <div class="alert alert-success print-success-msg" style="display:none"></div> 
         <div class="mb-3">
-          <label for="newPassword" class="form-label">Nouveau mot de passe </label>
+          <label class="form-label">Nouveau mot de passe </label>
           <input type="password" class="form-control" name="newPassword" placeholder="Entrer le mot de passe" required/><small class="help-block"></small> 
         </div>
         <div class="mb-3">
-          <label for="password_again" class="form-label">Confirmer nouveau mot de passe </label>     
-          <input type="password" class="form-control" name="password_again" placeholder="Entrer à nouveau le mot de passe" required/>
+          <label class="form-label" for="password_again">Confirmer nouveau mot de passe </label>     
+          <input type="password" class="form-control" name="password_again" id="password_again" placeholder="Entrer à nouveau le mot de passe" required/>
         </div>
       </div>
        <div class="modal-footer">
