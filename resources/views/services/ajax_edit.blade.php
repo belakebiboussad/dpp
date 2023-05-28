@@ -15,9 +15,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-control-label" for="type">Type{{$service->type}}</label>
+              <label class="col-sm-3 col-control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" name="type"  class="form-control selectpicker" required >
+                <select id="type" name="type"  class="form-control selectpicker">
                   <option value="" @if($service->type == 'Fonctionnel') selected @endif>Fonctionnel</option>
                   <option value="0" @if($service->type == 'Médical') selected @endif>Médical</option>
                   <option value="1" @if($service->type == 'Chirurgie') selected @endif>Chirurgie</option>
@@ -28,12 +28,12 @@
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="type">Chef</label>
               <div class="col-sm-9">
-                <select id="responsable_id" name="responsable_id"  class="form-control selectpicker">
-                  <option value="" selected disabled>Selectionner le chef</option>
-                  @foreach ($employs as $employ)
-                    <option value="{{ $employ->id}}" @if((isset($service->responsable_id)) && ($service->responsable_id == $employ->id)) selected @endif> {{ $employ->full_name }}</option>
+                <select id="responsable_id"  name="responsable_id" class="form-control selectpicker">
+                  <option value="" selected disabled>Selectionner le chef du service</option>
+                  @foreach ($users as $user)
+                  <option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
                   @endforeach
-                </select> 
+                </select>  
               </div>
             </div>
             <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">

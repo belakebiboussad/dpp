@@ -179,6 +179,7 @@ class UsersController extends Controller
       ]);
       $user->update([
         'username'=>$request->username,
+        "role_id"=>$request->role,
         'active' =>$request->active
       ]);
       return redirect(Route('users.show', $user));

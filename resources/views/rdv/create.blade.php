@@ -293,8 +293,8 @@ $(function() {
               specialite: data.specialite_id,
               civ:data.patient.civ,    
               color:(data.fixe > 0) ? '#3A87AD':'#D6487E',
-            }); //$('#addRDVModal').modal('toggle'); 
-            resetPatient();
+          }); //$('#addRDVModal').modal('toggle'); 
+          resetPatient();
         }
       });
       }

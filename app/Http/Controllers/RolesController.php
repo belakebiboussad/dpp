@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\modeles\rol;
-use Log;
 class RolesController extends Controller
 {
     /**
@@ -18,12 +17,12 @@ class RolesController extends Controller
           $this->middleware('auth');
       }
     public function rol_credential_rules(array $data)
-      {
-        $validator = Validator::make($data, [
-          'nom' =>"required|min:3",
-        ]);
-         return $validator;
-      }  
+    {
+      $validator = Validator::make($data, [
+        'nom' =>"required|unique:rols|max:255",
+      ]);
+       return $validator;
+    }  
     public function index()
     {
         $roles = rol::all();
@@ -58,7 +57,7 @@ class RolesController extends Controller
       $role =  rol::FirstOrCreate([
           "nom"=>$request->nom,
           "type"=>$request->type,
-      ]);  // Session::flash('message','Rôle crée avec succès'); 
+      ]);
       if($request->ajax())
         return $role;
       else
@@ -98,13 +97,9 @@ class RolesController extends Controller
     {
       $validator = $this->rol_credential_rules($request->all());
       if($validator->fails())
-        return response()->json(['errors'=>$validator->errors()->all()]);
-      //Log::info('Response:', $request->all());
-      $role->update([
-         "nom"=>$request->nom,
-         "type"=>$request->type,
-      ]);
-      return $role;//return redirect(Route('role.index'));   
+        return response()->json(['errors'=>$validator->errors()->all()]);//Log::info('Response:', $request->all());
+      $role->update([ "nom"=>$request->nom, "type"=>$request->type]);
+        return $role;//return redirect(Route('role.index'));   
     }
     /**
      * Remove the specified resource from storage.
@@ -114,8 +109,13 @@ class RolesController extends Controller
      */
       public function destroy(rol $role)
       {
+        $errors = [];
+        if($role->users->count() > 0)
+        {
+          array_push($errors, 'le role contient des utilisateurs');
+          return response()->json(['errors'=>$errors]); 
+        }
         $role->delete();
         return $role->id;
-        // return view('role.index',compact('roles'));  return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
       }
 }

@@ -5,26 +5,31 @@
       <div class="widget-header"><h5 class="widget-title">Service </h5></div>
       <div class="widget-body">
         <div class="widget-main">
-          <form role="form" method="POST">
+          <form role="form" id="serviceFrm" method="POST" action="{{ route('service.store') }}">
             <div class="form-group row"><label class="col-sm-3 col-control-label" for="nom">Nom</label>
               <div class="col-sm-9">
-                <input type="text" id="nom" placeholder="Nom du dervice" class="form-control"/>
+                <input type="text" id="nom" name="nom" placeholder="Nom du dervice" class="form-control"/>
               </div>
             </div>
             <div class="form-group row"><label class="col-sm-3 control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" class="form-control selectpicker show-menu-arrow" required >
-                  <option value="0">Médicale</option>
-                  <option value="1">Chirurgical</option>
-                  <option value="">Fonctionnel</option>
-                  <option value="2">Administratif</option>
+                <select id="type" name="type" class="form-control selectpicker show-menu-arrow" required >
+                  <option value="0">Médicale</option><option value="1">Chirurgical</option>
+                  <option value="">Fonctionnel</option> <option value="2">Administratif</option>
                 </select> 
               </div>
             </div>
+            {{-- <div class="form-group row"><label class="col-sm-3 control-label" for="specialite_id">Spécialite</label>
+              <div class="col-sm-9">
+                <select id="specialite_id" class="form-control selectpicker show-menu-arrow" required >
+                  <option value="" selected disabled>---Selectionner---</option>
+                </select> 
+              </div>
+            </div> --}}
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="responsable_id">Chef</label>
               <div class="col-sm-9">
-                <select id="responsable_id" class="form-control selectpicker">
+                <select id="responsable_id"  name="responsable_id" class="form-control selectpicker">
                   <option value="" selected disabled>Selectionner le chef du service</option>
                   @foreach ($users as $user)
                   <option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>

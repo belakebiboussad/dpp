@@ -118,7 +118,7 @@ $(function(){
     });
     $("#EnregistrerGardeMalade").click(function (e){
       if(! $.isEmptyObject(checkHomme()))
-         printErrorMsg($('#gardeMalade form')[0], checkHomme());// event.preventDefault();
+        printErrorMsg(checkHomme());//$('#gardeMalade form')[0], 
       else
       {
         var formData = {
@@ -145,11 +145,10 @@ $(function(){
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
             if(!$.isEmptyObject(data.errors))
-              printErrorMsg($('#addGardeMalade')[0], data.errors);
+              printErrorMsg(data.errors);//$('#addGardeMalade')[0], 
             else
             { 
-              printSuccessMsg($('#addGardeMalade')[0], data.success);// $('#gardeMalade').modal('toggle');
-              // $('#addGardeMalade').trigger("reset");
+              printSuccessMsg($('#addGardeMalade')[0], data.success);
               switch(data.lien_par)
               {
                 case "0":
@@ -253,7 +252,7 @@ $(function(){
 	});
   $('#printTck').click(function(e){
     e.preventDefault();
-    formSubmit($('#ticketAddForm')[0], this, function(xhr, form) {//window.location.href = "{{-- route("home") --}}";  
+    formSubmit($('#ticketAddForm')[0], this, function(xhr, form) {  
       if (xhr.success) {
          $('#ticket').modal('toggle'); 
       }

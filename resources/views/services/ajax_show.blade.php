@@ -2,8 +2,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="widget-box">
-		  <div class="widget-header"><h5 class="widget-title">Service &quot;{{ $service->nom }} &quot;</h5>
-		  </div>
+		  <div class="widget-header"><h5 class="widget-title">Service &quot;{{ $service->nom }} &quot;</h5></div>
 			<div class="widget-body">
 			<div class="widget-main">
         <div class="form-group row">

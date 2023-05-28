@@ -31,7 +31,6 @@
 <link  rel="stylesheet" href="{{ asset('/css/app.css') }}">
 <link rel="stylesheet" href="{{ asset('/css/styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/ion.rangeSlider.min.css') }}">
-<link rel="stylesheet" href="{{ asset('/css/fullcalendar.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace-rtl.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/fullcalendar.print.css')}}" media='print' />

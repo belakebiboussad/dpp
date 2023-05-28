@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 function getActions(data){
-  var actions = '<button type="button" class="btn btn-xs btn-success rolShow" value="' + data.id + '"><i class="fa fa-hand-o-up fa-xs"></i></button>';
+  var actions = '<button type="button" class="btn btn-xs btn-success rolShow" data-id="' + data.id + '"><i class="fa fa-hand-o-up fa-xs"></i></button>';
   actions += '<button type="button" class="btn btn-xs btn-info rolEdit" value="' + data.id + '"><i class="ace-icon fa fa-pencil fa-xs"></i></button>';
   actions += '<button type="button" class="btn btn-xs btn-danger rolDelete" data-id="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';
   return actions;
@@ -23,7 +23,7 @@ $(function(){
           } 
       });
   });
-  $('body').on('click', '#rolSave', function (e) {//e.preventDefault();
+  $('body').on('click', '#rolSave', function (e) {
     formSubmit($('#roleFrm')[0], this, function(status, data) {
       var rol = '<tr id="' + data.id + '"><td width="40%">'+ data.nom + '</td><td width="30%">' + data.type +'</td><td width="30%" class = "center">' +  getActions(data) + '</td></tr>';
       if (jQuery('#rolSave').val() == "add")
@@ -81,14 +81,18 @@ $(function(){
     var id = $(this).data('id');
     var url = "{{ route('role.destroy',':slug') }}"; 
     url = url.replace(':slug', id);
-    alert(url);
-   
     $.ajax({
         type: "DELETE",
         url: url,
         data: formData,
         success: function (data) {
-          $("#" + data).remove();
+          if( $.isEmptyObject(data.errors))
+           $("#" + data).remove();
+          else
+          {
+            printErrorMsg(data.errors);
+            location.reload(true);
+          }
         }
     }); 
   });
@@ -96,12 +100,10 @@ $(function(){
 </script>
 @stop
 @section('main-content')
-<div class="page-header"><h1>Liste des rôles</h1></div>
- @if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-@endif 
+<div class="page-header"><h1>Liste des rôles</h1></div> 
+<div class="alert alert-danger print-error-msg" style="display:none">
+<strong>Errors:</strong><ul></ul></div>
+<div class="alert alert-success print-success-msg" style="display:none"></div> 
 <div class="row">
 <div class="col-xs-7 col-sm-7 widget-container-col">
 <div class="widget-box widget-color-blue">
@@ -127,9 +129,8 @@ $(function(){
             <button type="button" class="btn btn-xs btn-success rolShow" data-id="{{$role->id}}"><i class="fa fa-hand-o-up fa-xs"></i></button>
             <button type="button" class="btn btn-xs btn-info rolEdit" value="{{$role->id}}">
             <i class="ace-icon fa fa-pencil fa-xs"></i></button>
-              <a href="#" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger rolDelete" data-id="{{ $role->id }}"><i class="ace-icon fa fa-trash-o"></i></a>
-          </div>
-				</td>
+              <a href="#" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger rolDelete" data-id="{{ $role->id }}"><i class="ace-icon fa fa-trash-o"></i></a></div>
+        </td>
 			</tr>
 			@endforeach 
 			</tbody>

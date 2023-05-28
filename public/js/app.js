@@ -8,7 +8,7 @@ function printSuccessMsg(form ,msg) {
   $success_msg.delay(3000).fadeOut(350);
   $('.modal').modal('hide');
 }
-function printErrorMsg (form, msg) {
+function printErrorMsg (msg) {//form=null, 
   var $error_msg = $(".print-error-msg");
   $error_msg.find("ul").html('');
   $error_msg.css('display','block');
@@ -31,7 +31,7 @@ function formSubmit(form, e, callBack) {
   $.ajax({
     url:url,
     type:$form.attr("method"),
-    data: formData,//dataType: "json",
+    data: formData,
     processData : false,
     contentType: false,
     cache : false,
@@ -43,7 +43,7 @@ function formSubmit(form, e, callBack) {
         callBack(status,data);
       }
       else
-        printErrorMsg(form, data.errors);
+        printErrorMsg(data.errors);//form, 
     }
   })
 }

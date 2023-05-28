@@ -26,44 +26,14 @@ $(function(){
       });
   });
   $('body').on('click', '#serSave', function (e) {
-    e.preventDefault();
-    var formData = {
-      _token : CSRF_TOKEN,
-      nom    : $('#nom').val(),
-      type    : $('#type').val(),
-      responsable_id    : $('#responsable_id').val(),
-      hebergement    : $("input[name='hebergement']:checked").val(),
-      urgence    : $("input[name='urgence']:checked").val(),
-    };
-     var url = "{{ route('service.store') }}";
-     $.ajax({
-            type: "POST",
-            url: url,
-            data: formData,
-            success: function (data) {
-                var type= "";
-                switch(data.type)
-                {
-                  case "0":
-                    type="Médicale";
-                    break;
-                  case "1":
-                    type="Chirurgicale";
-                    break;
-                  case "2":
-                    type="Fonctionnel";
-                    break;
-                  default:
-                    break;
-                }
-                var medecin = (isEmpty(data.responsable)) ? '' : data.responsable.full_name;
-                var heberg = (data.hebergement == 1) ? "Oui" : "Non", urg = (data.urgence == 1) ? "Oui" : "Non" ;
-                var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.id +'">'+ data.nom + '</a></td><td>' + type +'</td><td>'+ medecin +'</td><td>'+ heberg
-                    service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data) + '</td></tr>';
-                $('#serivesTable' +' tbody').append(service);
-                $('#ajaxPart').html("");
-            }
-      });  
+    formSubmit($('#serviceFrm')[0], this, function(status, data) {
+      var medecin = (isEmpty(data.responsable)) ? '' : data.responsable.full_name;
+      var heberg = (data.hebergement == 1) ? "Oui" : "Non", urg = (data.urgence == 1) ? "Oui" : "Non" ;
+      var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.id +'">'+ data.nom + '</a></td><td>' + data.type +'</td><td>'+ medecin +'</td><td>'+ heberg
+          service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data) + '</td></tr>';
+      $('#serivesTable' +' tbody').append(service);
+      $('#ajaxPart').html("");      
+    })
   });
   $('body').on('click', '.servShow', function (e) {
     e.preventDefault();
@@ -119,6 +89,13 @@ $(function(){
 @section('main-content')
 <page-header><h1>Services de l'hôpital</h1>
 </page-header>
+<div class="row">
+  <div class="col-sm-12 col-xs-12">
+    <div class="alert alert-danger print-error-msg" style="display:none">
+    <strong>Errors:</strong><ul></ul></div>
+    <div class="alert alert-success print-success-msg" style="display:none"></div> 
+  </div>
+</div>
 <div class="row">
 	<div class="col-sm-7 col-xs-7 widget-container-col">
 		<div class="widget-box widget-color-blue">

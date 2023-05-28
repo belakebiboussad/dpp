@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h1>Détails du rôle : {{ $role->nom }}</h1></div>
+<div class="page-header"><h1>Détails du rôle &quot;{{ $role->nom }}&quot;</h1></div>
 	<div class="form-group"><label class="col-sm-3 control-label">Nom</label>
 		<div class="col-sm-9"><p class = "form-control-static">{{ $role->nom }}</p></div>
 	</div>

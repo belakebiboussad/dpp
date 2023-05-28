@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\modeles\service;
  use App\User;
 use  App\modeles\salle;
@@ -13,6 +14,14 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function service_credential_rules(array $data)
+    {
+      $validator = Validator::make($data, [
+        'nom' =>"required|unique:services|max:255",
+        //'responsable_id' =>"required",
+      ]);
+      return $validator;
+    }  
     public function index(Request $request)
     {
       if($request->ajax())  
@@ -49,11 +58,13 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+      $validator = $this->service_credential_rules($request->all());
+      if($validator->fails())
+         return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
       if($request->ajax())
-      {
          return $service->load('responsable');
-      }else
+      else
         return redirect()->action('ServiceController@index');
     }
 
@@ -78,18 +89,15 @@ class ServiceController extends Controller
       public function edit(Request $request,service $service)
       {
         if($service->type != "2")
-          $employs = employ::with('User')->whereHas('User', function($q){
-                           $q->where('role_id', 1)->orWhere('role_id', 14);    
-                        })->where('service_id',$service->id)->get();
-        
+           $users = User::whereHas('employ', function($q) use($service) {
+                            $q->where('service_id',$service->id);
+                        })->whereIn('role_id',[1,13,14])->get();
         else
-          $employs = employ::where('service_id',$service->id)->get();
-        if($request->ajax())
-        {
-          $view = view("services.ajax_edit",compact('service','employs'))->render();      
-          return $view;
-        }
-        return view('services.edit', compact('service','employs'));
+           $users = User::whereHas('employ', function($q) use($service) {
+                            $q->where('service_id',$service->id);
+                        })->get();
+        $view = view("services.ajax_edit",compact('service','users'))->render();      
+        return $view;
       }
     /**
      * Update the specified resource in storage.

@@ -82,22 +82,13 @@ class EmployeController extends Controller
           return back()->withInput($request->input())->withErrors($validator->errors());
         $employe = employ::FindOrFail($employid);
         $employe->update([
-                "nom"=>$request->nom,
-                "prenom"=>$request->prenom,
-                "sexe"=>$request->sexe,
-                "Date_Naiss"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->lieunaissance,
-                "Adresse"=>$request->adresse,
-                "Tele_fixe"=>$request->fixe,
-                "tele_mobile"=>$request->mobile,
-                "specialite"=>$request->specialite,
-                "service_id"=>$request->service,
-                "matricule"=>$request->matricule,
-                "NSS"=>$request->nss,
-        ]);
-        return redirect(Route('users.show',$employe->User->id));
-        */
-    }
+                "nom"=>$request->nom,"prenom"=>$request->prenom,
+                "sexe"=>$request->sexe,"Date_Naiss"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->lieunaissance,"Adresse"=>$request->adresse,"Tele_fixe"=>$request->fixe,
+                "tele_mobile"=>$request->mobile,"specialite"=>$request->specialite,
+                "service_id"=>$request->service,"matricule"=>$request->matricule, "NSS"=>$request->nss,
+        ]);return redirect(Route('users.show',$employe->User->id));*/
+       }
     /**
      * Remove the specified resource from storage.
      *
