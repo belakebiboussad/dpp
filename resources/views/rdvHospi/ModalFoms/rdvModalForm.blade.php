@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i> Ajouter un Rendez-Vous</h4>
       </div>
-      <form id"rdvHAddForm" method="POST" action="{{ route('rdvHospi.store') }}">
+      <form id="rdvHAddForm" method="POST" action="{{ route('rdvHospi.store') }}">
         {!! csrf_field() !!}
         <input type="hidden" name="demande_id" id="demande_id"  class="demande_id">
         <input type="hidden"  class="affect" value="0">  
@@ -13,8 +13,7 @@
          <div class="form-group">
             <label class="col-form-label" for="dateEntree">Date entrée</label>
             <div class="input-group">
-              <input type="text" name ="dateEntree" class="date-picker form-control date"  data-date-format="yyyy-mm-dd" required>
-              <span class="input-group-addon fa fa-calendar"></span>  
+              <input type="text" name ="dateEntree" class="date-picker form-control date"  data-date-format="yyyy-mm-dd" required><span class="input-group-addon fa fa-calendar"></span> 
             </div>
           </div>
           <div class="form-group">

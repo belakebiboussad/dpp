@@ -250,14 +250,6 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
-  $('#printTck').click(function(e){
-    e.preventDefault();
-    formSubmit($('#ticketAddForm')[0], this, function(xhr, form) {  
-      if (xhr.success) {
-         $('#ticket').modal('toggle'); 
-      }
-	  })
-  });
 })
 </script>
 @stop
@@ -268,14 +260,13 @@ $(function(){
 	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-warning"><i class="ace-icon fa fa-trash-o"> Supprimer</i></a>
 	 </div>
 </div>
-<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
-<br/>
+<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div><br/>
 <div>
 	<div  class="user-profile">
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-18">
 				<li class="active">
-					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>Informations administratives</a>
+					<a data-toggle="tab" href="#patDemog"><i class="green ace-icon fa fa-user bigger-120"></i>Informations administratives</a>
 				</li>
 				@if(Auth::user()->isIn([1,13,14]))
 					@if( $patient->antecedants->count() >0)
@@ -316,7 +307,7 @@ $(function(){
         @endif
 			</ul>
 			<div class="tab-content no-border padding-24">
-				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
+				<div id="patDemog" class="tab-pane in active"> @include('patient.patientInfo')</div>
 				@if( $patient->antecedants->count() >0 )
 				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div>
 				@endif
@@ -333,7 +324,4 @@ $(function(){
 		</div>
 	</div>
 </div>
-@if(Auth::user()->isIn([2,15]))
-@include('patient.ModalFoms.ticketModalForm')
-@endif
 @stop

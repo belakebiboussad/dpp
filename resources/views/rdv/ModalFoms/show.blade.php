@@ -39,7 +39,7 @@
                 <div class="form-group col-sm-6">
                   <fieldset class="scheduler-border">
                     <legend class="scheduler-border">Rendez-vous</legend>
-                    <div class="control-group"><label class="control-label input-label" for="startTime">Date</label>
+                    <div class="control-group"><label class="control-label input-label" for="daterdv">Date</label>
                       <div class="controls bootstrap-timepicker">
                           <input type="hidden" name="" id="daterdvHidden">
                           <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   /><span class="glyphicon glyphicon-time fa-lg"></span> 

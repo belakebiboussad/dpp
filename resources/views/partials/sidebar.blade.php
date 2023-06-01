@@ -59,15 +59,6 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
     $(function(){
-      $('body').on('change', '#type', function (e) {
-        if($(this).val() == 2)
-        {
-          if(!($( ".medChirservice" ).hasClass( "hidden" )))
-          $('.medChirservice').addClass("hidden");
-        }else
-          if($( ".medChirservice" ).hasClass( "hidden" ))
-            $('.medChirservice').removeClass("hidden");
-      });
       $('#id-publicEtab').on('click', function() {
         $('.etabPub').each(function(){
           if($(this ).hasClass( "hidden" ))

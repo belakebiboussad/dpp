@@ -21,7 +21,8 @@
           </div>
         @endif
       </div>
-       	<input type="hidden" id="date" name="date"><input type="hidden" id="fin"  name="fin">
+       	<input type="hidden" id="date" name="date">
+        <input type="hidden" id="fin"  name="fin">
         <input type="hidden" id="fixe" name="fixe"><input type="hidden" id="pid" name="pid">
         @if( Auth::user()->is(15))
         <input type="hidden" id="medecinRequired" name="medecinRequired" value="">
@@ -69,7 +70,7 @@
 	          	</div><div class="col-sm-1"></div>
 	          	<div class="col-sm-7">
 			          <div class="form-group">
-			          	<label class="col-form-label" for="patient">&nbsp; </label>
+			          	<label class="col-form-label" for="pat-search">&nbsp;</label>
 			              <input type="search"  class="form-control"  id="pat-search" disabled autocomplete="off"><div id="livesearch" class="list-unstyled"></div>
                 </div>
 			          	</div>
@@ -77,8 +78,8 @@
 		          </div>
 		        </div>
             </form>
-	        </div><!-- modal-body -->
-	        <div class="modal-footer"><!-- data-dismiss="modal" -->
+	        </div>
+	        <div class="modal-footer">
 		      	<button  class="btn btn-primary btn-xs" type="button" id ="rdvSaveBtn"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
 			      <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
 		      </div>
@@ -89,10 +90,8 @@
  <script type="text/javascript" charset="utf-8">
   function Fill(pid, name)
   {
-    $("#pid").val(pid);
-    $("#pat-search").val(name);
-    $("#livesearch").html('')
-  }
+    $("#pid").val(pid);$("#pat-search").val(name);$("#livesearch").html('');
+ }
   function showRdvModal(date,fin,pid = 0,fixe)
   { 
     $('#date').val(date); $('#fin').val(fin);  $('#fixe').val(fixe);

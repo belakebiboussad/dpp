@@ -11,7 +11,7 @@
         </div>
 				<div class="form-group row">
 					<label class="col-sm-4 col-control-label">Type</label>
-					<div class="col-sm-8"><p class = "form-control-static">{{ $service->type }}</p></div>
+					<div class="col-sm-8"><p class = "form-control-static">{{ $service->TypeS }}</p></div>
         </div>
 				<div class="form-group row">
 					<label class="col-sm-4 col-control-label">Chef de Service</label>

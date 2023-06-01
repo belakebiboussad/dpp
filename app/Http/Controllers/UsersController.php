@@ -164,18 +164,12 @@ class UsersController extends Controller
       if ($validator->fails())
         return back()->withInput($request->input())->withErrors($validator->errors());
       $user->employ->update([
-        "nom"=>$request->nom,
-        "prenom"=>$request->prenom,
-        "sexe"=>$request->sexe,
-        "Date_Naiss"=>$request->datenaissance,
-        "Lieu_Naissance"=>$request->lieunaissance,
-        "Adresse"=>$request->adresse,
-        "Tele_fixe"=>$request->fixe,
-        "tele_mobile"=>$request->mobile,
-        "specialite"=>$request->specialite,
-        "service_id"=>$request->service,
-        "matricule"=>$request->matricule,
-        "NSS"=>$request->nss,
+        "nom"=>$request->nom, "prenom"=>$request->prenom,
+        "sexe"=>$request->sexe, "Date_Naiss"=>$request->datenaissance,
+        "Lieu_Naissance"=>$request->lieunaissance, "Adresse"=>$request->adresse,
+        "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
+        "specialite"=>$request->specialite,"service_id"=>$request->service,
+         "matricule"=>$request->matricule,"NSS"=>$request->nss,
       ]);
       $user->update([
         'username'=>$request->username,
@@ -256,7 +250,7 @@ class UsersController extends Controller
       ], $messages);
       return $validator;
     }  
-    public function changePassword(Request $request)
+    public function changePassword(Request $request)//change password by user
     {   
       if(Auth::Check())
       {
@@ -277,8 +271,8 @@ class UsersController extends Controller
               Auth::user()->save(); 
               return response()->json(['success'=>'mot de passe est changé avec succée']);
             }
-          }else//Entrer le mot de passe actuel correct. essaie encore 
-            return response()->json(['errors'=>'Entrer le mot de passe actuel correct. essaie encore']);
+          }else
+            return response()->json(['errors'=>['Entrer le mot de passe actuel correct. essaie encore']]);
         }
       }
       return redirect()->to('/home');

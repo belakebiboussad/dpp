@@ -5,8 +5,8 @@ function printSuccessMsg(form ,msg) {
   var $success_msg = $(".print-success-msg");
   $success_msg.html(msg);
   $success_msg.css('display','block');
-  $success_msg.delay(3000).fadeOut(350);
-  $('.modal').modal('hide');
+  $success_msg.delay(2000).fadeOut(350);
+  setTimeout("$('.modal').modal('hide');",2000);
 }
 function printErrorMsg (msg) {//form=null, 
   var $error_msg = $(".print-error-msg");
@@ -21,29 +21,26 @@ function formSubmit(form, e, callBack) {
   var $success_msg = $(".print-success-msg");
   var $error_msg = $(".print-error-msg");
   var $form = $(form);
-  var url = $form.attr("action");
   var formData = new FormData(form);
-    $.ajaxSetup({
+  $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
   $.ajax({
-    url:url,
+    url: $form.attr("action"),
     type:$form.attr("method"),
     data: formData,
     processData : false,
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
-     $form.trigger("reset");
+      $form.trigger("reset");
       if( $.isEmptyObject(data.errors))
-      {
-        printSuccessMsg(form, data.success);
-        callBack(status,data);
-      }
+        printSuccessMsg(form, data.success);    
       else
-        printErrorMsg(data.errors);//form, 
+        printErrorMsg(data.errors);  
+      callBack(status,data);
     }
   })
 }
@@ -60,8 +57,7 @@ function copyPatient(){
     var inputAssVal = new Array(type,prenom,nom);
     var inputMessage = new Array('Type',"Prenom","Nom");
     $('.error').each(function(i, obj) {
-      $(obj).next().remove();
-      $(obj).detach();
+      $(obj).next().remove(); $(obj).detach();
     });
     jQuery.each( inputAssVal, function( i, val ) {
       if(val =="" )

@@ -24,21 +24,14 @@ $(function(){
       });
   });
   $('body').on('click', '#rolSave', function (e) {
+    var state  = $('#rolSave').val();
     formSubmit($('#roleFrm')[0], this, function(status, data) {
-      var rol = '<tr id="' + data.id + '"><td width="40%">'+ data.nom + '</td><td width="30%">' + data.type +'</td><td width="30%" class = "center">' +  getActions(data) + '</td></tr>';
-      if (jQuery('#rolSave').val() == "add")
+      var rol = '<tr id="' + data.role.id + '"><td width="40%">'+ data.role.nom + '</td><td width="30%">' + data.role.type +'</td><td width="30%" class = "center">' +  getActions(data.role) + '</td></tr>';
+      if(state == "add")
         $('#rolesTable' +' tbody').append(rol);
       else
-        $("#" + data.id).replaceWith(rol);
-      $('#ajaxPart').html("");
-    });
-  });
-  $('body').on('click', '#rolUpdate', function (e) {
-    e.preventDefault();
-    formSubmit($('#rolUpdFrm')[0], this, function(status, data) {
-      var rol = '<tr id="' + data.id + '"><td width="40%">'+ data.nom + '</td><td width="30%">' + data.type +'</td><td width="30%" class = "center">' +  getActions(data) + '</td></tr>';
-      $("#" + data.id).replaceWith(rol);
-      $('#ajaxPart').html("");
+        $("#" + data.role.id).replaceWith(rol);
+      $('#ajaxPart').html(""); 
     });
   });
   $('body').on('click', '.rolShow', function (e) {

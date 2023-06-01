@@ -10,15 +10,34 @@ function getActions(data){
   return actions;            
 }
 $(function(){
+  $('body').on('change', '#type', function (e) {
+    if($(this).val() == 2)
+      $('.healthServ').hide();
+    else
+    {
+      var html = '<option value="" selected disabled>Sélectionner...</option>';
+      $.ajax({
+        type : 'get',
+        url : '{{ route("specialite.index") }}',
+        data:{'type':$(this).val()},
+        success:function(data,status, xhr){
+          $.each(data, function(key, value){
+            html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+          });
+          $('#specialite_id').html(html);
+        }
+      });
+      $('.healthServ').show();
+    }
+  });
   $('body').on('click', '#servAdd', function (e) {
       e.preventDefault();
       var formData = {
         _token: CSRF_TOKEN,
       };
-      var url = "{{ route('service.create') }}"; 
       $.ajax({
           type: "GET",
-          url: url,
+          url: "{{ route('service.create') }}",
           data: formData,
           success: function (data) {
             $('#ajaxPart').html(data);
@@ -26,12 +45,20 @@ $(function(){
       });
   });
   $('body').on('click', '#serSave', function (e) {
+    e.preventDefault();
+    var state = jQuery('#serSave').val();
     formSubmit($('#serviceFrm')[0], this, function(status, data) {
-      var medecin = (isEmpty(data.responsable)) ? '' : data.responsable.full_name;
-      var heberg = (data.hebergement == 1) ? "Oui" : "Non", urg = (data.urgence == 1) ? "Oui" : "Non" ;
-      var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.id +'">'+ data.nom + '</a></td><td>' + data.type +'</td><td>'+ medecin +'</td><td>'+ heberg
-          service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data) + '</td></tr>';
-      $('#serivesTable' +' tbody').append(service);
+      $.each(data,  function(key ,value){
+        alert(key +':' + value);
+      })
+      var medecin = (isEmpty(data.service.responsable)) ? '' : data.service.responsable.full_name;
+      var heberg = (data.service.hebergement == 1) ? "Oui" : "Non", urg = (data.service.urgence == 1) ? "Oui" : "Non" ;
+      var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.service.id +'">'+ data.service.nom + '</a></td><td>' + data.service.TypeS +'</td><td>'+ medecin +'</td><td>'+ heberg
+          service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data.service) + '</td></tr>';
+      if (state == "add")
+        $('#serivesTable' +' tbody').append(service);
+      else
+        $("#" + data.id).replaceWith(service);
       $('#ajaxPart').html("");      
     })
   });
@@ -122,7 +149,7 @@ $(function(){
 						<td>
 						<a href="#" title="Détails du service" class="servShow" data-id="{{$service->id}}">{{ $service->nom }}</a>
 						</td>
-						<td width="7%">{{ $service->type }} </td>  
+						<td width="7%">{{ $service->TypeS }} </td>  
 						<td>
 							@isset($service->responsable)
 								{{ $service->responsable->full_name }}
@@ -135,8 +162,7 @@ $(function(){
               <button type="button" class="btn btn-xs btn-info servEdit" value="{{$service->id}}">
                 <i class="ace-icon fa fa-pencil fa-xs"></i></button>
 							@if($service->hebergement)
-             	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey" title="Ajouter une chambre"><i class="ace-icon fa fa-plus fa-xs"></i>
-							</a>
+             	<a href="{{ route('salle.create', array('id' => $service->id) ) }}" class="btn btn-xs btn-grey" title="Ajouter une chambre"><i class="ace-icon fa fa-plus fa-xs"></i></a>
 							@endif
 							<button type="button" class="btn btn-xs btn-danger servDelete" value="{{ $service->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 						</td>
@@ -147,7 +173,6 @@ $(function(){
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class ="col-sm-5 col-xs-5" id="ajaxPart"></div> 
+	</div><div class ="col-sm-5 col-xs-5" id="ajaxPart"></div> 
 </div>
 @stop

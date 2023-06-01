@@ -5,7 +5,7 @@
       <div class="widget-header"><h5 class="widget-title">Service &quot;{{ $service->nom}}&quot;</h5></div>
       <div class="widget-body">
         <div class="widget-main">
-          <form role="form" method="POST" action="{{ route('service.update', $service->id) }}">
+          <form role="form" id="serviceFrm" method="POST" action="{{ route('service.update', $service->id) }}">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group row">
@@ -17,11 +17,21 @@
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" name="type"  class="form-control selectpicker">
-                  <option value="" @if($service->type == 'Fonctionnel') selected @endif>Fonctionnel</option>
-                  <option value="0" @if($service->type == 'Médical') selected @endif>Médical</option>
-                  <option value="1" @if($service->type == 'Chirurgie') selected @endif>Chirurgie</option>
-                  <option value="2" @if($service->type == "Administratif") selected @endif>Administratif</option>
+                <select id="type" name="type"  class="form-control selectpicker typServ">
+                  <option value="" @if($service->type == '') selected @endif>Fonctionnel</option>
+                  <option value="0" @if($service->type == '0') selected @endif>Médical</option>
+                  <option value="1" @if($service->type == '1') selected @endif>Chirurgie</option>
+                  <option value="2" @if($service->type == "2") selected @endif>Administratif</option>
+                </select> 
+              </div>
+            </div>
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif><label class="col-sm-3 control-label">Spécialite</label>
+              <div class="col-sm-9">
+                <select id="specialite_id" nom="specialite_id" class="form-control selectpicker">
+                <option value=""disabled>---Selectionner---</option>
+                @foreach($specs as $spec)
+                <option id ="{{ $spec->id}}" {{ ($service->specialite_id == $spec->id) ? 'selected' :'' }}> {{ $spec->nom }}</option>
+                @endforeach
                 </select> 
               </div>
             </div>
@@ -36,21 +46,21 @@
                 </select>  
               </div>
             </div>
-            <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
                  <div class="checkbox col-sm-offset-4">
                 <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}> <span class="lbl">Hébergement</span></label>
                 </div>          
               </div>
             </div>
-            <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
                 <div class="checkbox col-sm-offset-4">
                 <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}><span class="lbl">Urgence</span></label></div>
               </div>
             </div>
             <div class="row center">
-              <button class="btn btn-xs btn-primary" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
+              <button class="btn btn-xs btn-primary" type="submit" id="serSave" value="update"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
               <button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i> Annuler</button>
             </div>
           </form>

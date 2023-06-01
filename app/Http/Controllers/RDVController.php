@@ -129,8 +129,8 @@ class RDVController extends Controller
             "fixe"    => $request->fixe,
             "employ_id"=> (isset($input['employ_id'])) ? $input['employ_id'] : null,
             "specialite_id"=> $input['specialite']
-          ]);
-          return $rdv->load('patient');
+          ]);//return $rdv->load('patient');
+          return response()->json(['success' => "Rendez-vous crée avec suuccés",'rdv'=> $rdv->load('patient')]);
         }
     }
     /**

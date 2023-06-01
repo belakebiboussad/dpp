@@ -59,7 +59,7 @@ class RolesController extends Controller
           "type"=>$request->type,
       ]);
       if($request->ajax())
-        return $role;
+       return response()->json(['success' => "role est crée avec suuccés",'role'=> $role]);
       else
         return view('role.show',compact('role'));
     }
@@ -99,7 +99,7 @@ class RolesController extends Controller
       if($validator->fails())
         return response()->json(['errors'=>$validator->errors()->all()]);//Log::info('Response:', $request->all());
       $role->update([ "nom"=>$request->nom, "type"=>$request->type]);
-        return $role;//return redirect(Route('role.index'));   
+       return response()->json(['success' => "role est  mis à jour avec suuccés",'role'=> $role]);
     }
     /**
      * Remove the specified resource from storage.

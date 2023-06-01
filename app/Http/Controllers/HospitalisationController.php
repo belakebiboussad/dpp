@@ -208,8 +208,7 @@ class HospitalisationController extends Controller
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));
     //->setPaper($customPaper);//plusieure en foramt A4
-    // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
-    
+    // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return pdf->setPaper('a9')->setOrientation('landscape')->stream();
     return $pdf->download($filename);   
    }
 }

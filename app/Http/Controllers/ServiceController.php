@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\modeles\service;
- use App\User;
+use App\modeles\Specialite;
+use App\User;
 use  App\modeles\salle;
 use  App\modeles\employ;
 class ServiceController extends Controller
@@ -17,8 +18,7 @@ class ServiceController extends Controller
     public function service_credential_rules(array $data)
     {
       $validator = Validator::make($data, [
-        'nom' =>"required|unique:services|max:255",
-        //'responsable_id' =>"required",
+        'nom' =>"required|unique:services|max:255",//'responsable_id' =>"required",
       ]);
       return $validator;
     }  
@@ -62,12 +62,11 @@ class ServiceController extends Controller
       if($validator->fails())
          return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
-      if($request->ajax())
-         return $service->load('responsable');
+      if($request->ajax())//return $service->load('responsable');
+        return response()->json(['success' => "Services crée avec suuccés",'service'=> $service->load('responsable')]);
       else
         return redirect()->action('ServiceController@index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -88,7 +87,8 @@ class ServiceController extends Controller
      */
       public function edit(Request $request,service $service)
       {
-        if($service->type != "2")
+        $specs = Specialite::where('type',$service->type)->get();
+        if($service->type != 2)
            $users = User::whereHas('employ', function($q) use($service) {
                             $q->where('service_id',$service->id);
                         })->whereIn('role_id',[1,13,14])->get();
@@ -96,7 +96,8 @@ class ServiceController extends Controller
            $users = User::whereHas('employ', function($q) use($service) {
                             $q->where('service_id',$service->id);
                         })->get();
-        $view = view("services.ajax_edit",compact('service','users'))->render();      
+        
+        $view = view("services.ajax_edit",compact('service','users','specs'))->render();
         return $view;
       }
     /**
@@ -108,7 +109,7 @@ class ServiceController extends Controller
      */
       public function update(Request $request, service $service)
       { 
-        if(isset($service->responsable_id))
+        if(isset($service->responsable_id) && (isset($request->responsable_id)))
         {
           if($request->responsable_id != $service->responsable_id)
           {
@@ -122,8 +123,9 @@ class ServiceController extends Controller
         $input = $request->all();
         $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
         $input['urgence'] = isset($request->urgence)? $request->urgence : null;
-        $service->update($input);
-        return redirect()->action('ServiceController@index');
+        $service->update($input);//return redirect()->action('ServiceController@index');
+        return $input;   
+        return response()->json(['success' => "Services modifié avec suuccés",'service'=> $service->load('responsable')]);
       }
       /**
        * Remove the specified resource from storage.

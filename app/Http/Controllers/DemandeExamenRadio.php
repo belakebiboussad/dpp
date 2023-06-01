@@ -257,7 +257,7 @@ class DemandeExamenRadio extends Controller
     public function exmDestroy($id)
     {
       $ex = Demande_Examenradio::FindOrFail($id);
-      $ex->delete();  //si le ernier examen je suprimer la demande
+      $ex->delete();//si dernier examen suprimer la demande
       //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
       return $ex;
     }

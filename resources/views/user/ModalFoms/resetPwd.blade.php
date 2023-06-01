@@ -9,8 +9,7 @@
       <div class="alert alert-danger print-error-msg" style="display:none">
       <strong>Errors:</strong> <ul></ul></div>
       <div class="alert alert-success print-success-msg" style="display:none"></div>
-          <div class="mb-3"> 
-            <br>
+          <div class="mb-3">        {{-- <br> --}}
             <label class="form-label" for="current-password">Mot de passe </label>
             <input type="password" class="form-control" name="current-password" id="current-password" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre mot de passe actuel</small> 
           </div>

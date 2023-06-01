@@ -6,6 +6,7 @@ class service extends Model
 {
 	public $timestamps = false;
 	protected $fillable = ['nom','type','specialite_id','responsable_id','hebergement','urgence'];
+  protected $appends = ['TypeS'];
   public const TYPE = [
     '' => 'Fonctionnel',
     0 => 'Médical',
@@ -15,9 +16,9 @@ class service extends Model
   protected $casts = [
     'hebergement' => 'boolean',
   ];
-  public function getTypeAttribute()
- {
-        return self::TYPE[ $this->attributes['type'] ];
+  public function getTypeSAttribute()
+  {
+    return self::TYPE[ $this->attributes['type'] ];
   }
 	public function responsable()
 	{   
@@ -30,8 +31,8 @@ class service extends Model
   public function Medecins()
   {
     return $this->hasMany('App\modeles\employ')->whereHas('User',function($q){
-                  $q->whereIn('role_id',[1,13,14]);
-             });
+      $q->whereIn('role_id',[1,13,14]);
+    });
   }
   public function Specialite()
   {

@@ -13,19 +13,22 @@
             </div>
             <div class="form-group row"><label class="col-sm-3 control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" name="type" class="form-control selectpicker show-menu-arrow" required >
-                  <option value="0">Médicale</option><option value="1">Chirurgical</option>
-                  <option value="">Fonctionnel</option> <option value="2">Administratif</option>
+              <select id="type" name="type" class="form-control selectpicker" required >
+                <option value="" disabled selected>---Séléctionner---</option>
+                <option value="0">Médicale</option>
+                <option value="1">Chirurgical</option>
+                <option value="">Fonctionnel</option>
+                <option value="2">Administratif</option>
                 </select> 
               </div>
             </div>
-            {{-- <div class="form-group row"><label class="col-sm-3 control-label" for="specialite_id">Spécialite</label>
+            <div class="form-group healthServ row"><label class="col-sm-3 control-label">Spécialite</label>
               <div class="col-sm-9">
-                <select id="specialite_id" class="form-control selectpicker show-menu-arrow" required >
+                <select id="specialite_id" nom="specialite_id" class="form-control selectpicker" required >
                   <option value="" selected disabled>---Selectionner---</option>
                 </select> 
               </div>
-            </div> --}}
+            </div>
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="responsable_id">Chef</label>
               <div class="col-sm-9">
@@ -37,14 +40,14 @@
                 </select> 
               </div>
             </div>
-            <div class="form-group medChirservice row">
+            <div class="form-group healthServ row">
               <div class="col-sm-9">
                 <div class="checkbox col-sm-offset-4">
                   <label><input name="hebergement" type="checkbox" class="ace" value ="1"/><span class="lbl">Hébergement</span></label>
                 </div>          
               </div>
             </div>
-            <div class="form-group medChirservice row">
+            <div class="form-group healthServ row">
               <div class="col-sm-9">
                 <div class="checkbox col-sm-offset-4">
                 <label><input name="urgence" type="checkbox" class="ace" value ="1"><span class="lbl">Urgence</span></label>
@@ -52,7 +55,7 @@
               </div>
             </div>
             <div class="row center">
-              <button class="btn btn-xs btn-info" type="button" id="serSave"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+              <button class="btn btn-xs btn-info" type="button" id="serSave" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
               <button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
             </div>
           </form>

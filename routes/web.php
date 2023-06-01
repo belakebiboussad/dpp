@@ -18,7 +18,6 @@ Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('role','RolesController');
-Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('hospitalisation','HospitalisationController');
@@ -59,8 +58,9 @@ Route::resource('bedAffectation','AffectationsController');
 route::resource('allergie','AllergieController');
 Route::resource('maladies','CimController');
 Route::resource('vaccin','VaccinController');
-Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('mother','MotherController');
+Route::resource('specialite','SpecialiteController');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
@@ -112,7 +112,6 @@ route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
 route::get('/getmed/{id}','MedicamentsController@getmed');
-Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',

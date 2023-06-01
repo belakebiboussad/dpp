@@ -110,9 +110,9 @@ function checkRdv()
     if(val =="" || val ==null )
     {
       erreur =false;
-     $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputRDVMessage[i]+'<br/>');
+      $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputRDVMessage[i]+'<br/>');
     }
-  });   
+  }); 
   return erreur;
 }
 $(function() {
@@ -275,28 +275,25 @@ $(function() {
       }
     });//fincalendar 
     $('#rdvSaveBtn').on('click keyup', function(e) {
-      if(!checkRdv())
+      if(false)//!checkRdv()
+      {
+        resetPatient();
         e.preventDefault();
+      }
       else
       {
         formSubmit($('#addRdv')[0], this, function(status, data) {
-        if (status == "success") {
-          $('.calendar').fullCalendar( 'renderEvent', {
-              title: data.patient.full_name+" ,(" + data.patient.age + " ans)",
-              start: data.date,
-              end: data.fin,
-              id : data.id,
-              idPatient:data.patient.id,
-              fixe: data.fixe,
-              tel:data.patient.tele_mobile1 ,
-              age:data.patient.age,
-              specialite: data.specialite_id,
-              civ:data.patient.civ,    
-              color:(data.fixe > 0) ? '#3A87AD':'#D6487E',
-          }); //$('#addRDVModal').modal('toggle'); 
+          if (status == "success" && ($.isEmptyObject(data.errors))) {
+            $('.calendar').fullCalendar( 'renderEvent', {
+              title: data.rdv.patient.full_name+" ,(" + data.rdv.patient.age + " ans)",
+              start: data.rdv.date, end: data.rdv.fin,id : data.rdv.id,
+              idPatient:data.rdv.patient.id,fixe: data.rdv.fixe, tel:data.rdv.patient.tele_mobile1 ,
+              age:data.rdv.patient.age, specialite: data.rdv.specialite_id,civ:data.rdv.patient.civ, 
+              color:(data.rdv.fixe > 0) ? '#3A87AD':'#D6487E',
+            });
+          }
           resetPatient();
-        }
-      });
+        });
       }
     });
   });

@@ -5,9 +5,9 @@
         <div class="widget-header"><h5 class="widget-title">Role </h5></div>
         <div class="widget-body">
           <div class="widget-main">
-            <form role="form" id="rolUpdFrm" method="POST" action="{{ route('role.update',$role->id) }}">
-                {{ method_field('PUT') }}
-              <div class="form-group row">
+          <form role="form" id="roleFrm" method="POST" action="{{ route('role.update',$role->id) }}"> {{--rolUpdFrm --}}
+            {{ method_field('PUT') }}
+            <div class="form-group row">
                 <label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>
                 <div class="col-sm-9">
                   <input type="text" id="nom" name="nom"  class="form-control" value="{{ $role->nom }}"  required/>
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="center row">
-                <button  type="button" id ="rolUpdate" class="btn btn-xs btn-info" value ="update"><i class="ace-icon fa fa-save"></i>Enregistrer</button> 
+                <button  type="button" id ="rolSave" class="btn btn-xs btn-info" value ="update"><i class="ace-icon fa fa-save"></i>Enregistrer</button> 
                 <button class="btn btn-xs btn-warning" type="reset"> <i class="ace-icon fa fa-undo"></i>Annuler </button>
               </div>
             </form>
