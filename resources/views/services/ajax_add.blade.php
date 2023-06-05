@@ -13,7 +13,7 @@
             </div>
             <div class="form-group row"><label class="col-sm-3 control-label" for="type">Type</label>
               <div class="col-sm-9">
-              <select id="type" name="type" class="form-control selectpicker" required >
+              <select id="type" name="type" class="form-control selectpicker" required>
                 <option value="" disabled selected>---Séléctionner---</option>
                 <option value="0">Médicale</option>
                 <option value="1">Chirurgical</option>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group healthServ row"><label class="col-sm-3 control-label">Spécialite</label>
               <div class="col-sm-9">
-                <select id="specialite_id" nom="specialite_id" class="form-control selectpicker" required >
+  <select id="specialite_id" nom="specialite_id" class="form-control selectpicker" required>
                   <option value="" selected disabled>---Selectionner---</option>
                 </select> 
               </div>

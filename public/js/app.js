@@ -35,6 +35,9 @@ function formSubmit(form, e, callBack) {
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
+      $.each(data,  function(key ,value){
+        alert(key +':' + value);
+      });
       $form.trigger("reset");
       if( $.isEmptyObject(data.errors))
         printSuccessMsg(form, data.success);    

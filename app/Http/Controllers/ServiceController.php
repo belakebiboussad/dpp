@@ -62,6 +62,7 @@ class ServiceController extends Controller
       if($validator->fails())
          return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
+      return($request->all());
       if($request->ajax())//return $service->load('responsable');
         return response()->json(['success' => "Services crée avec suuccés",'service'=> $service->load('responsable')]);
       else
