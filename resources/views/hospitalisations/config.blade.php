@@ -1,4 +1,4 @@
- @if(Auth::user()->role_id == 14)
+ @if(Auth::user()->is(14))
 <div class="row"><div class="col-sm-12"><h4><u>Demandes d'hospitalisation</u></h4></div></div>
 <div class="row">
   <div class="col-xs-4">
@@ -8,7 +8,7 @@
   </div>
 </div>
 @endif
-@if(Auth::user()->role_id == 13)
+@if(Auth::user()->is(13))
 <div class="row"><div class="col-sm-12"><h4><u>Modes d'hôspitalisations</u></h4></div></div>
 <div class="row">
 @foreach($modesHosp as $mode)

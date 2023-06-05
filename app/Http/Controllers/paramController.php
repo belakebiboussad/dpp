@@ -9,11 +9,13 @@ use App\modeles\Constante;
 use App\modeles\Specialite;
 use App\modeles\specialite_exb;
 use App\modeles\antecType;
-use App\modeles\appareil;
+use App\modeles\Appareil;
 use App\modeles\TypeExam;
 use App\modeles\Vaccin;
 use App\modeles\Parametre;
+use App\modeles\employ;
 use App\modeles\ModeHospitalisation;
+use Response;
 use Config;
 class paramController extends Controller
 {
@@ -28,7 +30,7 @@ class paramController extends Controller
         $vaccins = Vaccin::all();
         $antecTypes = antecType::orderBy('id')->get();
         $appareils = appareil::orderBy('id')->get();
-        $specialite_id = (Auth::user()->role_id == 13 || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
+        $specialite_id = (Auth::user()->is(13) || (is_null(Auth::user()->employ->specialite))) ? 16 : Auth::user()->employ->specialite;
         $specialite  = specialite::FindOrFail($specialite_id);
         $specvaccins = json_decode($specialite->vaccins, true);
         $modesHosp = ModeHospitalisation::all(); 
@@ -36,25 +38,31 @@ class paramController extends Controller
         break;
       case 4:
       case 8://dir
-        $parametres = Auth::user()->role->Parameters;
         return view('parametres.administratif.index');
         break;
     }
   }   
   public function store(Request $request)
   {
-    foreach (Auth::user()->role->Parameters as $key => $param) {
-      if(in_array($param->nom, $request->keys()))
-      {
-        $nomv = $param->nom;
-        $param->update(['value'=>$request->$nomv ]);
-      }else
-        $param->update(['value'=>null ]); 
-    }
     switch (Auth::user()->role_id) {
+      case 4:
+      case 8:
+        foreach (Auth::user()->role->Parameters as $key => $param) {
+            $param->update(['value'=>isset($request[$param->parametre->nom])?$request[$param->parametre->nom]:null]);
+        }
+        break;
       case 13://med chef
-      case 14://chef de service
-        $specialite = (Auth::user()->role_id == 13) ? 16 :Auth::user()->employ->specialite;
+      case 14://chef de service    
+        foreach (Auth::user()->role->Parameters as $key => $param) {
+          $prm = Auth::user()->employ->Specialite->Parameters->find($param->param_id);
+          if(is_null($prm))
+           Auth::user()->employ->Specialite->Parameters()->attach(
+                $param->param_id,[
+                'value' => isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null]);
+         else
+            Auth::user()->employ->Specialite->Parameters()->updateExistingPivot($prm->id, ['value'=>isset($request[$param->parametre->nom])? $request[$param->parametre->nom]:null ]);
+        }
+        $specialite = (Auth::user()->is(13)) ? 16 :Auth::user()->employ->specialite;
         $specialite = specialite::FindOrFail($specialite);
         $input = $request->all();
         $specialite->Consts()->sync($request->consts);
@@ -65,7 +73,7 @@ class paramController extends Controller
         $input['vaccins'] = $request->vaccs;
         $input['dhValid'] = $request->dhValid;
         $specialite->update($input);
-        if(Auth::user()->role_id == 13)
+        if(Auth::user()->is(13))
         {
           $modesHosp = ModeHospitalisation::all();
           foreach($modesHosp as $mode) {
@@ -78,5 +86,23 @@ class paramController extends Controller
         break;
     }  
     return redirect()->to('/home');
+  }
+  public function show($id,$specID)
+  {
+    $specialite =Specialite::find($specID);
+    $value =  $specialite->Parameters->find($id)['pivot']['value'];
+    if($value)
+    {
+      // $medecins = $specialite->employes->whereHas('User',function($q){
+      //                           $q->whereIn('role_id',[1,13,14]);
+      //                         })->get();
+      $medecins = employ::whereHas('User',function($q){
+                                $q->whereIn('role_id',[1,13,14]);
+                              })->whereHas('Service',function($q) use($specID){
+                                 $q->where('specialite_id',$specID); 
+                              })->get();
+      return Response::json(['value'=>$value,'medecins'=>$medecins]);
+    }else
+       return Response::json(['value'=>$value]);
   }           
 }

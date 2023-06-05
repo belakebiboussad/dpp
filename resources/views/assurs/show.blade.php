@@ -124,29 +124,7 @@
 								<td>{{ $patient->Nom}}</td>
 								<td> {{ $patient->Prenom}}</td>
 								<td> {{ $patient->Dat_Naissance->format('Y-m-d') }}</td>
-								<td>
-								 	@switch($patient->Type)
-								 			@case("0")
-     											<span class="label label-sm label-success"><b>Assuré(e)</b></span>
-        									@break
-    									@case("1")
-       										<span class="label label-sm label-warning"><b>Conjoint(e)</b></span>
-        									@break
-        							@case("2")
-        									<span class="label label-sm label-danger"><b>Ascendant</b></span>
-        									@break
-        							@case("3")
-        									<span class="label label-sm label-danger"><b>Descendant</b></span>
-        									@break
-        							@case("4")
-        									<span class="label label-sm label-danger"><b>Autre</b></span>
-        									@break		
-        								@default
-      										<span class="label label-sm label-success">{{$patient->Type}}</span>
-      										@break
-      						@endswitch
-
-								</td>
+								<td><span class="label label-sm label-success">{{ $patient->Type->nom }}</span></td>
 								<td class= "center">
 									<a href="/patient/{{ $patient->id }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier">
 										<i class="fa fa-hand-o-up fa-xs"></i>

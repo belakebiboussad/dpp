@@ -37,14 +37,14 @@
         <tr>
           <td class="plh"><b>Nom :</b><span> {{ $patient->Nom}}</span></td>
           <td class="plh"><b>Prénom :</b><span> {{ $patient->Prenom }}</span></td>
-            @if(($patient->sf == "M") && ( $patient->Type == "1") )
+            @if(($patient->sf == "M") && ( $patient->type_id == "2") )
           <td class="plh"><b>Epoux(se)  :</b><span> {{ $patient->assure->full_name }}</span></td>
         @endif
         </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
          <tr>
           <td class="plh"><b>Genre :</b><span> {{ $patient->Sexe }}</span></td>
           <td class="plh"><b>Né(e) le :</b><span> {{ $patient->Dat_Naissance->format('d/m/Y') }}</span></td>
-          <td class="plh"><b>Né(e) à :</b><span> {{ $patient->lieuNaissance->nom_commune }}</span></td>
+          <td class="plh"><b>Né(e) à :</b><span> {{ is_null($patient->Lieu_Naissance)? '':$patient->lieuNaissance->nom_commune}}</span></td>
         </tr> 
       </table>
     </section><br>

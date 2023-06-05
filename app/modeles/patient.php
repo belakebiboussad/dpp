@@ -5,7 +5,7 @@ use Carbon\Carbon;
 class patient extends Model
 {
 	public $timestamps = true;
-	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active'];
+	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','type_id','description','active'];
   protected $dates =['Dat_Naissance'];
   protected $appends = ['full_name','age','civ'];
   public function scopeActive($q)
@@ -57,6 +57,10 @@ class patient extends Model
 		if(isset($this->wilaya_res))
 			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
 	}
+  public function Type()
+  {
+      return $this->belongsTo('App\modeles\PatientType','type_id');
+  }
 	public function assure()
 	{	
 		if(isset($this->Assurs_ID_Assure))
@@ -96,6 +100,10 @@ class patient extends Model
   public function ContagDesease()
   {
     return $this->belongsToMany('App\modeles\CIM\maladie','dppdb.maladie_patient','patient_id','maladie_id')->withTimestamps();
+  }
+  public function Mother()
+  {
+    return $this->hasOne('App\modeles\Mother','pid');
   }
  	public function getCivilite()
  	{

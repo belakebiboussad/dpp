@@ -77,13 +77,20 @@ class DemandeExamenRadio extends Controller
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME);
         if($ext == "")
-          $filename = $filename.'_'.time();
+              $filename = $filename.'_'.time();
         else
-          $filename = $filename.'_'.time().'.'.$ext;
+              $filename = $filename.'_'.time().'.'.$ext;
         $request->file('resultat')->move(public_path('files'), $filename);
       }
       $ex->update([  "etat" =>1, "resultat"=>$filename]);
       return(['exId'=>$ex->id,'fileName'=>$filename,'isImg'=>$isImg]);
+    }
+      public function downloadRes($id)
+     {
+           $ex = Demande_Examenradio::FindOrFail($id);
+           $path = public_path().'/files/'.$ex->resultat;
+            if (file_exists($path))
+                  return Response::download($path);
     }
     public function examCancel(Request $request)
     {
@@ -250,7 +257,7 @@ class DemandeExamenRadio extends Controller
     public function exmDestroy($id)
     {
       $ex = Demande_Examenradio::FindOrFail($id);
-      $ex->delete();  //si le ernier examen je suprimer la demande
+      $ex->delete();//si dernier examen suprimer la demande
       //if($ex->Demande->examensradios->count() == 0){$ex->Demande->delete();}
       return $ex;
     }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\modeles\rol;
-use Session;
 class RolesController extends Controller
 {
     /**
@@ -16,20 +16,31 @@ class RolesController extends Controller
       {
           $this->middleware('auth');
       }
+    public function rol_credential_rules(array $data)
+    {
+      $validator = Validator::make($data, [
+        'nom' =>"required|unique:rols|max:255",
+      ]);
+       return $validator;
+    }  
     public function index()
     {
         $roles = rol::all();
         return view('role.index', compact('roles'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('role.create');
+      if($request->ajax())  
+      {
+        $view = view("role.ajax_add")->render();
+        return($view);
+      }else
+       return view('role.create');
     }
 
     /**
@@ -40,15 +51,17 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-          $request->validate([
-               "rolename" => 'required|min:3',
-          ]);
-           rol::FirstOrCreate([
-              "role"=>$request->rolename,
-           ]);
-         $roles = rol::all();
-         Session::flash('message','Rôle crée avec succès'); 
-        return view('role.index',compact('roles'));
+      $validator = $this->rol_credential_rules($request->all());
+      if($validator->fails())
+        return response()->json(['errors'=>$validator->errors()->all()]);
+      $role =  rol::FirstOrCreate([
+          "nom"=>$request->nom,
+          "type"=>$request->type,
+      ]);
+      if($request->ajax())
+       return response()->json(['success' => "role est crée avec suuccés",'role'=> $role]);
+      else
+        return view('role.show',compact('role'));
     }
 
     /**
@@ -57,9 +70,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(rol $role)//
+    public function show(rol $role)
     {
-       return view('role.show', compact('role'));
+      $view = view("role.ajax_show",compact('role'))->render();
+      return($view);  
     }
     /**
      * Show the form for editing the specified resource.
@@ -68,8 +82,9 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(rol $role)
-    {
-      return view('role.edit', compact('role'));
+    { 
+      $view = view("role.ajax_edit",compact('role'))->render();      
+      return $view;
     }
     /**
      * Update the specified resource in storage.
@@ -78,17 +93,14 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, rol $role)
+    public function update(Request $request,rol $role)
     {
-      $request->validate([
-          "rolename" => 'required|min:3',
-       ]);
-       $role->update([
-         "role"=>$request->rolename,
-       ]);
-      return redirect(Route('role.index'));   
+      $validator = $this->rol_credential_rules($request->all());
+      if($validator->fails())
+        return response()->json(['errors'=>$validator->errors()->all()]);//Log::info('Response:', $request->all());
+      $role->update([ "nom"=>$request->nom, "type"=>$request->type]);
+       return response()->json(['success' => "role est  mis à jour avec suuccés",'role'=> $role]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -97,9 +109,13 @@ class RolesController extends Controller
      */
       public function destroy(rol $role)
       {
+        $errors = [];
+        if($role->users->count() > 0)
+        {
+          array_push($errors, 'le role contient des utilisateurs');
+          return response()->json(['errors'=>$errors]); 
+        }
         $role->delete();
-        $roles = rol::all();
-        Session::flash('message','Rôle supprimé avec succès');
-        return view('role.index',compact('roles'));  // return redirect(Route('role.index'))->withSuccess('Rôle supprimé avec succès!');
+        return $role->id;
       }
 }

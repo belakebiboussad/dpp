@@ -61,7 +61,7 @@
 				<div class="form-group row">
 					<div class="checkbox col-sm-offset-3">
           <label>
-<input name="etat" type="checkbox" class="ace" name="etat" value ="1" {{(isset($salle->etat))? 'checked':''}}>
+<input name="etat" type="checkbox" class="ace" value ="1" {{(isset($salle->etat))? 'checked':''}}>
             <span class="lbl"> Chambre bloquée</span>
           </label>
           </div>

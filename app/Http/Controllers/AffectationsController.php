@@ -24,7 +24,7 @@ class AffectationsController extends Controller
     $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
                                 ->whereHas('demandeHospitalisation',function ($q){
                                      $q->where('service',Auth::user()->employ->service_id)->where('etat',1);      
-                              })->where('date','>=',$now)->where('etat', null)->get();                         
+                              })->where('date','>=',$now)->whereNull('etat')->get();                         
     $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                   ->whereHas('consultation',function($q) use($now){
                                        $q->where('date', $now);

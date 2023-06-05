@@ -18,7 +18,6 @@ Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('role','RolesController');
-Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('hospitalisation','HospitalisationController');
@@ -56,10 +55,11 @@ route::resource('orientLetter','LettreOrientationController');
 route::resource('certifDescrip','CertificatDescriptifController');
 route::resource('traitExec','TraitExecController');
 Route::resource('bedAffectation','AffectationsController');
-Route::resource('planning','PlanningController');
 route::resource('allergie','AllergieController');
 Route::resource('maladies','CimController');
 Route::resource('vaccin','VaccinController');
+Route::resource('mother','MotherController');
+Route::resource('specialite','SpecialiteController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -75,7 +75,8 @@ Route::post('/demande_validating','DemandeHospitalisationController@valider')->n
 Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('demande_invalidate');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('/getConsultations','ConsultationsController@getConsultations');Route::get('/getRdvs','RdvHospiController@getRdvs');
+Route::get('/getConsultations','ConsultationsController@getConsultations');
+Route::get('/getRdvs','RdvHospiController@getRdvs');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques','ColloqueController@index');
@@ -89,7 +90,6 @@ Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'Hospitalisa
 // teste
  Route::post('/user/password','UsersController@changePassword')->name('user.change.password');
 // fteste
-Route::post('/users/store/','UsersController@store');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
@@ -112,7 +112,6 @@ route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
 route::get('/getmed/{id}','MedicamentsController@getmed');
-Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',
@@ -145,6 +144,7 @@ Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::post('exmRad', 'DemandeExamenRadio@exmStore')->name('exmRad.store');
 route::delete('/exmRad/{id}', 'DemandeExamenRadio@exmDestroy')->name('exmRad.destroy');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
+Route::get('/downloadResRad/{id}', 'DemandeExamenRadio@downloadRes')->name('resultRad.download');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
@@ -158,7 +158,7 @@ route::get('/acte/run/{id}','ActeController@run')->name('runActe');
 route::get('/schapitres','CimController@getChapters');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
-Route::post('/createTicket','ticketController@store');
+Route::get('/downloadRes/{id}', 'DemandeExbController@downloadRes')->name('result.download');
 Route::get('/listRdvs','RDVController@listeRdvs');
 Route::get('/soins/index/{id}','SoinsController@index');
 Route::get('/getconst','SoinsController@getConstData')->name('getConstData');
@@ -168,4 +168,5 @@ Route::get('/orientLetterPrint/{id}','LettreOrientationController@print')->name(
 Route::get('/etabExport', 'EtablissementControler@exportCsv');
 Route::get('/searstat','StatistiqusController@searstat');
 Route::get('/searchStat/{id}','StatistiqusController@search')->name('stats.search');
+route::get('/param/{id}/{specId}','paramController@show');
 Route::get('/teste','VisiteController@teste');//to teste

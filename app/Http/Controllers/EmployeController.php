@@ -63,14 +63,16 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-        $rule = array(
-            "nom"=> "required | max:120",
-            "prenom"=> "required|max:120",
-            "datenaissance"=> "required",// | date
-            "lieunaissance"=> "required",
-            "sexe"=> "required",//"adresse"=>"required",
-            "mobile"=> "required | regex:/[0][567][0-9]{8}/",//"fixe"=> "numeric | regex:/[0][0-9]{8}/","mat"=> "required","service"=> "required",nss"=> "required | regex:/[0-9]{12}/","specialite"=>"required",
-        );
+      /*
+      $rule = array(
+          "nom"=> "required | max:120",
+          "prenom"=> "required|max:120",
+          "datenaissance"=> "required",// | date
+          "lieunaissance"=> "required",
+          "sexe"=> "required",
+          "mobile"=> "required | regex:/[0][25679][0-9]{8}/",
+           //"fixe"=> "numeric | regex:/[0][0-9]{8}/",nss"=> "required | regex:/[0-9]{12}/",
+      );
         $messages = [
           "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
            "date"         => "Le champ :attribute n'est pas une date valide.",
@@ -80,21 +82,13 @@ class EmployeController extends Controller
           return back()->withInput($request->input())->withErrors($validator->errors());
         $employe = employ::FindOrFail($employid);
         $employe->update([
-                "nom"=>$request->nom,
-                "prenom"=>$request->prenom,
-                "sexe"=>$request->sexe,
-                "Date_Naiss"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->lieunaissance,
-                "Adresse"=>$request->adresse,
-                "Tele_fixe"=>$request->fixe,
-                "tele_mobile"=>$request->mobile,
-                "specialite"=>$request->specialite,
-                "service_id"=>$request->service,
-                "matricule"=>$request->mat,
-                "NSS"=>$request->nss,
-        ]);
-        return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
-    }
+                "nom"=>$request->nom,"prenom"=>$request->prenom,
+                "sexe"=>$request->sexe,"Date_Naiss"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->lieunaissance,"Adresse"=>$request->adresse,"Tele_fixe"=>$request->fixe,
+                "tele_mobile"=>$request->mobile,"specialite"=>$request->specialite,
+                "service_id"=>$request->service,"matricule"=>$request->matricule, "NSS"=>$request->nss,
+        ]);return redirect(Route('users.show',$employe->User->id));*/
+       }
     /**
      * Remove the specified resource from storage.
      *

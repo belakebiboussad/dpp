@@ -84,21 +84,21 @@
             <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $formatDate($rdv->date) }}" data-date-format="yyyy-mm-dd" required />
-              <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>  
+              <span class="input-group-addon fa fa-calendar"></span>  
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-7 control-label" for="heure">Heure entrée prévue :</label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heure" name="heure" class="form-control timepicker1" type="text" value = "{{ $rdv->heure }}" required />
-              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span> 
+              <span class="input-group-addon fa fa-clock-o"></span> 
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-6 control-label" for="numberDays">Durée :</label>
             <div class="input-group">    
               <input class="form-control numberDays input-sm" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
-              <span class="input-group-addon"><small> nuit(s)</small></span>
+              <span class="input-group-addon"><small>nuit(s)</small></span>
             </div>
           </div>
         </div>
@@ -109,14 +109,13 @@
             <label class="col-sm-6 control-label" for="dateSortiePre">Date sortie prévue :</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input class="form-control date-picker date_end" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
-              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>    
+              <span class="input-group-addon fa fa-calendar"></span>    
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-7 control-label" for="heureSortiePrevue">Heure sortie prévue :</label>
             <div class="input-group col-sm-5 col-xs-5">
-              <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required />
-              <span class="input-group-addon"><i class="fa fa-clock-o"></i> </span> 
+              <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required /><span class="input-group-addon fa fa-clock-o"></span> 
             </div>  
           </div>
         </div>

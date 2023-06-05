@@ -7,42 +7,13 @@
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
 			<span class="bigger-110">Modifier</span>
 		</a>
-		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
-				<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
-		</a>
-		@if(Auth::user()->role_id == 2)
-		<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}">
-			<span class="bigger-110"><i class="ace-icon fa fa-print bigger-120"></i>&nbsp;Imprimer Ticket d'ordre</span>
-		</a>
-		@endif
+    {{--@if(Auth::user()->is(15))
+			<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><i class="ace-icon fa fa-plus bigger-120"></i>
+	<span class="bigger-110"> Rendez-Vous</span></a>@endif  --}}
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
-			<span class="label label-purple arrowed-in-right"><i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
-			@switch($patient->Type)
-          @case(0)
-                 Assuré
-                 @break
-          @case(1)
-                 Conjoint(e)
-                 @break
-          @case(2)
-                 Père
-                 @break
-          @case(3)
-                 Mère
-                      @break  
-          @case(4)
-                 Enfant 
-                 @break
-          @case(5)
-                 Dérogation 
-                 @break   
-           @case(6)
-                 Autre 
-                 @break                     
-		      @endswitch  
-		     </span>
+			<span class="label label-purple arrowed-in-right">{{ $patient->Type->nom }}</span>
 			</h4>
 			<div class="profile-user-info">
 				<div class="profile-info-row">
@@ -136,49 +107,45 @@
           <span>{{ $patient->created_at->format('Y-m-d') }}</span></div>
 				</div>
 			</div><div class="hr hr-8 dotted"></div>
-			@if(in_array( $patient->Type , [1,2,3,4]) &&(isset($patient->assure)))
+			@if(in_array( $patient->type_id , [2,3,4,5]) && (isset($patient->assure)))
 			<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 				<div class="widget-box transparent" id="widget-box-12">
-					<div class="widget-header"><h5 class="widget-title lighter"><b>Informations du fonctionnaire</b></h5></div>
+					<div class="widget-header"><h5 class="widget-title lighter">Informations du fonctionnaire</h5></div>
 					<div class="widget-body">
 						<div class="widget-main padding-6 no-padding-left no-padding-right">
 							<div class="row">
 								<div class="col-sm-3">
-								<label class="inline"><span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}}</span></label>
+								<label class="inline"><span>Nom :</span><span class="lbl blue"> {{ $patient->assure->Nom}}</span></label>
 								</div>
 								<div class="col-sm-3">
-								<label class="inline"><span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}}</span></label>
+								<label class="inline"><span>Prénom :</span><span class="lbl blue"> {{ $patient->assure->Prenom}}</span></label>
 								</div>
 								<div class="col-sm-3">
 								<label class="inline">
-								<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
+								<span>Né(e) le :</span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
 								</div>
 								@if(isset($patient->assure->lieunaissance))
 								<div class="col-sm-3">
-								<label class="inline">	<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->lieuNaissance->nom_commune}} </span>
-									</label>
+								<label class="inline"><span>Né(e) à :</span><span class="lbl blue">{{ $patient->assure->lieuNaissance->nom_commune}} </span></label>
 								</div>	
 								@endif
 							</div>
 							<div class="row">
 								<div class="col-sm-3">
 									<label class="inline">
-										<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
+										<span>Sexe :</span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 								</div>
-								<div class="col-sm-3"></div><div class="col-sm-6"></div>
+                                                  <div class="col-sm-9">
+                                                  <label class="inline">
+                                                  <span>N° sécurité sociale :</span><span class="lbl blue">{{ $patient->Assurs_ID_Assure }}</span>
+                                                </label>        
+                                              </div>
 							</div>
-							<div class="col-sm-3"></div><div class="col-sm-3"></div>
-							<div class="col-sm-6">
-								<label class="inline">
-									<span><b>N° sécurité sociale :</b></span>
-									<span class="lbl blue">{{ $patient->Assurs_ID_Assure }}</span>
-								</label>
-							</div>
-						</div>
+                                  </div>
 					</div>
 					</div>
 				</div>
 			@endif
 	</div>
-</div><div class="space-12"></div><!-- /.row -->
+</div>

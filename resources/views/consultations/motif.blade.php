@@ -8,7 +8,7 @@
 </div>	
 <div class="form-group row {{ $errors->has('motif') ? 'has-error' : '' }}">
 		<label class="col-sm-4 control-label" for="motif">Motif de consultation<span class="red">*</span></label> 
-		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control" required/></div>
+		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control"/></div>
 </div>
 <div class="form-group row">
 	<label class="col-sm-4 control-label" for="histoirem">Histoire de la maladie</label>
@@ -21,7 +21,7 @@
 	<div class="col-sm-8"><textarea class="form-control" id="diagnostic" name="diagnostic" placeholder="Diagnostic..." ></textarea></div>
 </div>
 <div class="form-group row">
-    <label for="codesim" class="col-sm-4 control-label">Code CIM-10 </label>
+    <label for="codesim" class="col-sm-4 control-label">Code CIM10 </label>
     <div class="input-group">
       <input type="text" class="form-control col-sm-4" placeholder="Rechercher code cim10 for..." id="codesim" name="codesim">
       <span class="input-group-btn">
@@ -31,5 +31,5 @@
 </div>
 <div class="form-group row">
 	<label class="col-sm-4 control-label" for="resume">Résumé<span class="red">*</span></label>  
-	<div class="col-sm-8"><textarea class="form-control" id="resume" name="resume" placeholder="Résumé..." required></textarea></div>
+	<div class="col-sm-8"><textarea class="form-control" id="resume" name="resume" placeholder="Résumé..."></textarea></div>
 </div>

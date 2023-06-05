@@ -94,7 +94,7 @@
       var url ='{{ route("acte.store") }}';
       var state = jQuery('#EnregistrerActe').val();
       if (state == "update") {
-        type = "PUT";//var id = jQuery('#acte_id').val();
+        type = "PUT";
         url = '{{ route("acte.update", ":slug") }}'; 
         url = url.replace(':slug', $('#acte_id').val());
       }
@@ -155,8 +155,7 @@
       visite_id: $('#id').val(),
       med_id:$("#med_id").val(),
       posologie:$("#posologie").val(),/*periodes :periodes,*/
-      nbrPJ : $('#nbrPJ').val(),
-      duree : $('#dureeT').val()
+      nbrPJ : $('#nbrPJ').val(),//duree : $('#dureeT').val()
     };
     var state = jQuery('#EnregistrerTrait').val();
     var type = "POST", url='{{ route("traitement.store") }}';
@@ -169,8 +168,7 @@
     $.ajax({
       type:type,
       url:url,
-      data: formData,
-      dataType:'json',
+      data: formData,//dataType:'json',
       success: function (data) {  
         if($('.dataTables_empty').length > 0)
           $('.dataTables_empty').remove();
@@ -208,9 +206,6 @@
       },
       success: function (data) {
         $("#trait" + id).remove();
-      },
-      error: function (data) {
-       console.log('Error:', data);
       }
     });
      }); //////////Traitement

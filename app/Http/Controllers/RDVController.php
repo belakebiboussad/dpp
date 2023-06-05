@@ -10,6 +10,8 @@ use App\modeles\Parametre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use PDF;
 use Calendar;
 use Carbon\Carbon;
@@ -29,28 +31,30 @@ class RDVController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    public function valider($id)
+    {
+      $rdv = rdv::FindOrFail($id);
+      $rdv ->update([  "etat"=>"Valider" ]);
+        return redirect()->route("rdv.show",$rdv->id);
+    }
+    public function index(Request $request,$patientID = null)
+     {//$appointDoc = Auth::user()->employ->Service->Specialite->Parameters->find(3)['pivot']['value'];
+      $specialites = Specialite::where('type','!=',null)->get();
+      if(Auth::user()->isIn([1,13,14])) 
       {
-          $this->middleware('auth');
-      }
-      public function valider($id)
-      {
-        $rdv = rdv::FindOrFail($id);
-        $rdv ->update([  "etat"=>"Valider" ]);
-          return redirect()->route("rdv.show",$rdv->id);
-      }
-      public function index(Request $request,$patientID = null)
-      {
-        $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
-        $specialites = Specialite::where('type','!=',null)->get();
-        if(in_array(Auth::user()->role_id,[1,13,14])) 
-        {
-          $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
-          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)
-                                   ->where('etat',null)->orwhere('etat',1)->get(); 
-        }else
-          $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('etat',null)->orwhere('etat',1)->get();
-        return view('rdv.index', compact('rdvs','specialites','appointDoc'));   
+        $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
+        $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
+        if((is_null($shareApp)) && (! Auth::user()->is(14)))
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
+        else
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->whereNull('etat')->orwhere('etat',1)->get();
+       }else
+        $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->whereNull('etat')->orwhere('etat',1)->get();
+      return view('rdv.index', compact('rdvs','specialites'));   
       }
     /**
      * Show the form for creating a new resource.
@@ -62,15 +66,20 @@ class RDVController extends Controller
     {
       $borneIp =  (Parametre::select()->where('nom','Borne_Adrr')->get('value')->first())->value;
       $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
+      if(Auth::user()->isIn([1,13,14])) 
+        $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
       $specialites = Specialite::where('type','!=',null)->get();
       if(isset($request->patient_id))
         $patient = patient::FindOrFail( $request->patient_id);
       else
         $patient = new patient;
-      if((in_array(Auth::user()->role_id,[1,13,14]))) 
+      if(Auth::user()->isIn([1,13,14])) 
       {  
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
-        $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
+        if((is_null($shareApp)) && (! Auth::user()->is(14)))
+          $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite_id)->where('employ_id',  Auth::user()->employe_id)->whereNull('etat')->orwhere('etat',1)->get(); 
+        else
+          $rdvs =  rdv::with('patient','employe','specialite')->where('specialite_id',$specialite_id)
                     ->where('etat',null)->orwhere('etat',1)->get();
       }else
         $rdvs = rdv::with(['patient','specialite'])->where('etat',null)->orwhere('etat',1)->get();
@@ -82,33 +91,46 @@ class RDVController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+      public function admin_credential_rules(array $data)
+      {
+       $messages = [
+          'specialite.required' =>  "Séléctionner la spécialité médicale",
+          'employ_id.required' =>  "Séléctionner le médecin",
+          'pid.required' => 'Séléctionner le patient',
+          'date.required' => 'Séléctionner la date de debut de RDV',
+          'fin.required' => 'Séléctionner la date de fin de RDV',
+        ];
+        $validator = Validator::make($data, [
+          'specialite' =>"required",
+          'employ_id' =>"required_if:medecinRequired,==,1" ,
+          'pid' =>  "required",
+          'date' =>  "required",
+          'fin' => 'required' 
+        ], $messages);
+         return $validator;
+      }  
       public function store(Request $request)
-      {/* $request->validate(["daterdv"=> 'required',]);*/
+      { 
+        $input = $request->all();
+       if(Auth::user()->isIn([1, 13, 14]))
+        {
+          $input['specialite'] = Auth::user()->employ->Service->specialite_id;
+          $input['employ_id'] =Auth::user()->employe_id;
+        }
+        $validator = $this->admin_credential_rules($input);
+        if($validator->fails())
+          return response()->json(['errors'=>$validator->errors()->all()]);
         if($request->ajax())
         { 
           $patient = patient::find($request->pid);
-          if(isset($request->specialite))
-            $specialite_id = $request->specialite;
-          else
-          {
-            if(isset(Auth::user()->employ->specialite))
-              $specialite_id = Auth::user()->employ->specialite;
-            else
-              $specialite_id = Auth::user()->employ->Service->specialite_id; 
-          }
-          if(Auth::user()->role_id ==15)
-            $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
-          else
-            $employ_id = Auth::user()->employe_id;
-          $rdv = rdv::firstOrCreate([
+          $rdv = $patient->rdvs()->create([
             "date"=>new DateTime($request->date),
             "fin" =>new DateTime($request->fin),
             "fixe"    => $request->fixe,
-            "patient_id"=> $patient->id,
-            "employ_id"=> $employ_id,
-            "specialite_id"=> $specialite_id
-          ]);
-          return array('patient'=>$patient,'rdv'=>$rdv);
+            "employ_id"=> (isset($input['employ_id'])) ? $input['employ_id'] : null,
+            "specialite_id"=> $input['specialite']
+          ]);//return $rdv->load('patient');
+          return response()->json(['success' => "Rendez-vous crée avec suuccés",'rdv'=> $rdv->load('patient')]);
         }
     }
     /**
@@ -134,15 +156,15 @@ class RDVController extends Controller
       { 
         if($request->ajax())
         { 
-          $medecins = ($rdv->specialite)->employes;
-          if(isset($rdv->specialite_id))
-             return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
+         // $medecins = ($rdv->specialite)->employes;
+          if(isset($rdv->specialite_id)) //return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
+            return $rdv;
           else 
             return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
         }else{
           $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
           $specialite =$rdv->specialite_id;
-          if(in_array(Auth::user()->role_id,[1,13,14])) 
+          if(Auth::user()->isIn([1,13,14])) 
             $rdvs = rdv::with('patient','employe')
                         ->whereHas('specialite',function($q) use ($specialite){
                           $q->where('id',$specialite);
@@ -161,10 +183,10 @@ class RDVController extends Controller
      */
       public function update(Request $request, rdv $rdv)
       { 
-        $specId = (in_array(Auth::user()->role_id,[1,13,14]) )? Auth::user()->employ->specialite : $request->specialite;
+        $specId = (Auth::user()->isIn([1,13,14]))? Auth::user()->employ->specialite : $request->specialite;
         $date = new DateTime($request->date);
         $fin = new DateTime($request->fin);
-        if(Auth::user()->role_id ==2)
+        if(Auth::user()->is(15))
           $employ_id = (isset($request->employ_id)) ? $request->employ_id : null ;
         else
             $employ_id = Auth::user()->employe_id;
@@ -196,26 +218,26 @@ class RDVController extends Controller
       }
       public function print(Request $request,$id)
       { 
-          $rdv = rdv::findOrFail($id);
-          $etab = Etablissement::first();
-          $civilite = $civilite = $rdv->patient->civ;
-          $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
-          $pdf417 = new PDF417();
-          $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.$rdv->date->format('dmy'));
-          $renderer = new ImageRenderer([
-              'format' => 'png',
-              'scale' => 1,//1
-              'ratio'=>3,//hauteur,largeur
-              'padding'=>0,//espace par rapport left
-              'format' =>'data-url'
-          ]);
-          $img = $renderer->render($data);
-          $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
-          $dompdf = new Dompdf();
-          $dompdf->loadHtml($viewhtml);
-          $dompdf->setPaper('a6', 'landscape');
-          $dompdf->render();
-          return $dompdf->stream($filename); 
+        $rdv = rdv::findOrFail($id);
+        $etab = Etablissement::first();
+        $civilite = $civilite = $rdv->patient->civ;
+        $filename = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+        $pdf417 = new PDF417();
+        $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->specialite_id.'|'.$rdv->date->format('dmy'));
+        $renderer = new ImageRenderer([
+            'format' => 'png',
+            'scale' => 1,//1
+            'ratio'=>3,//hauteur,largeur
+            'padding'=>0,//espace par rapport left
+            'format' =>'data-url'
+        ]);
+        $img = $renderer->render($data);
+        $viewhtml = View('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etab'=>$etab))->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($viewhtml);
+        $dompdf->setPaper('a6', 'landscape');
+        $dompdf->render();
+        return $dompdf->stream($filename); 
       }
       public function listeRdvs(Request $request)
       {

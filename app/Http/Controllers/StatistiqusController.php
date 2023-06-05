@@ -96,7 +96,7 @@ class StatistiqusController extends Controller
       $this->getAverhospStay(6); //bon 
      
        //lits
-      if(Auth::user()->role_id == 14)//chef de service
+      if(Auth::user()->is(14))//chef de service
         $salles = Auth::user()->employ->service->salles;
       else
         $salles = salle::all();
@@ -124,7 +124,7 @@ class StatistiqusController extends Controller
  public function search($id)
   {
     $services = service::whereIn('type', [0,1])->get();
-    if((in_array(Auth::user()->role_id,[4,8])))
+    if(Auth::user()->isIn([4,8]))
       $medecins = employ::all();
     else 
       $medecins =Auth::user()->employ->Service->Medecins;
@@ -151,15 +151,15 @@ class StatistiqusController extends Controller
     $modelName = $model_prefix.$className;
     foreach ($dateRange as $date) {
       $dates[] = $date->format('m-d');
-      if(Auth::user()->role_id != 13)
+      if(!Auth::user()->is(13))
       {
         $sid = $request->service;
         if(isset($request->medecin) && ($request->className != 3 ))
         {
           $mid = $request->medecin;
           $dataArray[] = $nbr = $modelName::whereHas('medecin', function($q) use ($mid) {
-                                      $q->where('id', $mid);
-                                  })->where('date', $date)->count();//->where('date','<=',$end )
+                      $q->where('id', $mid);
+                  })->where('date', $date)->count();//->where('date','<=',$end )
         }else
         {
           if($request->className != 3)

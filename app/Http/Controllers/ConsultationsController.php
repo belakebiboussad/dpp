@@ -29,7 +29,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
-use App\modeles\appareil;
+use App\modeles\Appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\CIM\maladie;
 use App\modeles\facteurRisqueGeneral;
@@ -84,8 +84,6 @@ class ConsultationsController extends Controller
         $etab = Etablissement::first();
         $employe = Auth::user()->employ; 
         $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
-        //$speconst = json_encode($specialite->Consts);
-        
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
@@ -97,7 +95,8 @@ class ConsultationsController extends Controller
         $obj = $patient->Consultations()->create([
           'date'=>$date,'employ_id'=>Auth::User()->employe_id,'id_lieu'=>$etab->id]);
         $allergies = Allergie::all();$deseases = maladie::contagius();
-        return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases'));
+        $isHosp =false;
+        return view('consultations.createObj',compact('obj','etab','chapitres', 'apareils','meds','specialites','modesAdmission','services','infossupp','examensradio','specialite','allergies','deseases','isHosp'));
       }
     /**
      * Store a newly created resource in storage.
@@ -107,15 +106,14 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       { 
-        $request->validate([ "motif" => 'required',"resume" => 'required']);
+        $validator = Validator::make($request->all(), [
+            'motif' => 'required',
+            'resume' => 'required',
+        ]);
+        if ($validator->fails())
+          return back()->withInput($request->input())->withErrors($validator->errors());
         $constvalue =  collect();$exam;
         $etab = Etablissement::first(); 
-        $validator = Validator::make($request->all(), [
-                'motif' => 'required',
-                'resume' => 'required',
-         ]);
-        if($validator->fails())
-           return back()->withErrors($validator)->withInput();
         if(isset(Auth::user()->employ->specialite) && (!is_null(Auth::user()->employ->specialite)))
           $specialite = Auth::user()->employ->Specialite;
         else
@@ -182,12 +180,12 @@ class ConsultationsController extends Controller
      */
       public function show(consultation $consultation)
       { 
-        $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
-        if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
-          $specialite = Auth::user()->employ->Specialite;
-         else
-          $specialite = Auth::user()->employ->Service->Specialite;
-         return view('consultations.show', compact('consultation','specialite','specialites'));
+             $specialites = Specialite::where('type','<>',null)->orderBy('nom')->get();
+             if(isset(Auth::user()->employ->specialite) && (Auth::user()->employ->specialite != null))
+                    $specialite = Auth::user()->employ->Specialite;
+             else
+                   $specialite = Auth::user()->employ->Service->Specialite;
+             return view('consultations.show', compact('consultation','specialite','specialites'));
       }
       public function destroy(Request $request, $id)
       { 

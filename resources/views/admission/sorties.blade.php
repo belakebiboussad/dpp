@@ -136,26 +136,22 @@
 		<div class="panel-heading left">Rechercher une sortie</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-sm-4">
-     			<div class="form-group"><label>Etat :</label>
-         	  <select id='etat' class="form-control filter">
-      				<option value="0">En cours</option>
-		          <option value="1">Validée</option>
-		        </select>
-     			</div>		
-    		</div>
-        <div class="col-sm-4">
-        	<div class="form-group">
-         		<label class="control-label" for="Date_Sortie">Date sortie:</label>
+			<div class="form-group col-sm-4"><label>Etat</label>
+                     	 <select id='etat' class="form-control filter">
+                  			<option value="0">En cours</option>
+            		             <option value="1">Validée</option>
+            		        </select>
+                 	</div>		 
+        	<div class="form-group col-sm-4">
+         		<label >Date sortie</label>
          		<div class="input-group">
   			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
-  					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+  				 <span class="input-group-addon fa fa-calendar"></span>
     			</div>
-		    </div>
-        </div>	
+		 </div>
   		</div>
 		</div>
-     <div class="panel-footer">
+              <div class="panel-footer">
         <button type="submit" class="btn btn-sm btn-primary outAdmsFind"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
       </div>
 	</div><!-- panel -->

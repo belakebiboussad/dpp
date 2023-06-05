@@ -43,7 +43,7 @@ class HospitalisationController extends Controller
       {
         if($request->ajax())  
         { 
-          if(Auth::user()->role_id != 9) {
+          if(!Auth::user()->is(9)) {
             if($request->field != 'Nom' && ($request->field != 'IPP'))
             {
               if($request->value != "0")
@@ -86,7 +86,7 @@ class HospitalisationController extends Controller
             $chapitres = chapitre::all();
             $etab = Etablissement::first();
             $medecins = Auth::user()->employ->Service->employs;
-            if(Auth::user()->role_id != 9 )//9:admission
+            if(!Auth::user()->is(9))//9:admission
               $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q){//rdvHosp.
                                                     $q->where('id',Auth::user()->employ->service_id);
                                                  })->WhereNull('etat')->get();
@@ -145,15 +145,15 @@ class HospitalisationController extends Controller
    */
      public function update(Request $request, $id)
      {
-        $messages = array(
-          'diagSortie.max' => "diagnostic can not be great than 255 characters.",
-        );
-        $rule = array('diagSortie'   => 'max:255');
-        $validator = Validator::make($request->all(),$rule,$messages); 
-        if ($validator->fails()) {
-          return back()->withInput($request->input())->withErrors($validator->errors());
-        }
-        $hosp = hospitalisation::find($id);
+        // $messages = array(
+        //   'diagSortie.max' => "diagnostic can not be great than 255 characters.",
+        // );
+        // $rule = array('diagSortie'   => 'max:255');
+        // $validator = Validator::make($request->all(),$rule,$messages); 
+        // if ($validator->fails()) {
+        //   return back()->withInput($request->input())->withErrors($validator->errors());
+        // }
+       $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
           $input = $request->all();
@@ -208,8 +208,7 @@ class HospitalisationController extends Controller
     $filename="etiquette.pdf"; 
     $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));
     //->setPaper($customPaper);//plusieure en foramt A4
-    // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
-    
+    // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return pdf->setPaper('a9')->setOrientation('landscape')->stream();
     return $pdf->download($filename);   
    }
 }

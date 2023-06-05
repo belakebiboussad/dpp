@@ -5,7 +5,7 @@
       <div class="widget-header"><h5 class="widget-title">Service &quot;{{ $service->nom}}&quot;</h5></div>
       <div class="widget-body">
         <div class="widget-main">
-          <form role="form" method="POST" action="{{ route('service.update', $service->id) }}">
+          <form role="form" id="serviceFrm" method="POST" action="{{ route('service.update', $service->id) }}">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group row">
@@ -17,46 +17,51 @@
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" name="type"  class="form-control selectpicker" required >
-                  <option value="0" @if($service->type == 'Médicale') selected @endif>Médicale</option>
-                  <option value="1" @if($service->type == 'Chirurgical') selected @endif>Chirurgical</option>
-                  <option value="2" @if($service->type == 'Paramédical') selected @endif>Paramédical</option>
-                   <option value="3" @if($service->type == "Administratif") selected @endif>Administratif</option>
+                <select id="type" name="type"  class="form-control selectpicker typServ">
+                  <option value="" @if($service->type == '') selected @endif>Fonctionnel</option>
+                  <option value="0" @if($service->type == '0') selected @endif>Médical</option>
+                  <option value="1" @if($service->type == '1') selected @endif>Chirurgie</option>
+                  <option value="2" @if($service->type == "2") selected @endif>Administratif</option>
+                </select> 
+              </div>
+            </div>
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif><label class="col-sm-3 control-label">Spécialite</label>
+              <div class="col-sm-9">
+                <select id="specialite_id" nom="specialite_id" class="form-control selectpicker">
+                <option value=""disabled>---Selectionner---</option>
+                @foreach($specs as $spec)
+                <option id ="{{ $spec->id}}" {{ ($service->specialite_id == $spec->id) ? 'selected' :'' }}> {{ $spec->nom }}</option>
+                @endforeach
                 </select> 
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="type">Chef</label>
               <div class="col-sm-9">
-                <select id="responsable_id" name="responsable_id"  class="form-control selectpicker">
-                  <option value="" selected disabled>Selectionner le chef</option>
-                  @foreach ($employs as $employ)
-                    <option value="{{ $employ->id}}" @if((isset($service->responsable_id)) && ($service->responsable_id == $employ->id)) selected @endif> {{ $employ->full_name }}</option>
+                <select id="responsable_id"  name="responsable_id" class="form-control selectpicker">
+                  <option value="" selected disabled>Selectionner le chef du service</option>
+                  @foreach ($users as $user)
+                  <option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
                   @endforeach
-                </select> 
+                </select>  
               </div>
             </div>
-            <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
-              <label class="col-sm-3 col-control-label" for="hebergement">Hébergement</label>
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
-                <label>
-                  <input name="hebergement" value="0" type="radio" class="ace" @if(!($service->hebergement)) checked @endif/><span class="lbl">Non</span></label> 
-                <label>
-                  <input name="hebergement" value="1" type="radio" class="ace" @if($service->hebergement) checked @endif/><span class="lbl">Oui</span></label>              
+                 <div class="checkbox col-sm-offset-4">
+                <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}> <span class="lbl">Hébergement</span></label>
+                </div>          
               </div>
             </div>
-            <div class="form-group medChirservice @if($service->type == 2) hidden @endif row">
-              <label class="col-sm-3 col-control-label" for="urgence">Urgence</label>
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
-                <label>
-                  <input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif/><span class="lbl">Non</span></label>
-                <label>
-                  <input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif/><span class="lbl">Oui</span></label>
+                <div class="checkbox col-sm-offset-4">
+                <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}><span class="lbl">Urgence</span></label></div>
               </div>
             </div>
             <div class="row center">
-              <button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
-              <button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i> Annuler</button>
+              <button class="btn btn-xs btn-primary" type="submit" id="serSave" value="update"><i class="ace-icon fa fa-save"></i> Enregistrer</button> 
+              <button class="btn btn-xs btn-warning" type="reset"><i class="ace-icon fa fa-undo"></i> Annuler</button>
             </div>
           </form>
         </div>
@@ -64,34 +69,3 @@
     </div>
   </div>
 </div>
-@if($service->salles->count() > 0)
-<div class="row">
-  <div class="col-xs-12">
-    <div class="widget-box">
-      <div class="widget-header">
-      <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i> les  chambres du service &quot;{{ $service->nom}} &quot;</h5></div>
-      </div>
-      <div class="widget-body">
-        <div class="widget-main no-padding">
-        <table class="table-bordered table-hover irregular-header table-responsive dataTable" id="liste_sorties" style="width:100%">
-          <thead class="thin-border-bottom thead-light">
-            <tr>
-                <th class="center">Numéro</th><th class="center">Nom</th><th class="center">Nombre de lits</th>  
-            </tr>    
-          </thead>
-          <tbody>
-           @foreach ($service->salles as $salle) 
-          <tr>
-            <td>{{ $salle->num }}</td>
-            <td><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a></td>
-            <td class="center"><span class="badge badge-info">{{ count($salle->lits) }}</span></td>
-          </tr>
-          @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-@endif

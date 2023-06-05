@@ -12,13 +12,22 @@ $(function(){
 <div class="container-fluid">
   <div class="page-header"> @include('patient._patientInfo')</div>
   <div class="row">
-    <div class="col-sm-5"><h4>Détails de la demande d'examens radiologiques</h4></div>
-    <div class="col-sm-7 pull-right btn-toolbar"> 
-      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+  <div class="col-sm-12">
+    <h1>Détails de la demande d'examens radiologiques</h1>
+    <div class="pull-right"> 
+    @if(Auth::user()->is(12))
+       <a href="{{ route('home')}}" class="btn btn-xs btn-white"><i class="fa fa-search"></i> Rechercher</a>
+       @else
+       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
+    @endif
       @if((!$demande->hasResult()) && (( $demande->imageable->medecin->id == Auth::user()->employ->id)))
-       <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-sm btn-success pull-right"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
+       <a href="{{ route('demandeexr.edit',$demande->id )}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
        @endif
-      <a href="{{ route('consultations.show',$demande->imageable->id)}}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+        @if( Auth::user()->is(12) )
+         <a href="/details_exr/{{ $demande->id }}" class="btn btn-xs btn-info  {!! $isInprog($demande) !!}"> <i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i>Attacher</a>
+      @endif
+       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-xs btn-success"><i class="ace-icon fa fa-print"></i> Imprimer</a>
+    </div>
     </div>
   </div><hr>
   <div class="row ">
@@ -68,7 +77,8 @@ $(function(){
                                 <button type="button" class="btn btn-info btn-xs dicom_viewer" value="{{ $ex->resultat }}" title="Voir le résultat">
                                   <i class="ace-icon fa fa-eye-slash"></i></button>
                                 @endif
-                                <a href='/storage/files/{{ $ex->resultat }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
+                                 <a href="{{ route('resultRad.download',$ex->id)}}" class="btn btn-info btn-xs" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
+                                <i class="fa fa-download"></i></a>
                                 @break
                               @case('Rejeté')
                                 <a href="#" class="btn btn-xs show-details-btn green" title="Afficher Details" data-toggle="collapse" id="{{ $index }}" data-target=".{{$index}}collapsed" ><i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>  

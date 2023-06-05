@@ -27,7 +27,7 @@
             <a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier"><i class="fa fa-edit blue"></i></a>
             <a id="printRdv" href ="/rdvprint/{{ $rdv->id}}"  target="_blank"class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a>
             @else
-    <a class="btn btn-bold btn-xs btn-danger{!! $$isInprog ($rdv)!!}" href="{{ route('rdv.destroy',$rdv->id )}}" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"><i class="fa fa-trash"></i></a>
+    <a class="btn btn-bold btn-xs btn-danger{!! $isInprog ($rdv)!!}" href="{{ route('rdv.destroy',$rdv->id )}}" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"><i class="fa fa-trash"></i></a>
             @endif
 				    </td>
 					</tr>

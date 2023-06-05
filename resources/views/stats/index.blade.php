@@ -9,12 +9,8 @@
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     border-color: #e9e9e9;
   }
-  .widget .widget-body {
-    padding: 20px;
-  }
-  .pull-left {
-    float: left!important;
-  }
+  .widget .widget-body { padding: 20px; }
+  .pull-left { float: left!important; }
 </style>
 @stop
 @section('main-content')
@@ -118,7 +114,7 @@
       <div class="widget">
         <div class="widget-title">
           <i class="fa fa-stethoscope"></i> Consultaions / Jour
-          <a class="pull-right" href="{{route('stats.search',1)}}">Plus de statistiques</a><div class="clearfix"></div>
+          <a class="pull-right blue" href="{{route('stats.search',1)}}">Plus de statistiques</a><div class="clearfix"></div>
         </div>
         <div class="widget-body medium no-padding"><canvas id = "canvasconsul"></canvas></div>
       </div>
@@ -127,7 +123,7 @@
       <div class="widget">
         <div class="widget-title">
           <i class="menu-icon material-icons">local_hospital</i>Nombre d'hospitalisation
-          <a class="pull-right" href="{{route('stats.search',2)}}">Plus de statistiques</a><div class="clearfix"></div>
+          <a class="pull-right blue" href="{{route('stats.search',2)}}">Plus de statistiques</a><div class="clearfix"></div>
         </div>
         <div class="widget-body medium no-padding"><canvas id = "Hospcanvas"></canvas></div>   
       </div>
@@ -137,7 +133,7 @@
     <div class="col-lg-6">
       <div class="widget">
         <div class="widget-title"><i class="fa fa-bed"></i> Lits
-        <a class="pull-right" href="{{route('stats.search',3)}}">Plus de statistiques</a>
+        <a class="pull-right blue" href="{{route('stats.search',3)}}">Plus de statistiques</a>
       </div>
       <div class="widget-body medium no-padding">
         <canvas id = "canvaslit" height="230" width="600"></canvas>

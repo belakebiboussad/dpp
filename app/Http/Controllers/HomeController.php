@@ -111,13 +111,8 @@ class HomeController extends Controller
              break;
        }
     }
-    public function flash()
+    public function print( $className,$objId,$stateId)
     {
-      flashy()->success('You get success notification.', 'hdtuto.com');
-      return view('flash');
-    }
-      public function print( $className,$objId,$stateId)
-      {
         $model_prefix="App\modeles\\";
         $filename ; $pdf;
         $modelName = $model_prefix.$className;
@@ -148,6 +143,7 @@ class HomeController extends Controller
                   break;
             case "6"://Certificat sejour
                   $filename = "CJ-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
+                 
                   $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etab'));
                   break;
             case "7"://Demande orientation

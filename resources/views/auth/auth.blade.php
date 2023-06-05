@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('partials.htmlheader')
+@include('partials.head')
 @include('partials.scripts')
 <body class="login-layout light-login" style="background-image: url({{ asset('/avatars/hop.jpg') }}); background-size: cover;">
 <div class="main-container">
@@ -19,15 +19,14 @@
           <div class="position-relative">
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                  <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                  </ul>
                 </div>
             @endif
-            @include('flashy::message')
+        {{--     @include('flashy::message') --}}
             @yield('content')
           </div><!-- /.position-relative -->    
         </div>

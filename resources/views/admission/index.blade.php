@@ -116,9 +116,9 @@
     var rows ="";
     var disabled = 'disabled';
     var filter= new Date($("#date").val());
-    if(areSameDate(dt, filter))
-      disabled ='';
     var bedAffect = getBedAffectation(rdv.demande_hospitalisation.bed_affectation);
+     if(areSameDate(dt, filter) &&(rdv.demande_hospitalisation.bed_affectation!=null))
+      disabled ='';
     var actions ='<button type="button" class="btn btn-info btn-sm" onclick = "admValidfct(1,' + rdv.id + ')" title = "Valider l\'admission du patient" data-placement="bottom" '+ disabled +'><i class="fa fa-check"></i></button>';
     rows += '<tr id="adm-'+ rdv.id_demande +'"><td hidden>'+ rdv.id + '</td><td>';
     rows +=  rdv.demande_hospitalisation.consultation.patient.full_name +'</td><td>';
@@ -146,7 +146,6 @@
       success: function(data) {
         var admissions = $('#rdvs').empty();
         $('#total_records').text(data.length);
-        
         if(data.length > 0){
           $.each(data,function(key,rdv){
             rows +=  fill(rdv);
@@ -188,22 +187,22 @@
 	<div class="col-sm-12 col-md-12">
   	<div class="panel panel-default"><div class="panel-heading">Rechercher une admission</div>
     	<div class="panel-body">
-                <div class="row">
-                   <div class="col-sm-4">
-              			<div class="form-group"><label class="control-label">Date :</label>
-            			    <div class="input-group">
-            			      <input type="text" id ="date" class="date-picker form-control filter" value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
-            					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-              				</div>
-          	        </div>
-                	</div>
-            		 <div class="col-sm-4">
-                  <div class="form-group"><label class="control-label">IPP:</label><input type="text" id="IPP" class="form-control filter"></div>
-                </div>	
-            	</div>
+        <div class="row">
+           <div class="col-sm-4">
+      			<div class="form-group"><label class="control-label">Date</label>
+    			    <div class="input-group">
+    			      <input type="text" id ="date" class="date-picker form-control filter" value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
+                <span class="input-group-addon fa fa-calendar"></span> 
+    					 </div>
+  	        </div>
+        	</div>
+    		 <div class="col-sm-4">
+          <div class="form-group"><label class="control-label">IPP</label><input type="text" id="IPP" class="form-control filter"></div>
+        </div>	
+    	</div>
     	</div>
         	<div class="panel-footer">
-        		<button type="submit" class="btn btn-sm btn-primary admiSearch"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+        		<button type="submit" class="btn btn-sm btn-primary admiSearch"><i class="fa fa-search"></i> Rechercher</button>
         	</div>
   	</div>
 	</div>

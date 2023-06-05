@@ -29,7 +29,6 @@ class ActeController extends Controller
     { 
       return $acte;
     }
-/*public function show($id)  {$consigne = consigne::FindOrFail($id);return view('consigne.show_consigne',compact('consigne')); }*/
     public function update(Request $request, $id )//Acte $acte
     {
       $acte = Acte::find($id);

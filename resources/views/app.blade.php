@@ -1,148 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <title>@yield('title','Dossier patient')</title>
-  @include('partials.htmlheader')
+  @include('partials.head')
   @yield('style')
 </head>
 <body class="no-skin">
   @include('partials.navbar')
   @include('partials.scripts')
-  @include('flashy::message')
-  <div class="main-container" id="main-container">
+   <div class="main-container" id="main-container">
   <script type="text/javascript">
     try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-    function activaTab(tab){
-      $('.nav-pills a[href="#' + tab + '"]').tab('show');
-    }
-    function createRDVModal(debut, fin, pid = 0, fixe=1)
-    { 
-        var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-        var fin = moment(fin).format('YYYY-MM-DD HH:mm');
-        if(pid !== 0)
-        {
-          if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')
-          {
-            var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
-            var url = "{{ route('rdv.store') }}"; 
-            $.ajax({
-                type : 'POST',
-                url :url,
-                data:formData,
-                success:function(data){         
-                  var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-                  $('.calendar').fullCalendar( 'renderEvent',  {
-                          title: data['patient']['full_name']+" ,("+data['age']+" ans)",
-                          start: debut,
-                          end: fin,
-                          id : data['rdv']['id'],
-                          idPatient:data['patient']['id'],
-                          fixe: data['rdv']['fixe'],
-                          tel:data['patient']['tele_mobile1'] ,
-                          age:data['age'],
-                          specialite: data['rdv']['specialite_id'],
-                          civ : data['patient']['civ'],
-                          allDay: false,
-                          color:color
-                  });//calendar1
-                },
-                error: function (data) {
-                  console.log('Error:', data);
-                }
-            });
-          }else
-            showRdvModal(debut,fin,pid,fixe); 
-        }else
-          showRdvModal(debut,fin,0,fixe); 
-    }
-    function copyPatient(){ 
-      $("#asdemogData").addClass('hidden');
-      $("#foncform").addClass('hidden');
-    }
-    function checkPatient()
-    {
-      var erreur =true;
-      var nom = $('#nom').val();
-      var prenom = $('#prenom').val();
-      var type = $('#type').val();
-      var inputAssVal = new Array(type,prenom,nom);
-      var inputMessage = new Array('Type',"Prenom","Nom");
-      $('.error').each(function(i, obj) {
-        $(obj).next().remove();
-        $(obj).detach();
-      });
-      jQuery.each( inputAssVal, function( i, val ) {
-        if(val =="" )
-        {
-          erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-        }
-     });
-     return erreur;
-    }
-    function checkAssureOrg()
-    {
-      var erreur =true;
-      var nss = $('#nss').val();
-      var prenomf = $('#prenomf').val();
-      var nomf = $('#nomf').val();
-      inputAssVal = new Array(nss,prenomf,nomf);
-      inputMessage.push("Numèro de Secruté Social", "Prénom","Nom");
-      $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-      jQuery.each( inputAssVal, function( i, val ) {
-        if(val =="" )
-        {
-          erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-        }
-      });
-     return erreur;
-    }
-    function checkAssure()
-    {
-      var erreur =true;
-      var nss = $('#nss').val();
-      var inputAssVal = new Array(nss);
-      var inputMessage = new Array("Numèro de Secruté Social");
-      if($("#type").val() != 0)
-      {
-        var prenomf = $('#prenomf').val();
-        var nomf = $('#nomf').val();
-        inputAssVal.push(prenomf,nomf);
-        inputMessage.push("Prenom","Nom");
-      }
-      $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-      jQuery.each( inputAssVal, function( i, val ) {
-        if(val =="" )
-        {
-          erreur =false;
-          $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-        }
-      });
-      return erreur;
-    }
-    function  checkHomme(){
-        var erreur =true;
-        var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-        var type_piece_id = $('#type_piece_id').val();
-        var npiece_id = $('#npiece_id').val();
-        mobileA = $('#mobileA').val();
-        var inputHomVal = new Array(npiece_id,type_piece_id,mobileA,prenomA,nomA);
-        var inputHomMessage = new Array("Numero de la pièce","Type de la pièce","Téléphone mobile","Prenom","Nom");
-        $('.error').each(function(i, obj) {
-              $(obj).next().remove();
-              $(obj).detach();
-       });
-        jQuery.each( inputHomVal, function( i, val ) {
-             if(val =="" )
-            {
-                   erreur =false;
-                  $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-             }
-        });   
-       return erreur;
-    }
     function getProducts(id_gamme, id_spec=0,med_id = 0)
     {
       var html = '<option value="" selected disabled>Sélectionner...</option>';
@@ -269,50 +138,52 @@
   });
   $("#changePassword").click(function (e) {
     e.preventDefault();
-     var formData = new FormData($('#userChangePasswordForm')[0]);
-    formSubmit($('#userChangePasswordForm')[0]), null, function(xhr, form) {
-      if (xhr.success) {//$("#changePassword").addClass("disabled");
-        window.location.href = "{{ route("home") }}";  
-      }
-    }
-   });
+    formSubmit($('#userChangePasswordForm')[0], this, function(xhr, form) {
+      if (xhr.success) {  // window.location.href = "{{-- route("home") --}}";  
+        location.reload(true);
+      } 
+    });
+  })
+  $('#passwordResetbtn').click(function(e){//change by admin
+      e.preventDefault();
+      formSubmit($('#changePWD')[0], this, function(xhr, form) {
+    }) 
   });
+})
 </script>
         @yield('page-script')
-        @if( Auth::user()->role_id == 1)
-               @include('partials.sidebar_med')
-        @elseif(in_array( Auth::user()->role_id,[2,15]))
-            @include('partials.sidebar_rec')
-        @elseif(Auth::user()->role_id == 4)
-              @include('partials.sidebar')
-        @elseif(Auth::user()->role_id == 5)
-               @include('partials.sidebar_sur')    
-        @elseif(Auth::user()->role_id == 6) 
-            @include('partials.sidebar_dele')
-         @elseif(Auth::user()->role_id == 8) 
-            @include('partials.sidebar_dir')           
-        @elseif(Auth::user()->role_id == 9)
-            @include('partials.sidebar_agent_admis')
-        @elseif(Auth::user()->role_id == 10)
-            @include('partials.sidebar_pharm')
-        @elseif(Auth::user()->role_id == 13)
+        @if( Auth::user()->is(1))
             @include('partials.sidebar_med')
-        @elseif(Auth::user()->role_id == 3)
+        @elseif(Auth::user()->isIn([2,15]))
+            @include('partials.sidebar_rec')
+        @elseif(Auth::user()->is(4))
+              @include('partials.sidebar')
+        @elseif(Auth::user()->is(5))
+               @include('partials.sidebar_sur')    
+        @elseif(Auth::user()->is(6)) 
+            @include('partials.sidebar_dele')
+         @elseif(Auth::user()->is(8)) 
+            @include('partials.sidebar_dir')           
+        @elseif(Auth::user()->is(9))
+            @include('partials.sidebar_agent_admis')
+        @elseif(Auth::user()->is(10))
+            @include('partials.sidebar_pharm')
+        @elseif(Auth::user()->is(13))
+            @include('partials.sidebar_med')
+        @elseif(Auth::user()->is(3))
             @include('partials.sidebar_inf')
-         @elseif(Auth::user()->role_id == 11)
+         @elseif(Auth::user()->is(11))
             @include('partials.sidebar_laboanalyses')    
-        @elseif(Auth::user()->role_id == 12)
+        @elseif(Auth::user()->is(12))
             @include('partials.sidebar_radiologue')
-        @elseif(Auth::user()->role_id == 14)
+        @elseif(Auth::user()->is(14))
             @include('partials.sidebar_med')           
         @endif
         <div class="main-content">
-            <div class="main-content-inner">
-              {{-- @include('partials.breadcrumbs') --}}
-                <div class="page-content">
-                  @include('flashy::message')
-              	  @yield('main-content')
-                </div>
+            <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
+              <div class="page-content">
+               	 @yield('main-content')
+              </div>
             </div>
         </div><!-- /main-content -->
         <div>{{-- @include('partials.footer') --}}

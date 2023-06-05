@@ -13,37 +13,23 @@
   </style>
 @stop
 @section('page-script') {{-- src="http://192.168.1.194:90/Scripts/jquery.signalR-1.1.3.min.js" --}}
-{{--<script type="text/javascript" src="{{asset('/js/jquery.signalR.min.js')}}"></script>
-<script type="text/javascript" src="{{ $borneIp }}/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>  --}}
 @include('rdv.scripts.js')
 <script>
 function resetPatient()
 {
-     $("#livesearch").html("");
-     $("#pat-search").val("");
-      if('{{ $appointDoc }}' != null)
-           $("#employ_id").empty() .empty().append('<option selected="selected" value="">Selectionner...</option>');
-        //tester
-     if (!($("#btnSave").is(":disabled")))
-     {
-            $("#btnSave").prop('disabled',true);  $('#pat_id').val('');   
-    }
+  $("#livesearch").html("");
+  $("#pat-search").val("");
+  $('#pid').val(''); 
 }
 var loaded;
 function reset_in(){
-  $("#filtre").val('');
   $("#pat-search").attr("disabled", true);
-  $("#btnSave").attr("disabled", true);
-  if('{{ Auth::user()->role_id == 2 }}')
-  {
-    $('#specialite').val('');
-    $("#filtre").attr("disabled", true);
-  }
+  $('#addRDVModal form')[0].reset(); 
   resetPatient();
 }
 function getPatient()
 {
-  var spec ='{{  in_array(Auth::user()->role_id,[1,13,14]) }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var spec ='{{ Auth::user()->isIn([1,13,14])}}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();
   var ajaxurl = '{{ URL::to('getPatients') }}';
   $.ajax({
@@ -61,26 +47,89 @@ function getPatient()
         }
   });
 }
-$(function () {
-      if(loaded)
-      {
-              $.connection.hub.url = '{{-- $borneIp--}}/myhubs';
-              // $.connection.hub.url = 'http://192.168.1.194:90/myhubs';// $.connection.hub.url = 'http://192.168.1.244:90/myhubs';
-              // Connect Hubs without the generated proxy
-              var chatHubProxy = $.connection.myChatHub;
-              $.connection.hub.start().done(function (e) {
-                    console.log("Hub connected.");
-                    $("#printTck").click(function(){ //var spec = $('#specialite').find(":selected").val();
-                        var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
-                        chatHubProxy.server.send(barcode);       
-                    });
-                }).fail(function () {
-                  console.log("Could not connect to Hub.");
-                });
-      }
-});
-
+function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
+{ 
+  var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+  var fin = moment(fin).format('YYYY-MM-DD HH:mm');
+  if(pid !== 0)
+  {
+    if('{{ Auth::user()->isIn([1,13,14])}}')
+    {
+      var formData = { _token: CSRF_TOKEN, pid:pid, date:debut, fin:fin, fixe:fixe  };
+      var url = "{{ route('rdv.store') }}"; 
+      $.ajax({
+          type : 'POST',
+          url :url,
+          data:formData,
+          success:function(data){         
+            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+            $('.calendar').fullCalendar( 'renderEvent',  {
+                  title: data['patient']['full_name']+" ,("+data['age']+" ans)",
+                  start: debut,
+                  end: fin,
+                  id : data['rdv']['id'],
+                  idPatient:data['patient']['id'],
+                  fixe: data['rdv']['fixe'],
+                  tel:data['patient']['tele_mobile1'] ,
+                  age:data['age'],
+                  specialite: data['rdv']['specialite_id'],
+                  civ : data['patient']['civ'],
+                  allDay: false,
+                  color:color
+            });
+          }
+      });
+    }else
+      showRdvModal(debut,fin,pid,fixe); 
+  }else
+    showRdvModal(debut,fin,0,fixe); 
+}
+function checkRdv()
+{
+  var erreur =true;
+  var pid = $('#pid').val();
+  var inputRDVVal = new Array(pid);
+  var inputRDVMessage = new Array("Patient");
+  if('{{ Auth::user()->is(15) }}')
+  {
+    var specialite = $('#specialite').val();
+    inputRDVVal.push(specialite);
+    inputRDVMessage.push("Specialite médicale");
+  }
+  if(('{{ Auth::user()->is(15) }}')&&($('#medecinRequired').val() ==1))
+  {
+    var medecin = $('#employ_id').val();
+    inputRDVVal.push(medecin);
+    inputRDVMessage.push("Médecin");
+  }
+  $('.error').each(function(i, obj) {
+    $(obj).next().remove();
+    $(obj).detach();
+  });
+  jQuery.each( inputRDVVal, function( i, val ) {
+    if(val =="" || val ==null )
+    {
+      erreur =false;
+      $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputRDVMessage[i]+'<br/>');
+    }
+  }); 
+  return erreur;
+}
 $(function() {
+  if(loaded)
+  {
+    $.connection.hub.url = '{{-- $borneIp--}}/myhubs';// Connect Hubs without the generated proxy
+    var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function (e) {
+          console.log("Hub connected.");
+          $("#printTck").click(function(){
+              var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|" + $("#specialiteId").val()+"|" + $("#daterdvHidden").val();
+              chatHubProxy.server.send(barcode);       
+          });
+      }).fail(function () {
+        console.log("Could not connect to Hub.");
+      });
+  }
    $("#showfullCalModal").on('hide.bs.modal', function(){
         $('#specialiteId').val('');
         $('#printRdv').attr("data-id",'');
@@ -118,159 +167,134 @@ $(function() {
         displayEventTime : false,
         views: {},
         events :[
-                @foreach($rdvs as $key =>   $rdv)
-                {
-                    title : '{{ $rdv->patient->full_name }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
-                    start : '{{ $rdv->date }}',
-                    end:   '{{ $rdv->fin }}',
-                    id :'{{ $rdv->id }}',
-                    idPatient:'{{ $rdv->patient->id}}',
-                    fixe:  {{ $rdv->fixe }},
-                    tel:'{{$rdv->patient->tele_mobile1}}',
-                    age:{{ $rdv->patient->age }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
-                    specialite: {{ $rdv->specialite_id }},
-                    civ : {{ $rdv->patient->civ }},  // key :(isEmpty({{-- $rdv->employ_id --}}))? "":'{{-- $key --}}'
-                },
-               @endforeach   
+            @foreach($rdvs as $key =>   $rdv)
+            {
+              title : '{{ $rdv->patient->full_name }} ' +', ('+{{ $rdv->patient->age }} +' ans)',
+              start : '{{ $rdv->date }}',
+              end:   '{{ $rdv->fin }}', id :'{{ $rdv->id }}',
+              idPatient:'{{ $rdv->patient->id}}',fixe:  {{ $rdv->fixe }},
+              tel:'{{$rdv->patient->tele_mobile1}}',age:{{ $rdv->patient->age }},
+              specialite: {{ $rdv->specialite_id }},civ : {{ $rdv->patient->civ }} 
+            },
+           @endforeach   
         ], 
         select: function(start, end) {
-                var minutes = end.diff(start,"minutes"); 
-                if( (minutes == 15) && (start >=today ))//CurrentDate
+          var minutes = end.diff(start,"minutes"); 
+          if( (minutes == 15) && (start >=today ))//CurrentDate
+          {
+            if('{{ Auth::user()->isIn([1,13,14]) }}')                                
+            {
+              Swal.fire({
+                  title: 'Confimer vous le Rendez-Vous?',
+                  html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD/MM/YYYY')+'</b></h4>',
+                  input: 'checkbox', inputValue: 1,
+                  inputPlaceholder: 'Redez-Vous Fixe', showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33', confirmButtonText: 'Oui',
+                  cancelButtonText: "Non",allowOutsideClick: false, showCloseButton: true
+              }).then((result) => {
+                if(!isEmpty(result.value))//indique rdv fixe ou pas
                 {
-                  if('{{ in_array(Auth::user()->role_id,[1,13,14]) }}')                                
-                  {
-                    Swal.fire({
-                        title: 'Confimer vous le Rendez-Vous?',
-                        html: '<br/><h4><b id="dateRendezVous">'+start.format('dddd DD/MM/YYYY')+'</b></h4>',
-                        input: 'checkbox',
-                        inputValue: 1,
-                        inputPlaceholder: 'Redez-Vous Fixe',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Oui',
-                        cancelButtonText: "Non",
-                        allowOutsideClick: false,
-                        showCloseButton: true
-                    }).then((result) => {
-                      if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
-                      {
-                        if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
-                          createRDVModal(start,end,'{{ $patient->id }}',result.value);
-                        else
-                          createRDVModal(start,end,0,result.value);
-                      }
-                    })
-                  }else
-                  {
-                    if('{{ $patient->id}}' != '') 
-                      createRDVModal(start,end,'{{ $patient->id }}',1);
-                    else
-                      createRDVModal(start,end,0,1);
-                  }
-                  resetPatient();
-                }else
-          $('.calendar').fullCalendar('unselect');
+                  if(('{{ $patient->id}}' !== null) && ('{{ $patient->id}}' !== ""))
+                    createRDVModal(start,end,'{{ $patient->id }}',result.value);
+                  else
+                    createRDVModal(start,end,0,result.value);  
+                }
+              })
+            }else
+            {
+              if('{{ $patient->id}}' != '') 
+                createRDVModal(start,end,'{{ $patient->id }}',1);
+              else
+               createRDVModal(start,end,0,1); 
+            }//resetPatient();
+          }else
+            $('.calendar').fullCalendar('unselect');
         },
         eventClick: function(calEvent, jsEvent, view) {
             if(Date.parse(calEvent.start) > today)
             {
-                    $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
-                      $("#lien").attr("href", '/patient/' + data.patient.id);//calEvent.idPatient
-                      $('#lien').text(calEvent.title); 
-                      $('#specialiteId').val(data.specialite.id);
-                      $('#nomPatient').val(data.patient.full_name);//$('#nomPatient').html(data.patient.full_name);
-                      $('#patient_tel').val(data.patient.tele_mobile1);//$('#patient_tel').html(calEvent.tel);
-                      $('#agePatient').val(data.patient.age); // $('#agePatient').html(calEvent.age); 
-                      $('#idRDV').val(calEvent.id);
-                      $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                      $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-                      $('#specialiteName').val(data.specialite.nom);
-                      (data.employe != null) ?$('#medecinName').val(data.employe.full_name):'';
-                      (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                      $('#civiliteCode').val(calEvent.civ);
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
-                      $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id));      
+              getAppwithDocParamVal(3,calEvent.specialite);
+              $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
+                $("#lien").attr("href", '/patient/' + data.patient.id);
+                $('#lien').text(calEvent.title); 
+                $('#specialiteId').val(data.specialite.id);
+                $('#nomPatient').val(data.patient.full_name);
+                $('#patient_tel').val(data.patient.tele_mobile1);
+                $('#agePatient').val(data.patient.age);
+                $('#idRDV').val(calEvent.id);
+                $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+                $('#specialiteName').val(data.specialite.nom);
+                (data.employe != null) ?$('#medecinName').val(data.employe.full_name):'';
+                (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                $('#civiliteCode').val(calEvent.civ);
+                $('#btnConsulter').attr('href','/consultations/create/'.concat(data.patient.id));
+                $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id));      
               });
               if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
               {
-                      if(loaded)
-                              if($('#printTck').hasClass( "hidden" ))
-                                   $('#printTck').removeClass('hidden');
-                             if(!$('#printRdv').hasClass( "hidden" ))
-                                     $('#printRdv').addClass('hidden');
+                if(loaded)
+                        if($('#printTck').hasClass( "hidden" ))
+                             $('#printTck').removeClass('hidden');
+                       if(!$('#printRdv').hasClass( "hidden" ))
+                               $('#printRdv').addClass('hidden');
               }else
               {
-                      if(!$('#printTck').hasClass( "hidden" ))
-                            $('#printTck').addClass('hidden');
-                      if($('#printRdv').hasClass( "hidden" ))
-                           $('#printRdv').removeClass('hidden');
+                if(!$('#printTck').hasClass( "hidden" ))
+                      $('#printTck').addClass('hidden');
+                if($('#printRdv').hasClass( "hidden" ))
+                     $('#printRdv').removeClass('hidden');
               }  
               $('#showfullCalModal').modal({ show: 'true' });
           }
       },
       eventRender: function (event, element, webData) {
-              if(event.start < today)
-                    element.css('background-color', '#D3D3D3');  
-              else
-              {
-                      if(event.fixe>0)
-                              element.css('background-color', '#3A87AD'); //#D6487E
-                      else
-                              element.css('background-color', '#D6487E');
+        if(event.start < today)
+              element.css('background-color', '#D3D3D3');  
+        else
+        {
+          if(event.fixe>0)
+                  element.css('background-color', '#3A87AD'); //#D6487E
+          else
+                  element.css('background-color', '#D6487E');
 
-                        element.css("padding", "5px");
-              }
-              element.popover({
-                  delay: { "show": 500, "hide": 100 },  // title: event.title,
-                  content: event.tel,
-                  trigger: 'hover',
-                  animation:true,
-                  placement: 'bottom',
-                  container: 'body',
-                  template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-            });       
+            element.css("padding", "5px");
+        }
+        element.popover({
+            delay: { "show": 500, "hide": 100 },  // title: event.title,
+            content: event.tel,
+            trigger: 'hover',
+            animation:true,
+            placement: 'bottom',
+            container: 'body',
+            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+      });       
       },
       eventMouseover: function(event, jsEvent, view) {
       }
-    });//calendar //fincalendar 
-    $('#btnSave').on('click keyup', function(e) {
-          url ="{{ route('rdv.store') }}";
-          var formData = {
-             _token: CSRF_TOKEN,
-              date:$('#date').val(),
-              fin:$('#fin').val(),
-              pid:$('#pat_id').val(),
-              fixe :$('#fixe').val()
+    });//fincalendar 
+    $('#rdvSaveBtn').on('click keyup', function(e) {
+      if(false)//!checkRdv()
+      {
+        resetPatient();
+        e.preventDefault();
+      }
+      else
+      {
+        formSubmit($('#addRdv')[0], this, function(status, data) {
+          if (status == "success" && ($.isEmptyObject(data.errors))) {
+            $('.calendar').fullCalendar( 'renderEvent', {
+              title: data.rdv.patient.full_name+" ,(" + data.rdv.patient.age + " ans)",
+              start: data.rdv.date, end: data.rdv.fin,id : data.rdv.id,
+              idPatient:data.rdv.patient.id,fixe: data.rdv.fixe, tel:data.rdv.patient.tele_mobile1 ,
+              age:data.rdv.patient.age, specialite: data.rdv.specialite_id,civ:data.rdv.patient.civ, 
+              color:(data.rdv.fixe > 0) ? '#3A87AD':'#D6487E',
+            });
           }
-          if('{{ Auth::user()->role_id }}' == 15)
-          {
-            formData.specialite = $('#specialite').val();
-            if('{{ $appointDoc }}' != null)
-              formData.employ_id = $('#employ_id').val();
-          }
-          $.ajax({
-            type:"POST",
-            url:url,
-            data:formData,
-            success:function(data){      
-                var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-                $('.calendar').fullCalendar( 'renderEvent', {
-                    title: data['patient']['full_name']+" ,(" + data['patient']['age'] + " ans)",
-                    start: formData.date,
-                    end: formData.fin,
-                    id : data['rdv']['id'],
-                    idPatient:data['patient']['id'],
-                    fixe: data['rdv']['fixe'],
-                    tel:data['patient']['tele_mobile1'] ,
-                    age:data['age'],
-                    specialite: data['rdv']['specialite_id'],
-                    civ:data['patient']['civ'],    
-                    color:color,
-                });
-                resetPatient();
-            },
-      })
+          resetPatient();
+        });
+      }
     });
   });
 </script>

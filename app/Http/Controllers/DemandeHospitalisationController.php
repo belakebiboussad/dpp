@@ -29,11 +29,11 @@ class DemandeHospitalisationController extends Controller
       public function index()
       {
         $specialiteID = (employ::findOrFail(Auth::user()->employe_id))->Service->specialite_id;
-        if(Auth::user()->role_id == 6)
+        if(Auth::user()->is(6))
           $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->whereNull('etat')->get();  
         else
         {
-          if(in_array(Auth::user()->role_id,[14])) 
+          if(Auth::user()->is(14)) 
           {
             $demandes = DemandeHospitalisation::where('specialite',$specialiteID)->get();  
           }

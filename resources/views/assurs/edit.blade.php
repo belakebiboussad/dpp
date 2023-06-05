@@ -8,8 +8,7 @@
 	</h1>
 	<div class="pull-right">
 		<a href="{{route('assur.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un fonctionnaire
-		</a>
+			<i class="fa fa-search"></i> Rechercher</a>
 	</div>
 </div>
 <form action="{{ route('assur.update',$assure ->id) }}" method="POST">

@@ -47,15 +47,11 @@ function storeord()
   }
   var champ = $("<input type='text' name ='listMeds' value='"+JSON.stringify(ordonnance)+"' hidden>");
   champ.appendTo('#consultForm');
-}
-function resetField()
-{
-  $("#description").val('');$('#dateAntcd').val('');
-}
+}/*function resetField(){ $("#description").val('');$('#dateAntcd').val('');}*/
 function addmidifun()
 {
   var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
-  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button> ';
   med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
   $("#ordonnance").append(med);
   $("#posologie_medic").attr("disabled", true);
@@ -129,12 +125,10 @@ $(function(){
         { "targets": 3 ,  className: "dt-head-center dt-body-center" }
       ],
     });
-  $('#btn-addAntPhys').click(function () {// //antecedant Physiologique
-    $('#EnregistrerAntecedantPhys').val("add");
-    $('#modalFormDataPhysio').trigger("reset");
-    $('#AntecPhysCrudModal').html("Ajouter un antécédent");
-    $('#antecedantPhysioModal').modal('show');
-  });
+    $('.modal').on('hidden.bs.modal', function(e)
+    { 
+     $(this).find('form')[0].reset();
+    })
   $("#EnregistrerAntecedant").click(function (e) {
     e.preventDefault();
     if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
@@ -183,25 +177,21 @@ $(function(){
           if(data.Antecedant == "Personnels")
           {
             var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.description + '</td>';
-              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              atcd += '<td class ="center"><button class="btn btn-xs btn-success open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
           }else
           {
             var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.pid + '</td><td>' + data.date + '</td><td>' +data.cim_code
                 + '</td><td>' + data.description + '</td>';
-            atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+            atcd += '<td class ="center"><button class="btn btn-xs btn-success open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
           }
-            if (state == "add")
-              $('#' + tabName+' tbody').append(atcd);
-            else
-              $("#atcd" + atcd_id).replaceWith(atcd);
-            $('#modalFormAnt').trigger("reset");
-            $('#antecedantModal').modal('hide');
-        },
-        error: function (data) {
-            console.log('Error:', data);
-         }
+          if (state == "add")
+            $('#' + tabName+' tbody').append(atcd);
+          else
+            $("#atcd" + atcd_id).replaceWith(atcd);
+           $('#antecedantModal').modal('hide');
+        }
         });
       }          
     });
@@ -221,6 +211,21 @@ $(function(){
         $('#AntecCrudModal').html("Editer un Antecedant");  
         $('#EnregistrerAntecedant').val("update"); 
         $('#antecedantModal').modal('show');
+      });
+    });
+    $('body').on('click', '.open-modalFamil', function (event) {
+      event.preventDefault();
+      var atcd_id = $(this).val();
+      $.get('/atcd/' + atcd_id, function (data) { 
+        $('#atcd_id').val(data.id);
+        $('#dateAntcd').val(data.date);
+        $('#cim_code').val(data.cim_code);
+        $('#description').val(data.description);
+        if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+          $( "#atcdsstypehide" ).addClass("hidden"); 
+        $('#EnregistrerAntecedant').val("update");
+        $("#EnregistrerAntecedant").attr('data-atcd',"Famille") 
+         $('#antecedantModal').modal('show');
       });
     });
     $("#EnregistrerAntecedantPhys").click(function (e) {
@@ -254,19 +259,17 @@ $(function(){
           data: formData,
           dataType: 'json',
           success: function (data) {
-              var tabac = data.tabac != 0 ? 'Oui' : 'Non';
-              var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
-              var atcd = '<tr id="atcd' + data.id + '"><td>' + data.date+'</td><td>' + data.cim_code + '</td><td>' + tabac + '</td><td>'+ ethylisme + '</td><td>'+ data.habitudeAlim + '</td><td>'+data.description +'</td>';
-              atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>&nbsp;';
-              atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>';
-              if (state == "add")
-                $('#antsPhysTab tbody').append(atcd);
-              else 
-                $("#atcd" + atcd_id).replaceWith(atcd);
-              $('#antecedantPhysioModal').modal('hide');
-          },
-          error: function (data) {
-            console.log('Error:', data);
+            var tabac = data.tabac != 0 ? 'Oui' : 'Non';
+            var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
+            var atcd = '<tr id="atcd' + data.id + '"><td>' + data.date+'</td><td>' + data.cim_code + '</td><td>' + tabac + '</td><td>'+ ethylisme + '</td><td>'+ data.habitudeAlim + '</td><td>'+data.description +'</td>';
+            atcd += '<td class ="center"><button class="btn btn-xs btn-success Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button> ';
+            atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td></tr>';
+            if (state == "add")
+              $('#antsPhysTab tbody').append(atcd);
+            else 
+              $("#atcd" + atcd_id).replaceWith(atcd);
+             $('#modalFormAntPhysio')[0].reset();
+            $('#antecedantPhysioModal').modal('hide');
           }
       });
     });
@@ -299,7 +302,6 @@ $(function(){
           if (!confirmed) {
             Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
             title:'<strong>êtes-vous sûr ?</strong>',
-  
             type:'warning',
             html: '<br/><h4>Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours</h4><br/><hr/>',
             showCancelButton: true,
@@ -427,7 +429,7 @@ $(function(){
      <div class="row">
       <div class="col-sm12">
         <div class="center" style="bottom:0px;">
-          <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
+          <button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp;
           <a href="{{ route('consultations.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
         </div>
       </div>
@@ -435,8 +437,20 @@ $(function(){
   </form>
   </div>
 </div>
-@include('antecedents.AntecedantModal')@include('antecedents.AntecedantModalPhysio')
-@include('cim10.cimModalForm')@include('consultations.ModalFoms.DemadeHospitalisation')
+@if(count(array_intersect([1,3], $specialite->antecTypes()->pluck('id')->toArray())) > 0)
+  @include('antecedents.ModalFoms.AntecedantModal')
+@endif
+@if(in_array(2,$specialite->antecTypes()->pluck('id')->toArray()))
+@include('antecedents.ModalFoms.AntecedantModalPhysio')
+@endif
+@if(in_array(5,$specialite->antecTypes()->pluck('id')->toArray()))
+<div class="row">@include('antecedents.ModalFoms.motherModal')</div>
+@endif
+@if(in_array(8,$specialite->antecTypes()->pluck('id')->toArray()))
+@include('antecedents.ModalFoms.vaccinsModal')
+@endif
+@include('cim10.cimModalForm')
+@include('consultations.ModalFoms.DemadeHospitalisation')
 @include('consultations.ModalFoms.LettreOrientation')
 @include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')

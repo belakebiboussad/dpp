@@ -1,6 +1,6 @@
 <h4 class="header lighter block blue">Informations démographiques</h4>
 <div class="row demograph">
-	<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
+  <div class="form-group col-sm-6 {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
 			<input type="text" id="nom" name="nom" placeholder="Nom..." class="form-control"  value="{{ old('nom') }}" alpha/>
@@ -124,7 +124,7 @@
     <label class="control-label col-sm-4 col-xs-4" for="tel">Mob1 :</label>
     <div class="col-xs-12 col-sm-8">
       <div class="input-group">
-        <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <span class="input-group-addon fa fa-phone"></span>
         <input type="tel" name="mobile1" class="form-control mobile">
       </div>
     </div>
@@ -133,7 +133,7 @@
 			<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2 :</label>
 		  <div class="col-xs-12 col-sm-8">
       <div class="input-group">
-        <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span>
+        <span class="input-group-addon fa fa-phone"></span>
         <input type="tel" name="mobile2" class="form-control mobile">
       </div>
     </div>
@@ -143,13 +143,9 @@
 		<div class="col-sm-7 col-xs-7">
 			<select class="form-control" id="type" name="type">
 				<option value="" disabled selected>Selectionner...</option>
-				<option value="0">Assure</option>
-				<option value="1">Conjoint(e)</option>
-				<option value="2">Pere</option>
-				<option value="3">Mere</option>
-				<option value="4">Enfant</option>
-				<option value="5">Dérogation</option>
-				<option value="6">Autre</option>
+        @foreach($types as $type)
+          <option value="{{ $type->id }}"> {{ $type->nom }}</option>
+        @endforeach
 			</select>
 		</div>
 	</div>

@@ -19,7 +19,6 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "league/flysystem": "^1.0",
-        "mercuryseries/flashy": "^1.0",
         "mercuryseries/laravel-helpers": "^1.0",
         "milon/barcode": "^5.3",
         "symfony/http-client": "^5.4",
@@ -70,6 +69,9 @@
         "optimize-autoloader": true,
         "github-oauth": {
 
+        },
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     },
     "repositories": [

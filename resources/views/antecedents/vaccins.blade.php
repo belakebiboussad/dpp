@@ -25,7 +25,7 @@
 							<td>{{ $vac->nom}}</td>
 							<td>{{ $vac->pivot->date}}</td>
 							<td class="center">
-								<button type="button" class="btn btn-xs btn-info open-modalVacc" value="{{ $vac->id}}"><i class="fa fa-edit" aria-hidden="true"></i></button>
+								<button type="button" class="btn btn-xs btn-success open-modalVacc" value="{{ $vac->id}}"><i class="fa fa-edit" aria-hidden="true"></i></button>
 								<button type="button" class="btn btn-xs btn-danger delete-Vacc" value="{{ $vac->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o"></i></button> 
 							</td>
 						</tr>
@@ -36,4 +36,3 @@
 		</div>
 	</div>
 </div>
-<div class="row">@include('antecedents.ModalFoms.vaccinsModal')</div> 

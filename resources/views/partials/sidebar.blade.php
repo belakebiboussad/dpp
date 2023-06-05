@@ -59,15 +59,6 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
     $(function(){
-      $('body').on('change', '#type', function (e) {
-        if($(this).val() == 2)
-        {
-          if(!($( ".medChirservice" ).hasClass( "hidden" )))
-          $('.medChirservice').addClass("hidden");
-        }else
-          if($( ".medChirservice" ).hasClass( "hidden" ))
-            $('.medChirservice').removeClass("hidden");
-      });
       $('#id-publicEtab').on('click', function() {
         $('.etabPub').each(function(){
           if($(this ).hasClass( "hidden" ))
@@ -78,7 +69,17 @@
             $("#type_id").val("").change();$("#tutelle").val("");
           }
         });
-        });
+      });
+      $("#role").change(function (e) {
+        if(jQuery.inArray($(this).val(), ["1","10",'11',"12","13","14"] ) != -1){
+          if($('#specialite').hasClass( "hidden" ))
+            $("#specialite").removeClass("hidden");
+        }else
+        {
+          if(!$('#specialite').hasClass( "hidden" ))
+            $("#specialite").addClass("hidden");
+        }
+    });
     })
     </script>
 </div>

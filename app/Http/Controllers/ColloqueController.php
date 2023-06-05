@@ -46,10 +46,11 @@ class ColloqueController extends Controller
           if($q == '')
           
             return $colloques = colloque::with('employs','Service')
-                          ->whereNull($field)->where('service_id', $service->id)->get();
+                          ->whereNull($field)->whereServiceId($service->id)->get();
           else
-            return $colloques = colloque::with('employs','Service')->where($field,'LIKE',"%$q%")
-                                ->where('service_id', $service->id)->get();
+            return $colloques = colloque::with('employs','Service')
+                              ->where($field,'LIKE', "%$q%")//"%$q%"
+                              ->whereServiceId($service->id)->get();
         }else
           $colloques=colloque::with('employs','Service')->whereNull('etat')->where('service_id', $service->id)->get();  return view('colloques.index', compact('colloques','service'));
       }

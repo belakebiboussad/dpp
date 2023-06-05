@@ -4,13 +4,17 @@
   <div class="content">
   <div class="page-header"><h1>Détails de la demande d'examen biologique</h1>
     <div class=" pull-right">
-    <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
+      @if(Auth::user()->is(11))
+       <a href="{{ route('home')}}" class="btn btn-xs btn-white"><i class="fa fa-search"></i> Rechercher</a>
+       @else
+       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+    @endif
     @if($demande->imageable->medecin->id == Auth::user()->employ->id)
       <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
      <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! $isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
       @endif
-      @if( Auth::user()->is(11))
-  <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-sm btn-info{!! $isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
+      @if( Auth::user()->is(11) )
+        <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info{!! $isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
       @endif
     </div>
     </div>
@@ -64,7 +68,7 @@
                               @case('En Cours')
                                 @break
                               @case('Validée')
-                                <a href='/storage/files/{{ $demande->resultat }}' class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
+                                 <a href="{{ route('result.download',$demande->id)}}" class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom" target="_blank">
                                 <i class="fa fa-download"></i></a>
                                 @if( isset($demande->crb))
                                   <a href="{{ route('crbs.download',$demande->id )}}" title="télecharger le compte rendu" class="btn btn-default btn-md" target="_blank"><i class="fa fa-file-pdf-o"></i></a>

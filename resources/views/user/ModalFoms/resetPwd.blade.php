@@ -6,33 +6,27 @@
       <div class="row">
         <div class="col-md-12">
 <form id="userChangePasswordForm" class="form-horizontal" method="POST" action="{{ Route('user.change.password')}}">
-  <input type="hidden" value="" id="user_id"/> 
-  <div class="mb-3">
-            <label class="col-sm-2 control-label">Utilisateur</label>
-            <div class="col-sm-10">
-              <div class="inline">{{ Auth::user()->name}}</div>
-            </div>
-            <div class="hr hr-16 hr-dotted"></div>
-          </div> 
-          <div class="mb-3"> 
-            <br>
-            <label for="password" class="form-label">Mot de passe </label>
-            <input type="password" class="form-control" name="current-password" placeholder="Entrer le mot de passe" required/><small class="help-block">Saisissez votre mot de passe actuel</small> 
+      <div class="alert alert-danger print-error-msg" style="display:none">
+      <strong>Errors:</strong> <ul></ul></div>
+      <div class="alert alert-success print-success-msg" style="display:none"></div>
+          <div class="mb-3">        {{-- <br> --}}
+            <label class="form-label" for="current-password">Mot de passe </label>
+            <input type="password" class="form-control" name="current-password" id="current-password" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre mot de passe actuel</small> 
           </div>
           <div class="mb-3">
-          <label for="newPassword" class="form-label">Nouveau mot de passe </label>
-            <input type="password" class="form-control" name="newPassword" placeholder="Entrer le mot de passe" required/><small class="help-block">Saisissez votre nouveau mot de passe</small> 
+          <label class="form-label" for="newPassword">Nouveau mot de passe </label>
+            <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Entrer le mot de passe" required autocomplete="off"/><small class="help-block">Saisissez votre nouveau mot de passe</small> 
           </div>
           <div class="mb-3">
-            <label for="password_again" class="form-label">Confirmer nouveau mot de passe </label>     
-            <input type="password" class="form-control" name="password_again" placeholder="Entrer à nouveau le mot de passe" required/>
+            <label class="form-label" for="password_again">Confirmer nouveau mot de passe </label>     
+            <input type="password" class="form-control" id="password_again" name="password_again" placeholder="Entrer à nouveau le mot de passe" required autocomplete="off"/>
           </div>
         </div>
       </div>
     </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-primary" id="changePassword" data-dismiss="modal"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
+      <button type="button" class="btn btn-sm btn-primary" id="changePassword"><i class="ace-icon fa fa-save"></i> Enregistrer</button>
       <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i> Annuler</button>
     </div>
   </div>

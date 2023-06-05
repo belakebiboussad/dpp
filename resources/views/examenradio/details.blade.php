@@ -191,15 +191,17 @@ $(function(){
 <div class="container-fluid">
   <div class="page-header"> @include('patient._patientInfo')</div>
   <div class="row">
-      <div class="col-md-5 col-sm-5"><h4>Demande d'examen radiologique</h4></div>
-      <div class="col-md-7 col-sm-7 btn-toolbar">
-        <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-success pull-right">
-          <i class="ace-icon fa fa-print"></i> Imprimer</a> 
-        @if(Auth::user()->role_id  == 12)
-        <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>  precedant</a>
+      <div class="col-sm-12">
+      <h1>Demande d'examen radiologique</h1>
+      <div class="pull-right">
+        @if(Auth::user()->is(12))
+         <a href="{{ route('home')}}" class="btn btn-xs btn-white"><i class="fa fa-search"></i> Rechercher</a>
         @else
-        <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i> precedant</a>
+        <a href="{{ URL::previous() }}" class="btn btn-xs btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a>
           @endif
+      <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-xs btn-success">
+          <i class="ace-icon fa fa-print"></i> Imprimer</a> 
+      </div>
       </div>
   </div><hr>
   <div class="row"><div class="col-xs-12">@include('examenradio.partials._show')</div></div>

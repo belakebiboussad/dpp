@@ -8,15 +8,15 @@ use App\modeles\rol;
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    //1:compte active,null:compte desactivé
     public $table ="utilisateurs";
     public $timestamps = false;
-    protected $fillable = ['name', 'email', 'password','employe_id','role_id','active'];
+    protected $fillable = ['username', 'email', 'password','employe_id','role_id','active'];
      /**
      * The attributes that should be hidden for arrays.
      *
@@ -37,5 +37,9 @@ class User extends Authenticatable
     public function is($role)
     {
       return ($role == $this->role_id);
+    }
+    public function isIn($roles)
+    {
+      return in_array($this->role_id,$roles);
     }
 }

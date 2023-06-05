@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\modeles\service;
- use App\User;
+use App\modeles\Specialite;
+use App\User;
 use  App\modeles\salle;
 use  App\modeles\employ;
 class ServiceController extends Controller
@@ -13,6 +15,13 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function service_credential_rules(array $data)
+    {
+      $validator = Validator::make($data, [
+        'nom' =>"required|unique:services|max:255",//'responsable_id' =>"required",
+      ]);
+      return $validator;
+    }  
     public function index(Request $request)
     {
       if($request->ajax())  
@@ -49,14 +58,15 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+      $validator = $this->service_credential_rules($request->all());
+      if($validator->fails())
+         return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
-      if($request->ajax())
-      {
-         return $service->load('responsable');
-      }else
+      if($request->ajax())//return $service->load('responsable');
+        return response()->json(['success' => "Services crée avec suuccés",'service'=> $service->load('responsable')]);
+      else
         return redirect()->action('ServiceController@index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -65,14 +75,8 @@ class ServiceController extends Controller
      */
     public function show(Request $request,service $service)
     {
-      if($request->ajax())
-      {
-        $view = view("services.ajax_show",compact('service'))->render();
-        return($view);
-      }else
-         return view('services.show', compact('service'));
-      
-
+      $view = view("services.ajax_show",compact('service'))->render();
+      return($view);  
     }
 
     /**
@@ -83,19 +87,18 @@ class ServiceController extends Controller
      */
       public function edit(Request $request,service $service)
       {
-        if($service->type != "2")
-          $employs = employ::with('User')->whereHas('User', function($q){
-                           $q->where('role_id', 1)->orWhere('role_id', 14);    
-                        })->where('service_id',$service->id)->get();
-        
+        $specs = Specialite::where('type',$service->type)->get();
+        if($service->type != 2)
+           $users = User::whereHas('employ', function($q) use($service) {
+                            $q->where('service_id',$service->id);
+                        })->whereIn('role_id',[1,13,14])->get();
         else
-         $employs = employ::where('service_id',$service->id)->get();
-        if($request->ajax())
-        {
-          $view = view("services.ajax_edit",compact('service','employs'))->render();      
-          return $view;
-        }
-        return view('services.edit', compact('service','employs'));
+           $users = User::whereHas('employ', function($q) use($service) {
+                            $q->where('service_id',$service->id);
+                        })->get();
+        
+        $view = view("services.ajax_edit",compact('service','users','specs'))->render();
+        return $view;
       }
     /**
      * Update the specified resource in storage.
@@ -106,23 +109,23 @@ class ServiceController extends Controller
      */
       public function update(Request $request, service $service)
       { 
-        if(isset($service->responsable_id))
+        if(isset($service->responsable_id) && (isset($request->responsable_id)))
         {
           if($request->responsable_id != $service->responsable_id)
           {
             $service->responsable->User->update(['role_id'=>1]);
             $service->responsable->User->save();
+            $employ = employ::FindOrFail($request->responsable_id);
+            $employ->User->update(['role_id'=>14]);
+            $employ->User->save();
           } 
         } 
-        $service->update($request->all()); //return redirect()->action('ServiceController@show', ['id'=>$id]);
-        if(isset($request->responsable_id))
-        if($request->responsable_id != $service->responsable_id)
-        {
-          $employ = employ::FindOrFail($request->responsable_id);
-          $employ->User->update(['role_id'=>14]);
-          $employ->User->save();
-        }  
-        return redirect()->action('ServiceController@index');
+        $input = $request->all();
+        $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
+        $input['urgence'] = isset($request->urgence)? $request->urgence : null;
+        $service->update($input);//return redirect()->action('ServiceController@index');
+        return $input;   
+        return response()->json(['success' => "Services modifié avec suuccés",'service'=> $service->load('responsable')]);
       }
       /**
        * Remove the specified resource from storage.

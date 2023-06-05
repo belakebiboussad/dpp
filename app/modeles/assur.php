@@ -10,7 +10,10 @@ class assur extends Model
 	protected $primaryKey = 'NSS';
 	public $incrementing = false;
 	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','sf', 'Sexe','adresse','commune_res','wilaya_res','grp_sang','NSS'];
-	protected $appends = ['full_name'];
+	protected $appends = ['full_name']; //protected $dates =['Date_Naissance'];
+  protected $casts = [
+    'Date_Naissance' => 'date',
+  ];
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;

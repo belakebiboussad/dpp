@@ -2,7 +2,7 @@
 @section('title','Gestion des Utilisateures')
 @section('page-script')
 <script>
-var field = 'name';
+var field = 'username';
 $(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
@@ -34,9 +34,10 @@ $(function(){
 							  className: "dt-body-center",
 	   	 		  	},
 	   	 		  	{ data:'id',title:'ID', "visible": false},
-	   	 		  	{ data: 'name', title:'Nom' },
+	   	 		  	{ data: 'username', title:'Nom' },
 	   	 		  	{ data: 'email', title:'E-Mail' },
-	   	 		  	{ data: 'role.role', title:'Rôle' },
+	   	 		  	{ data: 'role.nom', title:'Rôle' },
+              { data: 'employ.service.nom', title:'Service' },
 	   	 		   	{data: null, title:'Compte',
 	   	 		  		render : function(data, type, row){
 	   	 		  			if ( type === 'display' )
@@ -99,7 +100,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label">Nom</label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input-xs autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
+							<input type="text" class="form-control input-xs autoUserfield filter" id="username" name="username"  placeholder="Nom de l'utilisateur"/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>
 	  	    </div>
@@ -111,7 +112,7 @@ function getUserdetail(id)
 							<select class="form-control input-xs filter" name="role_id" id="role_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($roles as $role)
-									<option value="{{ $role->id }}">{{ $role->role }}</option>
+									<option value="{{ $role->id }}">{{ $role->nom }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -133,7 +134,7 @@ function getUserdetail(id)
 	  	</div>			   
 		</div>
 		<div class="panel-footer">
-			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i> Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>
@@ -143,8 +144,8 @@ function getUserdetail(id)
 		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats: </h5> 
-				<label for=""><span class="badge badge-info numberUser"></span></label>
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i> Résultats</h5> 
+				<label><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">
 				<table id="users" class="table table-striped table-bordered table-responsive" role="grid">
@@ -157,5 +158,4 @@ function getUserdetail(id)
 		<div class="col-sm-5" id="userDetail"></div>
 	</div>
   </div>
-
 @stop

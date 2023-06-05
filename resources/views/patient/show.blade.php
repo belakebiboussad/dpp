@@ -117,103 +117,102 @@ $(function(){
       $('#addGardeMalade *').prop('disabled', false);
     });
     $("#EnregistrerGardeMalade").click(function (e){
-        $('#gardeMalade').modal('toggle');
-        e.preventDefault();
+      if(! $.isEmptyObject(checkHomme()))
+        printErrorMsg(checkHomme());//$('#gardeMalade form')[0], 
+      else
+      {
         var formData = {
-            _token: CSRF_TOKEN,
-            id_patient:$('#patientId').val(),
-            nom:$('#nom_h').val(),
-            prenom : $('#prenom_h').val(),
-            date_naiss : $('#datenaissance_h').val(),
-            type:$('#typeH').val(),
-            lien_par : $('#lien_par').val(),
-            type_piece : $("input[name='type_piece']:checked").val(),
-            num_piece : $('#num_piece').val(),
-            date_deliv : $('#date_piece_id').val(),
-            adresse : $('#adresse_h').val(),
-            mob : $('#mobile_h').val(),
-            created_by: $('#userId').val()
+            _token: CSRF_TOKEN, id_patient:$('#patientId').val(),
+            nom:$('#nom_h').val(),prenom : $('#prenom_h').val(),
+            date_naiss : $('#datenaissance_h').val(),type:$('#typeH').val(),
+            lien_par : $('#lien_par').val(),type_piece : $("input[name='type_piece']:checked").val(),
+            num_piece : $('#num_piece').val(),date_deliv : $('#date_piece_id').val(),adresse : $('#adresse_h').val(),
+            mob : $('#mobile_h').val(),created_by: $('#userId').val() 
         };
         var state = jQuery('#EnregistrerGardeMalade').val();
         var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
-        if (state == "update") {
+        if (state == "update")
           type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-        }
-        if (state == "add") {
-              ajaxurl ="{{ route('hommeConfiance.store') }}";
-        }
-        $('#addGardeMalade').trigger("reset");
+        if (state == "add")
+          ajaxurl ="{{ route('hommeConfiance.store') }}";
         $.ajax({
           type: type,
           url: ajaxurl,
           data: formData,
           dataType: 'json',
           success: function (data) {
-              var lien =  "";
-              if($('.dataTables_empty').length > 0)
+            var lien = "";
+            if($('.dataTables_empty').length > 0)
+              $('.dataTables_empty').remove();
+            if(!$.isEmptyObject(data.errors))
+              printErrorMsg(data.errors);//$('#addGardeMalade')[0], 
+            else
+            { 
+              printSuccessMsg($('#addGardeMalade')[0], data.success);
+              switch(data.lien_par)
               {
-                $('.dataTables_empty').remove();
-              }
-              switch(data.lien_par){
                 case "0":
-                      lien='<span class="label label-sm label-success"><b>Conjoint(e)</b></span>';
+                      lien ='Conjoint(e)';
                       break;
                 case "1":
-                       lien='<span class="label label-sm label-success"><b>Père</b></span>';
+                      lien='Père';
                       break;
-                case "2":
-                      lien='<span class="label label-sm label-success"><b>Mère</b></span>';
+                  case "2":
+                     lien='Mère';
                       break;
-                case "3":
-                      lien='<span class="label label-sm label-success"><b>Frère</b></span>';
-                       break;
-                case "4":
-                      lien='<span class="label label-sm label-success"><b>Soeur</b></span>';
+                  case "3":
+                      lien='Frère';
                       break;
-                case "5":
-                      lien='<span class="label label-sm label-success"><b>Ascendant</b></span>';
-                      break;
-                case "6":
-                      lien='<span class="label label-sm label-success"><b>Grand-parent</b></span>';
-                      break; 
-                case "7":
-                       lien='<span class="label label-sm label-success"><b>Membre de famille</b></span>';
-                      break;
-                case "8":
-                        lien=' <span class="label label-sm label-success"><b>Ami</b></span>';
-                        break;              
-                case "9":
-                        lien='<span class="label label-sm label-success"><b>Collègue</b></span>';
-                        break; 
-                case "10":
-                        lien='<span class="label label-sm label-success"><b>Employeur</b></span>';
-                        break; 
-                case "11":
-                        lien='span class="label label-sm label-success"><b>Employé</b></span>';
-                        break; 
-                case "12":
-                        lien='<span class="label label-sm label-success"><b>Tuteur</b></span>';
-                        break; 
-                case "13":
-                        lien='<span class="label label-sm label-success"><b>Autre</b></span>';
-                        break; 
-                default:
-                        break;
+                  case "4":
+                    lien='Soeur';
+                    break;
+                  case "5":
+                    lien='Ascendant';
+                    break;
+                  case "6":
+                    lien='Grand-parent';
+                    break; 
+                  case "7":
+                     lien='Membre de famille';
+                    break;
+                  case "8":
+                      lien='Ami';
+                      break;              
+                  case "9":
+                          lien='Collègue';
+                          break; 
+                  case "10":
+                          lien='Employeur';
+                          break; 
+                  case "11":
+                          lien='Employé';
+                          break; 
+                  case "12":
+                          lien='Tuteur';
+                          break; 
+                  case "13":
+                          lien='Autre';
+                          break; 
+                  default:
+                          break;
+
               }
               switch(data.type_piece)
               {
                   case "0":
-                         type='<span class="label label-sm label-success"><b>Carte nationale d\'identité</b></span>';
+                         type='Carte nationale d\'identité';
                         break;
                    case "1":
-                        type='<span class="label label-sm label-success"><b>Permis de Conduire</b></span>';
+                        type='Permis de Conduire';
                         break;
                    case "2":
-                        type='<span class="label label-sm label-success"><b>Passeport</b></span>';
+                        type='Passeport';
                         break;
                   default:
                         break;
               }
+              lien ='<span class="label label-sm label-success">'+lien+'</span>';
+              type ='<span class="label label-sm label-info">'+type+'</span>';
               var dateLivr = (data.date_deliv != null)? data.date_deliv :'';
               var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom
                         + '</td><td>'+ data.date_naiss+'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>'
@@ -224,9 +223,11 @@ $(function(){
               if (state == "add") 
                 $("#listeGardes tbody").append(homme);
               else 
-                $("#garde" + hom_id).replaceWith(homme);          
-          },
-        }); 
+                $("#garde" + hom_id).replaceWith(homme);
+            }
+          }
+        });
+      }//else de checkhomme
     }); 
     $("#accordion" ).accordion({
 	      collapsible: true ,
@@ -249,47 +250,25 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
- /* $('#specialiteTick').change(function(){ if($(this).val() =="")       
-$('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");});*/
-      $('#print').click(function(e){
-        e.preventDefault();
-        $("#ticket").hide();
-      	var formData = {
-          _token: CSRF_TOKEN,
-			  	specialite:$('#specialiteTick').val(),
-			  	typecons:$('#typecons').val(),
-			  	document:$('#document').val(), 
-			  	id_patient:$('#id_patient').val()
-		    };
-        $.ajax({
-            type : 'POST',
-            url : '/createTicket',
-            data:formData,
-            success:function(data){ 
-            	location.reload(true);
-            }
-        });
-	 })
-  });
+})
 </script>
 @stop
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
-	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
 	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-warning"><i class="ace-icon fa fa-trash-o"> Supprimer</i></a>
 	 </div>
 </div>
-<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div>
-<br/>
+<div class="row"><div class="col-sm-12">@include('patient._patientInfo')</div></div><br/>
 <div>
 	<div  class="user-profile">
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-18">
 				<li class="active">
-					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><b>Informations administratives</b></a>
+					<a data-toggle="tab" href="#patDemog"><i class="green ace-icon fa fa-user bigger-120"></i>Informations administratives</a>
 				</li>
-				@if(in_array(Auth::user()->role_id,[1,13,14]))
+				@if(Auth::user()->isIn([1,13,14]))
 					@if( $patient->antecedants->count() >0)
 					<li>
 						 <a data-toggle="tab" href="#Ants">
@@ -312,7 +291,7 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
 					</li>
 					@endif
 				@endif	
-				@if((in_array(Auth::user()->role_id,[1,13,14,15]))&& $rdvs->count() > 0 )
+				@if((Auth::user()->isIn([1,13,14,15])) && ($rdvs->count() > 0))
 				<li><a data-toggle="tab" href="#rdvs">
 					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous <span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
@@ -323,12 +302,12 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
           &nbsp;<span class="badge badge-success">{{ $patient->hommesConf->count() }}</span>
           </a></li>
 				@endif
-        @if(in_array(Auth::user()->role_id,[1,13,14]))
+        @if(Auth::user()->isIn([1,13,14]))
         <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i>Documents</a></li>
         @endif
 			</ul>
 			<div class="tab-content no-border padding-24">
-				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
+				<div id="patDemog" class="tab-pane in active"> @include('patient.patientInfo')</div>
 				@if( $patient->antecedants->count() >0 )
 				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div>
 				@endif
@@ -344,50 +323,5 @@ $('#print').prop('disabled', 'disabled');else$('#print').removeAttr("disabled");
        </div>
 		</div>
 	</div>
-</div>
-<div id="ticket" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
-		<div class="modal-header">
-    	<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un ticket d'enregistrement</h4>
-    </div>
-    <div class="modal-body">
-    	<div  class="form-group">
-				<label for="typecons" class="form-label">Type de Consultation :</label>
-				<select class="form-control" id="typecons" required>
-					<option value="" selected disabled>Séléctionner...</option>
-          <option value="Normale">Normale</option>
-					<option value="Urgente">Urgente</option>
-					<option value="controle">Contrôle</option>
-					<option value="specialise">Spécialisée</option>
-				</select>
-			</div>
-			<div  class=" form-group">
-				<label for="document" class="form-label">Document :</label>
-				<select class="form-control" id="document" required>
-          <option value="" selected disabled>Séléctionner...</option>
-					<option value="Rendez-vous">Rendez-vous</option>
-					<option value="Lettre d'orientation">Lettre d'orientation</option>
-					<option value="Consultation généraliste">Consultation généraliste</option>
-					<option value="autre">Autre</option>
-				</select>
-			</div>
-			<div  class="form-group">
-				<label for="specialite" class="form-label">Spécialité :</label>
-				<select class="form-control" id="specialiteTick" disabled required>
-					@foreach($specialites as $specialite)
-<option value="{{ $specialite->id}}" '{{($specialite->id == Auth::User()->employ->specialite) ?"selected disabled":'' }}'> {{ $specialite->nom}}</option>
-					@endforeach
-				</select>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-primary" id ="print"><i class="ace-icon fa fa-copy"></i> Générer un ticket</button>	
-			<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i> Fermer</button>
-		</div>
-    	
-  		</div>
-  	</div>
 </div>
 @stop

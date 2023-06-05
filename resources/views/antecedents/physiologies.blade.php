@@ -13,10 +13,8 @@
 			<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsPhysTab">
 				<thead class="thin-border-bottom">
 				  <tr>
-						<th class="center"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
-							<strong>Date</strong>
-					  </th>
-					  <th class="center">Code CIM</th><th class ="center">Tabac</th>
+						<th class="center">Date</th>
+						<th class="center">Code CIM</th><th class ="center">Tabac</th>
 						<th class ="center">Ethylisme</th><th class ="center">Hab alim</th>
 						<th class="center hidden-480">Description</th>
 						<th class="center"><em class="fa fa-cog"></em></th>
@@ -31,8 +29,8 @@
 							<td>{{ $antcd->ethylisme ===0 ? 'Non' : 'Oui' }}</td>
 							<td>{{ $antcd->habitudeAlim }}</td><td>{{ $antcd->description }}</td>
 							<td class="center"> 
-								<button type="button" class="btn btn-xs btn-info Phys-open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg"></i></button> 
+								<button type="button" class="btn btn-xs btn-success Phys-open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
+								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button> 
 						 </td>
 						</tr>
 						@endif
@@ -43,4 +41,3 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
-<div class="row">@include('antecedents.ModalFoms.AntecedantModalPhysio')</div>

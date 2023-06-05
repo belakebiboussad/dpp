@@ -102,17 +102,15 @@
         <div id="ExamClin" class="tab-pane">
           <div class="row">
             <h4> Paramétres généreaux</h4>
-              <ul class="list-unstyled spaced">
-                @if(isset($consultation->examensCliniques->consts))
-                       @foreach(json_decode($specialite->consConst ,true) as $const)
-                       <?php $obj = App\modeles\Constante::FindOrFail($const) ; $nom = $obj->nom   ?>
-                      @if(! is_null($consultation->examensCliniques->consts[$obj->nom ]))  
-                           <li><i class="ace-icon fa fa-caret-right blue"></i><span>{{  $obj ->description }}</span>
-                                 <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->Consts->$nom }}</span> ({{$obj ->unite }})
-                          </li>
-                       @endif
+             <ul class="list-unstyled spaced">
+               @isset($consultation->examensCliniques->consts)
+                    @foreach($specialite->Consts  as $const)
+                     <li><i class="ace-icon fa fa-caret-right blue"></i><span>{{  $const ->description }}</span>
+                      <span class="badge badge-pill badge-primary">{{ $consultation->examensCliniques->Consts[$const->nom] }}</span>
+                       ({{ $const ->unite }})
+                     </li>
                      @endforeach
-                @endif
+             @endisset
               <li><i class="ace-icon fa fa-caret-right blue"></i><span>Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span>Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span></li>
                  <li><i class="ace-icon fa fa-caret-right blue"></i><span>Autre : {{ $consultation->examensCliniques->autre  }}</span></li>
@@ -229,11 +227,11 @@
                                </thead>
                                <tbody>
                                 <tr>
-                                  <td>{{ $consultation->ordonnances->date }}</td>
+                                  <td>{{ $formatDate($consultation->date) }}</td>
                                    <td>{{ $consultation->medecin->full_name }}</td>
                                   <td class="center">
-                                    <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                    <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i>&nbsp;</a>
+                                  <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                                  <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
                                   </td>
                                 </tr>
                                </tbody>

@@ -1,9 +1,9 @@
 <h4 class="header lighter block blue">Informations administratives</h4>
 <div class="row">
-	<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }} col-sm-6">
+	<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="nom">Nom :<span class="red">*</span></label>
 		<div class="col-sm-9">
-			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control"  alpha required  />
+			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control" required  />
 			{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 		</div>
   </div>
@@ -149,14 +149,14 @@
   <div class="form-group col-sm-3">
   	<label class="control-label col-sm-4 col-xs-4" for="mobile1">Mob1:</label>
     <div class="input-group col-sm-8">
-      <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 
+      <span class="input-group-addon fa fa-phone"></span> 
       <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->tele_mobile1 }}">
     </div>
   </div>
   <div class="form-group col-sm-3">
   	<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2:</label>
     <div class="input-group col-sm-8 col-xs-8">
-      <span class="input-group-addon"><i class="ace-icon fa fa-phone"></i></span> 	 	
+      <span class="input-group-addon fa fa-phone"></span> 	 	
         <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->tele_mobile2 }}">
     </div>
   </div>
@@ -164,13 +164,9 @@
 	<label class="control-label col-sm-5 col-xs-5" for="type">Type : <span class="red">*</span></label>
 	<div class="col-sm-7 col-xs-7">
   		<select class="form-control" id="type" name="type" onchange="showTypeEdit(1);">
-  			<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
-  			<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
-  			<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
-  			<option value="3" @if($patient->Type =='3') selected @endif>Mere</option>
-  			<option value="4" @if($patient->Type =='4') selected @endif>Enfant</option>
-  			<option value="5" @if($patient->Type =='5') selected @endif>Dérogation</option>
-  			<option value="6" @if($patient->Type =='6') selected @endif>Autre</option>
+  		@foreach($types as $type)
+        <option value="{{ $type->id }}" {{ ($patient->type_id == $type->id) ? 'selected': ''}}> {{ $type->nom }}</option>
+      @endforeach
   		</select>
   	</div>
   </div>

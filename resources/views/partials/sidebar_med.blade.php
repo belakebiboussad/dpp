@@ -21,7 +21,7 @@
           <i class="menu-icon material-icons">home</i>Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(in_array(Auth::user()->role_id,[13,14]))
+      @if(Auth::user()->isIn([13,14]))
       <li class="">
         <a href="{{ route('stat.index') }}">
         <i class="menu-icon material-icons md-22">equalizer</i>
@@ -83,7 +83,7 @@
                      </li>
                 </ul>
         </li>
-        @if(Auth::user()->role_id == "10")
+        @if(Auth::user()->is(10))
         <li>
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits de la pharmacie</span><b class="arrow fa fa-angle-down"></b>
@@ -112,18 +112,7 @@
         </ul>
         </li>
         @endif
-        <li>
-          <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-calendar" aria-hidden="true"></i><span class="menu-text">Plannings</span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-          <b class="arrow"></b>
-          <ul class="submenu">
-            <li><a href="{{ route('planning.create') }}"><i class="menu-icon fa fa-plus purple"></i> Demande de congés / recupération</i> </a><b class="arrow"></b></li>
-
-          </ul>
-        </li>
-        @if(in_array(Auth::user()->role_id,[13,14]))
+        @if(Auth::user()->isIn([13,14]))
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>
@@ -168,12 +157,12 @@
           if(val =="" )
           {
             erreur =false;
-            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+            $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
           }
        });
        return erreur;
       }
-      if ($("#addGardeMalade").length > 0) {  ////avoir
+      if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({
             rules: {
                 mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   

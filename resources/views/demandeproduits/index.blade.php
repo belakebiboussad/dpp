@@ -7,7 +7,7 @@
  		var actions = '<a href = "/demandeproduit/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
  	  if(data.etat == "En Cours")
     {
-      if({!! (Auth::user()->role_id) !!} === 14 )
+      if('{{ Auth::user()->is(14) }}')
  		  {
         actions +=' <a href="/demandeproduit/'+data.id+'/edit" class="btn btn-info btn-xs" title="Modifier Demande"><i class="fa fa-edit fa-xs"></i></a>';
    	   	actions += '<button class="btn btn-xs btn-danger deletedemande" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';   

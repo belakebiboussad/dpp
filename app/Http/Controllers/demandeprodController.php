@@ -53,7 +53,7 @@ class demandeprodController extends Controller
       if($request->ajax())  
       {
         $q = $request->value;  $field= $request->field;
-        if(Auth::user()->role_id != 10) 
+        if(!Auth::user()->is(10)) 
         {
           $ServiceId = Auth()->user()->employ->service_id;    
           if(isset($q))
@@ -82,7 +82,7 @@ class demandeprodController extends Controller
         }
       } else
       {
-        if(Auth::user()->role_id == 10)//pharm
+        if(Auth::user()->is(10))//pharm
         {
           $services =service::where('id','!=',14)->get();
           $demandes = demand_produits::whereNull('Etat')->orderBy('Date', 'desc')->get();

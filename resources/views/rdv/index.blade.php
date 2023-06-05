@@ -24,13 +24,12 @@
  </style>
 @stop
 @section('page-script')
-@include('rdv.scripts.calendar')
 @include('rdv.scripts.js')
 <script>
 function reset_in()
-{
-  $('.es-list').val('');$('#patient').val('');  $('#medecin').val('');
-  $('#printRdv').addClass('hidden');$("#fixe").prop("checked", false);     
+{ // $('.es-list').val('');
+  $('#fullCalModal form')[0].reset();
+  $('#printRdv').addClass('hidden');
 }
 $(function(){
         var today = (new Date()).setHours(0, 0, 0, 0);
@@ -81,19 +80,18 @@ $(function(){
                     $('.calendar1').fullCalendar('unselect');
           },
           eventClick: function(calEvent, jsEvent, view) {
-            if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+           if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
             {
-                  reset_in();
-                  if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
-                  {
-                           $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
-                          if($('#printRdv').hasClass( "hidden" ))
-                                 $('#printRdv').removeClass('hidden'); 
-                   }
-                  if($('#fixe').length &&(calEvent.fixe))
-                        $("#fixe"). prop("checked", true);
-                  $('#idRDV').val(calEvent.id); 
-                  ajaxEditEvent(calEvent,'{{ $appointDoc }}',false);
+              if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
+              {
+                  $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
+                  if($('#printRdv').hasClass( "hidden" ))
+                   $('#printRdv').removeClass('hidden'); 
+               }
+              if($('#fixe').length &&(calEvent.fixe))
+                    $("#fixe"). prop("checked", true);
+              $('#idRDV').val(calEvent.id); 
+              ajaxEditEvent(calEvent, false);
             }
           },
            eventRender: function (event, element, webData) {
@@ -128,31 +126,27 @@ $(function(){
             });
             if($('#fixe').length &&(event.fixe))
               $("#fixe"). prop("checked", true);
-            ajaxEditEvent(event,'{{ $appointDoc }}',true);          
+            ajaxEditEvent(event,true);          
           },      
         }); // calendar
-        $("#specialite" ).change(function() {
-          getDoctors($(this).val(),'{{ $appointDoc }}');
-        });
         $('#patient').editableSelect({
               effects: 'default', 
               editable: false, 
         }).on('select.editable-select', function (e, li) {
-               $('#last-selected').html(
-                       li.val() + '. ' + li.text()
-                );
-               $("#btnSave").removeAttr("disabled");
+           $('#last-selected').html(
+              li.val() + '. ' + li.text()
+            );
         });
         $("#patient").on("keyup", function() {
-                 var field = $("select#filtre option").filter(":selected").val();
-                 if(field != "Dat_Naissance")
-                        remoteSearch(field,$("#patient").val()); //to call ajax
+         var field = $("select#filtre option").filter(":selected").val();
+         if(field != "Dat_Naissance")
+                remoteSearch(field,$("#patient").val()); //to call ajax
         });
 })
 </script>
 @stop
 @section('main-content')
-<div class="page-header"><h1>Liste des rendez-vous:</h1></div>
+<div class="page-header"><h1>Liste des rendez-vous</h1></div>
 <div class="row">
   <div class="col-md-12">
      <div class="panel panel-default">

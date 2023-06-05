@@ -7,7 +7,7 @@
       switch(value){
         case "0":
           if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();//copyPatient();
+            assureShow();
           $("#foncform").addClass('hide');
           $('.asdemogData').prop('disabled', true);
           break;
@@ -23,9 +23,9 @@
       }
    } 
 	 function showTypeEdit(i){
-    var value = {{ $patient->Type}};
+    var value = {{ $patient->type_id}};
     switch(value){
-      case 0:
+      case 1:
         if(i == 0)
         {   
           $("#foncform").addClass('hide');
@@ -33,7 +33,7 @@
         }else
           patTypeChange($('#type').val());
         break;
-      case  1: case 2: case 3: case 4:
+      case  2: case 3: case 4: case 5:
           if(i == 0)
           {   
             $("#foncform").removeClass('hide');
@@ -41,17 +41,18 @@
           }else
             patTypeChange($('#type').val());
           break;
-      case 5: case 6:
+      case 6:
           if(i == 0)
-          {   
+          {
             assurHide(); resetAsInp();
-          }else
+          }
+          else
             patTypeChange($('#type').val()); 
           break;
     }     
   }
-  $(function(){
-		showTypeEdit(0);
+  $(function(){  
+  	showTypeEdit(0);
 		$( "#editPatientForm" ).submit(function( event ) {
 			if( ! checkPatient() )
       {

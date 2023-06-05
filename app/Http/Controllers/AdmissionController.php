@@ -33,7 +33,7 @@ class AdmissionController extends Controller
     public function index()
     {
       $etatsortie = Etatsortie::where('type','1')->get();
-      return view('admission.index', compact('etatsortie'));//'rdvs','demandesUrg',
+      return view('admission.index', compact('etatsortie'));
     }
     /**
      * Show the form for creating a new resource.

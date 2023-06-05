@@ -41,13 +41,13 @@ class UsersController extends Controller
         switch($request->field)
         {
           case "role_id"  :
-                $users = User::with('role')->where($request->field,$value)->get(); 
+                $users = User::with('role','employ.Service')->where($request->field,$value)->get(); 
                 break; 
-          case "name"  :
-                $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();  
+          case "username"  :
+                $users = User::with('role','employ.Service')->where($request->field,'LIKE','%'.$value."%")->get();  
                 break;
           case "service_id"  :
-                $users = User::with('role')->whereHas('employ', function ($q) use ($value){
+                $users = User::with('role','employ.Service')->whereHas('employ', function ($q) use ($value){
                                                $q->where('service_id',$value);
                                            })->get();
                 break; 
@@ -72,7 +72,7 @@ class UsersController extends Controller
       $roles = rol::all();
       $services = service::all();
       $specialites = Specialite::all();
-      return view('user.add', compact('roles','services','specialites'));
+      return view('user.create', compact('roles','services','specialites'));
     }
     /**
      * Store a newly created resource in storage.
@@ -82,37 +82,40 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-      $request->validate([
+      $validator = Validator::make($request->all(), [
+        "username"=> "required|unique:utilisateurs",
+        "password"=> "required",
+        "role"=> "required",
         "nom"=> "required",
         "prenom"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", ////"nss"=> "required",
-        "username"=> "required",
-        "password"=> "required",// "mail"=> "required",
-        "role"=> "required",
+        "nss"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",
+        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",// "mat"=> 
+        "service"=> "required", 
       ]);
+      if($validator->fails())
+           return back()->withErrors($validator)->withInput();
       $employe = employ::firstOrCreate([
-            "nom"=>$request->nom,
-            "prenom"=>$request->prenom,
-            "sexe"=>$request->sexe,
-            "Date_Naiss"=>$request->datenaissance,
-            "Lieu_Naissance"=>$request->lieunaissance,
-            "Adresse"=>$request->adresse,
-            "Tele_fixe"=>$request->fixe,
-            "tele_mobile"=>$request->mobile,
-            "specialite"=>$request->specialite,
-            "service_id"=>$request->service,
-            "matricule"=>$request->mat,
-            "NSS"=>$request->nss,
+          "nom"=>$request->nom,
+          "prenom"=>$request->prenom,
+          "sexe"=>$request->sexe,
+          "Date_Naiss"=>$request->datenaissance,
+          "Lieu_Naissance"=>$request->lieunaissance,
+          "Adresse"=>$request->adresse,
+          "Tele_fixe"=>$request->fixe,
+          "tele_mobile"=>$request->mobile,
+          "specialite"=>$request->specialite,
+          "service_id"=>$request->service,
+          "matricule"=>$request->mat,
+          "NSS"=>$request->nss,
       ]);
-      $user = User::firstOrCreate([
-        "name"=>$request->username,// "password"=>$request->password,
-        "password"=> Hash::make($request['password']),
-        "email"=>$request->mail,
-        "employe_id"=>$employe->id,
+      $employe->User()->create([
+        "username"=>$request->username,
+        "password"=> Hash::make($request->password),
+        "email"=>$request->email,
         "role_id"=>$request->role,
-      ]);//return redirect(Route('employs.show',$employe->id)); 
-      return redirect(Route('users.show',$user->id));                 
+      ]);
+      return redirect(Route('users.show',$$employe->User->id));                 
     }
     /**
      * Display the specified resource.
@@ -149,41 +152,32 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {      
-      $rule = array(
-            "username"=> "required",
-            "email"=> "nullable|email",//|unique:utilisateurs
-            "role"=> "required",
-      );
-      $messages = [
-        "required"     => "Le champ :attribute est obligatoire.",
-        // "NSSValide"    => 'le numéro du securite sociale est invalide ',
-         "date"         => "Le champ :attribute n'est pas une date valide.",
-      ];
-      $validator = Validator::make($request->all(),$rule,$messages);  
-      if ($validator->fails()) 
+    {  
+      $validator = Validator::make($request->all(), [
+        "username"=> "required",// "mail"=> "required", "password"=> "required",
+        "role"=> "required",
+        "nom"=> "required",
+        "prenom"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",
+        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",
+      ]);
+      if ($validator->fails())
         return back()->withInput($request->input())->withErrors($validator->errors());
-      $activer = $user->active;
-      if($user->active)
-      {
-        if(! isset($request->desactiveCompt))
-          $activer= 0;      
-      }else
-      {
-        if(isset($request->activeCompt))
-          $activer=1;
-      }
+      $user->employ->update([
+        "nom"=>$request->nom, "prenom"=>$request->prenom,
+        "sexe"=>$request->sexe, "Date_Naiss"=>$request->datenaissance,
+        "Lieu_Naissance"=>$request->lieunaissance, "Adresse"=>$request->adresse,
+        "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
+        "specialite"=>$request->specialite,"service_id"=>$request->service,
+         "matricule"=>$request->matricule,"NSS"=>$request->nss,
+      ]);
       $user->update([
-        'name'=>$request->username,
-        "password"=>$user->password,
-        "email"=>$request->email,
-        "employe_id"=>$user->employe_id,
+        'username'=>$request->username,
         "role_id"=>$request->role,
-        "active"=>$activer,   
-     ]);  
-     return redirect(Route('users.show',$user->id));
+        'active' =>$request->active
+      ]);
+      return redirect(Route('users.show', $user));
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -203,14 +197,14 @@ class UsersController extends Controller
     }
     protected function registered(Request $request, $user)
     {
-        redirect()->route('users.create');
+      redirect()->route('users.create');
     }
     public function getAddEditRemoveColumnData()
     {
       $users = User::select(['id', 'name', 'email', 'employe_id','role_id']);
       return Datatables::of($users)
           ->addColumn('action2', function ($user) {
-              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
+              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->nom.'</span>';
           })
           ->addColumn('action', function ($user) {
               return '<div class="hidden-sm hidden-xs action-buttons">
@@ -240,67 +234,63 @@ class UsersController extends Controller
             'employe' => $employe
         ]);
     }
-    /*
     public function admin_credential_rules(array $data)
     {
       $messages = [
-        'current-password.required' => 'Entrer le mot de passe actuel correct',
-        'newPassword.required' => 'entrer le nouveau mot de passe SVP', 
-        'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
-        'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
-      ];// |same:newPassword
-      $validator = Validator::make($data, [
-          'curPassword' => 'required',
-          'newPassword' => 'required',
-          'password_confirmation' => 'required|same:newPassword', 
-          // |confirmed 
-      ], $messages); 
+        'current-password.required' => 'Entrer le mot de passe actuel',
+        'newPassword.required' => 'entrer le nouveau mot de passe SVP',
+        'newPassword.different' => 'le nouveau mot de passe doit être differnt du mot de passe actuel',
+        'password_again.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
+
+      ];
+      $validator = Validator::make($data, [//'current-password' =>  "required_if:role,!=,4",
+        'current-password' =>  "required",
+        'newPassword' => 'required|different:current-password',
+        'password_again' => 'required|same:newPassword',     
+      ], $messages);
       return $validator;
-    }  */
-      public function admin_credential_rules(array $data)
-      {
-           $messages = [
-                   'current-password.required' => 'Entrer le mot de passe actuel correct',
-                   'newPassword.required' => 'entrer le nouveau mot de passe SVP',
-                   'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
-             ];
-             $validator = Validator::make($data, [
-                    'current-password' => 'required',
-                    'newPassword' => 'required',
-                    'password_again' => 'required|same:newPassword',     
-              ], $messages);
-          return $validator;
-      }  
-    public function changePassword(Request $request)
+    }  
+    public function changePassword(Request $request)//change password by user
     {   
       if(Auth::Check())
       {
         $request_data = $request->All();
         $validator = $this->admin_credential_rules($request_data);
-        if($validator->fails())
-          return back()->withErrors($validator)->withInput();
+        if($validator->fails())//pass cof error
+          return response()->json(['errors'=>$validator->errors()->all()]);
         else
         {
           $password = Auth::User()->password;  
           if(Hash::check($request_data['current-password'], $password))
           {
             if(strcmp($request->get('current-password'), $request->get('newPassword')) == 0)
-              return back()->withErrors($validator)->withInput();
+              return response()->json(['errors'=>$validator->errors()->all()]);
             else
-            { 
+            {
               Auth::user()->password = Hash::make($request_data['newPassword']);
               Auth::user()->save(); 
-              return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
+              return response()->json(['success'=>'mot de passe est changé avec succée']);
             }
-          }else{//Entrer le mot de passe actuel correct. essaie encore 
-            return back()->withErrors($validator)->withInput();
-          }
+          }else
+            return response()->json(['errors'=>['Entrer le mot de passe actuel correct. essaie encore']]);
         }
-      }else
-      {
-        return("2");
       }
       return redirect()->to('/home');
+    }//changer le mot de passe par l'administrateur
+    public function resetPassword(Request $request)
+    { 
+      if(Auth::Check() && (Auth::user()->is(4)))
+      {
+        $request_data = $request->All();
+        $validator = $this->admin_credential_rules($request_data);
+        if ($validator->fails())
+          return response()->json(['errors'=>$validator->errors()->all()]);
+        $user = User::FindOrFail($request->id);
+        $user->update([
+           "password"=> Hash::make($request['newPassword']),
+        ]);
+        return response()->json(['success'=>'le mot de passe est changé avec succée']);
+      } 
     }
     public function setting($id_user)
     {
@@ -319,7 +309,7 @@ class UsersController extends Controller
       if($field == "role_id")
       {
         foreach($users as $user){
-          $response[] = array("label"=>$user->role->role);
+          $response[] = array("label"=>$user->role->nom);
         }
       }else
       {
@@ -335,19 +325,5 @@ class UsersController extends Controller
      $employe = employ::FindOrFail($user->employe_id);
      $view = view("user.ajax_userdetail",compact('user','employe'))->render();
      return (['html'=>$view]);
-    }
-    public function resetPassword(Request $request)
-    {
-
-      $request->validate(['password' => 'required']);
-      if(Auth::Check() && (Auth::user()->is(4)))
-      {
-        $user = User::FindOrFail($request->id);
-        $user->update([
-           "password"=> Hash::make($request['password']),
-        ]);
-      }
-      
-      return $request->password;
     }
 }

@@ -50,7 +50,7 @@ class DemandeExbController extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
-        return view('examenbio.index', compact('demandesexb','services'));
+         return view('examenbio.index', compact('demandesexb','services'));
       }
     }
 /**
@@ -85,7 +85,7 @@ class DemandeExbController extends Controller
     public function show($id)
     {
       $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      return view('examenbio.show', compact('demande','medecin','patient'));
+      return view('examenbio.show', compact('demande'));
     }
      public function detailsdemandeexb($id)
     {
@@ -149,10 +149,17 @@ class DemandeExbController extends Controller
         $ext = $request->file('resultat')->getClientOriginalExtension();
         $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
         $file = file_get_contents($request->file('resultat')->getRealPath());
-        $request->file('resultat')->storeAs('public/files',$filename);  
+        $request->file('resultat')->storeAs('/files',$filename);  
         $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
       }
       return  redirect()->action('DemandeExbController@index');
+    }
+    public function downloadRes($id)
+    {
+      $demande = demandeexb::FindOrFail($id);
+     $path = storage_path().'/'.'app'.'/files/'. $demande->resultat;
+      if (file_exists($path))
+        return Response::download($path);
     }
     public function print($id)
     {
@@ -168,5 +175,5 @@ class DemandeExbController extends Controller
       $filename = "Compte-Rendu-Biolog-".$demande->imageable->patient->Nom."-".$demande->imageable->patient->Prenom.".pdf";
       $pdf = PDF::loadView('examenbio.EtatsSortie.crbPDf',compact('demande'));
       return $pdf->stream($filename);
-    }
+    } 
 }

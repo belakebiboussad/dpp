@@ -50,7 +50,7 @@
             actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
             actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
         }
-        if( '{{  Auth::user()->role_id }}' == 5 )
+        if( '{{  Auth::user()->is(5) }}')
            actions += '<a class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('+data.id+')"><i class="fa fa-barcode"></i></a>';
         if($.inArray({{  Auth::user()->role_id }}, rols) > -1)
           actions +='<a href="/soins/index/'+data.id+'" class ="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins"><img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px"></a>';
@@ -193,7 +193,8 @@
                     $('.ndeces').removeClass('hidden');
                 } 
           });
-     $('#saveCloturerHop').click(function () {
+     $('#cloturerHop').click(function (e) {
+          e.preventDefault();
           var formData = {
             _token: CSRF_TOKEN,
             id                 : $("#id").val(),
@@ -203,7 +204,7 @@
             resumeSortie       : $('#resumeSortie').val(),
             etatSortie         : $('#etatSortie').val(),
             diagSortie         : $("#diagSortie").val(),
-            ccimdiagSortie     : $("#ccimdiagSortie").val(),//etat               :  1,
+            ccimdiagSortie     : $("#ccimdiagSortie").val(),
           };
           if(jQuery('#modeSortie').val() === '0'){
               formData.structure = $("#structure").val();
@@ -214,22 +215,21 @@
               formData.date = $("#date").val();
               formData.heure = $("#heure").val();
               formData.med_id = $("#medecin").val();
-          } 
+          }
+          
           if(!($("#Date_Sortie").val() == ''))
           {
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
+            url = '{{ route("hospitalisation.update", ":slug") }}'; 
+            url = url.replace(':slug', $("#id").val());
             $.ajax({
-                type: "POST",
-                url: '/hospitalisation/'+$("#id").val(),
-                data: formData,
-                dataType: 'json',
-                success: function (data) {
-                  $("#hospi" + data.id).remove();
-                },
-                error: function (data){
-                  console.log('Error:', data);
-                },
+                type: "PUT",
+                url: url,//'/hospitalisation/'+$("#id").val(),
+                data: formData,//dataType: 'json',
+                 success: function (data) {
+                 $("#hospi" + data.id).remove();
+                }
             });
           }
       });
@@ -258,7 +258,8 @@
            <div class="col-sm-3"><label>Date de sortie</label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-              <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+              <span class="input-group-addon fa fa-calendar"></span>
+            </div>
             </div>
           </div>
         </div>
@@ -267,8 +268,6 @@
         <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i> Rechercher</button>
       </div>
     </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent">
@@ -305,17 +304,17 @@
                     <td class="priority-6" ><span class="badge badge-pill badge-primary">{{is_null($hosp->etat) ? 'En Cours': $hosp->etat}}</span>
                     <td class ="center"  width="12%">
                       <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                      @if(in_array(Auth::user()->role_id,[1,5,13,14]))
+                      @if(Auth::user()->isIn([1,5,13,14]))
                         <a href="{{ route('hospitalisation.edit', $hosp->id)}}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>       
-                       @if(Auth::user()->role_id != 5)
+                       @if(!Auth::user()->is(5))
                         <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
                         <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation" onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
                        @endif 
                       @endif
-                      @if(Auth::user()->role_id == 5){{-- surmed --}}
+                      @if(Auth::user()->is(5))
                         <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('{{ $hosp->id }}')"><i class="fa fa-barcode"></i></a>                      
                       @endif
-                      @if(in_array(Auth::user()->role_id,[1,3,5,13,14]))
+                      @if(Auth::user()->isIn([1,3,5,13,14]))
                         <a href="{{ route('soins.index', ["id"=>$hosp->id]) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Dossier de Soins" data-placement="bottom">
                           <img src="{{ asset('/img/drugs.png') }}" alt="" width="10px" height="15px">
                         </a>

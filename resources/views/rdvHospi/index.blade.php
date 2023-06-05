@@ -61,7 +61,7 @@
 							</tr>
 						</thead>
 						<tbody>
-						<?php $d=Date::Now().' monday next week' ?>
+          	<?php //$d=\Carbon\Carbon::now().' monday next week' //Date::Now()?>
 						@foreach($demandes as $demande)
 	        		<tr>
 								<td>{{ $demande->consultation->patient->full_name }} </td>
@@ -87,7 +87,6 @@
 									</div>
 								</td>
 								</tr>
-								{{-- @endif --}}
 							@endforeach
 						</tbody>
 					</table>

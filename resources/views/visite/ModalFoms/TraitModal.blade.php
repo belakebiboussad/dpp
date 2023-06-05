@@ -9,7 +9,7 @@
         <input type="hidden" id ="trait_id" value=""/>
         <div class="modal-body">
         <div class="form-group">
-               <label  class="control-label" for="specialiteProd">Spécialité :</label>
+               <label  class="control-label" for="specialiteProd">Spécialité</label>
               <select class="form-control" id="specialiteProd" name="specialiteProd">
               <option value="" selected disabled>Sélectionnez la spécialité...</option>
                @foreach($specialitesProd as $specialite)
@@ -18,20 +18,20 @@
               </select>
         </div>
         <div class="form-group">
-              <label class="control-label" for="med_id">Médicament :</label>
+              <label class="control-label" for="med_id">Médicament</label>
               <select id="med_id" data-placeholder="selectionnez le Médicament" class="selectpicker  form-control" disabled></select>
         </div>
         <div class="form-group">
-            <label  class="control-label" for="posologie">Posologie :</label>
+            <label  class="control-label" for="posologie">Posologie</label>
             <input type="text" id="posologie" class="form-control" placeholder = "posologie de Traitement"/>
         </div>
         <div class="fom-group">
-            <label  class="control-label" for="dureeT">Nombre de prise/jour :</label>
+            <label  class="control-label" for="dureeT">Nombre de prise/jour</label>
             <input type="number" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" id="EnregistrerTrait" class="btn btn-success btn-sm" value ="add">
+        <button type="submit" id="EnregistrerTrait" class="btn btn-primary btn-sm" value ="add">
             <i class="ace-icon fa fa-save"></i>Enregistrer </button>
           <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-undo"></i>Annuler</button>
       </div>

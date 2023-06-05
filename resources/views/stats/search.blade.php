@@ -22,7 +22,7 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'hidden' }}">
+          <div class="form-group {{ Auth::user()->is(13) ? 'col-sm-3 col-xs-6' : 'hidden' }}">
             <label class="control-label">Service:</label>
             <div class="input-group col-sm-12 col-xs-12">
               <select class="form-control" class="input-group" id="service">
@@ -35,8 +35,8 @@
               <span class="glyphicon glyphicon-search form-control-feedback"></span>            
             </div>
             </div>
-          </div>
-          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}" {{ $id == 3 ? 'hidden':''}}><label class="control-label">Medcin:</label>
+          </div>    
+<div class="form-group {{ Auth::user()->is(13) ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}" {{ ($id == 3)? 'hidden':'' }}><label class="control-label">Medcin:</label>
             <div class="input-group dropdown col-sm-12 col-xs-12"">
             <select class="form-control" class="input-group form-control" id="medecin">
               <option value="">Choisir Un Medcin...</option>
@@ -47,13 +47,13 @@
             <span class="glyphicon glyphicon-search form-control-feedback"></span>   
             </div>         
           </div>
-          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}"><label class="control-label">Date de debut:</label>
+          <div class="form-group {{ Auth::user()->is(13) ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}"><label class="control-label">Date de debut:</label>
             <div class="input-group col-sm-12 col-xs-12">
               <input type="text" class="form-control date-picker" id="Dat_debut" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="">
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>    
           </div>
-          <div class="form-group {{ Auth::user()->role_id == 13 ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}"><label class="control-label">Date de fin:</label>
+          <div class="form-group {{ Auth::user()->is(13) ? 'col-sm-3 col-xs-6' : 'col-sm-4' }}"><label class="control-label">Date de fin:</label>
           <div class="input-group col-sm-12 col-xs-12">
             <input type="text" class="form-control date-picker" id="Dat_fn" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>    
