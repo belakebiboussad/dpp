@@ -48,14 +48,15 @@ $(function(){
     e.preventDefault();
     var state = jQuery('#serSave').val();
     formSubmit($('#serviceFrm')[0], this, function(status, data) {
-     var medecin = (isEmpty(data.service.responsable)) ? '' : data.service.responsable.full_name;
-      var heberg = (data.service.hebergement == 1) ? "Oui" : "Non", urg = (data.service.urgence == 1) ? "Oui" : "Non" ;
-      var service = '<tr id="' + data.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.service.id +'">'+ data.service.nom + '</a></td><td>' + data.service.TypeS +'</td><td>'+ medecin +'</td><td>'+ heberg
-          service +='</td><td>' + urg +'</td><td class = "center">' +  getActions(data.service) + '</td></tr>';
+     var medecin = (isEmpty(data.service.responsable_id)) ? '' : data.service.responsable.full_name;
+      var heberg = (data.service.hebergement == 1) ? "Oui" : "Non";
+      var urg = (data.service.urgence == 1) ? "Oui" : "Non" ;
+      var service = '<tr id="' + data.service.id + '"><td><a href="#" title="Détails du service" class="servShow" data-id="'+ data.service.id +'">'+ data.service.nom + '</a></td><td>' + data.service.TypeS +'</td><td>'+ medecin +'</td><td>'+ heberg +'</td><td>' + urg +'</td><td class = "center">' +  getActions(data.service) + '</td></tr>';
+      alert(data.service.id);
       if (state == "add")
         $('#serivesTable' +' tbody').append(service);
       else
-        $("#" + data.id).replaceWith(service);
+        $("#" + data.service.id).replaceWith(service);
       $('#ajaxPart').html("");      
     })
   });

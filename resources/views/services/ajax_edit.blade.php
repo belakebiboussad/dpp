@@ -17,7 +17,7 @@
             <div class="form-group row">
               <label class="col-sm-3 col-control-label" for="type">Type</label>
               <div class="col-sm-9">
-                <select id="type" name="type"  class="form-control selectpicker typServ">
+                <select id="type" name="type"  class="form-control selectpicker">
                   <option value="" @if($service->type == '') selected @endif>Fonctionnel</option>
                   <option value="0" @if($service->type == '0') selected @endif>Médical</option>
                   <option value="1" @if($service->type == '1') selected @endif>Chirurgie</option>
@@ -39,9 +39,9 @@
               <label class="col-sm-3 col-control-label" for="type">Chef</label>
               <div class="col-sm-9">
                 <select id="responsable_id"  name="responsable_id" class="form-control selectpicker">
-                  <option value="" selected disabled>Selectionner le chef du service</option>
+                  <option value="">Selectionner le chef du service</option>
                   @foreach ($users as $user)
-                  <option value="{{ $user->employ->id}}"> {{ $user->employ->full_name }}</option>
+                  <option value="{{ $user->employ->id }}" {{($service->responsable_id ===$user->employ->id)? 'selected':''}}> {{ $user->employ->full_name }}</option>
                   @endforeach
                 </select>  
               </div>

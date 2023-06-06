@@ -35,9 +35,6 @@ function formSubmit(form, e, callBack) {
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
-      $.each(data,  function(key ,value){
-        alert(key +':' + value);
-      });
       $form.trigger("reset");
       if( $.isEmptyObject(data.errors))
         printSuccessMsg(form, data.success);    
@@ -47,30 +44,26 @@ function formSubmit(form, e, callBack) {
     }
   })
 }
-function copyPatient(){ 
-  $("#asdemogData").addClass('hidden');
-  $("#foncform").addClass('hidden');
+function checkPatient()
+{
+  var erreur =true;
+  var nom = $('#nom').val();
+  var prenom = $('#prenom').val();
+  var type = $('#type').val();
+  var inputAssVal = new Array(type,prenom,nom);
+  var inputMessage = new Array('Type',"Prenom","Nom");
+  $('.error').each(function(i, obj) {
+    $(obj).next().remove(); $(obj).detach();
+  });
+  jQuery.each( inputAssVal, function( i, val ) {
+    if(val =="" )
+    {
+      erreur =false;
+      $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+    }
+ });
+ return erreur;
 }
-  function checkPatient()
-  {
-    var erreur =true;
-    var nom = $('#nom').val();
-    var prenom = $('#prenom').val();
-    var type = $('#type').val();
-    var inputAssVal = new Array(type,prenom,nom);
-    var inputMessage = new Array('Type',"Prenom","Nom");
-    $('.error').each(function(i, obj) {
-      $(obj).next().remove(); $(obj).detach();
-    });
-    jQuery.each( inputAssVal, function( i, val ) {
-      if(val =="" )
-      {
-        erreur =false;
-        $('#error').after('<span class="error">Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-      }
-   });
-   return erreur;
-  }
   function checkAssure()
   {
     var erreur =true;

@@ -170,9 +170,7 @@
     $('ul#menuPatient li').click(function(e) 
     { 
       if(($(this).index() == 1) && ($("#type").val() == 0))
-      {
         copyPatient();
-      }
     });
 });
 </script>
@@ -194,62 +192,32 @@
                 });
 </script>   
 <script type="text/javascript">
-  function assurHide()
-  {
-    var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
-    $('#menuPatient a[href="#Assure"]').parent().addClass('hide');
-    $(active_tab_selector).removeClass('active').addClass('hide');
-    $('.nav-pills a[href="#Patient"]').tab('show');
-    $("#otherPat").removeClass('hidden');
-    if(!$("#foncform").is(":hidden"))
-      $("#foncform").addClass('hidden');
-    $('#nsspatient').attr('disabled', true);
-  }
-  function assureShow()
+  function assureShow(type)
   {
     $('.nav-pills li').eq(1).removeClass('hide');
     $("div#Assure").removeClass('hide');
-    $("#otherPat").addClass('hidden');
-    $('#description').val('');
-    $('#nsspatient').attr('disabled', false);  
+    if(!$('#otherPat').hasClass( "hidden" ))
+    {
+      $("#otherPat").addClass('hidden');
+      $('#description').val('');
+    }
+    if($('#assProfData').hasClass( "hidden" ))
+      $("#assProfData").removeClass('hidden');
+    switch(type){
+      case "1":
+        if(!$('#asdemogData').hasClass( "hidden" ))
+         $("#asdemogData").addClass('hidden');
+        break;
+      case  "2": case "3": case "4": case "5":
+        if($('#asdemogData').hasClass( "hidden" ))
+         $("#asdemogData").removeClass('hidden');
+        break;
+    }  
   }
   function resetAsInp()
   {
     $('#Assure').find('input').val('');
     $('#Assure').find("select").prop("selectedIndex",0);
-  }
-  function showTypeAdd(type, i)
-  { 
-    switch(type){
-      case "1":
-        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-          assureShow();
-        copyPatient();
-        if(i !=1)
-          $(".asProfData").val('');
-        break;
-      case "2": case "3": case "4": case "5":
-        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-          assureShow();
-        if($("#asdemogData").is(":hidden")) 
-          $("#asdemogData").removeClass('hidden'); 
-        if($("#foncform").is(":hidden"))
-          $("#foncform").removeClass('hidden');
-        if(i != 1)
-          $(".asProfData").val('');
-        if(type == "2")
-        {
-          $("#sf").prop("selectedIndex", 2).change();
-          $("#SituationFamille").prop("selectedIndex", 2).change();
-        }
-        break;
-      case "6":
-        assurHide();
-        resetAsInp();
-        break;
-      default:
-        break;
-    }
   }
   $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")

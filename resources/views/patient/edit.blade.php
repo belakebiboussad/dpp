@@ -1,55 +1,57 @@
 @extends('app')
 @section('title','Modifier  le patient')
 @section('page-script')
+@include('patient.scripts.functions')
 <script type="text/javascript">
    function patTypeChange(value)
    {
-      switch(value){
-        case "0":
+     switch(value){
+        case "1":
           if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();
-          $("#foncform").addClass('hide');
-          $('.asdemogData').prop('disabled', true);
+            assureShow(value);
+          if(!$("#foncform").hasClass('hidden'))
+            showNssPat(false);
           break;
-        case  "1": case "2": case "3": case "4":
+        case  "2": case "3": case "4": case "5":
           if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();
-          $("#foncform").removeClass('hide');
-          $('#nsspatient').prop('disabled', false);$('.asdemogData').prop('disabled', false);
+            assureShow(value);
+          if($("#foncform").hasClass('hidden'))
+             showNssPat(true);
           break;
-        case "5": case "6":
-          assurHide(); resetAsInp();
-         break;    
+        case "6":
+          assurHide();
+          resetAsInp();
+          if(!$("#foncform").hasClass('hidden'))
+            showNssPat(false);
+          break; 
+        default:
+        break;   
       }
    } 
 	 function showTypeEdit(i){
     var value = {{ $patient->type_id}};
-    switch(value){
-      case 1:
-        if(i == 0)
-        {   
-          $("#foncform").addClass('hide');
-          $('.asdemogData').prop('disabled', true);
-        }else
-          patTypeChange($('#type').val());
-        break;
-      case  2: case 3: case 4: case 5:
-          if(i == 0)
-          {   
-            $("#foncform").removeClass('hide');
-            $('#nsspatient').attr('disabled', false);
-          }else
-            patTypeChange($('#type').val());
+    if(i == 0)
+    {
+      switch(value){
+        case 1:
+          $("#foncform").addClass('hidden');
+          $("#asdemogData").addClass('hidden');
+          $("#otherPat").addClass('hidden');
           break;
-      case 6:
-          if(i == 0)
-          {
-            assurHide(); resetAsInp();
-          }
-          else
-            patTypeChange($('#type').val()); 
+        case  2: case 3: case 4: case 5:
+          showNssPat(true);
+          $("#otherPat").addClass('hidden');
           break;
-    }     
+        case 6:
+          assurHide();
+          //$("#foncform").addClass('hidden');
+           $("#asdemogData").addClass('hidden');
+          if(!$("#foncform").hasClass('hidden'))
+            showNssPat(false);
+          break;
+      }   
+    }else
+      patTypeChange($('#type').val());
   }
   $(function(){  
   	showTypeEdit(0);

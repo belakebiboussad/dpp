@@ -178,8 +178,8 @@ class PatientController extends Controller
         "sf"=>request()->sf,
         "nom_jeune_fille"=>request()->nom_jeune_fille, 
         "Adresse"=>request()->adresse,
-        'commune_res'=>request()->idcommune,//'commune_res'=>isset(request()->idcommune) ?request()->idcommune:'1556',
-        'wilaya_res'=>request()->idwilaya,//'wilaya_res'=>isset(request()->idwilaya) ?request()->idwilaya:'49',
+        'commune_res'=>request()->idcommune,
+        'wilaya_res'=>request()->idwilaya,
         "tele_mobile1"=>request()->mobile1,
         "tele_mobile2"=>request()->mobile2,
         "group_sang"=>request()->gs,
@@ -188,6 +188,7 @@ class PatientController extends Controller
         "type_id"=>request()->type,
         "description"=> request()->description,
         "NSS"=>request()->nsspatient,
+        'nationalite'=>request()->nationalite
     ]);
     $sexe = (request()->sexe == "M") ? 1:0;
     $ipp =$sexe.$date->year.$patient->id;
@@ -245,6 +246,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, patient $patient)
     { 
+      dd($request->all());
       $ayants = array("2", "3", "4","5");
       $ayantsAssure = array("1", "2", "3","4","5");
       $assure = new assur;
@@ -286,24 +288,21 @@ class PatientController extends Controller
         }
       }
       $patient -> update([
-               "Nom"=>$request->nom,
-               "Prenom"=>$request->prenom,
-               "Dat_Naissance"=>$request->datenaissance,
-               "Lieu_Naissance"=>$request->idlieunaissance,
-               "Sexe"=>$request->sexe,
-               "Adresse"=>$request->adresse,
-               "commune_res"=>$request->idcommune,
-               'wilaya_res'=>$request->idwilaya,
-               "sf"=>$request->sf,
-               "nom_jeune_fille"=>$request->nom_jeune_fille, 
-               "tele_mobile1"=>$request->mobile1,
-               "tele_mobile2"=>$request->mobile2,
-               "group_sang"=>$request->gs,
-               "rhesus"=>$request->rh, 
-               "Assurs_ID_Assure"=>isset($assure->NSS)? $assure->NSS : null,
-               "type_id"=>$request->type,
-               "description"=>isset($request->description)? $request->description: null,
-               "NSS"=>(!in_array($patient->type_id,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
+            "Nom"=>$request->nom,"Prenom"=>$request->prenom,
+            "Dat_Naissance"=>$request->datenaissance,
+            "Lieu_Naissance"=>$request->idlieunaissance,
+            "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
+            "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
+             "sf"=>$request->sf,             "nom_jeune_fille"=>$request->nom_jeune_fille, 
+             "tele_mobile1"=>$request->mobile1,
+             "tele_mobile2"=>$request->mobile2,
+             "group_sang"=>$request->gs,
+             "rhesus"=>$request->rh, 
+             "Assurs_ID_Assure"=>isset($assure->NSS)? $assure->NSS : null,
+             "type_id"=>$request->type,
+             "description"=>isset($request->description)? $request->description: null,
+             "NSS"=>(!in_array($patient->type_id,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
+             'nationalite'=>request()->nationalite
         ]);
         return redirect(Route('patient.show',$patient->id));
     }
@@ -320,7 +319,6 @@ class PatientController extends Controller
           return $patient;
         else       
           return redirect()->route('patient.index');
-        
       } 
   public function getPatientsList(Request $request)
   {

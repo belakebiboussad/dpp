@@ -43,7 +43,7 @@ class ServiceController extends Controller
     {
       $services = service::all();
       $users = User::whereHas( 'role', function($q){
-                      $q->whereIn('id',[1,5,6,10,11,12,13,14]);
+                      $q->whereIn('id',[1,5,10,11,12,13,14]);
                   })->get();
       
       $view = view("services.ajax_add",compact('users','services'))->render();
@@ -62,7 +62,6 @@ class ServiceController extends Controller
       if($validator->fails())
          return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
-      return($request->all());
       if($request->ajax())//return $service->load('responsable');
         return response()->json(['success' => "Services crée avec suuccés",'service'=> $service->load('responsable')]);
       else
@@ -92,7 +91,7 @@ class ServiceController extends Controller
         if($service->type != 2)
            $users = User::whereHas('employ', function($q) use($service) {
                             $q->where('service_id',$service->id);
-                        })->whereIn('role_id',[1,13,14])->get();
+                        })->whereIn('role_id',[1,5,10,11,12,13,14])->get();
         else
            $users = User::whereHas('employ', function($q) use($service) {
                             $q->where('service_id',$service->id);
@@ -125,7 +124,6 @@ class ServiceController extends Controller
         $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
         $input['urgence'] = isset($request->urgence)? $request->urgence : null;
         $service->update($input);//return redirect()->action('ServiceController@index');
-        return $input;   
         return response()->json(['success' => "Services modifié avec suuccés",'service'=> $service->load('responsable')]);
       }
       /**

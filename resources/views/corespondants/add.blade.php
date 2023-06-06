@@ -68,7 +68,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="type_piece">Type de la pièce d'identité</label>
+            <label for="type_piece">Type de pièce d'identité</label>
             <div class="radio">
               <label>
               <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
@@ -78,11 +78,11 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="num_piece">N° pièce</label>
+            <label for="num_piece">Numéro de pièce d'identité</label>
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="form-group">
-            <label for="num_piece">Délivré le<span class="red">*</span></label>
+            <label for="num_piece">Date d'emission de la pièce d'identité<span class="red">*</span></label>
             <input class="form-control date-picker" id="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
           </div>
           <div class="form-group">

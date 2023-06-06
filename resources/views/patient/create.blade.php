@@ -1,6 +1,7 @@
 @extends('app')
 @section('title','Ajouter un patient')
 @section('page-script')
+@include('patient.scripts.functions')
  <script>
   $(function(){
     var i =0;

@@ -7,7 +7,7 @@
 		<div class="col-sm-8"><textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="Resumé" class="form-control"></textarea></div>
 </div>	
 <div class="form-group row {{ $errors->has('motif') ? 'has-error' : '' }}">
-		<label class="col-sm-4 control-label" for="motif">Motif de consultation<span class="red">*</span></label> 
+		<label class="col-sm-4 control-label required" for="motif">Motif de consultation</label> 
 		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control"/></div>
 </div>
 <div class="form-group row">
@@ -30,6 +30,6 @@
     </div>
 </div>
 <div class="form-group row">
-	<label class="col-sm-4 control-label" for="resume">Résumé<span class="red">*</span></label>  
+	<label class="col-sm-4 control-label required" for="resume">Résumé</label>  
 	<div class="col-sm-8"><textarea class="form-control" id="resume" name="resume" placeholder="Résumé..."></textarea></div>
 </div>
