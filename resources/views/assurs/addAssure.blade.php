@@ -1,18 +1,26 @@
+<h4 class="header  lighter blue">Assurance</h4>
+<div class="row">
+  <div class="form-group col-sm-4">
+    <label class="control-label col-md-3 col-sm-3 required" for="nss2">NSS</label>    
+    <div class="col-sm-9">
+      <input type="text" id="nss" name="nss" class="form-control nssform" placeholder="Numéro sécurité sociale"/>
+       {!! $errors->first('nss', '<p class="alert-danger">:message</p>') !!}
+    </div>
+  </div>
+</div>
 <div id="asdemogData">
 <h4 class="header lighter block blue">Informations démographiques</h4>
  <div class="row">
 	<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label required" for="nomf">Nom</label>
 		<div class="col-sm-9">
-			<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="asdemogData form-control" value="{{ old('nomf') }}"/>
-				{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}
+			<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="asdemogData form-control" value="{{ old('nomf') }}"/>{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}	
 		</div>
 	</div>	
 	<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label required" for="prenomf">Prénom</label>
 		<div class="col-sm-9">
-			<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="asdemogData form-control"  value="{{ old('prenomf') }}"/>
-			{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
+			<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="asdemogData form-control"  value="{{ old('prenomf') }}"/>{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
 </div>
@@ -48,10 +56,8 @@
 		<div class="col-sm-3">
 			<select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf" class="col-sm-12">
 				<option value="">------</option>
-				<option value="A">A</option>
-				<option value="B">B</option>
-				<option value="O">O</option>
-				<option value="AB">AB</option>
+				<option value="A">A</option><option value="B">B</option>
+				<option value="O">O</option><option value="AB">AB</option>
 			</select>
 		</div>
 		<label class="col-sm-3 control-label no-padding-right" for="rh">Rhésus</label>
@@ -96,12 +102,3 @@
 	</div>
 </div>
 </div><!-- end demog data-->
-<h4 class="header  lighter blue">Assurance</h4>
-<div class="row">
-  <div class="form-group col-sm-4">
-    <label class="control-label col-xs-3 col-sm-3 required" for="nss2">NSS</label>    
-    <div class="clearfix col-sm-9">
-      <input type="text" id="nss" name="nss" class="form-control nssform asProfData" placeholder="Numéro sécurité sociale"/>
-    </div>
-  </div>
-</div>

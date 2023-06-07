@@ -4,28 +4,21 @@
 @include('patient.scripts.functions')
  <script>
   $(function(){
-    $('#type').change(function(){
-      if($("#patientSave").prop('disabled') == true)
-         $('#patientSave').removeAttr('disabled');
-      patTypeChange(this.value);
-    });
-    $( "#addPatientForm" ).submit(function( event ) {
-      if( ! checkPatient() )
-      {
-		 	  activaTab("Patient");
-	  	    event.preventDefault();
-	      }else{
-          if($("#type").val() != 6)
-        	{
-            if($("#type").val() == "1")
-              $('.asdemogData').prop("disabled", false);
-            if( ! checkAssure() )
-            {
-              activaTab("Assure");
-              event.preventDefault();
-            }
-          } 
-      }     
+      $( "#addPatientForm" ).submit(function( e ) {
+             e.preventDefault(); 
+             /*
+             if(validPatient())
+             {
+                      activaTab("Patient");
+                      return false;
+                }
+               else  if(validAssure()) 
+                {
+                      activaTab("Assure");
+                     return false;
+                }
+                */
+              $( "#addPatientForm" )[0].submit(); 
  	});
   $('#unkDate').click(function() {
     if ($(this).is(':checked')) {
@@ -79,7 +72,7 @@
       </div><div class="hr hr-dotted"></div>
       <div class="row">
         <div class="col-sm-12 center">
-          <button class="btn btn-primary btn-xs" type="submit" id="patientSave" disabled><i class="ace-icon fa fa-save"></i>Enregistrer</button>
+          <button class="btn btn-primary btn-xs" type="submit" id="patientSave"><i class="ace-icon fa fa-save"></i>Enregistrer</button>
           <button class="btn btn-warning btn-xs" type="reset"><i class="ace-icon fa fa-undo"></i>Annuler</button>
         </div>
       </div>  

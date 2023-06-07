@@ -4,31 +4,22 @@
 @include('patient.scripts.functions')
 <script type="text/javascript">
   $(function(){  
-  	patTypeChange('{{ $patient->type_id }}');
-		$( "#editPatientForm" ).submit(function( event ) {
-			if( ! checkPatient() )
-      {
-      	activaTab("Patient");
-				event.preventDefault();
-      }else
-      {
-      	switch($("#type").val()){
-      		case "0": case "1": case "1": case "2": case "3": case "4":
-      			if($("#type").val() == "0")
- 							$('.asdemogData').prop("disabled", false);
- 						if( ! checkAssure() )
-						{
-			 				activaTab("Assure");
-		  				event.preventDefault();
-						}
-						break;
-      		default:
- 	 					break;
-      	}
-      }
-      $( "#editPatientForm" ).submit();	
- 		});	
-	});
+      patTypeChange('{{ $patient->type_id }}');
+       $('#editPatientForm').on('submit', function(e){
+            e.preventDefault(); 
+               if(validPatient())
+       {
+                activaTab("Patient");
+                return false;
+          }
+         else  if(validAssure()) 
+          {
+                activaTab("Assure");
+               return false;
+          }
+              $( "#editPatientForm" )[0].submit(); 
+      });
+});
 </script>
 @stop
 @section('main-content')
@@ -40,7 +31,7 @@
 			</a>
 		</div>
 	</div>
-	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" novalidate>
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<div class="row">

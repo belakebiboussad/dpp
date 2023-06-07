@@ -58,11 +58,9 @@
     <label class="col-sm-3 control-label " for="sf">Civilité</label>
     <div class="col-sm-9">
       <select class="form-control civilite" id="sf" name="sf">
-        <option value="">------</option>
-        <option value="C">Célibataire(e)</option>
-        <option value="M">Marié(e)</option>
-        <option value="D">Divorcé(e)</option>
-        <option value="V">Veuf(veuve)</option>
+              <option value="">------</option><option value="C">Célibataire(e)</option>
+              <option value="M">Marié(e)</option>  <option value="D">Divorcé(e)</option>
+              <option value="V">Veuf(veuve)</option>
       </select>
     </div>
   </div>
@@ -111,8 +109,7 @@
 
   </div> --}}
 
-</div>
-<h4 class="header lighter block blue">Contact</h4>
+</div><h4 class="header lighter block blue">Contact</h4>
 <div  class="row demograph">
 	<div class="form-group col-sm-6">
 		<label class="control-label col-sm-2 col-xs-2" for="adresse">Adresse</label>
@@ -157,12 +154,12 @@
 	<div class="form-group col-sm-3">
 		<label class="control-label col-sm-5 col-xs-5 required" for="type">Type</label>
 		<div class="col-sm-7 col-xs-7">
-			<select class="form-control" id="type" name="type">
-				<option value="" disabled selected>Selectionner...</option>
-        @foreach($types as $type)
-          <option value="{{ $type->id }}"> {{ $type->nom }}</option>
-        @endforeach
-			</select>
+			<select class="form-control" id="type" name="type"  onchange="patTypeChange($(this).val());">
+				<option value='' disabled selected>Selectionner...</option>
+                          @foreach($types as $type)
+                            <option value="{{ $type->id }}"> {{ $type->nom }}</option>
+                          @endforeach
+			</select> {!! $errors->first('type', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
 	<div class="form-group col-sm-3" id="foncform">

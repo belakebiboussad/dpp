@@ -243,7 +243,7 @@ class UsersController extends Controller
         'password_again.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
 
       ];
-      $validator = Validator::make($data, [//'current-password' =>  "required_if:role,!=,4",
+      $validator = Validator::make($data, [
         'current-password' =>  "required",
         'newPassword' => 'required|different:current-password',
         'password_again' => 'required|same:newPassword',     

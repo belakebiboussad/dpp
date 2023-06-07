@@ -170,7 +170,7 @@
   <div class="form-group col-sm-3">
 	<label class="control-label col-sm-5 col-md-5 required" for="type">Type</label>
 	<div class="col-sm-7 col-md-7">
-  <select class="form-control" id="type" name="type" onchange="patTypeChange('{{ $patient->type_id}}');">
+  <select class="form-control" id="type" name="type" onchange="patTypeChange($(this).val());">
   		@foreach($types as $type)
         <option value="{{ $type->id }}" {{ ($patient->type_id == $type->id) ? 'selected': ''}}> {{ $type->nom }}</option>
       @endforeach
