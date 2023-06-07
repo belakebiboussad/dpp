@@ -167,11 +167,6 @@
           field =event['target']['id'];
         }
     });  
-    $('ul#menuPatient li').click(function(e) 
-    { 
-      if(($(this).index() == 1) && ($("#type").val() == 0))
-        copyPatient();
-    });
 });
 </script>
 <script type="text/javascript">
@@ -192,33 +187,6 @@
                 });
 </script>   
 <script type="text/javascript">
-  function assureShow(type)
-  {
-    $('.nav-pills li').eq(1).removeClass('hide');
-    $("div#Assure").removeClass('hide');
-    if(!$('#otherPat').hasClass( "hidden" ))
-    {
-      $("#otherPat").addClass('hidden');
-      $('#description').val('');
-    }
-    if($('#assProfData').hasClass( "hidden" ))
-      $("#assProfData").removeClass('hidden');
-    switch(type){
-      case "1":
-        if(!$('#asdemogData').hasClass( "hidden" ))
-         $("#asdemogData").addClass('hidden');
-        break;
-      case  "2": case "3": case "4": case "5":
-        if($('#asdemogData').hasClass( "hidden" ))
-         $("#asdemogData").removeClass('hidden');
-        break;
-    }  
-  }
-  function resetAsInp()
-  {
-    $('#Assure').find('input').val('');
-    $('#Assure').find("select").prop("selectedIndex",0);
-  }
   $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")
     {

@@ -170,20 +170,16 @@ class PatientController extends Controller
       }
     }  
     $patient = patient::firstOrCreate([
-        "Nom"=>request()->nom,// "code_barre"=>$codebarre,
-        "Prenom"=>request()->prenom,
+        "Nom"=>request()->nom,"Prenom"=>request()->prenom,
         "Dat_Naissance"=>$DOB,
         "Lieu_Naissance"=>request()->idlieunaissance,
-        "Sexe"=>request()->sexe,
-        "sf"=>request()->sf,
+        "Sexe"=>request()->sexe,"sf"=>request()->sf,
         "nom_jeune_fille"=>request()->nom_jeune_fille, 
         "Adresse"=>request()->adresse,
         'commune_res'=>request()->idcommune,
         'wilaya_res'=>request()->idwilaya,
-        "tele_mobile1"=>request()->mobile1,
-        "tele_mobile2"=>request()->mobile2,
-        "group_sang"=>request()->gs,
-        "rhesus"=>request()->rh,
+        "tele_mobile1"=>request()->mobile1,"tele_mobile2"=>request()->mobile2,
+        "group_sang"=>request()->gs,"rhesus"=>request()->rh,
         "Assurs_ID_Assure"=> (request()->nss !=null) ? request()->nss : null ,
         "type_id"=>request()->type,
         "description"=> request()->description,
@@ -246,7 +242,6 @@ class PatientController extends Controller
      */
     public function update(Request $request, patient $patient)
     { 
-      dd($request->all());
       $ayants = array("2", "3", "4","5");
       $ayantsAssure = array("1", "2", "3","4","5");
       $assure = new assur;
@@ -266,45 +261,61 @@ class PatientController extends Controller
               "commune_res"=>$request->idcommunef,
               "wilaya_res"=>$request->idwilayaf,
               "grp_sang"=>$request->gsf.$request->rhf,
-              "Service"=>$request->service,
               "NSS"=>$request->nss
             ]);
         }else
         {
-          if(((in_array($patient->type_id, $ayants))&&($request->type == 1))||((in_array($request->type, $ayants))&&($patient->type_id == 1))||(($patient->type_id == 6) && (in_array($request->type, $ayantsAssure))))  
-              $assure = $assure->firstOrCreate([
-                "Nom"=>$request->nomf,
-                "Prenom"=>$request->prenomf,
-                "Date_Naissance"=>$request->datenaissancef,
-                "lieunaissance"=>$request->idlieunaissancef,
-                "Sexe"=>$request->sexef,
-                "adresse"=>$request->adressef,
-                "commune_res"=>$request->idcommunef,
-                "wilaya_res"=>$request->idwilayaf,
-                "grp_sang"=>$request->gsf.$request->rhf,
-                "Service"=>$request->service,
-                "NSS"=>$request->nss
-              ]);  
+          if($request->type == 1)
+          {
+            $assure = $assure->firstOrCreate([
+              "Nom"=>$request->nom,
+              "Prenom"=>$request->prenom,
+              "Date_Naissance"=>$request->datenaissance,
+              "lieunaissance"=>$request->idlieunaissance,
+              "Sexe"=>$request->sexe,
+              "adresse"=>$request->adresse,
+              "commune_res"=>$request->idcommune,
+              "wilaya_res"=>$request->idwilaya,
+              "grp_sang"=>$request->gs.$request->rh,
+              "NSS"=>$request->nss
+            ]);
+          }
+          else
+          {
+            $assure = $assure->firstOrCreate([
+              "Nom"=>$request->nomf,
+              "Prenom"=>$request->prenomf,
+              "Date_Naissance"=>$request->datenaissancef,
+              "lieunaissance"=>$request->idlieunaissancef,
+              "Sexe"=>$request->sexef,
+              "adresse"=>$request->adressef,
+              "commune_res"=>$request->idcommunef,
+              "wilaya_res"=>$request->idwilayaf,
+              "grp_sang"=>$request->gsf.$request->rhf,
+              "NSS"=>$request->nss
+              ]);
+          }
         }
       }
       $patient -> update([
-            "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-            "Dat_Naissance"=>$request->datenaissance,
-            "Lieu_Naissance"=>$request->idlieunaissance,
-            "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
-            "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
-             "sf"=>$request->sf,             "nom_jeune_fille"=>$request->nom_jeune_fille, 
-             "tele_mobile1"=>$request->mobile1,
-             "tele_mobile2"=>$request->mobile2,
-             "group_sang"=>$request->gs,
-             "rhesus"=>$request->rh, 
-             "Assurs_ID_Assure"=>isset($assure->NSS)? $assure->NSS : null,
-             "type_id"=>$request->type,
-             "description"=>isset($request->description)? $request->description: null,
-             "NSS"=>(!in_array($patient->type_id,[5,6]))? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
-             'nationalite'=>request()->nationalite
+        "Nom"=>$request->nom,"Prenom"=>$request->prenom,
+        "Dat_Naissance"=>$request->datenaissance,
+        "Lieu_Naissance"=>$request->idlieunaissance,
+        "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
+        "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
+         "sf"=>$request->sf,             
+         "nom_jeune_fille"=>$request->nom_jeune_fille, 
+         "tele_mobile1"=>$request->mobile1,
+         "tele_mobile2"=>$request->mobile2,
+         "group_sang"=>$request->gs,
+         "rhesus"=>$request->rh, 
+         "Assurs_ID_Assure"=>isset($assure->NSS)? $assure->NSS : null,
+         "type_id"=>$request->type,
+         "description"=>isset($request->description)? $request->description:null,
+         "NSS"=>($patient->type_id !=6)? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
+         'nationalite'=>request()->nationalite
         ]);
-        return redirect(Route('patient.show',$patient->id));
+         return redirect(Route('patient.show',$patient->id));
     }
     /**
      * Remove the specified resource from storage.

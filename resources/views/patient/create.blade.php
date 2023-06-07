@@ -4,12 +4,10 @@
 @include('patient.scripts.functions')
  <script>
   $(function(){
-    var i =0;
     $('#type').change(function(){
       if($("#patientSave").prop('disabled') == true)
          $('#patientSave').removeAttr('disabled');
-      showTypeAdd(this.value,i);
-      i = (i == 0 ) ? ++i : i; 
+      patTypeChange(this.value);
     });
     $( "#addPatientForm" ).submit(function( event ) {
       if( ! checkPatient() )

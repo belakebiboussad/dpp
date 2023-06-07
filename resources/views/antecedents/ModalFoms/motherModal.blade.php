@@ -75,9 +75,7 @@
 				type = "PUT";
 				ajaxurl = '/mother/' + $("#id").val();
 		  }
-      alert(state);
-      alert(url);
-	 		$.ajax({
+     	$.ajax({
 			   type: type,
 			   url: url,
 			   data: formData,

@@ -149,7 +149,7 @@
   <div class="form-group col-sm-4">
     <label class="control-label col-sm-3 required" for="nss">NSS</label>
     <div class="col-sm-9">
-<input type="text" id="nss" name="nss" class="form-control asProfData" value=" {{($patient->type_id ==6) ? '' : $assure->NSS}}" maxlength =12 minlength =12 autocomplete = "off" /> 
+<input type="text" id="nss" name="nss" class="form-control asProfData nssform" value=" {{($patient->type_id ==6) ? '' : $assure->NSS}}" maxlength =12 minlength =12 autocomplete = "off" /> 
     </div>
     </div>
 </div>

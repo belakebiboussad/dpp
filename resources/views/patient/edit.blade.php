@@ -3,58 +3,8 @@
 @section('page-script')
 @include('patient.scripts.functions')
 <script type="text/javascript">
-   function patTypeChange(value)
-   {
-     switch(value){
-        case "1":
-          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow(value);
-          if(!$("#foncform").hasClass('hidden'))
-            showNssPat(false);
-          break;
-        case  "2": case "3": case "4": case "5":
-          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow(value);
-          if($("#foncform").hasClass('hidden'))
-             showNssPat(true);
-          break;
-        case "6":
-          assurHide();
-          resetAsInp();
-          if(!$("#foncform").hasClass('hidden'))
-            showNssPat(false);
-          break; 
-        default:
-        break;   
-      }
-   } 
-	 function showTypeEdit(i){
-    var value = {{ $patient->type_id}};
-    if(i == 0)
-    {
-      switch(value){
-        case 1:
-          $("#foncform").addClass('hidden');
-          $("#asdemogData").addClass('hidden');
-          $("#otherPat").addClass('hidden');
-          break;
-        case  2: case 3: case 4: case 5:
-          showNssPat(true);
-          $("#otherPat").addClass('hidden');
-          break;
-        case 6:
-          assurHide();
-          //$("#foncform").addClass('hidden');
-           $("#asdemogData").addClass('hidden');
-          if(!$("#foncform").hasClass('hidden'))
-            showNssPat(false);
-          break;
-      }   
-    }else
-      patTypeChange($('#type').val());
-  }
   $(function(){  
-  	showTypeEdit(0);
+  	patTypeChange('{{ $patient->type_id }}');
 		$( "#editPatientForm" ).submit(function( event ) {
 			if( ! checkPatient() )
       {
