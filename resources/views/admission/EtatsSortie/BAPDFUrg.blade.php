@@ -32,7 +32,7 @@
       </tr>
     </table>
     </section>
-    @isset($patient->Assurs_ID_Assure)
+    @isset($patient->assur_id)
     <h5><u><b>ASSURE :</b></u></h5>
     <section class="table tab">
      	<table>

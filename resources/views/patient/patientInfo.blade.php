@@ -136,11 +136,11 @@
 										<span>Sexe :</span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 								</div>
-                                                  <div class="col-sm-9">
-                                                  <label class="inline">
-                                                  <span>N° sécurité sociale :</span><span class="lbl blue">{{ $patient->Assurs_ID_Assure }}</span>
-                                                </label>        
-                                              </div>
+                    <div class="col-sm-9">
+                      <label class="inline">
+                      <span>N° sécurité sociale :</span><span class="lbl blue">{{ $patient->assur_id }}</span>
+                    </label>        
+                  </div>
 							</div>
                                   </div>
 					</div>

@@ -4,7 +4,7 @@
 		<label class="col-sm-3 control-label required" for="nom">Nom</label>
 		<div class="col-sm-9">
 			<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="form-control" required  />
-			{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+			{!! $errors->first('nom','<small class="alert-danger">:message</small>') !!}
 		</div>
   </div>
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
@@ -48,7 +48,6 @@
 			  <div class="radio">
 				<label>
 				<input name="sexe" value="M" type="radio" class="ace" {{ $patient->Sexe == "M" ? "checked" : ""}}/><span class="lbl">Masculin</span>
-					
 				</label>
 				<label>
 				<input name="sexe" value="F" type="radio" class="ace" {{ $patient->Sexe == "F" ? "checked" : ""}}/><span class="lbl">Féminin</span>

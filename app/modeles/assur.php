@@ -34,6 +34,6 @@ class assur extends Model
 	}
 	public function patients()
 	{
-		return $this->hasMany('App\modeles\patient','Assurs_ID_Assure');
+		return $this->hasMany('App\modeles\patient','assur_id');
 	}
 }

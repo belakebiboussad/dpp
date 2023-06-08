@@ -35,20 +35,13 @@ class AssurController extends Controller
     public function store(Request $request)
     { 
        $assure = assur::create([
-        "Nom"=>$request->nomf,
-        "Prenom"=>$request->prenomf,
+        "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
         "Date_Naissance"=>$request->datenaissancef,
         "lieunaissance"=>$request->idlieunaissancef,
-        "Sexe"=>$request->sexef,
-        "adresse"=>$request->adressef,
-        "commune_res"=>$request->idcommunef,
-        "wilaya_res"=>$request->idwilayaf,
-        "grp_sang"=>$request->gsf.$request->rhf,
-        "Service"=>$request->service,
-        "Etat"=>$request->etatf,
-        "NSS"=>$request->nss
-      ]);
-       return view('assurs.show',compact('assure'));
+        "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
+        "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
+        "grp_sang"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
+      ]);//return view('assurs.show',compact('assure'));
     }
     /**
      * //je stock l'assure obtenue de GRH  
@@ -87,20 +80,14 @@ class AssurController extends Controller
     {
       $assure = assur::find($id);
       $assure -> update([
-              "Nom"=>$request->nomf,
-              "Prenom"=>$request->prenomf,
-              "Date_Naissance"=>$request->datenaissancef,
-              "lieunaissance"=>$request->idlieunaissancef,
-              "Sexe"=>$request->sexef,
-              "adresse"=>$request->adressef,
-              "commune_res"=>$request->idcommunef,
-              "wilaya_res"=>$request->idwilayaf,
-              "grp_sang"=>$request->gsf.$request->rhf,
-              "Service"=>$request->service,
-              "Etat"=>$request->etatf,
-              "NSS"=>$request->nss
-      ] );
-      return redirect(Route('assur.show',$assure->id));
+        "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
+        "Date_Naissance"=>$request->datenaissancef,
+        "lieunaissance"=>$request->idlieunaissancef,
+        "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
+        "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
+        "grp_sang"=>$request->gsf.$request->rhf,
+        "NSS"=>$request->nss
+      ]); //return redirect(Route('assur.show',$assure->id));
     }
     public function  updateAssure($situationFamille,  $adresse,$wilayaResid, $service , $NSS)
     {

@@ -4,22 +4,22 @@
 @include('patient.scripts.functions')
 <script type="text/javascript">
   $(function(){  
-      patTypeChange('{{ $patient->type_id }}');
-       $('#editPatientForm').on('submit', function(e){
-            e.preventDefault(); 
-               if(validPatient())
-       {
-                activaTab("Patient");
-                return false;
-          }
-         else  if(validAssure()) 
-          {
-                activaTab("Assure");
-               return false;
-          }
-              $( "#editPatientForm" )[0].submit(); 
-      });
-});
+    patTypeChange('{{ $patient->type_id }}');
+    $('#editPatientForm').on('submit', function(e){
+      // e.preventDefault(); 
+      // if(validPatient())
+      // {
+      //   activaTab("Patient");
+      //   return false;
+      // }
+      // else  if(validAssure()) 
+      // {
+      //   activaTab("Assure");
+      //   return false;
+      // }
+      $( "#editPatientForm" )[0].submit(); 
+   });
+  });
 </script>
 @stop
 @section('main-content')

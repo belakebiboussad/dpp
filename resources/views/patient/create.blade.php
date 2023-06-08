@@ -4,22 +4,20 @@
 @include('patient.scripts.functions')
  <script>
   $(function(){
-      $( "#addPatientForm" ).submit(function( e ) {
-             e.preventDefault(); 
-             /*
-             if(validPatient())
-             {
-                      activaTab("Patient");
-                      return false;
-                }
-               else  if(validAssure()) 
-                {
-                      activaTab("Assure");
-                     return false;
-                }
-                */
-              $( "#addPatientForm" )[0].submit(); 
- 	});
+    $( "#addPatientForm" ).submit(function( e ) {
+      e.preventDefault(); 
+      if(validPatient())
+      {
+        activaTab("Patient");
+        return false;
+      }
+      else  if(validAssure()) 
+      {
+        activaTab("Assure");
+        return false;
+      }
+      $( "#addPatientForm" )[0].submit(); 
+ 	  });
   $('#unkDate').click(function() {
     if ($(this).is(':checked')) {
       $('#dateExact').addClass('hidden');

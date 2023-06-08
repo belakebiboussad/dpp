@@ -6,7 +6,7 @@ trait PatientSearch
     public function patientSearchByfirstName($prenom , $NSSAssure)
     {
       $patient = patient::where('Prenom',trim($prenom))
-                        ->where('Assurs_ID_Assure',trim($NSSAssure))    
+                        ->where('assur_id',trim($NSSAssure))    
                         ->select('patients.id')->get()->first(); 
       if(isset($patient))
         return $patient->id;
@@ -16,7 +16,7 @@ trait PatientSearch
     public function patientSearchByType($type , $NSSAssure)
     {
       $patient = patient::where('Type',trim($type))
-                        ->where('Assurs_ID_Assure',trim($NSSAssure))    
+                        ->where('assur_id',trim($NSSAssure))    
                         ->select('patients.id')->get()->first(); 
       if(isset($patient))
         return $patient->id;
