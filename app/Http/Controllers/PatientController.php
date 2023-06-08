@@ -212,7 +212,6 @@ class PatientController extends Controller
     $types =PatientType::all();
     if($patient->type_id != 6)
       $assure =  $patient->assure;
-   // dd($assure->wilaya);
     return view('patient.edit',compact('patient','assure','types')); 
   }
 /**
@@ -245,7 +244,7 @@ class PatientController extends Controller
 
       if(($request->type == $patient->type_id)||((in_array($request->type, $ayants)&&(in_array($patient->type_id, $ayants)))))
       {//1 & 2
-        dd("1");
+        
         $assure = assur::FindOrFail($patient->assur_id);
         $assure->update([
           "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
@@ -276,24 +275,21 @@ class PatientController extends Controller
           $result = (new AssurController)->store();
         }else
         {//test3
-          dd($patient->type_id);
           $assure = assur::find($request->nss);
           if(!is_null($assure))
             (new AssurController)->update($request,$assure->NSS);  
           else
+            (new AssurController)->store($request);
+          if($patient->type_id ===1)
           {
-           (new AssurController)->store($request);
+            $as = assur::find($patient->assur_id);
+            if($as->patients->count() <=1)
+               $as->delete();
           }
         }
       }
-    }else
-    {
-      if($patient->type != 6)
-      {//4
-
-      }//5
     }
-    $patient -> update([
+    $patient->update([
       "Nom"=>$request->nom,"Prenom"=>$request->prenom,
       "Dat_Naissance"=>$request->datenaissance,
       "Lieu_Naissance"=>$request->idlieunaissance,
@@ -311,7 +307,7 @@ class PatientController extends Controller
        "NSS"=>($patient->type_id !=6)? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
        'nationalite'=>request()->nationalite
       ]);
-       return redirect(Route('patient.show',$patient->id));
+      return redirect(Route('patient.show',$patient->id));
     }
     /**
      * Remove the specified resource from storage.
