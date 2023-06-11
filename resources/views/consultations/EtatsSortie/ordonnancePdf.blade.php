@@ -3,7 +3,7 @@
  <div><b>Patient(e)</b> :</div>
 <div class="tab">
   <b>Nom</b> :<span> {{ $obj->patient->Nom }}</span> <b>Prenom</b> :<span> {{ $obj->patient->Prenom }}</span>
-  <b>Né(e) le</b> :<span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }}</span>
+  <b>Né(e) le</b> :<span> {{ $obj->patient->dob->format('d/m/Y') }}</span>
 </div>
 <div><h1 class="mtP70 ml-7"><b>ORDONNANCE</b></h1></div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

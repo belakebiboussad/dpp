@@ -7,9 +7,9 @@
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
 			<span class="bigger-110">Modifier</span>
 		</a>
-    {{--@if(Auth::user()->is(15))
-			<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><i class="ace-icon fa fa-plus bigger-120"></i>
-	<span class="bigger-110"> Rendez-Vous</span></a>@endif  --}}
+{{--@if(Auth::user()->is(15))
+			<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><span class="bigger-110"> Rendez-Vous</span></a>@endif  --}}
+	
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
@@ -26,19 +26,19 @@
 					<div class="profile-info-name">Genre </div>
 					<div class="profile-info-value">	<span>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</span></div>
 				</div>
-				@if(isset($patient->Dat_Naissance))
+				@if(isset($patient->dob))
 				<div class="profile-info-row">
-					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance->format('Y-m-d') }}</span></div>
+					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->dob->format('Y-m-d') }}</span></div>
 				</div>
-				<div class="profile-info-row"><div class="profile-info-name"> Âge </div>
+				<div class="profile-info-row"><div class="profile-info-name">Âge</div>
 					<div class="numberCircle">{{ $patient->age }}</div> <span class="blue">Ans</span>
 				</div>
 				@endif
-				@if(isset($patient->Lieu_Naissance))
+				@if(isset($patient->pob))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Lieu Naissance </div>
 					<div class="profile-info-value">
-						<i class="fa fa-map-marker light-orange bigger-110"></i><span>{{ $patient->lieuNaissance->nom_commune }}</span>
+						<i class="fa fa-map-marker light-orange bigger-110"></i><span>{{ $patient->POB->name }}</span>
 					</div>
 				</div>
 				@endif
@@ -46,18 +46,18 @@
 				<div class="profile-info-row"><div class="profile-info-name"> Civilité </div>
 					<div class="profile-info-value"><span>
 						@switch($patient->sf)
-					           @case("C")
-						                Célibataire(e)
-						                @break
-						     @case("M")
-						               Marié(e)
-						                @break
-						     @case("D")
-						                Divorcé(e)
-						                @break
-						     @case("V")
-						                Veuf(veuve)
-						                @break           	
+			           @case("C")
+				                Célibataire(e)
+				                @break
+				     @case("M")
+				               Marié(e)
+				                @break
+				     @case("D")
+				                Divorcé(e)
+				                @break
+				     @case("V")
+				                Veuf(veuve)
+				                @break           	
 						@endswitch 
 						</span>
 					</div>
@@ -74,30 +74,30 @@
 					<div class="profile-info-name"> Adresse </div>
 					<div class="profile-info-value">
 						<i class="fa fa-map-marker light-orange bigger-110"></i>
-						<span>{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom }}</span>
+						<span>{{ $patient->Adresse }} ,{{ $patient->commune->name}} , {{ $patient->wilaya->nom }}</span>
 					</div>
 				</div>
 				@endif
-				@if(isset($patient->tele_mobile1) &&($patient->tele_mobile1 != ''))
+				@if(isset($patient->mob) &&($patient->mob != ''))
 				<div class="profile-info-row">
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Tél mobile</div>
-					<div class="profile-info-value"><span>{{ $patient->tele_mobile1 }}</span></div>
+					<div class="profile-info-value"><span>{{ $patient->mob }}</span></div>
 				</div>
 				@endif
-				@if(isset($patient->tele_mobile2) &&($patient->tele_mobile2 != ''))
+				@if(isset($patient->mob2) &&($patient->mob2 != ''))
 				<div class="profile-info-row">
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Tél mobile 2</div>
-					<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
+					<div class="profile-info-value"><span>{{ $patient->mob2 }}</span></div>
 				</div>
 				@endif
-				@if(isset($patient->group_sang))
+				@if(isset($patient->gs))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Groupe Sang</div>
-					<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
+					<div class="profile-info-value"><span>{{ $patient->gs }}</span></div>
 				</div>
 				<div class="profile-info-row">
 					<div class="profile-info-name">Rhésus</div>
-					<div class="profile-info-value"><span> {{ $patient->rhesus === "+" ? "Positif" : "Négatif" }}</span>
+					<div class="profile-info-value"><span> {{ $patient->rh === "+" ? "Positif" : "Négatif" }}</span>
 					</div>
 				</div>
 				@endif
@@ -122,11 +122,11 @@
 								</div>
 								<div class="col-sm-3">
 								<label class="inline">
-								<span>Né(e) le :</span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
+							<span>Né(e) le :</span><span class="lbl blue"> {{ $patient->assure->dob }}</span></label>
 								</div>
-								@if(isset($patient->assure->lieunaissance))
+								@if(isset($patient->assure->pob))
 								<div class="col-sm-3">
-								<label class="inline"><span>Né(e) à :</span><span class="lbl blue">{{ $patient->assure->lieuNaissance->nom_commune}} </span></label>
+								<label class="inline"><span>Né(e) à :</span><span class="lbl blue">{{ $patient->assure->POB->name }}</span></label>
 								</div>	
 								@endif
 							</div>

@@ -67,7 +67,7 @@ $(function(){
                   end:   '{{ $rdv->fin }}',
                   id :'{{ $rdv->id }}',
                   idPatient:'{{$rdv->patient->id}}',
-                  tel:'{{$rdv->patient->tele_mobile1}}',
+                  tel:'{{$rdv->patient->mob}}',
                   age:{{ $rdv->patient->age }},
                   specialite: {{ $rdv->specialite_id }},
                   medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
@@ -139,7 +139,7 @@ $(function(){
         });
         $("#patient").on("keyup", function() {
          var field = $("select#filtre option").filter(":selected").val();
-         if(field != "Dat_Naissance")
+         if(field != "dob")
                 remoteSearch(field,$("#patient").val()); //to call ajax
         });
 })

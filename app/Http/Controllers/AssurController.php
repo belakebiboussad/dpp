@@ -36,12 +36,12 @@ class AssurController extends Controller
     { 
        $assure = assur::create([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "Date_Naissance"=>$request->datenaissancef,
-        "lieunaissance"=>$request->idlieunaissancef,
+        "dob"=>$request->datenaissancef,
+        "pob"=>$request->idlieunaissancef,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
-        "grp_sang"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
-      ]);//return view('assurs.show',compact('assure'));
+        "gs"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
+      ]);
     }
     /**
      * //je stock l'assure obtenue de GRH  
@@ -50,10 +50,10 @@ class AssurController extends Controller
     {
       $assure = new assur;
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-      $assure->Date_Naissance = $date;$assure->Sexe = $obj->Genre;
+      $assure->dob = $date;$assure->Sexe = $obj->Genre;
       $assure->sf =$sf; $assure->adresse = utf8_encode($obj->Adresse);
       $assure->wilaya_res =  $obj->WilayaResidence;
-      $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+      $assure->gs = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
       $assure->Service =utf8_encode($obj->Service);
       $assure->save();
     }
@@ -81,11 +81,11 @@ class AssurController extends Controller
       $assure = assur::find($id);
       $assure -> update([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "Date_Naissance"=>$request->datenaissancef,
-        "lieunaissance"=>$request->idlieunaissancef,
+        "dob"=>$request->datenaissancef,
+        "pob"=>$request->idlieunaissancef,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
-        "grp_sang"=>$request->gsf.$request->rhf,
+        "gs"=>$request->gsf.$request->rhf,
         "NSS"=>$request->nss
       ]); //return redirect(Route('assur.show',$assure->id));
     }

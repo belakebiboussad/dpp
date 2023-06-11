@@ -42,18 +42,16 @@
      		<tr>
      			<td><b>Nom :</b><span> {{ $patient->assure->Nom }}</span></td>
      			<td><b>Prénom :</b><span> {{ $patient->assure->Prenom }}</span></td>
-     			<td><b>Né(e) le :</b><span> {{ $patient->assure->Date_Naissance->format('d/m/Y') }}</span></td>
+     			<td><b>Né(e) le :</b><span> {{ $patient->assure->dob->format('d/m/Y') }}</span></td>
      		</tr>
      		<tr>
      			<td><b>Adresse :</b><span> {{ $patient->assure->adresse }},
            @if(!is_null($patient->assure->commune_res))
-            {{ $patient->assure->commune->nom_commune }},{{ $patient->assure->commune->daira->wilaya->nom }}
+            {{ $patient->assure->commune->name }},{{ $patient->assure->commune->daira->wilaya->nom }}
             @endif
           </span></td>
      		</tr>
-     		<tr>
-     			<td><b>Tél :</b><span> {{ $patient->tele_mobile1 }}</span></td>
-     		</tr>
+     		<tr><td><b>Tél :</b><span> {{ $patient->mob }}</span></td></tr>
      		<tr>
      			<td></td><td></td><td></td>
      		</tr>
@@ -71,7 +69,7 @@
 	     	<tr>
      			<td><b>Nom :</b><span> {{ $patient->Nom }}</span></td>
      			<td><b>Prénom :</b><span> {{ $patient->Prenom }}</span></td>
-     			<td><b>Né(e) le :</b><span> {{ $patient->Dat_Naissance->format('d/m/Y') }}</span></td>
+     			<td><b>Né(e) le :</b><span> {{ $patient->dob->format('d/m/Y') }}</span></td>
      		</tr>
      	</table>
     </section>

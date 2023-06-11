@@ -9,23 +9,24 @@ class assur extends Model
 	public $timestamps = false;
 	protected $primaryKey = 'NSS';
 	public $incrementing = false;
-	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','sf', 'Sexe','adresse','commune_res','wilaya_res','grp_sang','NSS'];
-	protected $appends = ['full_name']; //protected $dates =['Date_Naissance'];
+	protected $fillable = ['Nom','Prenom','dob', 'pob','sf', 'Sexe','adresse','commune_res','wilaya_res','gs','NSS'];
+	protected $appends = ['full_name']; //protected $dates =['dob'];
   protected $casts = [
-    'Date_Naissance' => 'date',
+    'dob' => 'date',
   ];
   public function getFullNameAttribute()
   {
     return $this->Nom." ".$this->Prenom ;
   }
-  public function lieuNaissance()
+  public function POB()
 	{
-		return $this->belongsTo('App\modeles\Commune','lieunaissance');
+    if(!(is_null($this->pob)))
+		  return $this->belongsTo('App\modeles\Commune','pob');
 	}
 	public function commune()
 	{
-		if(isset($this->commune_res))
-			return $this->belongsTo('App\modeles\Commune','commune_res');
+		if(!(is_null($this->commune_res)))
+		  return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
 	public function wilaya()
 	{	

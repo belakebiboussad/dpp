@@ -19,25 +19,14 @@
 	 <div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label required" for="datenaissance">Né(e) le</label>
 		<div class="col-sm-9">
-			@if(isset($patient->Dat_Naissance)) 
-				<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance->format('Y-m-d')}}" required/>
-				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-			@else
-			<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
-			@endif
+			 <input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ (is_null($patient->dob))? '': $patient->dob }}" />{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
 	<div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
 	  <div class="col-sm-9">
-			@if(isset($patient->Lieu_Naissance)) 
-				<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-				<input type="text" id="lieunaissance" class="form-control autoCommune" value="{{ $patient->lieuNaissance->nom_commune }}"/>
-		 	  {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-		  @else
-		  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-				<input type="text" id="lieunaissance" class="form-control autoCommune "/>
-		  @endif
+			<input type="hidden" name="idlieunaissance" id="idlieunaissance" value="{{(is_null($patient->pob))? '': $patient->pob}}">
+      <input type="text" id="lieunaissance" class="form-control autoCommune" value=""/>
 	  </div>
 	</div>
 </div>
@@ -78,33 +67,19 @@
     <label class="col-sm-3 control-label" for="gs">Groupe S</label>
     <div class="col-sm-3">
       <select class="form-control groupeSanguin" id="gs" name="gs">
-      @if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
-        <option value="" selected >------</option>
-        <option value="A" >A</option>
-        <option value="B">B</option>
-        <option value="AB" >AB</option>
-        <option value="O" >O</option>
-      @else     
-        <option value="" selected>------</option>
-        <option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
-        <option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
-        <option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
-        <option value="O" @if( $patient->group_sang =="O") selected @endif>O</option>
-      @endif
+        <option value="" {{($patient->gs=="")?'selected':''}} >---</option>
+        <option value="A" {{($patient->gs=="A")?'selected':''}}>A</option>
+        <option value="B" {{($patient->gs=="B")?'selected':''}}>B</option>
+        <option value="AB" {{($patient->gs=="AB")?'selected':''}}>AB</option>
+        <option value="O" {{($patient->gs=="O")?'selected':''}}>O</option>
       </select>
     </div>
     <label class="col-sm-3 control-label" for="rh">Rhésus</label>
     <div class="col-sm-3">
-        <select id="rh" name="rh" class="form-control">
-        @if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
-          <option value="" selected>------</option>
-          <option value="+">+</option>
-          <option value="-">-</option>
-        @else
-          <option value="" >------</option>
-          <option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
-          <option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
-        @endif
+      <select id="rh" name="rh" class="form-control">
+        <option value="" >------</option>
+        <option value="+" {{($patient->rh=="+")?'selected':''}}>+</option>
+        <option value="-" {{($patient->rh=="-")?'selected':''}}>-</option>
         </select>
     </div>
   </div>
@@ -117,6 +92,16 @@
      </select>
     </div>
   </div>
+  <div class="form-group col-sm-4">
+    <label class="col-sm-3 control-label text-nowrap">Proféssion</label>
+    <div class="col-sm-9">
+     <select class="form-control" name="prof_id">
+      <option value='' disabled selected>Selectionner...</option>
+      @foreach($profs as $prof )
+      <option value="{{ $prof->id }}" {{($patient->prof_id == $prof->id )? 'selected':''  }}>{{ $prof->name }}</option>
+      @endforeach
+     </select>
+   </div>
 </div>
 <h4 class="header lighter block blue">Contact</h4>
 <div class="row">
@@ -129,25 +114,15 @@
 	<div class="form-group  col-sm-3 col-md-3">
 		<label class="control-label col-sm-4 col-md-4" for="commune">Commune</label>
 		<div class="col-sm-8 col-md-8">
-    @if(isset($patient->commune_res))
-		<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-    <input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune form-control"/>					
-		@else
-		<input type="hidden" name="idcommune" id="idcommune" value=""/>
-		<input type="text" id="commune"  value="" class="autoCommune "/>					
-		@endif
+    <input type="hidden" name="idcommune" id="idcommune" value="{{is_null($patient->commune_res)?'':$patient->commune_res}}"/>
+    <input type="text" id="commune"  value="{{is_null($patient->commune_res)?'':$patient->commune->name}}" class="autoCommune "/>   
 	  </div>
   </div>
 	<div class="form-group col-sm-3 col-md-3">
 		<label class="control-label col-sm-4 col-md-4">Wilaya</label>
 		<div class="col-sm-8 col-md-8">
-    @if(isset($patient->wilaya_res))
-		<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
-		<input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="form-control" readonly/>	
-		@else
-		<input type="hidden" name="idwilaya" id="idwilaya" value=""/>
-		<input type="text" id="wilaya" value="" class="form-control" readonly/>	
-		@endif
+      <input type="hidden" name="idwilaya" id="idwilaya" value="{{is_null($patient->wilaya_res)?'':$patient->wilaya_res }}"/>
+      <input type="text" id="wilaya" value="{{is_null($patient->wilaya_res)?'':$patient->wilaya->nom }}" class="form-control" readonly/> 
   </div>
 	</div>
 </div>
@@ -156,14 +131,14 @@
   	<label class="control-label col-sm-4 col-md-4" for="mobile1">Mob1</label>
     <div class="input-group col-sm-8">
       <span class="input-group-addon fa fa-phone"></span> 
-      <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->tele_mobile1 }}">
+      <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->mob }}">
     </div>
   </div>
   <div class="form-group col-sm-3">
   	<label class="control-label col-sm-4 col-md-4" for="mobile2">Mob2</label>
     <div class="input-group col-sm-8 col-md-8">
-      <span class="input-group-addon fa fa-phone"></span> 	 	
-        <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->tele_mobile2 }}">
+    <span class="input-group-addon fa fa-phone"></span> 	 	
+    <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->mob2 }}">
     </div>
   </div>
   <div class="form-group col-sm-3">

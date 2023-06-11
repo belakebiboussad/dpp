@@ -100,7 +100,7 @@ class UsersController extends Controller
           "prenom"=>$request->prenom,
           "sexe"=>$request->sexe,
           "Date_Naiss"=>$request->datenaissance,
-          "Lieu_Naissance"=>$request->lieunaissance,
+          "pob"=>$request->lieunaissance,
           "Adresse"=>$request->adresse,
           "Tele_fixe"=>$request->fixe,
           "tele_mobile"=>$request->mobile,
@@ -166,7 +166,7 @@ class UsersController extends Controller
       $user->employ->update([
         "nom"=>$request->nom, "prenom"=>$request->prenom,
         "sexe"=>$request->sexe, "Date_Naiss"=>$request->datenaissance,
-        "Lieu_Naissance"=>$request->lieunaissance, "Adresse"=>$request->adresse,
+        "pob"=>$request->lieunaissance, "Adresse"=>$request->adresse,
         "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
         "specialite"=>$request->specialite,"service_id"=>$request->service,
          "matricule"=>$request->matricule,"NSS"=>$request->nss,

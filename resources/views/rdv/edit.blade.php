@@ -38,7 +38,7 @@
                         end:   '{{ $rdv->fin }}',
                         id :'{{ $rdv->id }}',
                         idPatient:'{{$rdv->patient->id}}',
-                        tel:'{{$rdv->patient->tele_mobile1}}',
+                        tel:'{{$rdv->patient->mob}}',
                         age:{{ $rdv->patient->age }},
                         specialite: {{ $rdv->specialite_id }},
                         medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',

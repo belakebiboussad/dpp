@@ -121,7 +121,7 @@
 												<div class="profile-info-row">
 													<div class="profile-info-name center"><b>Groupe sanguin</b></div>
 													<div class="profile-info-value">
-			         	 					 <span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
+			         	 					 <span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->gs }}{{ $demande->consultation->patient->rh }}</span>
 										 		</div>
 											</div>
 											<div class="profile-info-row">

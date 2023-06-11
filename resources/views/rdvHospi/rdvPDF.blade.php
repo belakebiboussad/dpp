@@ -12,7 +12,7 @@
 	<div class="right"><b>Alger le :</b><span> {{ $today }}</span></div>	
 	<div class="row"><b>Patient(e) :</b></div>
 	<div class="tab"><b>Nom & Prenom :<span></b> {{ $rdv->demandeHospitalisation->consultation->patient->full_name }} </span></div>
-		<div  class="tab"><b>Né(e) le : </b><span> {{ $rdv->demandeHospitalisation->consultation->patient->Dat_Naissance->format('d/m/Y') }}</span>
+		<div  class="tab"><b>Né(e) le : </b><span> {{ $rdv->demandeHospitalisation->consultation->patient->dob->format('d/m/Y') }}</span>
 		</div> 
 		<div class="tab"><b>Date RDV : </b><span>{{ $rdv->date->format('d/m/Y')}} </span></div>
 		<div class="tab"><b>Heure RDV : </b><span>{{ $rdv->heur_formatted }} </span></div>

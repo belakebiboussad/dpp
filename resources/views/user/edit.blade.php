@@ -50,7 +50,7 @@
         <div class="form-group col-sm-6{{ $errors->has('lieunaissance') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
           <div class="col-sm-6">
-            <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  />
+            <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->pob }}"  />
           </div>  
         </div>
       </div>

@@ -59,7 +59,7 @@
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Né(e) </div>
 						<div class="profile-info-value">
-							<span class="editable" id="nom">{{ $assure->Date_Naissance }} à {{ $assure->lieuNaissance->nom }} </span>
+							<span class="editable" id="nom">{{ $assure->dob }} à {{ $assure->POB->nom }} </span>
 						</div>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 					<div class="profile-info-name"> Adresse </div>
 						<div class="profile-info-value">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
-							<span class="editable" id="adress">{{ $assure->adresse }}, {{$assure->commune->nom_commune}} {{$assure->wilaya->nom}}</span>
+							<span class="editable" id="adress">{{ $assure->adresse }}, {{$assure->commune->name}} {{$assure->wilaya->nom}}</span>
 						</div>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 								<td>{{$j++}}</td>
 								<td>{{ $patient->Nom}}</td>
 								<td> {{ $patient->Prenom}}</td>
-								<td> {{ $patient->Dat_Naissance->format('Y-m-d') }}</td>
+								<td> {{ $patient->dob->format('Y-m-d') }}</td>
 								<td><span class="label label-sm label-success">{{ $patient->Type->nom }}</span></td>
 								<td class= "center">
 									<a href="/patient/{{ $patient->id }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier">

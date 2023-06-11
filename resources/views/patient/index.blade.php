@@ -70,7 +70,10 @@ function errorMsg(msg, error) {
       url : '{{URL::to('patientsToMerge')}}',
       data:{'search':values},
       success:function(data,status, xhr){
-      		$('#tablePatientToMerge').html(data.html);
+        $.each(data,function(key,value){
+          alert(key +':' + value);
+        })
+      	$('#tablePatientToMerge').html(data.html);
       }
   });
 	}
@@ -111,11 +114,11 @@ function errorMsg(msg, error) {
 	  });
 	});
 	$(function(){
-		$('#Dat_Naissance').change(function(){
+		$('#dob').change(function(){
     	 field = $(this).prop("id");	
 		});
 	});
-	var field ="Dat_Naissance";
+	var field ="dob";
 	$(function(){
 		$(document).on('click','.findptient',function(event){
 		  event.preventDefault();
@@ -212,7 +215,7 @@ function errorMsg(msg, error) {
 					</div>
 					<div class="form-group col-sm-3"><label >Né(e)</label>
 						<div class="input-group col-sm-12 col-xs-12">
-							<input type="text" class="form-control date-picker ltnow" id="Dat_Naissance" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+							<input type="text" class="form-control date-picker ltnow" id="dob" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>		
 					</div>

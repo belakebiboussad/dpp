@@ -27,7 +27,7 @@
   <div class="row">
 		<div class="form-group col-xs-12 col-sm-4">
 			<label class="col-sm-4  text-right">Né(e) à :</label>
-			<div class="col-sm-8"><label class="blue">{{ $user->employ->Lieu_Naissance }}</label></div>
+			<div class="col-sm-8"><label class="blue">{{ $user->employ->pob }}</label></div>
 		</div>
 		<div class="form-group col-xs-12 col-sm-4">
 			<label class="col-sm-4  text-right">Genre :</label>

@@ -42,7 +42,7 @@
           <tr class="noBorder">
             <td ><b>Nom et Prénom :</b><span> {{ $obj->patient->full_name }}</span></td>
             <td><b>Date de naissance :</b>
-            <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }}</span></td>
+            <span> {{ $obj->patient->dob->format('d/m/Y') }}</span></td>
             <td><b>Sexe :</b><span> {{ $obj->patient->Sexe }}</span></td>
           </tr>
           <tr class="noBorder">
@@ -53,7 +53,7 @@
             </td>
             <td>
               @if(isset($obj->patient->commune_res))
-                <b>Commune :</b><span> {{ $obj->patient->commune->nom_commune }}
+                <b>Commune :</b><span> {{ $obj->patient->commune->name }}
               @endif
             </td>
             <td>

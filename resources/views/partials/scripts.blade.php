@@ -501,8 +501,8 @@
           $("#specialite").val(data.specialite_id);                  
           $("#employ_id").val(data.employ_id);
           $('#nomPatient').val(data.patient.full_name);
-          if(!isEmpty(data.patient.tele_mobile1))
-            $('#patient_tel').val(data.patient.tele_mobile1);
+          if(!isEmpty(data.patient.mob))
+            $('#patient_tel').val(data.patient.mob);
           $('#agePatient').val(data.patient.age);
           $('#lien').attr('href','/patient/'.concat(data.patient.id)); 
           $('#lien').text(event.title);

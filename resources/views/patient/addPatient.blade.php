@@ -35,7 +35,7 @@
       <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"><strong>Inc</strong></span>
       </div>
 	</div>
-        <div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">
+    <div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
 		<div class="col-sm-9">
 		  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
@@ -46,7 +46,7 @@
 </div>
 <div class="row demograph">
 	<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }} col-sm-4">
-		<label class="col-sm-3 control-label required" for="sexe">Genre :</label>
+		<label class="col-sm-3 control-label required" for="sexe">Genre</label>
 		<div class="col-sm-9">
 			<div class="radio">
 				<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
@@ -99,15 +99,18 @@
      </select>
     </div>
   </div>
-{{--    <div class="form-group col-sm-4">
-    <label class="col-sm-3 control-label text-nowrap" for="">Proféssion :</label>
+   <div class="form-group col-sm-4">
+    <label class="col-sm-3 control-label text-nowrap">Proféssion</label>
     <div class="col-sm-9">
-     <select class="form-control" name="prof">
-   
+     <select class="form-control" name="prof_id">
+      <option value='' disabled selected>Selectionner...</option>
+      @foreach($profs as $prof )
+      <option value="{{ $prof->id }}">{{ $prof->name }}</option>
+   @endforeach
      </select>
    </div>
 
-  </div> --}}
+  </div>
 
 </div><h4 class="header lighter block blue">Contact</h4>
 <div  class="row demograph">

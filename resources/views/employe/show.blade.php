@@ -36,7 +36,7 @@
 			<div class="profile-info-name"> Lieu de naissance </div>
 			<div class="profile-info-value">
 				<i class="fa fa-map-marker light-orange bigger-110"></i>
-				<span class="editable" id="country">{{ $employe->Lieu_Naissance }}</span>
+				<span class="editable" id="country">{{ $employe->pob }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
