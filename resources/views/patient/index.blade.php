@@ -70,11 +70,11 @@ function errorMsg(msg, error) {
       url : '{{URL::to('patientsToMerge')}}',
       data:{'search':values},
       success:function(data,status, xhr){
-        //alert(data);
-        $.each(data[0], function(key, value){
-          alert(key + ':' + value);
-        });
-        //$('#tablePatientToMerge').html(data.html);
+        // alert(data);
+        // $.each(data, function(key, value){
+        //   alert(key + ':' + value);
+        // });
+          $('#tablePatientToMerge').html(data.html);
       }
   });
 	}
@@ -99,13 +99,13 @@ function errorMsg(msg, error) {
 	{
 		if($('#'+field).is("input"))
 		{
-      $('#'+field).val(value);
+                    $('#'+field).val(value);
 		}
-    else
+            else
 		{
 			var select = $('#'+field);
-		  $("select option").filter(function() {
-			  return $(this).val() == value; 
+		      $("select option").filter(function() {
+			         return $(this).val() == value; 
 			}).prop('selected', true);
 		}	
 	}

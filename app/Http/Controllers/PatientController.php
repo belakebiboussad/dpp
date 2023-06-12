@@ -367,10 +367,9 @@ class PatientController extends Controller
     $patient1 = patient::FindOrFail($request->search[0]);
     $patient2 = patient::FindOrFail($request->search[1]);    
     $patients = [$patient1->getAttributes(),$patient2->getAttributes()];
-    return $patients; 
     foreach ($patientResult->getFillable() as $field) {
       $values = ArrayClass::pluck($patients, $field); 
-      //ArrayClass::removeValue("", $values);
+      ArrayClass::removeValue("", $values);
       if(!count($values)) {
         $statuses[$field] = "none";
         continue;
@@ -386,8 +385,8 @@ class PatientController extends Controller
     foreach ($statuses as $status) {
       $counts[$status]++;
     }
+    //return  $patientResult;
     $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
-    //return $statuses;
     return(['html'=>$view]);
   }
   public function merge(Request $request)
