@@ -18,7 +18,11 @@
         return false;
       }
       $( "#editPatientForm" )[0].submit(); 
-   });
+    });
+    // $('#pob').editableSelect({
+    //   effects: 'default', 
+    //   editable: true, 
+    // })
   });
 </script>
 @stop
@@ -61,7 +65,8 @@
  		</li>
 	</ul>
 	<div class="tab-content">
-    <div id="Patient" class="tab-pane active">@include('patient.editPatient')</div>
+    <div id="Patient" class="tab-pane active">@include('patient.editPatient')
+    </div>
   	<div id="Assure" class="tab-pane">@include('assurs.editAssure')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">

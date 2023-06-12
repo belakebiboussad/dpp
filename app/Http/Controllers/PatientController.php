@@ -199,7 +199,7 @@ class PatientController extends Controller
      $profs =Profession::all();
     if($patient->type_id != 6)
       $assure =  $patient->assure;
-     return view('patient.edit',compact('patient','assure','types','profs')); 
+    return view('patient.edit',compact('patient','assure','types','profs')); 
   }
 /**
  * Update the specified resource in storage.
@@ -242,12 +242,11 @@ class PatientController extends Controller
             return back()->withErrors(['le numéro &quot;NSS&quot; doit étre unique']);
           $assure = assur::create([
             "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-            "dob"=>$request->datenaissance,"pob"=>$request->idlieunaissance,
+            "dob"=>$request->datenaissance,"pob"=>$request->idpob,
             "Sexe"=>$request->sexe,"adresse"=>$request->adresse,
             "commune_res"=>$request->idcommune,
             "wilaya_res"=>$request->idwilaya,
-            "gs"=>$request->gs.$request->rh,
-            "NSS"=>$request->nss
+            "gs"=>$request->gs.$request->rh,"NSS"=>$request->nss
           ]);//suprimer l'assurer quan il na pas de patient
         }else
         {//test3
@@ -261,7 +260,7 @@ class PatientController extends Controller
     }
     $patient->update([
       "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-      "dob"=>$request->datenaissance,"pob"=>$request->idlieunaissance,
+      "dob"=>$request->datenaissance,"pob"=>$request->idpob,
       "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
       "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
        "sf"=>$request->sf,             
@@ -352,6 +351,14 @@ class PatientController extends Controller
       $response[] = array("label"=>$patient->$field);
     }
     return $response;
+  }
+  public function patientsToMeregeNew(Request $request)
+  {
+    $statuses = []; $values="";
+    $patientResult = new patient;
+    $patients = patient::find($request->search);
+    //   $values =$patients->toArray('id','Nom');
+    return $values;
   } 
   public function patientsToMerege(Request $request)
   {
@@ -359,27 +366,28 @@ class PatientController extends Controller
     $patientResult = new patient;
     $patient1 = patient::FindOrFail($request->search[0]);
     $patient2 = patient::FindOrFail($request->search[1]);    
-    return($patient1->getAttributes());
     $patients = [$patient1->getAttributes(),$patient2->getAttributes()];
+    return $patients; 
     foreach ($patientResult->getFillable() as $field) {
-      $values = ArrayClass::pluck($patients, $field);    
-      ArrayClass::removeValue("", $values);
-      if (!count($values)) {
+      $values = ArrayClass::pluck($patients, $field); 
+      //ArrayClass::removeValue("", $values);
+      if(!count($values)) {
         $statuses[$field] = "none";
-      continue;
-     }
-    $patientResult->$field = reset($values);  // One unique value
-     if (count($values) == 1) {
-         $statuses[$field] = "unique";
-         continue;
-    }// Multiple values
-     $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+        continue;
+      }
+      $patientResult->$field = reset($values);  // One unique value
+      if (count($values) == 1) {
+        $statuses[$field] = "unique";
+        continue;
+      }// Multiple values
+      $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
     }// Count statuses
-    $counts = array("none" => 0,"unique" => 0,"duplicate" => 0, "multiple"  => 0 );
+    $counts = array("none" => 0,"unique"=> 0,"duplicate" => 0, "multiple"=> 0 );
     foreach ($statuses as $status) {
-           $counts[$status]++;
-     }  
-      $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+      $counts[$status]++;
+    }
+    $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+    //return $statuses;
     return(['html'=>$view]);
   }
   public function merge(Request $request)

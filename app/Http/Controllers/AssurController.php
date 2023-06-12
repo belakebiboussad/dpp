@@ -36,8 +36,7 @@ class AssurController extends Controller
     { 
        $assure = assur::create([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "dob"=>$request->datenaissancef,
-        "pob"=>$request->idlieunaissancef,
+        "dob"=>$request->iddobf,"pob"=>$request->idpobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
         "gs"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
@@ -81,8 +80,7 @@ class AssurController extends Controller
       $assure = assur::find($id);
       $assure -> update([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "dob"=>$request->datenaissancef,
-        "pob"=>$request->idlieunaissancef,
+        "dob"=>$request->dobf,"pob"=>$request->idpobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
         "gs"=>$request->gsf.$request->rhf,

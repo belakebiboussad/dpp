@@ -11,24 +11,24 @@
 	var errorElement = document.querySelector('#errorMsg');
 	$(function(){
     try {
-        stream =  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-  			App.init();
-  		  Quagga.onProcessed(function(result) {
-          var drawingCtx = Quagga.canvas.ctx.overlay,
-            drawingCanvas = Quagga.canvas.dom.overlay;
-            if (result) {
-                   if (result.boxes) {
-                          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                          result.boxes.filter(function (box) {
-                              return box !== result.box;
-                          }).forEach(function (box) {
-                              Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                          });
-                   }
-                  if (result.box)
-                      Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-                  if (result.codeResult && result.codeResult.code)
-                      Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+      stream =  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+			App.init();
+		  Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+        drawingCanvas = Quagga.canvas.dom.overlay;
+        if (result) {
+          if (result.boxes) {
+                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                result.boxes.filter(function (box) {
+                    return box !== result.box;
+                }).forEach(function (box) {
+                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                });
+          }
+          if (result.box)
+              Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+          if (result.codeResult && result.codeResult.code)
+              Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
            }
          });
          Quagga.onDetected(function(result) {
@@ -70,10 +70,11 @@ function errorMsg(msg, error) {
       url : '{{URL::to('patientsToMerge')}}',
       data:{'search':values},
       success:function(data,status, xhr){
-        $.each(data,function(key,value){
-          alert(key +':' + value);
-        })
-      	$('#tablePatientToMerge').html(data.html);
+        //alert(data);
+        $.each(data[0], function(key, value){
+          alert(key + ':' + value);
+        });
+        //$('#tablePatientToMerge').html(data.html);
       }
   });
 	}
@@ -97,11 +98,13 @@ function errorMsg(msg, error) {
 	function setField(field,value)
 	{
 		if($('#'+field).is("input"))
-			$('#'+field).val(value);
-		else
+		{
+      $('#'+field).val(value);
+		}
+    else
 		{
 			var select = $('#'+field);
-			$("select option").filter(function() {
+		  $("select option").filter(function() {
 			  return $(this).val() == value; 
 			}).prop('selected', true);
 		}	

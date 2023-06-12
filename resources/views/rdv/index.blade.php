@@ -140,7 +140,7 @@ $(function(){
         $("#patient").on("keyup", function() {
          var field = $("select#filtre option").filter(":selected").val();
          if(field != "dob")
-                remoteSearch(field,$("#patient").val()); //to call ajax
+          remoteSearch(field,$("#patient").val());
         });
 })
 </script>

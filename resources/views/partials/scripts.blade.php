@@ -79,48 +79,44 @@
               startTime: '08:00',
               showMeridian: false
       });
-      $( ".autoCommune" ).autocomplete({
-              source: function( request, response ) {
-                    $.ajax({
-                            url:"{{route('commune.getCommunes')}}",
-                            type: 'post',
-                            dataType: "json",
-                            data: {
-                               _token: CSRF_TOKEN,
-                               search: request.term
-                            },
-                            success: function( data ) {
-                               response( data );
-                            }
-                    });
-              },
-              minLength: 3,
-             select: function (event, ui) { // Set selection
-             $(this).val(ui.item.label); // display the selected text
-             switch(event['target']['id'])
-             {
-                  case "lieunaissance":
-                    $("#idlieunaissance").val(ui.item.value);// save selected id to input
-                    break;
-                  case "lieunaissancef":
-                    $("#idlieunaissancef").val(ui.item.value);
-                    break;
-                  case "commune":
-                    $("#idcommune").val(ui.item.value);
-                    $("#idwilaya").val(ui.item.wvalue);
-                    $("#wilaya").val(ui.item.wlabel);
-                    break;
-                  case "communef":   
-                    $("#idcommunef").val(ui.item.value);
-                    $("#idwilayaf").val(ui.item.wvalue);
-                    $("#wilayaf").val(ui.item.wlabel);
-                    console.log(ui.item.wlabel);
-                    break;
-                default:
-                    break;   
-
-              } 
-              return false;
+    $( ".autoCommune" ).autocomplete({
+          autoFocus: true,
+          source: function( request, response ) {
+           $.ajax({
+                url:"{{route('commune.getCommunes')}}",
+                type: 'post',
+                dataType: "json",
+                data: { _token: CSRF_TOKEN,search: request.term },
+                success: function( data ) {
+                  response( data );
+                }
+            });
+          },
+          minLength: 3,
+          select: function (event, ui) { // Set selection
+            $(this).val(ui.item.label); // display the selected text
+            switch(event['target']['id'])
+            {
+              case "pob":
+                $("#idpob").val(ui.item.value);//save selected id to input
+                break;
+              case "pobf":
+                $("#idpobf").val(ui.item.value);
+                break;
+              case "commune":
+                $("#idcommune").val(ui.item.value);
+                $("#idwilaya").val(ui.item.wvalue);
+                $("#wilaya").val(ui.item.wlabel);
+                break;
+              case "communef":   
+                $("#idcommunef").val(ui.item.value);
+                $("#idwilayaf").val(ui.item.wvalue);
+                $("#wilayaf").val(ui.item.wlabel);
+                break;
+              default:
+                break;   
+            } 
+            return false;
           }
         });
         $( ".autofield" ).autocomplete({

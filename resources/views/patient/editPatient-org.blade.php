@@ -15,20 +15,18 @@
 		</div>
 	</div>
 </div>
-<div class="row">
+  <div class="row">
 	 <div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label required" for="datenaissance">Né(e) le</label>
 		<div class="col-sm-9">
-	<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ (is_null($patient->dob))? '': $patient->dob->format('Y-m-d') }}" />{!! $errors->first('datenaissance','<p class="alert-danger">:message</p>') !!}
+	<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ (is_null($patient->dob))? '': $patient->dob->format('Y-m-d') }}" />{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
-	<div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
-		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
+	<div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">
+		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
 	  <div class="col-sm-9">
-			<input type="hidden" name="idpob" id="idpob" value="{{(is_null($patient->pob))? '': $patient->pob}}">
-      <input type="text" id="pob" class="form-control autoCommune" value="{{ (is_null($patient->pob))? '': $patient->POB->name}}"/>
-    {{-- <select name="" id="pob" class="form-control autoCommune select2">
-      </select> --}}
+			<input type="hidden" name="idlieunaissance" id="idlieunaissance" value="{{(is_null($patient->pob))? '': $patient->pob}}">
+      <input type="text" id="lieunaissance" class="form-control autoCommune" value=""/>
 	  </div>
 	</div>
 </div>
@@ -104,7 +102,6 @@
       @endforeach
      </select>
    </div>
-</div>
 </div>
 <h4 class="header lighter block blue">Contact</h4>
 <div class="row">

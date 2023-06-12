@@ -25,16 +25,16 @@
   </div>
   <div class="row">
     <div class="form-group col-sm-6">
-  		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="datenaissancef">Né(e) le</label>
+  		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="dobf">Né(e) le</label>
   		<div class="col-sm-9">
-<input class="autoCommune form-control date-picker ltnow asdemogData" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->dob}}"/>
+<input class="autoCommune form-control date-picker ltnow asdemogData" id="dobf" name="dobf" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->dob)) )? $assure->dob->format('Y-m-d'):''}}"/>
   		</div>
   	</div>
   	<div class="form-group col-sm-6">
   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="lieunaissancef">Né(e) à</label>
   		<div class="col-sm-9">
-  		  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob}}">
-        <input type="text" id="lieunaissancef" class="autoCommune form-control asdemogData" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->pob)))? $assure->POB->name:''}}"/>
+  		  <input type="hidden" name="idpobf" id="idpobf" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob}}">
+        <input type="text" id="pobf" class="autoCommune form-control asdemogData" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->pob)))? $assure->POB->name:''}}"/>
   		</div>
   	</div>	
   </div>

@@ -30,9 +30,7 @@
      function codeBPrint(id)
      {
         event.preventDefault();
-        var formData = {
-              id: id,    
-        };
+        var formData = { id: id };
         $.ajax({
              type : 'get',
              url : "{{ URL::to('barreCodeprint') }}",
