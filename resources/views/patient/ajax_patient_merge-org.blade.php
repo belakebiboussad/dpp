@@ -17,8 +17,8 @@
   <thead>
     <th class="category narrow"></th>
       <th>Résultat</th>
-      <th>Patient1 <q><mark>{{ $patient1->Nom }}-{{ $patient1->Prenom}}</mark></q></th>
-      <th>Patient2 <q><mark>{{ $patient2->Nom }}-{{ $patient2->Prenom}}</mark></q></th>
+      <th>Patient1 <q><mark>{{ $patient1->full_name }}</mark></q></th>
+      <th>Patient2 <q><mark>{{ $patient2->full_name }}</mark></q></th>
   </thead>
   <tbody id="mergepatients">  
     <tr class="{{ $statuses['Nom'] }}">
