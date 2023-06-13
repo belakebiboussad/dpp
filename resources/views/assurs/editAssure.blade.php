@@ -31,7 +31,7 @@
   		</div>
   	</div>
   	<div class="form-group col-sm-6">
-  		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="lieunaissancef">Né(e) à</label>
+  		<label class="col-sm-3 col-xs-3 control-label text-nowrap">Né(e) à</label>
   		<div class="col-sm-9">
   		  <input type="hidden" name="idpobf" id="idpobf" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob}}">
         <input type="text" id="pobf" class="autoCommune form-control asdemogData" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->pob)))? $assure->POB->name:''}}"/>
@@ -40,7 +40,7 @@
   </div>
   <div class="row">
   	<div class="form-group col-sm-6">
-  		<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe">Genre</label>
+  		<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexef">Genre</label>
   		<div class="col-sm-9">
       <select name="sexef" id="sexef" class="form-control asdemogData">
         <option value="M" {{(!(in_array($patient->type_id,[1,6]))&&($assure->Sexe == "M"))?'selected':''}}>Masculin</option>

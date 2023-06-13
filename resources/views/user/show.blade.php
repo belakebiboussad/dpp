@@ -21,13 +21,13 @@
 		</div>
 		<div class="form-group col-xs-12 col-sm-4">
 			<label class="col-sm-4  text-right">Né(e) le :</label>
-			<div class="col-sm-8"><label class="blue">{{ $user->employ->Date_Naiss }}</label> </div>
+			<div class="col-sm-8"><label class="blue">{{ $user->employ->dob }}</label> </div>
 		</div>
   </div>
   <div class="row">
 		<div class="form-group col-xs-12 col-sm-4">
 			<label class="col-sm-4  text-right">Né(e) à :</label>
-			<div class="col-sm-8"><label class="blue">{{ $user->employ->pob }}</label></div>
+			<div class="col-sm-8"><label class="blue">{{ $user->employ->POB->name }}</label></div>
 		</div>
 		<div class="form-group col-xs-12 col-sm-4">
 			<label class="col-sm-4  text-right">Genre :</label>

@@ -16,10 +16,10 @@
 	</div>
 </div>
 <div class="row">
-	 <div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
-		<label class="col-sm-3 control-label required" for="datenaissance">Né(e) le</label>
+	 <div class="form-group {{ $errors->has('dob') ? 'has-error' : '' }} col-sm-6">
+		<label class="col-sm-3 control-label required" for="dob">Né(e) le</label>
 		<div class="col-sm-9">
-	<input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" value="{{ (is_null($patient->dob))? '': $patient->dob->format('Y-m-d') }}" />{!! $errors->first('datenaissance','<p class="alert-danger">:message</p>') !!}
+	<input class="form-control date-picker ltnow" id="dob" name="dob" type="text" data-date-format="yyyy-mm-dd" value="{{ (is_null($patient->dob))? '': $patient->dob->format('Y-m-d') }}" />{!! $errors->first('dob','<p class="alert-danger">:message</p>') !!}
 		</div>
 	</div>
 	<div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
@@ -27,14 +27,14 @@
 	  <div class="col-sm-9">
 			<input type="hidden" name="idpob" id="idpob" value="{{(is_null($patient->pob))? '': $patient->pob}}">
       <input type="text" id="pob" class="form-control autoCommune" value="{{ (is_null($patient->pob))? '': $patient->POB->name}}"/>
-    {{-- <select name="" id="pob" class="form-control autoCommune select2">
+ {{--    <select name="pob" id="pob" class="form-control autoCommune1" style="width:800px">
       </select> --}}
 	  </div>
 	</div>
 </div>
 <div class="row">
   <div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }} col-sm-4">
-	  	<label class="col-sm-3 control-label" for="sexe">Genre</label>
+	  	<label class="col-sm-3 control-label">Genre</label>
 		  <div class="col-sm-9">
 			  <div class="radio">
 				<label>
@@ -86,7 +86,7 @@
     </div>
   </div>
     <div class="form-group col-sm-4">
-    <label class="col-sm-3 control-label text-nowrap" for="nationalite">Nationnalité</label>
+    <label class="col-sm-3 control-label text-nowrap">Nationnalité</label>
     <div class="col-sm-9">
      <select class="form-control" name="nationalite">
       <option value="" {{ is_null($patient->nationalite)? 'selected':''}}>Algérienne</option>
@@ -131,14 +131,14 @@
 </div>
 <div class="row">
   <div class="form-group col-sm-3">
-  	<label class="control-label col-sm-4 col-md-4" for="mobile1">Mob1</label>
+  	<label class="control-label col-sm-4 col-md-4">Mob1</label>
     <div class="input-group col-sm-8">
       <span class="input-group-addon fa fa-phone"></span> 
       <input type="tel" name="mobile1" class="form-control mobile" value= "{{ $patient->mob }}">
     </div>
   </div>
   <div class="form-group col-sm-3">
-  	<label class="control-label col-sm-4 col-md-4" for="mobile2">Mob2</label>
+  	<label class="control-label col-sm-4 col-md-4">Mob2</label>
     <div class="input-group col-sm-8 col-md-8">
     <span class="input-group-addon fa fa-phone"></span> 	 	
     <input type="tel" name="mobile2" class="form-control mobile" value= "{{ $patient->mob2 }}">

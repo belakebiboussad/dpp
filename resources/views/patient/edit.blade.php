@@ -19,10 +19,6 @@
       }
       $( "#editPatientForm" )[0].submit(); 
     });
-    // $('#pob').editableSelect({
-    //   effects: 'default', 
-    //   editable: true, 
-    // })
   });
 </script>
 @stop

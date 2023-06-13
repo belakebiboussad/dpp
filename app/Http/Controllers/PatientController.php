@@ -93,7 +93,7 @@ class PatientController extends Controller
       "nss"=>'required_if:type,1,2,3,4,5'
     );  
     $messages = [
-      "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+      "required"     => "Le champ :attribute est obligatoire.", 
       "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
     $validator = Validator::make(request()->all(),$rule,$messages);   
@@ -106,17 +106,17 @@ class PatientController extends Controller
       switch(request()->presume)
       {
         case 1:
-          $DOB= ($date->subYears(16))->format('Y-m-d');
+          $dob= ($date->subYears(16))->format('Y-m-d');
           break;
         case 2:
-          $DOB= ($date->subYears(64))->format('Y-m-d');
+          $dob= ($date->subYears(64))->format('Y-m-d');
           break; 
         case 3:
-          $DOB= ($date->subYears(65))->format('Y-m-d');
+          $dob= ($date->subYears(65))->format('Y-m-d');
           break;
       }
     }else
-     $DOB  = request()->datenaissance;   
+     $dob  = request()->datenaissance;   
     if(request()->type !=6)
     {  
       $assure = assur::where('NSS', request()->nss)->first(); 
@@ -141,8 +141,8 @@ class PatientController extends Controller
     }  
     $patient = patient::firstOrCreate([
         "Nom"=>request()->nom,"Prenom"=>request()->prenom,
-        "dob"=>$DOB, "pob"=>request()->idlieunaissance,
-       "Sexe"=>request()->sexe,"sf"=>request()->sf,
+        "dob"=>$dob, "pob"=>request()->idpob,
+        "Sexe"=>request()->sexe,"sf"=>request()->sf,
         "nom_jeune_fille"=>request()->nom_jeune_fille, 
         "Adresse"=>request()->adresse,'commune_res'=>request()->idcommune,
         'wilaya_res'=>request()->idwilaya,
@@ -260,17 +260,15 @@ class PatientController extends Controller
     }
     $patient->update([
       "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-      "dob"=>$request->datenaissance,"pob"=>$request->idpob,
+      "dob"=>$request->dob,"pob"=>$request->idpob,
       "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
       "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
-       "sf"=>$request->sf,             
-       "nom_jeune_fille"=>$request->nom_jeune_fille, 
-       "mob"=>$request->mobile1,
-       "mob2"=>$request->mobile2,
-       "gs"=>$request->gs,
-       "rh"=>$request->rh, 
-       "assur_id"=>isset($assure->NSS)? $assure->NSS : null,
-       "type_id"=>$request->type,
+      "sf"=>$request->sf,             
+      "nom_jeune_fille"=>$request->nom_jeune_fille, 
+      "mob"=>$request->mobile1, "mob2"=>$request->mobile2,
+      "gs"=>$request->gs,"rh"=>$request->rh,
+      "assur_id"=>isset($assure->NSS)? $assure->NSS : null,
+      "type_id"=>$request->type,
        "description"=>isset($request->description)? $request->description:null,
        "NSS"=>($patient->type_id !=6)? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
        'nationalite'=>request()->nationalite

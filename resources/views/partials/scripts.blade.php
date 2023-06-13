@@ -23,6 +23,7 @@
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
 <script src="{{ asset('/js/select2.min.js') }}"></script>
+{{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> --}}
 <script src="{{ asset('/js/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
@@ -78,14 +79,39 @@
               defaultTime: '08:00',   
               startTime: '08:00',
               showMeridian: false
-      });
+    });
+    // teste
+     $('.autoCommune1').select2({
+      placeholder: 'Selectionner la commune',
+      minimumInputLength:3,
+      tags: "true",
+      ajax: {
+        url: '{{route('commune.search')}}',
+        dataType: 'json',
+        type: "GET",
+        data: function (data) {
+          return {
+              search: data.term // search term
+          };
+        },
+        processResults: function (response) {
+          return {
+            results: $.map(response, function (item) {
+              return {
+                text: item.label,
+                id: item.value
+              }
+            })
+          };
+        }
+      } 
+     });
+    // ftes
     $( ".autoCommune" ).autocomplete({
           autoFocus: true,
           source: function( request, response ) {
            $.ajax({
-                url:"{{route('commune.getCommunes')}}",
-                type: 'post',
-                dataType: "json",
+                url:"{{route('commune.index')}}",
                 data: { _token: CSRF_TOKEN,search: request.term },
                 success: function( data ) {
                   response( data );
@@ -95,6 +121,7 @@
           minLength: 3,
           select: function (event, ui) { // Set selection
             $(this).val(ui.item.label); // display the selected text
+            alert(event['target']['id']);
             switch(event['target']['id'])
             {
               case "pob":

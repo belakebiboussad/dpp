@@ -68,7 +68,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="type_piece">Type de pièce d'identité</label>
+            <label>Type de pièce d'identité</label>
             <div class="radio">
               <label>
               <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>

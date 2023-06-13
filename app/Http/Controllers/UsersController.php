@@ -89,19 +89,16 @@ class UsersController extends Controller
         "nom"=> "required",
         "prenom"=> "required",
         "nss"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",
-        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",// "mat"=> 
+        "dob"=> "required",// "lieunaissance"=> "required",
+        "mobile"=> "required | regex:/[0][2345679][0-9]{8}/",// "mat"=> 
         "service"=> "required", 
       ]);
       if($validator->fails())
            return back()->withErrors($validator)->withInput();
       $employe = employ::firstOrCreate([
-          "nom"=>$request->nom,
-          "prenom"=>$request->prenom,
-          "sexe"=>$request->sexe,
-          "Date_Naiss"=>$request->datenaissance,
-          "pob"=>$request->lieunaissance,
-          "Adresse"=>$request->adresse,
+          "nom"=>$request->nom,"prenom"=>$request->prenom,
+          "sexe"=>$request->sexe,"dob"=>$request->dob,
+          "pob"=>$request->pob,"Adresse"=>$request->adresse,
           "Tele_fixe"=>$request->fixe,
           "tele_mobile"=>$request->mobile,
           "specialite"=>$request->specialite,
@@ -109,13 +106,14 @@ class UsersController extends Controller
           "matricule"=>$request->mat,
           "NSS"=>$request->nss,
       ]);
+     
       $employe->User()->create([
         "username"=>$request->username,
         "password"=> Hash::make($request->password),
         "email"=>$request->email,
         "role_id"=>$request->role,
       ]);
-      return redirect(Route('users.show',$$employe->User->id));                 
+      return redirect(Route('users.show',$employe->User->id));                 
     }
     /**
      * Display the specified resource.
@@ -158,15 +156,16 @@ class UsersController extends Controller
         "role"=> "required",
         "nom"=> "required",
         "prenom"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",
+        "dob"=> "required",// "lieunaissance"=> "required",
         "mobile"=> "required | regex:/[0][245679][0-9]{8}/",
       ]);
       if ($validator->fails())
         return back()->withInput($request->input())->withErrors($validator->errors());
+      
       $user->employ->update([
         "nom"=>$request->nom, "prenom"=>$request->prenom,
-        "sexe"=>$request->sexe, "Date_Naiss"=>$request->datenaissance,
-        "pob"=>$request->lieunaissance, "Adresse"=>$request->adresse,
+        "sexe"=>$request->sexe, "dob"=>$request->dob,
+        "pob"=>$request->pob,"Adresse"=>$request->adresse,
         "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
         "specialite"=>$request->specialite,"service_id"=>$request->service,
          "matricule"=>$request->matricule,"NSS"=>$request->nss,

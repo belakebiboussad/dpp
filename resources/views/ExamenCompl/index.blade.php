@@ -26,7 +26,7 @@
 	 		<div class="tab-pane active examsBio" id="biologique"> 
 	    @foreach ( $specialite->BioExams as $exbio)
       <div class="checkbox col-xs-4"><label>
-       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"  /><span class="lbl">{{ $exbio->nom }}</span></label>
+       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"/><span class="lbl">{{ $exbio->nom }}</span></label>
       </div>
       @endforeach 
 	 		</div>

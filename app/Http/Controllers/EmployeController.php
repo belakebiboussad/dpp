@@ -83,7 +83,7 @@ class EmployeController extends Controller
         $employe = employ::FindOrFail($employid);
         $employe->update([
                 "nom"=>$request->nom,"prenom"=>$request->prenom,
-                "sexe"=>$request->sexe,"Date_Naiss"=>$request->datenaissance,
+                "sexe"=>$request->sexe,"dob"=>$request->datenaissance,
                 "pob"=>$request->lieunaissance,"Adresse"=>$request->adresse,"Tele_fixe"=>$request->fixe,
                 "tele_mobile"=>$request->mobile,"specialite"=>$request->specialite,
                 "service_id"=>$request->service,"matricule"=>$request->matricule, "NSS"=>$request->nss,

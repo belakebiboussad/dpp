@@ -23,7 +23,7 @@
 		<div class="profile-info-row">
 			<div class="profile-info-name">Date de naissance</div>
 			<div class="profile-info-value">
-				<span class="editable" id="signup">{{ $employe->Date_Naiss }}</span>
+				<span class="editable" id="signup">{{ $employe->dob }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">

@@ -16,11 +16,11 @@
 	</div>
 </div>
 <div class="row demograph">
-	<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }} col-sm-6">
+	<div class="form-group {{ $errors->has('dob') ? 'has-error' : '' }} col-sm-6">
 		<div id ="dateExact">
-       <label class="col-sm-3 control-label" for="datenaissance">Né(e) le</label>
+       <label class="col-sm-3 control-label" for="dob">Né(e) le</label>
         <div class="col-sm-8">
-          <input class="form-control date-picker ltnow" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+          <input class="form-control date-picker ltnow" id="dob" name="dob" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('dob', '<p class="alert-danger">:message</p>') !!}
         </div>
     </div>
     <div id ="datePresume"  class="hidden">
@@ -35,12 +35,14 @@
       <input  type="checkbox" id="unkDate"  class="ace input-xs"/><span class="lbl lighter red"><strong>Inc</strong></span>
       </div>
 	</div>
-    <div class="form-group {{ $errors->has('lieunaissance') ? 'has-error' : '' }} col-sm-6">
-		<label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
+    <div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
+		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
 		<div class="col-sm-9">
-		  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-				<input type="text" id = "lieunaissance" class="autoCommune form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
-		 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+	  	{{-- <input type="hidden" name="idpob" id="idpob">
+			<input type="text" id ="pob" class="autoCommune form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+	 		{!! $errors->first('pob','<small class="alert-danger">:message</small>') !!} --}}
+       <select name="pob" id="pob" class="form-control autoCommune1">
+            </select>
 		</div>
 	</div>
 </div>
@@ -91,7 +93,7 @@
     </div>
   </div>
   <div class="form-group col-sm-4">
-    <label class="col-sm-3 control-label text-nowrap" for="nationalite">Nationnalité</label>
+    <label class="col-sm-3 control-label text-nowrap">Nationnalité</label>
     <div class="col-sm-9">
      <select class="form-control" name="nationalite">
        <option value="" selected>Algérienne</option>
@@ -146,7 +148,7 @@
     </div>
 	</div>
 	<div class="form-group col-sm-3">
-			<label class="control-label col-sm-4 col-xs-4" for="mobile2">Mob2</label>
+			<label class="control-label col-sm-4 col-xs-4">Mob2</label>
 		  <div class="col-xs-12 col-sm-8">
       <div class="input-group">
         <span class="input-group-addon fa fa-phone"></span>

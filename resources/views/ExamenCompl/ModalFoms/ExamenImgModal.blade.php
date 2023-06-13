@@ -4,30 +4,27 @@
       <div class="modal-header">
 	      <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un examen d'imagerie</h4> </div>
 	   		<div class="modal-body">
-		 		<div class="row">
-	      	<div class="col-sm-12">
-	      		<label for="control-label examensradio">Examen(s) proposé(s) :</label><br>
-						<select id="examensradio" name="examensradio[]" multiple="multiple" data-maximum-selection-length="1" class="form-control select2" data-placeholder="Séléctionner..." >
-					 	 @foreach($examensradio as $examenradio)
-						 	<option value="{{ $examenradio->id }}"> {{ $examenradio->nom }}</option>
-						 @endforeach
-						</select>
-			    </div>
-			  </div><div class="space-12"></div>
-				<div class="row">
-				<div class="col-sm-12">
-			  	<label for="control-label">Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic :</label> <br>
-			   	<div class="imgsEx">
+		      <div class="form-group mt-5">
+            <label class="control-label">Examen(s) proposé(s)</label>
+            <div class="input-group col-sm-12">
+              <select id="examensradio" name="examensradio[]" class="form-control select2 row">
+             @foreach($examensradio as $examenradio)
+              <option value="{{ $examenradio->id }}"> {{ $examenradio->nom }}</option>
+             @endforeach
+            </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="control-label">Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic</label>
+            <div class="imgsEx">
             @foreach( $specialite->ImgExams as $exImg)
-              <div class="col-xs-2"><input type="radio" name="exmns"  value="{{ $exImg->id }}">
-              <label for="male">{{ $exImg->nom}}</label> </div>
+              <div class="col-sm-2"><input type="radio" name="exmns"  value="{{ $exImg->id }}">&nbsp;<label for="male">{{ $exImg->nom}}</label> </div>
             @endforeach 
-				</div>
+            </div>
+          </div>
 			  </div>
-				</div>
-			  </div>
-				<div class="modal-footer" width = "100%">
-			  	<button type="button" class="btn btn-success btn-sm" id="btn-addImgExam" value="add" disabled>
+				<div class="modal-footer">
+			  	<button type="button" class="btn btn-primary btn-sm" id="btn-addImgExam" value="add" disabled>
 		      	<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 		      <button type="reset" class="btn btn-warning btn-sm" id="btnclose" data-dismiss="modal">
             <i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
