@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="{{ asset('/css/ace.css') }}" class="ace-main-stylesheet" id="main-ace-style" />
 <link rel="stylesheet" href="{{ asset('/css/ace-skins.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/select2.min.css') }}" />
-{{--   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" /> --}}
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/datatables.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/chosen.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker3.min.css') }}" />

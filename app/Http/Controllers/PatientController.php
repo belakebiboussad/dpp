@@ -141,7 +141,7 @@ class PatientController extends Controller
     }  
     $patient = patient::firstOrCreate([
         "Nom"=>request()->nom,"Prenom"=>request()->prenom,
-        "dob"=>$dob, "pob"=>request()->idpob,
+        "dob"=>$dob, "pob"=>request()->pob,
         "Sexe"=>request()->sexe,"sf"=>request()->sf,
         "nom_jeune_fille"=>request()->nom_jeune_fille, 
         "Adresse"=>request()->adresse,'commune_res'=>request()->idcommune,
@@ -199,6 +199,7 @@ class PatientController extends Controller
      $profs =Profession::all();
     if($patient->type_id != 6)
       $assure =  $patient->assure;
+    dd($assure);
     return view('patient.edit',compact('patient','assure','types','profs')); 
   }
 /**

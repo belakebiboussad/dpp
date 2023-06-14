@@ -6,7 +6,7 @@
 
 @endforeach
 <div class="form-group row">
-<label class="control-label" for="etatgen">Etat géneral du patient</label>
+<label class="control-label">Etat géneral du patient</label>
   <textarea type="text" name="etat" placeholder= "Etat Géneral du patient..." class="form-control"></textarea>
 </div>
 <div class="form-group row">

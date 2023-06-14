@@ -5,8 +5,8 @@
   <div class="widget-body">
     <div class="widget-main">
       <div class="form-group">
-        <label for="control-label">Informations cliniques pertinentes</label>
-        <textarea class="form-control" id="infosc" name="infosc"></textarea>
+        <label class="control-label">Informations cliniques pertinentes</label>
+        <textarea class="form-control infosc" id="infosc" name="infosc"></textarea>
             {!! $errors->first('infosc', '<small class="alert-danger"><b>:message</b></small>')!!}
       </div>
       <div class="form-group">
@@ -57,4 +57,3 @@
     </div>
   </div>
 </div>
-@include('ExamenCompl.ModalFoms.ExamenImgModal')   

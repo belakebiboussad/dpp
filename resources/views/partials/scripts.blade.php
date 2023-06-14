@@ -121,7 +121,6 @@
           minLength: 3,
           select: function (event, ui) { // Set selection
             $(this).val(ui.item.label); // display the selected text
-            alert(event['target']['id']);
             switch(event['target']['id'])
             {
               case "pob":
@@ -524,8 +523,7 @@
           $("#specialite").val(data.specialite_id);                  
           $("#employ_id").val(data.employ_id);
           $('#nomPatient').val(data.patient.full_name);
-          if(!isEmpty(data.patient.mob))
-            $('#patient_tel').val(data.patient.mob);
+          $('#patient_tel').val(data.patient.mob);
           $('#agePatient').val(data.patient.age);
           $('#lien').attr('href','/patient/'.concat(data.patient.id)); 
           $('#lien').text(event.title);

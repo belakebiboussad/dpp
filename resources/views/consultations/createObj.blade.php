@@ -127,8 +127,8 @@ $(function(){
     });
     $('.modal').on('hidden.bs.modal', function(e)
     { 
-     $(this).find('form')[0].reset();
-    })
+      $(this).find('form')[0].reset();
+    });
   $("#EnregistrerAntecedant").click(function (e) {
     e.preventDefault();
     if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
@@ -450,9 +450,10 @@ $(function(){
 @include('antecedents.ModalFoms.vaccinsModal')
 @endif
 @include('cim10.cimModalForm')
+@include('ExamenCompl.ModalFoms.ExamenImgModal')
 @include('consultations.ModalFoms.DemadeHospitalisation')
 @include('consultations.ModalFoms.LettreOrientation')
-@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
+@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')   
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>

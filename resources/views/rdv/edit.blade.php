@@ -2,6 +2,10 @@
 @section('page-script')
  @include('rdv.scripts.js')
 <script>
+function reset_in()
+{ 
+  $('#printRdv').addClass('hidden');
+}
  $(function(){
        var today = (new Date()).setHours(0, 0, 0, 0);
        $('.calendar1').fullCalendar({
@@ -11,7 +15,7 @@
                     right: 'month,agendaWeek,agendaDay'
               },
               timeZone: 'local',
-              defaultView: 'agendaWeek',  //weekends: false,
+              defaultView: 'agendaWeek',
               height:650,
               firstDay: 0, 
               slotDuration: '00:15:00',
@@ -43,13 +47,15 @@
                         specialite: {{ $rdv->specialite_id }},
                         medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
                         fixe:  {{ $rdv->fixe }},
-                        etat : '{{ $rdv->Etat_RDV }}',   
+                        etat : '{{ $rdv->etat }}',   
                     },
                    @endforeach 	
                 ],
+                select: function(start, end) {
+                   $('.calendar1').fullCalendar('unselect');
+                }, 
                 eventRender: function (event, element, webData) {
-      	         
-                  if(event.id == {{$rdv->id}})
+      	          if(event.id == {{$rdv->id}})
                     if(event.fixe)
                       element.css('background-color', '#3A87AD'); 
                     else
@@ -59,18 +65,18 @@
                   element.css("padding", "5px");
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$rdv->id}}))
-                    {      
-                        if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today) //(calEvent.fixe) &&
-                        {
-                          $('#printRdv').attr("data-id",calEvent.id);
-                          $('#printRdv').removeClass('hidden'); 
-                        }
-                        if($('#fixe').length &&(calEvent.fixe))
-                          $("#fixe"). prop("checked", true);
-                        $('#idRDV').val(calEvent.id);
-                        ajaxEditEvent(calEvent,false);
+                  if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) &&  (calEvent.id == {{$rdv->id}}))
+                  {      
+                    if( new Date(calEvent.start).setHours(0, 0, 0, 0)>today)
+                    {
+                      $('#printRdv').attr("data-id",calEvent.id);
+                      $('#printRdv').removeClass('hidden'); 
                     }
+                    if($('#fixe').length &&(calEvent.fixe))
+                      $("#fixe"). prop("checked", true);
+                    $('#idRDV').val(calEvent.id);
+                    ajaxEditEvent(calEvent,false);
+                  }
                },
                 eventAllow: function(dropLocation, draggedEvent) {
                        if (draggedEvent.id != {{$rdv->id}} || (draggedEvent.start < today))  
@@ -78,16 +84,13 @@
                  },
                 eventDrop: function(event, delta, revertFunc)
                 {
-                      jQuery('#btnclose').click(function(){
-                           revertFunc();
-                      });
-                      if($('#fixe').length &&(event.fixe))
-                              $("#fixe"). prop("checked", true);
-                      ajaxEditEvent(event,true);
-                },
-               select: function(start, end) {
-                   $('.calendar1').fullCalendar('unselect');
-               }, 	
+                  jQuery('#fctCancel').click(function(){
+                       revertFunc();
+                  });
+                  if($('#fixe').length &&(event.fixe))
+                    $("#fixe"). prop("checked", true);
+                  ajaxEditEvent(event,true);
+                },	
          }).fullCalendar('gotoDate','{{ $rdv->date }}');
   });
 </script>

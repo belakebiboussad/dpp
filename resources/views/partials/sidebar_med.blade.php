@@ -302,33 +302,14 @@
         })
       }
       $(function () {
-          $('.select2').css('width','50%').select2({allowClear:true});
-          $('#examensradio').on('select2:select', function (e) { 
-            if($("input[name='exmns']").is(":checked"))
-             $("#btn-addImgExam").attr("disabled", false);
-          });
-          $('#examensradio').on('select2:unselecting', function(event) {
-            $("#btn-addImgExam").attr("disabled", true);
-          });
-          $('input[type=radio][name=exmns]').change(function() {
-            if(! isEmpty($('#examensradio').val()))
-              $("#btn-addImgExam").attr("disabled", false);
-            else
-              $("#btn-addImgExam").attr("disabled", true);
-          });
-          $('#btnclose').click(function(){
-            $("#examensradio").select2("val", "");
-            if(!$("#btn-addImgExam").prop('disabled'))
-              $("#btn-addImgExam").attr("disabled", true);
-          })
-          $('input[type=radio][name=sexe]').change(function(){
-            if(this.value == "M")
-            {
-              $('#Div-nomjeuneFille').attr('hidden','');
-              $('#nom_jeune_fille').val(''); 
-            }else
-              if(($("#sf").val() ==="M")|| ($("#sf").val() =="V"))
-                $('#Div-nomjeuneFille').removeAttr('hidden');
+        $('input[type=radio][name=sexe]').change(function(){
+          if(this.value == "M")
+          {
+            $('#Div-nomjeuneFille').attr('hidden','');
+            $('#nom_jeune_fille').val(''); 
+          }else
+            if(($("#sf").val() ==="M")|| ($("#sf").val() =="V"))
+              $('#Div-nomjeuneFille').removeAttr('hidden');
           });
           $( "#sf" ).change(function() {
               var sex =  $('input[name=sexe]:checked').val();

@@ -5,37 +5,31 @@
 			<div class="modal-body">
 			  <form action="#" method="POST">
         <input type="hidden" id="dh_id" value="">
-			    <div class="row">
-			      <div class="col-xs-12"><label for="modeAdmissionHospi">Mode d'admission :</label>
-			     	  <select class="form-control" id="modeAdmissionHospi">
-				       	<option value="" selected disabled>Sélectionner...</option>
-				        @foreach($modesAdmission as $mode =>$value)
-				       	<option value="{{ $value}}">{{ $mode }}</option>
-				       	@endforeach
-				      </select>
-				    </div>
-			    </div><div class="space-12"></div>
-        	<div class="row">
-			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi">Spécialité :</label>
-					   	<select class="form-control" id="specialiteHospi">
-						    @foreach($specialites as $specialite)
-						   	<option value="{{ $specialite->id}}" @if( Auth::user()->employ->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
-						    @endforeach 
-						  </select>
-						  <br>
-			      </div>		
-			    </div>
-			    <div class="row">
-			     	<div class="col-xs-12">
-			     	 	<label for="serviceHospi">Service :</label>
-					    <select class="form-control" id="serviceHospi">
-							  @foreach($services as $service)
-							  <option value="{{ $service->id }}" @if( Auth::user()->employ->service_id == $service->id) selected @endif>{{ $service->nom }}</option>
-							  @endforeach     
-							</select>
-			      </div>	
-			    </div>
+			  <div class="form-group">
+			    <label class="control-label" for="modeAdmissionHospi">Mode d'admission</label>
+	    	  <select class="form-control" id="modeAdmissionHospi">
+		       	<option value="" selected disabled>Sélectionner...</option>
+		        @foreach($modesAdmission as $mode =>$value)
+		       	<option value="{{ $value}}">{{ $mode }}</option>
+		       	@endforeach
+		      </select>
+				</div>
+      	<div class="form-group">
+	     		<label class="control-label" for="specialiteHospi">Spécialité</label>
+			   	<select class="form-control" id="specialiteHospi">
+				    @foreach($specialites as $specialite)
+				   	<option value="{{ $specialite->id}}" @if( Auth::user()->employ->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
+				    @endforeach 
+				  </select>
+			  </div>		
+			  <div class="form-group">
+	     	 	<label class="control-label" for="serviceHospi">Service</label>
+			    <select class="form-control" id="serviceHospi">
+					  @foreach($services as $service)
+					  <option value="{{ $service->id }}" @if( Auth::user()->employ->service_id == $service->id) selected @endif>{{ $service->nom }}</option>
+					  @endforeach     
+					</select>
+	       </div>	
 			  </form>
 			</div>
 		  <div class="modal-footer">

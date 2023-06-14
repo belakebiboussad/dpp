@@ -34,9 +34,9 @@ class AssurController extends Controller
      */
     public function store(Request $request)
     { 
-       $assure = assur::create([
+      $assure = assur::create([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "dob"=>$request->iddobf,"pob"=>$request->idpobf,
+        "dob"=>$request->iddobf,"pob"=>$request->pobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
         "gs"=>$request->gsf.$request->rhf,"NSS"=>$request->nss

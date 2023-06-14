@@ -188,10 +188,5 @@
       }
     });
   }
-  $(function(){
-    // $("#pob").select2('data', { id:"elementID", text: "Hello!"});
-   // $('[name=pob]').val("");
-    // $("#pob").select2("val", "{{ $user->employ->pob1}}");
-  })
 </script>
 @stop

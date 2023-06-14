@@ -5,7 +5,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="exampleModalLabel">Rendez-Vous <q><a href="" id="lien" class="white"></a></q></h4>
+              <h4 class="modal-title" id="exampleModalLabel">Rendez-Vous<q><a href="" id="lien" class="white"></a></q></h4>
             </div>
             <form id ="updateRdv" role="form">
             <input type="hidden" id="medecinRequired" name="medecinRequired" value="">  
@@ -64,8 +64,7 @@
               @endif 
               <a id="printRdv" href="" class="btn btn-xs btn-success"   aria-hidden="true" target="_blank"><i class="ace-icon fa fa-print"></i>Imprimer</a>
               <a id="printTck" class="btn btn-info btn-xs hidden" data-dismiss="modal"><i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
-              <button type="button" class="btn  btn-warning btn-xs" data-dismiss="modal" id ="btnclose" >
-                   <i class="fa fa-undo" aria-hidden="true" ></i> Annuler</button>
+              <button type="button" class="btn  btn-warning btn-xs" data-dismiss="modal"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
             </div>
             </form>
         </div>

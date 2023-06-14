@@ -8,7 +8,7 @@
         <form id="modalFormDescript" method="POST">
           <input type="hidden" id="decript_id">
           <div class="form-group">
-            <label for="description">Examen clinque :</label>
+            <label for="description">Examen clinque</label>
             <textarea class="form-control" id="examClin" rows="8"></textarea>
           </div>
         </form>

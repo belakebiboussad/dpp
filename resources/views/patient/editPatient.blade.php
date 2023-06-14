@@ -25,10 +25,11 @@
 	<div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
 	  <div class="col-sm-9">
-			<input type="hidden" name="idpob" id="idpob" value="{{(is_null($patient->pob))? '': $patient->pob}}">
-      <input type="text" id="pob" class="form-control autoCommune" value="{{ (is_null($patient->pob))? '': $patient->POB->name}}"/>
- {{--    <select name="pob" id="pob" class="form-control autoCommune1" style="width:800px">
-      </select> --}}
+	{{-- 		<input type="hidden" name="idpob" id="idpob" value="{{(is_null($patient->pob))? '': $patient->pob}}">
+      <input type="text" id="pob" class="form-control autoCommune" value="{{ (is_null($patient->pob))? '': $patient->POB->name}}"/> --}}
+    <select name="pob" id="pob" class="form-control autoCommune1">
+<option value="{{ $patient->pob }}" selected="selected">{{$patient->POB->name}}</option>     
+    </select>
 	  </div>
 	</div>
 </div>

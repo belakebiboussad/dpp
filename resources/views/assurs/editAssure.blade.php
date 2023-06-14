@@ -33,8 +33,11 @@
   	<div class="form-group col-sm-6">
   		<label class="col-sm-3 col-xs-3 control-label text-nowrap">Né(e) à</label>
   		<div class="col-sm-9">
-  		  <input type="hidden" name="idpobf" id="idpobf" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob}}">
-        <input type="text" id="pobf" class="autoCommune form-control asdemogData" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->pob)))? $assure->POB->name:''}}"/>
+  		 {{--  <input type="hidden" name="idpobf" id="idpobf" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob}}">
+        <input type="text" id="pobf" class="autoCommune form-control asdemogData" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->pob)))? $assure->POB->name:''}}"/> --}}
+            <select name="pobf" id="pobf" class="form-control autoCommune1">
+<option value="{{ $assure->pobf }}" selected="selected">{{$assure->POB->name}}</option>     
+    </select>
   		</div>
   	</div>	
   </div>

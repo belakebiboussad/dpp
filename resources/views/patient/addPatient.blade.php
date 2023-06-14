@@ -48,7 +48,7 @@
 </div>
 <div class="row demograph">
 	<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }} col-sm-4">
-		<label class="col-sm-3 control-label required" for="sexe">Genre</label>
+		<label class="col-sm-3 control-label required">Genre</label>
 		<div class="col-sm-9">
 			<div class="radio">
 				<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
@@ -139,7 +139,7 @@
 </div>
 <div class="row">
 	<div class="form-group col-sm-3"><!-- pattern="0[0-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" -->
-    <label class="control-label col-sm-4 col-xs-4" for="tel">Mob1</label>
+    <label class="control-label col-sm-4 col-xs-4">Mob1</label>
     <div class="col-xs-12 col-sm-8">
       <div class="input-group">
         <span class="input-group-addon fa fa-phone"></span>

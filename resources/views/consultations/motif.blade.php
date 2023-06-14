@@ -3,7 +3,7 @@
    <input  type="checkbox" id="isOriented" class="ace input-lg"/><span class="lbl red"> Patient orienté</span></div>
 </div><br>	
 <div class="form-group row hidden" id="hidden_fields">	
-		<label class="col-sm-4 control-label" for="lettreorientaion">Orienté pour</label>	  
+		<label class="col-sm-4 control-label">Orienté pour</label>	  
 		<div class="col-sm-8"><textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="Resumé" class="form-control"></textarea></div>
 </div>	
 <div class="form-group row {{ $errors->has('motif') ? 'has-error' : '' }}">

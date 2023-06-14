@@ -155,8 +155,7 @@ class RDVController extends Controller
       public function edit(Request $request, rdv $rdv)
       { 
         if($request->ajax())
-        { 
-         // $medecins = ($rdv->specialite)->employes;
+        { // $medecins = ($rdv->specialite)->employes;
           if(isset($rdv->specialite_id)) //return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
             return $rdv;
           else 
@@ -164,6 +163,7 @@ class RDVController extends Controller
         }else{
           $appointDoc =  (Parametre::select()->where('nom','docinAppoint')->get('value')->first())->value;
           $specialite =$rdv->specialite_id;
+          $specialites = Specialite::all();
           if(Auth::user()->isIn([1,13,14])) 
             $rdvs = rdv::with('patient','employe')
                         ->whereHas('specialite',function($q) use ($specialite){
@@ -171,7 +171,7 @@ class RDVController extends Controller
                         })->whereNull('etat')->orwhere('etat',1)->get(); 
           else
             $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->whereNull('etat')->orwhere('etat',1)->get(); 
-          return view('rdv.edit',compact('rdv','rdvs','appointDoc'));
+          return view('rdv.edit',compact('rdv','rdvs','appointDoc','specialites'));
         } 
       }
     /**
