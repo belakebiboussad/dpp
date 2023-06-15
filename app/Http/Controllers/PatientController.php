@@ -47,7 +47,7 @@ class PatientController extends Controller
         $field= request()->field;
         switch(Auth::user()->employ->specialite)
         {       
-             case 3 :
+          case 3 :
                   $patients = patient::where($field,'LIKE', "$q%")->active()
                                       ->where('dob', '>', $sub17)->get();
                   break;
@@ -134,7 +134,9 @@ class PatientController extends Controller
         }else
           (new AssurController)->store(request());
       }else
+      {
         (new AssurController)->update(request(),request()->nss);  
+      } 
     }  
     $patient = patient::firstOrCreate([
         "Nom"=>request()->nom,"Prenom"=>request()->prenom,

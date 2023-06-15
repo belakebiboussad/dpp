@@ -48,13 +48,6 @@ class patient extends Model
 	{
 			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
-	/*
-  public function wilaya()
-	{	
-		if(isset($this->wilaya_res))
-			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
-	}
-  */
   public function Type()
   {
       return $this->belongsTo('App\modeles\PatientType','type_id');

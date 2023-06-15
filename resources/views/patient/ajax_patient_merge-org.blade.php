@@ -47,15 +47,15 @@
     </tr>
      <tr class="{{ $statuses['pob'] }}">
       <td align="center">à</td>
-  <td><input type="text" id ="pob" name="lieunaissance" value="{{ $patientResult->pob }}" class="form-control autoCommune"/>
+  <td><input type="text" id ="pob" name="lieunaissance" value="{{ $patientResult->pob }}" class="form-control autoCommune1"/>
   </td>
   <td>
    <input  type="radio" name="choixPob" onclick="setField('pob', '{{(is_null($patient1->pob))?'':$patient1->POB->name}}');" checked>
     {{(is_null($patient1->pob))?'':$patient1->POB->name}}
   </td>
-      <td>
-              <input  type="radio" name="choixPob" onclick="setField('pob', '{{(is_null($patient2->pob))?'':$patient2->POB->name}}');">{{(is_null($patient2->pob))?'':$patient2->POB->name}}
-      </td>
+  <td>
+    <input  type="radio" name="choixPob" onclick="setField('pob', '{{(is_null($patient2->pob))?'':$patient2->POB->name}}');">{{(is_null($patient2->pob))?'':$patient2->POB->name}}
+  </td>
     </tr>
     <tr class="{{ $statuses['Sexe'] }}">
       <td align="center">Sexe</td>

@@ -351,9 +351,15 @@
               </td>
               <td>
                 @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
-                  <textarea class="form-control inputClass {{ (in_array($const->id,$lastVisite->constantes->pluck('id')->toArray()))?'':'hidden'}}" name="obs[]" id="{{ $const->id }}" name="obs[]" id="{{ $const->id }}" {{ (in_array($const->id,$lastVisite->constantes->pluck("id")->toArray())) ? "":"disabled"}}>{{ ($lastVisite->constantes->find($const->id))['pivot']['obs'] }}</textarea>
-                @else
-                <textarea class="form-control inputClass hidden" name="obs[]" id="{{ $const->id }}" disabled></textarea>
+                <textarea class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">
+               {{--    @foreach($lastVisite->constantes as $const)
+                    @if($const->pivot->const_id == $const->id )
+                    {{ $const->pivot->obs }}
+                    @endif
+                  @endforeach --}}
+  {{-- {{ $lastVisite->Constantes()->where('const_id', $const->id )->get()}} --}}
+{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->get(['id'])) }} 
+                </textarea>
                 @endif
               </td>
             </tr>

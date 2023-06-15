@@ -28,13 +28,6 @@ class assur extends Model
 		if(!(is_null($this->commune_res)))
 		  return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
-	/*
-  public function wilaya()
-	{	
-		if(isset($this->wilaya_res))
-			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
-	}
-  */
 	public function patients()
 	{
 		return $this->hasMany('App\modeles\patient','assur_id');

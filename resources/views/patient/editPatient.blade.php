@@ -114,10 +114,11 @@
     </div>
 	</div>
 	<div class="form-group  col-sm-3 col-md-3">
-		<label class="control-label col-sm-4 col-md-4" for="commune">Commune</label>
+		<label class="control-label col-sm-4 col-md-4" for="idcommune">Commune</label>
 		<div class="col-sm-8 col-md-8">
-    <input type="hidden" name="idcommune" id="idcommune" value="{{is_null($patient->commune_res)?'':$patient->commune_res}}"/>
-    <input type="text" id="commune"  value="{{is_null($patient->commune_res)?'':$patient->commune->name}}" class="autoCommune "/>   
+    <select name="idcommune" id="idcommune" class="form-control autoCommune1">
+      <option value="{{ $patient->commune_res }}" selected="selected">{{(is_null($patient->commune_res))?'':$patient->commune->name}}</option>     
+    </select> 
 	  </div>
   </div>
 	<div class="form-group col-sm-3 col-md-3">

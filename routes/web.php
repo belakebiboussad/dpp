@@ -124,10 +124,7 @@ Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::post('/patients/autoField','PatientController@AutoCompletePatientField')->name('patients.autoField');
-Route::get('/findCom','CommuneController@index')->name('commune.index');
-
 Route::get('/search','CommuneController@search')->name('commune.search');
-
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge')->name('patients.merge');

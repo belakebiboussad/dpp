@@ -23,7 +23,6 @@
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
 <script src="{{ asset('/js/select2.min.js') }}"></script>
-{{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> --}}
 <script src="{{ asset('/js/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
@@ -112,69 +111,34 @@
             case "idcommune":
               $("#wilaya").val(e.params.data.wilaya);
               break;
+            case "idcommunef":
+              $("#wilayaf").val(e.params.data.wilaya);
+              break;
             default:
                 break;   
         }
     });
-    $( ".autoCommune" ).autocomplete({
-          autoFocus: true,
-          source: function( request, response ) {
-           $.ajax({
-                url:"{{route('commune.index')}}",
-                data: { _token: CSRF_TOKEN,search: request.term },
-                success: function( data ) {
-                  response( data );
-                }
-            });
-          },
-          minLength: 3,
-          select: function (e, ui) { // Set selection
-            $(this).val(ui.item.label); // display the selected text
-            switch(e['target']['id'])
-            {
-              case "pob":
-                $("#idpob").val(ui.item.value);//save selected id to input
-                break;
-              case "pobf":
-                $("#idpobf").val(ui.item.value);
-                break;
-              case "commune":
-                $("#idcommune").val(ui.item.value);
-                $("#idwilaya").val(ui.item.wvalue);
-                $("#wilaya").val(ui.item.wlabel);
-                break;
-              case "communef":   
-                $("#idcommunef").val(ui.item.value);
-                $("#idwilayaf").val(ui.item.wvalue);
-                $("#wilayaf").val(ui.item.wlabel);
-                break;
-              default:
-                break;   
-            } 
-            return false;
-          }
+    $( ".autofield" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+            url:"{{route('patients.autoField')}}",
+            type: 'post',
+            dataType: "json",
+            data: {
+               _token: CSRF_TOKEN,
+                q: request.term,
+                field:$(this.element).prop("id"),
+            },
+            success: function( data ) {
+              response( data );
+            }
         });
-        $( ".autofield" ).autocomplete({
-          source: function( request, response ) {
-            $.ajax({
-                url:"{{route('patients.autoField')}}",
-                type: 'post',
-                dataType: "json",
-                data: {
-                   _token: CSRF_TOKEN,
-                    q: request.term,
-                    field:$(this.element).prop("id"),
-                },
-                success: function( data ) {
-                  response( data );
-                }
-            });
-          },
-          minLength: 3,
-          select: function (event, ui) {
-            $(this).val(ui.item.label);
-            field =event['target']['id'];
-          }
+      },
+      minLength: 3,
+      select: function (event, ui) {
+        $(this).val(ui.item.label);
+        field =event['target']['id'];
+      }
     });
     $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {

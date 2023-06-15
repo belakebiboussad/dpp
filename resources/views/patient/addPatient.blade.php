@@ -56,8 +56,8 @@
     <label class="col-sm-3 control-label " for="sf">Civilité</label>
     <div class="col-sm-9">
       <select class="form-control civilite" id="sf" name="sf">
-              <option value="">------</option><option value="C">Célibataire(e)</option>
-              <option value="M">Marié(e)</option>  <option value="D">Divorcé(e)</option>
+              <option value="C">Célibataire(e)</option>
+              <option value="M">Marié(e)</option><option value="D">Divorcé(e)</option>
               <option value="V">Veuf(veuve)</option>
       </select>
     </div>
@@ -121,8 +121,6 @@
 	<div class="form-group col-sm-3">
 		<label class="control-label col-sm-4 col-xs-4" for="idcommune">Commune</label>
 		<div class="col-sm-8 col-xs-8">
-    {{-- <input type="hidden" name="idcommune" id="idcommune">
-	 	<input type="text" value="" id="commune" placeholder="commune résidance" class="form-control autoCommune"/> --}}
     <select name="idcommune" id="idcommune" class="form-control autoCommune1"></select>
    </div>
 	</div>

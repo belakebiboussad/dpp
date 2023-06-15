@@ -27,15 +27,15 @@
     <div class="form-group col-sm-6">
   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="dobf">Né(e) le</label>
   		<div class="col-sm-9">
-<input class="autoCommune form-control date-picker ltnow asdemogData" id="dobf" name="dobf" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->dob)) )? $assure->dob->format('Y-m-d'):''}}"/>
+        <input class="form-control date-picker ltnow asdemogData" id="dobf" name="dobf" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->dob)) )? $assure->dob->format('Y-m-d'):''}}"/>
   		</div>
   	</div>
   	<div class="form-group col-sm-6">
   		<label class="col-sm-3 col-xs-3 control-label text-nowrap">Né(e) à</label>
   		<div class="col-sm-9">
-<select name="pobf" id="pobf" class="form-control autoCommune1">
-<option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->pob))))? $assure->POB->name:'' }}</option>     
-</select>
+      <select name="pobf" id="pobf" class="form-control autoCommune1">
+      <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->pob))))? $assure->POB->name:'' }}</option>     
+      </select>
   		</div>
   	</div>	
   </div>
@@ -95,13 +95,17 @@
 
     <div class="form-group col-sm-4">
 	  	<label class="col-sm-3 text-nowrap" for="communef">Commune</label>
-      <input type="hidden" name="idcommunef" id="idcommunef" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->commune_res}}">
-      <input type="text" id="communef" placeholder="commune résidance" class="autoCommune col-xs-9 col-sm-9 asdemogData" value="{{((in_array($patient->type_id,[2,3,4,5])) &&(!is_null($assure->commune_res)))? $assure->commune->name: '' }}"/>
+      <div class="col-sm-9 col-xs-9">
+      <select name="idcommunef" id="idcommunef" class="form-control autoCommune1">
+      <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->commune_res }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->commune_res))))? $assure->commune->name:'' }}</option>     
+      </select>
+    </div>
 	  </div>
 	  <div class="form-group col-sm-4">
-	<label class="col-sm-3" for="wilayaf">Wilaya</label>
-<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{(in_array($patient->type_id,[1,6]))? '':$assure->wilaya_res}}">
-<input type="text" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData col-sm-9 col-xs-9" value="{{((in_array($patient->type_id,[2,3,4,5])) &&(!is_null($assure->wilaya_res)))? $assure->wilaya->nom: ''}}" readonly />
+	    <label class="col-sm-3" for="wilayaf">Wilaya</label>
+      <div class="col-sm-9 col-xs-9">
+      <input type="text" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData form-control" value="{{((in_array($patient->type_id,[2,3,4,5])) &&(!is_null($assure->commune_res)))? $assure->commune->daira->wilaya->nom: ''}}" readonly />
+    </div>
 	  </div>
   </div>
 </div>

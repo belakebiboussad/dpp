@@ -90,17 +90,13 @@
 	</div>
 	<div class="form-group  col-sm-4">
 		<label class="control-label col-sm-4" for="idcommunef">Commune</label>
-		{{-- <input type="hidden" name="idcommunef" id="idcommunef"> --}}
-	 {{-- 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune asdemogData col-sm-8" value="Autre"/> --}}
-    <div class="col-sm-8 col-xs-8">
+	  <div class="col-sm-8 col-xs-8">
       <select name="idcommunef" id="idcommunef" class="form-control asdemogData autoCommune1">
       </select>
      </div> 
-
 	</div>
 	<div class="form-group  col-sm-4">
 	  <label class="control-label col-sm-4" for="wilayaf">Wilaya</label>
-	 {{--  <input type="hidden" name="idwilayaf" id="idwilayaf"  value="49"> --}}
 	<input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
 	</div>
 </div>

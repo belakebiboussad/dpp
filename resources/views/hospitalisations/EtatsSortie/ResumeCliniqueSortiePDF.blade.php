@@ -57,7 +57,7 @@
               @endif
             </td>
             <td>
-              @if(isset($obj->patient->wilaya_res))
+              @if(isset($obj->patient->commune_res))
               <b>Wilaya :</b><span> {{ $obj->patient->commune->daira->wilaya->nom }}</span>
               @endif
             </td>

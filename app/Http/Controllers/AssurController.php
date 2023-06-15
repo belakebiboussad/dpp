@@ -38,7 +38,7 @@ class AssurController extends Controller
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
         "dob"=>$request->iddobf,"pob"=>$request->pobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
-        "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
+        "commune_res"=>$request->idcommunef,
         "gs"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
       ]);
     }
@@ -51,7 +51,6 @@ class AssurController extends Controller
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
       $assure->dob = $date;$assure->Sexe = $obj->Genre;
       $assure->sf =$sf; $assure->adresse = utf8_encode($obj->Adresse);
-      $assure->wilaya_res =  $obj->WilayaResidence;
       $assure->gs = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
       $assure->Service =utf8_encode($obj->Service);
       $assure->save();
@@ -82,18 +81,17 @@ class AssurController extends Controller
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
         "dob"=>$request->dobf,"pob"=>$request->pobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
-        "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
+        "commune_res"=>$request->idcommunef,
         "gs"=>$request->gsf.$request->rhf,
         "NSS"=>$request->nss
       ]); //return redirect(Route('assur.show',$assure->id));
     }
-    public function  updateAssure($situationFamille,  $adresse,$wilayaResid, $service , $NSS)
+    public function  updateAssure($situationFamille,  $adresse, $service , $NSS)
     {
       $assure = assur::find($NSS);
       $assure->update([
           "sf"=>$situationFamille,
           "adresse"=>$adresse,
-          "wilaya_res"=>$wilayaResid,
           "Service"=>$service
       ]);
     }
