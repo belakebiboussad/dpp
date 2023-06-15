@@ -7,9 +7,7 @@
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
 			<span class="bigger-110">Modifier</span>
 		</a>
-{{--@if(Auth::user()->is(15))
-			<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><span class="bigger-110"> Rendez-Vous</span></a>@endif  --}}
-	
+{{--@if(Auth::user()->is(15))<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}"><span class="bigger-110"> Rendez-Vous</span></a>@endif  --}}
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->full_name }}</span>
@@ -74,7 +72,7 @@
 					<div class="profile-info-name"> Adresse </div>
 					<div class="profile-info-value">
 						<i class="fa fa-map-marker light-orange bigger-110"></i>
-						<span>{{ $patient->Adresse }} ,{{ $patient->commune->name}} , {{ $patient->wilaya->nom }}</span>
+						<span>{{ $patient->Adresse }} ,{{ $patient->commune->name}} , {{ $patient->commune->daira->wilaya->nom }}</span>
 					</div>
 				</div>
 				@endif

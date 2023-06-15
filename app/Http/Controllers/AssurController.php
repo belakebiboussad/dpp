@@ -77,10 +77,10 @@ class AssurController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $assure = assur::find($id);
+       $assure = assur::find($id);
       $assure -> update([
         "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
-        "dob"=>$request->dobf,"pob"=>$request->idpobf,
+        "dob"=>$request->dobf,"pob"=>$request->pobf,
         "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,"wilaya_res"=>$request->idwilayaf,
         "gs"=>$request->gsf.$request->rhf,

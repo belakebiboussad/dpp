@@ -11,6 +11,6 @@ class Commune extends Model
   protected $fillable = ['name','Id_daira'];
   public function daira()
   {
-  		return $this->belongsTo('App\modeles\Daira','Id_daira');
+  	return $this->belongsTo('App\modeles\Daira','Id_daira');
   }
 }

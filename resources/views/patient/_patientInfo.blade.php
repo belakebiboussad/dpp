@@ -25,7 +25,7 @@
       @isset( $patient->commune_res)
 			<label class="inline hidden-xs"> 	
 			<span class="lbl"><span class="glyphicon glyphicon-home"></span>&nbsp;Adresse :</span>
-			<span class="blue">{{ $patient->commune->name }},{{ $patient->wilaya->nom }}</span>
+			<span class="blue">{{ $patient->commune->name }},{{ $patient->commune->daira->wilaya->nom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			@endisset
 			@isset( $patient->NSS)

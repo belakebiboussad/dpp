@@ -5,7 +5,7 @@ use Carbon\Carbon;
 class patient extends Model
 {
 	public $timestamps = true;
-	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','dob','pob','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','mob','mob2','NSS','gs','rh','assur_id','nationalite','prof_id','type_id','description','active'];
+	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','dob','pob','Sexe','sf' ,'Adresse','commune_res','mob','mob2','NSS','gs','rh','assur_id','nationalite','prof_id','type_id','description','active'];
   protected $dates =['dob'];
   protected $appends = ['full_name','age','civ'];
   public function scopeActive($q)
@@ -48,11 +48,13 @@ class patient extends Model
 	{
 			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
-	public function wilaya()
+	/*
+  public function wilaya()
 	{	
 		if(isset($this->wilaya_res))
 			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
 	}
+  */
   public function Type()
   {
       return $this->belongsTo('App\modeles\PatientType','type_id');

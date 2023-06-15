@@ -116,7 +116,7 @@ class PatientController extends Controller
           break;
       }
     }else
-     $dob  = request()->datenaissance;   
+      $dob  = request()->dob;   
     if(request()->type !=6)
     {  
       $assure = assur::where('NSS', request()->nss)->first(); 
@@ -126,16 +126,13 @@ class PatientController extends Controller
         {
           $assurObj = assur::firstOrCreate([
             "Nom"=>request()->nom, "Prenom"=>request()->prenom,
-            "dob"=>request()->datenaissance,
-            "pob"=>request()->idlieunaissance,
+            "dob"=>$dob,"pob"=>request()->pob,
             "Sexe"=>request()->sexe, 'sf'=>request()->sf,
             "adresse"=>request()->adresse, "commune_res"=>request()->idcommune,
-            "wilaya_res"=>isset(request()->idwilaya) ?request()->idwilaya:'49',
             "gs"=>request()->gs.request()->rh, "NSS"=>request()->nss
           ]);
         }else
           (new AssurController)->store(request());
-               
       }else
         (new AssurController)->update(request(),request()->nss);  
     }  
@@ -145,7 +142,6 @@ class PatientController extends Controller
         "Sexe"=>request()->sexe,"sf"=>request()->sf,
         "nom_jeune_fille"=>request()->nom_jeune_fille, 
         "Adresse"=>request()->adresse,'commune_res'=>request()->idcommune,
-        'wilaya_res'=>request()->idwilaya,
         "mob"=>request()->mobile1,"mob2"=>request()->mobile2,
         "gs"=>request()->gs,"rh"=>request()->rh,'nationalite'=>request()->nationalite,
         'prof_id'=>request()->prof_id,
@@ -199,7 +195,6 @@ class PatientController extends Controller
      $profs =Profession::all();
     if($patient->type_id != 6)
       $assure =  $patient->assure;
-    dd($assure);
     return view('patient.edit',compact('patient','assure','types','profs')); 
   }
 /**
@@ -243,11 +238,10 @@ class PatientController extends Controller
             return back()->withErrors(['le numéro &quot;NSS&quot; doit étre unique']);
           $assure = assur::create([
             "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-            "dob"=>$request->datenaissance,"pob"=>$request->idpob,
+            "dob"=>$request->datenaissance,"pob"=>$request->pob,
             "Sexe"=>$request->sexe,"adresse"=>$request->adresse,
             "commune_res"=>$request->idcommune,
-            "wilaya_res"=>$request->idwilaya,
-            "gs"=>$request->gs.$request->rh,"NSS"=>$request->nss
+           "gs"=>$request->gs.$request->rh,"NSS"=>$request->nss
           ]);//suprimer l'assurer quan il na pas de patient
         }else
         {//test3
@@ -261,10 +255,9 @@ class PatientController extends Controller
     }
     $patient->update([
       "Nom"=>$request->nom,"Prenom"=>$request->prenom,
-      "dob"=>$request->dob,"pob"=>$request->idpob,
+      "dob"=>$request->dob,"pob"=>$request->pob,
       "Sexe"=>$request->sexe,"Adresse"=>$request->adresse,
-      "commune_res"=>$request->idcommune,'wilaya_res'=>$request->idwilaya,
-      "sf"=>$request->sf,             
+      "commune_res"=>$request->idcommune,"sf"=>$request->sf,             
       "nom_jeune_fille"=>$request->nom_jeune_fille, 
       "mob"=>$request->mobile1, "mob2"=>$request->mobile2,
       "gs"=>$request->gs,"rh"=>$request->rh,

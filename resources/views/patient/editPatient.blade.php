@@ -25,10 +25,8 @@
 	<div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
 	  <div class="col-sm-9">
-	{{-- 		<input type="hidden" name="idpob" id="idpob" value="{{(is_null($patient->pob))? '': $patient->pob}}">
-      <input type="text" id="pob" class="form-control autoCommune" value="{{ (is_null($patient->pob))? '': $patient->POB->name}}"/> --}}
     <select name="pob" id="pob" class="form-control autoCommune1">
-<option value="{{ $patient->pob }}" selected="selected">{{$patient->POB->name}}</option>     
+<option value="{{ $patient->pob }}" selected="selected">{{(is_null($patient->pob))?'':$patient->POB->name}}</option>     
     </select>
 	  </div>
 	</div>
@@ -125,8 +123,7 @@
 	<div class="form-group col-sm-3 col-md-3">
 		<label class="control-label col-sm-4 col-md-4">Wilaya</label>
 		<div class="col-sm-8 col-md-8">
-      <input type="hidden" name="idwilaya" id="idwilaya" value="{{is_null($patient->wilaya_res)?'':$patient->wilaya_res }}"/>
-      <input type="text" id="wilaya" value="{{is_null($patient->wilaya_res)?'':$patient->wilaya->nom }}" class="form-control" readonly/> 
+      <input type="text" id="wilaya" value="{{is_null($patient->commune_res)?'':$patient->commune->daira->wilaya->nom }}" class="form-control" readonly/> 
   </div>
 	</div>
 </div>

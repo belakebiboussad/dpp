@@ -38,11 +38,7 @@
     <div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
 		<div class="col-sm-9">
-	  	{{-- <input type="hidden" name="idpob" id="idpob">
-			<input type="text" id ="pob" class="autoCommune form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
-	 		{!! $errors->first('pob','<small class="alert-danger">:message</small>') !!} --}}
-       <select name="pob" id="pob" class="form-control autoCommune1">
-            </select>
+	  	<select name="pob" id="pob" class="form-control autoCommune1"></select>
 		</div>
 	</div>
 </div>
@@ -123,16 +119,17 @@
     </div>
 	</div> 
 	<div class="form-group col-sm-3">
-		<label class="control-label col-sm-4 col-xs-4" for="commune">Commune</label>
+		<label class="control-label col-sm-4 col-xs-4" for="idcommune">Commune</label>
 		<div class="col-sm-8 col-xs-8">
-    <input type="hidden" name="idcommune" id="idcommune">
-	 	<input type="text" value="" id="commune" placeholder="commune résidance" class="form-control autoCommune"/>
+    {{-- <input type="hidden" name="idcommune" id="idcommune">
+	 	<input type="text" value="" id="commune" placeholder="commune résidance" class="form-control autoCommune"/> --}}
+    <select name="idcommune" id="idcommune" class="form-control autoCommune1"></select>
    </div>
 	</div>
 	<div class="form-group col-sm-3">
 		<label class="control-label col-sm-4 col-xs-4">Wilaya</label>
 		<div class="col-sm-8 col-xs-8">
-    <input type="hidden" name="idwilaya" id="idwilaya">
+  
 		<input type="text" value="" id="wilaya" placeholder="wilaya résidance" class=" text-nowrap form-control" readonly/>
     </div>
 	</div>

@@ -35,9 +35,6 @@
 	<div class="form-group {{ $errors->has('lieunaissancef') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pobf">Né(e) à</label>
 		<div class="col-sm-9">
-		  {{-- <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-				<input type="text" id="lieunaissancef" class="autoCommune asdemogData form-control" placeholder="Lieu de naissance..." autocomplete ="on"/>		
-		 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!} --}}
       <select name="pobf" id="pobf" class="form-control autoCommune1"></select>
 		</div>
 	</div>
@@ -92,14 +89,19 @@
 		<input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="asdemogData col-sm-8"/>
 	</div>
 	<div class="form-group  col-sm-4">
-		<label class="control-label col-sm-4" for="communef">Commune</label>
-		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune asdemogData col-sm-8" value="Autre"/>
+		<label class="control-label col-sm-4" for="idcommunef">Commune</label>
+		{{-- <input type="hidden" name="idcommunef" id="idcommunef"> --}}
+	 {{-- 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune asdemogData col-sm-8" value="Autre"/> --}}
+    <div class="col-sm-8 col-xs-8">
+      <select name="idcommunef" id="idcommunef" class="form-control asdemogData autoCommune1">
+      </select>
+     </div> 
+
 	</div>
 	<div class="form-group  col-sm-4">
 	  <label class="control-label col-sm-4" for="wilayaf">Wilaya</label>
-	  <input type="hidden" name="idwilayaf" id="idwilayaf"  value="49">
-	  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
+	 {{--  <input type="hidden" name="idwilayaf" id="idwilayaf"  value="49"> --}}
+	<input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" value="Autre" readonly />
 	</div>
 </div>
 </div><!-- end demog data-->

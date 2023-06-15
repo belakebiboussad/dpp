@@ -80,33 +80,42 @@
               startTime: '08:00',
               showMeridian: false
     });
-    // teste
-     $('.autoCommune1').select2({
-      placeholder: 'Selectionner la commune',
-      minimumInputLength:3,
-      tags: "true",
-      ajax: {
-        url: '{{route('commune.search')}}',
-        dataType: 'json',
-        type: "GET",
-        data: function (data) {
-          return {
-              search: data.term // search term
-          };
-        },
-        processResults: function (response) {
-          return {
-            results: $.map(response, function (item) {
-              return {
-                text: item.label,
-                id: item.value
-              }
-            })
-          };
+    $('.autoCommune1').select2({
+        placeholder: 'Selectionner la commune',
+        minimumInputLength:3,
+        tags: "true",
+        width:"100%",
+        ajax: {
+          url: '{{route('commune.search')}}',
+          dataType: 'json',
+          type: "GET",
+          data: function (data) {
+            return {
+                search: data.term // search term
+            };
+          },
+          processResults: function (response) {
+            return {
+              results: $.map(response, function (item) {
+                return {
+                  text: item.label,
+                  id: item.value,
+                  wilaya:item.wlabel
+                }
+              })
+            };
+          },
+        } 
+    }).on("select2:select", function (e,ui) {
+        switch(e['target']['id'])
+        {
+            case "idcommune":
+              $("#wilaya").val(e.params.data.wilaya);
+              break;
+            default:
+                break;   
         }
-      } 
-     });
-    // ftes
+    });
     $( ".autoCommune" ).autocomplete({
           autoFocus: true,
           source: function( request, response ) {
@@ -119,9 +128,9 @@
             });
           },
           minLength: 3,
-          select: function (event, ui) { // Set selection
+          select: function (e, ui) { // Set selection
             $(this).val(ui.item.label); // display the selected text
-            switch(event['target']['id'])
+            switch(e['target']['id'])
             {
               case "pob":
                 $("#idpob").val(ui.item.value);//save selected id to input

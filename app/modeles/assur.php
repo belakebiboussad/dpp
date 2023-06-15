@@ -9,7 +9,7 @@ class assur extends Model
 	public $timestamps = false;
 	protected $primaryKey = 'NSS';
 	public $incrementing = false;
-	protected $fillable = ['Nom','Prenom','dob', 'pob','sf', 'Sexe','adresse','commune_res','wilaya_res','gs','NSS'];
+	protected $fillable = ['Nom','Prenom','dob', 'pob','sf', 'Sexe','adresse','commune_res','gs','NSS'];
 	protected $appends = ['full_name']; //protected $dates =['dob'];
   protected $casts = [
     'dob' => 'date',
@@ -28,11 +28,13 @@ class assur extends Model
 		if(!(is_null($this->commune_res)))
 		  return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
-	public function wilaya()
+	/*
+  public function wilaya()
 	{	
 		if(isset($this->wilaya_res))
 			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
 	}
+  */
 	public function patients()
 	{
 		return $this->hasMany('App\modeles\patient','assur_id');
