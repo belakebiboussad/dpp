@@ -21,16 +21,13 @@
     $("#"+ $(cb).data("id")).val('');
      if(cb.checked)
      {
-             alert("checker");
-             // if($("#"+ $(cb).data("id")).prop('disabled') == true)
-             //        $("#"+ $(cb).data("id")).prop('disabled',false);
+              if($("#"+ $(cb).data("id")).prop('disabled') == true)
+                    $("#"+ $(cb).data("id")).prop('disabled',false);
               $("#"+ $(cb).data("id")).removeClass('hidden');
-    }
-    else
-    {
-              alert("non checker");
-              // if($("#"+ $(cb).data("id")).prop('disabled') == false)
-              //      $("#"+ $(cb).data("id")).prop('disabled',true);
+      } else
+     {
+              if($("#"+ $(cb).data("id")).prop('disabled') == false)
+                   $("#"+ $(cb).data("id")).prop('disabled',true);
              $("#"+ $(cb).data("id")).addClass('hidden');
     } 
   }
@@ -348,9 +345,11 @@
               </div>
               </td>
               <td>
-                   @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
-                     <textarea class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->first())['pivot']['obs'] }}</textarea> 
-                @endif
+              @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
+              <textarea  name="obs[]" id="{{ $const->id }}" class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->first())['pivot']['obs'] }}</textarea> 
+              @else
+                <textarea name="obs[]" id="{{ $const->id }}" class="form-control inputClass hidden"  disabled></textarea>
+              @endif
               </td>
             </tr>
           @endforeach
