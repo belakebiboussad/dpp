@@ -19,17 +19,19 @@
   function constChanged(cb)
   { 
     $("#"+ $(cb).data("id")).val('');
-    if(cb.checked)
-    {
-      if($("#"+ $(cb).data("id")).prop('disabled') == true)
-         $("#"+ $(cb).data("id")).prop('disabled',false);
-      $("#"+ $(cb).data("id")).removeClass('hidden');
+     if(cb.checked)
+     {
+             alert("checker");
+             // if($("#"+ $(cb).data("id")).prop('disabled') == true)
+             //        $("#"+ $(cb).data("id")).prop('disabled',false);
+              $("#"+ $(cb).data("id")).removeClass('hidden');
     }
     else
     {
-      if($("#"+ $(cb).data("id")).prop('disabled') == false)
-        $("#"+ $(cb).data("id")).prop('disabled',true);
-      $("#"+ $(cb).data("id")).addClass('hidden');
+              alert("non checker");
+              // if($("#"+ $(cb).data("id")).prop('disabled') == false)
+              //      $("#"+ $(cb).data("id")).prop('disabled',true);
+             $("#"+ $(cb).data("id")).addClass('hidden');
     } 
   }
   $(function(){
@@ -304,11 +306,8 @@
               <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listTraits">
                 <thead class="thin-border-bottom">
                   <tr class ="center">
-                    <th class ="hidden"></th>
-                    <th class ="center sorting_disabled">Nom médicament</th>
-                    <th class ="center sorting_disabled">Posologie</th> 
-                    <th class ="center sorting_disabled">Médecin prescripteur</th> 
-                    <th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
+                    <th class ="hidden"></th> <th class ="center sorting_disabled">Nom médicament</th>
+                   <th class ="center sorting_disabled">Posologie</th><th class ="center sorting_disabled">Médecin prescripteur</th> <th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -330,8 +329,7 @@
             </div><!-- widget-body -->
           </div><!-- widget-box -->
           </div><!-- Trait -->
-          <div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
-      
+       <div role="tabpanel" class ="tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>
         <div role="tabpanel" class ="tab-pane" id="constantes"> 
           <table role="presentation" class="table table-striped accordion-users">
             <tbody class="files">
@@ -350,16 +348,8 @@
               </div>
               </td>
               <td>
-                @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
-                <textarea class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">
-               {{--    @foreach($lastVisite->constantes as $const)
-                    @if($const->pivot->const_id == $const->id )
-                    {{ $const->pivot->obs }}
-                    @endif
-                  @endforeach --}}
-  {{-- {{ $lastVisite->Constantes()->where('const_id', $const->id )->get()}} --}}
-{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->get(['id'])) }} 
-                </textarea>
+                   @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
+                     <textarea class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->first())['pivot']['obs'] }}</textarea> 
                 @endif
               </td>
             </tr>
@@ -369,13 +359,11 @@
         </div>
         </div>
          </div><!-- tab-content -->
-       </div><!-- row -->
-       <div class="hr hr-dotted"></div>
+       </div><div class="hr hr-dotted"></div>
       <div class="center">
         <button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> 
           <a href="{{ route('visites.destroy',$obj->id) }}" data-method="DELETE" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>    
       </div>
-   
     </div><!-- tabpanel -->
   </form>
    @include('visite.ModalFoms.acteModal')
