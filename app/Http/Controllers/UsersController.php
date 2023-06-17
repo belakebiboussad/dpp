@@ -99,8 +99,8 @@ class UsersController extends Controller
           "nom"=>$request->nom,"prenom"=>$request->prenom,
           "sexe"=>$request->sexe,"dob"=>$request->dob,
           "pob"=>$request->pob,"Adresse"=>$request->adresse,
-          "Tele_fixe"=>$request->fixe,
-          "tele_mobile"=>$request->mobile,
+          "phone"=>$request->fixe,
+          "mob"=>$request->mobile,
           "specialite"=>$request->specialite,
           "service_id"=>$request->service,
           "matricule"=>$request->mat,
@@ -166,7 +166,7 @@ class UsersController extends Controller
         "nom"=>$request->nom, "prenom"=>$request->prenom,
         "sexe"=>$request->sexe, "dob"=>$request->dob,
         "pob"=>$request->pob,"Adresse"=>$request->adresse,
-        "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
+        "phone"=>$request->fixe, "mob"=>$request->mobile,
         "specialite"=>$request->specialite,"service_id"=>$request->service,
          "matricule"=>$request->matricule,"NSS"=>$request->nss,
       ]);
@@ -183,12 +183,10 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    //public function destroy(User $user)
     public function destroy(Request $request ,  User $user)
     {
-      $user->employ->delete();
-      $user->delete();
-      return redirect()->route('users.index');
+          $user->employ->delete();
+          return redirect()->route('users.index');
     }
     protected function guard()
     {

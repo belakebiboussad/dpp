@@ -24,9 +24,8 @@
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
           <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employe_id}}">
-          <input type="hidden" id="hom_id" name="hom_id" value="0">
-      
-          <hr>
+          <input type="hidden" id="hom_id" name="hom_id" value="0"> <hr>
+        
           <div class="form-group">
             <span>
               <select name="typeH" id="typeH" >
@@ -71,7 +70,7 @@
             <label>Type de pièce d'identité</label>
             <div class="radio">
               <label>
-              <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
+              <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">CNI</span>
               </label>
               <label><input id="Permis" name="type_piece" value="1" type="radio" class="ace" /><span class="lbl">Permis de Conduire</span></label>
               <label><input id="Passeport" name="type_piece" value="2" type="radio" class="ace" /><span class="lbl">Passeport</span></label>
@@ -89,7 +88,6 @@
             <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse</label>
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
-          
           <div class="form-froup">
             <label for="mobile_h">Mob</label>
             <div class="input-group">

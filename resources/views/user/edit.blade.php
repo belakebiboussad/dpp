@@ -97,14 +97,14 @@
           <label class="col-sm-3 control-label no-padding-right " for="fixe">Fixe</label>
           <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
-            <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" >
+            <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->phone }}" >
           </div>    
         </div>
           <div class="form-group col-sm-6{{ $errors->has('mobile') ? 'has-error' : '' }}">
           <label class="control-label col-sm-3" for="mobile">Mob</label>
           <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
-            <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}" required />
+            <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->mob }}" required />
           </div>  
         </div>
       </div><h4 class="header lighter block blue">Fonction</h4>

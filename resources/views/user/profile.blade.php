@@ -76,13 +76,13 @@
                 <div class="form-group">
                   <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Tél fixe</label>
                   <div class="col-xs-12 col-sm-5">
-                    <input type="text" id="prenom" class="width-100" value="{{ $employe->Tele_fixe }}" disabled>
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->phone }}" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="nom" class="col-xs-12 col-sm-3 control-label no-padding-right">Mobile</label>
                   <div class="col-xs-12 col-sm-5">
-                    <input type="text" id="prenom" class="width-100" value="{{ $employe->tele_mobile }}" disabled>
+                    <input type="text" id="prenom" class="width-100" value="{{ $employe->mob }}" disabled>
                   </div>
                 </div>
               </form>

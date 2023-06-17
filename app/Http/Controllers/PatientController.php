@@ -174,15 +174,12 @@ class PatientController extends Controller
                                  })->orWhereHas('consultation',function($q) use($id){
                                     $q->where('pid', $id);   
                                 })->get();
-        $demandesExR= demandeexr::whereHas('visite', function($query) use($id){
+       $demandesExR= demandeexr::whereHas('visite', function($query) use($id){
                                     $query->where('pid', $id);
                                 })->orWhereHas('consultation',function($q) use($id){
-                                    $q->where('pid', $id);   
+                                    $q->where('etat',1)->where('pid', $id);   
                                 })->get();
-         $ordonnances = ordonnance::with('consultation')->whereHas('consultation',function($q) use($id){
-                                    $q->where('pid', $id);
-                                  })->get();
-    return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR','ordonnances'));
+       return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
   }
 /**
  * Show the form for editing the specified resource.

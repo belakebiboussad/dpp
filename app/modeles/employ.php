@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class employ extends Model
 {
 	public $timestamps = false;
-	protected $fillable = ['nom','prenom','sexe','dob','pob', 'Adresse','Tele_fixe','tele_mobile','specialite','service_id','matricule','NSS'];
+	protected $fillable = ['nom','prenom','sexe','dob','pob', 'Adresse','phone','mob','specialite','service_id','matricule','NSS'];
 	protected $appends = ['full_name'];
   public function getFullNameAttribute()
   {

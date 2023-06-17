@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
+			<h5 class="widget-title lighter">
         <i class="ace-icon fa fa-table"></i>Gardes malade/Homme de confiance
       </h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
@@ -35,46 +35,46 @@
             <td class ="center">
               @switch($hom->lien_par)
                 @case ("0")
-                  <span class="label label-sm label-success"><b>Conjoint(e)</b></span>
+                  <span class="label label-sm label-success">Conjoint(e)</span>
                   @break
                 @case ("1")
-                             <span class="label label-sm label-success"><b>Père</b></span>
+                             <span class="label label-sm label-success">Père</span>
                           @break
                      @case ("2")
-                          <span class="label label-sm label-success"><b>Mère</b></span>
+                          <span class="label label-sm label-success">Mère</span>
                           @break
                      @case ("3")
-                           <span class="label label-sm label-success"><b>Frère</b></span>                                             
+                           <span class="label label-sm label-success">Frère</span>                                             
                            @break
                      @case ("4")
-                         <span class="label label-sm label-success"><b>Soeur</b></span> 
+                         <span class="label label-sm label-success">Soeur</span> 
                           @break
                     @case ("5")
-                      <span class="label label-sm label-success"><b>Ascendant</b></span>
+                      <span class="label label-sm label-success">Ascendant</span>
                            @break
                     @case ("6")
-                          <span class="label label-sm label-success"><b>Grand-parent</b></span>
+                          <span class="label label-sm label-success">Grand-parent</span>
                           @break
                     @case ("7")
-                           <span class="label label-sm label-success"><b>Membre de famille</b></span>
+                           <span class="label label-sm label-success">Membre de famille</span>
                          @break
                     @case ("8")
-                           <span class="label label-sm label-success"><b>Ami(e)</b></span>
+                           <span class="label label-sm label-success">Ami(e)</span>
                           @break             
                     @case("9")
-                           <span class="label label-sm label-success"><b>Collègue</b></span>
+                           <span class="label label-sm label-success">Collègue</span>
                             @break 
                     @case ("10")
-                      <span class="label label-sm label-success"><b>Employeur</b></span>
+                      <span class="label label-sm label-success">Employeur</span>
                           @break 
                     @case ("11")
-                         <span class="label label-sm label-success"><b>Employé</b></span>
+                         <span class="label label-sm label-success">Employé</span>
                           @break 
                     @case ("12")
-                           <span class="label label-sm label-success"><b>Tuteur</b></span>
+                           <span class="label label-sm label-success">Tuteur</span>
                           @break
                    @case ("13")
-                            <span class="label label-sm label-success"><b>Autre</b></span>
+                            <span class="label label-sm label-success">Autre</span>
                           @break 
                    @default
                           @break
@@ -83,13 +83,13 @@
             <td>
               @switch( $hom->type_piece)
                 @case ("0")
-                  <span class="label label-sm label-success"><b>Carte nationale d'identité</b></span>
+                  <span class="label label-sm label-success">CNI</span>
                   @break
                 @case ("1")
-                  <span class="label label-sm label-success"><b>Permis de conduire</b></span>
+                  <span class="label label-sm label-success">Permis de conduire</span>
                   @break
                 @case ("2")
-                  <span class="label label-sm label-success"><b>Passeport</b></span>
+                  <span class="label label-sm label-success">Passeport</span>
                   @break
                 @default
                   @break

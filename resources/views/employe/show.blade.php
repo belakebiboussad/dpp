@@ -49,13 +49,13 @@
 		<div class="profile-info-row">
 			<div class="profile-info-name"> N° Tél fixe </div>
 			<div class="profile-info-value">
-				<span class="editable" id="age">{{ $employe->Tele_fixe }}</span>
+				<span class="editable" id="age">{{ $employe->phone }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name"> N° Tél mobile </div>
 			<div class="profile-info-value">
-				<span class="editable" id="age">{{ $employe->tele_mobile  }}</span>
+				<span class="editable" id="age">{{ $employe->mob  }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">

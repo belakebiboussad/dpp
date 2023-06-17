@@ -84,8 +84,8 @@ class EmployeController extends Controller
         $employe->update([
                 "nom"=>$request->nom,"prenom"=>$request->prenom,
                 "sexe"=>$request->sexe,"dob"=>$request->datenaissance,
-                "pob"=>$request->lieunaissance,"Adresse"=>$request->adresse,"Tele_fixe"=>$request->fixe,
-                "tele_mobile"=>$request->mobile,"specialite"=>$request->specialite,
+                "pob"=>$request->lieunaissance,"Adresse"=>$request->adresse,"phone"=>$request->fixe,
+                "mob"=>$request->mobile,"specialite"=>$request->specialite,
                 "service_id"=>$request->service,"matricule"=>$request->matricule, "NSS"=>$request->nss,
         ]);return redirect(Route('users.show',$employe->User->id));*/
        }

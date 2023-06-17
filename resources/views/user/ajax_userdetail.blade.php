@@ -24,8 +24,8 @@
         <td class ="noborders"><b>Rôle :</b></td> <td> {{ $user->role->nom }}</td>
       </tr>
       <tr>
-        <td class ="noborders"><b>Tél Fixe :</b></td>   <td>{{ $employe->Tele_fixe }}</td>
-        <td class ="noborders"><b>Mob:</b></td> <td>{{ $employe->tele_mobile }}</td>
+        <td class ="noborders"><b>Tél Fixe :</b></td>td   <td>{{ $employe->phone }}</td>
+        <td class ="noborders"><b>Mob:</b></td> <>{{ $employe->mob }}</td>
       </tr>
       <tr>
         <td class ="noborders"><b>Service :</b></td><td>{{ $employe->Service->nom ?? ''}}</td>
