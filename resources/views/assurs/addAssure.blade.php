@@ -35,7 +35,7 @@
 	<div class="form-group {{ $errors->has('lieunaissancef') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pobf">Né(e) à</label>
 		<div class="col-sm-9">
-      <select name="pobf" id="pobf" class="form-control autoCommune1"></select>
+      <select name="pobf" id="pobf" class="form-control autoCommune"></select>
 		</div>
 	</div>
 </div>
@@ -91,7 +91,7 @@
 	<div class="form-group  col-sm-4">
 		<label class="control-label col-sm-4" for="idcommunef">Commune</label>
 	  <div class="col-sm-8 col-xs-8">
-      <select name="idcommunef" id="idcommunef" class="form-control asdemogData autoCommune1">
+      <select name="idcommunef" id="idcommunef" class="form-control asdemogData autoCommune">
       </select>
      </div> 
 	</div>

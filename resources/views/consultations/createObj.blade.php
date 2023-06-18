@@ -20,9 +20,15 @@
     border: 1px solid orange;
     padding: 10px;
   }
-  #RDV {
+  /*#RDV {
     z-index: 1040 !important;
+  }*/
+/*  .select2-close-mask{
+    z-index: 2099;
   }
+  .select2-dropdown{
+      z-index: 3051;
+  }*/
 </style>
 @stop
 @section('page-script')
@@ -102,33 +108,10 @@ $(function(){
       $("#lettreorientaioncontent").val("");
     }
   });
-  $('#medc_table').DataTable({
-      processing: true,
-      serverSide: true,
-      ordering: true,
-      bInfo : false,
-      searching: true,
-      pageLength: 5,
-      bLengthChange: false,
-      nowrap:true,
-      "language": {
-        "url": '/localisation/fr_FR.json'
-      },
-      ajax: '/getmedicaments',
-      columns: [
-        {data: 'Nom_com'},
-        {data: 'Forme',className: "priority-3" , orderable: false},
-        {data: 'Dosage' , orderable: false},
-        {data: 'action', name: 'action', orderable: false, searchable: false}
-      ],
-      columnDefs: [
-        { "targets": 3 ,  className: "dt-head-center dt-body-center" }
-      ],
-    });
-    $('.modal').on('hidden.bs.modal', function(e)
-    { 
-      $(this).find('form')[0].reset();
-    });
+  $('.modal').on('hidden.bs.modal', function(e)
+  { 
+    $(this).find('form')[0].reset();
+  });
   $("#EnregistrerAntecedant").click(function (e) {
     e.preventDefault();
     if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")

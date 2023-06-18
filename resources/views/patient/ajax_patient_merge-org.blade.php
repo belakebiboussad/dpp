@@ -47,7 +47,7 @@
     </tr>
      <tr class="{{ $statuses['pob'] }}">
       <td align="center">à</td>
-  <td><input type="text" id ="pob" name="lieunaissance" value="{{ $patientResult->pob }}" class="form-control autoCommune1"/>
+  <td><input type="text" id ="pob" name="lieunaissance" value="{{ $patientResult->pob }}" class="form-control autoCommune"/>
   </td>
   <td>
    <input  type="radio" name="choixPob" onclick="setField('pob', '{{(is_null($patient1->pob))?'':$patient1->POB->name}}');" checked>

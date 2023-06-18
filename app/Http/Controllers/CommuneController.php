@@ -11,15 +11,14 @@ class CommuneController extends Controller
   {
       $this->middleware('auth');
   }
-  public function search(Request $request)
+  public function index(Request $request)
   { 
     $response = [];
     $search = $request->search;
-    if($search == ''){
-         $communes = Commune::orderby('name','asc')->limit(15)->get();
-    }else{
-    $communes = Commune::orderby('name','asc')->where('name', 'like','%'.$search.'%')->limit(15)->get();
-    }
+    if($search == '')
+      $communes = Commune::orderby('name','asc')->limit(15)->get();
+    else
+      $communes = Commune::orderby('name','asc')->where('name', 'like','%'.$search.'%')->limit(15)->get();
     foreach($communes as $com){
       $response[] = array("value"=>$com->id,"label"=>$com->name,"wlabel"=>$com->daira->wilaya->nom);
     }

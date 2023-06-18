@@ -25,7 +25,7 @@
 	<div class="form-group {{ $errors->has('pob') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label" for="pob">Né(e) à</label>
 	  <div class="col-sm-9">
-    <select name="pob" id="pob" class="form-control autoCommune1">
+    <select name="pob" id="pob" class="form-control autoCommune">
 <option value="{{ $patient->pob }}" selected="selected">{{(is_null($patient->pob))?'':$patient->POB->name}}</option>     
     </select>
 	  </div>
@@ -116,7 +116,7 @@
 	<div class="form-group  col-sm-3 col-md-3">
 		<label class="control-label col-sm-4 col-md-4" for="idcommune">Commune</label>
 		<div class="col-sm-8 col-md-8">
-    <select name="idcommune" id="idcommune" class="form-control autoCommune1">
+    <select name="idcommune" id="idcommune" class="form-control autoCommune">
       <option value="{{ $patient->commune_res }}" selected="selected">{{(is_null($patient->commune_res))?'':$patient->commune->name}}</option>     
     </select> 
 	  </div>

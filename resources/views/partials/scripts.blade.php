@@ -80,13 +80,14 @@
               startTime: '08:00',
               showMeridian: false
     });
-    $('.autoCommune1').select2({
+  
+    $('.autoCommune').select2({
         placeholder: 'Selectionner la commune',
         minimumInputLength:3,
         tags: "true",
         width:"100%",
         ajax: {
-          url: '{{route('commune.search')}}',
+          url: '{{route('commune.index')}}',
           dataType: 'json',
           type: "GET",
           data: function (data) {

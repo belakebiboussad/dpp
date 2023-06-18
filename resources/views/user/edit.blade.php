@@ -50,7 +50,7 @@
         <div class="form-group col-sm-6{{ $errors->has('pob') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="pob">Né(e) à</label>
           <div class="col-sm-9">
-            <select name="pob" id="pob" class="form-control autoCommune1">
+            <select name="pob" id="pob" class="form-control autoCommune">
               <option value="{{ $user->employ->pob }}" selected="selected">{{$user->employ->POB->name}}</option>     
             </select>
           </div>  

@@ -33,7 +33,7 @@
   	<div class="form-group col-sm-6">
   		<label class="col-sm-3 col-xs-3 control-label text-nowrap">Né(e) à</label>
   		<div class="col-sm-9">
-      <select name="pobf" id="pobf" class="form-control autoCommune1">
+      <select name="pobf" id="pobf" class="form-control autoCommune">
       <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->pob))))? $assure->POB->name:'' }}</option>     
       </select>
   		</div>
@@ -96,7 +96,7 @@
     <div class="form-group col-sm-4">
 	  	<label class="col-sm-3 text-nowrap" for="communef">Commune</label>
       <div class="col-sm-9 col-xs-9">
-      <select name="idcommunef" id="idcommunef" class="form-control autoCommune1">
+      <select name="idcommunef" id="idcommunef" class="form-control autoCommune">
       <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->commune_res }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->commune_res))))? $assure->commune->name:'' }}</option>     
       </select>
     </div>
