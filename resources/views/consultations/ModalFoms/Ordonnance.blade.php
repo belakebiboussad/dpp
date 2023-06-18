@@ -11,10 +11,8 @@
             <input type="hidden" id="id_medicament" name="id_medicament" >
             <label class="control-label" for="nommedic">Nom médicament</label>
            {{--  <input id="nommedic" class="form-control" type="text"  placeholder="Médicament"/>   --}}
-<select id="nommedic" name="nommedic" class="form-select drug" data-control="select2" data-placeholder="Select an option">
-  <option value="">select...</option>
-            </select> 
-            {{--   data-dropdown-parent="body"--}}
+                  <input type="search"  class="form-control"  id="nommedic"  autocomplete="off">
+                  <div id="livesearch" class="list-unstyled"></div>
          
           </div>
           <div class="form-group col-sm-2 hidden-xs">
