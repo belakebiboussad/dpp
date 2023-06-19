@@ -2,9 +2,9 @@
 @section('page-script')
 <script>
   function CRBSave()
-   { 
-      $("#crb").val($("#crbm").val());
-   }
+  { 
+    $("#crb").val($("#crbm").val());
+  }
   function CRBPrint()
   {
     CRBSave();
@@ -26,19 +26,18 @@
    });    
   })
   $(function(){
-     $("button").click(function (event) {
-        which = '';str ='send';
-        which = $(this).attr("id");
-        var which = $.trim(which);var str = $.trim(str);
-        if(which==str){
-         return true;
-        }
-    });
-  });
-  $(function(){
     $('#resultat').change(function(){
         $('#crb-add').removeAttr('disabled');
-     });
+    });
+    /*
+    $("button").click(function (event) {
+      which = '';str ='send';
+      which = $(this).attr("id");
+      var which = $.trim(which);var str = $.trim(str);
+      if(which==str)
+         return true;
+    });
+    */
    })
 </script>
 @stop

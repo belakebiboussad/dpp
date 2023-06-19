@@ -11,12 +11,12 @@
           @foreach($demandesExB as $demande)
             <li>
             @if($demande->getEtatID() === 1)
-                  <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey" aria-hidden="true"></i>  {{ $demande->resultat }}</a>
+                  <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey bigger-110" aria-hidden="true" ></i>  {{ $demande->resultat }}</a>
                   @isset($demande->crb)    
                   <a href="{{ route('crbs.download',$demande->id )}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
                   @endisset
-              @else{{-- href="#uploadBioRes" --}}
-               <button  id="uploadBio" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+              @else
+               <button id="uploadBio" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
               @endif
                <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
                   {{ $demande->imageable->date->format('d/m/Y') }}) </span>  
@@ -82,7 +82,8 @@ $("#uploadBio").click(function(){
     var url = '{{ route("exmbio.edit", ":slug") }}'; 
     url = url.replace(':slug', $(this).data('id'));
     $.get(url, function (data) {
-      alert(data);
+      $('#uploadBioRes .modal-body').html(data);
+      $('#uploadBioRes').modal('show');
     });
 })  
 </script>

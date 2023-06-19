@@ -52,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
       __DIR__ . '/../../vendor/components/font-awesome/css' => public_path('vendor/components/font-awesome/css'),
       __DIR__ . '/../../vendor/components/font-awesome/fonts' => public_path('vendor/components/font-awesome/fonts')
           ], 'public');
+       require_once app_path("App/Helpers/Utf8.php");
     }
 
     /**
