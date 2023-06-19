@@ -31,9 +31,8 @@ function getPatient()
 {
   var spec ='{{ Auth::user()->isIn([1,13,14])}}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();
-  var ajaxurl = '{{ URL::to('getPatients') }}';
-  $.ajax({
-        url : ajaxurl,
+   $.ajax({
+        url : '{{ URL::to('getPatients') }}',
         data: {    
             "field":field,
             "value":$("#pat-search").val(),
@@ -41,9 +40,6 @@ function getPatient()
         },
         success: function(html) {
           $("#livesearch").html(html).show();
-        },
-        error: function() {
-          console.log("can't connect to db");
         }
   });
 }

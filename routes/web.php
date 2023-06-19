@@ -110,7 +110,6 @@ route::get('/salles/{id}','ServiceController@getsalles');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
-route::get('/getmed/{id}','MedicamentsController@getmed');
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',
@@ -132,7 +131,7 @@ Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del
 Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 // end del
-route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
+route::get('/print/{id}','OrdonnanceController@print')->name('print');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat')->name('uploadBioRes');

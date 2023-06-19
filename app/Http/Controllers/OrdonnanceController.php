@@ -46,7 +46,9 @@ class OrdonnanceController extends Controller
     {
 /*$date =Carbon::now();$ordonnance = ordonnance::FirstOrCreate([
 "id_consultation" => $id_consultation,   ]);$listes = json_decode($request->liste);
-for ($i=0; $i < count($listes); $i++){$id_med = $listes[$i]->med;       $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]);}}
+for ($i=0; $i < count($listes); $i++){$id_med = $listes[$i]->med;       $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]);}
+*/
+}
     /**
      * Display the specified resource.
      *

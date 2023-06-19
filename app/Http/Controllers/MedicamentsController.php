@@ -15,32 +15,18 @@ class MedicamentsController extends Controller
   }
   public function index(Request $request)
   {
-    $response = [];
-    $search = $request->search;
-    if($search == '')
-      $drugs = medicament::orderby('Nom_com','asc')->limit(15)->get();
-    else
-      $drugs = medicament::orderby('Nom_com','asc')->where('Nom_com', 'like','%'.$search.'%')->limit(15)->get();
-     foreach($drugs as $drug){
-      //$response[] = array("value"=>$drug->id,"label"=>$drug->Nom_com);//
-      $response[] = array("value"=>$drug->id, "label"=>$drug->Nom_com);
+    $output="";
+    $drugs = medicament::orderby('Nom_com','asc')->where('Nom_com', 'like',$request->search.'%')->limit(15)->get();
+    foreach ($drugs as $key => $drug) {         
+      $medfrmdsg = $drug->Nom_com.' | '.$drug->Forme.' | '.$drug->Dosage;
+      $output.='<li onclick="Fill('.$drug->id.',\''.$drug->Nom_com.'\',\''.$drug->Forme.'\',\''.$drug->Dosage.'\')">'.$medfrmdsg.'</li>';      
     }
-    return $response;
-
+    return $output;
   }
-
-  public function getmed($id)
+  public function edit($id)
   {
     $med = medicament::FindOrFail($id);
-    return json_encode($med);
-  }
-  public function getmedicaments()
-  {
-    //  $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']); 
-    //  return Datatables::of($medicaments)
-    //         ->addColumn('action', function ($medicament) {
-    //                return '<button class="btn btn-xs btn-primary" onclick="editMedicm('.$medicament->id.')"><i class="ace-icon  fa fa-plus-circle"></i></button>';
-    // }) ->make(true);
+    return $med;
   }
   public function getmedicamentsPCH()
   {
