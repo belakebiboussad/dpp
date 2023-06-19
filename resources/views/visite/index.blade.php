@@ -13,10 +13,8 @@
 				<table id="consultList" class="display dataTable table table-striped table-bordered table-condensed" width="100%" data-page-length="25" role="grid">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class ="center">Médecin</th>
-							<th class="center">Date</th>
-              <th class="center">Heure</th>
-							<th class ="center">Examens Biologique</th>
+							<th class ="center">Médecin</th><th class="center">Date</th>
+							<th class="center">Heure</th><th class ="center">Examens Biologique</th>
 							<th class ="center">Examens Imageries</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>

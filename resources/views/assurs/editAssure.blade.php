@@ -1,104 +1,78 @@
-<h4 class="header lighter block blue">Informations administratives</h4>
+<h4 class="header lighter block blue">Sécurité sociale</h4> 
 <div class="row">
-	<div class="form-group col-sm-6">
-		<label class="col-sm-3 col-xs-3 control-label" for="nomf">Nom :<span class="red">*</span></label>
-		<div class="col-sm-9">
-			@if(isset($assure))
-				<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="asdemogData col-xs-12 col-sm-12"/>
-			@else
-				<input type="text" id="nomf" name="nomf"  value="" class="asdemogData col-xs-12 col-sm-12" autocomplete= "off"/>
-			@endif	
-		</div>
-	</div>
-	<div class="form-group col-sm-6">
-		<label class="col-sm-3 control-label" for="prenomf">Prénom :<span class="red">*</span></label>
-		<div class="col-sm-9">
-			@if(isset($assure))
-			<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12 asdemogData" alpha/>
-			@else
-			<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12 asdemogData" autocomplete= "off" alpha/>
-			@endif
-		</div>
-	</div>
-
+  <div class="form-group col-sm-4">
+    <label class="control-label col-sm-3 required" for="nss">NSS</label>
+    <div class="col-sm-9">
+<input type="text" id="nss" name="nss" class="form-control nssform" value=" {{($patient->type_id ==6) ? '' : $assure->NSS}}" maxlength=12 minlength =12 autocomplete = "off" /> 
+    </div>
+    </div>
 </div>
-<div class="row">
-  <div class="form-group col-sm-6">
-		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="datenaissancef">Né(e) le :</label>
-		<div class="col-sm-9">
-			@if(isset($assure))
-			<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow asdemogData" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
-			@else
-			<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow asdemogData" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
-			@endif
-		</div>
-	</div>
-	<div class="form-group col-sm-6">
-		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="lieunaissancef">Né(e) à:</label>
-		<div class="col-sm-9">
-			@if(isset($assure) && isset($assure->lieunaissance))
-				<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
-				<input type="text" id="lieunaissancef" class="autoCommune form-control col-xs-12 col-sm-12 asdemogData" value="{{ $assure->lieuNaissance->nom_commune }}"/>
-			@else	
-				<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="">
-				<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12 asdemogData" value=""/>
-			@endif
-		</div>
-	</div>	
-	</div>
-	<div class="row">
-		<div class="form-group col-sm-6">
-			<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe">Genre:</label>
-				<div class="col-sm-9">
-  				<select name="sexef" id="sexef" class="form-control asdemogData">
-  					@if(isset($assure))
-  					<option value="M" @if($assure->Sexe == "M" ) selected @endif>Masculin</option>
-  					<option value="F"  @if($assure->Sexe == "F")  selected @endif>Féminin</option>
-  					@else
-  					<option value="M" selected>Masculin</option>
-  					<option value="F">Féminin</option>
-  					@endif
-  				</select>
-				</div>
+<div id="asdemogData">
+  <h4 class="header lighter block blue">Informations administratives</h4>
+  <div class="row">
+  	<div class="form-group col-sm-6">
+  		<label class="col-sm-3 col-xs-3 control-label required" for="nomf">Nom</label>
+  		<div class="col-sm-9">
+<input type="text" id="nomf" name="nomf"  value="{{(in_array($patient->type_id,[1,6]))? '': $assure->Nom}}" class="asdemogData form-control"/>
+  		</div>
   	</div>
-   <div class="form-group col-sm-6">
-	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin :<span class="red">*</span></label>
-			<div class="col-sm-2">
-			  <select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf">
-					@if(isset($assure))
-					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
-					<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
-					<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
-					<option value="O"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "O" )? "selected" : ""  }}>O</option>
-					<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
-					@else
-						<option value="">------</option>
-						<option value="A">A</option>
-						<option value="B">B</option>
-						<option value="O">O</option>
-						<option value="AB" >AB</option>	
-					@endif
-				</select>
-			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus :<span class="red">*</span></label>
-			<div class="col-sm-2">
-				<select id="rhf" name="rhf" class="groupeSanguin asdemogData">
-					@if(isset($assure))
-					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
-					<option value="+" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "+" )? "selected" : ""  }}>+</option>
-					<option value="-" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "-" )? "selected" : ""  }}>-</option>
-					@else
-					<option value="">------</option>
-					<option value="+">+</option>
-					<option value="-">-</option>
-					@endif
-				</select>
-			</div>
-	   	</div>
+  	<div class="form-group col-sm-6">
+  		<label class="col-sm-3 control-label required" for="prenomf">Prénom</label>
+  		<div class="col-sm-9">
+  			<input type="text" id="prenomf" name="prenomf" class="form-control asdemogData" value="{{(in_array($patient->type_id,[1,6]))? '': $assure->Prenom}}"/>
+  		</div>
+  	</div>
   </div>
-	<div class="row">
+  <div class="row">
+    <div class="form-group col-sm-6">
+  		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="dobf">Né(e) le</label>
+  		<div class="col-sm-9">
+        <input class="form-control date-picker ltnow asdemogData" id="dobf" name="dobf" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{(in_array($patient->type_id,[2,3,4,5])&&(!is_null($assure->dob)) )? $assure->dob->format('Y-m-d'):''}}"/>
+  		</div>
+  	</div>
+  	<div class="form-group col-sm-6">
+  		<label class="col-sm-3 col-xs-3 control-label text-nowrap">Né(e) à</label>
+  		<div class="col-sm-9">
+      <select name="pobf" id="pobf" class="form-control autoCommune">
+      <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->pob }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->pob))))? $assure->POB->name:'' }}</option>     
+      </select>
+  		</div>
+  	</div>	
+  </div>
+  <div class="row">
+  	<div class="form-group col-sm-6">
+  		<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexef">Genre</label>
+  		<div class="col-sm-9">
+      <select name="sexef" id="sexef" class="form-control asdemogData">
+        <option value="M" {{(!(in_array($patient->type_id,[1,6]))&&($assure->Sexe == "M"))?'selected':''}}>Masculin</option>
+      <option value="F" {{((!(in_array($patient->type_id,[1,6])))&&($assure->Sexe == "F"))?'selected':''}}>Féminin</option>
+    		</select>
+  		</div>
+    	</div>
+     <div class="form-group col-sm-6">
+  	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf">Groupe sanguin</label>
+  			<div class="col-sm-2">
+  			  <select class="form-control groupeSanguin asdemogData" id="gsf" name="gsf">
+  				  <option value=""{{((!(in_array($patient->type_id,[1,6])))&&($assure->gs==""))?'selected':''}}>---</option>
+            <option value="A" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,0,strlen($assure->gs)-1) == "A"))?'selected':''}}>A</option>
+            <option value="B" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,0,strlen($assure->gs)-1) == "B"))?'selected':''}}>B</option>
+            <option value="O" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,0,strlen($assure->gs)-1) == "O"))?'selected':''}}>O</option>
+            <option value="AB" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,0,strlen($assure->gs)-1) == "AB"))?'selected':''}}>AB</option> 
+  				</select>
+  			</div>
+  			<label class="col-sm-3 control-label no-padding-right" for="rhf">Rhésus</label>
+  			<div class="col-sm-2">
+  				<select id="rhf" name="rhf" class="groupeSanguin asdemogData">
+  			    <option value="" {{((!(in_array($patient->type_id,[1,6])))&&($assure->gs==""))?'selected':''}}>---</option>
+            <option value="+" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,strlen($assure->gs)-1,strlen($assure->gs)) == "+"))?'selected':''}}>+</option>
+            <option value="-" {{((!(in_array($patient->type_id,[1,6])))&&(substr($assure->gs,strlen($assure->gs)-1,strlen($assure->gs)) == "-" ))?'selected':''}}>-</option>
+  				</select>
+  			</div>
+  	   	</div>
+  </div>
+  <div class="row">
 		<div class="form-group col-sm-6">
-			<label class="col-sm-3 control-label text-nowrap" for="SituationFamille">Civilité :</label>
+			<label class="col-sm-3 control-label text-nowrap" for="SituationFamille">Civilité</label>
 			<div class="col-sm-9">
 				<select class="form-control civilite asdemogData" id="SituationFamille" name="SituationFamille">
 					<option value="" @empty($assure->sf) selected @endempty>Sélectionner...</option>
@@ -112,53 +86,26 @@
 	</div><h4 class="header lighter block blue">Contact</h4>
   <div class="row">
 		<div class="form-group col-sm-4">
-		 	<label class="control-label col-sm-3 col-xs-3" for="adressef">Adresse: </label>
+		 	<label class="control-label col-sm-3 col-xs-3" for="adressef">Adresse</label>
   		<div class="col-sm-9">
-  			@if(isset($assure))
-  			<input  type="text" class="asdemogData col-xs-12 col-sm-12" id="adressef" name="adressef" value="{{ $assure->adresse }}">
-  			@else
-  			<input type="text" class="asdemogData col-xs-12 col-sm-12" id="adressef" name="adressef">
-  			@endif
+  		  <input type="text" class="asdemogData form-control" id="adressef" name="adressef"
+         value="{{(in_array($patient->type_id,[1,6]))? '': $assure->adresse}}">
   		</div>
 	 	</div>
-	 <div class="form-group col-sm-4">
-	  	<label class="col-sm-3 text-nowrap" for="communef">Commune:</label>
-	  	@if(isset($assure->commune_res))
-	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
-			<input type="text" id="communef" class="autoCommune asdemogData col-xs-9 col-sm-9" value="{{ $assure->commune->nom_commune }}"/>
-	  	@else	
-			<input type="hidden" name="idcommunef" id="idcommunef">
-	 		<input type="text" id="communef" placeholder="commune résidance" class="autoCommune col-xs-9 col-sm-9 asdemogData"/>
-	 		@endif
+
+    <div class="form-group col-sm-4">
+	  	<label class="col-sm-3 text-nowrap" for="communef">Commune</label>
+      <div class="col-sm-9 col-xs-9">
+      <select name="idcommunef" id="idcommunef" class="form-control autoCommune">
+      <option value="{{(in_array($patient->type_id,[1,6]))? '': $assure->commune_res }}" selected="selected">{{((in_array($patient->type_id,[2,3,4,5]))&&(!(is_null($assure->commune_res))))? $assure->commune->name:'' }}</option>     
+      </select>
+    </div>
 	  </div>
 	  <div class="form-group col-sm-4">
-	  	<label class="col-sm-3" for="wilayaf">Wilaya:</label>
-	  	@if(isset($assure->wilaya_res))
-	  	<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{  $assure->wilaya_res  }}">
-		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="asdemogData col-sm-9 col-xs-9" readonly />	
-	  	@else	
-	  	<input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData col-sm-9 col-xs-9" readonly />
-		  @endif
+	    <label class="col-sm-3" for="wilayaf">Wilaya</label>
+      <div class="col-sm-9 col-xs-9">
+      <input type="text" id="wilayaf" placeholder="wilaya résidance..." class="asdemogData form-control" value="{{((in_array($patient->type_id,[2,3,4,5])) &&(!is_null($assure->commune_res)))? $assure->commune->daira->wilaya->nom: ''}}" readonly />
+    </div>
 	  </div>
   </div>
-  <h4 class="header lighter block blue">Sécurité sociale</h4>	
-	<div class="row">
-		<div class="form-group col-sm-4">
-			<label class="control-label col-sm-3" for="matf"></label>
-			<div class="col-sm-9"><div class="clearfix"></div>
-				</div>
-			</div>
-		<div class="form-group col-sm-4">
-			<label class="control-label col-sm-3" for="nss">NSS :<span class="red">*</span></label>
-			<div class="col-sm-9">
-				<div class="clearfix">
-				  @if($patient->type_id !=6)
-				  	<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12 asProfData" value="{{ $assure->NSS }}" maxlength =12 minlength =12 autocomplete = "off" />
-					@else
-				 	 <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12 asProfData" value="" maxlength =12 minlength =12 autocomplete = "off" />
-					@endif
-				</div>
-			</div>
-		</div>	
-	</div>
+</div>

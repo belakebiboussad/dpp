@@ -92,9 +92,8 @@ $(function(){
             var crr = $(this).attr('id').replace("exm", "crr-add");
              var preview = $(this).attr('id').replace("exm", "preview");
              if( this.files &&  this.files[0])
-             {
-                    $('#'+res).removeAttr('disabled'); //$('#'+crr).removeAttr('disabled');   
-            }else
+                    $('#'+res).removeAttr('disabled'); 
+            else
                   $('#'+res).attr('disabled', 'disabled'); 
       }) ; 
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {

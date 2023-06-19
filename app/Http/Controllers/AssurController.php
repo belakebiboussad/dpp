@@ -34,21 +34,13 @@ class AssurController extends Controller
      */
     public function store(Request $request)
     { 
-       $assure = assur::create([
-        "Nom"=>$request->nomf,
-        "Prenom"=>$request->prenomf,
-        "Date_Naissance"=>$request->datenaissancef,
-        "lieunaissance"=>$request->idlieunaissancef,
-        "Sexe"=>$request->sexef,
-        "adresse"=>$request->adressef,
+      $assure = assur::create([
+        "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
+        "dob"=>$request->iddobf,"pob"=>$request->pobf,
+        "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
         "commune_res"=>$request->idcommunef,
-        "wilaya_res"=>$request->idwilayaf,
-        "grp_sang"=>$request->gsf.$request->rhf,
-        "Service"=>$request->service,
-        "Etat"=>$request->etatf,
-        "NSS"=>$request->nss
+        "gs"=>$request->gsf.$request->rhf,"NSS"=>$request->nss
       ]);
-       return view('assurs.show',compact('assure'));
     }
     /**
      * //je stock l'assure obtenue de GRH  
@@ -57,10 +49,9 @@ class AssurController extends Controller
     {
       $assure = new assur;
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-      $assure->Date_Naissance = $date;$assure->Sexe = $obj->Genre;
+      $assure->dob = $date;$assure->Sexe = $obj->Genre;
       $assure->sf =$sf; $assure->adresse = utf8_encode($obj->Adresse);
-      $assure->wilaya_res =  $obj->WilayaResidence;
-      $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+      $assure->gs = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
       $assure->Service =utf8_encode($obj->Service);
       $assure->save();
     }
@@ -85,30 +76,22 @@ class AssurController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $assure = assur::find($id);
+       $assure = assur::find($id);
       $assure -> update([
-              "Nom"=>$request->nomf,
-              "Prenom"=>$request->prenomf,
-              "Date_Naissance"=>$request->datenaissancef,
-              "lieunaissance"=>$request->idlieunaissancef,
-              "Sexe"=>$request->sexef,
-              "adresse"=>$request->adressef,
-              "commune_res"=>$request->idcommunef,
-              "wilaya_res"=>$request->idwilayaf,
-              "grp_sang"=>$request->gsf.$request->rhf,
-              "Service"=>$request->service,
-              "Etat"=>$request->etatf,
-              "NSS"=>$request->nss
-      ] );
-      return redirect(Route('assur.show',$assure->id));
+        "Nom"=>$request->nomf,"Prenom"=>$request->prenomf,
+        "dob"=>$request->dobf,"pob"=>$request->pobf,
+        "Sexe"=>$request->sexef,"adresse"=>$request->adressef,
+        "commune_res"=>$request->idcommunef,
+        "gs"=>$request->gsf.$request->rhf,
+        "NSS"=>$request->nss
+      ]); //return redirect(Route('assur.show',$assure->id));
     }
-    public function  updateAssure($situationFamille,  $adresse,$wilayaResid, $service , $NSS)
+    public function  updateAssure($situationFamille,  $adresse, $service , $NSS)
     {
       $assure = assur::find($NSS);
       $assure->update([
           "sf"=>$situationFamille,
           "adresse"=>$adresse,
-          "wilaya_res"=>$wilayaResid,
           "Service"=>$service
       ]);
     }

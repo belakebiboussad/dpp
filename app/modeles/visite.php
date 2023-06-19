@@ -39,7 +39,7 @@ class visite extends Model
     public function medecin(){
           return $this->belongsTo('App\modeles\employ','id_employe');
     }
-    public function constantes()
+    public function Constantes()
     {
       return $this->belongsToMany('App\modeles\Constante','constante_visite','visit_id','const_id')->withPivot('obs');
     }

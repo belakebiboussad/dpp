@@ -29,35 +29,37 @@
       <div class="row">
         <div class="form-group col-sm-6 {{ $errors->has('nom') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <input class="form-control" type="text" name="nom" value="{{ $user->employ->nom }}" required />
           </div>
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('prenom') ? 'has-error' : '' }}" >
           <label class="col-sm-3 control-label no-padding-right" for="prenom">Prénom</label>
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <input class="form-control" type="text" name="prenom" value="{{ $user->employ->prenom }}" required/>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-6 {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-          <label class="col-sm-3 control-label" for="datenaissance">Né(e) le</label>
-          <div class="col-sm-6">
-            <input class="form-control date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}"  data-date-format="yyyy-mm-dd" autocomplete="off" required/>
+        <div class="form-group col-sm-6 {{ $errors->has('dob') ? 'has-error' : '' }}">
+          <label class="col-sm-3 control-label">Né(e) le</label>
+          <div class="col-sm-9">
+            <input class="form-control date-picker ltnow" type="text" name="dob" value="{{ $user->employ->dob }}"  data-date-format="yyyy-mm-dd" autocomplete="off" required/>
           </div>  
         </div>
-        <div class="form-group col-sm-6{{ $errors->has('lieunaissance') ? 'has-error' : '' }}">
-          <label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
-          <div class="col-sm-6">
-            <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}"  />
+        <div class="form-group col-sm-6{{ $errors->has('pob') ? 'has-error' : '' }}">
+          <label class="col-sm-3 control-label" for="pob">Né(e) à</label>
+          <div class="col-sm-9">
+            <select name="pob" id="pob" class="form-control autoCommune">
+              <option value="{{ $user->employ->pob }}" selected="selected">{{$user->employ->POB->name}}</option>     
+            </select>
           </div>  
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6">
           <label class="control-label col-sm-3">Genre</label>
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <label class="inline">
             <input name="sexe" value="M" type="radio" class="ace" {{ $user->employ->sexe == "M" ? "checked" : "" }}/>
             <span class="lbl middle"> Masculin</span>
@@ -70,21 +72,21 @@
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('nss') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="nss">NSS</label>
-          <div class="col-sm-6"><input type="text" class="form-control nssform" name="nss" value="{{ $user->employ->NSS }}" ></div>
+          <div class="col-sm-9"><input type="text" class="form-control nssform" name="nss" value="{{ $user->employ->NSS }}" ></div>
         </div>
       </div>
       <h4 class="header lighter block blue">Contact</h4>
       <div class="row">
         <div class="form-group col-sm-6 {{ $errors->has('adresse') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="adresse">Adresse</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-home"></span>
             <input class="form-control " type="text" name="adresse" value="{{ $user->employ->Adresse }}" />
           </div>  
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('email') ? 'has-error' : '' }}">
           <label for="mail" class="control-label col-sm-3">E-Mail</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-at"></span>
             <input class="form-control" type="email" name="email" placeholder="Email" value="{{ $user->email }}" aria-describedby="email-addon">
           </div>
@@ -93,16 +95,16 @@
       <div class="row">
         <div class="form-group col-sm-6 {{ $errors->has('fixe') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label no-padding-right " for="fixe">Fixe</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
-            <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" >
+            <input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->phone }}" >
           </div>    
         </div>
           <div class="form-group col-sm-6{{ $errors->has('mobile') ? 'has-error' : '' }}">
           <label class="control-label col-sm-3" for="mobile">Mob</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
-            <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}" required />
+            <input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->mob }}" required />
           </div>  
         </div>
       </div><h4 class="header lighter block blue">Fonction</h4>

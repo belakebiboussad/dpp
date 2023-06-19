@@ -44,8 +44,8 @@
           </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
          <tr>
           <td class="plh"><b>Genre :</b><span> {{ $patient->Sexe }}</span></td>
-          <td class="plh"><b>Né(e) le :</b><span> {{ $patient->Dat_Naissance->format('d/m/Y') }}</span></td>
-          <td class="plh"><b>Né(e) à :</b><span> {{ is_null( $patient->Lieu_Naissance) ? '': $patient->lieuNaissance->nom_commune }}</span></td>
+          <td class="plh"><b>Né(e) le :</b><span> {{ $patient->dob->format('d/m/Y') }}</span></td>
+          <td class="plh"><b>Né(e) à :</b><span> {{ is_null( $patient->pob) ? '': $patient->POB->name }}</span></td>
         </tr> 
       </table>
     </section><br>

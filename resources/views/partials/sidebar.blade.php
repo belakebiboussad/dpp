@@ -33,7 +33,8 @@
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-tags"></i> <span class="menu-text">Gestion des rôles</span><b class="arrow fa fa-angle-down"></b></a>
         <b class="arrow"></b>
         <ul class="submenu">
-          <li><a href="{{ route('role.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un rôle</a><b class="arrow"></b></li>
+          <li>
+            <b class="arrow"></b></li>
           <li ><a href="{{ route('role.index') }}"><i class="menu-icon fa fa-eye pink"></i>Rôles </a><b class="arrow"></b></li>
          </ul>
       </li>

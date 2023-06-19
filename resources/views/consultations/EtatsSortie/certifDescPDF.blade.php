@@ -36,7 +36,7 @@
     <div class="espace">
       <h5><b>Nom :</b> {{ $certif->consultation->patient->Nom }}</h5>
       <h5><b>PRENOM :</b> {{ $certif->consultation->patient->Prenom }}</h5>
-      <h5><b>DATE DE NAISSANCE :</b> {{ $certif->consultation->patient->Dat_Naissance->format('d/m/Y') }}</h5>
+      <h5><b>DATE DE NAISSANCE :</b> {{ $certif->consultation->patient->dob->format('d/m/Y') }}</h5>
     </div><br>
     <div class="tab">
     je soussigné(e), Docteur {{ $certif->consultation->medecin->full_name }}, avoir examiné le sus nommé qui présente :

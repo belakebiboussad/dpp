@@ -70,7 +70,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
                   id : data['rdv']['id'],
                   idPatient:data['patient']['id'],
                   fixe: data['rdv']['fixe'],
-                  tel:data['patient']['tele_mobile1'] ,
+                  tel:data['patient']['mob'] ,
                   age:data['age'],
                   specialite: data['rdv']['specialite_id'],
                   civ : data['patient']['civ'],
@@ -173,7 +173,7 @@ $(function() {
               start : '{{ $rdv->date }}',
               end:   '{{ $rdv->fin }}', id :'{{ $rdv->id }}',
               idPatient:'{{ $rdv->patient->id}}',fixe:  {{ $rdv->fixe }},
-              tel:'{{$rdv->patient->tele_mobile1}}',age:{{ $rdv->patient->age }},
+              tel:'{{$rdv->patient->mob}}',age:{{ $rdv->patient->age }},
               specialite: {{ $rdv->specialite_id }},civ : {{ $rdv->patient->civ }} 
             },
            @endforeach   
@@ -220,7 +220,7 @@ $(function() {
                 $('#lien').text(calEvent.title); 
                 $('#specialiteId').val(data.specialite.id);
                 $('#nomPatient').val(data.patient.full_name);
-                $('#patient_tel').val(data.patient.tele_mobile1);
+                $('#patient_tel').val(data.patient.mob);
                 $('#agePatient').val(data.patient.age);
                 $('#idRDV').val(calEvent.id);
                 $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
@@ -287,7 +287,7 @@ $(function() {
             $('.calendar').fullCalendar( 'renderEvent', {
               title: data.rdv.patient.full_name+" ,(" + data.rdv.patient.age + " ans)",
               start: data.rdv.date, end: data.rdv.fin,id : data.rdv.id,
-              idPatient:data.rdv.patient.id,fixe: data.rdv.fixe, tel:data.rdv.patient.tele_mobile1 ,
+              idPatient:data.rdv.patient.id,fixe: data.rdv.fixe, tel:data.rdv.patient.mob ,
               age:data.rdv.patient.age, specialite: data.rdv.specialite_id,civ:data.rdv.patient.civ, 
               color:(data.rdv.fixe > 0) ? '#3A87AD':'#D6487E',
             });

@@ -16,7 +16,7 @@
           <td class ="noborders">Âge :</td>
           <td align="left"><span class="badge badge-{{ $patient->age< 18 ? 'danger':'success' }}">{{ $patient->age }}</span>Ans</td>
           <td class ="noborders">Né(e) a:</td>
-          <td align="left">{{ isset($patient->Lieu_Naissance) ? $patient->lieuNaissance->nom_commune :''}}</td>
+          <td align="left">{{ isset($patient->pob) ? $patient->POB->name :''}}</td>
        </tr>
         <tr>
           <td class ="noborders">Genre :</td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
@@ -40,16 +40,16 @@
         </tr>
         <tr>
           <td class ="noborders">Adress :</td><td align="left"><small style="text-overflow: ellipsis; ">{{ $patient->Adresse }}</small></td>
-          <td class ="noborders"><i class="fa fa-phone"></i>Mob1:</td><td align="left">{{ $patient->tele_mobile1 }}</td>
+          <td class ="noborders"><i class="fa fa-phone"></i>Mob1:</td><td align="left">{{ $patient->mob }}</td>
         </tr> 
-        @if(isset( $patient->NSS ) || isset($patient->tele_mobile2))
+        @if(isset( $patient->NSS ) || isset($patient->mob2))
         <tr>
-          <td class ="noborders text-no-wrap"><i class="fa fa-phone"></i>Mob2 :</td><td align="left">{{ $patient->tele_mobile2 }}</td>
+          <td class ="noborders text-no-wrap"><i class="fa fa-phone"></i>Mob2 :</td><td align="left">{{ $patient->mob2 }}</td>
           <td class ="noborders">NSS:</td><td align="left">{{ $patient->NSS }}</td>
         </tr> 
         @endif
         <tr>
-          <td class ="noborders">Sang :</td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
+          <td class ="noborders">Sang :</td><td align="left"><span class="badge badge-danger">{{ $patient->gs }}{{ $patient->rh }}</span></td>
           <td class ="noborders">Type:</td>
           <td align="left"><span class="label label-sm label-success"> {{ $patient->Type->nom }}</span></td>
           </tr>           
@@ -65,9 +65,9 @@
           <td class ="noborders">Prenom :</td><td >{{ $patient->assure->Prenom }}</td>
         </tr>
         <tr>
-          <td class ="noborders text-nowrap">Né(e) le :</td> <td> {{ $patient->assure->Date_Naissance }}</td>
+          <td class ="noborders text-nowrap">Né(e) le :</td> <td> {{ $patient->assure->dob }}</td>
           <td class ="noborders">Né(e) a:</td>
-          <td>{{ isset($patient->assure->lieunaissance) ? $patient->assure->lieuNaissance->nom_commune :'' }}
+          <td>{{ isset($patient->assure->pob) ? $patient->assure->POB->name :'' }}
         </td>
        </tr>
         <tr>
@@ -90,7 +90,7 @@
   <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
   @endif
   @if(Auth::user()->isIn([1,13,14,15]))
-  <a href="{{ route('rdv.create', ['patient_id'=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->Dat_Naissance))  disabled @endif>
+  <a href="{{ route('rdv.create', ['patient_id'=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->dob))  disabled @endif>
   <i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
   
   @endif

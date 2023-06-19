@@ -54,10 +54,10 @@
                 <h5 class="rect center"><b>Matricule</b> : {{ is_null($obj->patient->NSS) ?  '' : $obj->patient->NSS  }}</h5>&nbsp;&nbsp;&nbsp;&nbsp;
                 <h5 class="rect center"><b>N° Dossier</b> : <span> {{ $obj->patient->IPP}}</span></h5>
                 <div><b>Nom et Prénoms</b> : <span> {{ $obj->patient->full_name }}</span></div>
-                <div><b>Date de naissance(âge)</b> : <span> {{ $obj->patient->Dat_Naissance->format('d/m/Y') }} ({{ $obj->patient->age }} ans)
+                <div><b>Date de naissance(âge)</b> : <span> {{ $obj->patient->dob->format('d/m/Y') }} ({{ $obj->patient->age }} ans)
                 </span></div>
                 <div><b class=""> Sexe</b> : <span> {{ $obj->patient->Sexe }}</span></div>
-                <div><b>Lieu de Naissance</b>  :  <span> {{ is_null($obj->patient->Lieu_Naissance) ? '' :  $obj->patient->lieuNaissance->nom_commune }}</span></div>
+                <div><b>Lieu de Naissance</b>  : <span>{{ is_null($obj->patient->pob) ? '' :  $obj->patient->POB->name }}</span></div>
                 <div><b>Lieu de résidence(Wilaya)</b> : {{ is_null($obj->patient->commune_res) ? '' :  $obj->patient->commune->daira->wilaya->nom }} </div>
                 <div><b>Date d'admisston a l'hôpital</b> : <span> {{ $obj->admission->hospitalisation->date->format('d/m/Y') }}</span></div>
               <hr class="hr-1"/><h4 class="center mt-2"><b>Dernier Service d'Hospitalisation</b></h4><hr class="hr-1 mt-2"/>
@@ -88,7 +88,7 @@
                  </td>
               <td>
                     <h5><b>CODE COMMUNDE </b></h5>
-                    <h5><b>DE NAISSANCE</b> : <span> {{ is_null($obj->patient->Lieu_Naissance) ? '' : $obj->patient->lieuNaissance->nom_commune }}</span> </h5>
+                    <h5><b>DE NAISSANCE</b> : <span> {{ is_null($obj->patient->pob) ? '' : $obj->patient->POB->name }}</span> </h5>
                    <h5><b>Code WILAYA</b></h5>
                     <h5><b>DE RESIDENSE</b> : <span>{{ is_null($obj->patient->commune_res) ? '' : $obj->patient->commune->daira->wilaya->nom }}</span></h5>
                     <hr class="hr-1"/>

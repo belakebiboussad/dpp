@@ -11,30 +11,27 @@
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
               <thead>
                 <tr> <th class="center">Médicament</th><th class="center priority-3">Forme</th>
-                <th class="center">Dosage</th> <th class="center"><em class="fa fa-cog"></em></th></tr></thead>
+                <th class="center">Dosage</th><th class="center"><em class="fa fa-cog"></em></th></tr></thead>
             </table>
           </div>
           <div class="col-sm-6 col-xs-12">
-             <div class="row">
-             <div  class="col-sm-9 col-xs-12">
-                   <input type="text" id="id_medicament" name="id_medicament" hidden>
-                   <label for="nommedic">Nom médicament :</label>
-                   <input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>  
-             </div>
-              <div class="col-sm-3 hidden-xs">
-                <label for="form-field-8">Forme :</label><input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
-              </div>
-            </div><div class="space-12 hidden-xs"></div>
-            <div class="row">
-              <div class="col-xs-6">
-                   <label for="dosage">Dosage:</label><input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
-              </div>
-            </div><div class="space-12 hidden-xs"></div>
-            <div class="row">
-              <div class="col-xs-12">
-                <label for="posologie_medic">Posologie:</label><input type="text" class="form-control" id="posologie_medic" placeholder="Posologie..." disabled>
-              </div>
-            </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
+   
+            <div class="form-group col-sm-9">  
+              <input type="hidden" id="id_medicament" name="id_medicament" >
+              <label class="control-label" for="nommedic">Nom médicament</label>
+              <input id="nommedic" class="form-control" type="text" placeholder="Médicament" readonly/>  
+            </div>
+            <div class="form-group col-sm-3 hidden-xs">
+              <label class="control-label" for="forme">Forme</label>
+              <input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
+            </div>
+            <div class="form-group col-xs-6">
+              <label class="control-label" for="dosage">Dosage</label><input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="posologie_medic">Posologie</label><input type="text" class="form-control" id="posologie_medic" placeholder="Posologie..." disabled>
+            </div>
+            <div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
              <div class="row">
               <div class="col-xs-12">
                 <button type="button" class="btn btn-primary btn-xs pull-right" id="addDrugBtn" onclick="addmidifun()" disabled>
@@ -51,8 +48,7 @@
                 <table id="ordonnance" class="table table-striped"> 
                   <thead>
                     <tr>
-                      <th hidden>id</th>
-                      <th class="center">Médicament</th>
+                      <th hidden>id</th> <th class="center">Médicament</th>
                       <th class="center priority-5">Forme</th>
                       <th class="center priority-5">Dosage</th>
                       <th class="center">Posologie</th>
@@ -68,7 +64,7 @@
     </div>
     <div class="modal-footer">
          <button type="button" class="btn btn-info btn-sm" onclick="storeord()" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer&Enr</button>
           <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
       </div>
   </div>

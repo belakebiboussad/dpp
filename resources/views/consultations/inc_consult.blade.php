@@ -209,7 +209,7 @@ $(function(){
                 <td>{{ $consultation->date->format('Y-m-d') }}</td>
                 <td class="center">
                   <a href="{{ route('ordonnace.show',$consultation->ordonnances->id) }}"><i class="fa fa-eye-slash"></i></a>
-                  <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
+                  <a href="{{route("print",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a>
                   <button type="button" class="btn btn-xs btn-danger delete-ordonnance" value="{{ $consultation->ordonnances->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
                 </td>
               </tr>

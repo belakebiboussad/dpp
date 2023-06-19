@@ -5,12 +5,12 @@ namespace App\Helpers;
 use Carbon\Carbon;
 class StatsHelper
 {
-  public static function formatStat($stat)
+  public static function formatStat($obj)
   {
-    if(is_null($stat))
+    if(is_null($obj))
       return ;
     else
-    return '<span class="badge badge-'.(($stat->getEtatID() ==="") ? 'primary':'warning').'">'.$stat->etat.'</span>';
+    return '<span class="badge badge-'.(($obj->getEtatID() ==="") ? 'primary':'warning').'">'.$obj->etat.'</span>';
   }
   public static function isInprog($stat)
   {

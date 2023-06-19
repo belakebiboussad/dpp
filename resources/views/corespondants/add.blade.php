@@ -24,9 +24,8 @@
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
           <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employe_id}}">
-          <input type="hidden" id="hom_id" name="hom_id" value="0">
-      
-          <hr>
+          <input type="hidden" id="hom_id" name="hom_id" value="0"> <hr>
+        
           <div class="form-group">
             <span>
               <select name="typeH" id="typeH" >
@@ -68,28 +67,27 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="type_piece">Type de la pièce d'identité</label>
+            <label>Type de pièce d'identité</label>
             <div class="radio">
               <label>
-              <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
+              <input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">CNI</span>
               </label>
               <label><input id="Permis" name="type_piece" value="1" type="radio" class="ace" /><span class="lbl">Permis de Conduire</span></label>
               <label><input id="Passeport" name="type_piece" value="2" type="radio" class="ace" /><span class="lbl">Passeport</span></label>
             </div>
           </div>
           <div class="form-group">
-            <label for="num_piece">N° pièce</label>
+            <label for="num_piece">Numéro de pièce d'identité</label>
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="form-group">
-            <label for="num_piece">Délivré le<span class="red">*</span></label>
+            <label for="num_piece">Date d'emission de la pièce d'identité<span class="red">*</span></label>
             <input class="form-control date-picker" id="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
           </div>
           <div class="form-group">
             <label for="num_piece"><i class="fa fa-map-marker light-orange"></i>Adresse</label>
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
-          
           <div class="form-froup">
             <label for="mobile_h">Mob</label>
             <div class="input-group">

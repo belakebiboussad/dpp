@@ -1,82 +1,25 @@
 @extends('app')
 @section('title','Modifier  le patient')
 @section('page-script')
+@include('patient.scripts.functions')
 <script type="text/javascript">
-   function patTypeChange(value)
-   {
-      switch(value){
-        case "0":
-          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();
-          $("#foncform").addClass('hide');
-          $('.asdemogData').prop('disabled', true);
-          break;
-        case  "1": case "2": case "3": case "4":
-          if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-            assureShow();
-          $("#foncform").removeClass('hide');
-          $('#nsspatient').prop('disabled', false);$('.asdemogData').prop('disabled', false);
-          break;
-        case "5": case "6":
-          assurHide(); resetAsInp();
-         break;    
-      }
-   } 
-	 function showTypeEdit(i){
-    var value = {{ $patient->type_id}};
-    switch(value){
-      case 1:
-        if(i == 0)
-        {   
-          $("#foncform").addClass('hide');
-          $('.asdemogData').prop('disabled', true);
-        }else
-          patTypeChange($('#type').val());
-        break;
-      case  2: case 3: case 4: case 5:
-          if(i == 0)
-          {   
-            $("#foncform").removeClass('hide');
-            $('#nsspatient').attr('disabled', false);
-          }else
-            patTypeChange($('#type').val());
-          break;
-      case 6:
-          if(i == 0)
-          {
-            assurHide(); resetAsInp();
-          }
-          else
-            patTypeChange($('#type').val()); 
-          break;
-    }     
-  }
   $(function(){  
-  	showTypeEdit(0);
-		$( "#editPatientForm" ).submit(function( event ) {
-			if( ! checkPatient() )
+    patTypeChange('{{ $patient->type_id }}');
+    $('#editPatientForm').on('submit', function(e){
+      e.preventDefault(); 
+      if(validPatient())
       {
-      	activaTab("Patient");
-				event.preventDefault();
-      }else
-      {
-      	switch($("#type").val()){
-      		case "0": case "1": case "1": case "2": case "3": case "4":
-      			if($("#type").val() == "0")
- 							$('.asdemogData').prop("disabled", false);
- 						if( ! checkAssure() )
-						{
-			 				activaTab("Assure");
-		  				event.preventDefault();
-						}
-						break;
-      		default:
- 	 					break;
-      	}
+        activaTab("Patient");
+        return false;
       }
-      $( "#editPatientForm" ).submit();	
- 		});	
-	});
+      else  if(validAssure()) 
+      {
+        activaTab("Assure");
+        return false;
+      }
+      $( "#editPatientForm" )[0].submit(); 
+    });
+  });
 </script>
 @stop
 @section('main-content')
@@ -88,7 +31,7 @@
 			</a>
 		</div>
 	</div>
-	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" novalidate>
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<div class="row">
@@ -118,7 +61,8 @@
  		</li>
 	</ul>
 	<div class="tab-content">
-    <div id="Patient" class="tab-pane active">@include('patient.editPatient')</div>
+    <div id="Patient" class="tab-pane active">@include('patient.editPatient')
+    </div>
   	<div id="Assure" class="tab-pane">@include('assurs.editAssure')</div>
   </div><div class="hr hr-dotted"></div>
   <div class="row">

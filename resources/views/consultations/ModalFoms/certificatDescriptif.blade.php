@@ -1,6 +1,6 @@
 <div id="CertifDescrAdd" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content custom-height-modal">
+    <div class="modal-content">
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">
         &times;</button> <h4 class="modal-title" id="DescripCrudModal">Ajouter un Certificat descriptf</h4>
       </div>
@@ -8,7 +8,7 @@
         <form id="modalFormDescript" method="POST">
           <input type="hidden" id="decript_id">
           <div class="form-group">
-            <label for="description">Examen clinque :</label>
+            <label for="description">Examen clinque</label>
             <textarea class="form-control" id="examClin" rows="8"></textarea>
           </div>
         </form>

@@ -38,6 +38,7 @@
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
+<script src="{{ asset('/js/tree.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
@@ -78,72 +79,68 @@
               defaultTime: '08:00',   
               startTime: '08:00',
               showMeridian: false
-      });
-      $( ".autoCommune" ).autocomplete({
-              source: function( request, response ) {
-                    $.ajax({
-                            url:"{{route('commune.getCommunes')}}",
-                            type: 'post',
-                            dataType: "json",
-                            data: {
-                               _token: CSRF_TOKEN,
-                               search: request.term
-                            },
-                            success: function( data ) {
-                               response( data );
-                            }
-                    });
-              },
-              minLength: 3,
-             select: function (event, ui) { // Set selection
-             $(this).val(ui.item.label); // display the selected text
-             switch(event['target']['id'])
-             {
-                  case "lieunaissance":
-                    $("#idlieunaissance").val(ui.item.value);// save selected id to input
-                    break;
-                  case "lieunaissancef":
-                    $("#idlieunaissancef").val(ui.item.value);
-                    break;
-                  case "commune":
-                    $("#idcommune").val(ui.item.value);
-                    $("#idwilaya").val(ui.item.wvalue);
-                    $("#wilaya").val(ui.item.wlabel);
-                    break;
-                  case "communef":   
-                    $("#idcommunef").val(ui.item.value);
-                    $("#idwilayaf").val(ui.item.wvalue);
-                    $("#wilayaf").val(ui.item.wlabel);
-                    console.log(ui.item.wlabel);
-                    break;
-                default:
-                    break;   
-
-              } 
-              return false;
-          }
-        });
-        $( ".autofield" ).autocomplete({
-          source: function( request, response ) {
-            $.ajax({
-                url:"{{route('patients.autoField')}}",
-                type: 'post',
-                dataType: "json",
-                data: {
-                   _token: CSRF_TOKEN,
-                    q: request.term,
-                    field:$(this.element).prop("id"),
-                },
-                success: function( data ) {
-                  response( data );
-                }
-            });
+    });
+  
+    $('.autoCommune').select2({
+        placeholder: 'Selectionner la commune',
+        minimumInputLength:3,
+        tags: "true",
+        width:"100%",
+        ajax: {
+          url: '{{route('commune.index')}}',
+          dataType: 'json',
+          type: "GET",
+          data: function (data) {
+            return {
+                search: data.term // search term
+            };
           },
-          minLength: 3,
-          select: function (event, ui) {
-            $(this).val(ui.item.label);
-            field =event['target']['id'];
-          }
+          processResults: function (response) {
+            return {
+              results: $.map(response, function (item) {
+                return {
+                  text: item.label,
+                  id: item.value,
+                  wilaya:item.wlabel
+                }
+              })
+            };
+          },
+        } 
+    }).on("select2:select", function (e,ui) {
+        switch(e['target']['id'])
+        {
+            case "idcommune":
+              $("#wilaya").val(e.params.data.wilaya);
+              break;
+            case "idcommunef":
+              $("#wilayaf").val(e.params.data.wilaya);
+              break;
+            default:
+                break;   
+        }
+    });
+    $( ".autofield" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+            url:"{{route('patients.autoField')}}",
+            type: 'post',
+            dataType: "json",
+            data: {
+               _token: CSRF_TOKEN,
+                q: request.term,
+                field:$(this.element).prop("id"),
+            },
+            success: function( data ) {
+              response( data );
+            }
+        });
+      },
+      minLength: 3,
+      select: function (event, ui) {
+        $(this).val(ui.item.label);
+        field =event['target']['id'];
+      }
     });
     $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {
@@ -167,13 +164,6 @@
           field =event['target']['id'];
         }
     });  
-    $('ul#menuPatient li').click(function(e) 
-    { 
-      if(($(this).index() == 1) && ($("#type").val() == 0))
-      {
-        copyPatient();
-      }
-    });
 });
 </script>
 <script type="text/javascript">
@@ -194,63 +184,6 @@
                 });
 </script>   
 <script type="text/javascript">
-  function assurHide()
-  {
-    var active_tab_selector = $('#menuPatient a[href="#Assure"]').attr('href');
-    $('#menuPatient a[href="#Assure"]').parent().addClass('hide');
-    $(active_tab_selector).removeClass('active').addClass('hide');
-    $('.nav-pills a[href="#Patient"]').tab('show');
-    $("#otherPat").removeClass('hidden');
-    if(!$("#foncform").is(":hidden"))
-      $("#foncform").addClass('hidden');
-    $('#nsspatient').attr('disabled', true);
-  }
-  function assureShow()
-  {
-    $('.nav-pills li').eq(1).removeClass('hide');
-    $("div#Assure").removeClass('hide');
-    $("#otherPat").addClass('hidden');
-    $('#description').val('');
-    $('#nsspatient').attr('disabled', false);  
-  }
-  function resetAsInp()
-  {
-    $('#Assure').find('input').val('');
-    $('#Assure').find("select").prop("selectedIndex",0);
-  }
-  function showTypeAdd(type, i)
-  { 
-    switch(type){
-      case "1":
-        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-          assureShow();
-        copyPatient();
-        if(i !=1)
-          $(".asProfData").val('');
-        break;
-      case "2": case "3": case "4": case "5":
-        if ($('ul#menuPatient li:eq(1)').hasClass("hide"))
-          assureShow();
-        if($("#asdemogData").is(":hidden")) 
-          $("#asdemogData").removeClass('hidden'); 
-        if($("#foncform").is(":hidden"))
-          $("#foncform").removeClass('hidden');
-        if(i != 1)
-          $(".asProfData").val('');
-        if(type == "2")
-        {
-          $("#sf").prop("selectedIndex", 2).change();
-          $("#SituationFamille").prop("selectedIndex", 2).change();
-        }
-        break;
-      case "6":
-        assurHide();
-        resetAsInp();
-        break;
-      default:
-        break;
-    }
-  }
   $('#typeexm').on('change', function() {
     if($("#typeexm").val() == "CM")
     {
@@ -565,8 +498,7 @@
           $("#specialite").val(data.specialite_id);                  
           $("#employ_id").val(data.employ_id);
           $('#nomPatient').val(data.patient.full_name);
-          if(!isEmpty(data.patient.tele_mobile1))
-            $('#patient_tel').val(data.patient.tele_mobile1);
+          $('#patient_tel').val(data.patient.mob);
           $('#agePatient').val(data.patient.age);
           $('#lien').attr('href','/patient/'.concat(data.patient.id)); 
           $('#lien').text(event.title);

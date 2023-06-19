@@ -5,8 +5,8 @@ use Carbon\Carbon;
 class patient extends Model
 {
 	public $timestamps = true;
-	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','sf' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','type_id','description','active'];
-  protected $dates =['Dat_Naissance'];
+	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','dob','pob','Sexe','sf' ,'Adresse','commune_res','mob','mob2','NSS','gs','rh','assur_id','nationalite','prof_id','type_id','description','active'];
+  protected $dates =['dob'];
   protected $appends = ['full_name','age','civ'];
   public function scopeActive($q)
   {
@@ -17,8 +17,8 @@ class patient extends Model
     return $this->Nom." ".$this->Prenom ;
   }
   public function getAgeAttribute(){ 
-    if(isset($this->Dat_Naissance))
-      return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
+    if(isset($this->dob))
+      return (Carbon::createFromDate(date('Y', strtotime($this->dob)), date('m', strtotime($this->dob)), date('d', strtotime($this->dob)))->age);
     else
     return "99";
   }
@@ -40,36 +40,35 @@ class patient extends Model
           break;     
     }
   }
-  public function lieuNaissance()
+  public function POB()
 	{
-		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
-	}
-	public function antecedants()
-	{
-		return $this->hasMany('App\modeles\antecedant','pid');
+		return $this->belongsTo('App\modeles\Commune','pob');
 	}
 	public function commune()
 	{
 			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
-	public function wilaya()
-	{	
-		if(isset($this->wilaya_res))
-			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
-	}
   public function Type()
   {
       return $this->belongsTo('App\modeles\PatientType','type_id');
   }
+  public function Profession()
+  {
+      return $this->belongsTo('App\modeles\Profession','prof_id');
+  }
 	public function assure()
 	{	
-		if(isset($this->Assurs_ID_Assure))
-			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
+		if(!is_null($this->assur_id))
+			return $this->belongsTo('App\modeles\assur','assur_id');
 	}
 	public function hommesConf()
  	{
    		 return $this->hasMany('App\modeles\homme_conf','id_patient');
  	}
+  public function antecedants()
+  {
+    return $this->hasMany('App\modeles\antecedant','pid');
+  }
  	public function Consultations()
  	{
  		 return $this->hasMany('App\modeles\consultation','pid');
@@ -107,7 +106,7 @@ class patient extends Model
   }
  	public function getCivilite()
  	{
-		if(isset($this->Dat_Naissance))
+		if(isset($this->dob))
  		{
  			if($this->age >16)
  			{

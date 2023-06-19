@@ -1,6 +1,6 @@
 <div id="LettreOrientationAdd" class="modal fade" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-   	<div class="modal-content custom-height-modal">
+   	<div class="modal-content">
 			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">
         &times;</button><h4 class="modal-title" id="orientCrudModal">Ajouter une Lettre d'orientation</h4>
       </div>
@@ -8,7 +8,7 @@
 			  <form id="modalFormDataOroient" method="POST">
           <input type="hidden" id="orient_id">
 				 	<div class="form-group">	
-            <label for="specialiteOrient">Spécialité :</label>
+            <label for="specialiteOrient">Spécialité</label>
 				  	<select class="form-control" id="specialiteOrient">
 					  	<option value="" disabled selected="">Sélectionner...</option>
 					  	@foreach($specialites as $specialite)
@@ -17,11 +17,11 @@
 				  	</select>
           </div>
 		      <div class="form-group">  
-			  		<label for="motif">Motif d'orientation :</label>     
+			  		<label for="motif">Motif d'orientation</label>     
 						<textarea class="form-control" id="motifC" cols="10" rows="3"></textarea>
           </div>
           <div class="form-group">  
-						<label for="motif">Examen général :</label>     
+						<label for="motif">Examen général</label>     
 						<textarea class="form-control" id="motifOrient" cols="20" rows="3"></textarea>
           </div>
 				</form>
@@ -37,7 +37,7 @@
 </div>{{-- modal --}}
 <div id="lettreorien" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content custom-height-modal">
+		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><b>Lettre Orientation :</b></h4>
 			</div>

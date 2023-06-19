@@ -33,7 +33,7 @@
 										<i class="ace-icon fa fa-caret-right blue"></i><b>Prénom :</b><b class="green">{{ $demande->consultation->patient->Prenom }}</b>
 										</li>
 										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b><b class="green">{{ $demande->consultation->patient->Dat_Naissance->format('Y-m-d') }}</b>
+											<i class="ace-icon fa fa-caret-right blue"></i><b>Date de naissance :</b><b class="green">{{ $demande->consultation->patient->dob->format('Y-m-d') }}</b>
 										</li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>

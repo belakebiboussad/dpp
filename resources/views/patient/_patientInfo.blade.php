@@ -17,16 +17,15 @@
 			<label class="inline"><span class="lbl">Âge:</span>
 				<span class="badge badge-{{ $patient->age < 18 ? 'danger':'success' }} blue">{{ $patient->age }}</span> (Ans)
 			</label>&nbsp;&nbsp;&nbsp;
-			@isset( $patient->tele_mobile1)
+			@isset( $patient->mob)
       <label class="inline"> 	
 				<span class="lbl"><i class="fa fa-phone"></i> Mobile :</span>
-				<span class="blue">{{ $patient->tele_mobile1 }}</span>
-		  </label>&nbsp;&nbsp;&nbsp;
-			@endisset
+				<span class="blue">{{ $patient->mob }}</span></label>&nbsp;&nbsp;&nbsp;
+		  @endisset
       @isset( $patient->commune_res)
 			<label class="inline hidden-xs"> 	
 			<span class="lbl"><span class="glyphicon glyphicon-home"></span>&nbsp;Adresse :</span>
-			<span class="blue">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
+			<span class="blue">{{ $patient->commune->name }},{{ $patient->commune->daira->wilaya->nom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			@endisset
 			@isset( $patient->NSS)

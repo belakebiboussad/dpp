@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ui.jqgrid.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
-<link rel="stylesheet" href="{{ asset('/css/ace.css') }}" class="ace-main-stylesheet" id="main-ace-style" />
 <link rel="stylesheet" href="{{ asset('/css/ace-skins.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/select2.min.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/datatables.css') }}"/>

@@ -30,16 +30,14 @@
                     <td>{{ $med->Dosage }}</td><td>{{ $med->Forme }}</td>
                     <td>{{ $med->pivot->posologie }}</td>
                     @if($loop->first)
-                    <td rowspan ="{{ $ordonnance->medicamentes->count()}}" class="center align-middle"><a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary">
-                      <i class="fa fa-print"></i>
-                      </a>
+                    <td rowspan ="{{ $ordonnance->medicamentes->count()}}" class="center align-middle">
+                      <a href="{{route("print",$ordonnance->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
                     </td>
                     @endif
                   </tr>
                   @endforeach
                 </tbody>
               </table>
-              
             </div>
           </div>
           </div>

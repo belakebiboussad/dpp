@@ -317,11 +317,14 @@ $(function(){
 				@endif
 				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
 				<div id="homme_conf" class="tab-pane">
-				  <div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
-				</div>
-        <div id="doc" class="tab-pane">@include('documents.index')</div>
+				  <div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div></div>
+                           <div id="doc" class="tab-pane">
+                           {{-- @include('teste')  --}}
+                           @include('documents.index')
+                           </div>
        </div>
 		</div>
 	</div>
 </div>
+@include('documents.ModalFoms.uploadModal')
 @stop

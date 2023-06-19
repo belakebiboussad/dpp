@@ -1,6 +1,6 @@
 <div id="passwordReset" class="modal fade" role="dialog"> <!-- by admin -->
   <div class="modal-dialog modal-lg">
-    <div class="modal-content custom-height-modal">
+    <div class="modal-content">
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Changer le mot de passer</h4></div>
       <div class="modal-body">
 <form id="changePWD" class="form-horizontal" method="POST" action="{{ url('reset_password_')}}">      

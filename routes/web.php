@@ -34,7 +34,7 @@ Route::resource('employe','EmployeController');
 Route::resource('patient','PatientController');
 Route::resource('assur','AssurController');
 Route::resource('atcd','AntecedantsController');
-Route::resource('medicaments','MedicamentsController');
+Route::resource('medicament','MedicamentsController');
 Route::resource('demandeproduit','demandeprodController');
 Route::resource('rdvHospi','RdvHospiController');
 Route::resource('demandeexb','DemandeExbController');
@@ -107,11 +107,9 @@ route::get('/getpatient','PatientController@getpatient');//
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-route::get('/getmedicaments','MedicamentsController@getmedicaments');
 route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
 route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
-route::get('/getmed/{id}','MedicamentsController@getmed');
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',
@@ -124,7 +122,7 @@ Route::get('/getPatients','PatientController@getPatientsList');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::post('/patients/autoField','PatientController@AutoCompletePatientField')->name('patients.autoField');
-Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
+Route::get('/search','CommuneController@index')->name('commune.index');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge')->name('patients.merge');
@@ -133,7 +131,7 @@ Route::get('/getNotResBeds','BedReservationController@getNoResBeds');
 // del
 Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 // end del
-route::get('/showordonnance/{id}','OrdonnanceController@print')->name('ordonnancePdf');
+route::get('/print/{id}','OrdonnanceController@print')->name('print');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat')->name('uploadBioRes');

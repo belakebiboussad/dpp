@@ -25,8 +25,8 @@ class RolesController extends Controller
     }  
     public function index()
     {
-        $roles = rol::all();
-        return view('role.index', compact('roles'));
+      $roles = rol::all();
+      return view('role.index', compact('roles'));
     }
     /**
      * Show the form for creating a new resource.
@@ -35,12 +35,8 @@ class RolesController extends Controller
      */
     public function create(Request $request)
     {
-      if($request->ajax())  
-      {
-        $view = view("role.ajax_add")->render();
-        return($view);
-      }else
-       return view('role.create');
+      $view = view("role.ajax_add")->render();
+      return($view);
     }
 
     /**
@@ -112,7 +108,7 @@ class RolesController extends Controller
         $errors = [];
         if($role->users->count() > 0)
         {
-          array_push($errors, 'le role contient des utilisateurs');
+          array_push($errors, 'le rôle contient des utilisateurs');
           return response()->json(['errors'=>$errors]); 
         }
         $role->delete();

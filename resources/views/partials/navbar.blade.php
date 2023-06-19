@@ -24,8 +24,7 @@
                   <li><a href="/profile/{{Auth::id() }}"><i class="ace-icon fa fa-user"></i>Profil</a></li><li class="divider"></li>
                   <li>
                     <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> <i class="ace-icon fa fa-power-off"></i> Déconnexion</a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="invisible">{{ csrf_field() }} 
-                      </form>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="invisible">{{ csrf_field() }} </form>
                   </li>
                 </ul>
                 </a>

@@ -109,8 +109,8 @@
   }
   $(function(){
     $("#pat-search").on("keyup", function() {
-        $('#pid').val('');
-        getPatient(); 
+           $('#pid').val('');
+           getPatient(); 
     });
   $( "#filtre" ).change(function() {
     resetPatient();

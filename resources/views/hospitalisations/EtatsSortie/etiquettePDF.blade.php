@@ -27,7 +27,7 @@
 		<div><small><b>Nom :</b> {{ $hosp->patient->Nom }}</small></div>	
 		<div>	<small><b>Prénom :</b> {{ $hosp->patient->Prenom }}</small></div>
 		<div>
-		  <small><b>DDN :</b> {{ $hosp->patient->Dat_Naissance->format('d/m/Y') }}</small>
+		  <small><b>DDN :</b> {{ $hosp->patient->dob->format('d/m/Y') }}</small>
 		</div><hr style="visibility: hidden;">
 		<div>
 		  <small><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($hosp->patient->IPP, 'C128')}}" alt="barcode"/></small><small>IPP: {{$hosp->patient->IPP}}</small>

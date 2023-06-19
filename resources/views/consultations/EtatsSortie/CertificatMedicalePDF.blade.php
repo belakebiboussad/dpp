@@ -24,8 +24,8 @@
         </p>
         <p>
         certifie avoir examiné ce <b>{{ $obj->date->format('d/m/Y') }}</b>
-          <b> {{ $obj->patient->getCivilite() }} </b>
-          <b>{{ $obj->patient->full_name }}</b> né(e) le <b> {{  $obj->patient->Dat_Naissance->format('d/m/Y') }} </b>
+          <b> {{ $obj->patient->getCivilite() }}</b>
+          <b>{{ $obj->patient->full_name }}</b> né(e) le <b> {{  $obj->patient->dob->format('d/m/Y') }} </b>
           et avoir constaté, Ce jour {{ $obj->Resume_OBS }}
         </p>
       </div><div class="sign"><span><b> Date :</b> {{ $date }}</span></div>

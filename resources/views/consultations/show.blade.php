@@ -231,7 +231,7 @@
                                    <td>{{ $consultation->medecin->full_name }}</td>
                                   <td class="center">
                                   <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                  <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
+                                  <a href="{{route("print",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
                                   </td>
                                 </tr>
                                </tbody>

@@ -20,9 +20,6 @@
     border: 1px solid orange;
     padding: 10px;
   }
-  #RDV {
-    z-index: 1040 !important;
-  }
 </style>
 @stop
 @section('page-script')
@@ -47,7 +44,7 @@ function storeord()
   }
   var champ = $("<input type='text' name ='listMeds' value='"+JSON.stringify(ordonnance)+"' hidden>");
   champ.appendTo('#consultForm');
-}/*function resetField(){ $("#description").val('');$('#dateAntcd').val('');}*/
+}
 function addmidifun()
 {
   var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
@@ -58,19 +55,13 @@ function addmidifun()
   $("#addDrugBtn").attr("disabled", true);
   $("#nommedic").val('');$("#forme").val('');$("#dosage").val('');$("#posologie_medic").val('');
 }
-function editMedicm(med)
+function editMedicm(medId)
 {
-  $.ajax({
-      type: 'GET',
-      url: '/getmed/'+med,
-      dataType: "json",
-      success: function (result)
-      {
-        $("#nommedic").val(result['Nom_com']); $("#forme").val(result['Forme']);
-        $("#dosage").val(result.Dosage); $("#id_medicament").val(result['id']);
-        $("#posologie_medic").attr("disabled", false);$("#addDrugBtn").attr("disabled", false); 
-      }
-    });
+  $.get('/medicament/'+ medId +'/edit', function (data) {
+    $("#nommedic").val(data['Nom_com']); $("#forme").val(data['Forme']);
+    $("#dosage").val(data.Dosage); $("#id_medicament").val(data['id']);
+    $("#posologie_medic").attr("disabled", false);$("#addDrugBtn").attr("disabled", false); 
+  });
 }
 $(function(){ 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) { 
@@ -114,7 +105,7 @@ $(function(){
       "language": {
         "url": '/localisation/fr_FR.json'
       },
-      ajax: '/getmedicaments',
+      ajax: '{{ route('medicament.index')}}',
       columns: [
         {data: 'Nom_com'},
         {data: 'Forme',className: "priority-3" , orderable: false},
@@ -124,11 +115,11 @@ $(function(){
       columnDefs: [
         { "targets": 3 ,  className: "dt-head-center dt-body-center" }
       ],
-    });
-    $('.modal').on('hidden.bs.modal', function(e)
-    { 
-     $(this).find('form')[0].reset();
-    })
+  });
+  $('.modal').on('hidden.bs.modal', function(e)
+  { 
+    $(this).find('form')[0].reset();
+  });
   $("#EnregistrerAntecedant").click(function (e) {
     e.preventDefault();
     if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
@@ -450,9 +441,10 @@ $(function(){
 @include('antecedents.ModalFoms.vaccinsModal')
 @endif
 @include('cim10.cimModalForm')
+@include('ExamenCompl.ModalFoms.ExamenImgModal')
 @include('consultations.ModalFoms.DemadeHospitalisation')
 @include('consultations.ModalFoms.LettreOrientation')
-@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')
+@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')   
 @include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>

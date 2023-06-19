@@ -307,18 +307,15 @@ abstract class ArrayClass {
       $name = array_pop($args);
       $array = call_user_func_array(array("CMbArray", "pluck"), $args);
     }
-    
     $values = array(); 
     foreach ($array as $index => $value) {
       if (is_object($value)) {
         $value = get_object_vars($value);
       }
-      
       if (!is_array($value)) {
         trigger_error("Value at index '$index' is neither an array nor an object", E_USER_WARNING);
         continue;
       }
-      
       if (!array_key_exists($name, $value)) {
         trigger_error("Value at index '$index' can't access to '$name' field", E_USER_WARNING);
         continue;

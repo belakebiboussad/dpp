@@ -25,8 +25,8 @@
 		<div class="tab-content no-border">
 	 		<div class="tab-pane active examsBio" id="biologique"> 
 	    @foreach ( $specialite->BioExams as $exbio)
-      <div class="checkbox col-xs-4"><label>
-       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"  /><span class="lbl">{{ $exbio->nom }}</span></label>
+      <div class="checkbox col-sm-4"><label>
+       <input name="exmsbio[]" type="checkbox" class="ace" value="{{ $exbio->id }}"/><span class="lbl">{{ $exbio->nom }}</span></label>
       </div>
       @endforeach 
 	 		</div>
@@ -138,6 +138,21 @@
             break;  
       }
     });
+    $('#examensradio').select2({  width: '100%'});
+    $('#btnclose').click(function(){
+      if(!$("#btn-addImgExam").prop('disabled'))
+        $("#btn-addImgExam").prop("disabled", true);
+    });
+    $('#examensradio').on('select2:select', function (e) { 
+      if($("input[name='exmns']").is(":checked"))
+       $("#btn-addImgExam").prop("disabled", false);
+    });
+    $('input[type=radio][name=exmns]').change(function() {
+     if(! isEmpty($('#examensradio').val()))
+        $("#btn-addImgExam").prop("disabled", false);
+      else
+        $("#btn-addImgExam").prop("disabled", true);
+    });  
     $(document).on('change', 'input[name="exmsbio[]"]', function (e) {
        var checkbox = $(this);
        if (checkbox.is(':checked'))

@@ -24,36 +24,37 @@
       <h4 class="header block blue">Informations adminstratives</h4>
       <div class="row">
       <div class="form-group col-sm-6 {{ $errors->has('nom') ? 'has-error' : '' }}">
-      <label class="col-sm-3 control-label" for="nom">Nom<span class="red">*</span></label>
-        <div class="col-sm-6">
+      <label class="col-sm-3 control-label required" for="nom">Nom</label>
+        <div class="col-sm-9">
           <input type="text" id="nom" name="nom" placeholder="Nom..." class="form-control"  value="{{ old('nom') }}" required/>{!! $errors->first('nom', '<small class="alert-danger">:message</small>')!!}
         </div>
       </div>
       <div class="form-group col-sm-6 {{ $errors->has('prenom') ? 'has-error' : '' }}">
-        <label class="col-sm-3 control-label" for="prenom">Prénom<span class="red">*</span></label>
-        <div class="col-sm-6">
+        <label class="col-sm-3 control-label required" for="prenom">Prénom</label>
+        <div class="col-sm-9">
           <input class="form-control" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" value="{{ old('prenom') }}" required/>
         </div>
       </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-6 {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-          <label class="col-sm-3 control-label" for="datenaissance">Né(e) le<span class="red">*</span></label>
-          <div class="col-sm-6">
-            <input class="form-control date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+        <div class="form-group col-sm-6 {{ $errors->has('dob') ? 'has-error' : '' }}">
+          <label class="col-sm-3 control-label required">Né(e) le</label>
+          <div class="col-sm-9">
+            <input class="form-control date-picker ltnow" type="text" name="dob" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
           </div>
         </div>
-        <div class="form-group col-sm-6 {{ $errors->has('lieunaissance') ? 'has-error' : '' }}">
-            <label class="col-sm-3 control-label" for="lieunaissance">Né(e) à</label>
-            <div class="col-sm-6">
-              <input class="form-control autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
+        <div class="form-group col-sm-6 {{ $errors->has('pob') ? 'has-error' : '' }}">
+            <label class="col-sm-3 control-label" for="pob">Né(e) à</label>
+            <div class="col-sm-9">
+            <select name="pob" id="pob" class="form-control autoCommune">
+            </select>
             </div>
           </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6 {{ $errors->has('sexe') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label" for="sexe">Genre</label>
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <div class="radio">
               <label><input name="sexe" value="M" type="radio" class="form-control ace" checked /><span class="lbl"> Masculin</span></label>
               <label><input name="sexe" value="F" type="radio" class="form-control ace" /><span class="lbl"> Féminin</span></label>
@@ -61,8 +62,8 @@
           </div>  
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('nss') ? 'has-error' : '' }}">
-          <label class="control-label col-sm-3 col-xs-3" for="nss">NSS<span class="red">*</span></label>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $" --}}
-          <div class="col-sm-6">
+          <label class="control-label col-sm-3 col-xs-3 required" for="nss">NSS</label>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $" --}}
+          <div class="col-sm-9">
             <input type="text" class="form-control nssform"  name="nss"  placeholder="XXXXXXXXXXXX" required>
           </div>
         </div>
@@ -71,14 +72,14 @@
       <div class="row">
         <div class="form-group col-sm-6">
           <label class="control-label col-sm-3 col-xs-3" for="adresse">Adresse</label>
-          <div class="input-group col-sm-6 {{ $errors->has('adresse') ? 'has-error' : '' }}">
+          <div class="input-group col-sm-9 {{ $errors->has('adresse') ? 'has-error' : '' }}">
             <span class="input-group-addon fa fa-home"></span>
           <input type="text" name="adresse" placeholder="Adresse..." class="form-control"/>
           </div>
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('email') ? 'has-error' : '' }}">
           <label for="mail" class="control-label col-sm-3">E-Mail</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-at"></span>
             <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}" aria-describedby="email-addon">
           </div>
@@ -87,16 +88,16 @@
       <div class="row">
         <div class="form-group col-sm-6 {{ $errors->has('fixe') ? 'has-error' : '' }}">
           <label class="control-label col-sm-3" for="fixe">Fixe</label>
-          <div class="input-group col-sm-6">
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
             <input type="tel" class="form-control telfixe" name="fixe">
           </div>
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('mobile') ? 'has-error' : ''}}">
-          <label class="control-label col-sm-3" for="mobile">Mob<span class="red">*</span></label>
-          <div class="input-group col-sm-6">
+          <label class="control-label col-sm-3 required" for="mobile">Mob</label>
+          <div class="input-group col-sm-9">
             <span class="input-group-addon fa fa-phone"></span>
-            <input type="tel" name="mobile" class ="form-control mobile" value="{{ old('mobile') }}" required/>
+            <input type="tel" name="mobile" class ="form-control mobile col-sm-12" value="{{ old('mobile') }}" required/>
           </div>
         </div>
       </div><h4 class="header block blue">Fonction</h4>
@@ -108,7 +109,7 @@
           </div>  
         </div>
           <div class="form-group col-sm-3 {{ $errors->has('role') ? 'has-error' : '' }}">
-          <label for="role" class="control-label col-sm-3">Rôle<span class="red">*</span></label>
+          <label for="role" class="control-label col-sm-3 required">Rôle</label>
           <div class="col-sm-9">
           <select id="role" name="role" class="form-control" required>
             <option value="" selected disabled>Sélectionner...</option>
@@ -130,7 +131,7 @@
           </div> 
         </div>
         <div class="form-group col-sm-3 {{ $errors->has('service') ? has-error : '' }}">
-          <label class="col-sm-3 control-label" for="service">Service<span class="red">*</span></label>
+          <label class="col-sm-3 control-label required" for="service">Service</label>
           <div class="col-sm-9">
             <select class="form-control" name="service" required>
               <option value="" selected disabled>--Selectionner--</option>   
@@ -144,13 +145,13 @@
       <h4 class="header block blue">Informations de compte</h4>
       <div class="row">
         <div class="form-group col-sm-4 {{ $errors->has('username') ? 'has-error' : '' }}">
-          <label class="control-label col-xs-3" for="username">Login<span class="red">*</span></label>
+          <label class="control-label col-xs-3 required" for="username">Login</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="username" placeholder="Nom utilisateur..." readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" value="{{ old('username') }}" required>
         </div>
         </div>
         <div class="form-group col-sm-4 {{ $errors->has('password') ? 'has-error' : '' }}">
-          <label for="password" class="control-label col-sm-3">Password<span class="red">*</span></label>
+          <label for="password" class="control-label col-sm-3 required">Password</label>
           <div class="col-sm-6">
             <input type="password" autocomplete="off" class="form-control" name="password" placeholder="Mot de passe..."  autocomplete="off" required>
           </div>

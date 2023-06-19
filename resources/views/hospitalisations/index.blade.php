@@ -30,9 +30,7 @@
      function codeBPrint(id)
      {
         event.preventDefault();
-        var formData = {
-              id: id,    
-        };
+        var formData = { id: id };
         $.ajax({
              type : 'get',
              url : "{{ URL::to('barreCodeprint') }}",
@@ -43,7 +41,8 @@
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-      if(data.etat == "En Cours")                
+      //alert(data.etat);
+      if(data.etat == "en Cours")                
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
          actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';

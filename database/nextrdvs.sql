@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(`patients`.`Dat_Naissance`,'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(`patients`.`dob`,'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
 
 --
 -- VIEW `nextrdvs`

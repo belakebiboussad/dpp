@@ -27,8 +27,7 @@
 @include('rdv.scripts.js')
 <script>
 function reset_in()
-{ // $('.es-list').val('');
-  $('#fullCalModal form')[0].reset();
+{ //$('#fullCalModal form')[0].reset();
   $('#printRdv').addClass('hidden');
 }
 $(function(){
@@ -48,81 +47,81 @@ $(function(){
         maxTime: '17:00:00',
         navLinks: true,
         selectable: true,
-        selectHelper: true,// eventColor: '#3A87AD',//contentHeight: 700,//700
+        selectHelper: true,
         editable: true,
-        eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+        eventLimit: true,       
         hiddenDays: [ 5, 6 ],
         allDaySlot: false,
         weekNumberCalculation: 'ISO',
         aspectRatio: 1.5,
         disableDragging: false,
         eventDurationEditable : false,
-        displayEventTime : false, //themeSystem : "Cosmo",
+        displayEventTime : false,
         views: {},
         events: [
-              @foreach($rdvs as $rdv)
-              {
-                  title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
-                  start : '{{ $rdv->date }}',
-                  end:   '{{ $rdv->fin }}',
-                  id :'{{ $rdv->id }}',
-                  idPatient:'{{$rdv->patient->id}}',
-                  tel:'{{$rdv->patient->tele_mobile1}}',
-                  age:{{ $rdv->patient->age }},
-                  specialite: {{ $rdv->specialite_id }},
-                  medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
-                  fixe:  {{ $rdv->fixe }},
-                  etat : '{{ $rdv->etat }}',
-              },
-           @endforeach 
-          ],
-          select: function(start, end) {
-                    $('.calendar1').fullCalendar('unselect');
-          },
-          eventClick: function(calEvent, jsEvent, view) {
-           if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+            @foreach($rdvs as $rdv)
             {
-              if( new Date(calEvent.start).setHours(0, 0, 0, 0) > today)  //&&(!(isEmpty(calEvent.medecin)//(calEvent.fixe) &&
-              {
-                  $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
-                  if($('#printRdv').hasClass( "hidden" ))
-                   $('#printRdv').removeClass('hidden'); 
-               }
-              if($('#fixe').length &&(calEvent.fixe))
-                    $("#fixe"). prop("checked", true);
-              $('#idRDV').val(calEvent.id); 
-              ajaxEditEvent(calEvent, false);
+                title : '{{ $rdv->patient->full_name }} ' + ', ('+{{ $rdv->patient->age }} +' ans)',
+                start : '{{ $rdv->date }}',
+                end:   '{{ $rdv->fin }}',
+                id :'{{ $rdv->id }}',
+                idPatient:'{{$rdv->patient->id}}',
+                tel:'{{$rdv->patient->mob}}',
+                age:{{ $rdv->patient->age }},
+                specialite: {{ $rdv->specialite_id }},
+                medecin : (isEmpty({{ $rdv->employ_id}}))? "": '{{ $rdv->employ_id}}',
+                fixe:  {{ $rdv->fixe }},
+                etat : '{{ $rdv->etat }}',
+            },
+           @endforeach 
+        ],
+        select: function(start, end) {
+          $('.calendar1').fullCalendar('unselect');
+        },
+        eventRender: function (event, element, webData){
+          if((event.start < today) || (event.etat == 1))
+            element.css('background-color', '#D3D3D3'); 
+          else 
+          {
+            if(event.fixe)
+                   element.css('background-color', '#3A87AD'); 
+            else
+                    element.css('background-color', '#D6487E');   
+            element.css("padding", "5px");
+          }  
+          element.popover({
+            delay: { "show": 500, "hide": 100 },
+            content: event.tel,
+            trigger: 'hover',
+            animation:true,
+            placement: 'bottom',
+            container: 'body',
+            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+          });                   
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+         if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+          {
+            if( new Date(calEvent.start).setHours(0, 0, 0, 0)> today) 
+            {
+                $('#printRdv').attr("href",'/rdvprint/'.concat(calEvent.id)); 
+                if($('#printRdv').hasClass( "hidden" ))
+                 $('#printRdv').removeClass('hidden'); 
             }
-          },
-           eventRender: function (event, element, webData) {
-                  if((event.start < today) || (event.etat == 1))
-                    element.css('background-color', '#D3D3D3'); 
-                  else 
-                  {
-                    if(event.fixe)
-                           element.css('background-color', '#3A87AD'); 
-                    else
-                            element.css('background-color', '#D6487E');   
-                    element.css("padding", "5px");
-                  }  
-                  element.popover({
-                        delay: { "show": 500, "hide": 100 },
-                        content: event.tel,
-                        trigger: 'hover',
-                        animation:true,
-                        placement: 'bottom',
-                        container: 'body',
-                        template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-                  });                   
-          },
+            if($('#fixe').length &&(calEvent.fixe))
+                  $("#fixe"). prop("checked", true);
+            $('#idRDV').val(calEvent.id); 
+            ajaxEditEvent(calEvent, false);
+          }
+        },
           eventAllow: function(dropLocation, draggedEvent) {
                if (draggedEvent.start < today)  
                      return false;
           },
           eventDrop: function(event, delta, revertFunc)
           {  
-            jQuery('#btnclose').click(function(){
-                 revertFunc();
+            jQuery('#fctCancel').click(function(){
+              revertFunc();
             });
             if($('#fixe').length &&(event.fixe))
               $("#fixe"). prop("checked", true);
@@ -139,8 +138,8 @@ $(function(){
         });
         $("#patient").on("keyup", function() {
          var field = $("select#filtre option").filter(":selected").val();
-         if(field != "Dat_Naissance")
-                remoteSearch(field,$("#patient").val()); //to call ajax
+         if(field != "dob")
+          remoteSearch(field,$("#patient").val());
         });
 })
 </script>

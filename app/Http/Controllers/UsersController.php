@@ -89,33 +89,31 @@ class UsersController extends Controller
         "nom"=> "required",
         "prenom"=> "required",
         "nss"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",
-        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",// "mat"=> 
+        "dob"=> "required",// "lieunaissance"=> "required",
+        "mobile"=> "required | regex:/[0][2345679][0-9]{8}/",// "mat"=> 
         "service"=> "required", 
       ]);
       if($validator->fails())
            return back()->withErrors($validator)->withInput();
       $employe = employ::firstOrCreate([
-          "nom"=>$request->nom,
-          "prenom"=>$request->prenom,
-          "sexe"=>$request->sexe,
-          "Date_Naiss"=>$request->datenaissance,
-          "Lieu_Naissance"=>$request->lieunaissance,
-          "Adresse"=>$request->adresse,
-          "Tele_fixe"=>$request->fixe,
-          "tele_mobile"=>$request->mobile,
+          "nom"=>$request->nom,"prenom"=>$request->prenom,
+          "sexe"=>$request->sexe,"dob"=>$request->dob,
+          "pob"=>$request->pob,"Adresse"=>$request->adresse,
+          "phone"=>$request->fixe,
+          "mob"=>$request->mobile,
           "specialite"=>$request->specialite,
           "service_id"=>$request->service,
           "matricule"=>$request->mat,
           "NSS"=>$request->nss,
       ]);
+     
       $employe->User()->create([
         "username"=>$request->username,
         "password"=> Hash::make($request->password),
         "email"=>$request->email,
         "role_id"=>$request->role,
       ]);
-      return redirect(Route('users.show',$$employe->User->id));                 
+      return redirect(Route('users.show',$employe->User->id));                 
     }
     /**
      * Display the specified resource.
@@ -158,16 +156,17 @@ class UsersController extends Controller
         "role"=> "required",
         "nom"=> "required",
         "prenom"=> "required",
-        "datenaissance"=> "required",// "lieunaissance"=> "required",
+        "dob"=> "required",// "lieunaissance"=> "required",
         "mobile"=> "required | regex:/[0][245679][0-9]{8}/",
       ]);
       if ($validator->fails())
         return back()->withInput($request->input())->withErrors($validator->errors());
+      
       $user->employ->update([
         "nom"=>$request->nom, "prenom"=>$request->prenom,
-        "sexe"=>$request->sexe, "Date_Naiss"=>$request->datenaissance,
-        "Lieu_Naissance"=>$request->lieunaissance, "Adresse"=>$request->adresse,
-        "Tele_fixe"=>$request->fixe, "tele_mobile"=>$request->mobile,
+        "sexe"=>$request->sexe, "dob"=>$request->dob,
+        "pob"=>$request->pob,"Adresse"=>$request->adresse,
+        "phone"=>$request->fixe, "mob"=>$request->mobile,
         "specialite"=>$request->specialite,"service_id"=>$request->service,
          "matricule"=>$request->matricule,"NSS"=>$request->nss,
       ]);
@@ -184,12 +183,10 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    //public function destroy(User $user)
     public function destroy(Request $request ,  User $user)
     {
-      $user->employ->delete();
-      $user->delete();
-      return redirect()->route('users.index');
+          $user->employ->delete();
+          return redirect()->route('users.index');
     }
     protected function guard()
     {
@@ -243,7 +240,7 @@ class UsersController extends Controller
         'password_again.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
 
       ];
-      $validator = Validator::make($data, [//'current-password' =>  "required_if:role,!=,4",
+      $validator = Validator::make($data, [
         'current-password' =>  "required",
         'newPassword' => 'required|different:current-password',
         'password_again' => 'required|same:newPassword',     

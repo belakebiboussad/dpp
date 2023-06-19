@@ -82,11 +82,8 @@ $(function(){
           if( $.isEmptyObject(data.errors))
            $("#" + data).remove();
           else
-          {
-            printErrorMsg(data.errors);
-            location.reload(true);
-          }
-        }
+           printErrorMsg(data.errors); 
+      }
     }); 
   });
 })  
@@ -122,7 +119,7 @@ $(function(){
             <button type="button" class="btn btn-xs btn-success rolShow" data-id="{{$role->id}}"><i class="fa fa-hand-o-up fa-xs"></i></button>
             <button type="button" class="btn btn-xs btn-info rolEdit" value="{{$role->id}}">
             <i class="ace-icon fa fa-pencil fa-xs"></i></button>
-              <a href="#" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger rolDelete" data-id="{{ $role->id }}"><i class="ace-icon fa fa-trash-o"></i></a></div>
+              <button type="button" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger rolDelete" data-id="{{ $role->id }}" onclick="return false;"><i class="fa fa-trash-o fa-xs"></i></button></div>
         </td>
 			</tr>
 			@endforeach 

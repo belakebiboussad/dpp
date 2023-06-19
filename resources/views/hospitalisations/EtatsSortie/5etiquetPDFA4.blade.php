@@ -34,7 +34,7 @@
 		</div> 
 		</div>
 		<div class="row">
-		  <div class="col-sm-12"><small><b>DDN :</b> {{  $hosp->patient->Dat_Naissance->format('d/m/Y') }}</small></div>
+		  <div class="col-sm-12"><small><b>DDN :</b> {{  $hosp->patient->dob->format('d/m/Y') }}</small></div>
 		</div>
 		<div class="row">
 		  <div class="col-sm-12 mt-1">

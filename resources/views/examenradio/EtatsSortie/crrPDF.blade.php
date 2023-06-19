@@ -16,7 +16,7 @@
 	  		<tr>
 	  			<td width="25%"><b>Nom :</b><span> {{ $patient->Nom }}</span></td>
 	  			<td width="25%"><b>Prenom :</b><span> {{ $patient->Prenom }}</span></td>
-	  			<td width="50%"><b>Né(e) le :</b> {{ $patient->Dat_Naissance->format('d/m/Y') }}</td>
+	  			<td width="50%"><b>Né(e) le :</b> {{ $patient->dob->format('d/m/Y') }}</td>
 	  		</tr>
 	  	</tbody>
 		  </table>

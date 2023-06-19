@@ -63,7 +63,7 @@ class hospitalisation extends Model
     }
     public function getlastVisiteWitCsts()
     { 
-      return visite::has('constantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
+      return visite::has('Constantes')->where('id_hosp',$this->id)->orderBy('date','DESC')->orderBy('heure','DESC')->first();
     }
     public function Transfert()
     {
