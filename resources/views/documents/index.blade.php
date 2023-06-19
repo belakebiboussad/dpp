@@ -15,8 +15,8 @@
                   @isset($demande->crb)    
                   <a href="{{ route('crbs.download',$demande->id )}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
                   @endisset
-              @else
-               <a href="#uploadModal" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
+              @else{{-- href="#uploadBioRes" --}}
+               <button  id="uploadBio" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
               @endif
                <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
                   {{ $demande->imageable->date->format('d/m/Y') }}) </span>  
@@ -74,7 +74,16 @@
         </ul>
         </div>
         </div>
-        </div>
-        </div>
-        </div>
-       
+      </div>
+    </div>
+</div>
+<script>
+$("#uploadBio").click(function(){
+    var url = '{{ route("exmbio.edit", ":slug") }}'; 
+    url = url.replace(':slug', $(this).data('id'));
+    $.get(url, function (data) {
+      alert(data);
+    });
+})  
+</script>
+@include('examenbio.ModalFoms.detailsModal')

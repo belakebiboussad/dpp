@@ -53,7 +53,7 @@ function storeord()
   }
   var champ = $("<input type='text' name ='listMeds' value='"+JSON.stringify(ordonnance)+"' hidden>");
   champ.appendTo('#consultForm');
-}/*function resetField(){ $("#description").val('');$('#dateAntcd').val('');}*/
+}
 function addmidifun()
 {
   var med ='<tr id="'+$("#drugId").val()+'"><td hidden>'+$("#drugId").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").text()+'</td><td class="priority-5">'+$("#dosage").text()+'</td><td>'+$("#posologie").val()+'</td><td class ="bleu center">';
