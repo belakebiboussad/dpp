@@ -191,13 +191,10 @@
     }
     else if($("#typeexm").val() == "AB")
     {
-        $('#details').val('');
-        $('#details').val('details');
+      $('#details').val('');
+      $('#details').val('details');
     }
-});
-</script>
-<script>
-  $('#flash-overlay-modal').modal();
+  });
 </script>
 <script>
   $('#users-table').DataTable({

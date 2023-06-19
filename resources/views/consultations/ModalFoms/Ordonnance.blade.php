@@ -1,5 +1,5 @@
-<div class="modal fade" id="Ordonnance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modaldialog modal-lg" >
+<div class="modal fade" id="Ordonnance" role="dialog" aria-hidden="true" overflow:hidden>
+  <div class="modal-dialog  modaldialog">
     <div class="modal-content ">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -7,38 +7,31 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-6 col-xs-12">
-            <table id="medc_table" class="table table-bordered table-hover" width=100%> 
-              <thead>
-                <tr> <th class="center">Médicament</th><th class="center priority-3">Forme</th>
-                <th class="center">Dosage</th><th class="center"><em class="fa fa-cog"></em></th></tr></thead>
-            </table>
+          <div class="form-group col-sm-6">  
+            <input type="hidden" id="drugId" name="drugId">
+            <label class="control-label" for="nommedic">Nom médicament</label>
+            <input type="search" class="form-control" id="nommedic"  autocomplete="off">
+            <div id="livesearch" class="list-unstyled"></div>
           </div>
-          <div class="col-sm-6 col-xs-12">
-   
-            <div class="form-group col-sm-9">  
-              <input type="hidden" id="id_medicament" name="id_medicament" >
-              <label class="control-label" for="nommedic">Nom médicament</label>
-              <input id="nommedic" class="form-control" type="text" placeholder="Médicament" readonly/>  
-            </div>
-            <div class="form-group col-sm-3 hidden-xs">
-              <label class="control-label" for="forme">Forme</label>
-              <input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
-            </div>
-            <div class="form-group col-xs-6">
-              <label class="control-label" for="dosage">Dosage</label><input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
-            </div>
-            <div class="form-group col-xs-12">
-                <label for="posologie_medic">Posologie</label><input type="text" class="form-control" id="posologie_medic" placeholder="Posologie..." disabled>
-            </div>
-            <div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
-             <div class="row">
-              <div class="col-xs-12">
-                <button type="button" class="btn btn-primary btn-xs pull-right" id="addDrugBtn" onclick="addmidifun()" disabled>
-                  Ajouter <i class="fa fa-arrow-down" ></i>
-                </button>
-              </div>
-            </div>
+          <div class="form-group col-sm-2 hidden-xs">
+            <label class="control-label" for="forme">Forme</label><p class ="form-control-static" id="forme"></p>
+          <p class ="form-control-static" id="forme"></p>
+          </div>
+          <div class="form-group col-xs-4">
+            <label class="control-label" for="dosage">Dosage</label>
+            <p class ="form-control-static" id="dosage"></p>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="posologie">Posologie</label><input type="text" class="form-control" id="posologie" placeholder="Posologie...">
+        </div>
+        <div class="space-12 hidden-xs"></div>
+        <div class="space-12 hidden-xs"></div>     
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button" class="btn btn-primary btn-xs pull-right" id="addDrugBtn" onclick="addmidifun()" disabled>
+              Ajouter <i class="fa fa-arrow-down" ></i>
+            </button>
           </div>
        </div>
        <div class="row">
@@ -63,9 +56,34 @@
       </div><!-- /.row -->
     </div>
     <div class="modal-footer">
-         <button type="button" class="btn btn-info btn-sm" onclick="storeord()" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer&Enr</button>
-          <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-      </div>
+       <button type="button" class="btn btn-info btn-sm" onclick="storeord()" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+      <button type="button"  id ="drugsPrint" class="btn btn-success btn-sm"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+    </div>
   </div>
 </div>
+<script>
+  function Fill(id, name, frm, dsg)
+  {
+    $("#drugId").val(id);
+    $("#nommedic").val(name);
+    $("#forme").text(frm);$("#dosage").text(dsg);
+    $("#livesearch").html('');
+    if($("#posologie").prop('disabled') == true)
+      $("#posologie").prop("disabled", false);
+    if($("#addDrugBtn").prop('disabled') == true)
+    $("#addDrugBtn").prop("disabled", false); 
+ }
+  $(function(){
+    $("#nommedic").on("keyup", function() {
+      $('#drugId').val('');
+      $.ajax({
+        url : '{{ route("medicament.index") }}',
+        data: { "search": $('#nommedic').val()},         
+        success: function(html) {
+          $("#livesearch").html(html).show();
+        }
+      });
+    });   
+  });
+</script>

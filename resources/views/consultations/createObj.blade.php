@@ -47,20 +47,20 @@ function storeord()
 }
 function addmidifun()
 {
-  var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td><td class ="bleu center">';
-  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');drugRemove('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button> ';
-  med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+  var med ='<tr id="'+$("#drugId").val()+'"><td hidden>'+$("#drugId").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").text()+'</td><td class="priority-5">'+$("#dosage").text()+'</td><td>'+$("#posologie").val()+'</td><td class ="bleu center">';
+  med += '<button class="btn btn-xs btn-info open-modal" value="' + $("#drugId").val()+ '" onclick="editMedicm('+$("#drugId").val()+');drugRemove('+$("#drugId").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button> ';
+  med += '<button class="btn btn-xs btn-danger" value="' + $("#nommedic").val()+ '" onclick ="drugRemove('+$("#drugId").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
   $("#ordonnance").append(med);
-  $("#posologie_medic").attr("disabled", true);
-  $("#addDrugBtn").attr("disabled", true);
-  $("#nommedic").val('');$("#forme").val('');$("#dosage").val('');$("#posologie_medic").val('');
+  $("#posologie").prop("disabled", true);$("#addDrugBtn").prop("disabled", true);
+  $("#nommedic").val('');$("#forme").text('');$("#dosage").text('');$("#posologie").val('');
 }
-function editMedicm(medId)
+
+function editMedicm(id)
 {
-  $.get('/medicament/'+ medId +'/edit', function (data) {
-    $("#nommedic").val(data['Nom_com']); $("#forme").val(data['Forme']);
-    $("#dosage").val(data.Dosage); $("#id_medicament").val(data['id']);
-    $("#posologie_medic").attr("disabled", false);$("#addDrugBtn").attr("disabled", false); 
+  $.get('/medicament/'+ id +'/edit', function (data) {
+    $("#nommedic").val(data['Nom_com']); $("#forme").text(data['Forme']);
+    $("#dosage").text(data.Dosage); $("#drugId").val(data['id']);
+    $("#posologie").prop("disabled", false);$("#addDrugBtn").prop("disabled", false); 
   });
 }
 $(function(){ 
