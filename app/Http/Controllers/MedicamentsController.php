@@ -15,15 +15,6 @@ class MedicamentsController extends Controller
   }
   public function index(Request $request)
   {
-<<<<<<< HEAD
-    $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']); 
-    return Datatables::of($medicaments)
-            ->addColumn('action', function ($medicament) {
-                   return '<button class="btn btn-xs btn-primary" onclick="editMedicm('.$medicament->id.')"><i class="ace-icon  fa fa-plus-circle"></i></button>';
-    }) ->make(true);
-  }
-
-=======
     $output="";
     $drugs = medicament::orderby('Nom_com','asc')->where('Nom_com', 'like',$request->search.'%')->limit(15)->get();
     foreach ($drugs as $key => $drug) {         
@@ -32,7 +23,6 @@ class MedicamentsController extends Controller
     }
     return $output;
   }
->>>>>>> testeploy
   public function edit($id)
   {
     $med = medicament::FindOrFail($id);

@@ -44,18 +44,10 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request,$id_consultation)
     {
-<<<<<<< HEAD
-      /*$date =Carbon::now();$ordonnance = ordonnance::FirstOrCreate([
-      "id_consultation" => $id_consultation,   ]);$listes = json_decode($request->liste);
-      for ($i=0; $i < count($listes); $i++){$id_med = $listes[$i]->med;       $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]);}*/
-    }
-=======
 /*$date =Carbon::now();$ordonnance = ordonnance::FirstOrCreate([
-"id_consultation" => $id_consultation,   ]);$listes = json_decode($request->liste);
-for ($i=0; $i < count($listes); $i++){$id_med = $listes[$i]->med;       $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]);}
-*/
+"id_consultation" => $id_consultation, ]);$listes = json_decode($request->liste);
+for ($i=0; $i < count($listes); $i++){$id_med = $listes[$i]->med;       $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]);}*/
 }
->>>>>>> testeploy
     /**
      * Display the specified resource.
      *
