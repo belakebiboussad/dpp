@@ -164,43 +164,44 @@ class PatientController extends Controller
      */
   public function show(patient $patient)
   {  
-    $id = $patient->id ;
-    $specialites = Specialite::all();
-    $employe=Auth::user()->employ;
-    $serv_id =  $employe->service_id;
-    $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-    $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-    
-    /*
-    $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
-                    $query->where('pid', $id);
-                 })->orWhereHas('consultation',function($q) use($id){
-                    $q->where('pid', $id);   
-                })->get();
-    */      
-$demandesCExB= demandeexb::whereHas('visite.medecin.Service', function(                 $query)use($serv_id){
-                      $query->where('id',$serv_id);
-                    })->orWhereHas('consultation.medecin.Service', function(       $query)use($serv_id){
-                          $query->where('id',$serv_id);
-                        })->whereHas('visite', function($query) use($id){
-                          $query->where('pid', $id);
-                    })->orWhereHas('consultation',function($q) use($id){
-                      $q->where('pid', $id);   
-                    })->whereNull('etat') ->get();
-
- //4           
-$demandesVExB= demandeexb::whereHas('visite', function($query) use($id){
-                    $query->where('pid', $id);
-                 })->orWhereHas('consultation',function($q) use($id){
-                    $q->where('pid', $id);   
+       $id = $patient->id ;
+       $specialites = Specialite::all();
+       $employe=Auth::user()->employ;
+       $serv_id =  $employe->service_id;
+       $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+       $ids =[$id,$serv_id ];
+      $demandesCExB= demandeexb::whereHas('visite', function($q) use($ids){
+                    $q->whereHas('medecin',function($q) use($ids){
+                            $q->where('service_id', $ids[1]); 
+                    })->where('pid', $ids[0]);
+                    })->orWhereHas('consultation',function($q) use($ids){
+                          $q->whereHas('medecin',function($q) use($ids){
+                                  $q->where('service_id', $ids[1]); 
+                          })->where('pid', $ids[0]);
+                    })->whereNull('etat')->get();
+      $demandesVExB= demandeexb::whereHas('visite', function($q) use($patient){
+                    $q->where('pid', $patient->id);
+                 })->orWhereHas('consultation',function($q) use($patient){
+                    $q->where('pid', $patient->id);   
                 })->where('etat',1)->get();
-dd($demandesVExB[0])
-$demandesExR= demandeexr::whereHas('visite', function($query) use($id){
-                                $query->where('pid', $id);
-                            })->orWhereHas('consultation',function($q) use($id){
-                                $q->where('etat',1)->where('pid', $id);   
+ $demandesCExR= demandeexr::whereHas('visite', function($q) use($ids){
+                    $q->whereHas('medecin',function($q) use($ids){
+                            $q->where('service_id', $ids[1]); 
+                    })->where('pid', $ids[0]);
+                    })->orWhereHas('consultation',function($q) use($ids){
+                          $q->whereHas('medecin',function($q) use($ids){
+                                  $q->where('service_id', $ids[1]); 
+                          })->where('pid', $ids[0]);
+                    })->whereNull('etat')->get();
+$demandesVExR= demandeexr::whereHas('visite', function($query) use($patient){
+                                $query->where('pid', $patient->id);
+                            })->orWhereHas('consultation',function($q) use($patient){
+                                $q->where('etat',1)->where('pid', $patient->id);   
                             })->get();
-   return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
+$demandesExB = $demandesVExB->merge($demandesCExB);
+$demandesExR = $demandesVExR->merge($demandesCExR);
+ return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
   }
 /**
  * Show the form for editing the specified resource.

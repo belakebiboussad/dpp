@@ -14,7 +14,7 @@
      <a href="{{ route('demandeexb.edit',$demande->id )}}" class="btn btn-sm btn-success{!! $isInprog($demande) !!}"><i class="ace-icon fa fa-pencil"></i> Modifier</a>
       @endif
       @if( Auth::user()->is(11) )
-        <a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info{!! $isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
+        <a href="{{route('bioResultAdd', $demande->id)}}" title="attacher résultat" class="btn btn-xs btn-info{!! $isInprog($demande) !!}"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Attacher</a>
       @endif
     </div>
   </div>

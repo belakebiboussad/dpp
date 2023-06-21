@@ -132,8 +132,7 @@ class ConsultationsController extends Controller
         {
           if( $rdv->date->format('Y-m-d')  == $consult->date)
             $rdv->update(['etat'=>1]);
-        }
-        //enregistrement des valeurs des constantes
+        }  //enregistrement des valeurs des constantes
         $exam = $consult->examensCliniques()->create($request->all());
         foreach($specialite->Consts as $c)
         {

@@ -17,6 +17,10 @@ class StatsHelper
   {
        return $date->format('Y-m-d');
   }
+  public static function formatDateF(Carbon $date)
+  {
+       return $date->format('d/m/Y');
+  }
   public static function formatString($collection, $field1, $field2)
   {
     $str= "";

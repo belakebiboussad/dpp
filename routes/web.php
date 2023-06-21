@@ -133,7 +133,7 @@ Route::get('/getNotResBedsTeste','BedReservationController@getNoResBedsTeste');
 // end del
 route::get('/print/{id}','OrdonnanceController@print')->name('print');
 route::get('/dbToPDF/{id}','DemandeExbController@print');
-route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::get('/bioResultAdd/{id}','DemandeExbController@resultAdd')->name('bioResultAdd');
 route::post('/uploadresultat','DemandeExbController@uploadresultat')->name('uploadBioRes');
 route::get('/details_exr/{id}','DemandeExamenRadio@details');
 Route::post('store-res', 'DemandeExamenRadio@upload');

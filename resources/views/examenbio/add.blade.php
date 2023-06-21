@@ -44,30 +44,11 @@
         <a href="/dbToPDF/{{ $demande->id }}" target="_blank" class="btn btn-xs btn-primary"><i class="ace-icon fa fa-print"></i> Imprimer</a>
   </div>
 </div><hr>
-<form method="POST" action="{{ route('uploadBioRes') }}" enctype="multipart/form-data">
-  {{ csrf_field() }}
-  <input type="hidden" name="id" value="{{ $demande->id }}">
-  <input type="hidden" name="crb" id ="crb">
-  <div class="form-group" id="error" aria-live="polite">
-    @if (count($errors) > 0)
-      <div class="alert alert-danger">
-        <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-      </div>
-    @endif
-    </div>
 <div class="row">
   <div class="col-xs-11"> @include('examenbio.partials._show')</div>
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div>
 </div>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-  @include('examenbio.uploadResFrm')
-</div>
-</div>
-</form>
+<div class="row"><div class="col-xs-12">@include('examenbio.uploadResFrm')</div></div>
+  <div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
 @stop

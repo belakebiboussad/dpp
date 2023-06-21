@@ -63,12 +63,12 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)//,$consultId
+  public function store(Request $request)
   {
     if($request->ajax())    
     { 
       if(isset($request->consultation_id))
-        $obj = consultation::findOrFail($request->consultation_id);
+             $obj = consultation::findOrFail($request->consultation_id);
       else
         $obj = visite::findOrFail($request->visite_id);
       $db = $obj->demandeexmbio()->create();
@@ -83,15 +83,23 @@ class DemandeExbController extends Controller
      */
     public function show($id)
     {
-      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      return view('examenbio.show', compact('demande'));
+          $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+          return view('examenbio.show', compact('demande'));
     }
-     public function detailsdemandeexb($id)
-    {
-      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      $etab = Etablissement::first();
-      return view('examenbio.details', compact('demande','etab'));
-    }
+        public function resultAdd(Request $request,$id)
+       {
+             if($request->ajax())    
+            {
+                    $demande = demandeexb::FindOrFail($id);
+                    $html = view("examenbio.uploadResFrm",compact('demande'))->render();
+                    return($html);
+            }else
+            {
+                   $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+                  $etab = Etablissement::first();
+                  return view('examenbio.add', compact('demande','etab'));
+            }
+      }
     /**
      * Show the form for editing the specified resource.
      *

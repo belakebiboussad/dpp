@@ -1,3 +1,7 @@
+<form method="POST" action="{{ route('uploadBioRes') }}" enctype="multipart/form-data">
+  {{ csrf_field() }}
+  <input type="hidden" name="id" value="{{ $demande->id }}">
+  <input type="hidden" name="crb" id ="crb">
 <div class="user-profile row">
   <div class="col-xs-12 col-sm-12 center">
     <table class="table table-striped table-bordered">
@@ -16,7 +20,7 @@
         <td>{{ $exm->Specialite->nom }}</td>
         @if($loop->first)
         <td rowspan ="{{ $demande->examensbios->count()}}" class="align-middle">
-          <input type="file" class="form-control-file" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+          <input type="file" class="form-control-file" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf"/> {!! $errors->first('resultat', '<p class="alert-danger">:message</p>') !!}
         </td>
         @endif
         @if($loop->first)
@@ -26,7 +30,7 @@
           glyphicon-white"></i>
         </button>
         @else
-        <input type="file" class="form-control-file" name="crbFile" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+        <input type="file" class="form-control-file" name="crbFile" alt="Résultat du l'éxamen" accept="image/*,.pdf"/> 
         @endif
         </td>
         @endif 
@@ -41,4 +45,4 @@
       <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
    </div>
 </div>
-<div class="row">@include('examenbio.ModalFoms.CRBModal')</div>
+</form>

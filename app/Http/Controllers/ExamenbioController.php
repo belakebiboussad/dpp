@@ -50,16 +50,6 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
-    {
-      if($request->ajax())
-      {
-        $demande = demandeexb::FindOrFail($id);
-        $html = view("examenbio.uploadResFrm",compact('demande'))->render();
-        return($html);
-      }
-    }
-    public function show($id) {}
 /**
      * Show the form for editing the specified resource.
      *
