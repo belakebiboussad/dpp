@@ -162,24 +162,45 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-     public function show(patient $patient)
-     {  
-        $id = $patient->id ;
-        $specialites = Specialite::all();
-        $employe=Auth::user()->employ;
-        $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-        $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
-                                    $query->where('pid', $id);
-                                 })->orWhereHas('consultation',function($q) use($id){
-                                    $q->where('pid', $id);   
-                                })->get();
-       $demandesExR= demandeexr::whereHas('visite', function($query) use($id){
-                                    $query->where('pid', $id);
-                                })->orWhereHas('consultation',function($q) use($id){
-                                    $q->where('etat',1)->where('pid', $id);   
-                                })->get();
-       return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
+  public function show(patient $patient)
+  {  
+    $id = $patient->id ;
+    $specialites = Specialite::all();
+    $employe=Auth::user()->employ;
+    $serv_id =  $employe->service_id;
+    $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+    $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+    
+    /*
+    $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
+                    $query->where('pid', $id);
+                 })->orWhereHas('consultation',function($q) use($id){
+                    $q->where('pid', $id);   
+                })->get();
+    */      
+$demandesCExB= demandeexb::whereHas('visite.medecin.Service', function(                 $query)use($serv_id){
+                      $query->where('id',$serv_id);
+                    })->orWhereHas('consultation.medecin.Service', function(       $query)use($serv_id){
+                          $query->where('id',$serv_id);
+                        })->whereHas('visite', function($query) use($id){
+                          $query->where('pid', $id);
+                    })->orWhereHas('consultation',function($q) use($id){
+                      $q->where('pid', $id);   
+                    })->whereNull('etat') ->get();
+
+ //4           
+$demandesVExB= demandeexb::whereHas('visite', function($query) use($id){
+                    $query->where('pid', $id);
+                 })->orWhereHas('consultation',function($q) use($id){
+                    $q->where('pid', $id);   
+                })->where('etat',1)->get();
+dd($demandesVExB[0])
+$demandesExR= demandeexr::whereHas('visite', function($query) use($id){
+                                $query->where('pid', $id);
+                            })->orWhereHas('consultation',function($q) use($id){
+                                $q->where('etat',1)->where('pid', $id);   
+                            })->get();
+   return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
   }
 /**
  * Show the form for editing the specified resource.
@@ -206,8 +227,7 @@ class PatientController extends Controller
   public function update(Request $request, patient $patient)
   { 
     $rule = array(
-      "nom" => 'required',
-      "prenom" => 'required',
+      "nom" => 'required',"prenom" => 'required',
       "type" => 'required',
       "nomf" => 'required_if:type,2,3,4,5',
       "prenomf" => 'required_if:type,2,3,4,5',

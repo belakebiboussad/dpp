@@ -8,7 +8,7 @@ class colloque extends Model
   public $timestamps = true;
   protected $fillable  = ['id','date','etat','service_id'];
   public const ETATS = [
-    ''=> 'En Cours',
+    ''=> 'En cours',
     0 => 'Annulé',  
     1 => 'Cloturé'
   ];

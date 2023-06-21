@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\modeles\specialite_exb;
 use App\modeles\consultation;
@@ -14,9 +14,8 @@ use App\modeles\service;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use ToUtf;
-use Response;
-//use View;
+use App\Helpers\Utf8;
+use Response;//use View;
 class DemandeExbController extends Controller
 {
   /**
@@ -140,24 +139,33 @@ class DemandeExbController extends Controller
      }
     public function uploadresultat(Request $request)
     {
-      $request->validate(
-        ['resultat' => 'required|mimes:png,JPG,jpeg,csv,txt,pdf'
-      ]);
-      $filename= "";
+      $fResname= ""; $fCrbname= "";
+      $validator = Validator::make($request->all(), [
+         'resultat' => 'required|mimes:png,JPG,jpeg,csv,txt, pdf']);
+      if ($validator->fails())
+        return back()->withInput($request->input())->withErrors($validator->errors());
       $demande = demandeexb::FindOrFail($request->id);
-      if($request->hasfile('resultat')){
+      if($request->hasfile('resultat'))
+      {
         $ext = $request->file('resultat')->getClientOriginalExtension();
-        $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
+        $fResname = Utf8::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
         $file = file_get_contents($request->file('resultat')->getRealPath());
-        $request->file('resultat')->storeAs('/files',$filename);  
-        $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
+        $request->file('resultat')->storeAs('/files',$fResname);  
       }
+      if($request->hasfile('crbFile'))
+      {
+        $ext = $request->file('crbFile')->getClientOriginalExtension();
+        $fCrbname = Utf8::cleanString(pathinfo($request->file('crbFile')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
+        $file = file_get_contents($request->file('resultat')->getRealPath());
+        $request->file('resultat')->storeAs('/files',$fCrbname);  
+      }
+      $demande->update([ "etat" => 1, "resultat" =>$fResname ,"crb"  => $request->crb,"crbfile"=>$fCrbname ]);
       return  redirect()->action('DemandeExbController@index');
     }
     public function downloadRes($id)
     {
       $demande = demandeexb::FindOrFail($id);
-     $path = storage_path().'/'.'app'.'/files/'. $demande->resultat;
+      $path = storage_path().'/'.'app'.'/files/'. $demande->resultat;
       if (file_exists($path))
         return Response::download($path);
     }

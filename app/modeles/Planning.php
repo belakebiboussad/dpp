@@ -18,7 +18,7 @@ class Planning extends Model
       3 => 'Autre'
     ];
     public const STATES = [
-      ''=> 'en Cours',
+      ''=> 'En cours',
       0 => 'Annule',
       1 => 'Valide'
     ];

@@ -8,18 +8,23 @@
     <div class="widget-body">
       <div class="widget-main padding-8">
         <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree"> 
-          @foreach($demandesExB as $demande)
-            <li>
-            @if($demande->getEtatID() === 1)
-                  <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey bigger-110" aria-hidden="true" ></i>  {{ $demande->resultat }}</a>
-                  @isset($demande->crb)    
-                  <a href="{{ route('crbs.download',$demande->id )}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
-                  @endisset
-              @else
-               <button id="uploadBio" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
-              @endif
-               <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
-                  {{ $demande->imageable->date->format('d/m/Y') }}) </span>  
+        @foreach($demandesExB as $demande)
+        <li>
+          @if($demande->getEtatID() === 1)
+            <a href="/storage/files/{{ $demande->resultat }}" title="téléchager le résultat" target="_blank"><i class="ace-icon fa fa-file-text grey bigger-110" aria-hidden="true" ></i>  {{ $demande->resultat }}</a>
+            @isset($demande->crb)    
+            <a href="{{ route('crbs.download',$demande->id )}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Compte rendu</a>
+            @endisset
+            <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
+                  {{ $demande->imageable->date->format('d/m/Y') }}) </span>
+          @else{{-- //consultation de meme service --}}
+            @if($demande->imageable->medecin->service_id == Auth::user()->employ->service_id)
+            <button id="uploadBio" data-id ="{{ $demande->id }}" data-toggle="modal"  tabindex="-1" data-toggle="tooltip"  title="uploader le résultat"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+            <span class="smaller-80">({{ ($demande->imageable_type === 'App\modeles\visite')?'Visite':'Consultation' }} du 
+                  {{ $demande->imageable->date->format('d/m/Y') }})</span>
+            @endif
+          @endif
+              
             </li>
         @endforeach
         </ul>

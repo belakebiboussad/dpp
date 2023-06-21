@@ -9,7 +9,7 @@ class DemandeHospitalisation extends Model
     2 => 'Urgence',
   ];
   public const STATES = [
-    ''=> 'en Cours',
+    ''=> 'En cours',
     0 => 'Annule',
     1 => 'Programme',
     2 => 'Admise',

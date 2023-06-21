@@ -128,7 +128,7 @@ $(function(){
             <tr id="{{ 'demandeBio'.$consultation->demandeexmbio->id }}">
               <td>{{ $consultation->date->format('Y-m-d') }}</td>
               <td class="center">{!! $formatStat
-($consultation->demandeexmbio) !!}</td>
+($consultation->demandeexmbio->etat) !!}</td>
               <td class="center" width="30%">
               <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"> <i class="fa fa-hand-o-up fa-xs"></i></a>
               @if($consultation->medecin->id == Auth::user()->employ->id)
@@ -168,7 +168,7 @@ $(function(){
             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
               <td>{{ $consultation->date->format('Y-m-d') }}</td>
               <td class="center">{!! $formatStat
-($consultation->demandExmImg) !!}</td>
+($consultation->demandExmImg->etat) !!}</td>
               <td class="center" width="30%">
                 <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                 @if($consultation->medecin->id == Auth::user()->employ->id)
@@ -244,7 +244,7 @@ $(function(){
               <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
               <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
               <td class="center">{!! $formatStat
-($consultation->demandeHospitalisation) !!}</td>
+($consultation->demandeHospitalisation->etat) !!}</td>
               <td class="center">   
                <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
 <a href="{{ route('demandehosp.edit', $consultation->demandeHospitalisation->id) }}" class="btn btn-xs btn-success{!! $isInprog($consultation->demandeHospitalisation) !!}" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>

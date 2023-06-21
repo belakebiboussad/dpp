@@ -6,7 +6,7 @@
   var url = '{{ route("demandeexr.index") }}';
   function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexr/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>';
-    if(data.etat == "En Cours")
+    if(data.etat == "En cours")
       actions +=' <a href="/details_exr/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';          
      return actions;
   } 
@@ -28,7 +28,7 @@
           <div class="form-group"><label class="control-label">Etat</label>
             <select  id="etat" class="selectpicker form-control filter">
               <option selected disabled>Selectionner...</option>
-              <option value="">En Cours</option>
+              <option value="">En cours</option>
               <option value="1">Validée</option>{{-- <option value="0">Rejeté</option> --}}
             </select>
           </div>
@@ -80,7 +80,7 @@
                         <td>                    
                          {{ $demande->imageable->patient->full_name }} <small class="text-primary"> ({{ ($demande->imageable_type === 'App\modeles\visite')?'Hospitalisation':'Consultation' }})</small>
                         </td>
-                        <td class="center"> {!! $formatStat($demande) !!}</td>
+                        <td class="center"> {!! $formatStat($demande->etat) !!}</td>
                         <td class="center">
                           <a href="{{ route('demandeexr.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
                             <a href="/details_exr/{{ $demande->id}}" class="btn btn-xs btn-info"> <i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>

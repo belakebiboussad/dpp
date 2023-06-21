@@ -279,7 +279,7 @@ $(function(){
             Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
             title:'<strong>êtes-vous sûr ?</strong>',
             type:'warning',
-            html: '<br/><h4>Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours</h4><br/><hr/>',
+            html: '<br/><h4>Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation En cours</h4><br/><hr/>',
             showCancelButton: true,
             allowOutsideClick: false,
             confirmButtonColor: '#3085d6',

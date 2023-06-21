@@ -5,12 +5,9 @@ namespace App\Helpers;
 use Carbon\Carbon;
 class StatsHelper
 {
-  public static function formatStat($obj)
+  public static function formatStat($etat)
   {
-    if(is_null($obj))
-      return ;
-    else
-    return '<span class="badge badge-'.(($obj->getEtatID() ==="") ? 'primary':'warning').'">'.$obj->etat.'</span>';
+    return '<span class="badge badge-'.(($etat ==="En cours") ? 'primary':'warning').'">'.$etat.'</span>';
   }
   public static function isInprog($stat)
   {

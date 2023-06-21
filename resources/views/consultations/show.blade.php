@@ -82,7 +82,7 @@
             <td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
             <td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
             <td class="center">{!! $formatStat
-($consultation->demandeHospitalisation) !!}</td>
+($consultation->demandeHospitalisation->etat) !!}</td>
             <td class="center">
          <a href="{{ route('demandehosp.show', $consultation->demandeHospitalisation->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Détails demande" data-placement="bottom">
           <i class="fa fa-hand-o-up fa-xs" aria-hidden="true"></i></a>
@@ -154,7 +154,7 @@
                           <tr>
                             <td>{{ $consultation->date->format('Y-m-d') }}</td>
                             <td>{!! $formatStat
-($consultation->demandeexmbio) !!}</td>
+($consultation->demandeexmbio->etat) !!}</td>
                             <td class="center">
                             <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                             @if(($consultation->medecin->id) === (Auth::user()->employ->id))
@@ -191,7 +191,7 @@
                             <tr id="{{ 'demandeRad'.$consultation->demandExmImg->id }}">
                             <td>{{ $consultation->date->format('Y-m-d') }}</td>
                             <td>{!! $formatStat
-($consultation->demandExmImg) !!}</td>
+($consultation->demandExmImg->etat) !!}</td>
                             <td class="center">
                               <a href="{{ route('demandeexr.show', $consultation->demandExmImg->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                               @if(!$consultation->demandExmImg->hasResult())
