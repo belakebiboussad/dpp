@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 use App\modeles\Etablissement;
 use Illuminate\Http\Request;
-use App\modeles\etabtype;
-use ToUtf;
+use App\modeles\etabtype;//use ToUtf;
 use Storage;
 use File;
+use App\Helpers\Utf8;
 class EtablissementControler extends Controller
 {
 	public function index() 
@@ -27,7 +27,7 @@ class EtablissementControler extends Controller
    		]);
   		if($request->hasfile('logo'))
     		{
-	   		$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+	   		$filename = Utf8::cleanString($request->file('logo')->getClientOriginalName());
 	 	  	$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
 	 	}
     $input = $request->all();
@@ -54,7 +54,7 @@ class EtablissementControler extends Controller
     if($etab->logo != "")
       $path = public_path() . '/img/' . $etab->logo;
     if($request->hasfile('logo')) {//file uploaded
-      $filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+      $filename = Utf8::cleanString($request->file('logo')->getClientOriginalName());
       if(($path != "") && (file_exists($path)))//has logo
       {
         if((filesize($path) !== filesize($request->file('logo'))) || ($etab->logo != $filename))//uploaded diff to logo

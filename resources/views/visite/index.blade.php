@@ -26,9 +26,9 @@
 						<td>{{ $visite->date_formated }}</td>
             <td>{{ $visite->heure }}</td>
 						<td class="center">{!! $formatStat
-($visite->demandeexmbio) !!}</td>
+($visite->demandeexmbio->etat) !!}</td>
             <td>{!! $formatStat
-($visite->demandExmImg) !!}</td>
+($visite->demandExmImg->etat) !!}</td>
 					  <td class="center">
               <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
               @if($visite->date->isToday())

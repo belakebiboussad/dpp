@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\modeles\specialite_exb;
 use App\modeles\consultation;
@@ -14,9 +14,8 @@ use App\modeles\service;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use ToUtf;
-use Response;
-//use View;
+use App\Helpers\Utf8;
+use Response;//use View;
 class DemandeExbController extends Controller
 {
   /**
@@ -50,7 +49,7 @@ class DemandeExbController extends Controller
       {
         $services =service::where('type',0)->orwhere('type',1)->get();
         $demandesexb = demandeexb::with('imageable')->whereNull('etat')->OrderBy('id','desc')->get();
-         return view('examenbio.index', compact('demandesexb','services'));
+        return view('examenbio.index', compact('demandesexb','services'));
       }
     }
 /**
@@ -64,12 +63,12 @@ class DemandeExbController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)//,$consultId
+  public function store(Request $request)
   {
     if($request->ajax())    
     { 
       if(isset($request->consultation_id))
-        $obj = consultation::findOrFail($request->consultation_id);
+             $obj = consultation::findOrFail($request->consultation_id);
       else
         $obj = visite::findOrFail($request->visite_id);
       $db = $obj->demandeexmbio()->create();
@@ -84,15 +83,23 @@ class DemandeExbController extends Controller
      */
     public function show($id)
     {
-      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      return view('examenbio.show', compact('demande'));
+          $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+          return view('examenbio.show', compact('demande'));
     }
-     public function detailsdemandeexb($id)
-    {
-      $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
-      $etab = Etablissement::first();
-      return view('examenbio.details', compact('demande','etab'));
-    }
+        public function resultAdd(Request $request,$id)
+       {
+             if($request->ajax())    
+            {
+                    $demande = demandeexb::FindOrFail($id);
+                    $html = view("examenbio.uploadResFrm",compact('demande'))->render();
+                    return($html);
+            }else
+            {
+                   $demande = demandeexb::with('imageable.patient','imageable.medecin')->FindOrFail($id);
+                  $etab = Etablissement::first();
+                  return view('examenbio.add', compact('demande','etab'));
+            }
+      }
     /**
      * Show the form for editing the specified resource.
      *
@@ -140,24 +147,33 @@ class DemandeExbController extends Controller
      }
     public function uploadresultat(Request $request)
     {
-      $request->validate(
-        ['resultat' => 'required|mimes:png,JPG,jpeg,csv,txt,pdf'
-      ]);
-      $filename= "";
+      $fResname= ""; $fCrbname= "";
+      $validator = Validator::make($request->all(), [
+         'resultat' => 'required|mimes:png,JPG,jpeg,csv,txt, pdf']);
+      if ($validator->fails())
+        return back()->withInput($request->input())->withErrors($validator->errors());
       $demande = demandeexb::FindOrFail($request->id);
-      if($request->hasfile('resultat')){
+      if($request->hasfile('resultat'))
+      {
         $ext = $request->file('resultat')->getClientOriginalExtension();
-        $filename = ToUtf::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
+        $fResname = Utf8::cleanString(pathinfo($request->file('resultat')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
         $file = file_get_contents($request->file('resultat')->getRealPath());
-        $request->file('resultat')->storeAs('/files',$filename);  
-        $demande->update([ "etat" => 1, "resultat" =>$filename ,"crb"  => $request->crb  ]);
+        $request->file('resultat')->storeAs('/files',$fResname);  
       }
+      if($request->hasfile('crbFile'))
+      {
+        $ext = $request->file('crbFile')->getClientOriginalExtension();
+        $fCrbname = Utf8::cleanString(pathinfo($request->file('crbFile')->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.'.$ext;
+        $file = file_get_contents($request->file('resultat')->getRealPath());
+        $request->file('resultat')->storeAs('/files',$fCrbname);  
+      }
+      $demande->update([ "etat" => 1, "resultat" =>$fResname ,"crb"  => $request->crb,"crbfile"=>$fCrbname ]);
       return  redirect()->action('DemandeExbController@index');
     }
     public function downloadRes($id)
     {
       $demande = demandeexb::FindOrFail($id);
-     $path = storage_path().'/'.'app'.'/files/'. $demande->resultat;
+      $path = storage_path().'/'.'app'.'/files/'. $demande->resultat;
       if (file_exists($path))
         return Response::download($path);
     }

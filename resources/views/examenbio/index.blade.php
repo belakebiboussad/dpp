@@ -6,8 +6,8 @@
   var url = '{{ route("demandeexb.index") }}';
  	function getAction(data, type, dataToSet) {
     var actions = '<a href = "/demandeexb/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-    if(data.etat == "En Cours")
-      actions +=' <a href="/detailsdemandeexb/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
+    if(data.etat == "En cours")
+      actions +=' <a href="/bioResultAdd/'+data.id+'" class="btn btn-info btn-xs" title="attacher résultat"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>';                
     return actions;
   }
  	$(function(){
@@ -28,7 +28,7 @@
 	      			<div class="form-group"><label>Etat</label>
 	      				<select  id="etat" class="form-control selectpicker show-menu-arrow  filter">
 		         			<option val="" selected disabled>Selectionner...</option>
-		         			<option value="">En Cours</option><option value="1">Validée</option>
+		         			<option value="">En cours</option><option value="1">Validée</option>
 	         	    </select>
 	         		</div>
 	         	</div>
@@ -80,10 +80,10 @@
                 <td>{{ $demande->imageable->patient->full_name }}<small class="text-primary"> ({{ ($demande->imageable_type === 'App\modeles\visite')?'Hospitalisation':'Consultation' }})</small>
                 </td>
               	<td>{!! $formatStat
-($demande) !!}</td>
+($demande->etat) !!}</td>
 								<td class="center">
 								  <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
-		    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>
+		    					<a href="{{route('bioResultAdd', $demande->id)}}" title="attacher résultat" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i></a>
 								</td>
 							</tr>
 						@endforeach

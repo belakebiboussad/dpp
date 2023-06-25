@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class rdv extends Model
 {
   public const STATES = [
-    ''=> 'en Cours',
+    ''=> 'En cours',
     0 => 'Annule',
     1 => 'valide',
   ];

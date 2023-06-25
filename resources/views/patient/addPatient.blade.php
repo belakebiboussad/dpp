@@ -10,8 +10,8 @@
 	<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }} col-sm-6">
 		<label class="col-sm-3 control-label required" for="prenom">Prénom</label>
 		<div class="col-sm-9">
-			<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control" value="{{ old('prenom') }}" />
-			{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
+			<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control" value="{{ old('prenom') }}" />{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
+			
 		</div>
 	</div>
 </div>

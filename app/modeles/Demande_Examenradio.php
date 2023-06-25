@@ -10,7 +10,7 @@ class Demande_Examenradio extends Model
   protected $table = "demande_examenradio";
   protected $fillable = ['demande_id','exm_id','type_id','resultat','etat','observation','crr_id'];
   public const ETATS = [
-    ''=> 'En Cours',
+    ''=> 'En cours',
     0 => 'Rejeté',  
     1 => 'Validé'
   ];

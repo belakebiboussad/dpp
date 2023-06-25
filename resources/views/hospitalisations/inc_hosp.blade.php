@@ -13,7 +13,7 @@
     <li><i class="ace-icon fa fa-caret-right blue"></i>Date d'entrée : {{$hosp->date->format('Y-m-d') }}</li>     
     <li><i class="ace-icon fa fa-caret-right blue"></i>Date sortie prévue : {{ $hosp->Date_Prevu_Sortie->format('Y-m-d') }}</li>
     <li><i class="ace-icon fa fa-caret-right blue"></i>Etat : {!! $formatStat
-($hosp) !!}</li>
+($hosp->etat) !!}</li>
   </ul>
   </div>
 </div>

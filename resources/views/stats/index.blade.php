@@ -42,7 +42,7 @@
       <div class="widget-body">
         <div class="widget-icon green pull-left"><i class="fa fa-cogs bigger-180"></i></div>
         <div class="widget-content pull-left"><div class="title"> {{ $hospCount }}</div>
-          <div class="comment">Hospitalisation En cours</div>
+          <div class="comment">Hospitalisation en cours</div>
         </div><div class="clearfix"></div>
       </div>
     </div>

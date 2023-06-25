@@ -5,7 +5,7 @@
  	$field ="etat";
  	function getAction(data, type, dataToSet) {
  		var actions = '<a href = "/demandeproduit/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
- 	  if(data.etat == "En Cours")
+ 	  if(data.etat == "En cours")
     {
       if('{{ Auth::user()->is(14) }}')
  		  {
@@ -102,7 +102,7 @@
     			<div class="form-group"><label>Etat</label>
     				<select  id="etat" class="selectpicker show-menu-arrow  form-control filter">
          			<option selected disabled>Selectionner...</option>
-         			<option value="">En Cours</option>
+         			<option value="">En cours</option>
          			<option value="1">Validée</option><option value="0">Rejetée</option>
          		</select>
        		</div>
@@ -151,7 +151,7 @@
 										<td>{{is_null($demande->id_employe)? '' :$demande->demandeur->Service->nom }}</td>
                     <td>{{ $demande->demandeur->full_name }}</td> 
                     <td class="center">{!! $formatStat
-($demande)!!}</td>
+($demande->etat)!!}</td>
                     <td class="center">
 										<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails"><i class="ace-icon fa fa-hand-o-up"></i></a>
 										@if(Auth::user()->is(14))

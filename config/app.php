@@ -184,7 +184,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         //MaddHatter\LaravelFullcalendar\ServiceProvider::class,
-       // App\Providers\ToUtfServerProvider::class,
+        App\Providers\ToUtfServerProvider::class,
     ],
 
     /*

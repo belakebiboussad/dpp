@@ -10,7 +10,7 @@
         <div class="profile-info-row">
           <div class="profile-info-name col-sm-3">Etat</div>
           <div class="profile-info-value col-sm-9">{!! $formatStat
-($demande) !!}</div>
+($demande->etat) !!}</div>
         </div>
       </div> 
       @if($demande->motif)

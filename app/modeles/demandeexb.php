@@ -6,9 +6,9 @@ class demandeexb extends Model
 {
   public $timestamps = false;
   protected $table = "demandeexb";
-  protected $fillable = ['etat','resultat','imageable_id','imageable_type','crb'];
+  protected $fillable =['etat','resultat','imageable_id','imageable_type','crb','crbfile'];
   public const ETATS = [
-    ''=> 'En Cours',
+    ''=> 'En cours',
     0 => 'Rejetée',  
     1 => 'Validée'
   ];

@@ -19,7 +19,7 @@
 						@foreach($patient->hospitalisations as $hosp)
 						<tr>
 							<td>{{ $hosp->date->format('y-m-d') }}</td><td>{{ $hosp->medecin->full_name }}</td>
-					<td>{{ empty($hosp->getEtatID()) ? $formatDate($hosp->Date_Prevu_Sortie) : $formatDate($hosp->Date_Sortie) }}</td><td>{!! $formatStat($hosp) !!}</td>
+					<td>{{ empty($hosp->getEtatID()) ? $formatDate($hosp->Date_Prevu_Sortie) : $formatDate($hosp->Date_Sortie) }}</td><td>{!! $formatStat($hosp->etat) !!}</td>
           <td>
           <button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});">
                  <i class="ace-icon fa fa-eye-slash fa-2xs"></i></button>

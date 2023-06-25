@@ -5,12 +5,9 @@ namespace App\Helpers;
 use Carbon\Carbon;
 class StatsHelper
 {
-  public static function formatStat($obj)
+  public static function formatStat($etat)
   {
-    if(is_null($obj))
-      return ;
-    else
-    return '<span class="badge badge-'.(($obj->getEtatID() ==="") ? 'primary':'warning').'">'.$obj->etat.'</span>';
+    return '<span class="badge badge-'.(($etat ==="En cours") ? 'primary':'warning').'">'.$etat.'</span>';
   }
   public static function isInprog($stat)
   {
@@ -19,6 +16,10 @@ class StatsHelper
   public static function formatDate(Carbon $date)
   {
        return $date->format('Y-m-d');
+  }
+  public static function formatDateF(Carbon $date)
+  {
+       return $date->format('d/m/Y');
   }
   public static function formatString($collection, $field1, $field2)
   {

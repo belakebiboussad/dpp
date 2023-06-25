@@ -20,7 +20,7 @@
 						<td>{{ $rdv->date->format('Y-m-d') }}</td><td>{{ $rdv->fixe ? 'Oui' : 'Non' }}</td>
 						<td>{{$rdv->specialite->nom }}</td>
             <td>{{ isset($rdv->employ_id) ? $rdv->employe->full_name :'' }}</td> 
-		<td class="center">{!! $formatStat($rdv)!!}</td>
+		<td class="center">{!! $formatStat($rdv->etat)!!}</td>
             <td class="center">
           	  @if(Carbon\Carbon::today()->lte($rdv->date->format('Y-m-d H:i:s')) &&($rdv->etat != "Annule"))
             <a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier"><i class="fa fa-edit blue"></i></a>

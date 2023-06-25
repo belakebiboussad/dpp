@@ -11,7 +11,7 @@ class hospitalisation extends Model
     //modeSorie =[''=>Dom, '0'=>Trans, '1'=>,Contreaviméd, '2'=>Déc,'3'=>Repor]
     protected $dates =['date','Date_Prevu_Sortie','Date_Sortie'];
     protected $appends = ['nb_days'];
-    public const STATES = [''=> 'en Cours', 1 => 'Cloturée'];
+    public const STATES = [''=> 'En cours', 1 => 'cloturée'];
     public function getHeurSorFormattedAttribute()
     {
       return \Carbon\Carbon::parse($this->Heure_sortie)->format('H:i');

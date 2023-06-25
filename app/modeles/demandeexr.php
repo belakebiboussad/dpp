@@ -9,7 +9,7 @@ class demandeexr extends Model
   protected $table = "demandeexr";
   protected $fillable = ['InfosCliniques', 'Explecations', 'etat','imageable_id','imageable_type'];
   public const ETATS = [
-      ''=> 'En Cours',
+      ''=> 'En cours',
       0 => 'Rejetée',  
       1 => 'Validée'
   ];

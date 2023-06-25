@@ -11,7 +11,7 @@ class demand_produits extends Model
   protected $fillable  = ['date','etat','id_employe','motif'];
   protected $dates =['date'];
   public const ETATS = [
-    ''=> 'En Cours',
+    ''=> 'En cours',
     0 => 'Rejetée',  
     1 => 'Validée'
   ];

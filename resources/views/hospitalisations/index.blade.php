@@ -41,8 +41,7 @@
      function getAction(data, type, dataToSet) {
       var rols = [ 1,3,5,13,14 ];var medRols=[1,13,14]; var infRols = [3,5];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-      //alert(data.etat);
-      if(data.etat == "en Cours")                
+      if(data.etat == "En cours")                
       {
         if($.inArray({{  Auth::user()->role_id }}, medRols) > -1){
          actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
@@ -135,7 +134,7 @@
                },
               { data: "etat" ,
                 render: function(data, type, row){
-                      classe = (row.etat == 'Cloturée') ? 'success' : 'primary';
+                      classe = (row.etat == 'cloturée') ? 'success' : 'primary';
                       return '<span class="badge badge-'+ classe +'">' + row.etat +'</span>'; 
                 },title:'Etat', "orderable":false 
               },//9
@@ -300,7 +299,7 @@
                     <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->Service->nom }}</td>
                     <td class="priority-6">{{ (isset($hosp->medecin)) ? $hosp->medecin->full_name : ''  }}</td>
                     <td class="priority-6">{{ (isset($hosp->garde)) ? $hosp->garde->full_name : ''  }}</td>
-                    <td class="priority-6" ><span class="badge badge-pill badge-primary">{{is_null($hosp->etat) ? 'En Cours': $hosp->etat}}</span>
+                    <td class="priority-6" ><span class="badge badge-pill badge-primary">{{is_null($hosp->etat) ? 'En cours': $hosp->etat}}</span>
                     <td class ="center"  width="12%">
                       <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
                       @if(Auth::user()->isIn([1,5,13,14]))

@@ -162,24 +162,46 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-     public function show(patient $patient)
-     {  
-        $id = $patient->id ;
-        $specialites = Specialite::all();
-        $employe=Auth::user()->employ;
-        $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-        $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        $demandesExB= demandeexb::whereHas('visite', function($query) use($id){
-                                    $query->where('pid', $id);
-                                 })->orWhereHas('consultation',function($q) use($id){
-                                    $q->where('pid', $id);   
-                                })->get();
-       $demandesExR= demandeexr::whereHas('visite', function($query) use($id){
-                                    $query->where('pid', $id);
-                                })->orWhereHas('consultation',function($q) use($id){
-                                    $q->where('etat',1)->where('pid', $id);   
-                                })->get();
-       return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
+  public function show(patient $patient)
+  {  
+       $id = $patient->id ;
+       $specialites = Specialite::all();
+       $employe=Auth::user()->employ;
+       $serv_id =  $employe->service_id;
+       $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+       $ids =[$id,$serv_id ];
+      $demandesCExB= demandeexb::whereHas('visite', function($q) use($ids){
+                    $q->whereHas('medecin',function($q) use($ids){
+                            $q->where('service_id', $ids[1]); 
+                    })->where('pid', $ids[0]);
+                    })->orWhereHas('consultation',function($q) use($ids){
+                          $q->whereHas('medecin',function($q) use($ids){
+                                  $q->where('service_id', $ids[1]); 
+                          })->where('pid', $ids[0]);
+                    })->whereNull('etat')->get();
+      $demandesVExB= demandeexb::whereHas('visite', function($q) use($patient){
+                    $q->where('pid', $patient->id);
+                 })->orWhereHas('consultation',function($q) use($patient){
+                    $q->where('pid', $patient->id);   
+                })->where('etat',1)->get();
+ $demandesCExR= demandeexr::whereHas('visite', function($q) use($ids){
+                    $q->whereHas('medecin',function($q) use($ids){
+                            $q->where('service_id', $ids[1]); 
+                    })->where('pid', $ids[0]);
+                    })->orWhereHas('consultation',function($q) use($ids){
+                          $q->whereHas('medecin',function($q) use($ids){
+                                  $q->where('service_id', $ids[1]); 
+                          })->where('pid', $ids[0]);
+                    })->whereNull('etat')->get();
+$demandesVExR= demandeexr::whereHas('visite', function($query) use($patient){
+                                $query->where('pid', $patient->id);
+                            })->orWhereHas('consultation',function($q) use($patient){
+                                $q->where('etat',1)->where('pid', $patient->id);   
+                            })->get();
+$demandesExB = $demandesVExB->merge($demandesCExB);
+$demandesExR = $demandesVExR->merge($demandesCExR);
+ return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','demandesExB','demandesExR'));
   }
 /**
  * Show the form for editing the specified resource.
@@ -206,8 +228,7 @@ class PatientController extends Controller
   public function update(Request $request, patient $patient)
   { 
     $rule = array(
-      "nom" => 'required',
-      "prenom" => 'required',
+      "nom" => 'required',"prenom" => 'required',
       "type" => 'required',
       "nomf" => 'required_if:type,2,3,4,5',
       "prenomf" => 'required_if:type,2,3,4,5',

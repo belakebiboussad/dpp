@@ -10,7 +10,7 @@ class Constante extends Model
   {
     return str_replace(',', '.', $value);
   }
-  protected $table = 'constantesListe';
+  protected $table = 'constantesliste';
   public $timestamps = false;
   protected $fillable = ['nom','description','normale','step','min','max','lwrang','hnrang','color','unite'];
 }

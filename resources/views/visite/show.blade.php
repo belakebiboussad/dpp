@@ -115,7 +115,7 @@
 						 <td>{{ $exm->nom }}</td>
 						@if($loop->first)
             	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">{!! $formatStat
-($visite->demandeexmbio) !!}</td>
+($visite->demandeexmbio->etat) !!}</td>
             @endif 
 						@if($loop->first)
 			        <td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
@@ -150,7 +150,7 @@
 						<tr>
 							<td>{{ $visite->date_formated }}</td>
 							<td class="center">{!! $formatStat
-($visite->demandExmImg) !!}</td>
+($visite->demandExmImg->etat) !!}</td>
 							<td class="center">
 								<a href="{{ route('demandeexr.show', $visite->demandExmImg->id) }}"><i class="ace-icon fa fa-eye-slash"></i></a>
 								<a href="/drToPDF/{{ $visite->demandExmImg->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>

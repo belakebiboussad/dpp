@@ -67,10 +67,10 @@ $(function(){
                         <tr id = "{{ $ex->id }}">
                           <td class="center" width="5%">{{ $index +1}}</td><td>{{ $ex->Examen->nom }}</td>
                           <td>{{ $ex->Type->nom }}</td><td>{!! $formatStat
-($ex) !!}</td>
+($ex->etat) !!}</td>
                           <td class="center" width="20%">
                             @switch($ex->etat)
-                              @case('En Cours')
+                              @case('En cours')
                                 @break
                               @case('Validé')
                                 @if((pathinfo($ex->resultat, PATHINFO_EXTENSION) == 'dcm')||(pathinfo($ex->resultat, PATHINFO_EXTENSION) == ""))
