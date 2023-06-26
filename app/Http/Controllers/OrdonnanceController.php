@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\consultation;
-use App\modeles\patient;
+use App\modeles\Patient;
 use App\modeles\employ;
 use App\modeles\ordonnance;
 use App\modeles\medicament;
@@ -33,7 +33,7 @@ class OrdonnanceController extends Controller
     public function create($id_consultation)
     {
       $consultation = consultation::where("id",$id_consultation)->get()->first();
-      $patient = patient::where("id",$consultation->pid)->first();
+      $patient = Patient::where("id",$consultation->pid)->first();
       return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
     /**

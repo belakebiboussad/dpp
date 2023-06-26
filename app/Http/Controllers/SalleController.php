@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\service;
-use App\modeles\patient;
 use App\modeles\DemandeHospitalisation;
 use Validator;
 use Redirect;

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\modeles\patient;
+use App\modeles\Patient;
 use App\modeles\Vaccin;
 use Response;
 use DB;
@@ -18,7 +18,7 @@ class VaccinController extends Controller
   }
   public function update(Request $request,$id)
   {
-    $patient = patient::findOrFail($request->pid);
+    $patient = Patient::findOrFail($request->pid);
     $vac = $patient->vaccins()->find($id);
     $vac->pivot->vaccin_id = $request->vaccinid;
     $vac->pivot->date = $request->date;
@@ -27,7 +27,7 @@ class VaccinController extends Controller
   }
   public function store(Request $request)
   {
-    $patient = patient::findOrFail($request->pid);
+    $patient = Patient::findOrFail($request->pid);
     $patient->vaccins()->attach($request->vaccinid, ['date' => $request->date]);
     //return Response::json($patient->vaccins()->find($request->vaccinid)->pivot);
     return $patient->vaccins()->find($request->vaccinid)->pivot;

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\modeles\rdv;
-use App\modeles\patient;
+use App\modeles\Patient;
 use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
@@ -70,9 +70,9 @@ class RDVController extends Controller
         $shareApp = Auth::user()->employ->Service->Specialite->Parameters->find(4)['pivot']['value'];
       $specialites = Specialite::where('type','!=',null)->get();
       if(isset($request->patient_id))
-        $patient = patient::FindOrFail( $request->patient_id);
+        $patient = Patient::FindOrFail( $request->patient_id);
       else
-        $patient = new patient;
+        $patient = new Patient;
       if(Auth::user()->isIn([1,13,14])) 
       {  
         $specialite_id = (isset(Auth::user()->employ->specialite)) ? Auth::user()->employ->specialite : Auth::user()->employ->Service->specialite_id;
@@ -122,7 +122,7 @@ class RDVController extends Controller
           return response()->json(['errors'=>$validator->errors()->all()]);
         if($request->ajax())
         { 
-          $patient = patient::find($request->pid);
+          $patient = Patient::find($request->pid);
           $rdv = $patient->rdvs()->create([
             "date"=>new DateTime($request->date),
             "fin" =>new DateTime($request->fin),

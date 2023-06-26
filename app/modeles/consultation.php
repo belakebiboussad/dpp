@@ -15,7 +15,7 @@ class consultation extends Model
     }
     public function patient()
     {
-        return $this->belongsTo('App\modeles\patient','pid');
+        return $this->belongsTo('App\modeles\Patient','pid');
     }
     public function examensCliniques()
     {

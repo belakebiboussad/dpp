@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\modeles\homme_conf;
-use App\modeles\patient;
 use Auth;
 class HommeConfianceController extends Controller
 {

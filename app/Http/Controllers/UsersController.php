@@ -16,7 +16,6 @@ use App\modeles\service;
 use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
-use App\modeles\patient;
 use Hash;
 use View;//use Response;
 class UsersController extends Controller

@@ -51,7 +51,7 @@ class hospitalisation extends Model
     }
     public function patient()
     {
-        return $this->belongsTo('App\modeles\patient','patient_id');
+        return $this->belongsTo('App\modeles\Patient','patient_id');
     }
        public function modeHospi()
       {

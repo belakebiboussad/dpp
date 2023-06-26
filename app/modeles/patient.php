@@ -2,7 +2,7 @@
 namespace App\modeles;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-class patient extends Model
+class Patient extends Model
 {
 	public $timestamps = true;
 	protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','dob','pob','Sexe','sf' ,'Adresse','commune_res','mob','mob2','NSS','gs','rh','assur_id','nationalite','prof_id','type_id','description','active'];

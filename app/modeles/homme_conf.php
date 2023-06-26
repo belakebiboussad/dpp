@@ -32,7 +32,7 @@ class homme_conf extends Model
   }
   public function patient()
 	{
-		return $this->belongsTo('App\modeles\patient','id_patient');
+		return $this->belongsTo('App\modeles\Patient','id_patient');
 	}
   public function getAgeAttribute()  {
     return (Carbon::createFromDate(date('Y', strtotime($this->date_naiss)), date('m', strtotime($this->date_naiss)), date('d', strtotime($this->date_naiss)))->age);

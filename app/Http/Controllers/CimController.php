@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CIM\chapitre;
 use App\modeles\CIM\sChapitre;
-use App\modeles\patient;
+use App\modeles\Patient;
 class CimController extends Controller
 {
   public function __construct()
@@ -24,13 +24,13 @@ class CimController extends Controller
   }
   public function store(Request $request)
   {
-    $patient = patient::findOrFail($request->pid);
+    $patient = Patient::findOrFail($request->pid);
     $patient->ContagDesease()->attach($request->maladie_id);
     return $request->maladie_id;
   }
   public function destroy(Request $request,$id)
   {
-    $patient = patient::findOrFail($request->pid);
+    $patient = Patient::findOrFail($request->pid);
     $all = $patient->ContagDesease()->detach($id);
     return $all;
   }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\consultation;
-use App\modeles\patient;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\dem_colloque;
 use App\User;

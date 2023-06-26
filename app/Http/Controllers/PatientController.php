@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
-use App\modeles\patient;
+use App\modeles\Patient;
 use App\modeles\PatientType;
 use App\Utils\ArrayClass;
 use App\modeles\assur;
@@ -48,19 +48,19 @@ class PatientController extends Controller
         switch(Auth::user()->employ->specialite)
         {       
           case 3 :
-                  $patients = patient::where($field,'LIKE', "$q%")->active()
+                  $patients = Patient::where($field,'LIKE', "$q%")->active()
                                       ->where('dob', '>', $sub17)->get();
                   break;
           case 5 :
-            $patients = patient::where($field,'LIKE', "$q%")->active()
+            $patients = Patient::where($field,'LIKE', "$q%")->active()
                                 ->where('Sexe','F')->get();
             break;
           case 8 :
-            $patients = patient::where($field,'LIKE', "$q%")->active()
+            $patients = Patient::where($field,'LIKE', "$q%")->active()
                                ->where('dob', '<=', $sub65)->get();
                    break;
           default :
-            $patients = patient::where($field,'LIKE', "$q%")->active()->get();
+            $patients = Patient::where($field,'LIKE', "$q%")->active()->get();
               break;    
           }
           return $patients; 
@@ -138,7 +138,7 @@ class PatientController extends Controller
         (new AssurController)->update(request(),request()->nss);  
       } 
     }  
-    $patient = patient::firstOrCreate([
+    $patient = Patient::firstOrCreate([
         "Nom"=>request()->nom,"Prenom"=>request()->prenom,
         "dob"=>$dob, "pob"=>request()->pob,
         "Sexe"=>request()->sexe,"sf"=>request()->sf,
@@ -162,7 +162,7 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-  public function show(patient $patient)
+  public function show(Patient $patient)
   {  
        $id = $patient->id ;
        $specialites = Specialite::all();
@@ -209,7 +209,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
  * @param  \App\modeles\patient  $patient
  * @return \Illuminate\Http\Response
  */
-  public function edit(patient $patient)//,$asure_id =null
+  public function edit(Patient $patient)//,$asure_id =null
   {  
     $assure=null;
     $types =PatientType::all();
@@ -225,7 +225,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
  * @param  \App\modeles\patient  $patient
  * @return \Illuminate\Http\Response
  */
-  public function update(Request $request, patient $patient)
+  public function update(Request $request, Patient $patient)
   { 
     $rule = array(
       "nom" => 'required',"prenom" => 'required',
@@ -295,7 +295,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-      public function destroy(Request $request , patient $patient)
+      public function destroy(Request $request , Patient $patient)
       {
         $patient->delete();
         if($request->ajax())        
@@ -310,19 +310,19 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
     {
         switch($request->specialite){
           case 3 ://ped
-            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('dob', '!=', null)
+            $patients = Patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->where('dob', '!=', null)
                         ->where('dob', '>', $sub17)->get();
             break;
           case 5 ://geneco
-            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+            $patients = Patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
                                 ->where('dob', '!=', null)->where('Sexe','F')->get();
             break;
           case 8  ://geriatrie
-            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+            $patients = Patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
                                 ->where('dob', '!=', null)->where('dob', '<=', $sub65)->get();
             break;
           default :
-            $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+            $patients = Patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")
                                 ->where('dob', '!=', null)->get();
              break;
            }
@@ -334,7 +334,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
   }
   public function getPatientDetails($id)
   { 
-    $patient = patient::FindOrFail($id);
+    $patient = Patient::FindOrFail($id);
     $view = view("patient.ajax_patient_detail",compact('patient'))->render();
     return $view;
   }
@@ -347,16 +347,16 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
     switch(Auth::user()->employ->specialite)
     {       
       case 3 ://ped
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('dob', '>',$sub17)->limit(15)->get();  
+        $patients = Patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('dob', '>',$sub17)->limit(15)->get();  
         break;
       case 5 ://geneco
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('Sexe','F')->limit(15)->get();
+        $patients = Patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('Sexe','F')->limit(15)->get();
         break;
       case 8 ://Geriatrie
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('dob', '<=', $sub65)->limit(15)->get();
+        $patients = Patient::where($field, 'LIKE', '%'.trim($request->q).'%')->active()->where('dob', '<=', $sub65)->limit(15)->get();
         break;
       default :
-        $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get();
+        $patients = Patient::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get();
         break;
     }
     foreach($patients as $patient){
@@ -368,16 +368,16 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
   {
     $statuses = []; $values="";
     $patientResult = new patient;
-    $patients = patient::find($request->search);
+    $patients = Patient::find($request->search);
     //   $values =$patients->toArray('id','Nom');
     return $values;
   } 
   public function patientsToMerege(Request $request)
   {
     $statuses = []; $values="";
-    $patientResult = new patient;
-    $patient1 = patient::FindOrFail($request->search[0]);
-    $patient2 = patient::FindOrFail($request->search[1]);    
+    $patientResult = new Patient;
+    $patient1 = Patient::FindOrFail($request->search[0]);
+    $patient2 = Patient::FindOrFail($request->search[1]);    
     $patients = [$patient1->getAttributes(),$patient2->getAttributes()];
     foreach ($patientResult->getFillable() as $field) {
       $values = ArrayClass::pluck($patients, $field); 
@@ -403,8 +403,8 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
   }
   public function merge(Request $request)
   {
-    $p1=patient::FindOrFail($request->pid1);
-    $p2=patient::FindOrFail($request->pid2);
+    $p1=Patient::FindOrFail($request->pid1);
+    $p2=Patient::FindOrFail($request->pid2);
     foreach ($p2->antecedants as $key => $antecedant) {
        $antecedant->update(["pid"=>$request->pid1]);  
     }

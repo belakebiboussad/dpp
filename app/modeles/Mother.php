@@ -17,6 +17,6 @@ class Mother extends Model
   }
   public function visite()
   {
-    return $this->belongsTo('App\modeles\patient','id');
+    return $this->belongsTo('App\modeles\Patient','id');
   }
 }

@@ -11,6 +11,6 @@ class antecedant extends Model
 	protected $table = "antecedants";
 	public function patient()
   {
-  	return $this->belongsTo('App\modeles\patient','pid');
+  	return $this->belongsTo('App\modeles\Patient','pid');
   }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\modeles\patient;
+use App\modeles\Patient;
 use App\modeles\consultation;
 use App\modeles\Constantes;
 use App\modeles\constante;
@@ -66,7 +66,7 @@ class ConsultationsController extends Controller
     }
     public function listecons($id)
     {
-      $patient = patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
+      $patient = Patient::with('Consultations.patient','Consultations.medecin.Specialite')->FindOrFail($id);
       $consults= consultation::with('patient','medecin.Specialite')
                               ->whereHas('patient', function($q) use ($id) {
                                 $q->where('pid', $id);
@@ -87,7 +87,7 @@ class ConsultationsController extends Controller
         $modesAdmission = config('settings.ModeAdmissions') ;
         $infossupp = infosupppertinentes::all();//$examens = TypeExam::all();//CT,RMN
         $examensradio = examenradiologique::all();//pied,poignet
-        $patient = patient::FindOrFail($pid);
+        $patient = Patient::FindOrFail($pid);
         $chapitres = chapitre::all();$services = service::all();
         $apareils = appareil::all();
         $meds = User::whereIn('role_id', [1,13,14])->get();

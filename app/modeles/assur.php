@@ -30,6 +30,6 @@ class assur extends Model
 	}
 	public function patients()
 	{
-		return $this->hasMany('App\modeles\patient','assur_id');
+		return $this->hasMany('App\modeles\Patient','assur_id');
 	}
 }

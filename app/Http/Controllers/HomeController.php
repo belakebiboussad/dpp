@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\rol;
-use App\modeles\patient;
 use App\modeles\Order;
 use App\modeles\consultation;
 use App\modeles\colloque;
@@ -169,7 +168,7 @@ class HomeController extends Controller
                         $patient = $obj->demandeHospitalisation->consultation->patient;
                         $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etab'));
                       }else
-                      {// obj =dh
+                      {
                         $patient = $obj->consultation->patient;
                         $pdf = PDF::loadView('admission.EtatsSortie.BSPDFUrg', compact('patient','etat','obj','date','etab')); 
                       }

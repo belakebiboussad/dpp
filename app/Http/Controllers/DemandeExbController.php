@@ -8,7 +8,6 @@ use App\modeles\consultation;
 use App\modeles\visite;
 use App\modeles\demandeexb;
 use App\modeles\Etablissement;
-use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\service;
 use Illuminate\Support\Collection;

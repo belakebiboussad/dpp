@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-use App\modeles\patient;
 use App\modeles\visite;
 use App\modeles\hospitalisation;
 use App\modeles\demandehospitalisations;

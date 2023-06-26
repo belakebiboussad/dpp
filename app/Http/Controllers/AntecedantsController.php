@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\modeles\patient;
 use App\modeles\antecedant;
 use Date;
 use App\Http\Controllers\Session;
@@ -53,8 +52,6 @@ class AntecedantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function edit($id){ $atcd = antecedant::FindOrFail($id);    $patient = patient::FindOrFail($atcd->pid);
-      return view('antecedents.edit',compact('atcd','patient')); }*/
     /**
      * Update the specified resource in storage.
      *
