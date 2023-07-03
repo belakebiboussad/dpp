@@ -112,7 +112,7 @@ class RDVController extends Controller
       public function store(Request $request)
       { 
         $input = $request->all();
-       if(Auth::user()->isIn([1, 13, 14]))
+        if(Auth::user()->isIn([1, 13, 14]))
         {
           $input['specialite'] = Auth::user()->employ->Service->specialite_id;
           $input['employ_id'] =Auth::user()->employe_id;

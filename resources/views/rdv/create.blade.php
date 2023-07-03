@@ -59,6 +59,10 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
           data:formData,
           success:function(data){         
             var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
+            $.each(data, function(key, value){
+              alert(key + value);
+            })
+            /*
             $('.calendar').fullCalendar( 'renderEvent',  {
                   title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                   start: debut,
@@ -73,6 +77,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
                   allDay: false,
                   color:color
             });
+            */
           }
       });
     }else
