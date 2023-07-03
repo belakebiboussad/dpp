@@ -7,20 +7,6 @@
   	</div>
     <div class="modal-body">
       <form  id ="addRdv" role="form" class="form-horizontal" action="{{ route('rdv.store') }}" method="POST"> 
-      <div class="alert alert-danger print-error-msg" style="display:none">
-      <strong>Errors:</strong> <ul></ul></div>
-      <div class="alert alert-success print-success-msg" style="display:none"></div>
-      <div class="form-group" id="error" aria-live="polite">
-        @if (count($errors) > 0)
-          <div class="alert alert-danger">
-            <ul>
-             @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-            </ul>
-          </div>
-        @endif
-      </div>
        	<input type="hidden" id="date" name="date">
         <input type="hidden" id="fin"  name="fin">
         <input type="hidden" id="fixe" name="fixe"><input type="hidden" id="pid" name="pid">

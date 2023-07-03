@@ -58,11 +58,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
           url :url,
           data:formData,
           success:function(data){         
-            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';
-            $.each(data, function(key, value){
-              alert(key + value);
-            })
-            /*
+            var color = (data['rdv']['fixe'] > 0) ? '#3A87AD':'#D6487E';  
             $('.calendar').fullCalendar( 'renderEvent',  {
                   title: data['patient']['full_name']+" ,("+data['age']+" ans)",
                   start: debut,
@@ -77,7 +73,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)//pid 0 pas de patient
                   allDay: false,
                   color:color
             });
-            */
+           
           }
       });
     }else
@@ -295,6 +291,8 @@ $(function() {
           }
           resetPatient();
         });
+        
+
       }
     });
   });
@@ -302,6 +300,9 @@ $(function() {
 @stop
 @section('main-content')
   <page-header><h1>Ajouter un rendez-vous</h1></page-header>
+  <div class="alert alert-danger print-error-msg" style="display:none">
+    <strong>Errors:</strong> <ul></ul></div>
+  <div class="alert alert-success print-success-msg" style="display:none"></div>
   <div class="row"><div class="col-sm-12 col-xs-12 calendar"></div></div>
   <hr>
   <div class="row">
