@@ -9,17 +9,6 @@
             <div class="alert alert-danger print-error-msg" style="display:none">
           <strong>Errors:</strong> <ul></ul></div>
           <div class="alert alert-success print-success-msg" style="display:none"></div>
-          <div class="form-group" id="error" aria-live="polite">
-            @if (count($errors) > 0)
-              <div class="alert alert-danger">
-                <ul>
-                 @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-                </ul>
-              </div>
-            @endif
-    </div>
         <form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
           {!! csrf_field() !!}
           <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
@@ -35,20 +24,20 @@
              </span>
           </div>
           <div class="form-group">
-             <label for="nom_h" class="col-form-label">Nom</label>
+             <label for="nom_h" class="col-form-label required">Nom</label>
              <input type="text" class="form-control" id="nom_h">
           </div>
           <div class="form-group">
-            <label for="prenom_h" class="col-form-label">Prénom</label>
+            <label for="prenom_h" class="col-form-label required">Prénom</label>
             <input type="text" class="form-control" id="prenom_h">
           </div>
           <div class="form-group">
             <label for="datenaissance_h">Né(e) le</label>
-            <input class="form-control date-picker ltnow" id="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required />
+            <input class="form-control date-picker ltnow" id="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
           </div>
           <div class="form-group">
             <label for="lien_par">Qualité</label>
-            <select class="form-control" id="lien_par" required>
+            <select class="form-control" id="lien_par">
               <option value="" selected>Sélectionner...</option>
               <option value="0">Conjoint(e)</option>
               <option value="1">Père</option>
@@ -77,7 +66,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="num_piece">Numéro de pièce d'identité</label>
+            <label class="col-form-label required">Numéro de pièce d'identité</label>
             <input type="text" id="num_piece" class="form-control" placeholder="N° pièce..."/>
           </div>
           <div class="form-group">
@@ -89,7 +78,7 @@
             <input class="form-control" id="adresse_h" placeholder="Adresse..." />
           </div>
           <div class="form-froup">
-            <label for="mobile_h">Mob</label>
+            <label for="mobile_h" class="col-form-label required">Mob</label>
             <div class="input-group">
               <span class="input-group-addon fa fa-phone"></span>
               <input type="tel" id="mobile_h" class="form-control mobile" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}">

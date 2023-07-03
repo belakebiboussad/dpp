@@ -27,9 +27,7 @@ function deleteDemandeHospi(id)
   }
   function HommeConfcopy(id)
   {
-    var url = '{{ route("hommeConfiance.edit", ":slug") }}'; 
-    url = url.replace(':slug',id);
-    $.get(url, function (data) {
+    $.get('/hommeConfiance/'+ id +'/edit', function (data) {
       $('#patientId').val(data.id_patient);
       $('#typeH option').each(function() {
         if($(this).val() == data.type) 
@@ -97,7 +95,7 @@ $(function(){
         $('#EnregistrerGardeMalade').show();
       jQuery('#EnregistrerGardeMalade').val("update"); 
       $('#CoresCrudModal').html("Editer un Correspondant(e)");
-      $('#gardeMalade').modal('toggle');
+      $('#gardeMalade').modal('toggle');  
     });
     jQuery('body').on('click', '.delete-garde', function () {
       var id = $(this).val();
@@ -250,6 +248,12 @@ $(function(){
           			"url": '/localisation/fr_FR.json'
       			}, 
 	});
+  $('#rdvDelete').on('click', function(e) {
+    cancelMeeting($(this).val(),function(data) {
+      var rdv =  '<tr id="'+data.id+'"><td>'+data.+'</td><td>'+data.nom + '</td><td>' +data.type + '</td><td>' + data.code_ngap + '</td><td>' + data.description + '</td><td>' + data.visite.medecin.full_name +'</td><td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id+'"><i class="fa fa-edit fa-xs"></i></button><button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id +'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>' ;
+      $("#" + data.id).replaceWith(acte);
+    });   
+  });
 })
 </script>
 @stop

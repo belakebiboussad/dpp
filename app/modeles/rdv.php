@@ -56,7 +56,7 @@ class rdv extends Model
 	public function patient()
 	{
 		return $this->belongsTo('App\modeles\Patient','patient_id');
-	}// public function getAsDate(){$date =date('Y-m-d h:i:s A', strtotime($this->date. '+12 hours'));	return $date;	}
+	}
 	public function employe()
 	{
 		return $this->belongsTo('App\modeles\employ','employ_id');

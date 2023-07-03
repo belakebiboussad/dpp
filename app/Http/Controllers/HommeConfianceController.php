@@ -34,7 +34,7 @@ class HommeConfianceController extends Controller
     if($validator->fails())
      return response()->json(['errors'=>$validator->errors()->all()]);
     $homme =homme_conf::create($request->all());
-    return $homme;
+    return response()->json(['success' => "Homme de confiance crée avec suuccés",'homme'=>$homme ]);
   }
   public function show($id)
   {
@@ -52,7 +52,7 @@ class HommeConfianceController extends Controller
        return response()->json(['errors'=>$validator->errors()->all()]);
     $homme = homme_conf::find($id);
     $homme -> update($request->all());
-    return $homme;
+    return response()->json(['success' => "Homme de confiance mis à jour avec suuccés",'homme'=>$homme ]);
   }
   public function destroy(homme_conf $homme)
   {

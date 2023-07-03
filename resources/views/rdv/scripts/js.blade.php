@@ -33,21 +33,5 @@ $(function(){
         }
     });
   });
-  $('#btnDelete').on('click keyup', function(e) {
-        e.preventDefault();
-        var eventDelete = confirm("êtes-vous sûr ?");
-        if(eventDelete)
-        {
-          var formData = { _token: CSRF_TOKEN};
-          $.ajax({
-            type: "DELETE",
-            url : '/rdv/' + $(this).val(),
-            data: formData,
-            success: function (data) {
-              $(".calendar1").fullCalendar('removeEvents', data.id);  
-            }
-          });      
-        }
-  });
 })
 </script>

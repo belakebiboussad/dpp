@@ -141,6 +141,12 @@ $(function(){
          if(field != "dob")
           remoteSearch(field,$("#patient").val());
         });
+    $('#rdvDelete').on('click', function(e) {
+      cancelMeeting($(this).val(),function(data) {
+        $(".calendar1").fullCalendar('removeEvents', data.id);  
+      });   
+      
+    });
 })
 </script>
 @stop

@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">File upload form</h4>
+        <h4 class="modal-title">Uploader un fichier</h4>
       </div>
       <div class="modal-body">
         <form method='post' action='' enctype="multipart/form-data" >
@@ -29,18 +29,17 @@
              </div>
              <div class="form-group">
                     <label class="control-label" for="type">Selectionner le fichier </label>
-                     <input type='file' name='file' id='file' class='form-control mb-3' ><br>
+                     <input type='file' name='file' id='file' class='form-control'>
             </div>
             <div class="form-group">
              <label class="control-label" for="type">Nom</label>
              <input type="text" name="name" placeholder="Nom du document" class="form-control">  
         </div>
-          <input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
         </form>
       </div>
             <div class="modal-footer">
-              <span class="btn btn-info btn-sm" disabled>Save changes</span>
-              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
+              <span class="btn btn-info btn-sm" disabled>Enregistrer</span>
+              <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Annuler</button>
             </div>
     </div>
 

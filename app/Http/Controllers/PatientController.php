@@ -164,14 +164,15 @@ class PatientController extends Controller
      */
   public function show(Patient $patient)
   {  
-       $id = $patient->id ;
-       $specialites = Specialite::all();
-       $employe=Auth::user()->employ;
-       $serv_id =  $employe->service_id;
-       $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
-       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-       $ids =[$id,$serv_id ];
-      $demandesCExB= demandeexb::whereHas('visite', function($q) use($ids){
+    $id = $patient->id ;
+    $specialites = Specialite::all();
+    $employe=Auth::user()->employ;
+    $serv_id =  $employe->service_id;
+    $rdvs = (Auth::user()->is(15)) ? $patient->rdvs : $patient->rdvsSpecialite( $employe->specialite)->get();
+    //dd($rdvs);
+    $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+    $ids =[$id,$serv_id ];
+    $demandesCExB= demandeexb::whereHas('visite', function($q) use($ids){
                     $q->whereHas('medecin',function($q) use($ids){
                             $q->where('service_id', $ids[1]); 
                     })->where('pid', $ids[0]);
@@ -180,12 +181,12 @@ class PatientController extends Controller
                                   $q->where('service_id', $ids[1]); 
                           })->where('pid', $ids[0]);
                     })->whereNull('etat')->get();
-      $demandesVExB= demandeexb::whereHas('visite', function($q) use($patient){
+    $demandesVExB= demandeexb::whereHas('visite',function($q) use($patient){
                     $q->where('pid', $patient->id);
                  })->orWhereHas('consultation',function($q) use($patient){
                     $q->where('pid', $patient->id);   
                 })->where('etat',1)->get();
- $demandesCExR= demandeexr::whereHas('visite', function($q) use($ids){
+    $demandesCExR= demandeexr::whereHas('visite', function($q) use($ids){
                     $q->whereHas('medecin',function($q) use($ids){
                             $q->where('service_id', $ids[1]); 
                     })->where('pid', $ids[0]);
@@ -194,7 +195,7 @@ class PatientController extends Controller
                                   $q->where('service_id', $ids[1]); 
                           })->where('pid', $ids[0]);
                     })->whereNull('etat')->get();
-$demandesVExR= demandeexr::whereHas('visite', function($query) use($patient){
+    $demandesVExR= demandeexr::whereHas('visite', function($query) use($patient){
                                 $query->where('pid', $patient->id);
                             })->orWhereHas('consultation',function($q) use($patient){
                                 $q->where('etat',1)->where('pid', $patient->id);   

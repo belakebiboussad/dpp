@@ -155,8 +155,8 @@ class RDVController extends Controller
       public function edit(Request $request, rdv $rdv)
       { 
         if($request->ajax())
-        { // $medecins = ($rdv->specialite)->employes;
-          if(isset($rdv->specialite_id)) //return Response::json(['rdv'=>$rdv,'medecins'=>$medecins]);
+        { 
+          if(isset($rdv->specialite_id))
             return $rdv;
           else 
             return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
@@ -210,9 +210,9 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, rdv $rdv)
       {  
-        $rdv->update(['etat'=>0]);
+        //$rdv->update(['etat'=>0]);
         if($request->ajax())
-          return Response::json($rdv);//return ($rdv);
+          return Response::json($rdv);
         else
           return redirect()->route('rdv.index');  
       }

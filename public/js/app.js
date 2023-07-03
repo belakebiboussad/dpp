@@ -5,8 +5,8 @@ function printSuccessMsg(form ,msg) {
   var $success_msg = $(".print-success-msg");
   $success_msg.html(msg);
   $success_msg.css('display','block');
-  $success_msg.delay(1200).fadeOut(350);//
-  setTimeout("$('.modal').modal('hide');",1200);
+  $success_msg.delay(1000).fadeOut(350);//
+  setTimeout("$('.modal').modal('hide');",1000);
 }
 function printErrorMsg (msg) {//form=null, 
   var $error_msg = $(".print-error-msg");
@@ -15,7 +15,22 @@ function printErrorMsg (msg) {//form=null,
   $.each( msg, function( key, value ) {
     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
   });
-  $error_msg.delay(1200).fadeOut(350);
+  $error_msg.delay(1000).fadeOut(350);
+}
+function cancelMeeting(id,callBack)
+{
+  var eventDelete = confirm("êtes-vous sûr ?");
+  if(eventDelete)
+  {
+    $.ajax({
+      type: "DELETE",
+      url : '/rdv/' + id,
+      data: { _token: CSRF_TOKEN},
+      success: function (data) {
+        callBack(data);  
+      }
+    });
+  } 
 }
 function formSubmit(form, e, callBack) {
   var $success_msg = $(".print-success-msg");
