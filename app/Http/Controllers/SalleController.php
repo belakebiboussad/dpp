@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\salle;
-use App\modeles\lit;
+use App\modeles\Lit;
 use App\modeles\service;
 use App\modeles\DemandeHospitalisation;
 use Validator;
@@ -64,7 +64,7 @@ class SalleController extends Controller
      */
     public function show(salle $salle)
     {
-      $lits = lit::where("salle_id", $salle->id)->get()->all();
+      $lits = Lit::where("salle_id", $salle->id)->get()->all();
       return view('Salles.show', compact('salle'));
     }
 
