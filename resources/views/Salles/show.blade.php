@@ -8,32 +8,30 @@
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="form-group">
-							<label class="col-sm-3 control-label text-right">Numéro </label><p class = "form-control-static"> {{ $salle->num }} </p>
+							<label class="col-sm-3 control-label text-right">Numéro : </label><span> {{ $salle->num }} </span>
             </div>
             <div class = "form-group">
-            <label class = "col-sm-3 control-label text-right">Nom</label>
+            <label class = "col-sm-3 control-label text-right">Nom :</label>
             <div class ="col-sm-9">
-               <p class ="form-control-static">{{ $salle->nom }}</p>
+               <span>{{ $salle->nom }}</span>
             </div>
          </div>
-
-
-						<div class="form-group">
+					<div class="form-group">
 							<label class="col-sm-3 control-label text-right">Capacité</label><p class ="form-control-static">{{ $salle->max_lit }} lits</p>       
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label text-right">Lits en place</label><p class ="form-control-static"> {{ $salle->lits->count() }} lits</p>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Bloc</label><p class ="form-control-static">{{ $salle->bloc }}</o>
+							<label class="col-sm-3 control-label text-right">Bloc</label><p class ="form-control-static">{{ $salle->bloc }}</o>
          					</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Etage</label><span>{{ $salle->etage }}</span> 
+							<label class="col-sm-3 control-label text-right">Etage</label><span>{{ $salle->etage }}</span> 
             </div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Bloquée ?</label>
               <span class="label label-sm label-{{ (isset($salle->etat )) ? 'warning' : 'primary' }}">
-                @if(!(isset( $salle->etat )))    Non   @endif
+                @if(!(isset( $salle->etat ))) Non @endif
               </span>
 						</div>
 						<div class="form-group">
