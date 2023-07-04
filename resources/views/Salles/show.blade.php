@@ -12,20 +12,20 @@
             </div>
             <div class = "form-group">
             <label class = "col-sm-3 control-label text-right">Nom</label>
-            <div class = "col-sm-9">
-               <p class = "form-control-static">{{ $salle->nom }}</p>
+            <div class ="col-sm-9">
+               <p class ="form-control-static">{{ $salle->nom }}</p>
             </div>
          </div>
 
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label text-right">Capacité</label><span> {{ $salle->max_lit }} lits</span>       
+							<label class="col-sm-3 control-label text-right">Capacité</label><p class ="form-control-static">{{ $salle->max_lit }} lits</p>       
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Lits en place</label><span> {{ $salle->lits->count() }} lits  </span>
+							<label class="col-sm-3 control-label text-right">Lits en place</label><p class ="form-control-static"> {{ $salle->lits->count() }} lits</p>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Bloc</label><span>{{ $salle->bloc }}</span>
+							<label class="col-sm-3 control-label">Bloc</label><p class ="form-control-static">{{ $salle->bloc }}</o>
          					</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Etage</label><span>{{ $salle->etage }}</span> 
