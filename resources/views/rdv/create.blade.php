@@ -214,7 +214,7 @@ $(function() {
               getAppwithDocParamVal(3,calEvent.specialite);
               $.get('/rdv/'+ calEvent.id, function (data, status, xhr) {
                 $("#lien").attr("href", '/patient/' + data.patient.id);
-                $('#lien').text(calEvent.title); 
+                $('#lien').text(data.patient.full_name); 
                 $('#specialiteId').val(data.specialite.id);
                 $('#nomPatient').val(data.patient.full_name);
                 $('#patient_tel').val(data.patient.mob);
@@ -259,7 +259,7 @@ $(function() {
             element.css("padding", "5px");
         }
         element.popover({
-            delay: { "show": 500, "hide": 100 },  // title: event.title,
+            delay: { "show": 500, "hide": 100 },
             content: event.tel,
             trigger: 'hover',
             animation:true,

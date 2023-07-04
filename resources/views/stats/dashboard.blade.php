@@ -18,8 +18,7 @@
       </div>
     </div>
     <div class="infobox infobox-purple">
-      <div class="infobox-icon"><i class="ace-icon fa fa-calendar"></i></div>        
-      <div class="infobox-data">
+      <div class="infobox-icon"><i class="ace-icon fa fa-calendar"></i></div><div class="infobox-data">
         <span class="infobox-data-number">{{ App\User::where("role_id",2)->get()->count() }}</span>
         <div class="infobox-content">Agents de réception</div>
       </div>
@@ -33,9 +32,9 @@
       </div>
     </div>
   </div>
-</div><div class="space-12"></div>
+</div><br>
 <div class="row">
-  <div class="col-sm-12 infobox-container">
+  <div class="col-sm-12">
     <div class="infobox infobox-blue">
       <div class="infobox-icon"><i class="ace-icon fa fa-square-o"></i></div>
       <div class="infobox-data">
@@ -59,7 +58,7 @@
     </div>
      <div class="infobox infobox-red">
       <div class="infobox-icon">
-      <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
+      <i class="menu-icon fa fa-bed bigger-180" aria-hidden="true"></i>
       </div>
       <div class="infobox-data">
         <span class="infobox-data-number">{{ App\modeles\lit::all()->count() }}</span>
@@ -67,5 +66,5 @@
       </div>
     </div>
 </div>
-
+</div>
 @stop

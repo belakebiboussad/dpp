@@ -98,15 +98,15 @@ $(function(){
       $('#gardeMalade').modal('toggle');  
     });
     jQuery('body').on('click', '.delete-garde', function () {
-      var id = $(this).val();
+      //var id = ;
       var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
-      url = url.replace(':slug',id);
+      url = url.replace(':slug',$(this).val());
       $.ajax({
             type: "DELETE",
             url: url,
             data: { _token: CSRF_TOKEN } ,
             success: function (data) {
-                $("#garde" + id).remove();
+              $("#garde" + data).remove();
             }
         });
     });
@@ -116,7 +116,7 @@ $(function(){
     });
     $("#EnregistrerGardeMalade").click(function (e){
       if(! $.isEmptyObject(checkHomme()))
-        printErrorMsg(checkHomme());//$('#gardeMalade form')[0], 
+        printErrorMsg(checkHomme());
       else
       {
         var formData = {
@@ -143,11 +143,11 @@ $(function(){
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
             if(!$.isEmptyObject(data.errors))
-              printErrorMsg(data.errors);//$('#addGardeMalade')[0], 
+              printErrorMsg(data.errors);
             else
             { 
               printSuccessMsg($('#addGardeMalade')[0], data.success);
-              switch(data.lien_par)
+              switch(data.homme.lien_par)
               {
                 case "0":
                       lien ='Conjoint(e)';
@@ -195,7 +195,7 @@ $(function(){
                           break;
 
               }
-              switch(data.type_piece)
+              switch(data.homme.type_piece)
               {
                   case "0":
                          type='Carte nationale d\'identité';
@@ -211,17 +211,18 @@ $(function(){
               }
               lien ='<span class="label label-sm label-success">'+lien+'</span>';
               type ='<span class="label label-sm label-info">'+type+'</span>';
-              var dateLivr = (data.date_deliv != null)? data.date_deliv :'';
-              var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom
-                        + '</td><td>'+ data.date_naiss+'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>'
-                         + type + '</td><td>' + data.num_piece + '</td><td>' + dateLivr + '</td>';
-              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button> '; 
-              homme +='<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';
-              homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              var dateLivr = (data.homme.date_deliv != null)? data.homme.date_deliv :'';
+              var homme = '<tr id="garde' + data.homme.id + '"><td class="hidden">' + data.homme.id_patient + '</td><td>' + data.homme.nom + '</td><td>' + data.homme.prenom
+                        + '</td><td>'+ data.homme.date_naiss+'</td><td>' + data.homme.adresse + '</td><td>'+ data.homme.mob + '</td><td>' + lien + '</td><td>'
+                         + type + '</td><td>' + data.homme.num_piece + '</td><td>' + dateLivr + '</td>';
+              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.homme.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button> '; 
+              homme +='<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.homme.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button> ';
+              homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.homme.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
               if (state == "add") 
                 $("#listeGardes tbody").append(homme);
               else 
                 $("#garde" + hom_id).replaceWith(homme);
+              
             }
           }
         });
@@ -244,14 +245,13 @@ $(function(){
       "pageLength" : 10,
       bLengthChange: false,
       "info" : false,
-			"language": {
-          			"url": '/localisation/fr_FR.json'
-      			}, 
-	});
-  $('#rdvDelete').on('click', function(e) {
+			"language": {"url": '/localisation/fr_FR.json'},
+  });
+  $('.rdvDelete').on('click', function(e) {
     cancelMeeting($(this).val(),function(data) {
-      var rdv =  '<tr id="'+data.id+'"><td>'+data.+'</td><td>'+data.nom + '</td><td>' +data.type + '</td><td>' + data.code_ngap + '</td><td>' + data.description + '</td><td>' + data.visite.medecin.full_name +'</td><td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id+'"><i class="fa fa-edit fa-xs"></i></button><button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id +'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>' ;
-      $("#" + data.id).replaceWith(acte);
+      var isFixe = (data.fixe)?'Oui':'Non';
+      var rdv =  '<tr id="'+data.id+'"><td>'+data.start+'</td><td>'+ isFixe + '</td><td>'+ data.specialite.nom+'</td><td>'+data.employe.full_name +'</td><td class="center"><span class="badge badge-warning">'+ data.etat+'</span></td><td></td></tr>';
+      $("#" + data.id).replaceWith(rdv);
     });   
   });
 })

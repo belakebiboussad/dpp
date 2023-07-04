@@ -11,7 +11,7 @@
 			<form role="form" method="POST" action="{{ route('salle.store') }}">
 			  {{ csrf_field() }}
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="service">Service</label>
+					<label class="col-sm-3 col-control-label text-right" for="service">Service</label>
           <div class="col-sm-4">
           @if(isset($service->id))
           <input type="hidden"  name="service_id" value="{{ $service->id }}">
@@ -27,41 +27,41 @@
 				</div>
 			 </div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="num">Numéro chambre</label>
+					<label class="col-sm-3 control-label text-right" for="num">Numéro chambre</label>
 					<div class="col-sm-9">
 						<input type="number" name="num" placeholder="Numéro de la Chambre" min="1" class="col-xs-10 col-sm-5" required/>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="nom">Nom chambre</label>
+					<label class="col-sm-3 control-label text-right" for="nom">Nom chambre</label>
 					<div class="col-sm-9">
 						<input type="text" name="nom" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="max_lit">Capacité</label>
+					<label class="col-sm-3 control-label text-right" for="max_lit">Capacité</label>
 					<div class="col-sm-9">
 						<input type="number" name="max_lit" placeholder="Max Des Lits" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="bloc">Bloc</label>
+					<label class="col-sm-3 control-label text-right" for="bloc">Bloc</label>
 					<div class="col-sm-9">
 						<input type="text" name="bloc" placeholder="Bloc" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 control-label" for="etage">N° d'étage</label>
+					<label class="col-sm-3 control-label text-right" for="etage">N° d'étage</label>
 					<div class="col-sm-9">
 						<input type="number" name="etage" placeholder="N° d'etage" class="col-xs-10 col-sm-5" min="0" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="genre">Unité</label>
+					<label class="col-sm-3 control-label text-right" for="genre">Unité</label>
 					<div class="col-sm-9">
-					<label><input name="genre" value="0" type="radio" class="ace" checked/><span class="lbl">Homme</span></label>&nbsp;&nbsp;
-					<label><input name="genre" value="1" type="radio" class="ace"/><span class="lbl">Femme</span></label>&nbsp;&nbsp;&nbsp;
-					<label><input name="genre" value="2" type="radio" class="ace"/><span class="lbl">Enfant</span></label>&nbsp;&nbsp;&nbsp;
+					<label><input name="genre" value="0" type="radio" class="ace" checked/><span class="lbl">Homme</span></label>
+					<label><input name="genre" value="1" type="radio" class="ace"/><span class="lbl">Femme</span></label>
+					<label><input name="genre" value="2" type="radio" class="ace"/><span class="lbl">Enfant</span></label>
 				  </div>
 				</div>
 				<div class="form-group row">

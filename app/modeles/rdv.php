@@ -13,18 +13,14 @@ class rdv extends Model
  	public $timestamps = false;
 	protected $fillable =['date','fin','fixe','patient_id','employ_id','specialite_id','etat'];
 	protected $dates = ['date', 'fin'];
-	protected $appends = ['title'];
+	protected $appends = ['start'];
   public function getStartAttribute()
   {
-    return $this->attributes['date'];
+    return $this->date->format('Y-m-d');
   }
   public function getEndAttribute()
   {
     return $this->attributes['fin'];
-  }
-  public function getTitleAttribute()
-  {
-    return $this->patient->attributes['Nom'].' '.$this->patient->attributes['Prenom'];
   }
   public function getEtatAttribute()
   {

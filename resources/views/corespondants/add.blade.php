@@ -38,7 +38,7 @@
           <div class="form-group">
             <label for="lien_par">Qualité</label>
             <select class="form-control" id="lien_par">
-              <option value="" selected>Sélectionner...</option>
+              <option value="" selected disabled>Sélectionner...</option>
               <option value="0">Conjoint(e)</option>
               <option value="1">Père</option>
               <option value="2">Mère</option>

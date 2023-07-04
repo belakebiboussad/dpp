@@ -63,7 +63,7 @@
             <label class="inline">
             <input name="sexe" value="M" type="radio" class="ace" {{ $user->employ->sexe == "M" ? "checked" : "" }}/>
             <span class="lbl middle"> Masculin</span>
-            </label>&nbsp; &nbsp;
+            </label>
             <label class="inline">
             <input name="sexe" value="F" type="radio" class="ace" {{ $user->employ->sexe == "F" ? "checked" : "" }}/>
             <span class="lbl middle"> Féminin</span>

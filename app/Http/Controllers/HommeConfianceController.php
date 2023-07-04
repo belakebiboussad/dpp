@@ -54,8 +54,9 @@ class HommeConfianceController extends Controller
     $homme -> update($request->all());
     return response()->json(['success' => "Homme de confiance mis à jour avec suuccés",'homme'=>$homme ]);
   }
-  public function destroy(homme_conf $homme)
-  {
-  	return $homme;
+  public function destroy($id)//homme_conf $homme
+  { 
+    $homme = homme_conf::find($id)->delete();
+    return $id;
   } 
 }

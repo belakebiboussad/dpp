@@ -76,6 +76,8 @@ class SalleController extends Controller
      */
     public function edit(salle $salle)
     {
+
+      //dd($salle);
       $services = service::all();
       return view('Salles.edit', compact('salle','services'));
     }

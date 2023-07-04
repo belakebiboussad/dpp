@@ -11,37 +11,37 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="numsalle">Numéro</label>
+					<label class="col-sm-3 control-label text-right" for="numsalle">Numéro</label>
 					<div class="col-sm-9">
 						<input type="number" min="0" name="num" value="{{ $salle->num }}" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="nomsalle">Nom</strong></label>
+					<label class="col-sm-3 control-label text-right" for="nomsalle">Nom</strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="nom" value="{{ $salle->nom }}" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="max_lit">Capacité</label>
+					<label class="col-sm-3 control-label text-right" for="max_lit">Capacité</label>
 					<div class="col-sm-9">
 						<input type="number" name="max_lit" value="{{ $salle->max_lit }}" placeholder="Max des Lits" class="col-xs-10 col-sm-5" min="0"/>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="bloc">Bloc</label>
+					<label class="col-sm-3 control-label text-right" for="bloc">Bloc</label>
 					<div class="col-sm-9">
 						<input type="text" name="bloc" value="{{ $salle->bloc }}" placeholder="Bloc" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 control-label" for="etage">N° d'étage</label>
+					<label class="col-sm-3 control-label text-right" for="etage">N° d'étage</label>
 					<div class="col-sm-9">
 					<input type="number" name="etage" value="{{ $salle->etage }}" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="service_id">Service</label>
+					<label class="col-sm-3 control-label text-right" for="service_id">Service</label>
 					<div class="col-sm-9">
 						<select class="form-select col-xs-10 col-sm-5" name="service_id">
 						<option value="{{$salle->service_id}}">{{ $salle->service->nom }}</option>
@@ -52,10 +52,11 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 col-control-label" for="genre">Unité</label>
+					<label class="col-sm-3 control-label text-right" for="genre">Unité</label>
 					<div class="col-sm-9">
-					<label><input name="genre" value="0" type="radio" class="ace" @if(!($service->genre)) checked @endif/><span class="lbl">Homme</span></label>&nbsp;&nbsp;&nbsp;
-					<label><input name="genre" value="1" type="radio" class="ace" @if($service->genre) checked @endif/><span class="lbl">Femme</span></label>&nbsp;&nbsp;&nbsp;
+					<label><input name="genre" value="0" type="radio" class="ace" @if($salle->genre==0) checked @endif/><span class="lbl">Homme</span></label>
+					<label><input name="genre" value="1" type="radio" class="ace" @if($salle->genre==1) checked @endif/><span class="lbl">Femme</span></label>
+            <label><input name="genre" value="2" type="radio" class="ace" @if($salle->genre ==2) checked @endif/><span class="lbl">Enfant</span></label>
 				  </div>
 				</div>
 				<div class="form-group row">

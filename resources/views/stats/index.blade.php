@@ -9,8 +9,15 @@
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     border-color: #e9e9e9;
   }
-  .widget .widget-body { padding: 20px; }
   .pull-left { float: left!important; }
+  .widget .widget-icon i {
+    line-height: 66px;
+    font-size: 30px;
+  }
+  .widget .widget-content .title {
+    font-size: 28px;
+    display: block;
+  }
 </style>
 @stop
 @section('main-content')
@@ -21,8 +28,8 @@
         <div class="widget-icon pull-left">
           <i class="ace-icon fa fa-user-md bigger-180"></i>
         </div>
-        <div class="widget-content pull-left">
-          <div class="title">&nbsp;{{ $medsCount }}</div><div class="comment">Medecins</div> 
+        <div class="widget-content pull-left col-md-offset-1">
+          <div class="title"> {{ $medsCount }}</div><div class="comment">Medecins</div> 
           </div><div class="clearfix"></div>
       </div>
     </div>
@@ -31,8 +38,8 @@
   <div class="widget">
     <div class="widget-body">
       <div class="widget-icon  pull-left"><i class="menu-icon material-icons">groups</i></div>
-      <div class="widget-content pull-left">
-        <div class="title"> {{ $infsCount  }}</div><div class="comment">Infirmiers</div>
+      <div class="widget-content pull-left col-md-offset-1">
+        <div class="title">{{ $infsCount  }}</div><div class="comment">Infirmiers</div>
       </div><div class="clearfix"></div>
     </div>
   </div>
@@ -41,7 +48,7 @@
     <div class="widget">
       <div class="widget-body">
         <div class="widget-icon green pull-left"><i class="fa fa-cogs bigger-180"></i></div>
-        <div class="widget-content pull-left"><div class="title"> {{ $hospCount }}</div>
+        <div class="widget-content pull-left col-md-offset-1"><div class="title"> {{ $hospCount }}</div>
           <div class="comment">Hospitalisation en cours</div>
         </div><div class="clearfix"></div>
       </div>
@@ -51,7 +58,7 @@
     <div class="widget">
       <div class="widget-body">
         <div class="widget-icon blue pull-left"><i class="fa fa-spinner bigger-180"></i></div>
-        <div class="widget-content pull-left"><div class="title">&nbsp;{{ $nbRequest}}</div>
+        <div class="widget-content pull-left col-md-offset-1"><div class="title">{{$nbRequest}}</div>
           <div class="comment">Hospitalisation En attente</div>
         </div><div class="clearfix"></div>
       </div>
@@ -65,8 +72,8 @@
           <div class="widget-icon pull-left">
             <i class="ace-icon fa fa-clock-o bigger-180"></i>
           </div>
-          <div class="widget-content pull-left">
-              <div class="title">&nbsp;{{ $nbrdvs }}</div>
+          <div class="widget-content pull-left col-md-offset-1">
+              <div class="title">{{ $nbrdvs }}</div>
               <div class="comment">Rendez-vous d'hospitalisation</div>
           </div><div class="clearfix"></div>
       </div>
@@ -78,8 +85,8 @@
           <div class="widget-icon pull-left">
            <i class="fa fa-bed bigger-180"></i>
           </div>
-          <div class="widget-content pull-left">
-              <div class="title">&nbsp;{{ $nbFreeBed }}</div>
+          <div class="widget-content pull-left col-md-offset-1">
+              <div class="title">{{ $nbFreeBed }}</div>
               <div class="comment">Lit libre</div>
           </div><div class="clearfix"></div>
       </div>
@@ -89,8 +96,8 @@
     <div class="widget">
       <div class="widget-body">
         <div class="widget-icon pull-left"><i class="ace-icon fa fa-stethoscope bigger-180"></i></div>
-        <div class="widget-content pull-left">
-              <div class="title">&nbsp;{{ $consultsNbr }}</div>
+        <div class="widget-content pull-left col-md-offset-1">
+              <div class="title">{{ $consultsNbr }}</div>
               <div class="comment">Consultations aujourd'hui</div>
           </div><div class="clearfix"></div>
       </div>
@@ -101,8 +108,8 @@
       <div class="widget-body">
         <div class="widget-icon pull-left"><span class="material-icons">swap_horizontal_circle</span>
         </div>
-        <div class="widget-content pull-left">
-          <div class="title">&nbsp;{{ $nbjPerHosp }} Jour</div>
+        <div class="widget-content pull-left col-md-offset-1">
+          <div class="title">{{ $nbjPerHosp }} Jour</div>
           <div class="comment">Délai moyen d'hospitalisation</div>
         </div><div class="clearfix"></div>
       </div>
@@ -233,7 +240,6 @@ $(function(){
               },
               legend: {
                 labels: {
-                    // This more specific font property overrides the global property
                     fontColor: '#0000ff',
                     fontFamily: "'Muli', sans-serif",
                     padding: 25,

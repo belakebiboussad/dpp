@@ -450,13 +450,11 @@
 /*function edit(event){$('#patient_tel').text(event.tel);
 $('#agePatient').text(event.age);
 $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-$('#lien').text(event.title);$("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));$("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));        $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));$('#btnDelete').attr('href','/rdv/'.concat(event.id));
+$('#lien').text(event.title);$("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));$("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));        $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));$('#redvDelete').attr('href','/rdv/'.concat(event.id));
 $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
 var url = '{{-- route("rdv.update", ":slug") --}}'; 
 url = url.replace(':slug',event.id);
-$('#updateRdv').attr('action',url);$('#fullCalModal').modal({ show: 'true' }); 
-         
-      }*/
+$('#updateRdv').attr('action',url);$('#fullCalModal').modal({ show: 'true' }); }*/
       var appointdoc; 
       function getAppwithDocParamVal(param_id, spec_id)
       {
@@ -467,9 +465,8 @@ $('#updateRdv').attr('action',url);$('#fullCalModal').modal({ show: 'true' });
             $('#employ_id').append('<option value="">Sélectionner...</option>');
             $.each(data.medecins, function(i, empl) {
               $('#employ_id').append($('<option>', {
-                  value: empl.id,
-                  text: empl.full_name
-                }));
+                  value: empl.id,text: empl.full_name
+              }));
               })
             if($('.docPanel').hasClass( "hidden" ))
               $('.docPanel').removeClass('hidden');
@@ -492,7 +489,7 @@ $('#updateRdv').attr('action',url);$('#fullCalModal').modal({ show: 'true' });
           $('#patient_tel').val(data.patient.mob);
           $('#agePatient').val(data.patient.age);
           $('#lien').attr('href','/patient/'.concat(data.patient.id)); 
-          $('#lien').text(event.title);
+          $('#lien').text(data.patient.full_name);
           if(bool)
           {
             $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
@@ -586,8 +583,7 @@ $('#updateRdv').attr('action',url);$('#fullCalModal').modal({ show: 'true' });
       }
       function header(doc)
       {      
-        doc.setFontSize(40);
-        doc.setTextColor(40);
+        doc.setFontSize(40);doc.setTextColor(40);
         doc.setFontStyle('normal');
         if (base64Img)
           doc.addImage(base64Img, 'JPEG', margins.left, 10, 540,85);       

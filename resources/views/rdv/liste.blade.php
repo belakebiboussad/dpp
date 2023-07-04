@@ -22,10 +22,10 @@
             <td>{{ isset($rdv->employ_id) ? $rdv->employe->full_name :'' }}</td> 
 		        <td class="center">{!! $formatStat($rdv->etat)!!}</td>
             <td class="center">
-          	  @if(Carbon\Carbon::today()->lte($rdv->date->format('Y-m-d H:i:s')) &&($rdv->etat != "Annule"))
+            @if($rdv->etat != "Annule")
             <a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier"><i class="fa fa-edit blue"></i></a>
             <a id="printRdv" href ="/rdvprint/{{ $rdv->id}}"  target="_blank"class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i></a>
-            <button type="button" id="rdvDelete" class="btn btn-bold btn-xs btn-danger" value="{{ $rdv->id}}"><i class="fa fa-trash"></i></button>
+            <button type="button" class="btn btn-bold btn-xs btn-danger rdvDelete" value="{{ $rdv->id}}"><i class="fa fa-trash"></i></button>
             @endif
 		</td>
 	</tr>

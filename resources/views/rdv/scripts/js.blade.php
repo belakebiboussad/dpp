@@ -11,11 +11,9 @@ $(function(){
       if (!$("#fixe").is(':checked'))
         fixe = 0;
     var formData = {
-          _token: CSRF_TOKEN,
-          id : $(this).val(),
-          date : $("#daterdv").val(),
-          fin  : $("#datefinrdv").val(), 
-          fixe : fixe,       
+          _token: CSRF_TOKEN,id : $(this).val(),
+          date : $("#daterdv").val(),fin  : $("#datefinrdv").val(),
+          fixe : fixe, 
     };
     if('{{ Auth::user()->is(15) }}')
     {

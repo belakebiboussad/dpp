@@ -27,76 +27,74 @@
         @foreach($correspondants as $hom)
           <tr id="{{ 'garde'.$hom->id }}">
             <td hidden>{{ $hom->id_patient }}</td>
-            <td>{{ $hom->nom }}</td>
-            <td>{{ $hom->prenom }}</td>
-            <td>{{ $hom->date_naiss }}</td>
-            <td>{{ $hom->adresse }}</td>
+            <td>{{ $hom->nom }}</td><td>{{ $hom->prenom }}</td>
+            <td>{{ $hom->date_naiss }}</td><td>{{ $hom->adresse }}</td>
             <td>{{ $hom->mob }}</td>
-            <td class ="center">
+            <td class ="center"><span class="label label-sm label-success">
               @switch($hom->lien_par)
                 @case ("0")
-                  <span class="label label-sm label-success">Conjoint(e)</span>
+                  Conjoint(e)
                   @break
                 @case ("1")
-                             <span class="label label-sm label-success">Père</span>
-                          @break
-                     @case ("2")
-                          <span class="label label-sm label-success">Mère</span>
-                          @break
-                     @case ("3")
-                           <span class="label label-sm label-success">Frère</span>                                             
-                           @break
-                     @case ("4")
-                         <span class="label label-sm label-success">Soeur</span> 
-                          @break
-                    @case ("5")
-                      <span class="label label-sm label-success">Ascendant</span>
-                           @break
-                    @case ("6")
-                          <span class="label label-sm label-success">Grand-parent</span>
-                          @break
-                    @case ("7")
-                           <span class="label label-sm label-success">Membre de famille</span>
-                         @break
-                    @case ("8")
-                           <span class="label label-sm label-success">Ami(e)</span>
-                          @break             
-                    @case("9")
-                           <span class="label label-sm label-success">Collègue</span>
-                            @break 
-                    @case ("10")
-                      <span class="label label-sm label-success">Employeur</span>
-                          @break 
-                    @case ("11")
-                         <span class="label label-sm label-success">Employé</span>
-                          @break 
-                    @case ("12")
-                           <span class="label label-sm label-success">Tuteur</span>
-                          @break
-                   @case ("13")
-                            <span class="label label-sm label-success">Autre</span>
-                          @break 
-                   @default
-                          @break
-             @endswitch 
-              </td>
-            <td>
-              @switch( $hom->type_piece)
-                @case ("0")
-                  <span class="label label-sm label-success">CNI</span>
-                  @break
-                @case ("1")
-                  <span class="label label-sm label-success">Permis de conduire</span>
+                  Père</span>
                   @break
                 @case ("2")
-                  <span class="label label-sm label-success">Passeport</span>
+                  Mère
+                  @break
+                @case ("3")
+                  Frère                                             
+                  @break
+                @case ("4")
+                  Soeur
+                  @break
+                @case ("5")
+                  Ascendant
+                  @break
+                @case ("6")
+                  Grand-parent
+                  @break
+                @case ("7")
+                  Membre de famille
+                  @break
+                @case ("8")
+                  Ami(e)
+                  @break             
+                @case("9")
+                  Collègue
+                  @break 
+                @case ("10")
+                  Employeur
+                  @break 
+                @case ("11")
+                  Employé
+                  @break 
+                @case ("12")
+                  Tuteur
+                  @break
+                @case ("13")
+                  Autre
+                  @break 
+                @default
+                  @break
+             @endswitch
+             </span> 
+              </td>
+            <td><span class="label label-sm label-success">
+              @switch( $hom->type_piece)
+                @case ("0")
+                  CNI
+                  @break
+                @case ("1")
+                  Permis de conduire
+                  @break
+                @case ("2")
+                  Passeport
                   @break
                 @default
                   @break
               @endswitch
               </td>
-            <td>{{ $hom->num_piece }}</td>
-            <td>{{ $hom->date_deliv }}</td>
+            <td>{{ $hom->num_piece }}</td><td>{{ $hom->date_deliv }}</td>
             <td class="center nosort">
              	<button type="button" class="btn btn-xs btn-success show-modal" value="{{ $hom->id }}" data-cmd="show">
               	<i class="ace-icon fa fa-hand-o-up fa-xs"></i>

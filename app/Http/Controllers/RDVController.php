@@ -157,7 +157,7 @@ class RDVController extends Controller
         if($request->ajax())
         { 
           if(isset($rdv->specialite_id))
-            return $rdv;
+            return $rdv->load('patient');
           else 
             return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
         }else{
@@ -210,7 +210,7 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, rdv $rdv)
       {  
-        //$rdv->update(['etat'=>0]);
+        $rdv->load('specialite','employe')->update(['etat'=>0]);
         if($request->ajax())
           return Response::json($rdv);
         else

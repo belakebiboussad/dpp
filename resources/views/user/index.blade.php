@@ -48,23 +48,24 @@ $(function(){
 	   	 		  			return data
 	   	 		  		} 
 	   	 		  	},
-	   	 		  	{ data:null,title:'<em class="fa fa-cog"></em>',"orderable": false, searchable: false,
+	   	 		  	{ data:null,title:'<em class="fa fa-cog"></em>',"orderable": false, searchable: false, width: "20%",
 	   	 		  		"render": function(data,type,full,meta){
 					    		if ( type === 'display' ) {
-					    			return '<a onclick ="getUserdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume"><i class="fa fa-eye-slash fa-xs"></i></a>&nbsp;'+
-                     '<a href = "/users/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;'+
-                      '<a href ="/users/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="Modifier"><i class="fa fa-edit fa-xs"></i></a>'; 		
-                  }
+					    			return '<a onclick ="getUserdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume"><i class="fa fa-eye-slash"></i></a>'+
+                     '<a href = "/users/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter"><i class="fa fa-hand-o-up"></i></a>'+
+                      '<a href ="/users/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="Modifier"><i class="fa fa-edit"></i></a>'; 
+                    }
 					    		return data;	
 								}
 							}
 	   	 		  ],
 	   	 		  "columnDefs": [
-	   	 		    {"targets": 2 ,  className: "dt-head-center" },
-			   			{"targets": 3 ,  className: "dt-head-center" ,	"orderable":false },
-			   			{"targets": 4 ,  className: "dt-head-center" ,	"orderable":false },
-			   			{"targets": 5 ,  className: "dt-head-center" ,	"orderable":false },
-			   			{"targets": 6 ,  className: "dt-head-center", className: "dt-head-center dt-body-center"},
+	   	 		    {"targets": 2 , className: "dt-head-center" },
+			   			{"targets": 3 , className: "dt-head-center" ,"orderable":false },
+			   			{"targets": 4 , className: "dt-head-center" ,"orderable":false },
+			   			{"targets": 5 , className: "dt-head-center" ,"orderable":false },
+			   			{"targets": 6 , className:"dt-head-center dt-body-center","orderable":false},
+              {"targets": 7 , className:"dt-head-center dt-body-center","orderable":false},
 	   	 		  ]
 
       		});
@@ -99,7 +100,7 @@ function getUserdetail(id)
 				<div class="col-sm-4">
 	  	    <div class="form-group">
 		  	    <label class="control-label">Nom</label>
-		  	    <div class="input-group col-sm-10">
+		  	    <div class="input-group col-sm-12">
 							<input type="text" class="form-control input-xs autoUserfield filter" id="username" name="username"  placeholder="Nom de l'utilisateur"/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>
@@ -108,7 +109,7 @@ function getUserdetail(id)
 	  	  <div class="col-sm-4">
 	  	    <div class="form-group">
 		  	    <label class="control-label">Rôle</label>
-		  	    <div class="input-group col-sm-10">
+		  	    <div class="input-group col-sm-12">
 							<select class="form-control input-xs filter" name="role_id" id="role_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($roles as $role)
@@ -119,9 +120,9 @@ function getUserdetail(id)
 	  	    </div>
 	  	  </div>
 		  	<div class="col-sm-4">
-		      <div class="form-group col-sm-12">
+		      <div class="form-group">
 		       	<label class="control-label">Service</label>
-						<div class="input-group col-sm-10">
+						<div class="input-group col-sm-12">
 							<select class="form-control input-xs filter" name="service_id" id="service_id">
 								<option value="" selected>Selectionner...</option>
 								@foreach ($services as $service)
