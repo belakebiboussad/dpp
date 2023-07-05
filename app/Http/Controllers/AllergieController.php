@@ -8,10 +8,10 @@ use App\modeles\Patient;
 use Response;
 class AllergieController extends Controller
 {
-  public function index(Request $request)
+  public function index()
   {
-    $allergies = Allergie::all();
-    return $allergies;
+        $allergies = Allergie::all();
+        return $allergies;
   }
   public function store(Request $request)
   {

@@ -11,6 +11,6 @@ class specialite_produit extends Model
     protected $fillable = ['id_gamme','nom'];
     public function drugs()
     {
-      return $this->hasMany('App\modeles\medcamte','id_specialite');
+      return $this->hasMany('App\modeles\Drug','id_specialite');
     }
 }

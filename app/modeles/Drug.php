@@ -4,7 +4,7 @@ namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class medcamte extends Model
+class Drug extends Model
 {
      public $timestamps = false;
      protected $fillable = ['nom','code_produit','code_enr','Affectation','id_specialite'];

@@ -60,6 +60,10 @@ Route::resource('maladies','CimController');
 Route::resource('vaccin','VaccinController');
 Route::resource('mother','MotherController');
 Route::resource('specialite','SpecialiteController');
+Route::resource('drug','DrugController');
+Route::resource('dispositif','DispositifController');
+Route::resource('reactif','ReactifController');
+Route::resource('consommable','ConsommableController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
@@ -67,7 +71,6 @@ Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
-route::get('/products/list','demandeprodController@getProducts')->name('productsList');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
@@ -107,14 +110,11 @@ route::get('/getpatient','PatientController@getpatient');//
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
-route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
-route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
-route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
-        'as'    => 'profile',
-        'uses'  => 'UsersController@viewProfile'
-    ]);
+       'as'    => 'profile',
+       'uses'  => 'UsersController@viewProfile'
+]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');

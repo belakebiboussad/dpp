@@ -4,7 +4,7 @@ namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dispositif extends Model
+class Dispositif extends Model
 {
     public $timestamps = false;
     protected $fillable = ['nom','code'];

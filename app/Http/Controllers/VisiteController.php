@@ -6,9 +6,7 @@ use App\modeles\demandehospitalisations;
 use App\modeles\consigne;
 use App\modeles\periodeconsigne;
 use App\modeles\surveillance;
-use App\modeles\consultations;
 use App\modeles\specialite_produit;
-use App\modeles\medcamte;
 use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
@@ -26,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\Specialite;
+use App\Helpers\StatsHelper;
 use Carbon;
 class VisiteController extends Controller
 {   /**
@@ -107,12 +106,12 @@ class VisiteController extends Controller
     public function edit($id)
     {
       $ngaps='';  $specs='';
-      $visite = visite::find($id);// $codesNgap = NGAP::all();
+      $visite = visite::find($id);
       $specialitesProd = specialite_produit::all();
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
-      $ngaps = format_string(NGAP::all(),'code','code');
-      $examensradio = format_string(examenradiologique::all(),'id','nom');
-      $specs = format_string($specialitesProd,'id','nom'); $ngaps=  addslashes($ngaps);
+      $ngaps = StatsHelper::formatString(NGAP::all(),'code','code');
+      $examensradio =  StatsHelper::formatString(examenradiologique::all(),'id','nom');
+      $specs =  StatsHelper::formatString($specialitesProd,'id','nom'); $ngaps=  addslashes($ngaps);
       return view('visite.edit',compact('visite','specialite','ngaps','specs','examensradio'));  
     }
     public function destroy($id)

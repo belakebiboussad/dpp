@@ -16,7 +16,7 @@ class Traitement extends Model
     }
     public function medicament()
     {
-      return $this->belongsTo('App\modeles\medcamte','med_id');
+      return $this->belongsTo('App\modeles\Drug','med_id');
     }
     public function visite()
   	{

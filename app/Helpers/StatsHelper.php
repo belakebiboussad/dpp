@@ -23,11 +23,11 @@ class StatsHelper
   }
   public static function formatString($collection, $field1, $field2)
   {
-    $str= "";
-    foreach( $collection as $obj)
-    {
-      $str.= $obj->$field1 . ':' . $obj->$field2 . ";";
-    }
-    return $str;
+          $str= "";
+          foreach( $collection as $obj)
+          {
+            $str.= $obj->$field1 . ':' . $obj->$field2 . ";";
+          }
+          return $str;
   }
 }

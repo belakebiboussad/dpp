@@ -2,22 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\modeles\rol;
-use App\modeles\Order;
-use App\modeles\consultation;
-use App\modeles\colloque;
 use App\modeles\rdv_hospitalisation;
-use App\modeles\hospitalisation;
-use App\modeles\ticket;
-use App\modeles\employ;
-use App\modeles\DemandeHospitalisation;
-use App\modeles\admission;
-use App\modeles\medcamte;
-use App\modeles\reactif;
-use App\modeles\dispositif;
-use App\modeles\dem_colloque;
-use App\modeles\demandeexb;
-use App\modeles\demandeexr;
 use App\modeles\Etablissement;
 use App\modeles\Etatsortie;
 use App\modeles\Specialite;

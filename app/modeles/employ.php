@@ -33,11 +33,10 @@ class employ extends Model
 	{
 		return $this->hasOne('App\User','employe_id');
 	}
-  public function isServHead($servId)
-  {
-    return (($this->User->role_id == 14) && ($this->service_id == $servId ));
-  }
-
+      public function isServHead($servId)
+      {
+               return (($this->User->role_id == 14) && ($this->service_id == $servId ));
+      }
 	public function colloques()
 	{
 		return $this->belongsToMany ('App\modeles\colloque','membres','id_employ','id_colloque');

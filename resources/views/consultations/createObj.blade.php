@@ -1,27 +1,27 @@
 @extends('app')
-@section('style')
-<link rel="stylesheet" href="{{ asset('css/print.css') }}" />
-<style>
-  .modaldialog {
-    width:92%;
-  }
-  iframe {
-      display: block;
-      margin: 0 auto;
-      border: 0;
-      position:relative;
-      z-index:999;
-  }
-  #content {
-    background: white;
-    width: 98%;
-    height: 100%;
-    margin: 5px auto;
-    border: 1px solid orange;
-    padding: 10px;
-  }
-</style>
-@stop
+  @section('style')
+  <link rel="stylesheet" href="{{ asset('css/print.css') }}" />
+  <style>
+    .modaldialog {
+      width:92%;
+    }
+    iframe {
+        display: block;
+        margin: 0 auto;
+        border: 0;
+        position:relative;
+        z-index:999;
+    }
+    #content {
+      background: white;
+      width: 98%;
+      height: 100%;
+      margin: 5px auto;
+      border: 1px solid orange;
+      padding: 10px;
+    }
+  </style>
+  @stop
 @section('page-script')
 @include('examenradio.scripts.imgRequestdJS')
 <script>

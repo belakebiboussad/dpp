@@ -129,7 +129,7 @@ class HospitalisationController extends Controller
   public function edit($id)
   {
     $hosp = hospitalisation::find($id);
-    $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
+     $employes = employ::where('service_id',$hosp->admission->demandeHospitalisation->service)->whereHas('User',function($q) {
       $q->whereIn('role_id', [1, 13, 14]);
     })->get();
     $modesHosp = ModeHospitalisation::where('selected',1)->get(); 
