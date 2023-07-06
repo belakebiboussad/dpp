@@ -1,8 +1,5 @@
-@extends('app')
-@section('main-content')
-	<div class="page-header"><h1>Modifier le lit </h1>
-<div class="pull-right"><a href="{{ URL::previous() }}" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-backward"></i> precedant</a></div>
-</div><hr>
+<div class="page-header"><h1>Modifier le lit </h1>
+</div>
 	<div class="row">
 		<div class="col-xs-12">
 		<div class="widget-box">
@@ -15,21 +12,33 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group row">
-					<label class="col-sm-3 control-label" for="num">Numéro</label>
+					<label class="col-sm-3 control-label text-right">Numéro :</label>
 					<div class="col-sm-9">
-						<input type="number" name="num" value="{{ $lit->num }}" class="col-xs-10 col-sm-5" required/>
+						<input type="number" name="num" value="{{ $lit->num }}" class="form-control" required/>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-3 control-label" for="nom">Nom</label>
+					<label class="col-sm-3 control-label text-right">Nom :</label>
 					<div class="col-sm-9">
-						<input type="text" name="nom" value="{{ $lit->nom }}"  class="col-xs-10 col-sm-5" />
+						<input type="text" name="nom" value="{{ $lit->nom }}"  class="form-control" />
 					</div>
 				</div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label text-right" for="service">Service :</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="service" name="service" required>
+              <option value="">Selectionnez....</option>
+              @foreach($services as $service)
+        <option value="{{ $service->id }}" {{($lit->salle->service->id == $service->id ) ? 'selected ' : ''}}>{{ $service->nom}}
+              </option>
+              @endforeach
+            </select>
+          </div>
+        </div>
 				<div class="form-group row">
-					<label class="col-sm-3 control-label" for="salle_id">Chambre</label>
+					<label class="col-sm-3 control-label text-right">Chambre :</label>
 					<div class="col-sm-9">
-						<select class="col-xs-10 col-sm-5" id="salle" name="salle_id" required>
+				    <select class="form-control" name="salle_id" id="salle_id" required>
 							@foreach($salles as $salle)
 							<option value="{{ $salle->id }}" @if($lit->salle_id == $salle->id) selected @endif>{{ $salle->nom }}</option>
 							@endforeach
@@ -39,9 +48,7 @@
 		    <div class="form-group row">
           <div class=" col-sm-9 col-sm-offset-3">
           <label>Bloqué
-            <input id="" type="checkbox" class="ace ace-switch ace-switch-6"  name="bloq" value ="1"  {{ $lit->bloq == 1  ? "checked" : "" }} />
-            <span class="lbl"></span>
-          </label>
+            <input id="" type="checkbox" class="ace ace-switch ace-switch-6"  name="bloq" value ="1" {{ $lit->bloq == 1  ? "checked" : "" }}/><span class="lbl"></span></label>
           </div>
         </div>
          <div class="center">
@@ -54,4 +61,3 @@
 		</div>
 	</div>
 </div>
-@stop

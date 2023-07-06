@@ -19,11 +19,16 @@
 @include('demandeproduits.partials.scripts')
 <script>
 $(function(){
-      $("#meds-table").jqGrid({
-            url : '{{ route("drug.index", ["demId"=>$demande->id])}}',
-             mtype: "GET",
-              datatype: "json",
-        })
+  $("#meds-table").jqGrid({
+    url : '{{ route("drug.edit", ["id"=>$demande->id])}}',
+    mtype: "GET",
+    datatype: "json",
+    colNames:['demande_id','drug_id'],
+    colModel:[
+      { name:'demande', index:'demande_id', hidden:false, editable: false},
+      { name:'Medicament', index:'drug_id', hidden:false, editable: false},
+    ]
+  })
 
 });
 </script>

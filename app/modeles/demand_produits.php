@@ -24,7 +24,7 @@ class demand_produits extends Model
   }
   public function medicaments()
   {
-		return $this->belongsToMany('App\modeles\Drug', 'demande_medicaments', 'id_demande', 'id_medicaments')->withPivot('qte','qteDonne','unite');   	
+		return $this->belongsToMany('App\modeles\Drug', 'demande_drug', 'demande_id', 'drug_id')->withPivot('qte','qteDonne','unite');   	
   }
   public function dispositifs()
   {

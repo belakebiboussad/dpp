@@ -106,8 +106,7 @@ Route::get('/gerReports/{type}','HomeController@getReports');
 Route::get('/reportprint/{className}/{objId}/{stateId}','HomeController@print');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
 route::get('/getrdv','RDVController@getRDV');
-route::get('/getpatient','PatientController@getpatient');//
-route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
+route::get('/getpatient','PatientController@getpatient');
 route::get('/getsalles','SalleController@getsalles');
 route::get('/salles/{id}','ServiceController@getsalles');
 Route::group(['as' => 'user.'], function() {

@@ -9,13 +9,13 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group row">
-              <label class="col-sm-3 col-control-label" for="nom">Nom</label>
+              <label class="col-sm-3 col-control-label text-right" for="nom">Nom :</label>
               <div class="col-sm-9">
                 <input type="text" id="nom" name="nom" value="{{ $service->nom }}"  class="form-control"/>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-control-label" for="type">Type</label>
+              <label class="col-sm-3 col-control-label text-right" for="type">Type :</label>
               <div class="col-sm-9">
                 <select id="type" name="type"  class="form-control selectpicker">
                   <option value="" @if($service->type == '') selected @endif>Fonctionnel</option>
@@ -25,7 +25,7 @@
                 </select> 
               </div>
             </div>
-            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif><label class="col-sm-3 control-label">Spécialite</label>
+            <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif><label class="col-sm-3 control-label text-right">Spécialite :</label>
               <div class="col-sm-9">
                 <select id="specialite_id" nom="specialite_id" class="form-control selectpicker">
                 <option value=""disabled>---Selectionner---</option>
@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-control-label" for="type">Chef</label>
+              <label class="col-sm-3 col-control-label text-right" for="type">Chef :</label>
               <div class="col-sm-9">
                 <select id="responsable_id"  name="responsable_id" class="form-control selectpicker">
                   <option value="">Selectionner le chef du service</option>
@@ -49,14 +49,14 @@
             <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
                  <div class="checkbox col-sm-offset-4">
-                <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}> <span class="lbl">Hébergement</span></label>
+                <label><input name="hebergement" type="checkbox" class="ace" value ="1" {{(isset($service->hebergement))? 'checked':''}}> <span class="lbl"> Hébergement</span></label>
                 </div>          
               </div>
             </div>
             <div class="form-group healthServ row" @if($service->type == 2) style="display:none" @endif>
               <div class="col-sm-9">
                 <div class="checkbox col-sm-offset-4">
-                <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}><span class="lbl">Urgence</span></label></div>
+                <label><input name="urgence" type="checkbox" class="ace" value ="1" {{(isset($service->urgence))? 'checked':''}}><span class="lbl"> Urgence</span></label></div>
               </div>
             </div>
             <div class="row center">

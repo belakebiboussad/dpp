@@ -20,20 +20,17 @@
           </div>
 				</div>
         <div class="form-group  @if($service->type == 'Paramédical') hidden @endif">
-					<div class="col-sm-12">
-            <div class="checkbox col-sm-offset-3">
-				      <label><input type="checkbox" class="ace form-control" name="hebergement" value ="1" {{(isset($service->hebergement))? 'checked':''}} 
-              disabled/><span class="lbl">Hébergement</span></label>
-            </div>
+					<div class="checkbox col-sm-offset-3">
+				    <label><input type="checkbox" class="ace form-control" {{(isset($service->hebergement))? 'checked':''}} 
+              disabled/><span class="lbl"> Hébergement</span>
+            </label>
           </div>
-				</div>
+        </div>
 				<div class="form-group @if($service->type == 'Paramédical') hidden @endif row">
-					<div class="col-sm-12">
-            <div class="checkbox col-sm-offset-3">
-					  <label><input type="checkbox" class="ace form-control" name="urgence" value ="1" {{(isset($service->urgence))? 'checked':''}} disabled/><span class="lbl">Urgence</span></label>
-            </div>
+			    <div class="checkbox col-sm-offset-3">
+					  <label><input type="checkbox" class="ace form-control" {{(isset($service->urgence))? 'checked':''}} disabled/><span class="lbl"> Urgence</span></label>
           </div>
-				</div><br>	
+        </div>
 			</div>
 		  </div>
 		</div>
@@ -44,7 +41,7 @@
   <div class="col-xs-12">
     <div class="widget-box">
       <div class="widget-header">
-      <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i> les  chambres du service</h5></div>
+      <div><h5 class="widget-title"><i class="ace-icon fa fa-table"></i> Chambres</h5></div>
       </div>
       <div class="widget-body">
         <div class="widget-main no-padding">
@@ -55,8 +52,7 @@
           <tbody>
            @foreach ($service->salles as $salle) 
           <tr>
-            <td>{{ $salle->num }}</td>
-            <td><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a></td>
+            <td>{{ $salle->num }}</td><td>{{ $salle->nom }}</td>
             <td class="center"><span class="badge badge-info">{{ count($salle->lits) }}</span></td>
           </tr>
           @endforeach

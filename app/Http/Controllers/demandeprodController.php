@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\service;
-use App\modeles\Drug;
-use App\modeles\Dispositif;
-use App\modeles\Reactif;
 use App\modeles\gamme;
 use App\modeles\specialite_produit;
 use App\modeles\demand_produits;
 use App\modeles\demande_dispositif;
 use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
-use App\modeles\Consommable;
 use Carbon\Carbon;
 use Response;
 class demandeprodController extends Controller
@@ -25,28 +21,6 @@ class demandeprodController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-    public function get_produit($id_gamme, $id_spes)
-    {
-            if($id_gamme == 1)
-            {
-                $produits = Drug::where("id_specialite",$id_spes)->get();
-                return $produits;
-            }
-            elseif ($id_gamme == 2) {
-                $produits = Dispositif::all();
-                return $produits;
-            }
-            elseif($id_gamme == 3)
-            {
-                $produits = Reactif::all();
-                return $produits;
-            }
-            elseif($id_gamme == 4)
-            {
-                $consommables = Consommable::all();
-                return $consommables;
-            }
     }
     public function index(Request $request)
     {
@@ -117,24 +91,24 @@ class demandeprodController extends Controller
      */
       public function store(Request $request)
       {
-            $date = Carbon::today();
-            $demande = demand_produits::Create([
-              "date" => $date,
-              "id_employe" => Auth::user()->employe_id,
-            ]);
-            $listes = json_decode($request->liste);
-              for ($i=1; $i < count($listes); $i++) { 
-              $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
-              if($gamme->id == "1")
-                   $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-              elseif($gamme->id == "2") 
-                $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-              elseif($gamme->id == "3") 
-                $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-              elseif($gamme->id == "4")
-                $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
-          }
-          return redirect()->route('demandeproduit.show',$demande->id); 
+          $date = Carbon::today();
+          $demande = demand_produits::Create([
+            "date" => $date,
+            "id_employe" => Auth::user()->employe_id,
+          ]);
+          $listes = json_decode($request->liste);
+            for ($i=1; $i < count($listes); $i++) { 
+            $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+            if($gamme->id == "1")
+                 $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+            elseif($gamme->id == "2") 
+              $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+            elseif($gamme->id == "3") 
+              $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+            elseif($gamme->id == "4")
+              $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+        }
+        return redirect()->route('demandeproduit.show',$demande->id); 
     }
     /**
      * Display the specified resource.

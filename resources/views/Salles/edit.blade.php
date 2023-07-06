@@ -1,6 +1,4 @@
-@extends('app')
-@section('main-content')
-	<div class="page-header"><h1>Modifier la chambre "{{ $salle->nom }}"</h1></div>
+<div class="page-header"><h1>Modifier la chambre "{{ $salle->nom }}"</h1></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box">
@@ -13,37 +11,37 @@
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="numsalle">Numéro</label>
 					<div class="col-sm-9">
-						<input type="number" min="0" name="num" value="{{ $salle->num }}" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
+						<input type="number" min="0" name="num" value="{{ $salle->num }}" class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="nomsalle">Nom</strong></label>
 					<div class="col-sm-9">
-						<input type="text" name="nom" value="{{ $salle->nom }}" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
+						<input type="text" name="nom" value="{{ $salle->nom }}" class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="max_lit">Capacité</label>
 					<div class="col-sm-9">
-						<input type="number" name="max_lit" value="{{ $salle->max_lit }}" placeholder="Max des Lits" class="col-xs-10 col-sm-5" min="0"/>
+						<input type="number" name="max_lit" value="{{ $salle->max_lit }}" class="form-control" min="0"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="bloc">Bloc</label>
 					<div class="col-sm-9">
-						<input type="text" name="bloc" value="{{ $salle->bloc }}" placeholder="Bloc" class="col-xs-10 col-sm-5" />
+						<input type="text" name="bloc" value="{{ $salle->bloc }}" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="etage">N° d'étage</label>
 					<div class="col-sm-9">
-					<input type="number" name="etage" value="{{ $salle->etage }}" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
+					<input type="number" name="etage" value="{{ $salle->etage }}" class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3 control-label text-right" for="service_id">Service</label>
 					<div class="col-sm-9">
-						<select class="form-select col-xs-10 col-sm-5" name="service_id">
+						<select class="form-control" name="service_id">
 						<option value="{{$salle->service_id}}">{{ $salle->service->nom }}</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -62,8 +60,7 @@
 				<div class="form-group row">
 					<div class="checkbox col-sm-offset-3">
           <label>
-<input name="etat" type="checkbox" class="ace" value ="1" {{(isset($salle->etat))? 'checked':''}}>
-            <span class="lbl"> Chambre bloquée</span>
+<input name="etat" type="checkbox" class="ace" value ="1" {{(isset($salle->etat))? 'checked':''}}><span class="lbl"> bloquée</span>
           </label>
           </div>
         </div>
@@ -79,4 +76,3 @@
 				</div>
 		</div>
 	</div>
-@stop

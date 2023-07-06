@@ -25,16 +25,8 @@ class LitsController extends Controller
       }
     public function index(Request $request)
     {
-      if($request->ajax())  
-      {
-        $lits = lit::where('salle_id',$request->id)->get();
-        $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-        return ['html'=>$view];
-      }else
-      {
-        $lits=lit::with('salle','salle.service')->get();
-        return view('lits.index', compact('lits'));
-      }
+      $lits=lit::with('salle','salle.service')->get();
+      return view('lits.index', compact('lits'));
     }
     /**
      * Show the form for creating a new resource.
@@ -72,10 +64,8 @@ class LitsController extends Controller
     public function show(Request $request,lit $lit)
     {
       if($request->ajax())  
-      {
-        $view = view("lits.show",compact('lit'))->render();
-        return Response::json(['html'=>$view]);
-      }else
+        return  view("lits.show",compact('lit'))->render();
+      else
         return view('lits.show', compact('lit'));
     }
     /**
@@ -85,13 +75,15 @@ class LitsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(lit $lit)
-    { $salles = salle::all();
-      return view('lits.edit', compact('lit','salles'));
+    { 
+      $services = service::where('hebergement',1)->get();
+      $salles = $lit->salle->service->salles;
+      return view('lits.edit', compact('lit','salles','services'))->render();
     }
     public function destroy(lit $lit)
     {
       $lit->delete();
-      return redirect()->route('lit.index');    
+      return $lit->id;   
     }
     /**
      * Update the specified resource in storage.

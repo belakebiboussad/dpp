@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 05 juil. 2023 à 20:23
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le : jeu. 06 juil. 2023 à 16:28
+-- Version du serveur :  5.7.23
+-- Version de PHP : 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `dppdbpol`
+-- Base de données : `dppdbpol`
 --
 
 -- --------------------------------------------------------
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   PRIMARY KEY (`id`),
   KEY `fk_code_ngap` (`code_ngap`),
   KEY `fk_acte_viste` (`id_visite`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -71,8 +70,7 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap
 (140, 'acte1', 823, '1 par jour', 'paramedicale', NULL, NULL, 1, NULL, b'1', '2023-03-27 11:21:57', '2023-03-27 11:22:15'),
 (141, 'acte1', 824, 'une fois par jour', 'paramedicale', NULL, NULL, 1, NULL, NULL, '2023-03-27 12:11:45', '2023-03-27 12:11:45'),
 (142, 'faire un pensement', 1009, 'une foie le soir', 'paramedicale', 'CA', NULL, 3, NULL, NULL, '2023-05-06 08:25:28', '2023-05-06 08:25:28'),
-(143, 'faire un pensement', 1026, 'une foie le soir', 'paramedicale', 'K', NULL, 2, NULL, NULL, '2023-05-06 14:02:52', '2023-05-06 14:02:52'),
-(144, 'df', 1122, 'avec personnel', 'medicale', 'CRM', NULL, 3, NULL, NULL, '2023-07-05 19:30:11', '2023-07-05 19:46:16');
+(143, 'faire un pensement', 1026, 'une foie le soir', 'paramedicale', 'K', NULL, 2, NULL, NULL, '2023-05-06 14:02:52', '2023-05-06 14:02:52');
 
 -- --------------------------------------------------------
 
@@ -605,7 +603,7 @@ CREATE TABLE IF NOT EXISTS `bedaffectation` (
   PRIMARY KEY (`id`),
   KEY `fk_demande` (`demande_id`),
   KEY `fk_bed` (`lit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `bedaffectation`
@@ -635,9 +633,7 @@ INSERT INTO `bedaffectation` (`id`, `demande_id`, `lit_id`, `state`, `created_at
 (37, 81, 37, NULL, NULL, NULL),
 (38, 121, 3, NULL, '2023-05-05 19:23:14', '2023-05-05 19:23:14'),
 (39, 123, 1, NULL, '2023-05-05 21:24:42', '2023-05-05 21:24:42'),
-(40, 122, 3, 1, '2023-05-05 21:24:57', '2023-05-05 21:56:46'),
-(41, 124, 31, NULL, NULL, NULL),
-(42, 124, 31, NULL, NULL, NULL);
+(40, 122, 3, 1, '2023-05-05 21:24:57', '2023-05-05 21:56:46');
 
 -- --------------------------------------------------------
 
@@ -2748,9 +2744,10 @@ INSERT INTO `constante_visite` (`visit_id`, `const_id`, `obs`) VALUES
 (1033, 3, 'chaque 4 heure'),
 (1033, 6, 'chaque 4 heure'),
 (1033, 7, 'chaque 1 heure'),
-(1122, 2, 'zrzrzer'),
-(1122, 3, NULL),
-(1122, 7, 'chaque 4 heure');
+(1123, 2, NULL),
+(1123, 3, 'l:kjlg'),
+(1123, 6, 'chaque 4 heure'),
+(1123, 7, 'chaque 4 heure');
 
 -- --------------------------------------------------------
 
@@ -2775,7 +2772,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`employ_id`),
   KEY `fk_Consultation_Patient1_idx` (`pid`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=2791 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2788 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2911,9 +2908,7 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `date`, `Diagnos
 (2784, NULL, NULL, '2023-06-19', NULL, NULL, NULL, 103, 226, NULL, 31),
 (2785, NULL, NULL, '2023-06-19', NULL, NULL, NULL, 103, 343, NULL, 31),
 (2786, NULL, NULL, '2023-06-19', NULL, NULL, NULL, 103, 343, NULL, 31),
-(2787, 'avec bio', NULL, '2023-06-21', NULL, 'avec bio', NULL, 102, 192, NULL, 32),
-(2788, 'avec bio', NULL, '2023-06-21', NULL, 'avec bio', NULL, 102, 192, NULL, 32),
-(2790, NULL, NULL, '2023-07-05', NULL, NULL, NULL, 103, 222, NULL, 32);
+(2787, NULL, NULL, '2023-07-03', NULL, NULL, NULL, 103, 222, NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -3556,7 +3551,7 @@ CREATE TABLE IF NOT EXISTS `demandeexb` (
   PRIMARY KEY (`id`),
   KEY `id_consultation` (`imageable_id`),
   KEY `fk_visite` (`imageable_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexb`
@@ -3568,12 +3563,9 @@ INSERT INTO `demandeexb` (`id`, `etat`, `resultat`, `crbfile`, `crb`, `imageable
 (162, 1, 'examenbio_1683305886.pdf', '', NULL, 1003, 'App\\modeles\\visite'),
 (164, NULL, NULL, '', NULL, 2444, 'App\\modeles\\consultation'),
 (165, 1, 'Exemple-de-fiche-de-resultat_1683359195.png', '', NULL, 1004, 'App\\modeles\\visite'),
-(166, 1, 'Bienvenue-wali_1687374010.png', '', NULL, 2710, 'App\\modeles\\consultation'),
+(166, NULL, NULL, '', NULL, 2710, 'App\\modeles\\consultation'),
 (167, 1, 'Drapeau-Algerie_240-gif_1687352498.gif', '', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 2470, 'App\\modeles\\consultation'),
-(168, 1, 'rencontre_1687343207.png', '', NULL, 2470, 'App\\modeles\\consultation'),
-(169, 1, 'Bienvenue-wali_1687383354.png', '', 'hfghfg hgfhfgh', 2788, 'App\\modeles\\consultation'),
-(170, NULL, NULL, NULL, NULL, 1122, 'App\\modeles\\visite'),
-(171, NULL, NULL, NULL, NULL, 1122, 'App\\modeles\\visite');
+(168, 1, 'rencontre_1687343207.png', '', NULL, 2470, 'App\\modeles\\consultation');
 
 -- --------------------------------------------------------
 
@@ -3781,10 +3773,41 @@ INSERT INTO `demande_dispositif` (`id_demande`, `id_dispositif`, `qte`, `unite`,
 (59, 2, 22, 'carton', NULL),
 (62, 3, 3, 'carton', NULL),
 (65, 1, 3, '1', 1),
-(67, 2, 2, 'rouleau', NULL),
-(67, 3, 2, 'unit', NULL),
-(68, 1, 3, 'tube', NULL),
-(73, 3, 2, 'rouleau', 1);
+(66, 1, 3, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `demande_drug`
+--
+
+DROP TABLE IF EXISTS `demande_drug`;
+CREATE TABLE IF NOT EXISTS `demande_drug` (
+  `demande_id` int(11) UNSIGNED NOT NULL,
+  `drug_id` int(11) NOT NULL,
+  `qte` int(11) NOT NULL,
+  `unite` varchar(500) DEFAULT NULL,
+  `qteDonne` int(11) DEFAULT NULL,
+  KEY `drug_id` (`drug_id`) USING BTREE,
+  KEY `fk_demande_produit_demande` (`demande_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `demande_drug`
+--
+
+INSERT INTO `demande_drug` (`demande_id`, `drug_id`, `qte`, `unite`, `qteDonne`) VALUES
+(50, 14, 2, 'carton', 2),
+(51, 19, 10, 'carton', 10),
+(52, 17, 5, 'carton', 4),
+(55, 21, 4, 'carton', 4),
+(56, 297, 3, 'carton', 3),
+(57, 17, 15, 'carton', 12),
+(65, 105, 12, 'carton', 10),
+(65, 331, 10, 'carton', 9),
+(65, 347, 12, 'carton', 11),
+(66, 77, 3, 'sdd', NULL),
+(69, 19, 1, 'sdd', NULL);
 
 -- --------------------------------------------------------
 
@@ -3800,7 +3823,7 @@ CREATE TABLE IF NOT EXISTS `demande_examenbio` (
   PRIMARY KEY (`id`),
   KEY `id_demandeexb` (`demande_id`),
   KEY `id_examenbio` (`exam_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=435 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=429 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_examenbio`
@@ -3828,13 +3851,7 @@ INSERT INTO `demande_examenbio` (`id`, `demande_id`, `exam_id`) VALUES
 (425, 168, 8),
 (426, 168, 67),
 (427, 168, 107),
-(428, 168, 116),
-(429, 169, 2),
-(430, 169, 14),
-(431, 169, 26),
-(432, 169, 31),
-(433, 170, 59),
-(434, 171, 59);
+(428, 168, 116);
 
 -- --------------------------------------------------------
 
@@ -3884,56 +3901,19 @@ INSERT INTO `demande_examenradio` (`id`, `demande_id`, `exm_id`, `type_id`, `eta
 -- --------------------------------------------------------
 
 --
--- Structure de la table `demande_medicaments`
---
-
-DROP TABLE IF EXISTS `demande_medicaments`;
-CREATE TABLE IF NOT EXISTS `demande_medicaments` (
-  `id_demande` int(11) NOT NULL,
-  `id_medicaments` int(11) NOT NULL,
-  `qte` int(11) NOT NULL,
-  `unite` varchar(500) DEFAULT NULL,
-  `qteDonne` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_demande`,`id_medicaments`),
-  KEY `id_demande` (`id_demande`),
-  KEY `id_medicaments` (`id_medicaments`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `demande_medicaments`
---
-
-INSERT INTO `demande_medicaments` (`id_demande`, `id_medicaments`, `qte`, `unite`, `qteDonne`) VALUES
-(50, 14, 2, 'carton', 2),
-(51, 19, 10, 'carton', 10),
-(52, 17, 5, 'carton', 4),
-(55, 21, 4, 'carton', 4),
-(56, 297, 3, 'carton', 3),
-(57, 17, 15, 'carton', 12),
-(58, 76, 5, 'carton', NULL),
-(61, 76, 4, 'carton', NULL),
-(65, 105, 12, 'carton', 10),
-(65, 331, 10, 'carton', 9),
-(65, 347, 12, 'carton', 11),
-(67, 21, 3, 'carton', NULL),
-(73, 106, 2, 'tube', 1);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `demande_produits`
 --
 
 DROP TABLE IF EXISTS `demande_produits`;
 CREATE TABLE IF NOT EXISTS `demande_produits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `etat` enum('0','1') DEFAULT NULL COMMENT 'null;attente,0:Annuler,1:valide',
   `motif` varchar(200) DEFAULT NULL,
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_produits`
@@ -3954,9 +3934,10 @@ INSERT INTO `demande_produits` (`id`, `date`, `etat`, `motif`, `id_employe`) VAL
 (56, '2022-05-12', '1', NULL, 100),
 (57, '2022-07-13', '1', NULL, 113),
 (65, '2023-01-11', '1', NULL, 100),
-(67, '2023-07-05', NULL, NULL, 113),
-(68, '2023-07-05', NULL, NULL, 113),
-(73, '2023-07-05', '1', NULL, 113);
+(66, '2023-07-06', NULL, NULL, 113),
+(67, '2023-07-06', NULL, NULL, 113),
+(68, '2023-07-06', NULL, NULL, 113),
+(69, '2023-07-06', NULL, NULL, 113);
 
 -- --------------------------------------------------------
 
@@ -3982,8 +3963,7 @@ CREATE TABLE IF NOT EXISTS `demande_reactif` (
 
 INSERT INTO `demande_reactif` (`id_demande`, `id_reactif`, `qte`, `unite`, `qteDonne`) VALUES
 (50, 9, 8, 'carton', 6),
-(60, 1, 2, 'carton', NULL),
-(73, 6, 1, 'tube', 1);
+(60, 1, 2, 'carton', NULL);
 
 -- --------------------------------------------------------
 
@@ -6135,7 +6115,7 @@ CREATE TABLE IF NOT EXISTS `examen_clinique` (
   `id_consultation` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_examen_consult` (`id_consultation`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `examen_clinique`
@@ -6176,9 +6156,7 @@ INSERT INTO `examen_clinique` (`id`, `autre`, `Etat`, `peaupha`, `id_consultatio
 (43, NULL, NULL, NULL, 2759),
 (44, NULL, NULL, NULL, 2778),
 (45, NULL, NULL, NULL, 2780),
-(46, NULL, NULL, NULL, 2781),
-(47, NULL, NULL, NULL, 2787),
-(48, NULL, NULL, NULL, 2788);
+(46, NULL, NULL, NULL, 2781);
 
 -- --------------------------------------------------------
 
@@ -6320,7 +6298,7 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   KEY `fk_hommconf_user` (`created_by`),
   KEY `fk_hommconf_user1` (`updated_by`),
   KEY `fk_garde_patient` (`id_patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `homme_confs`
@@ -6333,7 +6311,7 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `t
 (111, 190, 'hom', 'home', '1987-10-04', '0', 4, '1', '04042042', '2019-09-22', 'alger', '0566666666', 'actuel', '2021-04-20 07:13:15', '2021-04-20 07:13:15', 102, NULL),
 (112, 243, 'mrabet', 'ali', '1964-06-23', '0', 2, '0', '04042042', '1989-01-01', 'alger', '0589154646', 'actuel', '2021-06-01 12:14:03', '2021-06-01 12:14:03', 102, NULL),
 (113, 243, 'mrabet', 'aldjia', '1984-06-12', '1', 5, '1', '04042045', '2003-05-19', 'alger', '0797846646', 'actuel', '2021-06-01 12:15:35', '2021-06-01 12:15:35', 102, NULL),
-(114, 188, 'homme confiance', 'homme confiance', '2021-06-06', '0', 2, '0', '04042042', '2021-06-07', 'gsdfgdsfgs grfsdfgsdf', '0666666666', 'actuel', '2021-06-02 08:51:57', '2021-06-02 08:52:13', 102, NULL),
+(114, 188, 'homme confiance', 'homme confiance', '2021-06-06', '0', 2, '0', '04042042', '2021-06-07', 'gsdfgdsfgs grfsdfgsdf', '0666666666', 'actuel', '2021-06-02 08:51:57', '2023-07-04 11:05:00', 103, NULL),
 (116, 265, 'laoui', 'mourad', '2000-06-20', '0', 2, '1', '04042042', '2009-05-18', 'algercscqsc', '0563236647', 'actuel', '2021-06-29 06:44:02', '2021-06-29 06:55:58', 82, NULL),
 (118, 265, 'fez', 'fze', '2017-01-09', '0', 2, '0', '040420411', '2009-05-18', 'blida', '0565623233', 'actuel', '2021-06-29 07:00:44', '2021-06-29 07:00:44', 102, NULL),
 (119, 273, 'salhi', 'djamila', '1983-05-09', '0', 5, '0', '02365654', '2000-12-26', NULL, '0665962323', 'actuel', '2021-07-05 09:15:07', '2021-07-05 10:47:56', 82, NULL),
@@ -6347,7 +6325,6 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `t
 (134, 285, 'oncle', 'oncle', NULL, '0', 5, '0', '04562', NULL, NULL, '0058965656', 'actuel', '2022-04-14 16:29:04', '2022-04-14 16:29:04', 113, NULL),
 (135, 191, 'gfdg', 'gfdg', '2022-05-09', '0', 1, '0', '2365656', '2022-05-03', 'alger', '0565323265', 'actuel', '2022-05-19 10:11:03', '2022-05-19 10:11:03', 82, NULL),
 (137, 226, 'dsqdsq', 'dsqdsq', '2022-05-02', '0', 1, '0', 'dsq65465', '2018-05-21', 'algercscqsc', '0563235656', 'actuel', '2022-05-31 10:59:18', '2022-05-31 10:59:18', 113, NULL),
-(138, 188, 'ait ouali', 'ali', '1993-06-22', '0', 3, '0', '413vdvdv', '2022-06-07', 'alger', '0656565656', 'actuel', '2022-06-06 14:32:27', '2022-06-06 14:36:21', 113, NULL),
 (140, 268, 'nom1', 'prenom1', '2022-06-05', '0', 2, '0', 'gh485848', NULL, NULL, '0444564646', 'actuel', '2022-06-14 13:59:12', '2023-01-05 10:30:25', 102, NULL),
 (147, 193, 'touami', 'ali', '2022-09-18', '0', 1, '0', 'bfbb562', NULL, 'alger', '0464646464', 'actuel', '2022-09-05 13:38:23', '2022-09-05 13:54:26', 113, NULL),
 (149, 190, 'dsqd', 'qsd', NULL, '0', 2, '0', '06565656', NULL, '02 reue d\'alger ain beniene', '0546546546', 'actuel', '2022-09-29 13:00:09', '2022-09-29 13:00:09', 100, NULL),
@@ -6357,14 +6334,17 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `t
 (153, 190, 'dfg', 'dgf', '2022-12-04', '0', 0, '0', '464654', '2022-12-04', '02 reue d\'alger ain beniene', '0252527772', 'actuel', '2022-12-05 14:50:32', '2022-12-05 14:50:32', 102, NULL),
 (154, 252, 'gdfg', 'dz', '2023-03-13', '0', 0, '0', '464654', '2023-03-14', '02 reue d\'alger ain beniene', '0562326565', 'actuel', '2023-03-21 13:44:09', '2023-03-21 13:44:09', 100, NULL),
 (155, 191, 'fdsf', 'sdfdsf', '2023-04-30', '0', NULL, '0', '464654', '2023-04-07', 'fdsfdsf', '0565626565', 'actuel', '2023-05-07 09:45:37', '2023-05-07 09:45:37', 82, NULL),
-(156, 188, 'cdsc', 'cdsc', '2023-05-17', '0', 1, '0', '464654', '2023-04-30', 'alger', '0565232323', 'actuel', '2023-05-09 15:25:38', '2023-05-09 15:25:38', 103, NULL),
-(157, 188, 'cdsc', 'cdsc', '2023-05-17', '0', 1, '0', '464654', '2023-04-30', 'alger', '0565232323', 'actuel', '2023-05-09 15:25:39', '2023-05-09 15:25:39', 103, NULL),
 (158, 226, 'gdfg', 'fds', NULL, '1', 9, '0', '464654', '2023-05-08', 'alger', '0563232323', 'actuel', '2023-05-18 08:33:59', '2023-05-18 08:33:59', 103, NULL),
 (159, 226, 'dsf', 'fds', '2023-05-14', '0', 0, '0', '123265656', '2023-05-07', 'alger', '0659899895', 'actuel', '2023-05-18 11:30:54', '2023-05-18 11:30:54', 103, NULL),
 (160, 226, 'dsq', 'sdsq', '2023-04-30', '0', 0, '0', '464654', '2023-05-14', '02 reue d\'alger ain beniene', '0959595955', 'actuel', '2023-05-18 11:33:00', '2023-05-18 11:33:00', 103, NULL),
 (161, 226, 'fgjhgfh', ',bn', NULL, '0', 0, '0', '464654', '2023-04-30', '02 reue d\'alger ain beniene', '0464646464', 'actuel', '2023-05-18 11:33:54', '2023-05-18 11:33:54', 103, NULL),
 (162, 226, 'dsq', 'fe', '2023-04-30', '0', 1, '0', '464654', '2023-04-30', 'alger', '0565656659', 'actuel', '2023-05-18 11:45:28', '2023-05-18 11:46:15', 103, NULL),
-(163, 268, 'sdq', 'dsq', NULL, '0', NULL, '0', '464654', '2023-05-22', NULL, '0646464646', 'actuel', '2023-05-18 12:53:33', '2023-05-18 12:53:33', 103, NULL);
+(163, 268, 'sdq', 'dsq', NULL, '0', NULL, '0', '464654', '2023-05-22', NULL, '0646464646', 'actuel', '2023-05-18 12:53:33', '2023-05-18 12:53:33', 103, NULL),
+(164, 222, 'homme', 'jhgfjhg', '2023-06-25', '0', 0, '0', '464654', '2023-07-02', '02 reue d\'alger ain beniene', '0757275276', 'actuel', '2023-07-03 13:06:42', '2023-07-03 13:18:29', 103, NULL),
+(165, 222, 'fsd', 'dsfds', '2023-06-04', '0', 0, '0', '464654', '2023-07-09', '02 reue d\'alger ain beniene', '0725727527', 'actuel', '2023-07-03 13:07:03', '2023-07-03 13:07:03', 103, NULL),
+(166, 222, 'jgh', 'jhgj', '2023-06-18', '1', 0, '0', '472757527', '2023-07-02', '02 reue d\'alger ain beniene', '0752875275', 'actuel', '2023-07-03 13:07:37', '2023-07-03 13:07:37', 103, NULL),
+(173, 188, 'nom1', 'prenom2', '2023-06-04', '0', 8, '1', '321645656', '2023-07-02', '02 reue d\'alger ain beniene', '0236565656', 'actuel', '2023-07-04 12:00:50', '2023-07-04 12:07:06', 103, NULL),
+(174, 188, 'nom', 'prenom', NULL, '0', 1, '0', '464654', '2023-05-28', '02 reue d\'alger ain beniene', '0621564546', 'actuel', '2023-07-04 12:04:38', '2023-07-04 12:06:42', 103, NULL);
 
 -- --------------------------------------------------------
 
@@ -6505,15 +6485,15 @@ CREATE TABLE IF NOT EXISTS `lits` (
   `salle_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_salle` (`salle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `lits`
 --
 
 INSERT INTO `lits` (`id`, `num`, `nom`, `bloq`, `affectation`, `salle_id`) VALUES
-(1, 1, 'lit1', 1, 1, 3),
-(2, 2, 'lit2', NULL, NULL, 2),
+(1, 1, 'lit1', NULL, 1, 3),
+(2, 2, 'lit2', NULL, NULL, 12),
 (3, 3, 'lit3', NULL, NULL, 3),
 (4, 4, 'lit4', NULL, NULL, 3),
 (5, 5, 'lit5', NULL, NULL, 4),
@@ -6546,9 +6526,7 @@ INSERT INTO `lits` (`id`, `num`, `nom`, `bloq`, `affectation`, `salle_id`) VALUE
 (35, 2, 'lit2', NULL, NULL, 16),
 (36, 1, 'lit1', NULL, 1, 17),
 (37, 2, 'lit2', 1, NULL, 17),
-(38, 3, 'trois', NULL, NULL, 18),
-(39, 1, 'lit1', NULL, NULL, 18),
-(40, 2, 'deux', NULL, NULL, 18);
+(44, 3, 'sup', NULL, NULL, 12);
 
 -- --------------------------------------------------------
 
@@ -12158,7 +12136,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   KEY `fk_RDV_Employe` (`employ_id`),
   KEY `fk_RDV_Patient` (`patient_id`),
   KEY `fk_specialite` (`specialite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=719 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=743 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -12173,7 +12151,7 @@ INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `
 (241, '2022-03-05 11:45:00', '2022-03-05 12:00:00', 1, 1, 100, 188, 0),
 (242, '2022-03-05 16:45:00', '2022-03-05 17:00:00', 1, 1, 100, 278, 0),
 (244, '2022-03-05 16:30:00', '2022-03-05 16:45:00', 1, 1, 82, 277, 0),
-(245, '2022-03-05 13:00:00', '2022-03-05 13:15:00', 1, 1, 82, 188, NULL),
+(245, '2022-03-05 13:00:00', '2022-03-05 13:15:00', 1, 1, 82, 188, 0),
 (246, '2022-03-05 14:15:00', '2022-03-05 14:30:00', 1, 1, 82, 226, NULL),
 (247, '2022-03-05 15:00:00', '2022-03-05 15:15:00', 0, 1, 82, 289, NULL),
 (248, '2022-03-05 11:45:00', '2022-03-05 12:00:00', 0, 1, 82, 193, NULL),
@@ -12183,7 +12161,7 @@ INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `
 (255, '2022-03-15 11:30:00', '2022-03-15 11:45:00', 1, 1, 100, 189, 0),
 (256, '2022-03-08 11:30:00', '2022-03-08 11:45:00', 1, 3, 113, 225, NULL),
 (257, '2022-03-09 08:30:00', '2022-03-09 08:45:00', 1, 3, 113, 192, NULL),
-(258, '2022-03-10 09:45:00', '2022-03-10 10:00:00', 1, 3, 113, 188, NULL),
+(258, '2022-03-10 09:45:00', '2022-03-10 10:00:00', 1, 3, 113, 188, 0),
 (265, '2022-03-11 11:15:00', '2022-03-11 11:30:00', 1, 4, 82, 193, NULL),
 (266, '2022-03-09 12:45:00', '2022-03-09 13:00:00', 1, 1, 82, 207, NULL),
 (267, '2022-03-09 15:15:00', '2022-03-09 15:30:00', 1, 1, 82, 193, NULL),
@@ -12539,7 +12517,31 @@ INSERT INTO `rdvs` (`id`, `date`, `fin`, `fixe`, `specialite_id`, `employ_id`, `
 (715, '2023-06-18 10:30:00', '2023-06-18 10:45:00', 1, 3, 140, 331, NULL),
 (716, '2023-06-20 12:15:00', '2023-06-20 12:30:00', 1, 1, 102, 208, NULL),
 (717, '2023-06-21 13:15:00', '2023-06-21 13:30:00', 1, 3, 103, 326, NULL),
-(718, '2023-06-29 12:00:00', '2023-06-29 12:15:00', 1, 3, 103, 270, NULL);
+(718, '2023-06-27 10:30:00', '2023-06-27 10:45:00', 1, 3, 103, 326, NULL),
+(719, '2023-06-28 12:30:00', '2023-06-28 12:45:00', 1, 3, 103, 193, NULL),
+(720, '2023-06-27 15:30:00', '2023-06-27 15:45:00', 1, 3, 103, 193, NULL),
+(721, '2023-07-05 11:30:00', '2023-07-05 11:45:00', 1, 3, 103, 311, 0),
+(722, '2023-07-05 13:45:00', '2023-07-05 14:00:00', 1, 3, 103, 193, NULL),
+(723, '2023-07-06 10:45:00', '2023-07-06 11:00:00', 1, 3, 103, 269, 0),
+(724, '2023-07-04 11:45:00', '2023-07-04 12:00:00', 1, 3, 103, 193, NULL),
+(725, '2023-07-04 10:30:00', '2023-07-04 10:45:00', 1, 3, 103, 320, 0),
+(726, '2023-07-05 10:15:00', '2023-07-05 10:30:00', 1, 3, 103, 330, NULL),
+(727, '2023-07-04 09:15:00', '2023-07-04 09:30:00', 1, 3, 103, 277, 0),
+(728, '2023-07-05 09:45:00', '2023-07-05 10:00:00', 1, 3, 103, 316, NULL),
+(729, '2023-07-05 09:00:00', '2023-07-05 09:15:00', 1, 3, 103, 270, NULL),
+(730, '2023-07-06 12:30:00', '2023-07-06 12:45:00', 1, 3, 103, 277, 0),
+(731, '2023-07-04 14:00:00', '2023-07-04 14:15:00', 1, 3, 103, 277, NULL),
+(732, '2023-07-05 14:45:00', '2023-07-05 15:00:00', 1, 3, 103, 277, NULL),
+(733, '2023-07-06 14:00:00', '2023-07-06 14:15:00', 1, 3, 103, 272, NULL),
+(734, '2023-07-06 09:00:00', '2023-07-06 09:15:00', 1, 3, 103, 269, NULL),
+(735, '2023-07-06 13:00:00', '2023-07-06 13:15:00', 1, 3, 103, 311, 0),
+(736, '2023-07-05 09:45:00', '2023-07-05 10:00:00', 1, 3, 140, 311, 0),
+(737, '2023-07-04 13:15:00', '2023-07-04 13:30:00', 1, 3, 140, 188, 0),
+(738, '2023-07-05 12:00:00', '2023-07-05 12:15:00', 1, 3, 140, 222, 0),
+(739, '2023-07-04 10:30:00', '2023-07-04 10:45:00', 1, 3, 140, 320, 0),
+(740, '2023-07-05 11:15:00', '2023-07-05 11:30:00', 1, 3, 140, 188, NULL),
+(741, '2023-07-06 12:30:00', '2023-07-06 12:45:00', 1, 3, 140, 268, NULL),
+(742, '2023-07-06 13:15:00', '2023-07-06 13:30:00', 1, 3, 140, 277, NULL);
 
 -- --------------------------------------------------------
 
@@ -12859,8 +12861,8 @@ CREATE TABLE IF NOT EXISTS `salles` (
   `etat` enum('1') DEFAULT NULL COMMENT 'null:non loqué,1:bloqué',
   `service_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_service` (`service_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  KEY `fk_service` (`service_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `salles`
@@ -12868,7 +12870,7 @@ CREATE TABLE IF NOT EXISTS `salles` (
 
 INSERT INTO `salles` (`id`, `num`, `nom`, `genre`, `max_lit`, `bloc`, `etage`, `etat`, `service_id`) VALUES
 (1, 1, 'nomsalle', 0, 6, '2', 1, NULL, 2),
-(2, 2, 'cardio', 0, 6, '1', 0, NULL, 2),
+(2, 2, 'cardio', 0, 6, '1', 0, NULL, 1),
 (3, 3, 'internneH', 0, 6, '1', 1, NULL, 1),
 (4, 4, 'salle4F', 1, 6, '0', 0, NULL, 1),
 (5, 3, 'salle3', 1, 4, 'A', 1, NULL, 1),
@@ -12880,7 +12882,9 @@ INSERT INTO `salles` (`id`, `num`, `nom`, `genre`, `max_lit`, `bloc`, `etage`, `
 (15, 1, 'salle1', 1, 4, 'A', 1, NULL, 5),
 (16, 3, 'chambre3', 0, 4, 'A', 2, '1', 3),
 (17, 2, 'chambre2', 0, 6, 'B', 0, NULL, 3),
-(18, 1, 'une', 2, 7, 'a', 2, NULL, 11);
+(29, 3, 'sup', 1, 1, 'a', 1, '1', 1),
+(30, 3, 'hgf', 2, 2, 'D', 1, NULL, 3),
+(31, 3, 'sup', 2, 1, 'A', 1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -12901,7 +12905,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   KEY `responsable_id` (`responsable_id`),
   KEY `FK_service_type` (`type`),
   KEY `f_spec` (`specialite_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `services`
@@ -12927,8 +12931,7 @@ INSERT INTO `services` (`id`, `nom`, `responsable_id`, `hebergement`, `urgence`,
 (20, 'BUREAU DES ADMISSIONS', 95, NULL, NULL, '2', NULL),
 (21, 'Direction', 101, NULL, NULL, '2', NULL),
 (22, 'Consultations externes', 123, NULL, NULL, '0', 16),
-(87, 'Sécretariat', NULL, NULL, NULL, '2', NULL),
-(88, 'fdsfds', NULL, 1, NULL, '2', 5);
+(87, 'Sécretariat', NULL, NULL, NULL, '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -13209,7 +13212,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `username`, `password`, `email`, `employe_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'infcar@hop.dz', 1, 3, 'KrhnMY6VzvVtigUQrx1cr0BTUwyG6mah1NMKZ10iXFJh5UV2FQCvWGnscYBt', 1),
-(25, 'admin', '$2y$10$6mWrYAgB0E6HEOXHh/mPW.Qifq/7n.IpsL5BtVg6QW57yqmhArcRS', 'mail@live.fr', 65, 4, 'J1brV5BuDQsdVF58Klg2W1JbhQyIIkRZj83gCRPvlzo7mTnmK0hzNaQkI2Q1', 1),
+(25, 'admin', '$2y$10$6mWrYAgB0E6HEOXHh/mPW.Qifq/7n.IpsL5BtVg6QW57yqmhArcRS', 'mail@live.fr', 65, 4, 'u8dhTdAeb8MjrmzJRrVpJCph8rFwAWOpYamexvmknimlYW29RDpVOrtbPWuW', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 1, '1YqWLd0ebmx6JAUtIH2DLBFmF6YxHeVrkpw8Chg2q2WpYVzZPsCMF2g5pqXJ', 1),
 (29, 'surChir', '$2y$10$6mWrYAgB0E6HEOXHh/mPW.Qifq/7n.IpsL5BtVg6QW57yqmhArcRS', 'surint@hop.dz', 80, 1, 'MCGtvuCIgCrz2sGm0IE1VedHt1TuVnSHPiJklop8bwQ2C6P6HLCRCWZeug4D', 1),
 (30, 'surped', '$2y$10$lo79T8HO9FdZPWiIcZJBjO2uOUai8iC9twN2bBNlpyp4ilwgxVbzy', 'surped@hop.dz', 81, 5, 'Gl5efWRtl1R4ICufQBBeSMISlltxWDteSMmw1Fey7sKwQwM8yaWG4Z5fDoqX', 1),
@@ -13221,15 +13224,15 @@ INSERT INTO `utilisateurs` (`id`, `username`, `password`, `email`, `employe_id`,
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 14, 'Lcomr3ufN1ALwMj0lrpGwCirfwiDx0gZAlBPiSIaiU20Cnp7nsB2WulmpWXj', 1),
 (40, 'agentAdm', '$2y$10$41B8Pt58gJBFDR1ZMm92buQJNcI6BNuhXVcRJLI29HbGWizUUmTXW', 'agentAdm@hop.dz', 95, 1, 'C1H0nQXkLhyYZ1sMRFm5mqk2VaTe2y7gCSsPBoVoK19l6O7nxYGS4WtcATEY', 1),
 (41, 'agent', '$2y$10$5Bjt7y12.OG8u4yGf/.Ajucogm1yFlRHFrety2fKLVOW/Xk.iSwle', 'agent@hop.dz', 96, 9, 'hHArXEkpI9MWUSTdUhKUVOyvVnOaAQpaDk8FpL33ZT6r7MqhdtGuotouNnzl', 1),
-(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'YCu0Jq1w4qRuL5PtswtAOgh0GwdPRygWQRLGZjeLXxCJD3cSxYVu3xN6Hcbc', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'fiDgThqxgajbosGxxEqFAK0kL7KE1oHxL6THJqred0FqTz0kWFycrTfGhOpS', 1),
-(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'y5f45Mnek1IRxxgU6akbMb12nVr9LP8XcZK56kvNnrrdHkkgHaV0Egekt739', 1),
+(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'OaPze71zPlNh3fBIly4U3CY5RzyyQyxLuTh8bCNX3qR7wEqn8dKzBWupsEK1', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'X0bVVH8wnwNajxF83RbegR3ra2ecZD0pdsl0eRq5UyvmyOqGpKtO1e4bDpuS', 1),
+(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 1, 'uMDtzWhc5tCXLlCiIYLES02wYzOYpqjU9GTocUXasdeOkMXpoX1txuSMpJEP', 1),
 (46, 'rad', '$2y$10$r60gr2q5RCcReDOWxbG.2ezmvVg7/eksnhqo4I8dRwpRN5SxbV/Jy', 'rad@cdta.net', 101, 12, '4HbJSu0FHIJV9Cr42DYt49NfIWgk6yLUaFtfU8EamPHhygNCwLE7LZvEGwfo', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, '6gMEIr71tf3nzqasdgBqOBxT3MvC4o1PehZr28TsiTmVKAsPEWgMYcZnLSQh', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'IFbFagz45CRL482wHkzub2rieY3dlv1QZEi7gahnemm14krnD9Ya00m0H1yH', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'sds@cssa.dz', 102, 1, 'ZvZqEPVL2TZw8jEI6MrcTismRVLTLwvXy8blGY7Fcq2a22kEpVOpmjRN6U5g', 1),
+(48, 'medped', '$2y$10$Fg2g0HI3q6JhyRmPevCYzu/wUfG98gFjdrNbHH.Kj8SFL8zjnIJmW', 'medped@gmail.dz', 103, 1, 'uPXS6n523uKPDLx1ltfWYLAzDCU00gB2lhfwhtXHLBuN4NA8FkqtIZvTbXyN', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, 'Hxozfq4Cp6mDe6d1CmSzxwTCq1iYiiVbp5yAD0WGgywoHoNGvKnVWke0M6LE', 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'Zbrk8t5ySQHWoGBMY0arq79kxWtnUpLGIzBiQfvyA45zDORvBLJPfVyVdHxe', 1),
-(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'Ew1SLcHz10uidRnvXwIPybXgG3aAxAIMtA2kudh7aNO0Svm2mO9VbChEXKGG', 1),
+(58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'EXWCsyqnJ2eJbK44H6sELRKKjOR60WexlPOs0cTzYSL6OHCnkAqfJzrkwh3N', 1),
 (59, 'chefint', '$2y$10$Dmnc40eYHoNdQ1rHPBW93eIUmcuyFC0/pdHacdOCyWvNyLB0nfs12', 'chefint@hop.com', 114, 1, 'nGKoulK2s9hpNW3y6tBBZKy95uHbKqmTwdqoIRYYOFXdiRw5yLESYv8cZyjK', 1),
 (60, 'medger', '$2y$10$2Mrra7cY3/Lb9AiHzbitI.n99.H4cmtMxtzhB4NGKK4BSD2pOrcCq', 'medger@hotmail.com', 115, 1, 'jJSEWn85AJYlG2yeo6x2MAEkqswsOMZ2JPVgdKDT7XuJ8k8X74jy93x8B91d', 1),
 (61, 'medgen', '$2y$10$spTXvp3EM/0N8vCPuQP87u.T06AKea2TsWgU2t4Oyd69Cqxr3xWzu', NULL, 116, 1, 'J63wA9pil0ipdIeLJAxaXxSk33GZz7PGW0A58NvNlO9yzvS1kkbZmPTw7o3z', 1),
@@ -13244,10 +13247,10 @@ INSERT INTO `utilisateurs` (`id`, `username`, `password`, `email`, `employe_id`,
 (70, 'chefchir', '$2y$10$CrAZwPEvTnjQLo3khuwEA.w.VYe0KTeGllF7xPPRshsYZezrAopC2', NULL, 125, 14, 'bnRFGtslrmCoJu9qw0IlCEmlqKqKSca7lKHmRLH2RlD5oncMevE42ydwat65', 1),
 (71, 'medChirur', '$2y$10$UNMV.EukP1JpyuYdC8cQmefrV9PToLm0z4XDNxC7PqjcACCXhwUTq', NULL, 126, 1, 'nWKWjn5UkZRiKaQbWi4DPOpnrUEGXTTXoaGFEE7jrIzyoafDDfEqww9aGRUp', 1),
 (72, 'delColMedInt', '$2y$10$WAD7XNbM8QLXKvyKPxXhBOUJ/cRogMZTShjzOXO7fqyHSLeJaHoeC', NULL, 127, 6, 'hzrGj3T02hPGwgyJ7Zbw2hY15ku1iritDytRUWWrgIBnV8mefRgUVucxYCmu', 1),
-(73, 'sec', '$2y$10$bU5ACWgd3HBt7Buu.Zof1.TU2HFPAnqdbUm0OCeJp0IfVfMfcXXTW', NULL, 128, 15, 'FWtl1WBI6yaSHYUagYEXfpvfG3M9V6hUOsrXuo8KFsjB9rpT6TOMmuxXeU4J', 1),
+(73, 'sec', '$2y$10$bU5ACWgd3HBt7Buu.Zof1.TU2HFPAnqdbUm0OCeJp0IfVfMfcXXTW', NULL, 128, 15, 'TfuGFaQmIhiRIT5wkPe3RHexKkwFDH8xCjVA0TYvAlKkALvXXZv9KVGokYHr', 1),
 (76, 'delcolcar', '$2y$10$3igwOIYYSF7EKUIU/1neIuz5cU.na5aDzAmm0AXeqS/4s6MvQrHYa', 'fdsd@gmail.com', 131, 6, 'oTyGxe2NMczULIql9BqJn0r8UmrfEfd2yNxlCtRUxT1iEBw0q6ybEkXolVYq', 1),
 (79, 'sup', '$2y$10$Kh6IHJB0Kh3CowhJccIOBubWIpRwtHM82L1B9JkBp3UUj/CXa6Lri', NULL, 139, 15, 'OztbUpqQWbvB20vgjWUV4g44htMkonEZmxJTjyL4pt8h225sMTqy78rbTlVy', NULL),
-(80, 'medped2', '$2y$10$c6MAVgWWTpZDSaWsImqpuelmpDKlULkLmvk5qPYUvEKZljNDGNNkG', NULL, 140, 1, 'xar0nEWK9gGDL3F6zeNwpx18HBtD4PbXfmfnHQWRuMuyrYZLvTU2BzpyuXNq', 1),
+(80, 'medped2', '$2y$10$c6MAVgWWTpZDSaWsImqpuelmpDKlULkLmvk5qPYUvEKZljNDGNNkG', NULL, 140, 1, 'fhVYCAIBzElAZVBvdKScpxRntxncq56XJBOFpHeKbk4GQnWJSJOvky0q3jVE', 1),
 (81, 'medcar2', '$2y$10$qfwuFVeSe5Itxw.Axa89veaWdk94aGJmAxy929jLrPx.ahU9wmxbW', NULL, 141, 1, NULL, 1),
 (87, 'inc', '$2y$10$Gdmqhdg/SR/36e6PdsDO5u.RAdEbedk6pXg88Pf2rfUE1hpY15f8O', NULL, 147, 61, NULL, 1);
 
@@ -13298,7 +13301,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   KEY `visites_id_employe_foreign` (`id_employe`),
   KEY `fk_visite_hosp` (`id_hosp`),
   KEY `fk_visite_patent` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1123 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -13479,7 +13482,8 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `pid`, `id_employe`, `c
 (1119, '2023-06-15', '16:24:00', 35, 303, 140, '2023-06-15 15:24:23', '2023-06-15 15:24:23'),
 (1120, '2023-06-15', '16:24:00', 35, 303, 140, '2023-06-15 15:24:53', '2023-06-15 15:24:53'),
 (1121, '2023-06-15', '16:26:00', 35, 303, 140, '2023-06-15 15:26:08', '2023-06-15 15:26:08'),
-(1122, '2023-07-05', '20:29:00', 35, 303, 113, '2023-07-05 19:29:48', '2023-07-05 19:29:48');
+(1122, '2023-07-06', '14:36:00', 35, 303, 113, '2023-07-06 13:36:17', '2023-07-06 13:36:17'),
+(1123, '2023-07-06', '16:12:00', 35, 303, 113, '2023-07-06 15:12:41', '2023-07-06 15:12:41');
 
 -- --------------------------------------------------------
 
@@ -13556,7 +13560,8 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(ifnull(`patients`.`dob`,'19700101'),'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where ((`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) and isnull(`rdvs`.`etat`)) order by `rdvs`.`date` desc ;
+DROP VIEW IF EXISTS `nextrdvs`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`dob`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between curdate() and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
 
 -- --------------------------------------------------------
 
@@ -13565,7 +13570,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `nextrdvsold`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(`patients`.`dob`,'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) order by `rdvs`.`date` desc ;
+DROP VIEW IF EXISTS `nextrdvsold`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsold`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(`patients`.`dob`,'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE (`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) ORDER BY `rdvs`.`date` DESC ;
 
 -- --------------------------------------------------------
 
@@ -13574,7 +13580,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `nextrdvsoldnew`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS  select `rdvs`.`id` AS `id`,date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Sexe` AS `Sexe`,date_format(ifnull(`patients`.`dob`,'19700101'),'%Y-%m-%d') AS `DateNaissance`,`specialites`.`id` AS `specialiteId` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where ((`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) and isnull(`rdvs`.`etat`)) order by `rdvs`.`date` desc ;
+DROP VIEW IF EXISTS `nextrdvsoldnew`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvsoldnew`  AS SELECT `rdvs`.`id` AS `id`, date_format(`rdvs`.`date`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`patient_id` AS `patientId`, `patients`.`IPP` AS `IPP`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Sexe` AS `Sexe`, date_format(ifnull(`patients`.`dob`,'19700101'),'%Y-%m-%d') AS `DateNaissance`, `specialites`.`id` AS `specialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) WHERE ((`rdvs`.`date` between (curdate() + interval 1 day) and (curdate() + interval 2 day)) AND isnull(`rdvs`.`etat`)) ORDER BY `rdvs`.`date` DESC ;
 
 --
 -- Contraintes pour les tables déchargées
@@ -13719,6 +13726,13 @@ ALTER TABLE `demandehospitalisations`
   ADD CONSTRAINT `fk_dh_consultation` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_dh_service` FOREIGN KEY (`service`) REFERENCES `services` (`id`),
   ADD CONSTRAINT `fk_dh_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
+
+--
+-- Contraintes pour la table `demande_drug`
+--
+ALTER TABLE `demande_drug`
+  ADD CONSTRAINT `fk_demande_produit_demande` FOREIGN KEY (`demande_id`) REFERENCES `demande_produits` (`id`),
+  ADD CONSTRAINT `fk_drug` FOREIGN KEY (`drug_id`) REFERENCES `drugs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `demande_examenbio`
@@ -13882,6 +13896,12 @@ ALTER TABLE `rdvs`
 --
 ALTER TABLE `rdv_hospitalisations`
   ADD CONSTRAINT `fk_demande` FOREIGN KEY (`id_demande`) REFERENCES `demandehospitalisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `salles`
+--
+ALTER TABLE `salles`
+  ADD CONSTRAINT `fk_service` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `services`

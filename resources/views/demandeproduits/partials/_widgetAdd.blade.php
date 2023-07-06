@@ -20,17 +20,17 @@
               <div id = "specialiteDiv" class="form-group">
                     <label for="specPrd" class="control-label">Spécialité </label>
                     <select class="form-control" id="specPrd">
-                        <option value="" slected disabled>Sélectionner...</option>
+                        <option value="" selected disabled>Sélectionner...</option>
                         @foreach($specialites as $spec)
                           <option value="{{ $spec->id }}">{{ $spec->nom }}</option>
                         @endforeach 
                     </select> 
              </div>
               <div class="form-group">
-                    <label for="produit" class="control-label">Produit</label>
-                    <select class="form-control" id="produit">
-                      <option value="" selected disabled>Sélectionner...</option>
-                    </select>
+                <label for="produit" class="control-label">Produit</label>
+                <select class="form-control" id="produit">
+                  <option value="" selected disabled>Sélectionner...</option>
+                </select>
              </div>
         <div class="form-group">
           <label for="quantite" class="control-label">Quantité</label>

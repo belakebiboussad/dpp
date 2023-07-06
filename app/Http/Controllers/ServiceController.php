@@ -46,10 +46,8 @@ class ServiceController extends Controller
                       $q->whereIn('id',[1,5,10,11,12,13,14]);
                   })->get();
       
-      $view = view("services.ajax_add",compact('users','services'))->render();
-      return($view);
+      return view("services.ajax_add",compact('users','services'))->render();
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -62,7 +60,7 @@ class ServiceController extends Controller
       if($validator->fails())
          return response()->json(['errors'=>$validator->errors()->all()]);
       $service = service::create($request->all()); 
-      if($request->ajax())//return $service->load('responsable');
+      if($request->ajax())
         return response()->json(['success' => "Services crée avec suuccés",'service'=> $service->load('responsable')]);
       else
         return redirect()->action('ServiceController@index');
@@ -75,8 +73,7 @@ class ServiceController extends Controller
      */
     public function show(Request $request,service $service)
     {
-      $view = view("services.ajax_show",compact('service'))->render();
-      return($view);  
+      return view("services.ajax_show",compact('service'))->render();
     }
 
     /**
@@ -96,9 +93,7 @@ class ServiceController extends Controller
            $users = User::whereHas('employ', function($q) use($service) {
                             $q->where('service_id',$service->id);
                         })->get();
-        
-        $view = view("services.ajax_edit",compact('service','users','specs'))->render();
-        return $view;
+        return view("services.ajax_edit",compact('service','users','specs'))->render();
       }
     /**
      * Update the specified resource in storage.
@@ -123,7 +118,7 @@ class ServiceController extends Controller
         $input = $request->all();
         $input['hebergement'] = isset($request->hebergement)? $request->hebergement : null;
         $input['urgence'] = isset($request->urgence)? $request->urgence : null;
-        $service->update($input);//return redirect()->action('ServiceController@index');
+        $service->update($input);
         return response()->json(['success' => "Services modifié avec suuccés",'service'=> $service->load('responsable')]);
       }
       /**
@@ -135,10 +130,7 @@ class ServiceController extends Controller
       public function destroy(Request $request,service $service)
       {
         $service->delete();
-        if($request->ajax())
-          return $service->id;
-        else
-          return redirect()->route('service.index');    
+        return $service->id;
       }
       public function getsalles($id)
       { 

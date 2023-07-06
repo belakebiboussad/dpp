@@ -324,7 +324,7 @@
         deleteActe(id);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
-    });  //$('.ui-jqgrid-titlebar-close','#actes_table').remove();
+    });
   $("#traits-table").jqGrid({
       url : '{{ route("traitement.index", ["visId"=>$visite->id])}}',
       mtype: "GET",

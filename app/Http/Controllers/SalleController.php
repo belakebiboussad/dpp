@@ -36,11 +36,11 @@ class SalleController extends Controller
       if(isset($request->id))
       {
         $service = service::FindOrFail($request->id);
-        return view('Salles.add', compact('service'));
+        return view('Salles.add', compact('service'))->render();
       }else
       {
         $services = service::where('hebergement',1)->get();
-        return view('Salles.add', compact('services'));
+        return view('Salles.add', compact('services'))->render();
       }  
     }
 
@@ -64,8 +64,7 @@ class SalleController extends Controller
      */
     public function show(salle $salle)
     {
-      $lits = Lit::where("salle_id", $salle->id)->get()->all();
-      return view('Salles.show', compact('salle'));
+      return view("Salles.show",compact('salle'))->render();
     }
 
     /**
@@ -76,10 +75,8 @@ class SalleController extends Controller
      */
     public function edit(salle $salle)
     {
-
-      //dd($salle);
-      $services = service::all();
-      return view('Salles.edit', compact('salle','services'));
+      $services = service::where('hebergement',1)->get();
+      return view("Salles.edit",compact('salle','services'))->render();
     }
 
     /**
@@ -106,7 +103,7 @@ class SalleController extends Controller
     public function destroy(salle $salle)
     {
       $salle->delete();
-      return redirect()->route('salle.index');
+      return $salle->id;
     }
     public function getsallesTeste(Request $request)
     {
