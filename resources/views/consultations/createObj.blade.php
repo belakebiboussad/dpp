@@ -291,7 +291,7 @@ $(function(){
       }else
        {
           if (!confirmed) {
-            Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
+            Swal.fire({ 
             title:'<strong>êtes-vous sûr ?</strong>',
             type:'warning',
             html: '<br/><h4>Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation En cours</h4><br/><hr/>',

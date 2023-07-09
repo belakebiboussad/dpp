@@ -21,7 +21,6 @@
               @include('antecedents.' . $antype->nom)
             @endforeach
           @endisset
-         
         </div>
 			</div>
 		</div><div class= "col-md-3 col-sm-3">@include('consultations.actions')</div>

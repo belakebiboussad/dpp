@@ -195,27 +195,6 @@ class UsersController extends Controller
     {
       redirect()->route('users.create');
     }
-    public function getAddEditRemoveColumnData()
-    {
-      $users = User::select(['id', 'name', 'email', 'employe_id','role_id']);
-      return Datatables::of($users)
-          ->addColumn('action2', function ($user) {
-              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->nom.'</span>';
-          })
-          ->addColumn('action', function ($user) {
-              return '<div class="hidden-sm hidden-xs action-buttons">
-                  <a class="blue" href="/users/'.$user->id.'">
-                      <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                  </a>
-                  <a class="green" href="'.route('users.edit',$user->id).'">
-                      <i class="ace-icon fa fa-pencil bigger-130"></i>
-                  </a>
-                  <a class="red" href="">
-                      <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                  </a>
-              </div>';
-          })->rawColumns(['action1', 'action2','action'])->make(true);
-    }
     public function viewProfile($userId = null) {
         $user = null;      
         if($userId != null) {
