@@ -332,24 +332,25 @@
             <tbody class="files">
             @foreach($specialite->Consts as $const)
             <tr class="template-upload fade in">
-              <td width="5%">
+            <td width="5%">
               <div class="checkbox">
-                <label>
-                @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
-                  <input name="consts[]" type="checkbox"  class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}" onchange="constChanged(this)" @if(in_array($const->id,$lastVisite->constantes->pluck('id')->toArray())) checked="checked" @endif/>
-                @else
-                  <input name="consts[]" type="checkbox" class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}"  onchange="constChanged(this)"/>
-                @endif
-                <span class="lbl"> {{ $const->nom }}</span>
-                </label>
-              </div>
-              </td>
-              <td>
+              <label>
               @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes)))
-              <textarea  name="obs[]" id="{{ $const->id }}" class="form-control inputClass {{ ($lastVisite->constantes->contains('id',$const->id))? '':'hidden'}}">{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->first())['pivot']['obs'] }}</textarea> 
+                <input name="consts[]" type="checkbox"  class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}" onchange="constChanged(this)" @if(in_array($const->id,$lastVisite->constantes->pluck('id')->toArray())) checked="checked" @endif/>
+              @else
+                <input name="consts[]" type="checkbox" class="ace constante" value="{{ $const->id }}" data-id="{{ $const->id }}"  onchange="constChanged(this)"/>
+              @endif
+              <span class="lbl"> {{ $const->nom }}</span>
+              </label>
+              </div>
+            </td>
+            <td>
+             @if((!is_null($lastVisite)) && (!is_null($lastVisite->constantes))&&(in_array($const->id,$lastVisite->constantes->pluck('id')->toArray())))
+                <textarea name="obs[]" id="{{ $const->id }}" class="form-control inputClass">{{($lastVisite->Constantes()->wherePivot('const_id',$const->id)->first())['pivot']['obs'] }}</textarea>
               @else
                 <textarea name="obs[]" id="{{ $const->id }}" class="form-control inputClass hidden"  disabled></textarea>
               @endif
+              </textarea>
               </td>
             </tr>
           @endforeach

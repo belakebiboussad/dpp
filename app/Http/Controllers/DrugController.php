@@ -15,6 +15,6 @@ class DrugController extends Controller
   public function edit($id )
   { 
     $demande = demand_produits::find($id);
-    return $demande->medicaments;
+    return $demande->medicaments->load('specialite');
   }
 }
