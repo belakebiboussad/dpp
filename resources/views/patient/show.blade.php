@@ -12,19 +12,19 @@ function deleteDemandeHospi(id)
 					$(".dh").remove();
 			}
 	});
-  }
-  function showConsult(id) //a voir ce lui den haut
-  { 
-    url= '{{ route ("consultations.edit", ":slug") }}',//consultdetailsXHR
-    url = url.replace(':slug',id);
-    $.ajax({
-          type : 'GET',
-          url:url,
-          success:function(data,status, xhr){
-            $('#consultDetail').html(data);
-          }
-    });             
-  }
+}
+function showConsult(id) //a voir ce lui den haut
+{ 
+  url= '{{ route ("consultations.edit", ":slug") }}',//consultdetailsXHR
+  url = url.replace(':slug',id);
+  $.ajax({
+        type : 'GET',
+        url:url,
+        success:function(data,status, xhr){
+          $('#consultDetail').html(data);
+        }
+  });             
+}
   function HommeConfcopy(id)
   {
     $.get('/hommeConfiance/'+ id +'/edit', function (data) {
@@ -64,6 +64,25 @@ function deleteDemandeHospi(id)
 var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
 $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
 }).fail(function () {console.log("Could not connect to Hub.");});});*/// $(function(){
+function checkHomme(){
+  var errors =[];
+  var nomH = $('#nom_h').val();var prenomH = $('#prenom_h').val();
+  var type_piece_id = $('#type_piece_id').val();  var npiece_id = $('#num_piece').val();
+  mobileH = $('#mobile_h').val();
+  var inputHomVal = new Array(nomH,prenomH,type_piece_id,npiece_id,mobileH);
+  var inputHomMessage = new Array("Nom","Prenom","Type de la pièce","Numero de la pièce","Téléphone mobile");
+  $('.error').each(function(i, obj) {
+    $(obj).next().remove();
+    $(obj).detach();
+  });
+  jQuery.each( inputHomVal, function( i, val ) {
+    if(val =="" )
+    { 
+      errors.push('Veuiller remplir le ' + inputHomMessage[i]+' du Correspondant');
+    }
+  });   
+  return errors;
+}
 $(function(){
     $('#listeGardes').DataTable({ 
         colReorder: true,

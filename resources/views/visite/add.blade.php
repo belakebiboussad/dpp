@@ -21,14 +21,14 @@
     $("#"+ $(cb).data("id")).val('');
      if(cb.checked)
      {
-              if($("#"+ $(cb).data("id")).prop('disabled') == true)
-                    $("#"+ $(cb).data("id")).prop('disabled',false);
-              $("#"+ $(cb).data("id")).removeClass('hidden');
+        if($("#"+ $(cb).data("id")).prop('disabled') == true)
+              $("#"+ $(cb).data("id")).prop('disabled',false);
+        $("#"+ $(cb).data("id")).removeClass('hidden');
       } else
      {
-              if($("#"+ $(cb).data("id")).prop('disabled') == false)
-                   $("#"+ $(cb).data("id")).prop('disabled',true);
-             $("#"+ $(cb).data("id")).addClass('hidden');
+        if($("#"+ $(cb).data("id")).prop('disabled') == false)
+             $("#"+ $(cb).data("id")).prop('disabled',true);
+       $("#"+ $(cb).data("id")).addClass('hidden');
     } 
   }
   $(function(){
@@ -144,42 +144,15 @@
       $('#TraitCrudModal').html("Prescrire un traitement");
       $('#traitModal').modal('show');
   });  
+  //
+  // ici
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
-    var periodes = [];
-    if(! isEmpty($("#med_id").val()) || ($("#med_id$").val() == 0) )
-      $('#traitModal').modal('toggle');
-     var formData = {
-      _token: CSRF_TOKEN,
-      visite_id: $('#id').val(),
-      med_id:$("#med_id").val(),
-      posologie:$("#posologie").val(),/*periodes :periodes,*/
-      nbrPJ : $('#nbrPJ').val(),//duree : $('#dureeT').val()
-    };
-    var state = jQuery('#EnregistrerTrait').val();
-    var type = "POST", url='{{ route("traitement.store") }}';
-    if(state == "update") {
-      type = "PUT";
-      var id = jQuery('#trait_id').val();
-      url = '{{ route("traitement.update", ":slug") }}'; 
-      url = url.replace(':slug', id);
-    }
-    $.ajax({
-      type:type,
-      url:url,
-      data: formData,//dataType:'json',
-      success: function (data) {  
-        if($('.dataTables_empty').length > 0)
-          $('.dataTables_empty').remove();
-        var trait = '<tr id="trait'+data.id+'"><td hidden>'+data.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.posologie+'</td><td>'+data.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
-        if (state == "add")
-          $( "#listTraits" ).append(trait);
-        else
-          $("#trait" + data.id).replaceWith(trait);
-        $('#traitModal form')[0].reset();
-      }
+    formSubmit($('#addTrait')[0], this, function(status, data) {
+      //alert("callback");
     });
   });
+  //
   $('body').on('click', '.edit-trait', function () {//edit traitement
         $.get('/traitement/' +$(this).val()+ '/edit', function (data) {
             getProducts(1,data.medicament.id_specialite,data.med_id);

@@ -9,7 +9,7 @@ class DrugController extends Controller
 {
   public function index(Request $request)
   {
-    $produits = Drug::where("id_specialite", request()->spec_id)->get();
+    $produits = Drug::where("id_specialite", $request->spec_id)->get();
     return $produits;
   }
   public function edit($id )

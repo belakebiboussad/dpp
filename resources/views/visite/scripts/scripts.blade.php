@@ -1,13 +1,11 @@
 <script  type="text/javascript" charset="utf-8" async defer>
 $(function(){
-  $('body').on('change', '#specialiteProd', function () {
-    if(!isEmpty($(this).val())) {
+  $('body').on('change', '.specPrd', function () {
       if($("#med_id").prop('disabled') == true)
         $("#med_id").prop('disabled',false);
-      getProducts(1,$(this).val());
-    }
-    else
-      $("#med_id").prop('disabled',true);
+      var url = '{!! route("drug.index") !!}';
+    url +='?spec_id='+$(this).val();
+    getProducts(url);
 
   });
 });

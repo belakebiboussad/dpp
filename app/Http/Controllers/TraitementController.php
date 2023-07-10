@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\modeles\Traitement;
 use App\modeles\visite;
 use Carbon\Carbon;
+use Validator;
 class TraitementController extends Controller
 {
     public function index(Request $request)
     {
-      $visite = visite::find($request->visId);//with('medecin')->
+      $visite = visite::find($request->visId);
       return $visite->traitements->load('medicament','medicament.specialite','visite.medecin');
     }
     public function edit($id)
@@ -26,11 +27,25 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-      $this->validate($request, ['med_id'=> 'required|string|max:225','visite_id'=> 'required']);
+       $rule = array(
+          'med_id'=> 'required|string|max:225',
+          'visite_id'=> 'required',
+          'posologie'=>'required',
+          'nbrPJ'=>'required',
+          
+      );
+      $messages = [
+        "required"     => "Le champ :attribute est obligatoire.", // ,
+      ];
+      $validator = Validator::make($request->all(), $rule,$messages);
+      if($validator->fails())
+          return response()->json(['errors'=>$validator->errors()->all()]);
       $visite = visite::find($request->visite_id);
       $trait = $visite->traitements()->create($request->all());
-      return $trait->load('medicament','visite.medecin');
+      //return $trait->load('medicament','visite.medecin');
+      return response()->json(['success' => "Traitement crée avec suuccés",'trait'=> $trait->load('medicament','visite.medecin')]);
     }
+   
     public function update(Request $request,$id)
     {
       $trait = Traitement::FindOrFail($id);

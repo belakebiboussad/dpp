@@ -2,16 +2,12 @@
   <div class="modal-dialog modal-lg">
     <div  id="" class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" id="TraitCrudModal">Prescrire un traitement</h4>
-      </div> 
-      <form id="addTrait" method="POST" action="{{route('traitement.store')}}">
-        <input type="hidden" name ="visite_id" value="{{ $visite->id }}"/>
-         <input type="hidden" id ="trait_id" value=""/>
-      <div class="modal-body">
-         <div class="alert alert-danger print-error-msg" style="display:none">
-        <strong>Errors:</strong> <ul></ul></div>
-        <div class="alert alert-success print-success-msg" style="display:none"></div>
+        </div> 
+        <form id="addTrait" method="POST">
+        <input type="hidden" id ="trait_id" value=""/>
+        <div class="modal-body">
         <div class="form-group">
           <label  class="control-label" for="specialiteProd">Spécialité</label>
           <select class="form-control specPrd" id="specialiteProd">
@@ -23,15 +19,15 @@
         </div>
         <div class="form-group">
           <label class="control-label required" for="med_id">Médicament</label>
-          <select name="med_id" data-placeholder="selectionnez le Médicament" class="selectpicker form-control produit"></select>
+              <select id="med_id" data-placeholder="selectionnez le Médicament" class="selectpicker  form-control produit" disabled></select>
         </div>
         <div class="form-group">
             <label  class="control-label required" for="posologie">Posologie</label>
-            <input type="text" name="posologie" class="form-control" placeholder = "posologie de Traitement"/>
+            <input type="text" id="posologie" class="form-control" placeholder = "posologie de Traitement"/>
         </div>
         <div class="fom-group">
             <label  class="control-label required" for="dureeT">Nombre de prise/jour</label>
-            <input type="number" name="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
+            <input type="number" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
         </div>
       </div>
       <div class="modal-footer">
@@ -44,3 +40,4 @@
   </div>
 </div>
 @include('demandeproduits.partials.scripts')
+{{-- arevoir --}}

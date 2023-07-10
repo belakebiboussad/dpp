@@ -19,7 +19,7 @@
               </div>
               <div id = "specialiteDiv" class="form-group">
                     <label for="specPrd" class="control-label">Spécialité </label>
-                    <select class="form-control" id="specPrd">
+                    <select class="form-control specPrd" id="specPrd">
                         <option value="" selected disabled>Sélectionner...</option>
                         @foreach($specialites as $spec)
                           <option value="{{ $spec->id }}">{{ $spec->nom }}</option>
@@ -28,7 +28,7 @@
              </div>
               <div class="form-group">
                 <label for="produit" class="control-label">Produit</label>
-                <select class="form-control" id="produit">
+                <select class="form-control produit" id="produit">
                   <option value="" selected disabled>Sélectionner...</option>
                 </select>
              </div>
