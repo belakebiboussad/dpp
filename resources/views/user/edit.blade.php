@@ -149,19 +149,12 @@
           </div>
         </div>
       </div>
-       <h4 class="header block blue">Informations de compte</h4>
+       <h4 class="header block blue">Désactiver le compte</h4>
       <div class="row">
-        <div class="form-group col-sm-4 {{ $errors->has('username') ? 'has-error' : '' }}">
-          <label class="control-label col-xs-3" for="username">Login</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="username" value="{{ $user->username}}" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" required>
-          </div>
-        </div>
-         <div class="form-group row">
-          <div class="checkbox col-sm-offset-3">
+         <div class="form-group">
+          <div class="checkbox col-sm-offset-1">
           <label>
-            <input type="checkbox" class="ace" name="active" value ="1" {{(isset($user->active))? 'checked':''}}>
-            <span class="lbl"> Active</span>
+            <input type="checkbox" class="ace" name="active" value ="1" {{(isset($user->active))? 'checked':''}}> <span class="lbl"> Active</span>
           </label>
           </div>
         </div>

@@ -32,33 +32,6 @@ function cancelMeeting(id,callBack)
     });
   } 
 }
-function formSubmitOrg(form, e, callBack) {
-  var $success_msg = $(".print-success-msg");
-  var $error_msg = $(".print-error-msg");
-  var $form = $(form);
-  var formData = new FormData(form);
-  $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-  $.ajax({
-    url: $form.attr("action"),
-    type:$form.attr("method"),
-    data: formData,
-    processData : false,
-    contentType: false,
-    cache : false,
-    success: function(data,status, xhr) {
-      $form.trigger("reset");
-      if( $.isEmptyObject(data.errors))
-        printSuccessMsg(form, data.success);    
-      else
-        printErrorMsg(data.errors);  
-      callBack(status,data);
-    }
-  })
-}
 function formSubmit(form, e, callBack) {
   var $success_msg = $(".print-success-msg");
   var $error_msg = $(".print-error-msg");
@@ -69,7 +42,6 @@ function formSubmit(form, e, callBack) {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  var url = $form.attr("action");
   $.ajax({
     url: $form.attr("action"),
     type:$form.attr("method"),
@@ -78,20 +50,21 @@ function formSubmit(form, e, callBack) {
     contentType: false,
     cache : false,
     success: function(data,status, xhr) {
-      // $.each(data, function(key, value){
-      //   alert(key+ ':' + value);
-      // });
+      alert(data);
+      $.each(data, function(key, value){
+        alert(key + ':'+ value);
+      });
       $form.trigger("reset");
       if( $.isEmptyObject(data.errors))
         printSuccessMsg(form, data.success);    
       else
         printErrorMsg(data.errors);  
-      callBack(status,data);
+      //callBack(status,data);
     }
   })
 }
-function getProducts(url, spec_id=0,med_id = 0) {
-    var html = '<option value="" selected disabled>Sélectionner...</option>';
+function getProducts(url, callBack=null) {
+    var html = '';
     $.ajax({
       url : url,
       type : 'GET',
@@ -100,8 +73,7 @@ function getProducts(url, spec_id=0,med_id = 0) {
           html += "<option value='"+this.id+"'>"+this.nom+"</option>";
         });
         $('.produit').html(html);
-        if(med_id != 0)
-          $('.produit').val(med_id);
-       }
-  });
+        callBack(data);
+      }
+    });
 }

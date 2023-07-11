@@ -18,7 +18,6 @@
         </ul>
     </div>
     @endif
-
     <form  id="userAdd" action="{{ route('users.store') }}" method="POST">
       {{ csrf_field() }}
       <h4 class="header block blue">Informations adminstratives</h4>
@@ -40,7 +39,7 @@
         <div class="form-group col-sm-6 {{ $errors->has('dob') ? 'has-error' : '' }}">
           <label class="col-sm-3 control-label required">Né(e) le</label>
           <div class="col-sm-9">
-            <input class="form-control date-picker ltnow" type="text" name="dob" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+            <input class="form-control date-picker ltnow" type="text" name="dob" placeholder="Date Naissance..." value="{{ old('dob') }}" data-date-format="yyyy-mm-dd" autocomplete ="off"  required/>
           </div>
         </div>
         <div class="form-group col-sm-6 {{ $errors->has('pob') ? 'has-error' : '' }}">

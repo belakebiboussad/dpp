@@ -18,6 +18,7 @@ use App\modeles\rol;
 use App\modeles\Specialite;
 use Hash;
 use View;//use Response;
+use App\Rules\NSSValidRule;
 class UsersController extends Controller
 {
    
@@ -82,15 +83,18 @@ class UsersController extends Controller
     public function store(Request $request)
     {
       $validator = Validator::make($request->all(), [
-        "username"=> "required|unique:utilisateurs",
-        "password"=> "required",
-        "role"=> "required",
-        "nom"=> "required",
-        "prenom"=> "required",
-        "nss"=> "required",
-        "dob"=> "required",// "lieunaissance"=> "required",
-        "mobile"=> "required | regex:/[0][2345679][0-9]{8}/",// "mat"=> 
-        "service"=> "required", 
+        'username'=> 'required|unique:utilisateurs',
+        'password'=> 'required',
+        'role'=> 'required',
+        'nom'=> 'required',
+        'prenom'=> 'required',
+        'nss'=> [
+                 'required', 
+                  new NSSValidRule
+        ],
+        'dob'=> 'required',
+        'mobile'=> 'required | regex:/[0][2345679][0-9]{8}/',
+        'service'=> 'required', 
       ]);
       if($validator->fails())
            return back()->withErrors($validator)->withInput();
@@ -151,16 +155,19 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {  
       $validator = Validator::make($request->all(), [
-        "username"=> "required",// "mail"=> "required", "password"=> "required",
-        "role"=> "required",
-        "nom"=> "required",
-        "prenom"=> "required",
-        "dob"=> "required",// "lieunaissance"=> "required",
-        "mobile"=> "required | regex:/[0][245679][0-9]{8}/",
+        'role'=> 'required',
+        'nom'=> 'required',
+        'prenom'=> 'required',
+        'nss'=> [
+                 'required', 
+                  new NSSValidRule
+        ],
+        'dob'=> 'required',
+        'mobile'=> 'required | regex:/[0][2345679][0-9]{8}/',
+        'service'=> 'required', 
       ]);
       if ($validator->fails())
         return back()->withInput($request->input())->withErrors($validator->errors());
-      
       $user->employ->update([
         "nom"=>$request->nom, "prenom"=>$request->prenom,
         "sexe"=>$request->sexe, "dob"=>$request->dob,

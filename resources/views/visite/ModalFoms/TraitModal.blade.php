@@ -9,7 +9,7 @@
         <input type="hidden" name ="visite_id" value="{{ $visite->id }}"/>
          <input type="hidden" id ="trait_id" value=""/>
       <div class="modal-body">
-         <div class="alert alert-danger print-error-msg" style="display:none">
+        <div class="alert alert-danger print-error-msg" style="display:none">
         <strong>Errors:</strong> <ul></ul></div>
         <div class="alert alert-success print-success-msg" style="display:none"></div>
         <div class="form-group">
@@ -22,16 +22,16 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="control-label required" for="med_id">Médicament</label>
-          <select name="med_id" data-placeholder="selectionnez le Médicament" class="selectpicker form-control produit"></select>
+          <label class="control-label" for="med_id">Médicament</label>
+          <select name="med_id" id="med_id" data-placeholder="selectionnez le Médicament" class="form-control produit"></select>
         </div>
         <div class="form-group">
-            <label  class="control-label required" for="posologie">Posologie</label>
-            <input type="text" name="posologie" class="form-control" placeholder = "posologie de Traitement"/>
+            <label  class="control-label" for="posologie">Posologie</label>
+            <input type="text" name="posologie" id="posologie" class="form-control" placeholder = "posologie de Traitement"/>
         </div>
         <div class="fom-group">
-            <label  class="control-label required" for="dureeT">Nombre de prise/jour</label>
-            <input type="number" name="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
+            <label  class="control-label" for="dureeT">Nombre de prise/jour</label>
+            <input type="number" name="nbrPJ" id="nbrPJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/>
         </div>
       </div>
       <div class="modal-footer">

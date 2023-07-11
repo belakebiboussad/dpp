@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 use App\modeles\assur;
 use Illuminate\Http\Request;
 use App\modeles\Wilaya;
-use App\Traits\PatientSearch;
 use App\Traits\AssureSearch;
 use Carbon\Carbon;
 use DateTime;
@@ -11,7 +10,7 @@ use Auth;
 use \COM;
 class AssurController extends Controller
 {
-    use PatientSearch,AssureSearch;    
+    use AssureSearch;    
     /**
      * Display a listing of the resource.
      *

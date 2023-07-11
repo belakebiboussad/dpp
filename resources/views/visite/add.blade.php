@@ -139,33 +139,46 @@
         });
      });  //end of add acte
     $('#btn-addTrait').click(function () {///////////add trait
-      $('#EnregistrerTrait').val("add");
-      $('#traitModal').trigger("reset");
-      $('#TraitCrudModal').html("Prescrire un traitement");
-      $('#traitModal').modal('show');
+    $('#EnregistrerTrait').val("add");
+    $('#traitModal').trigger("reset");
+    $('#TraitCrudModal').html("Prescrire un traitement");
+    $('#traitModal').modal('show');
   });  
   //
   // ici
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
+    var state = jQuery('#EnregistrerTrait').val();
     formSubmit($('#addTrait')[0], this, function(status, data) {
-      //alert("callback");
+      if($('.dataTables_empty').length > 0)
+            $('.dataTables_empty').remove();
+          var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.trait.medicament.nom+'</td><td>'+data.trait.posologie+'</td><td>'+data.trait.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.trait.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.trait.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+          if (state == "add")
+            $( "#listTraits" ).append(trait);
+          else
+            $("#trait" + data.trait.id).replaceWith(trait);
+          $('#traitModal form')[0].reset();
     });
   });
   //
-  $('body').on('click', '.edit-trait', function () {//edit traitement
-        $.get('/traitement/' +$(this).val()+ '/edit', function (data) {
-            getProducts(1,data.medicament.id_specialite,data.med_id);
-            $('#trait_id').val(data.id);
-            $("#med_id").removeAttr("disabled");
-            $('#TraitCrudModal').html("Modifier le Traitement Médical");    
-            $('#specialiteProd').val(data.medicament.id_specialite);
-            $('#posologie').val(data.posologie);
-            $('#nbrPJ').val(data.nbrPJ);
-            $('#dureeT').val(data.duree);
-            jQuery('#EnregistrerTrait').val("update");    
-            jQuery('#traitModal').modal('show');
+  $('body').on('click', '.edit-trait', function () {
+      $.get('/traitement/' +$(this).val()+ '/edit', function (data) {
+        var url = '{!! route("drug.index") !!}';
+        url +='?spec_id='+data.medicament.id_specialite;
+        getProducts(url, function(result){
+          $("#med_id").val(data.med_id);
         });
+        $('#specialiteProd').val(data.medicament.id_specialite);
+        $('#posologie').val(data.posologie);
+        $('#nbrPJ').val(data.nbrPJ);// $('#dureeT').val(data.duree);
+        $('#TraitCrudModal').html("Modifier le Traitement Médical");    
+        $('#EnregistrerTrait').val("update");    
+        $('#traitModal').modal('show');
+        url = '{{ route("traitement.update", ":slug") }}'; 
+        url = url.replace(':slug', data.id);
+        $('#addTrait').attr("action",url);
+        $('#addTrait').attr("method",'PUT');
+      });
   });////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
     var id = $(this).val();

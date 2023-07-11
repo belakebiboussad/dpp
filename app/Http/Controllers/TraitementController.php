@@ -27,12 +27,11 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-       $rule = array(
-          'med_id'=> 'required|string|max:225',
-          'visite_id'=> 'required',
-          'posologie'=>'required',
-          'nbrPJ'=>'required',
-          
+      $rule = array(
+        'med_id'=> 'required|string|max:225',
+        'visite_id'=> 'required',
+        'posologie'=>'required',
+        'nbrPJ'=>'required',  
       );
       $messages = [
         "required"     => "Le champ :attribute est obligatoire.", // ,
@@ -42,20 +41,30 @@ class TraitementController extends Controller
           return response()->json(['errors'=>$validator->errors()->all()]);
       $visite = visite::find($request->visite_id);
       $trait = $visite->traitements()->create($request->all());
-      //return $trait->load('medicament','visite.medecin');
       return response()->json(['success' => "Traitement crée avec suuccés",'trait'=> $trait->load('medicament','visite.medecin')]);
     }
    
     public function update(Request $request,$id)
     {
+      // $rule = array(
+      //   'med_id'=> 'required|string|max:225',
+           //   'posologie'=>'required',
+      //   'nbrPJ'=>'required',
+      // );
+      // $messages = [
+      //   "required"   => "Le champ :attribute est obligatoire.",
+      // ];
+      // $validator = Validator::make($request->all(), $rule,$messages);
+      // if($validator->fails())
+      //   return response()->json(['errors'=>$validator->errors()->all()]);
+      return($request->posologie);
       $trait = Traitement::FindOrFail($id);
       $trait->update([
-        'visite_id'=>$request->visite_id,
         'med_id'=>$request->med_id,
         'posologie'=>$request->posologie,
-        'nbrPJ'=>$request->nbrPJ,
-      ]);
-      return $trait->load('medicament','visite.medecin');
+        'nbrPJ'=>$request->nbrPJ
+      ]);//return $trait->load('medicament','visite.medecin');
+      return response()->json(['success' => "Traitement mis à jour avec suuccés",'trait'=> $trait->load('medicament','visite.medecin')]);
     }
     public function destroy($id)
     {

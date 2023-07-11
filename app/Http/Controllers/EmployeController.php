@@ -74,7 +74,7 @@ class EmployeController extends Controller
            //"fixe"=> "numeric | regex:/[0][0-9]{8}/",nss"=> "required | regex:/[0-9]{12}/",
       );
         $messages = [
-          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide',
            "date"         => "Le champ :attribute n'est pas une date valide.",
         ];
         $validator = Validator::make($request->all(),$rule,$messages);     
