@@ -25,7 +25,7 @@
 $('.specPrd').change(function(){
     var url = '{!! route("drug.index") !!}';
     url +='?spec_id='+$(this).val();
-    getProducts(url);
+    getProducts(url,function(){});
  });
  $('#produit').change(function(){
     $("#ajoutercmd").removeAttr("disabled");

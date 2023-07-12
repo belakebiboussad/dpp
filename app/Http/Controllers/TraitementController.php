@@ -57,8 +57,8 @@ class TraitementController extends Controller
       // $validator = Validator::make($request->all(), $rule,$messages);
       // if($validator->fails())
       //   return response()->json(['errors'=>$validator->errors()->all()]);
-      return($request->posologie);
       $trait = Traitement::FindOrFail($id);
+      //return(request()->posologie);
       $trait->update([
         'med_id'=>$request->med_id,
         'posologie'=>$request->posologie,
