@@ -9,7 +9,7 @@
           <div class="panel-heading"><span>Selectionner un examen</span></div>
           <div class="panel-body">
             <div class="form-group">
-            <label class="col-form-label blue" for="">Examen(s) proposé(s)</label>
+            <label class="col-form-label blue" for="examensradio">Examen(s) proposé(s)</label>
             <select id="examensradio" name="examensradio[]" class="form-control">
               @foreach($examensradio as $examenradio)
               <option value="{{ $examenradio->id }}">{{ $examenradio->nom }}</option>
@@ -25,7 +25,7 @@
               <label class="col-form-label blue">Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic</label>  
                <div class="imgsEx">
             @foreach( $specialite->ImgExams as $exImg)
-              <div class="col-sm-3"><input type="radio" name="exmns"  value="{{ $exImg->id }}">&nbsp;<label for="male">{{ $exImg->nom}}</label> </div>
+              <div class="col-sm-3"><input type="radio" name="exmns"  value="{{ $exImg->id }}">&nbsp;<label>{{ $exImg->nom}}</label></div>
             @endforeach 
             </div>
             </div>

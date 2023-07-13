@@ -14,7 +14,6 @@
 @stop
 @section('page-script')
   @include('examenradio.scripts.imgRequestdJS')
-  @include('visite.scripts.scripts')
   <script type="text/javascript">
   function constChanged(cb)
   { 
@@ -30,6 +29,10 @@
              $("#"+ $(cb).data("id")).prop('disabled',true);
        $("#"+ $(cb).data("id")).addClass('hidden');
     } 
+  }
+  function fillTraitRow(data)
+  {
+    return '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.trait.medicament.nom+'</td><td>'+data.trait.posologie+'</td><td>'+data.trait.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.trait.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.trait.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
   }
   $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {
@@ -137,71 +140,49 @@
             $("#acte" + id).remove();
           }
         });
-     });  //end of add acte
-    $('#btn-addTrait').click(function () {///////////add trait
+     }); //end of add acte
+    $('#btn-addTrait').click(function () {
       $('#EnregistrerTrait').val("add");
       $('#traitModal').trigger("reset");
       $('#TraitCrudModal').html("Prescrire un traitement");
       $('#traitModal').modal('show');
   });  
+  // ici
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
-    if(! $.isEmptyObject(checkForm()))
-      printErrorMsg(checkHomme());
-    else
-    {
-      var periodes = [];
-      if(! isEmpty($("#med_id").val()) || ($("#med_id$").val() == 0) )
-        $('#traitModal').modal('toggle');
-       var formData = {
-        _token: CSRF_TOKEN,
-        visite_id: $('#id').val(),
-        med_id:$("#med_id").val(),
-        posologie:$("#posologie").val(),/*periodes :periodes,*/
-        nbrPJ : $('#nbrPJ').val(),//duree : $('#dureeT').val()
-      };
-      var state = jQuery('#EnregistrerTrait').val();
-      var type = "POST", url='{{ route("traitement.store") }}';
-      if(state == "update") {
-        type = "PUT";
-        var id = jQuery('#trait_id').val();
-        url = '{{ route("traitement.update", ":slug") }}'; 
-        url = url.replace(':slug', id);
-      }
-      $.ajax({
-        type:type,
-        url:url,
-        data: formData,//dataType:'json',
-        success: function (data) {  
-          if($('.dataTables_empty').length > 0)
-            $('.dataTables_empty').remove();
-          var trait = '<tr id="trait'+data.id+'"><td hidden>'+data.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'+data.posologie+'</td><td>'+data.visite.medecin.full_name+'</td><td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="'+data.id+'"><i class="fa fa-edit fa-xs" aria-hidden="true"></i></button><button type="button" class="btn btn-xs btn-danger delete-Trait" value="'+data.id+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
-          if (state == "add")
-            $( "#listTraits" ).append(trait);
-          else
-            $("#trait" + data.id).replaceWith(trait);
-          $('#traitModal form')[0].reset();
-        }
-      });
-    }
+    formSubmit($('#addTrait')[0], this, function(status, data) {
+      if($('.dataTables_empty').length > 0)
+          $('.dataTables_empty').remove();
+      var trait = fillTraitRow(data);
+      $( "#listTraits" ).append(trait);
+      $('#traitModal form')[0].reset();
+    });
   });
+   $("#updateTrait").click(function (e) {
+    e.preventDefault();
+    formSubmit($('#traitEditFrm')[0], this, function(status, data) {
+      if($('.dataTables_empty').length > 0)
+          $('.dataTables_empty').remove();
+      var trait = fillTraitRow(data);
+       $("#trait" + data.trait.id).replaceWith(trait);
+      $('#traitEditModal form')[0].reset();
+    });
+  });
+  //
   $('body').on('click', '.edit-trait', function () {
       $.get('/traitement/' +$(this).val()+ '/edit', function (data) {
         var url = '{!! route("drug.index") !!}';
         url +='?spec_id='+data.medicament.id_specialite;
         getProducts(url, function(result){
-          $("#med_id").val(data.med_id);
+          $('.specPrd').val(data.medicament.id_specialite);
+          $(".produit").val(data.med_id);
         });
-        $('#specialiteProd').val(data.medicament.id_specialite);
         $('#posologie').val(data.posologie);
-        $('#nbrPJ').val(data.nbrPJ);// $('#dureeT').val(data.duree);
-        $('#TraitCrudModal').html("Modifier le Traitement Médical");    
-        $('#EnregistrerTrait').val("update");    
-        $('#traitModal').modal('show');
+        $('#nbrPJ').val(data.nbrPJ);
+        $('#traitEditModal').modal('show');
         url = '{{ route("traitement.update", ":slug") }}'; 
         url = url.replace(':slug', data.id);
-        $('#addTrait').attr("action",url);
-        $('#addTrait').attr("method",'PUT');
+        $('#traitEditFrm').attr("action",url);
       });
   });////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
@@ -376,15 +357,16 @@
       </div>
     </div><!-- tabpanel -->
   </form>
-   @include('visite.ModalFoms.acteModal')
-   @include('visite.ModalFoms.TraitModal')
+   @include('visite.ModalForms.acteModal')
+   @include('visite.ModalForms.TraitModal')
+   @include('visite.ModalForms.TraitEditModal')
   <div id="bioExamsPdf" class="invisible b">
    @include('consultations.EtatsSortie.demandeExamensBioPDF')
   </div>
   <div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')
   </div>
-  @include('examenradio.ModalFoms.crrPrint')
-  @include('ExamenCompl.ModalFoms.ExamenImgModal')
+  @include('examenradio.ModalForms.crrPrint')
+  @include('ExamenCompl.ModalForms.ExamenImgModal')
 </div><!-- content -->
 </div>
 @stop

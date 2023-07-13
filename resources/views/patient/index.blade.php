@@ -70,10 +70,7 @@ function errorMsg(msg, error) {
       url : '{{URL::to('patientsToMerge')}}',
       data:{'search':values},
       success:function(data,status, xhr){
-        // $.each(data, function(key, value){
-        //   alert(key + ':' + value);
-        // });
-          $('#tablePatientToMerge').html(data.html);
+        $('#tablePatientToMerge').html(data.html);
       }
   });
   }

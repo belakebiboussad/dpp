@@ -9,7 +9,7 @@
     <form id="modalFormAnt" class="form-horizontal" method="post">
       <input type="hidden" id="atcd_id" value="0">
       <div id="atcdsstypehide" class="row form-group">
-        <label for="sstypeatcd" class="col-sm-2 control-label">Type</label>
+        <label class="control-label col-sm-2">Type</label>
         <div class="col-sm-10">
           <select class="form-control" id="sstypeatcdc">
             <option value="" selected disabled>Selectionnez....</option>
@@ -19,13 +19,13 @@
         </div>
       </div>
       <div class="row form-group">
-        <label for="dateatcd" class="col-sm-2 control-label">Date</label>
+        <label class="control-label col-sm-2">Date</label>
         <div class="col-sm-10">
           <input type="date" id="dateAntcd" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd"/>
         </div>
       </div>
       <div class="form-group">  
-        <label class="col-sm-2 control-label" for="codecim">Code(CIM10)</label>
+        <label class="col-sm-2 control-label" for="cim_code">Code(CIM10)</label>
         <div class="input-group">
           <input type="text" class="form-control search-query" placeholder="Saisir le code CIM" id="cim_code">
           <span class="input-group-btn">

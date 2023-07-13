@@ -60,16 +60,20 @@ function formSubmit(form, e, callBack) {
   })
 }
 function getProducts(url, callBack=null) {
-    var html = '';
-    $.ajax({
-      url : url,
-      type : 'GET',
-      success : function(data){
-        $.each(data, function(){
-          html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-        });
-        $('.produit').html(html);
-        callBack(data);
-      }
-    });
+  var html = '';
+  $.ajax({
+    url : url,
+    type : 'GET',
+    success : function(data){
+      $.each(data, function(){
+        html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+      });
+      $('.produit').html(html);
+      callBack(data);
+    }
+  });
+}
+function selectedSpecDrug(spec)
+{
+  getProducts('/drug?spec_id='+spec,function(){});
 }

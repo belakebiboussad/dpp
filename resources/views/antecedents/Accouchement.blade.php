@@ -45,4 +45,4 @@
 			</div>
 		</div>
 	</div>	
-</div><div class="row">@include('antecedents.ModalFoms.accouchementModal')</div>
+</div><div class="row">@include('antecedents.ModalForms.accouchementModal')</div>

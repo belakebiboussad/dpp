@@ -281,7 +281,7 @@
               </div>
             </div>
           </div><!-- orients -->
-          <div class="row">@include('consultations.ModalFoms.LettreOrientationAdd',['patient'=>$consultation->patient])</div>
+          <div class="row">@include('consultations.ModalForms.LettreOrientationAdd',['patient'=>$consultation->patient])</div>
           @endisset
          </div>{{-- tab-content  --}}
     </div>  {{-- tabbable --}}

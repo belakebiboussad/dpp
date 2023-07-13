@@ -34,4 +34,4 @@
 
     </div>
 </div>
-@include("user.ModalFoms.resetPwd")
+@include("user.ModalForms.resetPwd")

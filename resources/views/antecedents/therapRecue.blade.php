@@ -41,4 +41,4 @@
 		</div>
 	</div>
 </div>
-<div class="row">@include('antecedents.ModalFoms.theraprecuModal')</div> 
+<div class="row">@include('antecedents.ModalForms.theraprecuModal')</div> 

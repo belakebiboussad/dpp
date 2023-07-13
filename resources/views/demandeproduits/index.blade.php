@@ -93,10 +93,22 @@
 </script>
 @stop
 @section('main-content')
+  <div class="row">
+  <div class="col-sm-12"><h4>Liste des demandes</h4>
+{{--   <div class="pull-right">
+    <a class="btn btn-sm btn-primary" href="" id="" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Ajouter</a>
+  </div> --}}
+  </div>
+  </div>
 <div class="row">
-	<div class="panel panel-default">
-		<div class="panel-heading">Rechercher</div>
-		<div class="panel-body">
+  <ul class="nav nav-pills pull-right">
+      <li class="btn btn-success btn-xs">
+        <a class="" href="#" id=""><i class="ace-icon  fa fa-plus-circle" aria-hidden="true"></i>Ajouter</a>
+      </li>
+  </ul>
+  <div class="widget">
+		<div class="widget-title">Rechercher</div>
+		<div class="widget-body">
   	  <div class="row">
     		<div class="col-sm-4">
     			<div class="form-group"><label>Etat</label>

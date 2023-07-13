@@ -127,5 +127,5 @@
 	 </div>
 </div>
 </div>
-<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
+<div class="row">@include('hospitalisations.ModalForms.EtatSortie')</div>
 @stop

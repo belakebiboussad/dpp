@@ -22,17 +22,13 @@
               break; 
       }
 });
-$('.specPrd').change(function(){
-    var url = '{!! route("drug.index") !!}';
-    url +='?spec_id='+$(this).val();
-    getProducts(url,function(){});
- });
  $('#produit').change(function(){
-    $("#ajoutercmd").removeAttr("disabled");
+    $("#Prodadd").removeAttr("disabled");
 });
-$("#ajoutercmd").click(function(){
-  $('#cmd').append('<tr><td class="center"><label class="pos-rel"><input type="checkbox" class="ace" id="chk[]" onClick="enableDestry()"/><span class="lbl"></span></label></td><td hidden>'+$("#produit").val()+'</td><td>'+$("#produit option:selected").text()+'</td><td>'+$('#gamme option:selected').text()+'</td><td>'+(($("#gamme").val() == "1") ? $('#specPrd option:selected').text() : "/")+'</td><td >'+$("#quantite").val()+'</td><td>'+$("#unite").val()+'</td></tr>');$('#produit').empty().append('<option selected disabledvalue="">Selectionner...</option>');$("#quantite").val(1);$('#gamme').val('');$('#specPrd').val('');$("#unite").val('');
-      $("#ajoutercmd").prop('disabled', true);
+$("#Prodadd").click(function(){
+  // $('#cmd').append('<tr><td class="center"><label class="pos-rel"><input type="checkbox" class="ace" id="chk[]" onClick="enableDestry()"/><span class="lbl"></span></label></td><td hidden>'+$("#produit").val()+'</td><td>'+$("#produit option:selected").text()+'</td><td>'+$('#gamme option:selected').text()+'</td><td>'+(($("#gamme").val() == "1") ? $('#specPrd option:selected').text() : "/")+'</td><td >'+$("#quantite").val()+'</td><td>'+$("#unite").val()+'</td></tr>');$('#produit').empty().append('<option selected disabledvalue="">Selectionner...</option>');$("#quantite").val(1);$('#gamme').val('');$('#specPrd').val('');$("#unite").val('');
+  //     $("#ajoutercmd").prop('disabled', true);
+  
  }); 
 })
 </script>

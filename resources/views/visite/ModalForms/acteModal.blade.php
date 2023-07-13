@@ -9,11 +9,11 @@
         <form id="addActe" method="POST">
         <input type="hidden" id ="acte_id">
         <div class="form-group">
-            <label class="control-label" for="specialiteProd">Acte :</label>
+            <label class="control-label" for="acte">Acte</label>
             <input type="text" id="acte" class="form-control" placeholder = "Nom de l'Acte"/> 
         </div>
         <div class="form-group">
-            <label for="type" class="control-label">Type :</label>
+            <label for="type" class="control-label">Type</label>
             <select class="form-control" id="type" data-placeholder="selectionnez le type de l'acte">
               <option value="" selected disabled >selectionnez le type de l'acte</option>
               <option value="paramedicale">paramédicale</option>
@@ -21,7 +21,7 @@
             </select>    
         </div>
         <div class="form-group">
-            <label class="control-label" for="code_ngap">Code NGAP :</label>
+            <label class="control-label" for="code_ngap">Code NGAP</label>
             <select id="code_ngap" class="form-control">
               <option value="" selected disabled>selectionnez le Code NGAP</option>
               @foreach($codesNgap as $code)
@@ -30,11 +30,11 @@
             </select>
         </div>
         <div class="form-group">
-            <label  class="control-label" for="specialiteProd">Application :</label>
+            <label  class="control-label" for="description">Application :</label>
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
         </div>
          <div class=" form-group">
-            <label  class="control-label" for="dureeT">Fois/Jour :</label>
+            <label  class="control-label" for="nbrFJ">Fois/Jour</label>
             <input type="number" id="nbrFJ" class="form-control"  min="1" value="1" placeholder = "Nombre de prise"/><!-- <label for="dureeT">Durée(jour):</label>
       <input type="number" id="dureeT" class="form-control"  min="1" value="1" placeholder = "Duree"/> -->
         </div>

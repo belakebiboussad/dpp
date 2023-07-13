@@ -429,26 +429,25 @@ $(function(){
   </div>
 </div>
 @if(count(array_intersect([1,3], $specialite->antecTypes()->pluck('id')->toArray())) > 0)
-  @include('antecedents.ModalFoms.AntecedantModal')
+  @include('antecedents.ModalForms.AntecedantModal')
 @endif
 @if(in_array(2,$specialite->antecTypes()->pluck('id')->toArray()))
-@include('antecedents.ModalFoms.AntecedantModalPhysio')
+@include('antecedents.ModalForms.AntecedantModalPhysio')
 @endif
 @if(in_array(5,$specialite->antecTypes()->pluck('id')->toArray()))
-<div class="row">@include('antecedents.ModalFoms.motherModal')</div>
+<div class="row">@include('antecedents.ModalForms.motherModal')</div>
 @endif
 @if(in_array(8,$specialite->antecTypes()->pluck('id')->toArray()))
-@include('antecedents.ModalFoms.vaccinsModal')
+@include('antecedents.ModalForms.vaccinsModal')
 @endif
 @include('cim10.cimModalForm')
-@include('ExamenCompl.ModalFoms.ExamenImgModal')
-@include('consultations.ModalFoms.DemadeHospitalisation')
-@include('consultations.ModalFoms.LettreOrientation')
-@include('consultations.ModalFoms.Ordonnance')@include('consultations.ModalFoms.imprimerOrdonnanceAjax')   
-@include('examenradio.ModalFoms.crrPrint')@include('consultations.ModalFoms.certificatDescriptif')
+@include('ExamenCompl.ModalForms.ExamenImgModal')
+@include('consultations.ModalForms.DemadeHospitalisation')
+@include('consultations.ModalForms.LettreOrientation')
+@include('consultations.ModalForms.Ordonnance')@include('consultations.ModalForms.imprimerOrdonnanceAjax')  
 <div id="bioExamsPdf" class="hidden"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div>
 <div id="imagExamsPdf" class="hidden">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div>
 <div id="ordPdf" class="hidden">@include('consultations.EtatsSortie.ordonnancePdf')</div>
 <div id="OrientLetterPdf" class="hidden">@include('consultations.EtatsSortie.orienLetterPDF')</div>
-{{-- <div id="certificatDescrPdf">@include('consultations.EtatsSortie.certifDescripPDF')</div> --}}
+
 @stop

@@ -77,7 +77,7 @@ td
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}
 </div>{{-- modal --}}
-@include('consultations.ModalFoms.LettreOrientationAdd')@include('consultations.ModalFoms.certificatDescriptif')
+@include('consultations.ModalForms.LettreOrientationAdd')@include('consultations.ModalForms.certificatDescriptif')
 <script>
   $(function(){
       imgToBase64("{{ asset('/img/entete.jpg') }}", function(base64) {

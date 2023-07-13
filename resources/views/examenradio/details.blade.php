@@ -273,5 +273,5 @@ $(function(){
     </div>
   </div>
 </div>
-@include('examenradio.ModalFoms.CRRModal'){{-- @include('examenradio.ModalFoms.crrPrint') --}}
+@include('examenradio.ModalForms.CRRModal')
 @stop

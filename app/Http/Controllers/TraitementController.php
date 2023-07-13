@@ -46,24 +46,23 @@ class TraitementController extends Controller
    
     public function update(Request $request,$id)
     {
-      // $rule = array(
-      //   'med_id'=> 'required|string|max:225',
-           //   'posologie'=>'required',
-      //   'nbrPJ'=>'required',
-      // );
-      // $messages = [
-      //   "required"   => "Le champ :attribute est obligatoire.",
-      // ];
-      // $validator = Validator::make($request->all(), $rule,$messages);
-      // if($validator->fails())
-      //   return response()->json(['errors'=>$validator->errors()->all()]);
+      $rule = array(
+        'med_id'=> 'required|string|max:225',
+        'posologie'=>'required',
+        'nbrPJ'=>'required'
+      );
+      $messages = [
+        "required"   => "Le champ :attribute est obligatoire.",
+      ];
+      $validator = Validator::make($request->all(), $rule,$messages);
+      if($validator->fails())
+        return response()->json(['errors'=>$validator->errors()->all()]);
       $trait = Traitement::FindOrFail($id);
-      //return(request()->posologie);
       $trait->update([
         'med_id'=>$request->med_id,
         'posologie'=>$request->posologie,
         'nbrPJ'=>$request->nbrPJ
-      ]);//return $trait->load('medicament','visite.medecin');
+      ]);
       return response()->json(['success' => "Traitement mis à jour avec suuccés",'trait'=> $trait->load('medicament','visite.medecin')]);
     }
     public function destroy($id)

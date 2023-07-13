@@ -81,7 +81,11 @@ class demandeprodController extends Controller
       {
         $gammes = gamme::all();
         $specialites = specialite_produit::all();
-        return view('demandeproduits.add', compact('gammes','specialites'));
+        $demande = demand_produits::Create([
+            "date" => Carbon::today(),
+            "id_employe" => Auth::user()->employe_id,
+        ]);
+        return view('demandeproduits.add', compact('gammes','specialites','demande'));
       }
     /**
      * Store a newly created resource in storage.
@@ -91,11 +95,11 @@ class demandeprodController extends Controller
      */
       public function store(Request $request)
       {
-          $date = Carbon::today();
-          $demande = demand_produits::Create([
-            "date" => $date,
-            "id_employe" => Auth::user()->employe_id,
-          ]);
+          //$date = Carbon::today();
+          // $demande = demand_produits::Create([
+          //   "date" => $date,
+          //   "id_employe" => Auth::user()->employe_id,
+          // ]);
           $listes = json_decode($request->liste);
             for ($i=1; $i < count($listes); $i++) { 
             $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();

@@ -33,7 +33,7 @@
 			  </form>
 			</div>
 		  <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" id="DHospadd"  data-dismiss="modal" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
+        <button type="button" class="btn btn-primary btn-sm" id="DHospadd"  data-dismiss="modal" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>
         <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}

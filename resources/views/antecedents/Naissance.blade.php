@@ -46,4 +46,4 @@
 		</div>
 	</div>
 </div>
-<div class="row">@include('antecedents.ModalFoms.birhtCondModal')</div>
+<div class="row">@include('antecedents.ModalForms.birhtCondModal')</div>

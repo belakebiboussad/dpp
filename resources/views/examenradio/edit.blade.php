@@ -113,6 +113,6 @@
         </form>
   </div>  <!-- widget-container-col -->
 </div><!-- row -->
-<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>
+<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalForms.ExamenImgModal')</div></div>
 </div>
 @stop

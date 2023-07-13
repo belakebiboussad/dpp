@@ -327,6 +327,6 @@
    </div> <!-- widget-box -->
 </div>
 </div>
-<div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div><div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
+<div class="row">@include('hospitalisations.ModalForms.sortieModal')</div><div class="row">@include('hospitalisations.ModalForms.EtatSortie')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @stop

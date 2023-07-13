@@ -4,9 +4,8 @@
         <div class="widget-main">
           <div class="row">
           <div class="col-xs-12">
-            <form id="dmdprod" method="POST" action="{{ route('demandeproduit.store') }}">
-              {{ csrf_field() }}
-              <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+            <form id="dmdprod" method="POST" action="">
+               <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
             </form>
              <div class="form-group">
                   <label for="gamme" class="control-label">Gamme </label>
@@ -18,8 +17,8 @@
                     </select>
               </div>
               <div id = "specialiteDiv" class="form-group">
-                    <label for="specPrd" class="control-label">Spécialité </label>
-                    <select class="form-control specPrd" id="specPrd">
+                <label for="specPrd" class="control-label">Spécialité </label>
+                    <select class="form-control specPrd" id="specPrd" onchange="selectedSpecDrug(this.value);">
                         <option value="" selected disabled>Sélectionner...</option>
                         @foreach($specialites as $spec)
                           <option value="{{ $spec->id }}">{{ $spec->nom }}</option>

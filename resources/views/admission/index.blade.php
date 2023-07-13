@@ -238,5 +238,5 @@
     </div>
    </div>
 </div>{{-- row --}}
-@include('hospitalisations.ModalFoms.EtatSortie')
+@include('hospitalisations.ModalForms.EtatSortie')
 @stop

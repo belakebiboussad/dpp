@@ -231,6 +231,6 @@
 	  		</div>{{-- widget-body --}}
 	  	</div> 	{{-- widget-box --}}
 	 </div>	 {{-- row --}}
-	 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
+	 <div class="row">@include('hospitalisations.ModalForms.EtatSortie')</div>
 </div>
 @stop

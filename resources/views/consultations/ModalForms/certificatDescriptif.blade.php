@@ -14,7 +14,7 @@
         </form>
         <div class="form-group">
         <label><input type="checkbox" class="ace" id="isChronic"/>
-          <span class="lbl"> Il s'agit d'une maladie chronique</span>
+          <span class="lbl">Maladie chronique</span>
         </label>
         </div>
       </div>

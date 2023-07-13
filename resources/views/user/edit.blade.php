@@ -166,7 +166,7 @@
     </form>
   </div>
 </div>
-</div><div class="row">@include('user.ModalFoms.changeUserPassword')
+</div><div class="row">@include('user.ModalForms.changeUserPassword')
 @stop
 @section('page-script')
 <script type="text/javascript">
