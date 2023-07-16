@@ -384,9 +384,6 @@
                 });
             }
           });
-          $("#deletepod").click(function(){
-             $("tr:has(input:checked)").remove();
-          }); 
           $('body').on('click', '.delete-atcd', function (e) {
             event.preventDefault();
             var atcd_id = $(this).val();

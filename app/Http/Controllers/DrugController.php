@@ -17,4 +17,17 @@ class DrugController extends Controller
     $demande = demand_produits::find($id);
     return $demande->medicaments->load('specialite');
   }
+  public function update(Request $request, $id )
+  { 
+    $demande = demand_produits::find($request->demande_id);
+    // $demande->medicaments->meds-table_id
+    // return $demande->medicaments->load('specialite');
+    return $request->all();
+    $demande->medicaments()->updateExistingPivot($request->id,[
+        'qte'=>$request->qte,
+        'unite'=>$request->unite
+      ]);
+    $demande->medicaments()->where(id,$request->id)->get();
+    
+  }
 }

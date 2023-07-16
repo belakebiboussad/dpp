@@ -54,7 +54,7 @@
 </div>
 @stop
 @section('page-script')
-@include('visite.scripts.scripts')
+{{-- @include('visite.scripts.scripts')--}}
 @isset($visite->demandeexmbio)
   @include('examenbio.scripts.jqgrid')
 @endisset
@@ -62,9 +62,6 @@
   @include('examenradio.scripts.jqgrid')
 @endisset
 <script type="text/javascript"> 
-  function commonError(data) {
-    return "Error Occured during Operation. Please try again";
-  }
   function updatActe(params) {
     url = '{{ route("acte.update", ":slug") }}'; 
     url = url.replace(':slug', params.id);

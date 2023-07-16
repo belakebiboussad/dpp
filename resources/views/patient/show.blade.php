@@ -117,8 +117,7 @@ $(function(){
       $('#gardeMalade').modal('toggle');  
     });
     jQuery('body').on('click', '.delete-garde', function () {
-      //var id = ;
-      var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
+     var url = '{{ route("hommeConfiance.destroy", ":slug") }}'; 
       url = url.replace(':slug',$(this).val());
       $.ajax({
             type: "DELETE",

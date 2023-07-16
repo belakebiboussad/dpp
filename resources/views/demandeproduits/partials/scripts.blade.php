@@ -26,9 +26,14 @@
     $("#Prodadd").removeAttr("disabled");
 });
 $("#Prodadd").click(function(){
-  // $('#cmd').append('<tr><td class="center"><label class="pos-rel"><input type="checkbox" class="ace" id="chk[]" onClick="enableDestry()"/><span class="lbl"></span></label></td><td hidden>'+$("#produit").val()+'</td><td>'+$("#produit option:selected").text()+'</td><td>'+$('#gamme option:selected').text()+'</td><td>'+(($("#gamme").val() == "1") ? $('#specPrd option:selected').text() : "/")+'</td><td >'+$("#quantite").val()+'</td><td>'+$("#unite").val()+'</td></tr>');$('#produit').empty().append('<option selected disabledvalue="">Selectionner...</option>');$("#quantite").val(1);$('#gamme').val('');$('#specPrd').val('');$("#unite").val('');
-  //     $("#ajoutercmd").prop('disabled', true);
-  
- }); 
+   var actions ='<a href="#" class="btn btn-xs btn-danger proDel"><i class="ace-icon fa fa-trash-o"></i></a>';
+// var actions ='<button class="btn btn-xs btn-danger proDel"><i class="ace-icon fa fa-trash-o"></i></button>';
+   $('#cmd').append('<tr><td class="center"><label class="pos-rel"><input type="checkbox" class="ace" id="chk[]"/><span class="lbl"></span></label></td><td hidden>'+$("#produit").val()+'</td><td>'+$("#produit option:selected").text()+'</td><td>'+$('#gamme option:selected').text()+'</td><td>'+(($("#gamme").val() == "1") ? $('#specPrd option:selected').text() : "/")+'</td><td >'+$("#quantite").val()+'</td><td>'+$("#unite").val()+'</td><td class="center">'+actions+'</td></tr>');
+}); 
+$('#productAdModal').on('shown.bs.modal', function () {
+  $("#Prodadd").prop('disabled', true);//Prodadd
+  $('#productAdModal form')[0].reset(); 
+  $('#produit').empty().append('<option selected disabledvalue="">Selectionner...</option>');
+})
 })
 </script>

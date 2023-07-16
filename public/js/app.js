@@ -77,3 +77,6 @@ function selectedSpecDrug(spec)
 {
   getProducts('/drug?spec_id='+spec,function(){});
 }
+function commonError(data) {
+  return "Une erreur s'est produite pendant l'opération. Veuillez réessayer";
+}

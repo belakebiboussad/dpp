@@ -19,24 +19,36 @@
 @stop
 @section('page-script')
 @include('demandeproduits.partials.scripts')
-<script>
+<script type="text/javascript">
+function updatDrug(params) {
+  url = '{{ route("drug.update", ":slug") }}'; 
+  url = url.replace(':slug', params.id);
+  params['demande_id'] ='{{ $demande->id}}';
+  params['_token'] =CSRF_TOKEN;
+  params['editurl'] =url;
+  $.ajax({
+      type:"PUT",
+      url:url,
+      data: params,
+      dataType:'json',
+      success: function (data) {
+        $.each(data, function(key, value){
+          alert(key + ":" + value);
+        })
+        //alert(data);
+      } 
+  })
+}
 $(function(){
   $("#meds-table").jqGrid({
     url : '{{ route("drug.edit", ["id"=>$demande->id])}}',
     mtype: "GET",
     datatype: "json",
-    colNames:['drug_id','Medicament','Spécialite','Qte','Unité'],
+    colNames:['ID','Medicament','Qte','Unité'],
     colModel:[
-      { name:'drug_id', index:'drug_id', hidden:true, editable: true},
-      { name:'nom', index:'nom', hidden:false, editable: false, editoptions:{size:67}
-      },
-      {  name: 'specialiteProd', index: 'specialiteProd',editable: false,
-        formatter: function (cellvalue, options, rowObject) 
-        {
-          return rowObject.specialite.nom;
-        }, editrules : { edithidden : true }
-      },
-      { name:'qte', index:'qte', hidden:false, editable: true,
+      { name:'id', index:'id', hidden:true,editable: true},
+      {name:'nom',index:'nom',editable: true,editoptions:{size:67},editrules:{required:true}},
+      { name:'qte', index:'qte', editable: true,edittype:'number',
         formatter: function (cellvalue, options, rowObject) 
         {
           return rowObject.pivot.qte;
@@ -55,12 +67,35 @@ $(function(){
     rowNum:10,
     pager: '#medsPager',
     sortname: 'id',
+    viewrecords: true,
+    editurl : '/drug/edit',
     caption:"Médicaments",
+    emptyrecords: "0 enregistrements trouvés",
     editable: true
   });
   $("#meds-table").jqGrid('navGrid','#medsPager',
-  {
+    {
+
+      edit:true, edittitle: "Edit Médicament",
+      add:true, addtitle: "Add Médicament",
+      del:true,
+      refresh: false,
+      view:true,
+      viewicon : 'ace-icon fa fa-search-plus grey',
+      addicon : 'ace-icon fa fa-plus-circle purple',
+    },{
+        closeOnEscape: true, 
+        closeAfterEdit: true,
+        errorTextFormat: commonError, 
+        width: "600", 
+        reloadAfterSubmit: true, 
+        bottominfo: "Les champs marqués d'un (*) sont obligatoires !", 
+        top: "60",left: "5", right: "5",
+        onclickSubmit: function (response, actedata) {
+          updatDrug(actedata);
+          $(this).jqGrid("setGridParam", { datatype: "json" });
+        }
+    });
   });
-});
 </script>
 @stop

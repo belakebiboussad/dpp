@@ -7,7 +7,6 @@ use App\modeles\gamme;
 use App\modeles\specialite_produit;
 use App\modeles\demand_produits;
 use App\modeles\demande_dispositif;
-use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Response;
@@ -81,11 +80,7 @@ class demandeprodController extends Controller
       {
         $gammes = gamme::all();
         $specialites = specialite_produit::all();
-        $demande = demand_produits::Create([
-            "date" => Carbon::today(),
-            "id_employe" => Auth::user()->employe_id,
-        ]);
-        return view('demandeproduits.add', compact('gammes','specialites','demande'));
+        return view('demandeproduits.add', compact('gammes','specialites'));
       }
     /**
      * Store a newly created resource in storage.
@@ -95,13 +90,13 @@ class demandeprodController extends Controller
      */
       public function store(Request $request)
       {
-          //$date = Carbon::today();
-          // $demande = demand_produits::Create([
-          //   "date" => $date,
-          //   "id_employe" => Auth::user()->employe_id,
-          // ]);
+          $date = Carbon::today();
+          $demande = demand_produits::Create([
+            "date" => $date,
+            "id_employe" => Auth::user()->employe_id,
+          ]);
           $listes = json_decode($request->liste);
-            for ($i=1; $i < count($listes); $i++) { 
+          for ($i=1; $i < count($listes); $i++) { 
             $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
             if($gamme->id == "1")
                  $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
@@ -140,8 +135,8 @@ class demandeprodController extends Controller
       }
        public function run($id)
       {
-             $demande = demand_produits::FindOrFail($id);
-            return view('demandeproduits.run', compact('demande'));
+        $demande = demand_produits::FindOrFail($id);
+        return view('demandeproduits.run', compact('demande'));
        }
       public function valider(Request $request,$id)
       {
@@ -171,23 +166,23 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $demande = demand_produits::FindOrFail($id);
-            $demande->medicaments()->detach();
-            $demande->dispositifs()->detach();
-            $demande->reactifs()->detach();
-            $lists = json_decode($request->liste);
-            for ($i=0; $i < count($lists); $i++) { 
-              $gamme = gamme::where('nom',trim($lists[$i]->gamme))->get()->first();
-              if($gamme->id == "1")
-                $demande->medicaments()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
-              elseif($gamme->id == "2")
-                $demande->dispositifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
-              elseif($gamme->id == "3")
-                $demande->reactifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
-              elseif($gamme->id == "4")
-                $demande->consomables()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
-              }
-             return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);
+    $demande = demand_produits::FindOrFail($id);
+    $demande->medicaments()->detach();
+    $demande->dispositifs()->detach();
+    $demande->reactifs()->detach();
+    $lists = json_decode($request->liste);
+    for ($i=0; $i < count($lists); $i++) { 
+      $gamme = gamme::where('nom',trim($lists[$i]->gamme))->get()->first();
+      if($gamme->id == "1")
+        $demande->medicaments()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+      elseif($gamme->id == "2")
+        $demande->dispositifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+      elseif($gamme->id == "3")
+        $demande->reactifs()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+      elseif($gamme->id == "4")
+        $demande->consomables()->attach($lists[$i]->produit, ['qte' => $lists[$i]->qte,'unite' => $lists[$i]->unite]);
+      }
+     return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);
     }
     /**
      * Remove the specified resource from storage.
@@ -208,8 +203,8 @@ class demandeprodController extends Controller
       {
         if($request->ajax())  
         {
-          $demande = demand_produits::destroy($id);
-          return $demande; 
+          demand_produits::destroy($id);
+          return $id; 
         }
         else
         {
