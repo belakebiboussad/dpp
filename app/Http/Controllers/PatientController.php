@@ -38,19 +38,19 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()//Request $request
+    public function index(Request $request)//Request $request
     {
-      if(request()->ajax())  
+      if($request->ajax())  
       {
         $today = Carbon::now(); $sub17 = ($today->subYears(17))->format('Y-m-d');
-        $sub65 = ($today->subYears(65))->format('Y-m-d');$q = request()->value;
-        $field= request()->field;
+        $sub65 = ($today->subYears(65))->format('Y-m-d');$q = $request->value;
+        $field= $request->field;
         switch(Auth::user()->employ->specialite)
         {       
           case 3 :
-                  $patients = Patient::where($field,'LIKE', "$q%")->active()
-                                      ->where('dob', '>', $sub17)->get();
-                  break;
+              $patients = Patient::where($field,'LIKE', "$q%")->active()
+                                  ->where('dob', '>', $sub17)->get();
+              break;
           case 5 :
             $patients = Patient::where($field,'LIKE', "$q%")->active()
                                 ->where('Sexe','F')->get();
@@ -84,9 +84,9 @@ class PatientController extends Controller
    * @param  \Illuminate\Http\Request  
    * @return \Illuminate\Http\Response
    */
-  public function store()//Request $request
+  public function store(Request $request)//
   {
-     $rule = array(
+    $rule = array(
       "nom" => 'required',"prenom" => 'required',
       "type" => 'required',"nomf" => 'required_if:type,2,3,4,5',
       "prenomf" => 'required_if:type,2,3,4,5',
@@ -96,14 +96,14 @@ class PatientController extends Controller
       "required"     => "Le champ :attribute est obligatoire.", 
       "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
-    $validator = Validator::make(request()->all(),$rule,$messages);   
+    $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) 
-      return back()->withInput(request()->input())->withErrors($validator->errors());
+      return back()->withInput($request->input())->withErrors($validator->errors());
     $DOB="";
     static $assurObj;$date = Carbon::now();
-    if(isset(request()->presume))
+    if(isset($request->presume))
     {
-      switch(request()->presume)
+      switch($request->presume)
       {
         case 1:
           $dob= ($date->subYears(16))->format('Y-m-d');
@@ -116,42 +116,42 @@ class PatientController extends Controller
           break;
       }
     }else
-      $dob  = request()->dob;   
-    if(request()->type !=6)
+      $dob  = $request->dob;   
+    if($request->type !=6)
     {  
-      $assure = assur::where('NSS', request()->nss)->first(); 
+      $assure = assur::where('NSS', $request->nss)->first(); 
       if(is_null($assure))
       {
-        if(request()->type == 1)
+        if($request->type == 1)
         {
           $assurObj = assur::firstOrCreate([
-            "Nom"=>request()->nom, "Prenom"=>request()->prenom,
-            "dob"=>$dob,"pob"=>request()->pob,
-            "Sexe"=>request()->sexe, 'sf'=>request()->sf,
-            "adresse"=>request()->adresse, "commune_res"=>request()->idcommune,
-            "gs"=>request()->gs.request()->rh, "NSS"=>request()->nss
+            "Nom"=>$request->nom, "Prenom"=>$request->prenom,
+            "dob"=>$dob,"pob"=>$request->pob,
+            "Sexe"=>$request->sexe, 'sf'=>$request->sf,
+            "adresse"=>$request->adresse, "commune_res"=>$request->idcommune,
+            "gs"=>$request->gs.$request->rh, "NSS"=>$request->nss
           ]);
         }else
-          (new AssurController)->store(request());
+          (new AssurController)->store($request);
       }else
       {
-        (new AssurController)->update(request(),request()->nss);  
+        (new AssurController)->update($request,$request->nss);  
       } 
     }  
     $patient = Patient::firstOrCreate([
-        "Nom"=>request()->nom,"Prenom"=>request()->prenom,
-        "dob"=>$dob, "pob"=>request()->pob,
-        "Sexe"=>request()->sexe,"sf"=>request()->sf,
-        "nom_jeune_fille"=>request()->nom_jeune_fille, 
-        "Adresse"=>request()->adresse,'commune_res'=>request()->idcommune,
-        "mob"=>request()->mobile1,"mob2"=>request()->mobile2,
-        "gs"=>request()->gs,"rh"=>request()->rh,'nationalite'=>request()->nationalite,
-        'prof_id'=>request()->prof_id,
-        "assur_id"=> (request()->nss !=null) ? request()->nss : null,
-       "type_id"=>request()->type,  "description"=> request()->description,
-       "NSS"=>request()->nsspatient,  
+        "Nom"=>$request->nom,"Prenom"=>$request->prenom,
+        "dob"=>$dob, "pob"=>$request->pob,
+        "Sexe"=>$request->sexe,"sf"=>$request->sf,
+        "nom_jeune_fille"=>$request->nom_jeune_fille, 
+        "Adresse"=>$request->adresse,'commune_res'=>$request->idcommune,
+        "mob"=>$request->mobile1,"mob2"=>$request->mobile2,
+        "gs"=>$request->gs,"rh"=>$request->rh,'nationalite'=>$request->nationalite,
+        'prof_id'=>$request->prof_id,
+        "assur_id"=> ($request->nss !=null) ? $request->nss : null,
+       "type_id"=>$request->type,  "description"=> $request->description,
+       "NSS"=>$request->nsspatient,  
     ]);
-    $sexe = (request()->sexe == "M") ? 1:0;
+    $sexe = ($request->sexe == "M") ? 1:0;
     $ipp =$sexe.$date->year.$patient->id;
     $patient->update([ "IPP" => $ipp ]);
     return redirect(Route('patient.show',$patient->id));
@@ -239,9 +239,9 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
       "required"     => "Le champ :attribute est obligatoire.", 
       "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
-    $validator = Validator::make(request()->all(),$rule,$messages);   
+    $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) 
-      return back()->withInput(request()->input())->withErrors($validator->errors());
+      return back()->withInput($request->input())->withErrors($validator->errors());
     $ayants = array("2", "3", "4","5");
     $assure = new assur;
     if($request->type != 6)
@@ -286,7 +286,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
       "type_id"=>$request->type,
        "description"=>isset($request->description)? $request->description:null,
        "NSS"=>($patient->type_id !=6)? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
-       'nationalite'=>request()->nationalite
+       'nationalite'=>$request->nationalite
       ]);
       return redirect(Route('patient.show',$patient->id));
     }
