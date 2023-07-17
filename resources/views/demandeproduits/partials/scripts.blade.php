@@ -6,7 +6,6 @@
       else
        if(!$("#specialiteDiv").is(":hidden"))
         $("#specialiteDiv").hide();
-
       switch($(this).val())
       {
           case "2":
@@ -27,7 +26,6 @@
 });
 $("#Prodadd").click(function(){
    var actions ='<a href="#" class="btn btn-xs btn-danger proDel"><i class="ace-icon fa fa-trash-o"></i></a>';
-// var actions ='<button class="btn btn-xs btn-danger proDel"><i class="ace-icon fa fa-trash-o"></i></button>';
    $('#cmd').append('<tr><td class="center"><label class="pos-rel"><input type="checkbox" class="ace" id="chk[]"/><span class="lbl"></span></label></td><td hidden>'+$("#produit").val()+'</td><td>'+$("#produit option:selected").text()+'</td><td>'+$('#gamme option:selected').text()+'</td><td>'+(($("#gamme").val() == "1") ? $('#specPrd option:selected').text() : "/")+'</td><td >'+$("#quantite").val()+'</td><td>'+$("#unite").val()+'</td><td class="center">'+actions+'</td></tr>');
 }); 
 $('#productAdModal').on('shown.bs.modal', function () {

@@ -7,6 +7,7 @@ use App\modeles\gamme;
 use App\modeles\specialite_produit;
 use App\modeles\demand_produits;
 use App\modeles\demande_dispositif;
+use App\Helpers\StatsHelper;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Response;
@@ -131,13 +132,14 @@ class demandeprodController extends Controller
         $gammes = gamme::all();
         $specialites = specialite_produit::all();
         $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.edit', compact('gammes','specialites','demande'));
+        $specs =  StatsHelper::formatString(specialite_produit::all(),'id','nom');
+        return view('demandeproduits.edit', compact('gammes','specialites','demande','specs'));
       }
-       public function run($id)
+      public function run($id)
       {
         $demande = demand_produits::FindOrFail($id);
         return view('demandeproduits.run', compact('demande'));
-       }
+      }
       public function valider(Request $request,$id)
       {
        $demande = demand_produits::FindOrFail($id);

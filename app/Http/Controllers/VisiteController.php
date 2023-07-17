@@ -111,7 +111,8 @@ class VisiteController extends Controller
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $ngaps = StatsHelper::formatString(NGAP::all(),'code','code');
       $examensradio =  StatsHelper::formatString(examenradiologique::all(),'id','nom');
-      $specs =  StatsHelper::formatString($specialitesProd,'id','nom'); $ngaps=  addslashes($ngaps);
+      $specs =  StatsHelper::formatString($specialitesProd,'id','nom'); 
+      $ngaps=  addslashes($ngaps);
       return view('visite.edit',compact('visite','specialite','ngaps','specs','examensradio'));  
     }
     public function destroy($id)

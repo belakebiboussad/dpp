@@ -44,11 +44,18 @@ $(function(){
     url : '{{ route("drug.edit", ["id"=>$demande->id])}}',
     mtype: "GET",
     datatype: "json",
-    colNames:['ID','Medicament','Qte','Unité'],
+    colNames:['ID','spec_id','Spécialite','Medicament','Qte','Unité'],
     colModel:[
       { name:'id', index:'id', hidden:true,editable: true},
-      {name:'nom',index:'nom',editable: true,editoptions:{size:67},editrules:{required:true}},
-      { name:'qte', index:'qte', editable: true,edittype:'number',
+      {name:'id_specialite',index:'id_specialite',hidden:true,editable: true},
+      {  name: 'specialiteProd', index: 'specialiteProd',editable: true,width:150,edittype:'select',editoptions: {value: '{!! $specs !!}' },
+          formatter: function (cellvalue, options, rowObject) 
+          {
+            return rowObject.specialite.nom;
+          }, editrules : { edithidden : true }
+      },
+      {name:'nom',index:'nom',editable: true,width:170,editrules:{required:true},editoptions: {size:60,}},
+      { name:'qte', index:'qte', editable: true,width:30,edittype:'number',
         formatter: function (cellvalue, options, rowObject) 
         {
           return rowObject.pivot.qte;
