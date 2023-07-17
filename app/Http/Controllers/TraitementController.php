@@ -27,6 +27,7 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
+      return $request->all();
       $rule = array(
         'med_id'=> 'required|string|max:225',
         'visite_id'=> 'required',
