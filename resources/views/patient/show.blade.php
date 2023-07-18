@@ -290,7 +290,7 @@ $(function(){
 				<li class="active">
 					<a data-toggle="tab" href="#patDemog"><i class="green ace-icon fa fa-user bigger-120"></i>Informations administratives</a>
 				</li>
-				@if(Auth::user()->isIn([1,13,14]))
+        @doctor
 					@if( $patient->antecedants->count() >0)
 					<li>
 						 <a data-toggle="tab" href="#Ants">
@@ -312,8 +312,8 @@ $(function(){
 						</a>
 					</li>
 					@endif
-				@endif	
-				@if((Auth::user()->isIn([1,13,14,15])) && ($rdvs->count() > 0))
+        @enddoctor
+				@if((Auth::user()->isIn([1,13,14,15])))
 				<li><a data-toggle="tab" href="#rdvs">
 					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous <span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
@@ -324,9 +324,9 @@ $(function(){
           &nbsp;<span class="badge badge-success">{{ $patient->hommesConf->count() }}</span>
           </a></li>
 				@endif
-        @if(Auth::user()->isIn([1,13,14]))
+        @doctor
         <li><a data-toggle="tab" href="#doc"><i class="yellow ace-icon fa fa-folder bigger-120"></i>Documents</a></li>
-        @endif
+        @enddoctor
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="patDemog" class="tab-pane in active"> @include('patient.patientInfo')</div>

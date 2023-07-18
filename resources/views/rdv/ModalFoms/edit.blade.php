@@ -83,12 +83,12 @@
         </div>
         </div>  
       </div>
-    </div> {{-- modal-body --}} 
+    </div>
     <div class="modal-footer">
-      @if(Auth::user()->isIn([1,13,14]))
-        <a id="btnConsulter" class="btn btn btn-xs btn-success" href="#" >  <i class="fa fa-stethoscope" aria-hidden="true"></i> Consulter</a>
-      @endif 
-      <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>     <button  type="button" id="rdvDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Supprimer</button>
+      @doctor
+      <a id="btnConsulter" class="btn btn btn-xs btn-success" href="#" ><i class="fa fa-stethoscope" aria-hidden="true"></i> Consulter</a>
+      @enddoctor
+      <button type="button" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button><button  type="button" id="rdvDelete" class="btn btn-bold btn-xs btn-danger" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Supprimer</button>
         <a id="printRdv" class="btn btn-success btn-xs hidden"  aria-hidden="true" target="_blank"><i class="ace-icon fa fa-print"></i>Imprimer</a>
        <button type="button" class="btn btn-xs btn-warning" data-dismiss="modal"  id ="fctCancel" onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
     </div>

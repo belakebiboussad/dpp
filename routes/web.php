@@ -13,7 +13,7 @@ Route::group(['middleware' => 'revalidate'], function()
 {          
   Auth::routes(); 
   Route::get('/', 'Auth\LoginController@showLoginForm');
-});//ressources
+});
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('hommeConfiance','HommeConfianceController');
@@ -27,6 +27,7 @@ Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::resource('appreilExamClin','AppareilExamenCliniqueController');
 Route::resource('users','UsersController');
+Route::resource('role','RolesController');
 Route::resource('employs','EmployeController');
 Route::resource('rdv','RDVController');
 Route::resource('employe','EmployeController');

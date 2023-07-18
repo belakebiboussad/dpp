@@ -8,9 +8,9 @@
 					<div class="widget-header widget-header-large">
 						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Détails :</h3>
 						<div class="widget-toolbar hidden-480">
-						@if(Auth::user()->isIn([1,13,14]))
+						@doctor
 							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><b>Liste des demandes</b></a>
-						@endif
+						 @enddoctor
 						&nbsp;&nbsp;&nbsp;
 						@if(Auth::User()->employe_id == $demande->employ_id)
 							<a href="{{ route('demandehosp.edit',$demande->id) }}"><i class="ace-icon fa fa-pencil-square-o"></i><b>Modifier</b></a>

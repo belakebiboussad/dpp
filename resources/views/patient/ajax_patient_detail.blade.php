@@ -77,21 +77,18 @@
        <tr>
           <td class ="noborders">NSS :</td><td>{{ $patient->assure->NSS }}</td>
        </tr>
-        <tr>
-          <td></td><td></td>
-        </tr>
+        <tr><td></td><td></td></tr>
       </tbody>
      </table>
   </div> {{-- tabpane --}}
   @endif
 </div> <!-- tab-content -->
 <div class= "center">
-  @if(Auth::user()->isIn([1,13,14]))
-  <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>  
-  @endif
+  @doctor
+  <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg"></i>Consultation</a>
+  @enddoctor
   @if(Auth::user()->isIn([1,13,14,15]))
   <a href="{{ route('rdv.create', ['patient_id'=>$patient->id]) }}" class="btn btn-sm btn-primary btn-create" @if(!isset($patient->dob))  disabled @endif>
-  <i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
-  
+  <i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
   @endif
 </div>

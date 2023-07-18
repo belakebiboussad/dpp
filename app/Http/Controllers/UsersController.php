@@ -159,8 +159,7 @@ class UsersController extends Controller
         'nom'=> 'required',
         'prenom'=> 'required',
         'nss'=> [
-                 'required', 
-                  new NSSValidRule
+                 'required'//,new NSSValidRule
         ],
         'dob'=> 'required',
         'mobile'=> 'required | regex:/[0][2345679][0-9]{8}/',

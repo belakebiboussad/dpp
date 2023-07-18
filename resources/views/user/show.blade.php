@@ -4,8 +4,10 @@
   <h4>Détails du l'utilisateur &quot; {{ $user->employ->full_name }} &quot;</h4>
   <div class="pull-right">
     <a href="{{ route('users.index') }}" class="btn btn-xs btn-white"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+    @if(Auth::user()->is_admin){
     <a href="{{ route('users.destroy',$user->id )}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" {{ $user->id == Auth::user()->id ? 'disabled':'' }}> Supprimer<i class="fa fa-trash-o fa-xs"></i>
   	</a>
+    @endif
   </div>
 </div>
 <div id="info-general">

@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Validator;
+use Illuminate\Support\Facades\Blade;
 use Carbon\Carbon;
+use Auth;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,20 +15,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      Carbon::setLocale('fr_FR');
+      \Blade::if('doctor',function(){
+        return Auth::user()->isIn([1,13,14]);
+      });
+      \Blade::if('chef',function(){
+        return Auth::user()->isIn([13,14]);
+      });
       Carbon::setWeekendDays([
           Carbon::FRIDAY,
           Carbon::SATURDAY,
       ]);
-       /**
-       fonawesome
-       **/
-       $this->publishes([
-      __DIR__ . '/../../vendor/components/font-awesome/css' => public_path('vendor/components/font-awesome/css'),
-      __DIR__ . '/../../vendor/components/font-awesome/fonts' => public_path('vendor/components/font-awesome/fonts')
-          ], 'public');
-       }
-
+    }
     /**
      * Register any application services.
      *

@@ -59,9 +59,9 @@
               </div>
             </div>
             <div class="modal-footer">
-              @if(Auth::user()->isIn([1,13,14]))
-               <a  id="btnConsulter" class="btn btn-primary btn-xs"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-              @endif 
+              @doctor
+               <a id="btnConsulter" class="btn btn-primary btn-xs"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+              @enddoctor 
               <a id="printRdv" href="" class="btn btn-xs btn-success"   aria-hidden="true" target="_blank"><i class="ace-icon fa fa-print"></i>Imprimer</a>
               <a id="printTck" class="btn btn-info btn-xs hidden" data-dismiss="modal"><i class="ace-icon fa fa-print"></i>Imprimer Ticker</a>
               <button type="button" class="btn  btn-warning btn-xs" data-dismiss="modal"><i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>

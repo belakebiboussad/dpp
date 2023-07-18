@@ -17,17 +17,15 @@
     </div>
     <ul class="nav nav-list">
       <li>
-        <a href="{{ route('patient.index') }}"><span class="menu-text">
-          <i class="menu-icon material-icons">home</i>Accueil</span></a>
+      <a href="{{ route('patient.index') }}"><span class="menu-text">
+        <i class="menu-icon material-icons">home</i>Accueil</span></a>
         <b class="arrow"></b>
       </li>
-      @if(Auth::user()->isIn([13,14]))
-      <li class="">
-        <a href="{{ route('stat.index') }}">
+      @chef
+      <li><a href="{{ route('stat.index') }}">
         <i class="menu-icon material-icons md-22">equalizer</i>
-          <span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
-      </li>
-      @endif
+          <span class="menu-text">Tableau de bord</span></a><b class="arrow"></b></li>
+      @endchef
       <li>
         <a href="#" class="dropdown-toggle">
           <i class="menu-icon fa fa-users"></i><span class="menu-text">Patients</span><b class="arrow fa fa-angle-down"></b>
@@ -112,12 +110,12 @@
         </ul>
         </li>
         @endif
-        @if(Auth::user()->isIn([13,14]))
+        @chef
         <li>
           <a href="{{ route('params.index')}}"><i class="menu-icon fa fa-cog"></i><span class="menu-text">Paramètres</span></a>
           <b class="arrow"></b>
         </li>
-        @endif
+        @endchef
     </ul><!-- /.nav-list -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
       <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

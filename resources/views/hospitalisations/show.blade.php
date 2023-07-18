@@ -10,9 +10,9 @@
 <div class="tabbable"  class="user-profile">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>
-    @if(Auth::user()->isIn([1,13,14]) && ($hosp->visites->count()>0))
+    @doctor
     <li><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
-    @endif
+    @enddoctor
     @if(Auth::user()->isIn([1,3,5,13,14]))
       @if (!empty(json_decode($specialite->hospConst, true))) 
       <li><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
@@ -21,9 +21,9 @@
   </ul>
   <div class="tab-content no-border padding-24">
     <div id="hospi" class="tab-pane in active">@include('hospitalisations.inc_hosp')</div>
-    @if(Auth::user()->isIn([1,13,14]) && ($hosp->visites->count()>0))
+    @doctor
     <div id="visites" class="tab-pane">@include('visite.index')</div>
-    @endif
+    @enddoctor
     @if(Auth::user()->isIn([1,3,5,13,14]))
       @if (!empty(json_decode($specialite->hospConst, true))) 
       <div id="constantes" class="tab-pane">@include("constantes.index",['patient'=>$hosp->patient])</div>

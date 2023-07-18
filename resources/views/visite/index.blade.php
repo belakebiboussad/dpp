@@ -2,11 +2,11 @@
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Visites & Contrôles</h5>
-			@if(Auth::user()->isIn([1,13,14]))
+			@doctor
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			     <a href="/visite/create/{{ $hosp->id}}"><i class="fa fa-plus-circle bigger-180"></i></a>
 			</div>
-			@endif
+			@enddoctor
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
@@ -19,12 +19,12 @@
 					</thead>
 					<tbody>
 					 @foreach($hosp->visites as $visite)
-					<tr  role="row" class="even">
-                                        <td>{{ $visite->medecin->full_name }}</td>
-                            		<td>{{ $visite->date_formated }}</td>
-                                        <td>{{ $visite->heure }}</td>
-					       <td class="center">
-                                               <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+					<tr role="row" class="even">
+            <td>{{ $visite->medecin->full_name }}</td>
+            <td>{{ $visite->date_formated }}</td>
+            <td>{{ $visite->heure }}</td>
+					  <td class="center">
+            <a href="{{ route('visites.show', $visite->id) }}" class="btn btn-success btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
               @if($visite->date->isToday())
               @if(($loop->first) && (Auth::user()->employ->isServHead(Auth::user()->employ->service_id) || $visite->id_employe == Auth::user()->employe_id))
               <a href="{{ route('visites.edit', $visite->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit fa-xs"></i></a>

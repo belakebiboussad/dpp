@@ -12,9 +12,9 @@
               <li class="active"><a href="#generale" role="tab" data-toggle="tab"><span>Générale</span></a></li>
               <li><a href="#cons" role="tab" data-toggle="tab"><span>Consultation</span></a></li>
               <li><a href="#hosp" role="tab" data-toggle="tab"><span>Hosppitalisation</span></a></li>
-              @if(Auth::user()->isIn([13,14]))
+              @chef
               <li><a href="#rdvs" role="tab" data-toggle="tab"><span>Rendaz-Vous</span></a></li>
-              @endif
+              @endchef
             </ul>
             <form role="form" method="POST" action="{{ route('params.store')}}">
               {{ csrf_field() }}

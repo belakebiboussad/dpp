@@ -179,7 +179,7 @@ $(function() {
           var minutes = end.diff(start,"minutes"); 
           if( (minutes == 15) && (start >=today ))//CurrentDate
           {
-            if('{{ Auth::user()->isIn([1,13,14]) }}')                                
+            if('{{ Auth::user()->isIn([1,13,14]) }}')               
             {
               Swal.fire({
                   title: 'Confimer vous le Rendez-Vous?',

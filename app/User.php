@@ -23,9 +23,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+    protected $appends = ['is_admin'];
     public function role()
     {
-        return $this->belongsTo('App\modeles\rol','role_id');
+      return $this->belongsTo('App\modeles\rol','role_id');
     }
     public function employ()
     {
@@ -41,5 +42,8 @@ class User extends Authenticatable
     public function isIn($roles)
     {
       return in_array($this->role_id,$roles);
+    }
+    public function getIsAdminAttribute(){
+      return $this->role_id == 4;  
     }
 }
