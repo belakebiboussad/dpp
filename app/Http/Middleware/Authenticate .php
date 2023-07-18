@@ -16,12 +16,12 @@ class Authenticate extends Middleware
     	    	}
     	}
         
-      	public function handle($request, Closure $next, $guard = null)
+      public function handle($request, Closure $next, $guard = null)
     	{
-        	if (!Auth::check()) {
-			Session::flash('message', trans('errors.session_label'));
-          		 Session::flash('type', 'warning');
-			 return redirect()->route('/');
+        if (!Auth::check()) {
+			    Session::flash('message', trans('errors.session_label'));
+          Session::flash('type', 'warning');
+			  return redirect()->route('/');
 		}
    	 }
    	 protected function nocache($response)
