@@ -238,7 +238,6 @@ return [
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Input'     => Illuminate\Support\Facades\Input::class,
-        'Flashy' => MercurySeries\Flashy\Flashy::class,
-        //'ToUtf' => App\Helpers\Utf8::class,
+         //'ToUtf' => App\Helpers\Utf8::class,
     ],
 ];

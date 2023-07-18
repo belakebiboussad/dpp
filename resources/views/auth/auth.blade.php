@@ -26,8 +26,7 @@
                   </ul>
                 </div>
             @endif
-        {{--     @include('flashy::message') --}}
-            @yield('content')
+           @yield('content')
           </div><!-- /.position-relative -->    
         </div>
       </div><!-- /.col -->
