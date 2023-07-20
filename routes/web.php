@@ -14,16 +14,20 @@ Route::group(['middleware' => 'revalidate'], function()
   Auth::routes(); 
   Route::get('/', 'Auth\LoginController@showLoginForm');
 });
-Route::resource('users','UsersController')->middleware(['admin']);
-Route::resource('role','RolesController')->middleware(['admin']);
-Route::resource('service','ServiceController')->middleware(['admin']);
-Route::resource('etablissement','EtablissementControler')->middleware(['admin']);
+Route::middleware(['auth','admin'])->group(function () {
+  Route::resource('users','UsersController');
+  Route::resource('role','RolesController');
+  Route::resource('service','ServiceController');
+  Route::resource('etablissement','EtablissementControler');
+});
+Route::resource('salle','SalleController');
+Route::resource('lit','LitsController');
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('ordonnace','OrdonnanceController');
-Route::resource('lit','LitsController');
+
 Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::resource('appreilExamClin','AppareilExamenCliniqueController');

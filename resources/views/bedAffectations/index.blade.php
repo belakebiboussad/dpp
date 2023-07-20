@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 <div class="page-header"><h4>Affactations des lits</h4></div>
 <div class="row">

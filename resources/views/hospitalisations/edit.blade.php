@@ -150,7 +150,8 @@
           <div class="form-group col-xs-4">
             <label class="col-sm-4 control-label" for="serviceh">Service :</label>
             <div class="col-sm-8">
-              <select name="serviceh" class="selectpicker form-control serviceHosp" {{ !(Auth::user()->is(5)) ? 'disabled':''  }}/>
+              <select name="serviceh" class="selectpicker form-control serviceHosp" disabled/>
+               {{-- !(Auth::user()->is(5)) ? 'disabled':''  --}}
                 <option value="" selected disabled>Selectionnez le service</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if($hosp->admission->demandeHospitalisation->bedAffectation->Lit->salle->service->id == $service->id) selected @endif>
