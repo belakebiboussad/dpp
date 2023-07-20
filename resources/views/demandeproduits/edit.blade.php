@@ -54,7 +54,7 @@ $(function(){
             return rowObject.specialite.nom;
           }, editrules : { edithidden : true }
       },
-      {name:'nom',index:'nom',editable: true,width:170,editrules:{required:true},editoptions: {size:60,}},
+      {name:'nom',index:'nom',editable: true,width:170,editrules:{required:true},editoptions: {size:60}},
       { name:'qte', index:'qte', editable: true,width:30,edittype:'number',
         formatter: function (cellvalue, options, rowObject) 
         {

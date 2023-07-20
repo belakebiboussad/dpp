@@ -64,9 +64,8 @@ class VisiteController extends Controller
         'date'=>$date,'heure'=>$date->format("H:i"),
         'pid'=>$hosp->patient->id,'date'=>$date,
         'id_employe'=>Auth::user()->employ->id
-       ]); 
-     
-      return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite','isHosp'));
+       ]);
+       return view('visite.add',compact('consts', 'obj','specialitesProd','infossupp','examens','examensradio','etab','codesNgap','specialite','lastVisite','isHosp'));
     }
  /**
      * Show the form for creating a new resource.
@@ -98,8 +97,10 @@ class VisiteController extends Controller
           ]);
         }  
       }
-      foreach ($request->consts as $key =>$const) {
-         $visite->constantes()->attach($const, ['obs' =>$request->obs[$key]]);
+      if(isset($request->consts)) {
+        foreach ($request->consts as $key =>$const) {
+           $visite->constantes()->attach($const, ['obs' =>$request->obs[$key]]);
+        }
       }
       return redirect()->action('HospitalisationController@index');
     }
@@ -111,7 +112,7 @@ class VisiteController extends Controller
       $specialite = (! is_null(Auth::user()->employ->specialite)) ? $specialite = Auth::user()->employ->Specialite : Auth::user()->employ->Service->Specialite;
       $ngaps = StatsHelper::formatString(NGAP::all(),'code','code');
       $examensradio =  StatsHelper::formatString(examenradiologique::all(),'id','nom');
-      $specs =  StatsHelper::formatString($specialitesProd,'id','nom'); 
+      $specs = StatsHelper::formatString($specialitesProd,'id','nom');
       $ngaps=  addslashes($ngaps);
       return view('visite.edit',compact('visite','specialite','ngaps','specs','examensradio'));  
     }

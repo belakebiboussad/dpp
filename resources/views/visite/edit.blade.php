@@ -101,7 +101,7 @@
     }) 
   }
   function UpdateTrait(params)
-  {
+  { //FrmGrid_traits-table
     url = '{{ route("traitement.update", ":slug") }}'; 
     url = url.replace(':slug', params.id);
     params['_token'] =CSRF_TOKEN;
@@ -112,8 +112,14 @@
         url:url,
         data: params,
         dataType:'json',
-        success: function (data) {} 
+        success: function (data) {
+          // $.each(params, function(key, value){
+          //   alert(key+':'+value);
+          // })
+          alert(data);
+        } 
     })
+  
   }
   function addTrait(params)
   {
@@ -127,9 +133,9 @@
       data: params,
       dataType:'json',
       success: function (data) {
-        $.each(data, function(key, value){
-          alert(key+':'+value);
-        })
+        // $.each(data, function(key, value){
+        //   alert(key+':'+value);
+        // })
       }
     })
   }
@@ -258,17 +264,13 @@
   $("#traits-table").jqGrid({
       url : '{{ route("traitement.index", ["visId"=>$visite->id])}}',
       mtype: "GET",
-      datatype: "json",
-      colNames:['ID','spec_id' ,'Spécialite','Médicament','Posologie','P/Jour','Médecin'],
+      datatype: "json",//
+      colNames:['ID','spec_id','Spécialite','MId','Médicament','Posologie','P/Jour','Médecin'],
       colModel:[
           { name:'id',index:'id', hidden:true, editable: true},
-          { name:'spec_id',index:'spec_id',hidden:true, editable: false,
-            formatter: function (cellvalue, options, rowObject) 
-            {
-              return rowObject.medicament.specialite.id;
-            }
-          },
-          {  name: 'specialiteProd', index: 'specialiteProd',hidden:false,editable: true,edittype:'select',
+{ name:'spec_id',index:'spec_id',hidden:true, editable: false,
+formatter: function (cellvalue, options, rowObject){return rowObject.medicament.id_specialite;}},
+          {  name: 'specialiteProd', index: 'specialiteProd',editable: true,edittype:'select',
               editoptions: {
                 value: '{!! $specs !!}',
                 dataEvents: [
@@ -282,10 +284,17 @@
                 return rowObject.medicament.specialite.nom;
               }, editrules : { edithidden : true }
           },
-          { name:'med_id', index:'med_id',editable: true, edittype:'select', editoptions: {
-             // dataInit: function(element) {
-             //  $(element).addClass('produit');
-             // }
+          { name:'med_id',index:'med_id',hidden:true, editable: true,
+          formatter: function (cellvalue, options, rowObject){return rowObject.medicament.id;}},
+          { name:'med', index:'med',editable: true, edittype:'select', editoptions: {
+              dataEvents: [
+              { 
+                type: 'change',
+                fn:function (e) { $('#med_id').val( ($(this).val())); }
+              }],
+              dataInit: function(element) {
+                $(element).addClass('produit');
+             }
           },editrules:{required:true},
             formatter: function (cellvalue, options, rowObject) 
             {
@@ -342,10 +351,12 @@
       beforeShowForm: function($form) {
         var rowId = jQuery(this).jqGrid('getGridParam', 'selrow');
         var rowData = jQuery(this).getRowData(rowId);
-        getProducts('/drug?spec_id='+rowData.spec_id,function(){});
+        getProducts('/drug?spec_id='+rowData.spec_id,function(){
+          $(".produit").val(rowData.med_id);
+        }); 
       },
       onclickSubmit: function (response, actedata) {
-         UpdateTrait(actedata);
+        UpdateTrait(actedata);
         $(this).jqGrid("setGridParam", { datatype: "json" });
       }
     },

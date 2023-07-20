@@ -26,7 +26,7 @@ class visite extends Model
     }
     public function traitements()
     {
-          return $this->hasMany('App\modeles\Traitement','visite_id');
+      return $this->hasMany('App\modeles\Traitement','visite_id');
     }
     public function demandeexmbio()
     {

@@ -30,7 +30,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label  class="control-label" for="description">Application :</label>
+          <label  class="control-label" for="description">Application</label>
             <input type="text" id="description" class="form-control" placeholder = "applcation de l'acte"/> 
         </div>
          <div class=" form-group">

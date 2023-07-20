@@ -6,7 +6,7 @@
           <h4 class="modal-title" id="TraitCrudModal">Prescrire un traitement</h4>
       </div> 
       <form id="addTrait" method="POST" action="{{route('traitement.store')}}">
-        <input type="hidden" name ="visite_id" value="{{ $visite->id }}"/>
+        <input type="hidden" name ="visite_id" value="{{ $obj->id }}"/>
       <div class="modal-body">
         <div class="alert alert-danger print-error-msg" style="display:none">
         <strong>Errors:</strong> <ul></ul></div>

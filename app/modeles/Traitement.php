@@ -26,6 +26,4 @@ class Traitement extends Model
     {
       return $this->hasMany('App\modeles\TraitExec','trait_id');
     }
-  
-
 }

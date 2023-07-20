@@ -27,7 +27,6 @@ class TraitementController extends Controller
     }
     public function store(Request $request)
     { 
-      return $request->all();
       $rule = array(
         'med_id'=> 'required|string|max:225',
         'visite_id'=> 'required',
@@ -44,21 +43,21 @@ class TraitementController extends Controller
       $trait = $visite->traitements()->create($request->all());
       return response()->json(['success' => "Traitement crée avec suuccés",'trait'=> $trait->load('medicament','visite.medecin')]);
     }
-   
     public function update(Request $request,$id)
     {
-      $rule = array(
-        'med_id'=> 'required|string|max:225',
-        'posologie'=>'required',
-        'nbrPJ'=>'required'
-      );
-      $messages = [
-        "required"   => "Le champ :attribute est obligatoire.",
-      ];
-      $validator = Validator::make($request->all(), $rule,$messages);
-      if($validator->fails())
-        return response()->json(['errors'=>$validator->errors()->all()]);
+      // $rule = array(
+      //   'med_id'=> 'required|string|max:225',
+      //   'posologie'=>'required',
+      //   'nbrPJ'=>'required'
+      // );
+      // $messages = [
+      //   "required"   => "Le champ :attribute est obligatoire.",
+      // ];
+      // $validator = Validator::make($request->all(), $rule,$messages);
+      // if($validator->fails())
+      //   return response()->json(['errors'=>$validator->errors()->all()]);
       $trait = Traitement::FindOrFail($id);
+      return "fdsf";
       $trait->update([
         'med_id'=>$request->med_id,
         'posologie'=>$request->posologie,

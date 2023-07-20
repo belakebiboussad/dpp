@@ -147,7 +147,6 @@
       $('#TraitCrudModal').html("Prescrire un traitement");
       $('#traitModal').modal('show');
   });  
-  // ici
   $("#EnregistrerTrait").click(function (e) {
     e.preventDefault();
     formSubmit($('#addTrait')[0], this, function(status, data) {
@@ -155,10 +154,10 @@
           $('.dataTables_empty').remove();
       var trait = fillTraitRow(data);
       $( "#listTraits" ).append(trait);
-      $('#traitModal form')[0].reset();
+      //$('#traitModal form')[0].reset();
     });
   });
-   $("#updateTrait").click(function (e) {
+  $("#updateTrait").click(function (e) {
     e.preventDefault();
     formSubmit($('#traitEditFrm')[0], this, function(status, data) {
       if($('.dataTables_empty').length > 0)
