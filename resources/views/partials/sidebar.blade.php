@@ -44,7 +44,7 @@
         <ul class="submenu">
           <li><a href="{{ route('etablissement.index') }}"><i class="menu-icon fa fa-eye pink"></i>Etablissement</a> <b class="arrow"></b></li>
           <li><a href="{{ route('service.index') }}"><i class="menu-icon fa fa-eye pink"></i></i>Services</a> <b class="arrow"></b></li>
-          <li><a href="{{ route('salle.index') }}"><i class="menu-icon fa fa-eye pink"></i>Chambres  </a>  <b class="arrow"></b></li>
+          <li><a href="{{ route('salle.index') }}"><i class="menu-icon fa fa-eye pink"></i>Chambres</a><b class="arrow"></b></li>
           <li class=""><a href="{{ route('lit.index') }}"><i class="menu-icon fa fa-eye pink"></i>Lits </a><b class="arrow"></b></li>
         </ul>
       </li>
