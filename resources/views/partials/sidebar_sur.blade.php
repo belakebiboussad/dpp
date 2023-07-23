@@ -47,7 +47,7 @@
         <ul class="submenu">
           <li>
             <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>rendez-vous</a><b class="arrow"></b>
+              <i class="menu-icon fa fa-plus"></i>Rendez-vous</a><b class="arrow"></b>
           </li>
           <li><a href="/listeRDVs"><i class="menu-icon fa fa-clock-o"></i>Rendez-Vous</a><b class="arrow"></b></li>
         </ul>

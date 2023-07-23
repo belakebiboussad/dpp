@@ -52,7 +52,7 @@
   @endisset
   <div class="row">
     <div class="col-xs-12">
-      <form role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
+      <form role="form" method="POST" action="{{ route('hospitalisation.update',$hosp)}}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type="hidden" name="id" value="{{$hosp->id}}" >

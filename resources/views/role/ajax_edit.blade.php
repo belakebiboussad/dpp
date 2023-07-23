@@ -5,7 +5,7 @@
         <div class="widget-header"><h5 class="widget-title">Role </h5></div>
         <div class="widget-body">
           <div class="widget-main">
-          <form role="form" id="roleFrm" method="POST" action="{{ route('role.update',$role->id) }}"> {{--rolUpdFrm --}}
+          <form role="form" id="roleFrm" method="POST" action="{{ route('role.update',$role) }}">{{--rolUpdFrm --}}
             {{ method_field('PUT') }}
             <div class="form-group row">
                 <label class="col-sm-3 control-label no-padding-right" for="nom">Nom</label>

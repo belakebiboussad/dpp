@@ -11,7 +11,7 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <form role="form" action="{{  route('users.update', $user->id) }}" method="POST">
+    <form role="form" action="{{  route('users.update', $user) }}" method="POST">
       {{ csrf_field() }} {{ method_field('PUT') }}
       <input type="hidden" name="id" value="{{ $user->employ->id }}">
       <div class="form-group" id="error" aria-live="polite">

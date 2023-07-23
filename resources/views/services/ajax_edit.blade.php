@@ -5,7 +5,7 @@
       <div class="widget-header"><h5 class="widget-title">Service &quot;{{ $service->nom}}&quot;</h5></div>
       <div class="widget-body">
         <div class="widget-main">
-          <form role="form" id="serviceFrm" method="POST" action="{{ route('service.update', $service->id) }}">
+          <form role="form" id="serviceFrm" method="POST" action="{{ route('service.update', $service) }}">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group row">

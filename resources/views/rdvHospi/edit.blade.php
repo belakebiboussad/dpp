@@ -33,7 +33,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-      <form id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
+      <form id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
@@ -79,123 +79,95 @@
         </div>
       <h4 class="header lighter block blue">Admissions</h4>
       <div class="row">
-        <div class="col-sm-12">
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label" for="dateEntree">Date entrée prévue :</label>
+        <div class="form-group col-sm-4">
+            <label class="col-sm-6 control-label text-right" for="dateEntree">Date entrée prévue</label>
             <div class="input-group col-sm-6 col-xs-6">
               <input id="dateEntree" name="dateEntree" class="form-control date-picker date" type="text" value = "{{ $formatDate($rdv->date) }}" data-date-format="yyyy-mm-dd" required />
               <span class="input-group-addon fa fa-calendar"></span>  
             </div>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label" for="heure">Heure entrée prévue :</label>
+          <div class="form-group col-sm-4">
+            <label class="col-sm-7 control-label text-right" for="heure">Heure entrée prévue</label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heure" name="heure" class="form-control timepicker1" type="text" value = "{{ $rdv->heure }}" required />
               <span class="input-group-addon fa fa-clock-o"></span> 
             </div>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label" for="numberDays">Durée :</label>
+          <div class="form-group col-sm-4">
+            <label class="col-sm-6 control-label text-right" for="numberDays">Durée</label>
             <div class="input-group">    
               <input class="form-control numberDays input-sm" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
               <span class="input-group-addon"><small>nuit(s)</small></span>
             </div>
           </div>
-        </div>
-      </div><div class="space-12"></div>
+      </div>
       <div class="row">
-        <div class="col-sm-12"> 
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label" for="dateSortiePre">Date sortie prévue :</label>
-            <div class="input-group col-sm-6 col-xs-6">
-              <input class="form-control date-picker date_end" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
+        <div class="form-group col-sm-4">
+          <label class="col-sm-6 control-label text-right" for="dateSortiePre">Date sortie prévue</label>
+          <div class="input-group col-sm-6">
+            <input class="form-control date-picker date_end" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
               <span class="input-group-addon fa fa-calendar"></span>    
-            </div>  
-          </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label" for="heureSortiePrevue">Heure sortie prévue :</label>
-            <div class="input-group col-sm-5 col-xs-5">
+          </div>  
+        </div>
+        <div class="form-group col-sm-4">
+            <label class="col-sm-7 control-label text-right" for="heureSortiePrevue">Heure sortie prévue</label>
+            <div class="input-group col-sm-5">
               <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required /><span class="input-group-addon fa fa-clock-o"></span> 
             </div>  
-          </div>
         </div>
       </div> 
       <h4 class="header lighter block blue">Hébergement</h4>
-      <div class="space-12"></div>
-      @if(isset($rdv->bedReservation->id_lit))
+      {{-- //ici     --}}
       <div class="row">
-        <div class="col-sm-12">
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label" for="dateSortie">Service :</label>
-            <div class="col-sm-8">
-              <select name="serviceh" class="form-control selectpicker serviceHosp"/>
-                <option value="" selected>Selectionnez le service</option>
-                @foreach($services as $service)
-                <option value="{{ $service->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->salle->service->id == $service->id)) selected @endif>
-                  {{ $service->nom }}
-                </option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label" for="salle">Salle :</label>
-            <div class="col-sm-8">
-              <select name="salle" class="selectpicker salle">
-                <option value="" selected disabled>Selectionnez la salle</option>      
-                @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
-                <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
-                  {{ $salle->nom }}
-                </option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label" for="lit_id">Lit :</label>
-            <div class="col-sm-8">
-              <select name="lit_id" class="selectpicker lit_id">
-                <option value="" disabled>Selectionnez le lit</option>
-                <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
-                @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                  <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
-                @endforeach
-              </select>
-            </div> 
-          </div>
-        </div>
-      </div> 
-      @else
-      <div class="row form-group">
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="serviceh">Service :</label>
+        <div class="form-group col-sm-4">
+          <label class="col-sm-4 control-label text-right" for="dateSortie">Service</label>
           <div class="col-sm-8">
-            <select  name="serviceh" class="form-control selectpicker serviceHosp"/>
+            <select name="serviceh" class="form-control selectpicker serviceHosp"/>
               <option value="" selected>Selectionnez le service</option>
               @foreach($services as $service)
-              <option value="{{ $service->id }}">{{ $service->nom }}</option>
+              <option value="{{ $service->id }}" {{((!is_null($rdv->bedReservation)) && ($rdv->bedReservation->lit->salle->service_id == $service->id))? 'selected':''}}>
+                  {{ $service->nom }}
+              </option>
               @endforeach
             </select>
           </div>
         </div>
-        <div class="col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
-             <div class="col-sm-8">
-              <select name="salle" class="form-control selectpicker salle" disabled>
-                <option value="" selected disabled>Selectionnez la salle</option>      
-              </select>
-            </div>
-        </div>
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label" for="lit_id"><strong>Lit :</strong></label>
+        <div class="form-group col-sm-4">
+          <label class="col-sm-4 control-label text-right" for="salle">Salle</label>
           <div class="col-sm-8">
-            <select name="lit_id" class="form-control selectpicker lit_id" disabled>
-              <option value="" selected>Selectionnez le lit</option>      
-            </select>
+          <select name="salle" class="selectpicker salle">
+          @if(is_null($rdv->bedReservation))      
+          <option value="" selected disabled>Selectionnez la salle</option>
+          @else
+          @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
+            <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle_id == $salle->id) selected @endif >
+                {{ $salle->nom }}
+            </option>
+          @endforeach
+          @endif
+          </select>
           </div>
         </div>
-      </div><!-- ROW -->
-      @endif
+        <div class="form-group col-sm-4">
+          <label class="col-sm-4 control-label text-right" for="lit_id">Lit</label>
+            <div class="col-sm-8">
+            <select name="lit_id" class="selectpicker lit_id">
+            @if(is_null($rdv->bedReservation)) 
+            <option value="" selected disabled>Selectionnez le lit</option>
+            @else
+            <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }}</option>
+              @foreach($rdv->bedReservation->lit->salle->lits as $lit)
+                <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
+              @endforeach
+            @endif
+            </select>
+          </div> 
+        </div>
+  
+      </div>
+      {{-- row --}}
+      {{-- fici --}}
+  
       <div class="space-12"></div><div class="hr hr-dotted"></div>
       <div class="row">
         <div class="center bottom">

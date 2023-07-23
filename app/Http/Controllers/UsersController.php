@@ -154,7 +154,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {  
-      $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'role'=> 'required',
         'nom'=> 'required',
         'prenom'=> 'required',

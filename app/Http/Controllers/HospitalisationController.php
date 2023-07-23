@@ -143,7 +143,7 @@ class HospitalisationController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-     public function update(Request $request, $id)
+     public function update(Request $request, hospitalisation $hosp)
      {
         // $messages = array(
         //   'diagSortie.max' => "diagnostic can not be great than 255 characters.",
@@ -153,7 +153,7 @@ class HospitalisationController extends Controller
         // if ($validator->fails()) {
         //   return back()->withInput($request->input())->withErrors($validator->errors());
         // }
-       $hosp = hospitalisation::find($id);
+        $hosp = hospitalisation::find($id);
         if($request->ajax())  
         {
           $input = $request->all();

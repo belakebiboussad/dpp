@@ -98,28 +98,24 @@ class RdvHospiController extends Controller
       return view('rdvHospi.edit', compact('specialite','services','rdv'));       
     }  
   }
-  public function update(Request $request,$id)
+  public function update(Request $request, rdv_hospitalisation $rdvHospi)
   {
-        $rdvHospi = rdv_hospitalisation::find($id);
-        if(isset($request->lit_id) && ($request->lit_id !=0)) // reserver le nouveau lit
-        {  
-              if(isset($rdvHospi->bedReservation))//$rdvHospi->has('bedReservation')
-                    $rdvHospi->bedReservation()->update([ "id_lit" =>$request->lit_id  ]);
-               else
-              {
-                      $rdvHospi->bedReservation()->firstOrCreate([  "id_lit" =>$request->lit_id   ]);
-              }
-        }else
-      {
-              if(isset($rdvHospi->bedReservation))
+    //reserver le nouveau lit
+    if(isset($request->lit_id) && ($request->lit_id !=0))
+    {  
+      if(isset($rdvHospi->bedReservation))//$rdvHospi->has('bedReservation')
+       $rdvHospi->bedReservation()->update([ "id_lit" =>$request->lit_id  ]);
+      else
+        $rdvHospi->bedReservation()->firstOrCreate([  "id_lit" =>$request->lit_id   ]);
+      }else
+        if(isset($rdvHospi->bedReservation))
                        $rdvHospi->bedReservation()->delete();
-        }
-      $rdvHospi->update([//update un nouveu Rendez-Vous
-              "date"=>$request->dateEntree,
-              "heure"=>$request->heure,   
-                "id_demande"=>$rdvHospi->demandeHospitalisation->id,
-                 "date_Prevu_Sortie"=>$request->dateSortiePre,
-               "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+      $rdvHospi->update([
+        "date"=>$request->dateEntree,
+        "heure"=>$request->heure,   
+          "id_demande"=>$rdvHospi->demandeHospitalisation->id,
+           "date_Prevu_Sortie"=>$request->dateSortiePre,
+         "heure_Prevu_Sortie" =>$request->heureSortiePrevue
         ]);
         return redirect()->action('RdvHospiController@getlisteRDVs');
   }

@@ -93,7 +93,7 @@ class LitsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function update(Request $request, lit $lit)
-      { //$lit = lit::FindOrFail($id);
+      { 
         $input = $request->all();
         $input['bloq'] = isset($_POST['bloq'])  ?  $request->bloq : null ;
         $lit->update($input);   

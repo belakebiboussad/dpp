@@ -5,7 +5,7 @@
 			<div class="widget-header"><h5 class="widget-title">Chambre</h5></div>
 			<div class="widget-body">
 			<div class="widget-main">
-			<form role="form" method="POST" action="{{ route('salle.update', $salle->id) }}">
+			<form role="form" method="POST" action="{{ route('salle.update', $salle) }}">
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group row">

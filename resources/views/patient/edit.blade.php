@@ -31,7 +31,7 @@
 			</a>
 		</div>
 	</div>
-	<form id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" novalidate>
+	<form id="editPatientForm" action="{{ route('patient.update',$patient) }}" method="POST" role="form" novalidate>
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<div class="row">

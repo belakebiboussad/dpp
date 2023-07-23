@@ -228,6 +228,7 @@ $demandesExR = $demandesVExR->merge($demandesCExR);
  */
   public function update(Request $request, Patient $patient)
   { 
+    dd($patient);
     $rule = array(
       "nom" => 'required',"prenom" => 'required',
       "type" => 'required',
