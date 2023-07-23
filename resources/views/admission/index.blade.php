@@ -157,7 +157,7 @@
      var filter= new Date($("#date").val());
     if(areSameDate(dt, filter) && (field == 'date'))
     {
-      url= '{{ route ("demandehosp.urg", ":slug") }}';
+      url= '{{ route ("getUrgDh", ":slug") }}';
       url = url.replace(':slug',$("#date").val());
       $.ajax({
           url: url,

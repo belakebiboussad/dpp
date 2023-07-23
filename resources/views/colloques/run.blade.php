@@ -22,10 +22,10 @@
         id_demande : $("#" + line).find('[name=demandeId]').val(),
                id_colloque :$("#colloqueId").val(),
       };
-      var ajaxurl = ' {{route("demande_validate") }}';
+      var ajaxurl = ' {{route("validDhReq") }}';
     	if(!($(elm).hasClass("btn-success")))
-        ajaxurl = '{{ route("demande_invalidate") }}';
-      $.ajax({
+        ajaxurl = '{{ route("invalidDhReq") }}';
+       $.ajax({
 	  	  url : ajaxurl,
         type:'POST',
 	      data:formData,

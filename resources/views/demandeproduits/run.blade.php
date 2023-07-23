@@ -125,7 +125,7 @@ $(function(){
 		</div><div class="space-12"></div>
 		<div class="row">
 			<div class="col-xs-12">
-				<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('demandeproduit.valider', $demande->id) }}">
+				<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('prodReqValid', $demande->id) }}">
 				{{ csrf_field() }}
 				<div class="form-actions center">
 					<button type="submit" id="validerdmd" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i> Enregistrer</button>

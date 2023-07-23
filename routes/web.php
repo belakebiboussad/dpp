@@ -68,17 +68,17 @@ Route::resource('dispositif','DispositifController');
 Route::resource('reactif','ReactifController');
 Route::resource('consommable','ConsommableController');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
+Route::get('/sortiesAdmission','AdmissionController@sortir')->name('sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
-route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
+route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('prodReqValid');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
-Route::post('/demande_validating','DemandeHospitalisationController@valider')->name('demande_validate');
-Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('demande_invalidate');
+Route::post('/demande_validating','DemandeHospitalisationController@valider')->name('validDhReq');
+Route::post('/demande_invalidating','DemandeHospitalisationController@invalider')->name('invalidDhReq');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
@@ -89,20 +89,20 @@ Route::get('/listecolloques','ColloqueController@index');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
+Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('getUrgDh');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
 Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
-// teste
  Route::post('/user/password','UsersController@changePassword')->name('user.change.password');
-// fteste
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
-Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
+
+//Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
+
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
 Route::get('/gerReports/{type}','HomeController@getReports');

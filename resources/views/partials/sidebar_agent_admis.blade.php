@@ -23,7 +23,7 @@
             <ul class="submenu">
                  <li class=""><a href="{{ route('admission.index') }}"><i class="menu-icon fa fa-eye pink"></i> Admissions</a><b class="arrow"></b></li>
                  <li class=""><a href="{{ route('hospitalisation.index') }}"><i class="menu-icon fa fa-eye pink"></i>Présents</a><b class="arrow"></b> </li> 
-                 <li class=""><a href="{{ route('admission.sortieAdm')}}"><i class="menu-icon fa fa-eye pink"></i>Sorties</a><b class="arrow"></b></li>
+                 <li class=""><a href="{{ route('sortieAdm')}}"><i class="menu-icon fa fa-eye pink"></i>Sorties</a><b class="arrow"></b></li>
             </ul>
     </li>
     </ul><!-- /.nav-list -->
